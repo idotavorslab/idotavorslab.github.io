@@ -1,19 +1,28 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 body {
-  font: 100% "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: #333;
 }
 
 main {
-  max-width: 984px;
-  margin: 60px auto 0;
+  max-width: 1000px;
+  margin: 60px auto;
 }
 main navbar {
+  font-size: 20px;
+  max-width: 610px;
   position: relative;
+  margin: auto;
   display: -webkit-box;
 }
+main navbar * {
+  margin: auto 20px;
+}
 main navbar img {
-  width: 100px;
+  width: 80px;
+}
+main navbar div {
+  padding: 30px 0 0 0;
 }
 
 /*# sourceMappingURL=main.css.map */

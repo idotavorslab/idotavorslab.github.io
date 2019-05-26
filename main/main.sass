@@ -4,29 +4,36 @@ $primary-color: #333
 
 
 body
-  font: 100% $font-stack
+  font-family: $font-stack
   color: $primary-color
 
 main
   //top: 100px
   //height: 100px
-  max-width: 984px
-  margin: 60px auto 0
+  max-width: 1000px
+  margin: 60px auto
   //position: absolute
-  //text-align: center
 
   navbar
+    $font-size: 20px
+    $img-width: 80px
+    font-size: $font-size
+    max-width: 610px
     position: relative
+    margin: auto
     display: -webkit-box
 
+    *
+      margin: auto $font-size
+
     img
-      width: 100px
+      width: $img-width
 
-$supports-wk-box: false
-@supports (display: -webkit-box)
-  $supports-wk-box: true
+    div
+      $padding-top: $img-width / 2 - $font-size / 2
+      padding: $padding-top 0 0 0
 
-@debug if($supports-wk-box, "supports -webkit-box", "does not support -webkit-box")
+
 
 
 
