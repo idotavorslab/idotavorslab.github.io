@@ -19,3 +19,4 @@ class Logger {
     }
 }
 const logger = new Logger({ name: "gilad", age: 27 });
+console.log('hello');
