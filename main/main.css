@@ -45,6 +45,12 @@ main carousel {
   -moz-background-image: url("carousel/images/cortical_fingerprinting.jpg");
   -o-background-image: url("carousel/images/cortical_fingerprinting.jpg");
   -webkit-background-image: url("carousel/images/cortical_fingerprinting.jpg");
+  background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 main carousel headline {
   font-size: 40px;
