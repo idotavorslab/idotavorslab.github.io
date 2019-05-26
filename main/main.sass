@@ -9,7 +9,7 @@ body
   color: $primary-color
 
 main
-  margin: 60px auto
+  margin: 40px auto
 
   navbar
     $font-size: 20px
@@ -25,18 +25,22 @@ main
     *:not(:last-child)
       margin:
         top: 0
-        right: $font-size
+        right: $font-size * 2
         left: 0
         bottom: 0
 
-
-    img
+    // doctor.svg
+    *:first-child
       width: $img-width
+
+    // tau logo
+    *:last-child
+      height: $img-width
 
     div
       $padding-top: $img-width / 2 - $font-size / 2
       padding: $padding-top 0 0 0
-      transition: color 100ms
+      transition: color 200ms
 
       &:hover
         color: #888
