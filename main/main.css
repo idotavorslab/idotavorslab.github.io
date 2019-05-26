@@ -56,21 +56,11 @@ main carousel {
   top: 80px;
   position: relative;
   display: block;
+  height: 500px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url("carousel/images/cortical_fingerprinting.jpg");
-}
-@supports (height: -moz-available) {
-  main carousel {
-    height: -moz-available;
-    min-height: 500px;
-  }
-}
-@supports not (height: -moz-available) {
-  main carousel {
-    height: -webkit-fill-available;
-  }
 }
 main carousel headline {
   margin-top: 10px;
