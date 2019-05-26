@@ -1,0 +1,46 @@
+@mixin background-image($url)
+  //@each $pre in (null, moz, o, webkit)
+    $prop: -#{$pre}-background-image
+    @supports (#{$prop}: $url)
+      #{$prop}: $url
+
+  @supports (-webkit-background-image: url($url))
+    -webkit-background-image: url($url)
+
+  @supports (-moz-background-image: url($url))
+    -moz-background-image: url($url)
+
+  @supports not (-moz-background-image: url($url))
+    background-image: url($url)
+
+
+@mixin background-size($size)
+  //@each $pre in (null, moz, o, webkit)
+    $prop: -#{$pre}-background-size
+    @supports (#{$prop}: $size)
+      #{$prop}: $size
+  @supports not (-webkit-background-size: $size)
+    @supports not (-moz-background-size: $size)
+      background-size: $size
+    @supports (-moz-background-size: $size)
+      -moz-background-size: $size
+
+
+@mixin max-width-fit-content()
+  @supports not (max-width: -moz-fit-content)
+    @supports not (max-width: -webkit-fit-content)
+      max-width: fit-content
+
+    @supports (max-width: -webkit-fit-content)
+      max-width: -webkit-fit-content
+
+  @supports (max-width: -moz-fit-content)
+    max-width: -moz-fit-content
+
+@mixin height-fill-available()
+  @supports (height: -moz-available)
+    height: -moz-available
+
+  @supports not (height: -moz-available)
+    height: -webkit-fill-available
+

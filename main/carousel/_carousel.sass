@@ -1,10 +1,11 @@
+
 carousel
   $top: 80px
   top: $top
   position: relative
   display: block
-  @include fill-available(height)
   @include background-image("carousel/images/cortical_fingerprinting.jpg")
+  @include height-fill-available()
   @include background-size(cover)
   background:
     repeat: no-repeat

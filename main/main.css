@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 body {
   font-family: "Open Sans", sans-serif;
-  -webkit-font-smoothing: antialiased;
   color: #333;
 }
 
@@ -12,11 +11,25 @@ main {
 }
 main navbar {
   font-size: 20px;
-  max-width: fit-content;
-  max-width: -moz-fit-content;
-  max-width: -webkit-fit-content;
   margin: auto;
   display: -webkit-box;
+}
+@supports not (max-width: -moz-fit-content) {
+  @supports not (max-width: -webkit-fit-content) {
+    main navbar {
+      max-width: fit-content;
+    }
+  }
+  @supports (max-width: -webkit-fit-content) {
+    main navbar {
+      max-width: -webkit-fit-content;
+    }
+  }
+}
+@supports (max-width: -moz-fit-content) {
+  main navbar {
+    max-width: -moz-fit-content;
+  }
 }
 main navbar * {
   cursor: pointer;
@@ -44,18 +57,45 @@ main carousel {
   top: 80px;
   position: relative;
   display: block;
-  height: fill-available;
-  height: -moz-available;
-  background-image: url("carousel/images/cortical_fingerprinting.jpg");
-  -moz-background-image: url("carousel/images/cortical_fingerprinting.jpg");
-  -o-background-image: url("carousel/images/cortical_fingerprinting.jpg");
-  -webkit-background-image: url("carousel/images/cortical_fingerprinting.jpg");
-  background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+@supports (-webkit-background-image: url("carousel/images/cortical_fingerprinting.jpg")) {
+  main carousel {
+    -webkit-background-image: url("carousel/images/cortical_fingerprinting.jpg");
+  }
+}
+@supports (-moz-background-image: url("carousel/images/cortical_fingerprinting.jpg")) {
+  main carousel {
+    -moz-background-image: url("carousel/images/cortical_fingerprinting.jpg");
+  }
+}
+@supports not (-moz-background-image: url("carousel/images/cortical_fingerprinting.jpg")) {
+  main carousel {
+    background-image: url("carousel/images/cortical_fingerprinting.jpg");
+  }
+}
+@supports (height: -moz-available) {
+  main carousel {
+    height: -moz-available;
+  }
+}
+@supports not (height: -moz-available) {
+  main carousel {
+    height: -webkit-fill-available;
+  }
+}
+@supports not (-webkit-background-size: cover) {
+  @supports not (-moz-background-size: cover) {
+    main carousel {
+      background-size: cover;
+    }
+  }
+  @supports (-moz-background-size: cover) {
+    main carousel {
+      -moz-background-size: cover;
+    }
+  }
 }
 main carousel headline {
   font-size: 40px;
