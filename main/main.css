@@ -14,6 +14,7 @@ main navbar {
   font-size: 20px;
   max-width: fit-content;
   max-width: -moz-fit-content;
+  max-width: -webkit-fit-content;
   margin: auto;
   display: -webkit-box;
 }
@@ -43,7 +44,8 @@ main carousel {
   top: 80px;
   position: relative;
   display: block;
-  height: -webkit-fill-available;
+  height: fill-available;
+  height: -moz-available;
   background-image: url("carousel/images/cortical_fingerprinting.jpg");
   -moz-background-image: url("carousel/images/cortical_fingerprinting.jpg");
   -o-background-image: url("carousel/images/cortical_fingerprinting.jpg");

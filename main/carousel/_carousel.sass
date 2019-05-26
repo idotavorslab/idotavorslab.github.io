@@ -3,8 +3,7 @@ carousel
   top: $top
   position: relative
   display: block
-  height: -webkit-fill-available
-
+  @include fill-available(height)
   @include background-image("carousel/images/cortical_fingerprinting.jpg")
   @include background-size(cover)
   background:
