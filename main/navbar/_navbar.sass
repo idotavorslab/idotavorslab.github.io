@@ -1,0 +1,33 @@
+navbar
+  $font-size: 20px
+  $img-width: 80px
+  font-size: $font-size
+  max-width: fit-content
+  margin: auto
+  display: -webkit-box
+
+  *
+    cursor: pointer
+
+  *:not(:last-child)
+    margin:
+      top: 0
+      right: $font-size * 2
+      left: 0
+      bottom: 0
+
+  // doctor.svg
+  *:first-child
+    width: $img-width
+
+  // tau logo
+  *:last-child
+    height: $img-width
+
+  div
+    $padding-top: $img-width / 2 - $font-size / 2
+    padding: $padding-top 0 0 0
+    transition: color 200ms ease-out
+
+    &:hover
+      color: #888
