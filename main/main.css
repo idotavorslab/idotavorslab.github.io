@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+body {
+  font: 100% "Open Sans", sans-serif;
+  color: #333;
+}
+
+main {
+  max-width: 984px;
+  margin: 60px auto 0;
+}
+main navbar {
+  position: relative;
+  display: -webkit-box;
+}
+main navbar img {
+  width: 100px;
+}
+
+/*# sourceMappingURL=main.css.map */

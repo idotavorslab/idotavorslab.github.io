@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap')
+$font-stack: "Open Sans", sans-serif
+$primary-color: #333
+
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+
+main
+  //top: 100px
+  //height: 100px
+  max-width: 984px
+  margin: 60px auto 0
+  //position: absolute
+  //text-align: center
+
+  navbar
+    position: relative
+    display: -webkit-box
+
+    img
+      width: 100px
+
+$supports-wk-box: false
+@supports (display: -webkit-box)
+  $supports-wk-box: true
+
+@debug if($supports-wk-box, "supports -webkit-box", "does not support -webkit-box")
+
+
+
+

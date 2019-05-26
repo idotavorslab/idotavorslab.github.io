@@ -1,3 +1,4 @@
+// This is a logger
 class Logger {
     _name: string;
     _age: string;
