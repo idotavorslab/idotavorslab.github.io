@@ -3,6 +3,11 @@ body {
   font-family: "Open Sans", sans-serif;
   color: #333;
 }
+@supports (-webkit-font-smoothing: antialiased) {
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+}
 
 main {
   margin: 40px auto;
@@ -57,6 +62,7 @@ main carousel {
   top: 80px;
   position: relative;
   display: block;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -83,18 +89,6 @@ main carousel {
 @supports not (height: -moz-available) {
   main carousel {
     height: -webkit-fill-available;
-  }
-}
-@supports not (-webkit-background-size: cover) {
-  @supports not (-moz-background-size: cover) {
-    main carousel {
-      background-size: cover;
-    }
-  }
-  @supports (-moz-background-size: cover) {
-    main carousel {
-      -moz-background-size: cover;
-    }
   }
 }
 main carousel headline {

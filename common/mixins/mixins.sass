@@ -1,3 +1,7 @@
+@mixin font_smoothing($val)
+  @supports (-webkit-font-smoothing: $val)
+    -webkit-font-smoothing: $val
+
 @mixin background-image($url)
   //@each $pre in (null, moz, o, webkit)
     $prop: -#{$pre}-background-image
@@ -14,17 +18,23 @@
     background-image: url($url)
 
 
-@mixin background-size($size)
+@mixin bg-size($size)
   //@each $pre in (null, moz, o, webkit)
     $prop: -#{$pre}-background-size
     @supports (#{$prop}: $size)
       #{$prop}: $size
-  @supports not (-webkit-background-size: $size)
+
+
+  //@supports not (-webkit-background-size: $size)
     @supports not (-moz-background-size: $size)
       background-size: $size
-    @supports (-moz-background-size: $size)
-      -moz-background-size: $size
 
+    @supports (-moz-background-size: $size)
+      background-size: $size
+  //@supports (-webkit-background-size: $size)
+    -webkit-background-size: $size
+
+  background-size: $size
 
 @mixin max-width-fit-content()
   @supports not (max-width: -moz-fit-content)
