@@ -2,7 +2,9 @@ carousel
   $top: 80px
   top: $top
   position: relative
-  @import "mixins"
+  display: block
+  height: -webkit-fill-available
+
   @include background-image("carousel/images/cortical_fingerprinting.jpg")
   @include background-size(cover)
   background:
