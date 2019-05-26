@@ -84,6 +84,7 @@ main carousel {
 @supports (height: -moz-available) {
   main carousel {
     height: -moz-available;
+    min-height: 500px;
   }
 }
 @supports not (height: -moz-available) {

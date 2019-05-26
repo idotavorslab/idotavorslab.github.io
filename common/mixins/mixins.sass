@@ -29,9 +29,12 @@
   @supports ($prop: -moz-fit-content)
     #{$prop}: -moz-fit-content
 
-@mixin fill_available($prop)
+@mixin fill_available($prop, $min_val)
   @supports ($prop: -moz-available)
     #{$prop}: -moz-available
+    @if (index(height, $prop))
+      min-#{$prop}: $min_val
+
 
   @supports not ($prop: -moz-available)
     #{$prop}: -webkit-fill-available
