@@ -2,7 +2,8 @@ navbar
   $font-size: 20px
   $img-width: 80px
   font-size: $font-size
-  @include fit_content(max-width)
+  @include moz_or_wk(max-width, fit-content)
+  //@include fit_content(max-width)
   margin: auto
   display: -webkit-box
 

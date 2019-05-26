@@ -20,15 +20,8 @@ main navbar {
   display: -webkit-box;
 }
 @supports not (max-width: -moz-fit-content) {
-  @supports not (max-width: -webkit-fit-content) {
-    main navbar {
-      max-width: fit-content;
-    }
-  }
-  @supports (max-width: -webkit-fit-content) {
-    main navbar {
-      max-width: -webkit-fit-content;
-    }
+  main navbar {
+    max-width: -webkit-fit-content;
   }
 }
 @supports (max-width: -moz-fit-content) {
@@ -65,21 +58,7 @@ main carousel {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-}
-@supports (-webkit-background-image: url("carousel/images/cortical_fingerprinting.jpg")) {
-  main carousel {
-    -webkit-background-image: url("carousel/images/cortical_fingerprinting.jpg");
-  }
-}
-@supports (-moz-background-image: url("carousel/images/cortical_fingerprinting.jpg")) {
-  main carousel {
-    -moz-background-image: url("carousel/images/cortical_fingerprinting.jpg");
-  }
-}
-@supports not (-moz-background-image: url("carousel/images/cortical_fingerprinting.jpg")) {
-  main carousel {
-    background-image: url("carousel/images/cortical_fingerprinting.jpg");
-  }
+  background-image: url(carousel/images/cortical_fingerprinting.jpg);
 }
 @supports (height: -moz-available) {
   main carousel {

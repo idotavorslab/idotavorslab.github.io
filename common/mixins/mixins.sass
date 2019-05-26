@@ -3,28 +3,28 @@
     -webkit-font-smoothing: $val
 
 @mixin background_image($url)
-  //@each $pre in (null, moz, o, webkit)
-    $prop: -#{$pre}-background-image
-    @supports (#{$prop}: $url)
-      #{$prop}: $url
+  $fmtd_url: url($url)
+  @each $pre in (null, moz, o, webkit)
+    $prop: null
+    @if ($pre == null)
+      $prop: background-image
+    @else
+      $prop: -#{$pre}-background-image
 
-  @supports (-webkit-background-image: url($url))
-    -webkit-background-image: url($url)
+    @supports ($prop: $fmtd_url)
+      #{$prop}: $fmtd_url
 
-  @supports (-moz-background-image: url($url))
-    -moz-background-image: url($url)
 
-  @supports not (-moz-background-image: url($url))
-    background-image: url($url)
+@mixin moz_or_wk($prop, $val)
+  @supports not ($prop: -moz-#{$val})
+    #{$prop}: -webkit-#{$val}
 
+  @supports ($prop: -moz-#{$val})
+    #{$prop}: -moz-#{$val}
 
 @mixin fit_content($prop)
   @supports not ($prop: -moz-fit-content)
-    @supports not ($prop: -webkit-fit-content)
-      #{$prop}: fit-content
-
-    @supports ($prop: -webkit-fit-content)
-      #{$prop}: -webkit-fit-content
+    #{$prop}: -webkit-fit-content
 
   @supports ($prop: -moz-fit-content)
     #{$prop}: -moz-fit-content
