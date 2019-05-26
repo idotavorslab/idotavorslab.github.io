@@ -62,9 +62,9 @@ main carousel {
   top: 80px;
   position: relative;
   display: block;
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
 }
 @supports (-webkit-background-image: url("carousel/images/cortical_fingerprinting.jpg")) {
   main carousel {

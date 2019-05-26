@@ -2,7 +2,7 @@
   @supports (-webkit-font-smoothing: $val)
     -webkit-font-smoothing: $val
 
-@mixin background-image($url)
+@mixin background_image($url)
   //@each $pre in (null, moz, o, webkit)
     $prop: -#{$pre}-background-image
     @supports (#{$prop}: $url)
@@ -18,39 +18,21 @@
     background-image: url($url)
 
 
-@mixin bg-size($size)
-  //@each $pre in (null, moz, o, webkit)
-    $prop: -#{$pre}-background-size
-    @supports (#{$prop}: $size)
-      #{$prop}: $size
+@mixin fit_content($prop)
+  @supports not ($prop: -moz-fit-content)
+    @supports not ($prop: -webkit-fit-content)
+      #{$prop}: fit-content
 
+    @supports ($prop: -webkit-fit-content)
+      #{$prop}: -webkit-fit-content
 
-  //@supports not (-webkit-background-size: $size)
-    @supports not (-moz-background-size: $size)
-      background-size: $size
+  @supports ($prop: -moz-fit-content)
+    #{$prop}: -moz-fit-content
 
-    @supports (-moz-background-size: $size)
-      background-size: $size
-  //@supports (-webkit-background-size: $size)
-    -webkit-background-size: $size
+@mixin fill_available($prop)
+  @supports ($prop: -moz-available)
+    #{$prop}: -moz-available
 
-  background-size: $size
-
-@mixin max-width-fit-content()
-  @supports not (max-width: -moz-fit-content)
-    @supports not (max-width: -webkit-fit-content)
-      max-width: fit-content
-
-    @supports (max-width: -webkit-fit-content)
-      max-width: -webkit-fit-content
-
-  @supports (max-width: -moz-fit-content)
-    max-width: -moz-fit-content
-
-@mixin height-fill-available()
-  @supports (height: -moz-available)
-    height: -moz-available
-
-  @supports not (height: -moz-available)
-    height: -webkit-fill-available
+  @supports not ($prop: -moz-available)
+    #{$prop}: -webkit-fill-available
 
