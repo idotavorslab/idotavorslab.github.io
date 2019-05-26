@@ -22,12 +22,6 @@
   @supports ($prop: -moz-#{$val})
     #{$prop}: -moz-#{$val}
 
-@mixin fit_content($prop)
-  @supports not ($prop: -moz-fit-content)
-    #{$prop}: -webkit-fit-content
-
-  @supports ($prop: -moz-fit-content)
-    #{$prop}: -moz-fit-content
 
 @mixin fill_available($prop, $min_val)
   @supports ($prop: -moz-available)

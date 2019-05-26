@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:700&display=swap");
 body {
   font-family: "Open Sans", sans-serif;
   color: #333;
@@ -58,7 +59,7 @@ main carousel {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url(carousel/images/cortical_fingerprinting.jpg);
+  background-image: url("carousel/images/cortical_fingerprinting.jpg");
 }
 @supports (height: -moz-available) {
   main carousel {
@@ -72,7 +73,11 @@ main carousel {
   }
 }
 main carousel headline {
+  margin-top: 10px;
+  display: -webkit-inline-flex;
+  letter-spacing: 1px;
   font-size: 40px;
+  font-weight: 700;
 }
 
 /*# sourceMappingURL=main.css.map */
