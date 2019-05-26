@@ -18,5 +18,9 @@ class Logger {
         this._age = val;
     }
 }
+function* foo(bar) {
+    for (const b of bar)
+        yield b;
+}
+foo(["hi", "bye"]);
 const logger = new Logger({ name: "gilad", age: 27 });
-console.log('hello');

@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap')
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:700&display=swap')
+
+$main_max_width: 1200px
+
 @import "mixins"
 @import "functions"
 
@@ -10,7 +13,7 @@ body
 
 main
   margin: 40px auto
-  max-width: 1200px
+  max-width: $main_max_width
   text-align: center
   @import 'navbar/navbar'
   @import 'carousel/carousel'

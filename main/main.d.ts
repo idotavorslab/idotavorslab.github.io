@@ -5,4 +5,5 @@ declare class Logger {
     name: string;
     age: string;
 }
+declare function foo(bar: string[]): IterableIterator<string>;
 declare const logger: Logger;
