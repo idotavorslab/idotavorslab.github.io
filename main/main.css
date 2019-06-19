@@ -62,7 +62,7 @@ main carousel headline {
 }
 main carousel button {
   width: 70px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   border-width: 0;
   cursor: pointer;
   height: 70px;
