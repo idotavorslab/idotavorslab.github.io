@@ -3,20 +3,19 @@
 
 $main_max_width: 1200px
 
-@import "mixins"
-@import "functions"
 
 body
-  font-family: "Open Sans", sans-serif
-  @include font_smoothing(antialiased)
-  color: #333
+    font-family: "Open Sans", sans-serif
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    color: #333
 
 main
-  margin: 40px auto
-  max-width: $main_max_width
-  text-align: center
-  @import 'navbar/navbar'
-  @import 'carousel/carousel'
+    margin: 40px auto
+    max-width: $main_max_width
+    text-align: center
+    @import 'navbar/navbar'
+    @import 'carousel/carousel'
 
 
 

@@ -2,12 +2,9 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:700&display=swap");
 body {
   font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: #333;
-}
-@supports (-webkit-font-smoothing: antialiased) {
-  body {
-    -webkit-font-smoothing: antialiased;
-  }
 }
 
 main {
@@ -17,18 +14,9 @@ main {
 }
 main navbar {
   font-size: 20px;
+  max-width: fit-content;
   margin: auto;
   display: -webkit-box;
-}
-@supports not (max-width: -moz-fit-content) {
-  main navbar {
-    max-width: -webkit-fit-content;
-  }
-}
-@supports (max-width: -moz-fit-content) {
-  main navbar {
-    max-width: -moz-fit-content;
-  }
 }
 main navbar * {
   cursor: pointer;
@@ -57,7 +45,7 @@ main carousel {
   position: relative;
   display: grid;
   grid-template-rows: 40% 20% 40%;
-  grid-template-columns: 50px auto 50px;
+  grid-template-columns: 70px auto 70px;
   height: 340px;
   background-repeat: no-repeat;
   background-position: center;
@@ -73,11 +61,11 @@ main carousel headline {
   font-weight: 700;
 }
 main carousel button {
-  width: 50px;
+  width: 70px;
   background-color: rgba(0, 0, 0, 0);
   border-width: 0;
   cursor: pointer;
-  height: 50px;
+  height: 70px;
   font-size: 26.6666666667px;
   align-self: center;
   grid-row: 2/2;
@@ -88,5 +76,3 @@ main carousel button.left {
 main carousel button.right {
   grid-column: 3/3;
 }
-
-/*# sourceMappingURL=main.css.map */
