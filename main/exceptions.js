@@ -23,3 +23,4 @@ class ZeroDivisionError extends ArithmeticError {
         super(...args);
     }
 }
+//# sourceMappingURL=exceptions.js.map

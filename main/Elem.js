@@ -234,3 +234,4 @@ class Img extends Elem {
         this._htmlElement.src = src;
     }
 }
+//# sourceMappingURL=Elem.js.map

@@ -1,69 +1,31 @@
 function float(str) {
     return parseFloat(str);
 }
-class Int extends Number {
-    constructor(x, base) {
-        const typeofx = typeof x;
-        if (base === undefined) {
-            base = 10;
-        }
-        else {
-            if (typeofx === 'number') {
-                throw new TypeError(`int() can't convert non-string with explicit base`);
-            }
-        }
-        const typeofbase = typeof base;
-        if (base === null)
-            throw new TypeError(`'null' object cannot be interpreted as an integer`);
-        if ((base < 2 || base > 36) && base != 0)
-            throw new ValueError("int() base must be >= 2 and <= 36, or 0");
-        if (typeofx !== 'number' && typeofx !== 'string')
-            throw new TypeError(`int() argument must be a string, a bytes-like object or a number, not '${typeofx}'`);
-        if (!RegExp(/\d/).test(x))
-            throw new ValueError(`invalid literal for int() with base ${base}: '${x}'`);
-        const mod = x % 1;
-        if (isNaN(mod))
-            throw new ValueError(`invalid literal for int() with base ${base}: '${x}'`);
-        if (typeofx === 'string') {
-            for (let c of x) {
-                if (c >= base && c != '0') {
-                    throw new ValueError(`invalid literal for int() with base ${base}: '${x}'`);
-                }
-            }
-        }
-        if (mod != 0)
-            if (x < 0)
-                super(Math.ceil(x));
-            else
-                super(Math.floor(x));
-        else if (base != 10)
-            super(parseInt(x, base));
-        else
-            super(x);
-    }
-}
 function int(x, base) {
-    return new Int(x, base);
+    return parseInt(x, base);
 }
 class Str {
-    constructor(val) {
-        this._val = val;
-    }
-    valueOf() {
-        return this._val;
-    }
-    isdigit() {
-        return !isNaN(int(this));
+    constructor(value) {
+        debugger;
+        return new Proxy(this, {
+            get(target, p, receiver) {
+            }
+        });
     }
 }
 function str(val) {
-    return new Str(val);
+    console.log({ 'this': this, val, 'val.prototype': val.prototype });
+    let _Str = new Str(val);
+    debugger;
+    return _Str;
 }
 function* enumerate(obj) {
     let entries = Object.entries(obj);
     if (Array.isArray(obj)) {
+        console.log('isArray', { obj });
     }
     const typeofobj = typeof obj;
+    console.log({ obj, typeofobj });
     entries.map((entry) => {
         const type = typeof entry[0];
         if (type === 'string' && str(entry[0]).isdigit())
@@ -73,3 +35,4 @@ function* enumerate(obj) {
     });
     return entries;
 }
+//# sourceMappingURL=util.js.map
