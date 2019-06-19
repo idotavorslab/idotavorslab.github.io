@@ -45,7 +45,7 @@ const carouselRight = document.querySelector("body > main > carousel > button.ri
 const carouselLeft = document.querySelector("body > main > carousel > button.left");
 const carousel = elem({query: "body > main > carousel"});
 const [headline, buttonLeft, buttonRight] = carousel.children();
-carousel.on({
+/*carousel.on({
     pointerdown: () => {
         console.log(carousel.children());
     },
@@ -58,6 +58,7 @@ carousel.on({
         buttonRight.css({opacity: 0});
     }
 });
+*/
 /*const siema = new Siema({
     selector: '.siema',
     duration: 200,
