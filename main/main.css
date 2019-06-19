@@ -62,11 +62,15 @@ main carousel headline {
 }
 main carousel button {
   width: 70px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  color: white;
   border-width: 0;
   cursor: pointer;
   height: 70px;
-  font-size: 26.6666666667px;
+  text-shadow: 5px 5px 5px black;
+  font-family: monospace;
+  font-size: 32px;
   align-self: center;
   grid-row: 2/2;
   transition: opacity 150ms;

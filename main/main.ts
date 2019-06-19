@@ -59,6 +59,7 @@ const [headline, buttonLeft, buttonRight] = carousel.children();
     }
 });
 */
+
 /*const siema = new Siema({
     selector: '.siema',
     duration: 200,

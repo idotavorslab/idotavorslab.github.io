@@ -30,15 +30,20 @@ carousel
     button
         width: $button_side
         background:
-            color: rgba(0, 0, 0, 0.3)
+            color: rgba(0, 0, 0, 0)
+            repeat: no-repeat
 
+        //filter: invert(1)
+        color: white
         border:
             width: 0
 
         cursor: pointer
         height: $button_side
+        text-shadow: 5px 5px 5px black
         font:
-            size: $top/3
+            family: monospace
+            size: $top*2/5
 
         align-self: center
         grid-row: 2/2
@@ -47,7 +52,9 @@ carousel
         transition: opacity 150ms
 
     button.left
+        //background-image: url("carousel/images/arrow-left.svg")
         grid-column: 1/1
 
     button.right
+        //background-image: url("carousel/images/arrow-right.svg")
         grid-column: 3/3
