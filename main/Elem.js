@@ -234,4 +234,7 @@ class Img extends Elem {
         this._htmlElement.src = src;
     }
 }
+function elem(elemOptions) {
+    return new Elem(elemOptions);
+}
 //# sourceMappingURL=Elem.js.map

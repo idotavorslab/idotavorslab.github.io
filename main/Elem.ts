@@ -107,8 +107,8 @@ class Elem {
     }
     
     child(selector?: string): Elem {
-        // @ts-ignore
-        const childrenVanilla: HTMLElement[] = Array.from(this._htmlElement.children);
+        const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
+        
         if (!selector)
             return new Elem({htmlElement: childrenVanilla[0]});
         if (selector[0] == '.')
@@ -120,16 +120,8 @@ class Elem {
     }
     
     children(): Elem[] {
-        // @ts-ignore
-        const childrenVanilla: HTMLElement[] = Array.from(this._htmlElement.children);
+        const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
         const toElem = (c: HTMLElement) => new Elem({htmlElement: c});
-        /*if (!selector)
-            return childrenVanilla.map(toElem);
-        if (selector[0] == '.')
-            return childrenVanilla.filter(c => c.class().includes(selector.slice(1))).map(toElem);
-        else
-            throw new Error(`Not Implemented: selector must start with a .dot. selector: ${selector}`);
-        */
         return childrenVanilla.map(toElem);
     }
     
@@ -301,4 +293,8 @@ class Img extends Elem {
             this.id(id);
         this._htmlElement.src = src;
     }
+}
+
+function elem(elemOptions: IElemOptions): Elem {
+    return new Elem(elemOptions);
 }

@@ -69,6 +69,8 @@ main carousel button {
   font-size: 26.6666666667px;
   align-self: center;
   grid-row: 2/2;
+  opacity: 0;
+  transition: opacity 150ms;
 }
 main carousel button.left {
   grid-column: 1/1;
