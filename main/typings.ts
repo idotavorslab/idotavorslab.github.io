@@ -1,4 +1,4 @@
-export interface IElemOptions {
+interface IElemOptions {
     tag?: ('span' | 'div' | 'button' | 'img'),
     id?: string,
     text?: string,
@@ -6,7 +6,7 @@ export interface IElemOptions {
     query?: string
 }
 
-export interface IElemCssOpts {
+interface IElemCssOpts {
     animation?: string,
     backgroundColor?: string,
     boxShadow?: string,
@@ -24,4 +24,4 @@ export interface IElemCssOpts {
     
 }
 
-export type StringOrNumber = string | number;
+type StringOrNumber = string | number;
