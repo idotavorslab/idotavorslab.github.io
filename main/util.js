@@ -4,35 +4,29 @@ function float(str) {
 function int(x, base) {
     return parseInt(x, base);
 }
-class Str {
+class Str extends String {
     constructor(value) {
-        debugger;
-        return new Proxy(this, {
-            get(target, p, receiver) {
-            }
-        });
+        super(value);
+    }
+    isdigit() {
+        return !isNaN(int(this));
     }
 }
 function str(val) {
-    console.log({ 'this': this, val, 'val.prototype': val.prototype });
-    let _Str = new Str(val);
-    debugger;
-    return _Str;
+    return new Str(val);
 }
 function* enumerate(obj) {
-    let entries = Object.entries(obj);
     if (Array.isArray(obj)) {
-        console.log('isArray', { obj });
+        let i = 0;
+        for (let x of obj) {
+            yield [i, x];
+            i++;
+        }
     }
-    const typeofobj = typeof obj;
-    console.log({ obj, typeofobj });
-    entries.map((entry) => {
-        const type = typeof entry[0];
-        if (type === 'string' && str(entry[0]).isdigit())
-            return entry[0] = int(entry[0]);
-        else
-            return entry[0];
-    });
-    return entries;
+    else {
+        for (let k in obj) {
+            yield [k, obj[k]];
+        }
+    }
 }
 //# sourceMappingURL=util.js.map
