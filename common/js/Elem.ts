@@ -2,10 +2,15 @@ class Elem {
     _htmlElement: HTMLElement;
     
     constructor(elemOptions: IElemOptions) {
-        const {tag, id, htmlElement, text, query} = elemOptions;
+        const {tag, id, htmlElement, text, query, children} = elemOptions;
         
         if ([tag, id, htmlElement, query].filter(x => x).length > 1)
-            throw new Error(`Received more than one, pass exactly one of: [tag, id, htmlElement, query], elemOptions: ${Object.keys(elemOptions)},Object.values(elemOptions): ${Object.values(elemOptions)}`);
+            throw new Error(`Received more than one, pass exactly one of: [tag, id, htmlElement, query], ${{
+                tag,
+                id,
+                htmlElement,
+                query
+            }}`);
         if (tag)
             this._htmlElement = document.createElement(tag);
         else if (id)
@@ -15,10 +20,28 @@ class Elem {
         else if (htmlElement)
             this._htmlElement = htmlElement;
         else
-            throw new Error(`Didn't receive one, pass exactly one of: [tag, id, htmlElement, query], elemOptions: ${Object.keys(elemOptions)}, Object.values(elemOptions): ${Object.values(elemOptions)}`);
+            throw new Error(`Didn't receive one, pass exactly one of: [tag, id, htmlElement, query], ${{
+                tag,
+                id,
+                htmlElement,
+                query
+            }}`);
         
-        if (text != undefined)
+        if (text !== undefined)
             this.text(text);
+        
+        if (children !== undefined) {
+            if (tag)
+                throw new Error(`Received children and tag, impossible since tag implies creating a new element and children implies getting an existing one. ${{
+                    tag,
+                    id,
+                    htmlElement,
+                    text,
+                    query,
+                    children
+                }}`);
+            this.cacheChildren(children);
+        }
         
         
     }

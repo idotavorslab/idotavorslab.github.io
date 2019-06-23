@@ -3,7 +3,8 @@ interface IElemOptions {
     id?: string,
     text?: string,
     htmlElement?: HTMLElement,
-    query?: string
+    query?: string,
+    children?: Object
 }
 
 interface IElemCssOpts {
