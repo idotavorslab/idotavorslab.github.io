@@ -1,7 +1,7 @@
 import os
 
-relcssdir = 'main'
-cssdir = os.path.join(os.getcwd(), relcssdir)
+
+cssdir = os.getcwd()
 os.chdir(cssdir)
 print(f'\n\tchanged working directory to: {cssdir}\n')
 files = os.listdir(cssdir)
