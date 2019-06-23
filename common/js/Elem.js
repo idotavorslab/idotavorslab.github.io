@@ -238,17 +238,21 @@ class Elem {
     }
 }
 class Div extends Elem {
-    constructor({ id, text } = {}) {
+    constructor({ id, text, cls } = {}) {
         super({ tag: "div", text });
         if (id)
             this.id(id);
+        if (cls)
+            this.setClass(cls);
     }
 }
 class Span extends Elem {
-    constructor({ id, text } = {}) {
+    constructor({ id, text, cls } = {}) {
         super({ tag: 'span', text });
         if (id)
             this.id(id);
+        if (cls)
+            this.setClass(cls);
     }
 }
 class Img extends Elem {
@@ -262,7 +266,7 @@ class Img extends Elem {
 function elem(elemOptions) {
     return new Elem(elemOptions);
 }
-function div({ id, text } = {}) {
-    return new Div({ id, text });
+function div({ id, text, cls } = {}) {
+    return new Div({ id, text, cls });
 }
 //# sourceMappingURL=Elem.js.map

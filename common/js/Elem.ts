@@ -299,18 +299,22 @@ class Elem {
 
 
 class Div extends Elem {
-    constructor({id, text}: ISubElemOptions = {}) {
+    constructor({id, text, cls}: ISubElemOptions = {}) {
         super({tag: "div", text});
         if (id)
             this.id(id);
+        if (cls)
+            this.setClass(cls);
     }
 }
 
 class Span extends Elem {
-    constructor({id, text}: ISubElemOptions = {}) {
+    constructor({id, text, cls}: ISubElemOptions = {}) {
         super({tag: 'span', text});
         if (id)
             this.id(id);
+        if (cls)
+            this.setClass(cls);
     }
 }
 
@@ -330,6 +334,6 @@ function elem(elemOptions: IElemOptions): Elem {
     return new Elem(elemOptions);
 }
 
-function div({id, text}: ISubElemOptions = {}) {
-    return new Div({id, text});
+function div({id, text, cls}: ISubElemOptions = {}) {
+    return new Div({id, text, cls});
 }

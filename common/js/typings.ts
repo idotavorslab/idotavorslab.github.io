@@ -9,7 +9,8 @@ interface IElemOptions {
 
 type ISubElemOptions = {
     id?: string,
-    text?: string
+    text?: string,
+    cls?: string
 };
 
 interface IElemCssOpts {

@@ -9,7 +9,7 @@ const ResearchPage = () => {
         for (let [title, { img, text }] of dict(data).items()) {
             let article = elem({ tag: "article" });
             article
-                .append(elem({ tag: "h1", text: title }))
+                .append(div({ text: title, cls: "title" }), div({ text, cls: "text" }))
                 .css({ backgroundImage: `url("main/research/${img}")` });
             home.append(article);
         }
