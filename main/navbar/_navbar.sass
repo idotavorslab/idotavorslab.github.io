@@ -6,10 +6,10 @@ navbar
     margin: auto
     display: -webkit-box
 
-    *
+    & > *
         cursor: pointer
 
-    *:not(:last-child)
+    & > div, img.home
         margin:
             top: 0
             right: $font-size * 2
@@ -17,11 +17,11 @@ navbar
             bottom: 0
 
     // doctor.svg
-    *:first-child
+    & > img.home
         width: $img-width
 
     // tau logo
-    *:last-child
+    & > img.tau
         height: $img-width
 
     div

@@ -18,19 +18,19 @@ main navbar {
   margin: auto;
   display: -webkit-box;
 }
-main navbar * {
+main navbar > * {
   cursor: pointer;
 }
-main navbar *:not(:last-child) {
+main navbar > div, main navbar img.home {
   margin-top: 0;
   margin-right: 40px;
   margin-left: 0;
   margin-bottom: 0;
 }
-main navbar *:first-child {
+main navbar > img.home {
   width: 80px;
 }
-main navbar *:last-child {
+main navbar > img.tau {
   height: 80px;
 }
 main navbar div {
