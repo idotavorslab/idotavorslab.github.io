@@ -83,3 +83,6 @@ main carousel button.left {
 main carousel button.right {
   grid-column: 3/3;
 }
+main home {
+  display: block;
+}
