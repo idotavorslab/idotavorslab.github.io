@@ -8,9 +8,9 @@ const PeoplePage = () => {
         console.log(data);
         const people = [];
         for (let [name, { img, role }] of dict(data).items()) {
-            let person = elem({ tag: "person" });
+            let person = div({ cls: "person" });
             person
-                .append(div({ text: name, cls: "name" }), div({ text: role, cls: "role" }))
+                .append(div({ text: name, cls: "name" }))
                 .css({ backgroundImage: `url("main/people/${img}")` });
             people.push(person);
         }

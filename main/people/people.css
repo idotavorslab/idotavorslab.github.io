@@ -2,22 +2,28 @@ div#people_container {
   display: flex;
 }
 
-person {
-  width: 100px;
-  height: 100px;
+.person {
+  position: relative;
+  margin: 20px;
+  padding: 100px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-person div.name {
-  font-size: 30px;
+.person div {
   text-align: left;
-  padding-top: 40px;
-  margin-left: 60px;
 }
-person div.role {
-  width: 50%;
-  text-align: left;
-  margin-left: 60px;
+.person div.name {
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  text-shadow: 0 0 5px black;
+  width: 100%;
+  left: 0;
+  text-align: center;
+}
+.person div.role {
   margin-top: 40px;
 }

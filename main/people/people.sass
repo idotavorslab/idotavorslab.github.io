@@ -1,28 +1,38 @@
 div#people_container
     display: flex
 
-person
+.person
     //display: block
-    width: 100px
-    height: 100px
+    //width: 100px
+    //height: 100px
+    position: relative
+    margin: 20px
+    padding: 100px
     background:
         size: cover
         position: center
         repeat: no-repeat
 
+    div
+        text-align: left
+    //margin:
+        left: 60px
 
     div.name
-        font-size: 30px
-        text-align: left
-        padding-top: 40px
-        margin:
-            left: 60px
+        //margin: auto auto 0 auto
+        //height: 100%
+        font-size: x-large
+        font-weight: bold
+        color: white
+        position: absolute
+        bottom: 0
+        text-shadow: 0 0 5px black
+        width: 100%
+        left: 0
+        text-align: center
 
     div.role
-        width: 50%
-        text-align: left
         margin:
-            left: 60px
             top: 40px
 
 
