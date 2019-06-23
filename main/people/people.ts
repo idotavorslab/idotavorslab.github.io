@@ -14,7 +14,7 @@ const PeoplePage = () => {
                 .append(
                     img({src: `main/people/${image}`}),
                     div({text: name, cls: "name"}),
-                    // div({text: role, cls: "role"}),
+                    div({text: role, cls: "role"}),
                 );
             // .css({backgroundImage: `url("main/people/${img}")`});
             people.push(person);

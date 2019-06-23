@@ -10,7 +10,7 @@ const PeoplePage = () => {
         for (let [name, { image, role }] of dict(data).items()) {
             let person = elem({ tag: "person" });
             person
-                .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }));
+                .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
             people.push(person);
         }
         const peopleContainer = div({ id: "people_container" })

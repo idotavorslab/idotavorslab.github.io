@@ -10,27 +10,13 @@ person {
   background-position: top;
   background-repeat: no-repeat;
 }
-person div.name {
+person div {
   text-transform: capitalize;
-  font-size: x-large;
-  font-weight: bold;
-  color: white;
-  position: absolute;
-  bottom: 0;
-  text-shadow: 0 0 5px black;
-  width: 100%;
-  left: 0;
-  text-align: center;
+}
+person div.name {
+  color: black;
+  font-size: large;
 }
 person div.role {
-  text-transform: capitalize;
-  font-size: x-large;
-  font-weight: bold;
-  color: white;
-  position: absolute;
-  bottom: 0;
-  text-shadow: 0 0 5px black;
-  width: 100%;
-  left: 0;
-  text-align: center;
+  color: #333333;
 }
