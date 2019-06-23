@@ -8,7 +8,9 @@ const ResearchPage = () => {
         elem({ id: 'page_css' }).attr({ href: 'main/research/research.css' });
         for (let [title, { img, text }] of dict(data).items()) {
             let article = elem({ tag: "article" });
-            article.append(elem({ tag: "h1", text: title }));
+            article
+                .append(elem({ tag: "h1", text: title }))
+                .css({ backgroundImage: `url("main/research/${img}")` });
             home.append(article);
         }
     }

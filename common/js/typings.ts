@@ -15,6 +15,7 @@ type ISubElemOptions = {
 interface IElemCssOpts {
     animation?: string,
     backgroundColor?: string,
+    backgroundImage?: string,
     boxShadow?: string,
     color?: string,
     display?: string,
