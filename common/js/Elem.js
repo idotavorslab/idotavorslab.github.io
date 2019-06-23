@@ -76,15 +76,7 @@ class Elem {
         return this;
     }
     child(selector) {
-        const childrenVanilla = Array.from(this._htmlElement.children);
-        if (!selector)
-            return new Elem({ htmlElement: childrenVanilla[0] });
-        if (selector[0] == '.')
-            return new Elem({ htmlElement: childrenVanilla.find(c => c.classList.contains(selector.slice(1))) });
-        if (selector[0] == '#')
-            return new Elem({ htmlElement: childrenVanilla.find(c => c.id == selector.slice(1)) });
-        else
-            throw new Error("Not Implemented: selector must start with either a .dot or #hash");
+        return new Elem({ htmlElement: this._htmlElement.querySelector(selector) });
     }
     children() {
         const childrenVanilla = Array.from(this._htmlElement.children);

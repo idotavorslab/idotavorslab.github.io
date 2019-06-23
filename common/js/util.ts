@@ -19,7 +19,13 @@ class Str extends String {
         return !isNaN(int(this));
     }
     
+    upper(): string {
+        return this.toUpperCase();
+    }
     
+    lower(): string {
+        return this.toLowerCase()
+    }
 }
 
 
@@ -64,3 +70,50 @@ function* enumerate(obj) {
     }
     
 }
+
+const ajax: IAjax = (() => {
+    
+    
+    function _tryResolveResponse(xhr: XMLHttpRequest, resolve, reject) {
+        if (xhr.status != 200) {
+            return reject(xhr);
+        }
+        try {
+            return resolve(JSON.parse(xhr.responseText));
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                console.warn('failed JSON parsing xhr responseText. returning raw', {xhr});
+                return resolve(xhr.responseText);
+            } else {
+                console.error({xhr});
+                return reject("Got bad xhr.responseText. Logged above", xhr);
+            }
+        }
+    }
+    
+    
+    function _baseRequest(type: 'get' | 'post', url: string, data?: object): Promise<object> {
+        if (!url.startsWith('/')) url = "/" + url;
+        const xhr = new XMLHttpRequest();
+        return new Promise(async (resolve, reject) => {
+            await xhr.open(str(type).upper(), url, true);
+            xhr.onload = () => _tryResolveResponse(xhr, resolve, reject);
+            if (type === 'get')
+                xhr.send();
+            else if (type === 'post')
+                xhr.send(JSON.stringify(data));
+            else
+                throw new Error(`util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`);
+        });
+    }
+    
+    function get(url: string): Promise<object> {
+        return _baseRequest('get', url);
+    }
+    
+    function post(url: string, data: any): Promise<object> {
+        return _baseRequest('post', url, data);
+    }
+    
+    return {post, get};
+})();

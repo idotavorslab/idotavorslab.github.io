@@ -106,8 +106,8 @@ class Elem {
         return this;
     }
     
-    child(selector?: string): Elem {
-        const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
+    child(selector: string): Elem {
+        /*const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
         
         if (!selector)
             return new Elem({htmlElement: childrenVanilla[0]});
@@ -117,6 +117,8 @@ class Elem {
             return new Elem({htmlElement: childrenVanilla.find(c => c.id == selector.slice(1))});
         else
             throw new Error("Not Implemented: selector must start with either a .dot or #hash");
+        */
+        return new Elem({htmlElement: this._htmlElement.querySelector(selector)});
     }
     
     children(): Elem[] {

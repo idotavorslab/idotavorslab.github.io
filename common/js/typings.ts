@@ -25,3 +25,8 @@ interface IElemCssOpts {
 }
 
 type StringOrNumber = string | number;
+
+interface IAjax {
+    post: (url: string, data: any) => Promise<any>;
+    get: (url: string) => Promise<any>
+}
