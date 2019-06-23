@@ -118,10 +118,9 @@ class Elem {
     }
     
     cacheChildren(keySelectorObj) {
-        console.log({keySelectorObj});
-        debugger;
         for (let [k, s] of dict(keySelectorObj).items()) {
-            console.log({k, s});
+            this[k] = this.child(s);
+            // console.log({k, s});
         }
     }
     

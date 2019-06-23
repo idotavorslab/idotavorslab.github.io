@@ -85,10 +85,8 @@ class Elem {
         return childrenVanilla.map(toElem);
     }
     cacheChildren(keySelectorObj) {
-        console.log({ keySelectorObj });
-        debugger;
         for (let [k, s] of dict(keySelectorObj).items()) {
-            console.log({ k, s });
+            this[k] = this.child(s);
         }
     }
     on(evTypeFnPairs) {

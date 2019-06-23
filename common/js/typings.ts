@@ -1,5 +1,5 @@
 interface IElemOptions {
-    tag?: ('span' | 'div' | 'button' | 'img'),
+    tag?: 'span' | 'div' | 'button' | 'img',
     id?: string,
     text?: string,
     htmlElement?: HTMLElement,
@@ -29,4 +29,14 @@ type StringOrNumber = string | number;
 interface IAjax {
     post: (url: string, data: any) => Promise<any>;
     get: (url: string) => Promise<any>
+}
+
+interface INavbar extends Elem {
+    home: Elem,
+    research: Elem,
+    people: Elem,
+    publications: Elem,
+    photos: Elem,
+    contact: Elem,
+    tau: Elem,
 }
