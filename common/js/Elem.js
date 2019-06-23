@@ -266,6 +266,9 @@ class Img extends Elem {
 function elem(elemOptions) {
     return new Elem(elemOptions);
 }
+function span({ id, text, cls } = {}) {
+    return new Span({ id, text, cls });
+}
 function div({ id, text, cls } = {}) {
     return new Div({ id, text, cls });
 }

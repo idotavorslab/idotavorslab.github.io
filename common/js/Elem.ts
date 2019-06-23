@@ -334,6 +334,10 @@ function elem(elemOptions: IElemOptions): Elem {
     return new Elem(elemOptions);
 }
 
+function span({id, text, cls}: ISubElemOptions = {}): Span {
+    return new Span({id, text, cls});
+}
+
 function div({id, text, cls}: ISubElemOptions = {}): Div {
     return new Div({id, text, cls});
 }

@@ -16,19 +16,19 @@
 		"image":"uri.jpg"
 	},
 	"liad shmudrik": {
-		"role": "principal investigator",
+		"role": "principal inveshtigator",
 		"image":"liad.jpg"
 	},
-	"Adva shLevi":{
-		"role":"lab manager",
+	"Adva shlevi":{
+		"role":"lab shmanager",
 		"image":"adva.jpg"
 	},
 	"amir shtal":{
-		"role":"post doc",
+		"role":"posh doc",
 		"image":"amir.jpg"
 	},
 	"uri shkorisky":{
-		"role":"PhD Student",
+		"role":"PhD Shtudent",
 		"image":"uri.jpg"
 	}
 }

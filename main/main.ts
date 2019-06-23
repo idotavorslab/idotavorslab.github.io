@@ -14,10 +14,8 @@ const navbar = <INavbar>elem({
     }
 });
 
-navbar.research.pointerdown(() => {
-    ResearchPage().init()
-});
-navbar.people.pointerdown(() => {
-    PeoplePage().init()
-});
+navbar.home.pointerdown(() => window.location.reload());
+navbar.research.pointerdown(() => ResearchPage().init());
+navbar.people.pointerdown(() => PeoplePage().init());
+navbar.publications.pointerdown(() => PublicationsPage().init());
 
