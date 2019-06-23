@@ -50,7 +50,7 @@ main carousel {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url("carousel/images/cortical_fingerprinting.jpg");
+  background-image: url("home/carousel/images/cortical_fingerprinting.jpg");
 }
 main carousel headline {
   grid-row: 1/1;
