@@ -15,7 +15,7 @@ const navbar = <INavbar>elem({
 });
 
 navbar.research.pointerdown(() => {
-    window.location.replace('/research');
-    // ResearchPage().sayHi()
+    // window.location.replace('/research');
+    ResearchPage().sayHi()
 });
 

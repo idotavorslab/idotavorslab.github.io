@@ -14,6 +14,6 @@ const navbar = elem({
     }
 });
 navbar.research.pointerdown(() => {
-    window.location.replace('/research');
+    ResearchPage().sayHi();
 });
 //# sourceMappingURL=main.js.map
