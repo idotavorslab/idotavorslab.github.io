@@ -4,6 +4,17 @@ function float(str) {
 function int(x, base) {
     return parseInt(x, base);
 }
+class Dict {
+    constructor(obj) {
+        Object.assign(this, obj);
+    }
+    items() {
+        return Object.entries(this);
+    }
+}
+function dict(obj) {
+    return new Dict(obj);
+}
 class Str extends String {
     constructor(value) {
         super(value);

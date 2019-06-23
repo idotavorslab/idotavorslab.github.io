@@ -62,6 +62,7 @@ class Elem {
         return this;
     }
     toggleClass(cls, turnOn) {
+        console.warn(`${this.e.id} | Elem.toggleClass was used. Should test vanilla .toggle function.`);
         const alreadyHasCls = this._htmlElement.classList.contains(cls);
         if (turnOn && !alreadyHasCls)
             return this.addClass(cls);
@@ -82,6 +83,13 @@ class Elem {
         const childrenVanilla = Array.from(this._htmlElement.children);
         const toElem = (c) => new Elem({ htmlElement: c });
         return childrenVanilla.map(toElem);
+    }
+    cacheChildren(keySelectorObj) {
+        console.log({ keySelectorObj });
+        debugger;
+        for (let [k, s] of dict(keySelectorObj).items()) {
+            console.log({ k, s });
+        }
     }
     on(evTypeFnPairs) {
         for (let [evType, evFn] of enumerate(evTypeFnPairs))

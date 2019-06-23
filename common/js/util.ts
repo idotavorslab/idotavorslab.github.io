@@ -8,11 +8,24 @@ function int(x, base?: StringOrNumber | Function): number {
     return parseInt(x, <number>base)
 }
 
+class Dict {
+    constructor(obj) {
+        Object.assign(this, obj);
+    }
+    
+    items() {
+        return Object.entries(this);
+    }
+}
+
+function dict(obj): Dict {
+    return new Dict(obj);
+}
+
 class Str extends String {
     
     constructor(value) {
         super(value);
-        
     }
     
     isdigit(): boolean {

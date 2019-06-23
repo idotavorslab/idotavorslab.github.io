@@ -89,6 +89,7 @@ class Elem {
     
     
     toggleClass(cls: string, turnOn: boolean): Elem {
+        console.warn(`${this.e.id} | Elem.toggleClass was used. Should test vanilla .toggle function.`);
         const alreadyHasCls = this._htmlElement.classList.contains(cls);
         if (turnOn && !alreadyHasCls)
             return this.addClass(cls);
@@ -107,17 +108,6 @@ class Elem {
     }
     
     child(selector: string): Elem {
-        /*const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
-        
-        if (!selector)
-            return new Elem({htmlElement: childrenVanilla[0]});
-        if (selector[0] == '.')
-            return new Elem({htmlElement: childrenVanilla.find(c => c.classList.contains(selector.slice(1)))});
-        if (selector[0] == '#')
-            return new Elem({htmlElement: childrenVanilla.find(c => c.id == selector.slice(1))});
-        else
-            throw new Error("Not Implemented: selector must start with either a .dot or #hash");
-        */
         return new Elem({htmlElement: this._htmlElement.querySelector(selector)});
     }
     
@@ -125,6 +115,14 @@ class Elem {
         const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
         const toElem = (c: HTMLElement) => new Elem({htmlElement: c});
         return childrenVanilla.map(toElem);
+    }
+    
+    cacheChildren(keySelectorObj) {
+        console.log({keySelectorObj});
+        debugger;
+        for (let [k, s] of dict(keySelectorObj).items()) {
+            console.log({k, s});
+        }
     }
     
     
@@ -296,6 +294,7 @@ class Img extends Elem {
         this._htmlElement.src = src;
     }
 }
+
 
 function elem(elemOptions: IElemOptions): Elem {
     return new Elem(elemOptions);
