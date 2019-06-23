@@ -1,10 +1,11 @@
 div#people_container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 person {
   position: relative;
-  margin-right: 20px;
+  margin: auto;
   height: 260px;
   width: 260px;
   background-position: top;

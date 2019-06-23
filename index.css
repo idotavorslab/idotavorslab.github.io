@@ -43,7 +43,6 @@ main navbar > div:hover {
   color: #888;
 }
 main carousel {
-  top: 80px;
   position: relative;
   display: grid;
   grid-template-rows: 40% 20% 40%;
@@ -72,7 +71,7 @@ main carousel button {
   height: 70px;
   text-shadow: 5px 5px 5px black;
   font-family: monospace;
-  font-size: 32px;
+  font-size: 35px;
   align-self: center;
   grid-row: 2/2;
   transition: opacity 150ms;
@@ -84,5 +83,6 @@ main carousel button.right {
   grid-column: 3/3;
 }
 main home {
-  display: block;
+  top: 80px;
+  position: relative;
 }
