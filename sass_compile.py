@@ -1,16 +1,16 @@
 import os
 
+allowed = ['common', 'main']
+root = os.getcwd()
 
-cssdir = os.getcwd()
-os.chdir(cssdir)
-print(f'\n\tchanged working directory to: {cssdir}\n')
-files = os.listdir(cssdir)
 cmd = 'sass --no-source-map --watch '
-sassfiles = []
-cssfiles = []
-for f in files:
-    if f.endswith('.sass') and not f.startswith('_'):
-        cmd += f'{f}:{f.replace("sass", "css")} '
+for dirpath, dirnames, filenames in os.walk(root):
+    if dirpath == root:
+        [dirnames.remove(d) for d in dirnames[:] if d not in allowed]
+    relpath = os.path.relpath(dirpath, root)
+    for f in filenames:
+        if f.endswith('.sass') and not f.startswith('_'):
+            cmd += f'{relpath}/{f}:{relpath}/{f.replace("sass", "css")} '
 
 print(f"\nexecuting: \n{cmd}\n")
 os.system(cmd)

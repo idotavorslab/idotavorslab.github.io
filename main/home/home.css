@@ -1,0 +1,41 @@
+carousel {
+  top: 80px;
+  position: relative;
+  display: grid;
+  grid-template-rows: 40% 20% 40%;
+  grid-template-columns: 70px auto 70px;
+  height: 340px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url("main/home/carousel/images/cortical_fingerprinting.jpg");
+}
+carousel headline {
+  grid-row: 1/1;
+  grid-column: span 3;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  font-size: 40px;
+  font-weight: 700;
+}
+carousel button {
+  width: 70px;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  color: white;
+  border-width: 0;
+  cursor: pointer;
+  height: 70px;
+  text-shadow: 5px 5px 5px black;
+  font-family: monospace;
+  font-size: 32px;
+  align-self: center;
+  grid-row: 2/2;
+  transition: opacity 150ms;
+}
+carousel button.left {
+  grid-column: 1/1;
+}
+carousel button.right {
+  grid-column: 3/3;
+}

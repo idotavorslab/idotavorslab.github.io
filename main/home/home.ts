@@ -38,9 +38,9 @@ console.log(Peter.sex);  // "M"
 console.log(Peter.name); // "Peter"
 console.log(Peter.age);  // 13
 */
-const carouselRight = document.querySelector("body > main > carousel > button.right");
-const carouselLeft = document.querySelector("body > main > carousel > button.left");
-const carousel = elem({query: "body > main > carousel"});
+const carouselRight = document.querySelector("body > main > home > carousel > button.right");
+const carouselLeft = document.querySelector("body > main > home > carousel > button.left");
+const carousel = elem({query: "body > main > home > carousel"});
 const [headline, buttonLeft, buttonRight] = carousel.children();
 /*carousel.on({
     pointerdown: () => {
