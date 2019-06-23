@@ -1,5 +1,5 @@
 const ResearchPage = () => {
-    async function sayHi() {
+    async function init() {
         console.log('hi from ResearchPage');
         let myRequest = new Request('main/research/research.json', { cache: "no-cache" });
         const data = await (await fetch(myRequest)).json();
@@ -14,6 +14,6 @@ const ResearchPage = () => {
             home.append(article);
         }
     }
-    return { sayHi };
+    return { init };
 };
 //# sourceMappingURL=research.js.map

@@ -1,5 +1,5 @@
 const ResearchPage = () => {
-    async function sayHi() {
+    async function init() {
         
         console.log('hi from ResearchPage');
         let myRequest = new Request('main/research/research.json', {cache: "no-cache"});
@@ -22,5 +22,5 @@ const ResearchPage = () => {
     }
     
     
-    return {sayHi}
+    return {init}
 };

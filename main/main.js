@@ -14,6 +14,9 @@ const navbar = elem({
     }
 });
 navbar.research.pointerdown(() => {
-    ResearchPage().sayHi();
+    ResearchPage().init();
+});
+navbar.people.pointerdown(() => {
+    PeoplePage().init();
 });
 //# sourceMappingURL=main.js.map
