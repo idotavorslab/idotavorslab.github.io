@@ -16,7 +16,6 @@ const PeoplePage = () => {
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
                 );
-            // .css({backgroundImage: `url("main/people/${img}")`});
             people.push(person);
         }
         const peopleContainer = div({id: "people_container"})

@@ -6,5 +6,29 @@
 	"Adva Levi":{
 		"role":"lab manager",
 		"image":"adva.jpg"
+	},
+	"amir tal":{
+		"role":"post doc",
+		"image":"amir.jpg"
+	},
+	"uri korisky":{
+		"role":"PhD Student",
+		"image":"uri.jpg"
+	},
+	"liad shmudrik": {
+		"role": "principal investigator",
+		"image":"liad.jpg"
+	},
+	"Adva shLevi":{
+		"role":"lab manager",
+		"image":"adva.jpg"
+	},
+	"amir shtal":{
+		"role":"post doc",
+		"image":"amir.jpg"
+	},
+	"uri shkorisky":{
+		"role":"PhD Student",
+		"image":"uri.jpg"
 	}
 }
