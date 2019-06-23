@@ -1,10 +1,10 @@
 {
 	"liad mudrik": {
 		"role": "principal investigator",
-		"img":"liad.jpg"
+		"image":"liad.jpg"
 	},
 	"Adva Levi":{
 		"role":"lab manager",
-		"img":"adva.jpg"
+		"image":"adva.jpg"
 	}
 }

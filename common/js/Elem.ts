@@ -319,7 +319,9 @@ class Span extends Elem {
 class Img extends Elem {
     _htmlElement: HTMLImageElement;
     
-    constructor({id, src, cls}) {
+    constructor({id, src, cls}: IImgOptions) {
+        if (!src)
+            throw new Error(`Img constructor didn't receive src`);
         super({tag: 'img', cls});
         if (id)
             this.id(id);
@@ -332,6 +334,10 @@ function elem(elemOptions: IElemOptions): Elem {
     return new Elem(elemOptions);
 }
 
-function div({id, text, cls}: ISubElemOptions = {}) {
+function div({id, text, cls}: ISubElemOptions = {}): Div {
     return new Div({id, text, cls});
+}
+
+function img({id, src, cls}: IImgOptions): Img {
+    return new Img({id, src, cls});
 }

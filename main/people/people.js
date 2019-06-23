@@ -7,11 +7,10 @@ const PeoplePage = () => {
         const data = await (await fetch(req)).json();
         console.log(data);
         const people = [];
-        for (let [name, { img, role }] of dict(data).items()) {
+        for (let [name, { image, role }] of dict(data).items()) {
             let person = elem({ tag: "person" });
             person
-                .append(div({ text: name, cls: "name" }))
-                .css({ backgroundImage: `url("main/people/${img}")` });
+                .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }));
             people.push(person);
         }
         const peopleContainer = div({ id: "people_container" })

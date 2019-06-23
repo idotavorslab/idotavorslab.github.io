@@ -5,7 +5,7 @@ interface IElemOptions {
     htmlElement?: HTMLElement,
     query?: string,
     children?: Object,
-    cls?:string
+    cls?: string
 }
 
 type ISubElemOptions = {
@@ -13,6 +13,12 @@ type ISubElemOptions = {
     text?: string,
     cls?: string
 };
+type IImgOptions = {
+    id?: string,
+    src: string,
+    cls?: string
+};
+
 
 interface IElemCssOpts {
     animation?: string,

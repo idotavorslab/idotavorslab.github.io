@@ -8,14 +8,15 @@ const PeoplePage = () => {
         const data = await (await fetch(req)).json();
         console.log(data);
         const people = [];
-        for (let [name, {img, role}] of dict(data).items()) {
+        for (let [name, {image, role}] of dict(data).items()) {
             let person = elem({tag: "person"});
             person
                 .append(
+                    img({src: `main/people/${image}`}),
                     div({text: name, cls: "name"}),
                     // div({text: role, cls: "role"}),
-                )
-                .css({backgroundImage: `url("main/people/${img}")`});
+                );
+            // .css({backgroundImage: `url("main/people/${img}")`});
             people.push(person);
         }
         const peopleContainer = div({id: "people_container"})

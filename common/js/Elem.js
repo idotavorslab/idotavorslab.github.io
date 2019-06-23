@@ -255,6 +255,8 @@ class Span extends Elem {
 }
 class Img extends Elem {
     constructor({ id, src, cls }) {
+        if (!src)
+            throw new Error(`Img constructor didn't receive src`);
         super({ tag: 'img', cls });
         if (id)
             this.id(id);
@@ -266,5 +268,8 @@ function elem(elemOptions) {
 }
 function div({ id, text, cls } = {}) {
     return new Div({ id, text, cls });
+}
+function img({ id, src, cls }) {
+    return new Img({ id, src, cls });
 }
 //# sourceMappingURL=Elem.js.map
