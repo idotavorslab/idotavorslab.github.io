@@ -4,7 +4,8 @@ interface IElemOptions {
     text?: string,
     htmlElement?: HTMLElement,
     query?: string,
-    children?: Object
+    children?: Object,
+    cls?:string
 }
 
 type ISubElemOptions = {

@@ -2,18 +2,16 @@ div#people_container {
   display: flex;
 }
 
-.person {
+person {
   position: relative;
-  margin: 20px;
-  padding: 100px;
-  background-size: cover;
-  background-position: center;
+  margin-right: 20px;
+  height: 260px;
+  width: 260px;
+  background-position: top;
   background-repeat: no-repeat;
 }
-.person div {
-  text-align: left;
-}
-.person div.name {
+person div.name {
+  text-transform: capitalize;
   font-size: x-large;
   font-weight: bold;
   color: white;
@@ -24,6 +22,15 @@ div#people_container {
   left: 0;
   text-align: center;
 }
-.person div.role {
-  margin-top: 40px;
+person div.role {
+  text-transform: capitalize;
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  text-shadow: 0 0 5px black;
+  width: 100%;
+  left: 0;
+  text-align: center;
 }

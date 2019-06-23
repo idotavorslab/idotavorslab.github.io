@@ -9,7 +9,7 @@ const PeoplePage = () => {
         console.log(data);
         const people = [];
         for (let [name, {img, role}] of dict(data).items()) {
-            let person = div({cls: "person"});
+            let person = elem({tag: "person"});
             person
                 .append(
                     div({text: name, cls: "name"}),

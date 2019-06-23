@@ -2,7 +2,7 @@ class Elem {
     _htmlElement: HTMLElement;
     
     constructor(elemOptions: IElemOptions) {
-        const {tag, id, htmlElement, text, query, children} = elemOptions;
+        const {tag, id, htmlElement, text, query, children, cls} = elemOptions;
         
         if ([tag, id, htmlElement, query].filter(x => x).length > 1)
             throw new Error(`Received more than one, pass exactly one of: [tag, id, htmlElement, query], ${{
@@ -29,6 +29,8 @@ class Elem {
         
         if (text !== undefined)
             this.text(text);
+        if (cls !== undefined)
+            this.setClass(cls);
         
         if (children !== undefined) {
             if (tag)
@@ -300,29 +302,25 @@ class Elem {
 
 class Div extends Elem {
     constructor({id, text, cls}: ISubElemOptions = {}) {
-        super({tag: "div", text});
+        super({tag: "div", text, cls});
         if (id)
             this.id(id);
-        if (cls)
-            this.setClass(cls);
     }
 }
 
 class Span extends Elem {
     constructor({id, text, cls}: ISubElemOptions = {}) {
-        super({tag: 'span', text});
+        super({tag: 'span', text, cls});
         if (id)
             this.id(id);
-        if (cls)
-            this.setClass(cls);
     }
 }
 
 class Img extends Elem {
     _htmlElement: HTMLImageElement;
     
-    constructor({id, src}) {
-        super({tag: 'img'});
+    constructor({id, src, cls}) {
+        super({tag: 'img', cls});
         if (id)
             this.id(id);
         this._htmlElement.src = src;
