@@ -86,3 +86,8 @@ main home {
   top: 80px;
   position: relative;
 }
+
+.blur > * {
+  transition: filter 500ms;
+  filter: blur(5px);
+}
