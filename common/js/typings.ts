@@ -1,11 +1,16 @@
 interface IElemOptions {
-    tag?: 'span' | 'div' | 'button' | 'img',
+    tag?: 'span' | 'div' | 'button' | 'img' | any,
     id?: string,
     text?: string,
     htmlElement?: HTMLElement,
     query?: string,
     children?: Object
 }
+
+type ISubElemOptions = {
+    id?: string,
+    text?: string
+};
 
 interface IElemCssOpts {
     animation?: string,

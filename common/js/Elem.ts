@@ -147,6 +147,13 @@ class Elem {
         }
     }
     
+    empty() {
+        // TODO: is this faster than innerHTML = ""?
+        while (this.e.firstChild)
+            this.e.removeChild(this.e.firstChild);
+        return this;
+    }
+    
     
     // **  Events
     on(evTypeFnPairs): Elem {
@@ -290,8 +297,9 @@ class Elem {
     
 }
 
+
 class Div extends Elem {
-    constructor({id, text}) {
+    constructor({id, text}: ISubElemOptions = {}) {
         super({tag: "div", text});
         if (id)
             this.id(id);
@@ -299,7 +307,7 @@ class Div extends Elem {
 }
 
 class Span extends Elem {
-    constructor({id, text}) {
+    constructor({id, text}: ISubElemOptions = {}) {
         super({tag: 'span', text});
         if (id)
             this.id(id);
@@ -320,4 +328,8 @@ class Img extends Elem {
 
 function elem(elemOptions: IElemOptions): Elem {
     return new Elem(elemOptions);
+}
+
+function div({id, text}: ISubElemOptions = {}) {
+    return new Div({id, text});
 }

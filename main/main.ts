@@ -1,5 +1,6 @@
 const isIphone = window.clientInformation.userAgent.includes('iPhone');
-
+const home = elem({query: 'home'});
+console.log(home);
 const navbar = <INavbar>elem({
     query: 'navbar',
     children: {

@@ -111,6 +111,11 @@ class Elem {
             this[k] = this.child(s);
         }
     }
+    empty() {
+        while (this.e.firstChild)
+            this.e.removeChild(this.e.firstChild);
+        return this;
+    }
     on(evTypeFnPairs) {
         for (let [evType, evFn] of enumerate(evTypeFnPairs))
             this._htmlElement.addEventListener(evType, evFn);
@@ -233,14 +238,14 @@ class Elem {
     }
 }
 class Div extends Elem {
-    constructor({ id, text }) {
+    constructor({ id, text } = {}) {
         super({ tag: "div", text });
         if (id)
             this.id(id);
     }
 }
 class Span extends Elem {
-    constructor({ id, text }) {
+    constructor({ id, text } = {}) {
         super({ tag: 'span', text });
         if (id)
             this.id(id);
@@ -256,5 +261,8 @@ class Img extends Elem {
 }
 function elem(elemOptions) {
     return new Elem(elemOptions);
+}
+function div({ id, text } = {}) {
+    return new Div({ id, text });
 }
 //# sourceMappingURL=Elem.js.map

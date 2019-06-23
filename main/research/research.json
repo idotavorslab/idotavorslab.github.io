@@ -1,3 +1,6 @@
 {
-	"key1":"val1"
+	"Cortical Fingerprinting": {
+		"text": "The brain's gray matter is arranged into a series of six layers, each of which exhibits a characteristic morphology reflective of its cognitive properties. For over a hundred years, we have known that the architecture of a cortical layer can hold important insights into its function. Our analyses of cortical layers, however, remained extremely limited, in large part due to the highly invasive techniques that were required in order to map them. Recently, our lab has developed a new acquisition and analysis pipeline that enables the precise capture of neural layer architectural features using non-invasive techniques. Cortical Layer Imaging (CortiCode) provides detailed measurements, or corticograms, of cortical morphology at a subject-specific level. We are currently developing bioinformatic methods capable of analyzing corticograms across large cohorts of subjects, potentially providing a revolutionary advancement in the field of gray matter research.",
+		"img":"cortical_fingerprinting.jpg"
+	}
 }
