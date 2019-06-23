@@ -10,7 +10,7 @@ const PublicationsPage = () => {
         for (let [title, { year, creds, mag, link }] of dict(data).items()) {
             let paper = elem({ tag: "paper" });
             paper
-                .append(span({ text: creds, cls: "creds" }), span({ text: year, cls: "year" }), span({ text: title, cls: "title" }), span({ text: mag, cls: "mag" }), span({ text: link, cls: "link" }));
+                .append(div({ text: creds, cls: "creds" }), div({ text: year, cls: "year" }), div({ text: title, cls: "title" }), div({ text: mag, cls: "mag" }), elem({ tag: 'a', text: 'LINK' }).attr({ href: link }));
             papers.push(paper);
         }
         const papersContainer = div({ id: "papers_container" })
