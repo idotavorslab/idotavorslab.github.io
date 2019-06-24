@@ -28,6 +28,7 @@ div#person_viewer div.cv {
   color: #333;
   text-align: justify;
   margin-bottom: 20px;
+  line-height: 23px;
 }
 div#person_viewer div.email {
   color: #111;
