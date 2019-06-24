@@ -32,6 +32,7 @@ interface IElemCssOpts {
     gridColumn?: string,
     gridRow?: string,
     gridTemplateColumns?: string,
+    height?: string,
     letterSpacing?: string,
     marginRight?: string,
     opacity?: number,
