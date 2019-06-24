@@ -30,7 +30,7 @@ type TElemAttrs = {
     href?: string,
 }
 
-type TElemCssOpts = {
+interface TElemCssOpts {
     animation?: string,
     backgroundColor?: string,
     backgroundImage?: string,
