@@ -100,6 +100,13 @@ class Elem {
             this._htmlElement.appendChild(child.e);
         return this;
     }
+    cacheAppend(keyChildObj) {
+        for (let [key, child] of dict(keyChildObj).items()) {
+            this._htmlElement.appendChild(child.e);
+            this[key] = child;
+        }
+        return this;
+    }
     child(selector) {
         return new Elem({ htmlElement: this._htmlElement.querySelector(selector) });
     }
@@ -113,8 +120,8 @@ class Elem {
         return childrenVanilla.map(toElem);
     }
     cacheChildren(keySelectorObj) {
-        for (let [k, s] of dict(keySelectorObj).items())
-            this[k] = this.child(s);
+        for (let [key, selector] of dict(keySelectorObj).items())
+            this[key] = this.child(selector);
     }
     empty() {
         while (this._htmlElement.firstChild)
@@ -122,7 +129,7 @@ class Elem {
         return this;
     }
     on(evTypeFnPairs) {
-        for (let [evType, evFn] of enumerate(evTypeFnPairs))
+        for (let [evType, evFn] of Object.entries(evTypeFnPairs))
             this._htmlElement.addEventListener(evType, evFn);
         return this;
     }

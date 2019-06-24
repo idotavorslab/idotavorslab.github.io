@@ -1,19 +1,31 @@
+type TPersonViewer = {
+    e: Div,
+    isopen: boolean,
+    open: (name: string, image: string, cv: string, email: string) => void,
+    populate: (name: string, image: string, cv: string, email: string) => void
+};
 const PeoplePage = () => {
     async function init() {
         
         console.log('PeoplePage init');
-        const personViewer: { e: Div, isopen: boolean, open: (name: string, image: string, cv: string, email: string) => void } = {
+        const personViewer: TPersonViewer = {
             e: div({id: "person_viewer"}),
             isopen: false,
             open: function (name, image, cv, email) {
                 this.e.setClass('open')
-                    .append(
-                        div({text: name, cls: "name"}),
-                        img({src: `main/people/${image}`}),
-                        div({text: cv, cls: "cv"}),
-                        div({text: `Email: ${email}`, cls: "email"}),
-                    );
+                    .cacheAppend({
+                        name: div({text: name, cls: "name"}),
+                        img: img({src: `main/people/${image}`}),
+                        cv: div({text: cv, cls: "cv"}),
+                        email: div({text: `Email: ${email}`, cls: "email"}),
+                    });
                 this.isopen = true;
+            },
+            populate: function (name, image, cv, email) {
+                this.e.name.text(name);
+                this.e.img.attr({src: `main/people/${image}`});
+                this.e.cv.text(cv);
+                this.e.email.text(`Email: ${email}`);
             }
         };
         let req = new Request('main/people/people.json', {cache: "no-cache"});
@@ -29,10 +41,11 @@ const PeoplePage = () => {
                     div({text: role, cls: "role"}),
                 );
             person.pointerdown(() => {
-                if (!personViewer.isopen)
+                if (!personViewer.isopen) {
                     personViewer.open(name, image, cv, email);
-                else
-                    console.log('personViewer is open');
+                } else {
+                    personViewer.populate(name, image, cv, email)
+                }
                 // personViewer.e
                 //     .setClass('open')
                 //     .append(

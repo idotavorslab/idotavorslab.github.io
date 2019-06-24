@@ -1,26 +1,31 @@
-interface IElemOptions {
+type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any,
     id?: string,
     text?: string,
     htmlElement?: HTMLElement,
     query?: string,
-    children?: Object,
+    children?: { [s: string]: string },
     cls?: string
 }
 
-type ISubElemOptions = {
+type TSubElemOptions = {
     id?: string,
     text?: string,
     cls?: string
 };
-type IImgOptions = {
+type TImgOptions = {
     id?: string,
     src: string,
     cls?: string
 };
+type TElemEvents = {
+    click?: EventListenerOrEventListenerObject
+}
+type TElemAttrs = {
+    src?: string
+}
 
-
-interface IElemCssOpts {
+type TElemCssOpts = {
     animation?: string,
     backgroundColor?: string,
     backgroundImage?: string,
@@ -42,7 +47,7 @@ interface IElemCssOpts {
 
 type StringOrNumber = string | number;
 
-interface IAjax {
+type TAjax = {
     post: (url: string, data: any) => Promise<any>;
     get: (url: string) => Promise<any>
 }

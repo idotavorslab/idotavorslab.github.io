@@ -84,7 +84,7 @@ function* enumerate(obj) {
     
 }
 
-const ajax: IAjax = (() => {
+const ajax: TAjax = (() => {
     
     
     function _tryResolveResponse(xhr: XMLHttpRequest, resolve, reject) {

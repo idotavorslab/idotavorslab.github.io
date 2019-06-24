@@ -1,7 +1,7 @@
 class Elem {
     _htmlElement: HTMLElement;
     
-    constructor(elemOptions: IElemOptions) {
+    constructor(elemOptions: TElemOptions) {
         const {tag, id, htmlElement, text, query, children, cls} = elemOptions;
         
         if ([tag, id, htmlElement, query].filter(x => x).length > 1)
@@ -70,7 +70,7 @@ class Elem {
         return this;
     }
     
-    css(css: IElemCssOpts): Elem {
+    css(css: TElemCssOpts): Elem {
         for (let [styleAttr, styleVal] of enumerate(css))
             this._htmlElement.style[styleAttr] = styleVal;
         return this;
@@ -132,6 +132,14 @@ class Elem {
         return this;
     }
     
+    cacheAppend(keyChildObj: { [s: string]: Elem }): Elem {
+        for (let [key, child] of dict(keyChildObj).items()) {
+            this._htmlElement.appendChild(child.e);
+            this[key] = child;
+        }
+        return this;
+    }
+    
     child(selector: string): Elem {
         return new Elem({htmlElement: this._htmlElement.querySelector(selector)});
     }
@@ -147,9 +155,9 @@ class Elem {
         return childrenVanilla.map(toElem);
     }
     
-    cacheChildren(keySelectorObj) {
-        for (let [k, s] of dict(keySelectorObj).items())
-            this[k] = this.child(s);
+    cacheChildren(keySelectorObj: { [s: string]: string }) {
+        for (let [key, selector] of dict(keySelectorObj).items())
+            this[key] = this.child(selector);
         
     }
     
@@ -162,8 +170,8 @@ class Elem {
     
     
     // **  Events
-    on(evTypeFnPairs): Elem {
-        for (let [evType, evFn] of enumerate(evTypeFnPairs))
+    on(evTypeFnPairs: TElemEvents): Elem {
+        for (let [evType, evFn] of Object.entries(evTypeFnPairs))
             this._htmlElement.addEventListener(evType, evFn);
         return this;
     }
@@ -203,7 +211,7 @@ class Elem {
     
     // **  Attributes
     
-    attr(attrValPairs): Elem {
+    attr(attrValPairs: TElemAttrs): Elem {
         for (let [attr, val] of enumerate(attrValPairs))
             this._htmlElement.setAttribute(attr, val);
         return this;
@@ -305,7 +313,7 @@ class Elem {
 
 
 class Div extends Elem {
-    constructor({id, text, cls}: ISubElemOptions = {}) {
+    constructor({id, text, cls}: TSubElemOptions = {}) {
         super({tag: "div", text, cls});
         if (id)
             this.id(id);
@@ -313,7 +321,7 @@ class Div extends Elem {
 }
 
 class Span extends Elem {
-    constructor({id, text, cls}: ISubElemOptions = {}) {
+    constructor({id, text, cls}: TSubElemOptions = {}) {
         super({tag: 'span', text, cls});
         if (id)
             this.id(id);
@@ -323,7 +331,7 @@ class Span extends Elem {
 class Img extends Elem {
     _htmlElement: HTMLImageElement;
     
-    constructor({id, src, cls}: IImgOptions) {
+    constructor({id, src, cls}: TImgOptions) {
         if (!src)
             throw new Error(`Img constructor didn't receive src`);
         super({tag: 'img', cls});
@@ -334,18 +342,18 @@ class Img extends Elem {
 }
 
 
-function elem(elemOptions: IElemOptions): Elem {
+function elem(elemOptions: TElemOptions): Elem {
     return new Elem(elemOptions);
 }
 
-function span({id, text, cls}: ISubElemOptions = {}): Span {
+function span({id, text, cls}: TSubElemOptions = {}): Span {
     return new Span({id, text, cls});
 }
 
-function div({id, text, cls}: ISubElemOptions = {}): Div {
+function div({id, text, cls}: TSubElemOptions = {}): Div {
     return new Div({id, text, cls});
 }
 
-function img({id, src, cls}: IImgOptions): Img {
+function img({id, src, cls}: TImgOptions): Img {
     return new Img({id, src, cls});
 }
