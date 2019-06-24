@@ -5,12 +5,32 @@ div#people_container {
 
 div#person_viewer {
   height: 0px;
-  transition: height 500ms cubic-bezier(0.5, 0, 0.5, 1);
+  transition: height 500ms cubic-bezier(0.5, 0, 0.5, 1), padding 100ms, opacity 500ms cubic-bezier(0.5, 0, 0.5, 1);
   margin: auto 20px;
+  text-align: left;
+  opacity: 0;
 }
 div#person_viewer.open {
+  opacity: 1;
   height: 500px;
   border: 1px solid black;
+  padding: 40px 50px;
+}
+div#person_viewer div.name {
+  text-transform: uppercase;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+div#person_viewer img {
+  margin-bottom: 20px;
+}
+div#person_viewer div.cv {
+  color: #333;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+div#person_viewer div.email {
+  color: #111;
 }
 
 person {

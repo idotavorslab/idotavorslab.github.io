@@ -5,13 +5,36 @@ div#people_container
 
 div#person_viewer
     height: 0px
-    //background: gainsboro
-    transition: height 500ms cubic-bezier(0.5, 0, 0.5, 1)
+    $trans_dur_time: 500ms cubic-bezier(0.5, 0, 0.5, 1)
+    transition: height $trans_dur_time, padding 100ms, opacity $trans_dur_time
     margin: auto 20px
+    text-align: left
+    opacity: 0
+
 
     &.open
+        opacity: 1
         height: 500px
         border: 1px solid black
+        padding: 40px 50px
+
+
+    div.name
+        text-transform: uppercase
+        font-weight: bolder
+        margin-bottom: 10px
+
+    img
+        margin-bottom: 20px
+
+    div.cv
+        color: #333
+        text-align: justify
+        margin-bottom: 20px
+
+    div.email
+        color: #111
+
 
 person
     position: relative
