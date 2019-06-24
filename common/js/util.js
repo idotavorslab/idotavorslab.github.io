@@ -32,12 +32,19 @@ class Str extends String {
 function str(val) {
     return new Str(val);
 }
-function henumerate(obj) {
+function keys(obj) {
     return Object.keys(obj);
 }
-function inumerate(obj) {
+function entries(obj) {
     return Object.entries(obj);
 }
+function values(obj) {
+    return Object.values(obj);
+}
+keys([1, 2, 3]);
+entries([1, 2, 3]);
+values([1, 2, 3]);
+const enumRT = "IterableIterator<T[] | (string | number | TMap<T>[string])[]>";
 function* enumerate(obj) {
     if (Array.isArray(obj)) {
         let i = 0;
@@ -54,11 +61,31 @@ function* enumerate(obj) {
 }
 const dog = {
     name: "yosi",
-    jump: function () {
-        console.log('dog jumps!');
-    }
+    size: "big"
 };
-const t = enumerate(dog);
+const cat = {
+    name: "yosi",
+    size: "big"
+};
+function* inumerate(obj) {
+    for (let k in obj) {
+        yield k;
+    }
+}
+function* lenumerate(obj) {
+    for (let k in obj) {
+        yield obj[k];
+    }
+}
+function* henumerate(obj) {
+    for (let k in obj) {
+        yield [k, obj[k]];
+    }
+}
+for (let [k, v] of henumerate(dog)) {
+}
+for (let n of enumerate([1, 2, 3])) {
+}
 const ajax = (() => {
     function _tryResolveResponse(xhr, resolve, reject) {
         if (xhr.status != 200) {
