@@ -132,7 +132,7 @@ class Elem {
         return this;
     }
     
-    cacheAppend(keyChildObj: { [s: string]: Elem }): Elem {
+    cacheAppend(keyChildObj: TMap<Elem>): Elem {
         for (let [key, child] of dict(keyChildObj).items()) {
             this._htmlElement.appendChild(child.e);
             this[key] = child;
@@ -155,7 +155,7 @@ class Elem {
         return childrenVanilla.map(toElem);
     }
     
-    cacheChildren(keySelectorObj: { [s: string]: string }) {
+    cacheChildren(keySelectorObj: TMap<string>) {
         for (let [key, selector] of dict(keySelectorObj).items())
             this[key] = this.child(selector);
         

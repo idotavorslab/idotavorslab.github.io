@@ -1,10 +1,11 @@
+type TMap<T> = { [s: string]: T }
 type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any,
     id?: string,
     text?: string,
     htmlElement?: HTMLElement,
     query?: string,
-    children?: { [s: string]: string },
+    children?: TMap<string>,
     cls?: string
 }
 
