@@ -103,19 +103,22 @@ class Elem {
     child(selector) {
         return new Elem({ htmlElement: this._htmlElement.querySelector(selector) });
     }
+    replaceChild(newChild, oldChild) {
+        this._htmlElement.replaceChild(newChild._htmlElement, oldChild._htmlElement);
+        return this;
+    }
     children() {
         const childrenVanilla = Array.from(this._htmlElement.children);
         const toElem = (c) => new Elem({ htmlElement: c });
         return childrenVanilla.map(toElem);
     }
     cacheChildren(keySelectorObj) {
-        for (let [k, s] of dict(keySelectorObj).items()) {
+        for (let [k, s] of dict(keySelectorObj).items())
             this[k] = this.child(s);
-        }
     }
     empty() {
-        while (this.e.firstChild)
-            this.e.removeChild(this.e.firstChild);
+        while (this._htmlElement.firstChild)
+            this._htmlElement.removeChild(this._htmlElement.firstChild);
         return this;
     }
     on(evTypeFnPairs) {

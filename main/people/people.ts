@@ -2,9 +2,6 @@ const PeoplePage = () => {
     async function init() {
         
         console.log('PeoplePage init');
-        // home.setClass('blur');
-        home.empty();
-        elem({id: 'page_css'}).attr({href: 'main/people/people.css'});
         let req = new Request('main/people/people.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
         console.log(data);
@@ -17,11 +14,15 @@ const PeoplePage = () => {
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
                 );
+            person.pointerdown(() => {
+                // home.replaceChild(personViewer, peopleContainer).append(peopleContainer);
+            });
             people.push(person);
         }
         const peopleContainer = div({id: "people_container"})
             .append(...people);
-        home.append(peopleContainer);
+        
+        home.empty().append(peopleContainer);
         
         
     }

@@ -136,6 +136,11 @@ class Elem {
         return new Elem({htmlElement: this._htmlElement.querySelector(selector)});
     }
     
+    replaceChild(newChild: Elem, oldChild: Elem): Elem {
+        this._htmlElement.replaceChild(newChild._htmlElement, oldChild._htmlElement);
+        return this;
+    }
+    
     children(): Elem[] {
         const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
         const toElem = (c: HTMLElement) => new Elem({htmlElement: c});
@@ -143,16 +148,15 @@ class Elem {
     }
     
     cacheChildren(keySelectorObj) {
-        for (let [k, s] of dict(keySelectorObj).items()) {
+        for (let [k, s] of dict(keySelectorObj).items())
             this[k] = this.child(s);
-            // console.log({k, s});
-        }
+        
     }
     
     empty() {
         // TODO: is this faster than innerHTML = ""?
-        while (this.e.firstChild)
-            this.e.removeChild(this.e.firstChild);
+        while (this._htmlElement.firstChild)
+            this._htmlElement.removeChild(this._htmlElement.firstChild);
         return this;
     }
     
