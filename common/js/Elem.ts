@@ -54,23 +54,23 @@ class Elem {
     
     // **  Basic
     
-    html(html: string): Elem {
+    html(html: string): this {
         this._htmlElement.innerHTML = html;
         return this;
     }
     
-    text(txt: string): Elem {
+    text(txt: string): this {
         this._htmlElement.innerText = txt;
         return this;
         
     }
     
-    id(id: string): Elem {
+    id(id: string): this {
         this._htmlElement.id = id;
         return this;
     }
     
-    css(css: TElemCssOpts): Elem {
+    css(css: TElemCssOpts): this {
         for (let [styleAttr, styleVal] of enumerate(css))
             this._htmlElement.style[styleAttr] = styleVal;
         return this;
@@ -80,7 +80,7 @@ class Elem {
         return Array.from(this._htmlElement.classList);
     }
     
-    remove(): Elem {
+    remove(): this {
         this._htmlElement.remove();
         return this;
     }
@@ -88,7 +88,7 @@ class Elem {
     // **  Classes
     
     
-    addClass(cls: string, ...clses: string[]): Elem {
+    addClass(cls: string, ...clses: string[]): this {
         this._htmlElement.classList.add(cls);
         for (let c of clses)
             this._htmlElement.classList.add(c);
@@ -96,24 +96,24 @@ class Elem {
     }
     
     
-    removeClass(cls: string): Elem {
+    removeClass(cls: string): this {
         this._htmlElement.classList.remove(cls);
         return this;
     }
     
-    replaceClass(oldToken: string, newToken: string) {
+    replaceClass(oldToken: string, newToken: string): this {
         this._htmlElement.classList.replace(oldToken, newToken);
         return this;
     }
     
     
-    setClass(cls: string): Elem {
+    setClass(cls: string): this {
         this._htmlElement.className = cls;
         return this;
     }
     
     
-    toggleClass(cls: string, turnOn: boolean): Elem {
+    toggleClass(cls: string, turnOn: boolean): this {
         console.warn(`${this.e.id} | Elem.toggleClass was used. Should test vanilla .toggle function.`);
         const alreadyHasCls = this._htmlElement.classList.contains(cls);
         if (turnOn && !alreadyHasCls)
@@ -126,13 +126,13 @@ class Elem {
     }
     
     // **  Nodes
-    append(...children: Elem[]): Elem {
+    append(...children: this[]): this {
         for (let child of children)
             this._htmlElement.appendChild(child.e);
         return this;
     }
     
-    cacheAppend(keyChildObj: TMap<Elem>): Elem {
+    cacheAppend(keyChildObj: TMap<Elem>): this {
         for (let [key, child] of dict(keyChildObj).items()) {
             this._htmlElement.appendChild(child.e);
             this[key] = child;
@@ -144,7 +144,7 @@ class Elem {
         return new Elem({htmlElement: this._htmlElement.querySelector(selector)});
     }
     
-    replaceChild(newChild: Elem, oldChild: Elem): Elem {
+    replaceChild(newChild: this, oldChild: this): this {
         this._htmlElement.replaceChild(newChild._htmlElement, oldChild._htmlElement);
         return this;
     }
@@ -161,7 +161,7 @@ class Elem {
         
     }
     
-    empty() {
+    empty(): this {
         // TODO: is this faster than innerHTML = ""?
         while (this._htmlElement.firstChild)
             this._htmlElement.removeChild(this._htmlElement.firstChild);
@@ -170,14 +170,14 @@ class Elem {
     
     
     // **  Events
-    on(evTypeFnPairs: TElemEvents): Elem {
+    on(evTypeFnPairs: TElemEvents): this {
         for (let [evType, evFn] of Object.entries(evTypeFnPairs))
             this._htmlElement.addEventListener(evType, evFn);
         return this;
     }
     
     
-    touchstart(fn: (ev: Event) => any, options?: { once: boolean }): Elem {
+    touchstart(fn: (ev: Event) => any, options?: { once: boolean }): this {
         this._htmlElement.addEventListener('touchstart', function _f(ev: Event) {
             ev.preventDefault();
             fn(ev);
@@ -187,7 +187,7 @@ class Elem {
         return this;
     }
     
-    pointerdown(fn: (event: Event) => any, options?: { once: boolean; } | null): Elem {
+    pointerdown(fn: (event: Event) => any, options?: { once: boolean; } | null): this {
         let evType;
         if ("onpointerdown" in window)
             evType = 'pointerdown';
@@ -204,20 +204,20 @@ class Elem {
     }
     
     
-    click(fn, ...args: any[]): Elem {
+    click(fn, ...args: any[]): this {
         this._htmlElement.addEventListener('click', fn);
         return this;
     }
     
     // **  Attributes
     
-    attr(attrValPairs: TElemAttrs): Elem {
+    attr(attrValPairs: TElemAttrs): this {
         for (let [attr, val] of enumerate(attrValPairs))
             this._htmlElement.setAttribute(attr, val);
         return this;
     }
     
-    removeAttribute(qualifiedName: string): Elem {
+    removeAttribute(qualifiedName: string): this {
         this._htmlElement.removeAttribute(qualifiedName);
         return this;
     }
@@ -231,7 +231,7 @@ class Elem {
     }
     
     // **  Fade
-    fadeOut(dur: number): Elem {
+    fadeOut(dur: number): this {
         if (dur == 0)
             return this.css({opacity: 0});
         let opacity = float(this._htmlElement.style.opacity);
@@ -269,7 +269,7 @@ class Elem {
         
     }
     
-    fadeIn(dur: number): Elem {
+    fadeIn(dur: number): this {
         if (dur == 0)
             return this.css({opacity: 1});
         let opacity = float(this._htmlElement.style.opacity);
@@ -346,11 +346,11 @@ function elem(elemOptions: TElemOptions): Elem {
     return new Elem(elemOptions);
 }
 
-function span({id, text, cls}: TSubElemOptions = {}): Span {
+function span({id, text, cls}: TSubElemOptions): Span {
     return new Span({id, text, cls});
 }
 
-function div({id, text, cls}: TSubElemOptions = {}): Div {
+function div({id, text, cls}: TSubElemOptions): Div {
     return new Div({id, text, cls});
 }
 

@@ -8,18 +8,18 @@ function int(x, base?: StringOrNumber | Function): number {
     return parseInt(x, <number>base)
 }
 
-class Dict {
-    constructor(obj) {
+class Dict<T> {
+    constructor(obj: T) {
         Object.assign(this, obj);
     }
     
-    items() {
+    items(): [string, T[keyof T]][] {
         return Object.entries(this);
     }
 }
 
-function dict(obj): Dict {
-    return new Dict(obj);
+function dict<T>(obj: T): Dict<T> {
+    return new Dict<T>(obj);
 }
 
 class Str extends String {
@@ -69,7 +69,15 @@ function str(val) {
     return new Str(val);
 }
 
-function* enumerate(obj) {
+function henumerate<T>(obj: TMap<T>): string[] {
+    return Object.keys(obj);
+}
+
+function inumerate<T>(obj: TMap<T>): [string, T][] {
+    return Object.entries(obj);
+}
+
+function* enumerate<T>(obj: T[] | TMap<T>): IterableIterator<T[] | (string | number | TMap<T>[string])[]> {
     if (Array.isArray(obj)) {
         let i = 0;
         for (let x of obj) {
@@ -84,6 +92,18 @@ function* enumerate(obj) {
     
 }
 
+interface Animal {
+    name: string,
+    jump: () => void
+}
+
+const dog: Animal = {
+    name: "yosi",
+    jump: function () {
+        console.log('dog jumps!')
+    }
+};
+const t = enumerate(dog);
 const ajax: TAjax = (() => {
     
     

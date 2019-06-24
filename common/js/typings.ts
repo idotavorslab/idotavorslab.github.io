@@ -1,3 +1,4 @@
+type ExTMap<T, S extends T[keyof T]> = { [s: S]: T }
 type TMap<T> = { [s: string]: T }
 type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any,
@@ -23,7 +24,8 @@ type TElemEvents = {
     click?: EventListenerOrEventListenerObject
 }
 type TElemAttrs = {
-    src?: string
+    src?: string,
+    href?: string,
 }
 
 type TElemCssOpts = {

@@ -32,6 +32,12 @@ class Str extends String {
 function str(val) {
     return new Str(val);
 }
+function henumerate(obj) {
+    return Object.keys(obj);
+}
+function inumerate(obj) {
+    return Object.entries(obj);
+}
 function* enumerate(obj) {
     if (Array.isArray(obj)) {
         let i = 0;
@@ -46,6 +52,13 @@ function* enumerate(obj) {
         }
     }
 }
+const dog = {
+    name: "yosi",
+    jump: function () {
+        console.log('dog jumps!');
+    }
+};
+const t = enumerate(dog);
 const ajax = (() => {
     function _tryResolveResponse(xhr, resolve, reject) {
         if (xhr.status != 200) {

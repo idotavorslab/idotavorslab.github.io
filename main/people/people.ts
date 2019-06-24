@@ -4,6 +4,7 @@ type TPersonViewer = {
     open: (name: string, image: string, cv: string, email: string) => void,
     populate: (name: string, image: string, cv: string, email: string) => void
 };
+
 const PeoplePage = () => {
     async function init() {
         
@@ -22,6 +23,7 @@ const PeoplePage = () => {
                 this.isopen = true;
             },
             populate: function (name, image, cv, email) {
+                
                 this.e.name.text(name);
                 this.e.img.attr({src: `main/people/${image}`});
                 this.e.cv.text(cv);
