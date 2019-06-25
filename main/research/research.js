@@ -1,6 +1,5 @@
 const ResearchPage = () => {
     async function init() {
-        navbar.research.setClass('selected');
         console.log('ResearchPage init');
         let req = new Request('main/research/research.json', { cache: "no-cache" });
         const data = await (await fetch(req)).json();

@@ -1,5 +1,6 @@
 declare const isIphone: boolean;
 declare const home: Elem;
+declare type TNavbarSpanChild = INavbar["research"] | INavbar["people"] | INavbar["publications"] | INavbar["photos"] | INavbar["contact"];
 interface INavbar extends Elem {
     home: Img;
     research: Span;
@@ -8,5 +9,6 @@ interface INavbar extends Elem {
     photos: Span;
     contact: Span;
     tau: Img;
+    select: (child: TNavbarSpanChild) => void;
 }
 declare const navbar: INavbar;
