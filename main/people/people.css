@@ -37,11 +37,19 @@ div#person_viewer div.cv {
 div#person_viewer div.email {
   color: #111;
 }
-div#person_viewer div.close {
+div#person_viewer div.minimize {
   position: absolute;
   top: 0;
   right: 50px;
-  text-align: left;
+  text-align: center;
+  font-size: 16.6666666667px;
+  color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+}
+div#person_viewer div.minimize:hover {
+  cursor: pointer;
 }
 
 person {

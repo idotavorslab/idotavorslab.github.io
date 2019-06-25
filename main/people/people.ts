@@ -18,7 +18,7 @@ const PeoplePage = () => {
                         img: img({src: `main/people/${image}`}),
                         cv: div({text: cv, cls: "cv"}),
                         email: div({text: `Email: ${email}`, cls: "email"}),
-                        close: div({text: "_", cls: "close"})
+                        minimize: div({text: "_", cls: "minimize"})
                     });
                 this.isopen = true;
             },
