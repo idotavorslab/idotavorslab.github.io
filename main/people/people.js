@@ -14,16 +14,19 @@ const PeoplePage = () => {
                 this.e.minimize.pointerdown(async () => {
                     console.log('fadeout start (outside)');
                     await this.e.fadeOut(50);
-                    this.e.css({ height: 0 });
                     console.log('fadeout done (outside)');
                     this.isopen = false;
+                    this.e.removeClass('open');
                 });
             },
             e: div({ id: "person_viewer" }),
             isopen: false,
-            open: function () {
+            open: async function () {
                 console.log('opening');
                 this.e.setClass('open');
+                console.log('fadein start (outside)');
+                await this.e.fadeIn(500);
+                console.log('fadein done (outside)');
                 this.isopen = true;
             },
             populate: function (name, image, cv, email) {

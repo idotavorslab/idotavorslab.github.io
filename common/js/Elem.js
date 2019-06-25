@@ -178,8 +178,8 @@ class Elem {
         if (indexOfOpacity !== -1) {
             const transDur = styles.transitionDuration.split(', ');
             const opacityTransDur = transDur[indexOfOpacity];
-            console.warn('opacityTransDur !== undefined');
-            console.log(`modifiying transition.\ntrans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
+            console.warn('fadeOut, opacityTransDur !== undefined. leveraging transition.');
+            console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
             trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
             console.log(`after, trans: ${trans}`);
             this.e.style.transition = trans.join(', ');
@@ -225,6 +225,22 @@ class Elem {
         return this;
     }
     async fadeIn(dur) {
+        const styles = window.getComputedStyle(this.e);
+        const trans = styles.transition.split(', ');
+        const transProp = styles.transitionProperty.split(', ');
+        const indexOfOpacity = transProp.indexOf('opacity');
+        if (indexOfOpacity !== -1) {
+            const transDur = styles.transitionDuration.split(', ');
+            const opacityTransDur = transDur[indexOfOpacity];
+            console.warn('fadeIn, opacityTransDur !== undefined. leveraging transition.');
+            console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
+            trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            console.log(`after, trans: ${trans}`);
+            this.e.style.transition = trans.join(', ');
+            this.css({ opacity: 1 });
+            await wait(dur);
+            return this;
+        }
         if (dur == 0)
             return this.css({ opacity: 1 });
         let opacity = float(this.e.style.opacity);

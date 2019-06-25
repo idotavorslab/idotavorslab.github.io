@@ -239,8 +239,8 @@ class Elem {
             const opacityTransDur = transDur[indexOfOpacity];
             // transition: opacity was defined in css.
             // set transition to dur, set opacity to 0, leave the animation to native transition, wait dur and return this
-            console.warn('opacityTransDur !== undefined');
-            console.log(`modifiying transition.\ntrans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
+            console.warn('fadeOut, opacityTransDur !== undefined. leveraging transition.');
+            console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
             trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
             console.log(`after, trans: ${trans}`);
             this.e.style.transition = trans.join(', ');
@@ -292,6 +292,30 @@ class Elem {
     }
     
     async fadeIn(dur: number): Promise<this> {
+        const styles = window.getComputedStyle(this.e);
+        const trans = styles.transition.split(', ');
+        const transProp = styles.transitionProperty.split(', ');
+        const indexOfOpacity = transProp.indexOf('opacity');
+        // css opacity:0 => transDur[indexOfOpacity]: 0s
+        // css opacity:500ms => transDur[indexOfOpacity]: 0.5s
+        // css NO opacity => transDur[indexOfOpacity]: undefined
+        if (indexOfOpacity !== -1) {
+            const transDur = styles.transitionDuration.split(', ');
+            const opacityTransDur = transDur[indexOfOpacity];
+            // transition: opacity was defined in css.
+            // set transition to dur, set opacity to 0, leave the animation to native transition, wait dur and return this
+            console.warn('fadeIn, opacityTransDur !== undefined. leveraging transition.');
+            console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
+            trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            console.log(`after, trans: ${trans}`);
+            this.e.style.transition = trans.join(', ');
+            this.css({opacity: 1});
+            await wait(dur);
+            return this;
+        }
+        // transition: opacity was NOT defined in css.
+        
+        
         if (dur == 0)
             return this.css({opacity: 1});
         let opacity = float(this.e.style.opacity);
