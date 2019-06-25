@@ -12,7 +12,7 @@ declare class Elem {
     removeClass(cls: string): this;
     replaceClass(oldToken: string, newToken: string): this;
     setClass(cls: string): this;
-    toggleClass(cls: string, turnOn: boolean): this;
+    toggleClass(cls: string, force?: boolean): this;
     append(...children: this[]): this;
     cacheAppend(keyChildObj: TMap<this>): this;
     child(selector: string): Elem;

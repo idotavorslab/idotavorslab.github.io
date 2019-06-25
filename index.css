@@ -20,10 +20,10 @@ main navbar {
   margin: auto;
   display: -webkit-box;
 }
-main navbar > span, main navbar img {
+main navbar > div, main navbar img {
   cursor: pointer;
 }
-main navbar > span, main navbar img.home {
+main navbar > div, main navbar img.home {
   margin-top: 0;
   margin-right: 40px;
   margin-left: 0;
@@ -35,17 +35,28 @@ main navbar > img.home {
 main navbar > img.tau {
   height: 80px;
 }
-main navbar > span {
+main navbar > div {
   padding: 30px 0 0 0;
   transition: color 200ms ease-out;
   display: block;
 }
-main navbar > span:hover {
+main navbar > div:hover {
   color: #888;
 }
-main navbar > span.selected {
-  box-shadow: 0px 2px 0px goldenrod;
-  margin-bottom: 11px;
+main navbar > div.selected {
+  margin-bottom: 7px;
+  animation-name: borderBottomColor;
+  animation-iteration-count: 1;
+  animation-duration: 100ms;
+  animation-direction: normal;
+  border-bottom-color: goldenrod;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+@keyframes borderBottomColor {
+  0% {
+    border-bottom-color: rgba(218, 165, 32, 0);
+  }
 }
 main carousel {
   position: relative;

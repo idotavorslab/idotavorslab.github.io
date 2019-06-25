@@ -13,14 +13,8 @@ const navbar = elem({
     }
 });
 navbar.select = child => {
-    for (let k of [navbar.research, navbar.people, navbar.publications, navbar.photos, navbar.contact]) {
-        if (k === child) {
-            k.setClass('selected');
-        }
-        else {
-            k.removeClass('selected');
-        }
-    }
+    for (let k of [navbar.research, navbar.people, navbar.publications, navbar.photos, navbar.contact])
+        k.toggleClass('selected', k === child);
 };
 navbar.home.pointerdown(() => window.location.reload());
 navbar.research.pointerdown(() => {

@@ -1,7 +1,7 @@
 const isIphone = window.clientInformation.userAgent.includes('iPhone');
 const home = elem({query: 'home'});
 
-type TNavbarSpanChild =
+type TNavbarDivChild =
     INavbar["research"]
     | INavbar["people"]
     | INavbar["publications"]
@@ -10,13 +10,13 @@ type TNavbarSpanChild =
 
 interface INavbar extends Elem {
     home: Img,
-    research: Span,
-    people: Span,
-    publications: Span,
-    photos: Span,
-    contact: Span,
+    research: Div,
+    people: Div,
+    publications: Div,
+    photos: Div,
+    contact: Div,
     tau: Img,
-    select: (child: TNavbarSpanChild) => void
+    select: (child: TNavbarDivChild) => void
 }
 
 const navbar = <INavbar>elem({
@@ -33,13 +33,9 @@ const navbar = <INavbar>elem({
 });
 
 navbar.select = child => {
-    for (let k of [navbar.research, navbar.people, navbar.publications, navbar.photos, navbar.contact]) {
-        if (k === child) {
-            k.setClass('selected');
-        } else {
-            k.removeClass('selected');
-        }
-    }
+    for (let k of [navbar.research, navbar.people, navbar.publications, navbar.photos, navbar.contact])
+        k.toggleClass('selected', k === child);
+    
 };
 
 navbar.home.pointerdown(() => window.location.reload());

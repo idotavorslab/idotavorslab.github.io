@@ -85,15 +85,9 @@ class Elem {
         this.e.className = cls;
         return this;
     }
-    toggleClass(cls, turnOn) {
-        console.warn(`${this.e.id} | Elem.toggleClass was used. Should test vanilla .toggle function.`);
-        const alreadyHasCls = this.e.classList.contains(cls);
-        if (turnOn && !alreadyHasCls)
-            return this.addClass(cls);
-        else if (!turnOn && alreadyHasCls)
-            return this.removeClass(cls);
-        else
-            return this;
+    toggleClass(cls, force) {
+        this.e.classList.toggle(cls, force);
+        return this;
     }
     append(...children) {
         for (let child of children)

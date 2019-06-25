@@ -4,10 +4,10 @@ navbar {
   margin: auto;
   display: -webkit-box;
 }
-navbar > span, navbar img {
+navbar > div, navbar img {
   cursor: pointer;
 }
-navbar > span, navbar img.home {
+navbar > div, navbar img.home {
   margin-top: 0;
   margin-right: 40px;
   margin-left: 0;
@@ -19,15 +19,26 @@ navbar > img.home {
 navbar > img.tau {
   height: 80px;
 }
-navbar > span {
+navbar > div {
   padding: 30px 0 0 0;
   transition: color 200ms ease-out;
   display: block;
 }
-navbar > span:hover {
+navbar > div:hover {
   color: #888;
 }
-navbar > span.selected {
-  box-shadow: 0px 2px 0px goldenrod;
-  margin-bottom: 11px;
+navbar > div.selected {
+  margin-bottom: 7px;
+  animation-name: borderBottomColor;
+  animation-iteration-count: 1;
+  animation-duration: 100ms;
+  animation-direction: normal;
+  border-bottom-color: goldenrod;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+@keyframes borderBottomColor {
+  0% {
+    border-bottom-color: rgba(218, 165, 32, 0);
+  }
 }
