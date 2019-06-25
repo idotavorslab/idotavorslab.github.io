@@ -14,4 +14,6 @@ declare class Str extends String {
 }
 declare function str(val: any): Str;
 declare function enumerate<T>(o: T): T extends any[] ? IterableIterator<[number, T]> : IterableIterator<[keyof T, T[keyof T]]>;
+declare function wait(ms: number): Promise<any>;
+declare function concurrent<T>(...promises: Promise<T>[]): Promise<T[]>;
 declare const ajax: TAjax;

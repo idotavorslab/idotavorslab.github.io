@@ -19,9 +19,14 @@ const PeoplePage = () => {
                     email: div({cls: "email"}),
                     minimize: div({text: "_", cls: "minimize"})
                 });
-                this.e.minimize.pointerdown(() => {
+                this.e.minimize.pointerdown(async () => {
                     
-                    this.e.fadeOut(2000);
+                    console.log('fadeout start (outside)');
+                    await this.e.fadeOut(50);
+                    this.e.css({height: 0});
+                    
+                    
+                    console.log('fadeout done (outside)');
                     this.isopen = false;
                     // this.e.removeClass('open');
                 });

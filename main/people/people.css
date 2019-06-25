@@ -5,6 +5,7 @@ div#people_container {
 
 div#person_viewer {
   height: 0px;
+  transition: height 1000ms, padding-top 1000ms, padding-bottom 1000ms, opacity 2000ms;
   margin: auto 20px;
   text-align: left;
   opacity: 0;

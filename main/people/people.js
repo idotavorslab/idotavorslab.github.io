@@ -11,8 +11,11 @@ const PeoplePage = () => {
                     email: div({ cls: "email" }),
                     minimize: div({ text: "_", cls: "minimize" })
                 });
-                this.e.minimize.pointerdown(() => {
-                    this.e.fadeOut(2000);
+                this.e.minimize.pointerdown(async () => {
+                    console.log('fadeout start (outside)');
+                    await this.e.fadeOut(50);
+                    this.e.css({ height: 0 });
+                    console.log('fadeout done (outside)');
                     this.isopen = false;
                 });
             },

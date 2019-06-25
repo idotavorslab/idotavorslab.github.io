@@ -48,7 +48,7 @@ interface TElemCssOpts {
     gridColumn?: string,
     gridRow?: string,
     gridTemplateColumns?: string,
-    height?: string,
+    height?: string | number,
     letterSpacing?: string,
     marginRight?: string,
     opacity?: number,

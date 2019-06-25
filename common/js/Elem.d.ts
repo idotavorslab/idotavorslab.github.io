@@ -31,8 +31,8 @@ declare class Elem {
     attr(attrValPairs: TElemAttrs): this;
     removeAttribute(qualifiedName: string): this;
     data(key: string, parse?: boolean): any;
-    fadeOut(dur: number): this;
-    fadeIn(dur: number): this;
+    fadeOut(dur: number): Promise<this>;
+    fadeIn(dur: number): Promise<this>;
 }
 declare class Div extends Elem {
     _htmlElement: HTMLDivElement;

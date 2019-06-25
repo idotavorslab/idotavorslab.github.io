@@ -170,12 +170,29 @@ class Elem {
         else
             return data;
     }
-    fadeOut(dur) {
-        if (dur == 0)
+    async fadeOut(dur) {
+        const styles = window.getComputedStyle(this.e);
+        const trans = styles.transition.split(', ');
+        const transProp = styles.transitionProperty.split(', ');
+        const indexOfOpacity = transProp.indexOf('opacity');
+        if (indexOfOpacity !== -1) {
+            const transDur = styles.transitionDuration.split(', ');
+            const opacityTransDur = transDur[indexOfOpacity];
+            console.warn('opacityTransDur !== undefined');
+            console.log(`modifiying transition.\ntrans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
+            trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            console.log(`after, trans: ${trans}`);
+            this.e.style.transition = trans.join(', ');
+            this.css({ opacity: 0 });
+            await wait(dur);
+            return this;
+        }
+        if (dur == 0) {
             return this.css({ opacity: 0 });
+        }
         let opacity = float(this.e.style.opacity);
         if (opacity === undefined || isNaN(opacity)) {
-            console.warn('fadeOut htmlElement has NO opacity at all', {
+            console.warn('fadeOut htmlElement has NO opacity at all. recursing', {
                 opacity,
                 'this.e': this.e,
                 this: this
@@ -183,14 +200,14 @@ class Elem {
             return this.css({ opacity: 1 }).fadeOut(dur);
         }
         else if (opacity <= 0) {
-            console.warn('fadeOut opacity was lower than 0', {
+            console.warn('fadeOut opacity was lower equal to 0', {
                 opacity,
                 'this.e': this.e,
                 this: this
             });
             return this;
         }
-        const steps = 50;
+        const steps = 30;
         const opDec = 1 / steps;
         const everyms = dur / steps;
         const interval = setInterval(() => {
@@ -204,14 +221,15 @@ class Elem {
                 clearInterval(interval);
             }
         }, everyms);
+        await wait(dur);
         return this;
     }
-    fadeIn(dur) {
+    async fadeIn(dur) {
         if (dur == 0)
             return this.css({ opacity: 1 });
         let opacity = float(this.e.style.opacity);
         if (opacity == undefined || isNaN(opacity)) {
-            console.warn('fadeIn htmlElement has NO opacity at all', {
+            console.warn('fadeIn htmlElement has NO opacity at all. recursing', {
                 opacity,
                 'this.e': this.e,
                 this: this
@@ -219,7 +237,7 @@ class Elem {
             return this.css({ opacity: 0 }).fadeIn(dur);
         }
         else if (opacity > 1) {
-            console.warn('fadeIn opacity was higher than 0', {
+            console.warn('fadeIn opacity was higher than 1', {
                 opacity,
                 'this.e': this.e,
                 this: this
@@ -240,6 +258,7 @@ class Elem {
                 clearInterval(interval);
             }
         }, everyms);
+        await wait(dur);
         return this;
     }
 }

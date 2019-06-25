@@ -48,6 +48,12 @@ function* enumerate(obj) {
         }
     }
 }
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function concurrent(...promises) {
+    return await Promise.all(promises);
+}
 const ajax = (() => {
     function _tryResolveResponse(xhr, resolve, reject) {
         if (xhr.status != 200) {
