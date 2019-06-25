@@ -1,3 +1,7 @@
+declare type TEvent = keyof HTMLElementEventMap;
+declare type TEventFunctionMap<K> = {
+    [P in Extract<K, string>]?: (evt: Event) => void;
+};
 declare type TMap<T> = {
     [s: string]: T;
 };
@@ -13,7 +17,6 @@ declare type TMap3<T> = {
 declare type TKeyValue<K, V> = {
     [S in Extract<K, string>]: V;
 };
-declare type TEvent = keyof HTMLElementEventMap;
 declare type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any;
     id?: string;
@@ -22,9 +25,6 @@ declare type TElemOptions = {
     query?: string;
     children?: TMap<string>;
     cls?: string;
-};
-declare type TTElemEvent<K> = {
-    [P in Extract<K, string>]?: (evt: Event) => void;
 };
 declare type TSubElemOptions = {
     id?: string;

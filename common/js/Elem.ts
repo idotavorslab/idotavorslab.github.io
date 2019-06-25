@@ -171,9 +171,7 @@ class Elem {
     
     
     // **  Events
-    // on(evTypeFnPairs: { abort: (evt) => void }): this
-    // on(evTypeFnPairs: TKeyValue<keyof HTMLElementEventMap, EventListenerObject>): this {
-    on(evTypeFnPairs: TTElemEvent<TEvent>): this {
+    on(evTypeFnPairs: TEventFunctionMap<TEvent>): this {
         for (let [evType, evFn] of dict(evTypeFnPairs).items())
             this.e.addEventListener(evType, evFn);
         return this;

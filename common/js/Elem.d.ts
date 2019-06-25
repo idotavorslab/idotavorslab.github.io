@@ -20,7 +20,7 @@ declare class Elem {
     children(): Elem[];
     cacheChildren(keySelectorObj: TMap<string>): void;
     empty(): this;
-    on(evTypeFnPairs: TTElemEvent<TEvent>): this;
+    on(evTypeFnPairs: TEventFunctionMap<TEvent>): this;
     touchstart(fn: (ev: Event) => any, options?: {
         once: boolean;
     }): this;
