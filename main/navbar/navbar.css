@@ -34,8 +34,3 @@ navbar > div.selected {
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }
-@keyframes borderBottomColor {
-  0% {
-    border-bottom-color: rgba(218, 165, 32, 0);
-  }
-}

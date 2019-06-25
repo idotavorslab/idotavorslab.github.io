@@ -5,11 +5,13 @@ div#people_container
 
 div#person_viewer
     height: 0px
-    $trans_dur_time: 500ms cubic-bezier(0.5, 0, 0.5, 1)
-    transition: height $trans_dur_time, padding 100ms, opacity $trans_dur_time
+    //$trans_dur_time: 500ms cubic-bezier(0.5, 0, 0.5, 1)
+    $trans_dur_time: 500ms
+    transition: height $trans_dur_time, padding-top $trans_dur_time * 2, padding-bottom $trans_dur_time * 2, opacity $trans_dur_time
     margin: auto 20px
     text-align: left
     opacity: 0
+    padding: 0
 
 
     &.open
