@@ -45,7 +45,7 @@ const PeoplePage = () => {
             person.pointerdown(() => {
                 if (!personViewer.isopen) {
                     personViewer.open(name, image, cv, email);
-                    personViewer.e.on({click: console.log})
+                    personViewer.e.on({abort: console.log})
                 } else {
                     personViewer.populate(name, image, cv, email)
                 }

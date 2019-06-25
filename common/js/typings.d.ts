@@ -13,6 +13,13 @@ declare type TMap3<T> = {
 declare type TKeyValue<K, V> = {
     [S in Extract<K, string>]: V;
 };
+declare type TKeyFn<K> = {
+    [S in Extract<K, string>]: () => any;
+};
+declare type TKeyAny<K> = {
+    [S in Extract<K, string>]: any;
+};
+declare type TEvent = keyof HTMLElementEventMap;
 declare type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any;
     id?: string;
@@ -21,6 +28,16 @@ declare type TElemOptions = {
     query?: string;
     children?: TMap<string>;
     cls?: string;
+};
+declare type TElemEvent<K> = {
+    [P in keyof K]: (evt: Event) => void;
+};
+interface IElemEvent {
+    click?: (evt: Event) => void;
+    abort?: (evt: Event) => void;
+}
+declare type TTElemEvent<K> = {
+    [P in Extract<K, string>]: (evt: Event) => void;
 };
 declare type TSubElemOptions = {
     id?: string;
@@ -32,11 +49,6 @@ declare type TImgOptions = {
     src: string;
     cls?: string;
 };
-declare type TElemEvents = {
-    click?: EventListenerOrEventListenerObject;
-    blur?: EventListenerOrEventListenerObject;
-};
-declare type TEvent = keyof HTMLElementEventMap;
 declare type TElemAttrs = {
     src?: string;
     href?: string;
