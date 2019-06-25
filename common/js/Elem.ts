@@ -241,7 +241,8 @@ class Elem {
             // set transition to dur, set opacity to 0, leave the animation to native transition, wait dur and return this
             console.warn('fadeOut, opacityTransDur !== undefined. leveraging transition.');
             console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
-            trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            // trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            trans.splice(indexOfOpacity, 1, `opacity 0s`);
             console.log(`after, trans: ${trans}`);
             this.e.style.transition = trans.join(', ');
             this.css({opacity: 0});
@@ -255,7 +256,7 @@ class Elem {
         let opacity = float(this.e.style.opacity);
         
         if (opacity === undefined || isNaN(opacity)) {
-            console.warn('fadeOut htmlElement has NO opacity at all. recursing', {
+            console.warn(`fadeOut(${dur}) htmlElement has NO opacity at all. recursing`, {
                 opacity,
                 'this.e': this.e,
                 this: this
@@ -270,12 +271,17 @@ class Elem {
             return this;
         }
         
-        
         // this.e.style.transition = "opacity 0s";
         // this.e.style.transition = "height 0.5s ease 0s, padding-top 1s ease 0s, padding-bottom 1s ease 0s, opacity 0s ease 0s";
-        const steps = 30;
-        const opDec = 1 / steps;
-        const everyms = dur / steps;
+        let steps = 30;
+        let opDec = 1 / steps;
+        let everyms = dur / steps;
+        if (everyms < 1) {
+            everyms = 1;
+            steps = dur;
+            opDec = 1 / steps;
+        }
+        console.log(`fadeOut(${dur}) had opacity, no transition. opacity: ${opacity}`, {steps, opDec, everyms});
         const interval = setInterval(() => {
             if (opacity - opDec > 0) {
                 opacity -= opDec;
@@ -306,7 +312,8 @@ class Elem {
             // set transition to dur, set opacity to 0, leave the animation to native transition, wait dur and return this
             console.warn('fadeIn, opacityTransDur !== undefined. leveraging transition.');
             console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
-            trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            // trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            trans.splice(indexOfOpacity, 1, `opacity 0s`);
             console.log(`after, trans: ${trans}`);
             this.e.style.transition = trans.join(', ');
             this.css({opacity: 1});
@@ -320,14 +327,14 @@ class Elem {
             return this.css({opacity: 1});
         let opacity = float(this.e.style.opacity);
         if (opacity == undefined || isNaN(opacity)) {
-            console.warn('fadeIn htmlElement has NO opacity at all. recursing', {
+            console.warn(`fadeIn(${dur}) htmlElement has NO opacity at all. recursing`, {
                 opacity,
                 'this.e': this.e,
                 this: this
             });
             return this.css({opacity: 0}).fadeIn(dur);
         } else if (opacity > 1) {
-            console.warn('fadeIn opacity was higher than 1', {
+            console.warn(`fadeIn(${dur}) opacity was higher than 1`, {
                 opacity,
                 'this.e': this.e,
                 this: this
@@ -335,9 +342,15 @@ class Elem {
             return this;
         }
         
-        const steps = 50;
-        const opInc = 1 / steps;
-        const everyms = dur / steps;
+        let steps = 30;
+        let opInc = 1 / steps;
+        let everyms = dur / steps;
+        if (everyms < 1) {
+            everyms = 1;
+            steps = dur;
+            opInc = 1 / steps;
+        }
+        console.log(`fadeIn(${dur}) had opacity, no transition. opacity: ${opacity}`, {steps, opInc, everyms});
         
         
         const interval = setInterval(() => {
