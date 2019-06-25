@@ -171,7 +171,7 @@ class Elem {
     
     
     // **  Events
-    on(evTypeFnPairs: TElemEvents): this {
+    on(evTypeFnPairs: TKeyValue<TEvent, EventListenerObject>): this {
         for (let [evType, evFn] of dict(evTypeFnPairs).items())
             this.e.addEventListener(evType, evFn);
         return this;

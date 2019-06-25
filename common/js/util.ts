@@ -80,7 +80,7 @@ function str(val) {
 }
 
 
-function enumerate<T>(o: T): T extends any[] ? IterableIterator<[number, T]> : IterableIterator<[keyof T, T[keyof T]]> // GOOD (equiv)
+function enumerate<T>(o: T): T extends any[] ? IterableIterator<[number, T]> : IterableIterator<[keyof T, T[keyof T]]>
 function* enumerate(obj) {
     if (Array.isArray(obj)) {
         let i = 0;

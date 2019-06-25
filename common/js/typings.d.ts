@@ -10,6 +10,9 @@ declare type TMap4<T> = {
 declare type TMap3<T> = {
     [P in keyof T]: T[P];
 };
+declare type TKeyValue<K, V> = {
+    [S in Extract<K, string>]: V;
+};
 declare type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any;
     id?: string;
@@ -31,7 +34,9 @@ declare type TImgOptions = {
 };
 declare type TElemEvents = {
     click?: EventListenerOrEventListenerObject;
+    blur?: EventListenerOrEventListenerObject;
 };
+declare type TEvent = keyof HTMLElementEventMap;
 declare type TElemAttrs = {
     src?: string;
     href?: string;
