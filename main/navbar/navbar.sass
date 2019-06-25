@@ -29,17 +29,18 @@ navbar
         $padding-top: $img-width / 2 - $font-size / 2
         @debug $padding-top
         padding: $padding-top 0 0 0
-        transition: color 200ms ease-out
+        transition: color 200ms ease-out, border-bottom-color 200ms ease-out
         display: block
 
         &:hover
             color: #888
 
+        border-bottom-color: rgba(218, 165, 32, 0)
 
         &.selected
             $border-width: 1px
             margin-bottom: $padding-top - 22 - $border-width
-            animation:
+            //animation:
                 name: borderBottomColor
                 iteration-count: 1
                 duration: 100ms

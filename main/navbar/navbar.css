@@ -21,18 +21,15 @@ navbar > img.tau {
 }
 navbar > div {
   padding: 30px 0 0 0;
-  transition: color 200ms ease-out;
+  transition: color 200ms ease-out, border-bottom-color 200ms ease-out;
   display: block;
+  border-bottom-color: rgba(218, 165, 32, 0);
 }
 navbar > div:hover {
   color: #888;
 }
 navbar > div.selected {
   margin-bottom: 7px;
-  animation-name: borderBottomColor;
-  animation-iteration-count: 1;
-  animation-duration: 100ms;
-  animation-direction: normal;
   border-bottom-color: goldenrod;
   border-bottom-width: 1px;
   border-bottom-style: solid;
