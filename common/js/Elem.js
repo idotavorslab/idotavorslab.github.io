@@ -170,7 +170,77 @@ class Elem {
         else
             return data;
     }
+    async fade(dur, to) {
+        const styles = window.getComputedStyle(this.e);
+        const trans = styles.transition.split(', ');
+        const transProp = styles.transitionProperty.split(', ');
+        const indexOfOpacity = transProp.indexOf('opacity');
+        if (indexOfOpacity !== -1) {
+            const transDur = styles.transitionDuration.split(', ');
+            const opacityTransDur = transDur[indexOfOpacity];
+            console.warn(`fade(${dur}, ${to}), opacityTransDur !== undefined. nullifying transition. SHOULD NOT WORK`);
+            console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
+            trans.splice(indexOfOpacity, 1, `opacity 0s`);
+            console.log(`after, trans: ${trans}`);
+            this.e.style.transition = trans.join(', ');
+            this.css({ opacity: to });
+            await wait(dur);
+            return this;
+        }
+        if (dur == 0) {
+            return this.css({ opacity: to });
+        }
+        const isFadeOut = to === 0;
+        let opacity = float(this.e.style.opacity);
+        if (opacity === undefined || isNaN(opacity)) {
+            console.warn(`fade(${dur}, ${to}) htmlElement has NO opacity at all. recursing`, {
+                opacity,
+                'this.e': this.e,
+                this: this
+            });
+            return this.css({ opacity: Math.abs(1 - to) }).fade(dur, to);
+        }
+        else {
+            if (isFadeOut ? opacity <= 0 : opacity > 1) {
+                console.warn(`fade(${dur}, ${to}) opacity was beyond target opacity. returning this as is.`, {
+                    opacity,
+                    'this.e': this.e,
+                    this: this
+                });
+                return this;
+            }
+        }
+        let steps = 30;
+        let opStep = 1 / steps;
+        let everyms = dur / steps;
+        if (everyms < 1) {
+            everyms = 1;
+            steps = dur;
+            opStep = 1 / steps;
+        }
+        console.log(`fade(${dur}, ${to}) had opacity, no transition. opacity: ${opacity}`, { steps, opStep, everyms });
+        const reachedTo = isFadeOut ? (op) => op - opStep > 0 : (op) => op + opStep < 1;
+        const interval = setInterval(() => {
+            if (reachedTo(opacity)) {
+                if (isFadeOut)
+                    opacity -= opStep;
+                else
+                    opacity += opStep;
+                this.css({ opacity });
+            }
+            else {
+                opacity = to;
+                this.css({ opacity });
+                clearInterval(interval);
+            }
+        }, everyms);
+        await wait(dur);
+        return this;
+    }
     async fadeOut(dur) {
+        return await this.fade(dur, 0);
+    }
+    async fadeOutOLD(dur) {
         const styles = window.getComputedStyle(this.e);
         const trans = styles.transition.split(', ');
         const transProp = styles.transitionProperty.split(', ');
@@ -231,6 +301,9 @@ class Elem {
         return this;
     }
     async fadeIn(dur) {
+        return await this.fade(dur, 1);
+    }
+    async fadeInOLD(dur) {
         const styles = window.getComputedStyle(this.e);
         const trans = styles.transition.split(', ');
         const transProp = styles.transitionProperty.split(', ');

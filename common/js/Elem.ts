@@ -225,7 +225,87 @@ class Elem {
     }
     
     // **  Fade
+    async fade(dur: number, to: 0 | 1): Promise<this> {
+        const styles = window.getComputedStyle(this.e);
+        const trans = styles.transition.split(', ');
+        const transProp = styles.transitionProperty.split(', ');
+        const indexOfOpacity = transProp.indexOf('opacity');
+        // css opacity:0 => transDur[indexOfOpacity]: 0s
+        // css opacity:500ms => transDur[indexOfOpacity]: 0.5s
+        // css NO opacity => transDur[indexOfOpacity]: undefined
+        if (indexOfOpacity !== -1) {
+            const transDur = styles.transitionDuration.split(', ');
+            const opacityTransDur = transDur[indexOfOpacity];
+            // transition: opacity was defined in css.
+            // set transition to dur, set opacity to 0, leave the animation to native transition, wait dur and return this
+            console.warn(`fade(${dur}, ${to}), opacityTransDur !== undefined. nullifying transition. SHOULD NOT WORK`);
+            console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
+            // trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
+            trans.splice(indexOfOpacity, 1, `opacity 0s`);
+            console.log(`after, trans: ${trans}`);
+            this.e.style.transition = trans.join(', ');
+            this.css({opacity: to});
+            await wait(dur);
+            return this;
+        }
+        // transition: opacity was NOT defined in css.
+        if (dur == 0) {
+            return this.css({opacity: to});
+        }
+        const isFadeOut = to === 0;
+        let opacity = float(this.e.style.opacity);
+        
+        if (opacity === undefined || isNaN(opacity)) {
+            console.warn(`fade(${dur}, ${to}) htmlElement has NO opacity at all. recursing`, {
+                opacity,
+                'this.e': this.e,
+                this: this
+            });
+            return this.css({opacity: Math.abs(1 - to)}).fade(dur, to)
+        } else {
+            
+            if (isFadeOut ? opacity <= 0 : opacity > 1) {
+                console.warn(`fade(${dur}, ${to}) opacity was beyond target opacity. returning this as is.`, {
+                    opacity,
+                    'this.e': this.e,
+                    this: this
+                });
+                return this;
+            }
+        }
+        
+        let steps = 30;
+        let opStep = 1 / steps;
+        let everyms = dur / steps;
+        if (everyms < 1) {
+            everyms = 1;
+            steps = dur;
+            opStep = 1 / steps;
+        }
+        console.log(`fade(${dur}, ${to}) had opacity, no transition. opacity: ${opacity}`, {steps, opStep, everyms});
+        const reachedTo = isFadeOut ? (op) => op - opStep > 0 : (op) => op + opStep < 1;
+        const interval = setInterval(() => {
+            if (reachedTo(opacity)) {
+                if (isFadeOut)
+                    opacity -= opStep;
+                else
+                    opacity += opStep;
+                this.css({opacity});
+            } else {
+                opacity = to;
+                this.css({opacity});
+                clearInterval(interval);
+            }
+        }, everyms);
+        await wait(dur);
+        return this;
+    }
+    
     async fadeOut(dur: number): Promise<this> {
+        return await this.fade(dur, 0);
+    }
+    
+    async fadeOutOLD(dur: number): Promise<this> {
         
         const styles = window.getComputedStyle(this.e);
         const trans = styles.transition.split(', ');
@@ -271,8 +351,6 @@ class Elem {
             return this;
         }
         
-        // this.e.style.transition = "opacity 0s";
-        // this.e.style.transition = "height 0.5s ease 0s, padding-top 1s ease 0s, padding-bottom 1s ease 0s, opacity 0s ease 0s";
         let steps = 30;
         let opDec = 1 / steps;
         let everyms = dur / steps;
@@ -298,6 +376,10 @@ class Elem {
     }
     
     async fadeIn(dur: number): Promise<this> {
+        return await this.fade(dur, 1);
+    }
+    
+    async fadeInOLD(dur: number): Promise<this> {
         const styles = window.getComputedStyle(this.e);
         const trans = styles.transition.split(', ');
         const transProp = styles.transitionProperty.split(', ');

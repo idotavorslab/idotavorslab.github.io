@@ -12,7 +12,7 @@ const PeoplePage = () => {
                     minimize: div({ text: "_", cls: "minimize" })
                 });
                 this.e.minimize.pointerdown(async () => {
-                    await this.e.fadeOut(50);
+                    await this.e.fadeOut(30);
                     this.isopen = false;
                     this.e.removeClass('open');
                 });
