@@ -3,8 +3,6 @@ type TMap2<T, K extends keyof T> = { [s: string]: T[K] }
 type TMap4<T> = { [s: string]: T[keyof T] }
 type TMap3<T> = { [P in keyof T]: T[P] }
 type TKeyValue<K, V> = { [S in Extract<K, string>]: V }
-type TKeyFn<K> = { [S in Extract<K, string>]: () => any }
-type TKeyAny<K> = { [S in Extract<K, string>]: any }
 type TEvent = keyof HTMLElementEventMap;
 type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any,
@@ -15,16 +13,9 @@ type TElemOptions = {
     children?: TMap<string>,
     cls?: string
 }
-type TElemEvent<K> = {
-    [P in keyof K]: (evt: Event) => void
-}
 
-interface IElemEvent {
-    click?: (evt: Event) => void;
-    abort?: (evt: Event) => void;
-}
 
-type TTElemEvent<K> = { [P in Extract<K, string>]: (evt: Event) => void }
+type TTElemEvent<K> = { [P in Extract<K, string>]?: (evt: Event) => void }
 
 
 type TSubElemOptions = {
