@@ -33,7 +33,7 @@ declare type TSubElemOptions = {
 };
 declare type TImgOptions = {
     id?: string;
-    src: string;
+    src?: string;
     cls?: string;
 };
 declare type TElemAttrs = {

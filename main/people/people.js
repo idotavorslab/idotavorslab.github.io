@@ -2,23 +2,26 @@ const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
         const personViewer = {
-            e: div({ id: "person_viewer" }),
-            isopen: false,
-            open: function (name, image, cv, email) {
-                console.log('opening');
-                this.e.setClass('open')
-                    .cacheAppend({
-                    name: div({ text: name, cls: "name" }),
-                    img: img({ src: `main/people/${image}` }),
-                    cv: div({ text: cv, cls: "cv" }),
-                    email: div({ text: `Email: ${email}`, cls: "email" }),
+            init: function () {
+                console.log('init');
+                this.e.cacheAppend({
+                    name: div({ cls: "name" }),
+                    img: img({}),
+                    cv: div({ cls: "cv" }),
+                    email: div({ cls: "email" }),
                     minimize: div({ text: "_", cls: "minimize" })
                 });
-                this.isopen = true;
                 this.e.minimize.pointerdown(() => {
-                    this.e.removeClass('open');
+                    this.e.fadeOut(2000);
                     this.isopen = false;
                 });
+            },
+            e: div({ id: "person_viewer" }),
+            isopen: false,
+            open: function () {
+                console.log('opening');
+                this.e.setClass('open');
+                this.isopen = true;
             },
             populate: function (name, image, cv, email) {
                 console.log('populating');
@@ -32,13 +35,15 @@ const PeoplePage = () => {
         const data = await (await fetch(req)).json();
         console.log(data);
         const people = [];
+        personViewer.init();
         for (let [name, { image, role, cv, email }] of dict(data).items()) {
             let person = elem({ tag: "person" });
             person
                 .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
             person.pointerdown(() => {
                 if (!personViewer.isopen) {
-                    personViewer.open(name, image, cv, email);
+                    personViewer.open();
+                    personViewer.populate(name, image, cv, email);
                 }
                 else {
                     personViewer.populate(name, image, cv, email);

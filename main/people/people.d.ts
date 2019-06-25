@@ -1,7 +1,8 @@
 declare type TPersonViewer = {
+    init: () => void;
     e: Div;
     isopen: boolean;
-    open: (name: string, image: string, cv: string, email: string) => void;
+    open: () => void;
     populate: (name: string, image: string, cv: string, email: string) => void;
 };
 declare const PeoplePage: () => {

@@ -26,7 +26,7 @@ type TSubElemOptions = {
 };
 type TImgOptions = {
     id?: string,
-    src: string,
+    src?: string,
     cls?: string
 };
 

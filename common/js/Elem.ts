@@ -164,9 +164,9 @@ class Elem {
     
     
     // **  Events
-    on(evTypeFnPairs: TEventFunctionMap<TEvent>): this {
+    on(evTypeFnPairs: TEventFunctionMap<TEvent>, options?: AddEventListenerOptions): this {
         for (let [evType, evFn] of dict(evTypeFnPairs).items())
-            this.e.addEventListener(evType, evFn);
+            this.e.addEventListener(evType, evFn, options);
         return this;
     }
     
@@ -226,6 +226,14 @@ class Elem {
     
     // **  Fade
     fadeOut(dur: number): this {
+        /*const styles = window.getComputedStyle(this.e);
+        const transDur = styles.transitionDuration.split(', ');
+        const transProp = styles.transitionProperty.split(', ');
+        const transTiming = styles.transitionTimingFunction.split(', ');
+        const opacityTransDur = transDur[transProp.indexOf('opacity')];
+        this.e.style.transition = "opacity 0s";
+        */
+        
         if (dur == 0)
             return this.css({opacity: 0});
         let opacity = float(this.e.style.opacity);
@@ -236,7 +244,8 @@ class Elem {
                 'this.e': this.e,
                 this: this
             });
-            return this.css({opacity: 0});
+            // return this.css({opacity: 0});
+            return this.css({opacity: 1}).fadeOut(dur)
         } else if (opacity <= 0) {
             console.warn('fadeOut opacity was lower than 0', {
                 opacity,
@@ -246,7 +255,7 @@ class Elem {
             return this;
         }
         
-        const steps = 20;
+        const steps = 50;
         const opDec = 1 / steps;
         const everyms = dur / steps;
         const interval = setInterval(() => {
@@ -273,7 +282,7 @@ class Elem {
                 'this.e': this.e,
                 this: this
             });
-            return this.css({opacity: 1});
+            return this.css({opacity: 0}).fadeIn(dur);
         } else if (opacity > 1) {
             console.warn('fadeIn opacity was higher than 0', {
                 opacity,
@@ -283,7 +292,7 @@ class Elem {
             return this;
         }
         
-        const steps = 20;
+        const steps = 50;
         const opInc = 1 / steps;
         const everyms = dur / steps;
         
@@ -331,12 +340,13 @@ class Img extends Elem {
     _htmlElement: HTMLImageElement;
     
     constructor({id, src, cls}: TImgOptions) {
-        if (!src)
-            throw new Error(`Img constructor didn't receive src`);
+        // if (!src)
+        //     throw new Error(`Img constructor didn't receive src`);
         super({tag: 'img', cls});
         if (id)
             this.id(id);
-        this._htmlElement.src = src;
+        if (src)
+            this._htmlElement.src = src;
         
     }
 }

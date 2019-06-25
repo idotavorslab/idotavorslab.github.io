@@ -123,7 +123,6 @@ div#people_container {
 
 div#person_viewer {
   height: 0px;
-  transition: height 500ms, padding-top 1000ms, padding-bottom 1000ms, opacity 2000ms;
   margin: auto 20px;
   text-align: left;
   opacity: 0;
@@ -137,6 +136,9 @@ div#person_viewer.open {
   border-left: 1px solid goldenrod;
   border-bottom: 1px solid goldenrod;
   padding: 40px 50px;
+}
+div#person_viewer.open div.minimize:hover {
+  cursor: pointer;
 }
 div#person_viewer div.name {
   text-transform: uppercase;
@@ -167,7 +169,7 @@ div#person_viewer div.minimize {
   height: 40px;
 }
 div#person_viewer div.minimize:hover {
-  cursor: pointer;
+  cursor: default;
 }
 
 person {

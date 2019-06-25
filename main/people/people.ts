@@ -1,7 +1,8 @@
 type TPersonViewer = {
+    init: () => void,
     e: Div,
     isopen: boolean,
-    open: (name: string, image: string, cv: string, email: string) => void,
+    open: () => void,
     populate: (name: string, image: string, cv: string, email: string) => void
 };
 
@@ -9,24 +10,30 @@ const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
         const personViewer: TPersonViewer = {
+            init: function () {
+                console.log('init');
+                this.e.cacheAppend({
+                    name: div({cls: "name"}),
+                    img: img({}),
+                    cv: div({cls: "cv"}),
+                    email: div({cls: "email"}),
+                    minimize: div({text: "_", cls: "minimize"})
+                });
+                this.e.minimize.pointerdown(() => {
+                    
+                    this.e.fadeOut(2000);
+                    this.isopen = false;
+                    // this.e.removeClass('open');
+                });
+            },
             e: div({id: "person_viewer"}),
             isopen: false,
-            open: function (name, image, cv, email) {
+            open: function () {
                 // TODO: append elements on init, then popuplate on open
                 console.log('opening');
-                this.e.setClass('open')
-                    .cacheAppend({
-                        name: div({text: name, cls: "name"}),
-                        img: img({src: `main/people/${image}`}),
-                        cv: div({text: cv, cls: "cv"}),
-                        email: div({text: `Email: ${email}`, cls: "email"}),
-                        minimize: div({text: "_", cls: "minimize"})
-                    });
+                this.e.setClass('open');
                 this.isopen = true;
-                this.e.minimize.pointerdown(() => {
-                    this.e.removeClass('open');
-                    this.isopen = false;
-                });
+                
             },
             populate: function (name, image, cv, email) {
                 console.log('populating');
@@ -41,6 +48,7 @@ const PeoplePage = () => {
         const data = await (await fetch(req)).json();
         console.log(data);
         const people = [];
+        personViewer.init();
         for (let [name, {image, role, cv, email}] of dict(data).items()) {
             let person = elem({tag: "person"});
             person
@@ -51,8 +59,8 @@ const PeoplePage = () => {
                 );
             person.pointerdown(() => {
                 if (!personViewer.isopen) {
-                    personViewer.open(name, image, cv, email);
-                    
+                    personViewer.open();
+                    personViewer.populate(name, image, cv, email);
                 } else {
                     personViewer.populate(name, image, cv, email)
                 }
