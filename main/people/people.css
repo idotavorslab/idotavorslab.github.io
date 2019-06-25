@@ -10,6 +10,7 @@ div#person_viewer {
   text-align: left;
   opacity: 0;
   padding: 0;
+  position: relative;
 }
 div#person_viewer.open {
   margin-bottom: 40px;
@@ -35,6 +36,12 @@ div#person_viewer div.cv {
 }
 div#person_viewer div.email {
   color: #111;
+}
+div#person_viewer div.close {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  text-align: left;
 }
 
 person {

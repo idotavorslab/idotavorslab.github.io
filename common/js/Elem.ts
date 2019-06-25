@@ -126,7 +126,7 @@ class Elem {
         return this;
     }
     
-    cacheAppend(keyChildObj: TMap<this>): this {
+    cacheAppend(keyChildObj: TMap<Elem>): this {
         for (let [key, child] of dict(keyChildObj).items()) {
             this.e.appendChild(child.e);
             this[key] = child;

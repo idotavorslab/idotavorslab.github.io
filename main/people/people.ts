@@ -7,7 +7,6 @@ type TPersonViewer = {
 
 const PeoplePage = () => {
     async function init() {
-        
         console.log('PeoplePage init');
         const personViewer: TPersonViewer = {
             e: div({id: "person_viewer"}),
@@ -19,11 +18,11 @@ const PeoplePage = () => {
                         img: img({src: `main/people/${image}`}),
                         cv: div({text: cv, cls: "cv"}),
                         email: div({text: `Email: ${email}`, cls: "email"}),
+                        close: div({text: "_", cls: "close"})
                     });
                 this.isopen = true;
             },
             populate: function (name, image, cv, email) {
-                
                 this.e.name.text(name);
                 this.e.img.attr({src: `main/people/${image}`});
                 this.e.cv.text(cv);
@@ -45,9 +44,7 @@ const PeoplePage = () => {
             person.pointerdown(() => {
                 if (!personViewer.isopen) {
                     personViewer.open(name, image, cv, email);
-                    personViewer.e.on({
-                        abort: console.log
-                    })
+                    
                 } else {
                     personViewer.populate(name, image, cv, email)
                 }

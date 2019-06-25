@@ -14,7 +14,7 @@ declare class Elem {
     setClass(cls: string): this;
     toggleClass(cls: string, force?: boolean): this;
     append(...children: this[]): this;
-    cacheAppend(keyChildObj: TMap<this>): this;
+    cacheAppend(keyChildObj: TMap<Elem>): this;
     child(selector: string): Elem;
     replaceChild(newChild: this, oldChild: this): this;
     children(): Elem[];
