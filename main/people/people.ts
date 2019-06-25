@@ -12,6 +12,8 @@ const PeoplePage = () => {
             e: div({id: "person_viewer"}),
             isopen: false,
             open: function (name, image, cv, email) {
+                // TODO: append elements on init, then popuplate on open
+                console.log('opening');
                 this.e.setClass('open')
                     .cacheAppend({
                         name: div({text: name, cls: "name"}),
@@ -21,15 +23,21 @@ const PeoplePage = () => {
                         minimize: div({text: "_", cls: "minimize"})
                     });
                 this.isopen = true;
+                this.e.minimize.pointerdown(() => {
+                    this.e.removeClass('open');
+                    this.isopen = false;
+                });
             },
             populate: function (name, image, cv, email) {
+                console.log('populating');
                 this.e.name.text(name);
                 this.e.img.attr({src: `main/people/${image}`});
                 this.e.cv.text(cv);
                 this.e.email.text(`Email: ${email}`);
             }
         };
-        let req = new Request('main/people/people.json', {cache: "no-cache"});
+        
+        const req = new Request('main/people/people.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
         console.log(data);
         const people = [];
@@ -48,14 +56,7 @@ const PeoplePage = () => {
                 } else {
                     personViewer.populate(name, image, cv, email)
                 }
-                // personViewer.e
-                //     .setClass('open')
-                //     .append(
-                //         div({text: name, cls: "name"}),
-                //         img({src: `main/people/${image}`}),
-                //         div({text: cv, cls: "cv"}),
-                //         div({text: `Email: ${email}`, cls: "email"}),
-                //     );
+                
             });
             people.push(person);
         }
