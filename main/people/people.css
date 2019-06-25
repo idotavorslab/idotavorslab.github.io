@@ -5,16 +5,18 @@ div#people_container {
 
 div#person_viewer {
   height: 0px;
-  transition: height 500ms, padding-top 1000ms, padding-bottom 1000ms, opacity 500ms;
+  transition: height 500ms, padding-top 1000ms, padding-bottom 1000ms, opacity 2000ms;
   margin: auto 20px;
   text-align: left;
   opacity: 0;
   padding: 0;
 }
 div#person_viewer.open {
+  margin-bottom: 40px;
   opacity: 1;
   height: 500px;
-  border: 1px solid black;
+  border-left: 1px solid goldenrod;
+  border-bottom: 1px solid goldenrod;
   padding: 40px 50px;
 }
 div#person_viewer div.name {
