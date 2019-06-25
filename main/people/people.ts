@@ -21,7 +21,7 @@ const PeoplePage = () => {
                 });
                 this.e.minimize.pointerdown(async () => {
                     
-                    await this.e.fadeOut(30);
+                    await this.e.fadeOut(50);
                     this.isopen = false;
                     this.e.removeClass('open');
                 });
