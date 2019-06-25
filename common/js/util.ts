@@ -8,56 +8,23 @@ function int(x, base?: StringOrNumber | Function): number {
     return parseInt(x, <number>base)
 }
 
+type ExK<T> = Extract<keyof T, string>;
+
 class Dict<T> {
     
     
     constructor(obj: T) {
         Object.assign(this, obj);
-        // this.items = items;
-        
-        /*function* items() {
-            for (let k in this) {
-                yield <[keyof T, T[keyof T]]>[k, this[k]]
-            }
-            
-        }
-        */
-        
-        // items(): [keyof T, T[keyof T]][] {
-        //     return <Array<[keyof T, T[keyof T]]>>Object.entries(this);
-        // }
-        // * items() {
-        //     for (let k in this) {
-        //         yield [k, this[k]]
-        //     }
-        // }
-        
         
     }
     
-    * items(): IterableIterator<[Extract<keyof T, string>, T[Extract<keyof T, string>]]> {
+    * items(): IterableIterator<[ExK<T>, T[ExK<T>]]> {
         for (let k in this) {
-            // yield [k, this[k]]
-            yield <[Extract<keyof T, string>, T[Extract<keyof T, string>]]><unknown>[k, this[k]]
+            yield <[ExK<T>, T[ExK<T>]]><unknown>[k, this[k]]
         }
         
     }
     
-    /** items(): IterableIterator<[Extract<K, string>, T[Extract<K, string>]]> {
-        for (let k in this) {
-            yield <[Extract<keyof this, string>, this[Extract<keyof this, string>]]>[k, this[k]]
-        }
-        
-    }
-     */
-    
-    /** items(): IterableIterator<[Extract<keyof this, string>, this[Extract<keyof this, string>]]> {
-        for (let k in this) {
-            yield <[Extract<K, string>, T[Extract<K, string>]]>[k, this[k]]
-        }
-        
-    }
-     */
     
 }
 
