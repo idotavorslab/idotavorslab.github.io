@@ -20,10 +20,10 @@ main navbar {
   margin: auto;
   display: -webkit-box;
 }
-main navbar > div, main navbar img {
+main navbar > span, main navbar img {
   cursor: pointer;
 }
-main navbar > div, main navbar img.home {
+main navbar > span, main navbar img.home {
   margin-top: 0;
   margin-right: 40px;
   margin-left: 0;
@@ -35,12 +35,17 @@ main navbar > img.home {
 main navbar > img.tau {
   height: 80px;
 }
-main navbar > div {
+main navbar > span {
   padding: 30px 0 0 0;
   transition: color 200ms ease-out;
+  display: block;
 }
-main navbar > div:hover {
+main navbar > span:hover {
   color: #888;
+}
+main navbar > span.selected {
+  box-shadow: 0px 2px 0px goldenrod;
+  margin-bottom: 11px;
 }
 main carousel {
   position: relative;

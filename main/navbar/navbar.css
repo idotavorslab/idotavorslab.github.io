@@ -4,10 +4,10 @@ navbar {
   margin: auto;
   display: -webkit-box;
 }
-navbar > div, navbar img {
+navbar > span, navbar img {
   cursor: pointer;
 }
-navbar > div, navbar img.home {
+navbar > span, navbar img.home {
   margin-top: 0;
   margin-right: 40px;
   margin-left: 0;
@@ -19,10 +19,15 @@ navbar > img.home {
 navbar > img.tau {
   height: 80px;
 }
-navbar > div {
+navbar > span {
   padding: 30px 0 0 0;
   transition: color 200ms ease-out;
+  display: block;
 }
-navbar > div:hover {
+navbar > span:hover {
   color: #888;
+}
+navbar > span.selected {
+  box-shadow: 0px 2px 0px goldenrod;
+  margin-bottom: 11px;
 }

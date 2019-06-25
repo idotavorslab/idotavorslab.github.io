@@ -63,12 +63,4 @@ type TAjax = {
     get: (url: string) => Promise<any>
 }
 
-interface INavbar extends Elem {
-    home: Elem,
-    research: Elem,
-    people: Elem,
-    publications: Elem,
-    photos: Elem,
-    contact: Elem,
-    tau: Elem,
-}
+

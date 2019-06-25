@@ -1,6 +1,6 @@
 const ResearchPage = () => {
     async function init() {
-        
+        navbar.research.setClass('selected');
         console.log('ResearchPage init');
         // elem({id: 'page_css'}).attr({href: 'main/research/research.css'});
         let req = new Request('main/research/research.json', {cache: "no-cache"});

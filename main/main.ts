@@ -1,6 +1,16 @@
 const isIphone = window.clientInformation.userAgent.includes('iPhone');
 const home = elem({query: 'home'});
-console.log(home);
+
+interface INavbar extends Elem {
+    home: Img,
+    research: Span,
+    people: Span,
+    publications: Span,
+    photos: Span,
+    contact: Span,
+    tau: Img,
+}
+
 const navbar = <INavbar>elem({
     query: 'navbar',
     children: {

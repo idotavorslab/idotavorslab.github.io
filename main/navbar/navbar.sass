@@ -6,10 +6,10 @@ navbar
     margin: auto
     display: -webkit-box
 
-    & > div, img
+    & > span, img
         cursor: pointer
 
-    & > div, img.home
+    & > span, img.home
         margin:
             top: 0
             right: $font-size * 2
@@ -24,10 +24,15 @@ navbar
     & > img.tau
         height: $img-width
 
-    & > div
+    & > span
         $padding-top: $img-width / 2 - $font-size / 2
         padding: $padding-top 0 0 0
         transition: color 200ms ease-out
+        display: block
 
         &:hover
             color: #888
+
+        &.selected
+            box-shadow: 0px 2px 0px goldenrod
+            margin-bottom: $padding-top - 19
