@@ -227,7 +227,6 @@ class Elem {
     // **  Fade
     async fade(dur: number, to: 0 | 1): Promise<this> {
         const styles = window.getComputedStyle(this.e);
-        const trans = styles.transition.split(', ');
         const transProp = styles.transitionProperty.split(', ');
         const indexOfOpacity = transProp.indexOf('opacity');
         // css opacity:0 => transDur[indexOfOpacity]: 0s
@@ -236,6 +235,7 @@ class Elem {
         if (indexOfOpacity !== -1) {
             const transDur = styles.transitionDuration.split(', ');
             const opacityTransDur = transDur[indexOfOpacity];
+            const trans = styles.transition.split(', ');
             // transition: opacity was defined in css.
             // set transition to dur, set opacity to 0, leave the animation to native transition, wait dur and return this
             console.warn(`fade(${dur}, ${to}), opacityTransDur !== undefined. nullifying transition. SHOULD NOT WORK`);

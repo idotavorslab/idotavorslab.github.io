@@ -172,12 +172,12 @@ class Elem {
     }
     async fade(dur, to) {
         const styles = window.getComputedStyle(this.e);
-        const trans = styles.transition.split(', ');
         const transProp = styles.transitionProperty.split(', ');
         const indexOfOpacity = transProp.indexOf('opacity');
         if (indexOfOpacity !== -1) {
             const transDur = styles.transitionDuration.split(', ');
             const opacityTransDur = transDur[indexOfOpacity];
+            const trans = styles.transition.split(', ');
             console.warn(`fade(${dur}, ${to}), opacityTransDur !== undefined. nullifying transition. SHOULD NOT WORK`);
             console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
             trans.splice(indexOfOpacity, 1, `opacity 0s`);

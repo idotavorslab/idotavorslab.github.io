@@ -5,8 +5,8 @@ div#people_container
 
 div#person_viewer
     height: 0px
-    $transDur: 500ms
-    transition: height $transDur ease-out, padding-top $transDur ease-out, padding-bottom $transDur ease-out
+    $transDur: 500ms cubic-bezier(0, 0, 0, 1)
+    transition: height $transDur, padding-top $transDur, padding-bottom $transDur
     margin: auto 20px
     text-align: left
     opacity: 0
