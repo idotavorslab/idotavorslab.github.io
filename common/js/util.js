@@ -44,7 +44,6 @@ function values(obj) {
 keys([1, 2, 3]);
 entries([1, 2, 3]);
 values([1, 2, 3]);
-const enumRT = "IterableIterator<T[] | (string | number | TMap<T>[string])[]>";
 function* enumerate(obj) {
     if (Array.isArray(obj)) {
         let i = 0;
@@ -58,33 +57,6 @@ function* enumerate(obj) {
             yield [k, obj[k]];
         }
     }
-}
-const dog = {
-    name: "yosi",
-    size: "big"
-};
-const cat = {
-    name: "yosi",
-    size: "big"
-};
-function* inumerate(obj) {
-    for (let k in obj) {
-        yield k;
-    }
-}
-function* lenumerate(obj) {
-    for (let k in obj) {
-        yield obj[k];
-    }
-}
-function* henumerate(obj) {
-    for (let k in obj) {
-        yield [k, obj[k]];
-    }
-}
-for (let [k, v] of henumerate(dog)) {
-}
-for (let n of enumerate([1, 2, 3])) {
 }
 const ajax = (() => {
     function _tryResolveResponse(xhr, resolve, reject) {

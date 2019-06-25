@@ -1,7 +1,7 @@
-type TMap3<T> = { [s: string]: T }
+type TMap<T> = { [s: string]: T }
 type TMap2<T, K extends keyof T> = { [s: string]: T[K] }
 type TMap4<T> = { [s: string]: T[keyof T] }
-type TMap<T> = { [P in keyof T]: T[P] }
+type TMap3<T> = { [P in keyof T]: T[P] }
 type TElemOptions = {
     tag?: 'span' | 'div' | 'button' | 'img' | any,
     id?: string,

@@ -1,6 +1,7 @@
 class Elem {
     _htmlElement: HTMLElement;
     
+    
     constructor(elemOptions: TElemOptions) {
         const {tag, id, htmlElement, text, query, children, cls} = elemOptions;
         
@@ -48,7 +49,7 @@ class Elem {
         
     }
     
-    get e(): HTMLElement {
+    get e() {
         return this._htmlElement;
     }
     
@@ -60,28 +61,28 @@ class Elem {
     }
     
     text(txt: string): this {
-        this._htmlElement.innerText = txt;
+        this.e.innerText = txt;
         return this;
         
     }
     
     id(id: string): this {
-        this._htmlElement.id = id;
+        this.e.id = id;
         return this;
     }
     
     css(css: TElemCssOpts): this {
         for (let [styleAttr, styleVal] of enumerate(css))
-            this._htmlElement.style[styleAttr] = styleVal;
+            this.e.style[<string>styleAttr] = styleVal;
         return this;
     }
     
     class(): string[] {
-        return Array.from(this._htmlElement.classList);
+        return Array.from(this.e.classList);
     }
     
     remove(): this {
-        this._htmlElement.remove();
+        this.e.remove();
         return this;
     }
     
@@ -89,33 +90,33 @@ class Elem {
     
     
     addClass(cls: string, ...clses: string[]): this {
-        this._htmlElement.classList.add(cls);
+        this.e.classList.add(cls);
         for (let c of clses)
-            this._htmlElement.classList.add(c);
+            this.e.classList.add(c);
         return this;
     }
     
     
     removeClass(cls: string): this {
-        this._htmlElement.classList.remove(cls);
+        this.e.classList.remove(cls);
         return this;
     }
     
     replaceClass(oldToken: string, newToken: string): this {
-        this._htmlElement.classList.replace(oldToken, newToken);
+        this.e.classList.replace(oldToken, newToken);
         return this;
     }
     
     
     setClass(cls: string): this {
-        this._htmlElement.className = cls;
+        this.e.className = cls;
         return this;
     }
     
     
     toggleClass(cls: string, turnOn: boolean): this {
         console.warn(`${this.e.id} | Elem.toggleClass was used. Should test vanilla .toggle function.`);
-        const alreadyHasCls = this._htmlElement.classList.contains(cls);
+        const alreadyHasCls = this.e.classList.contains(cls);
         if (turnOn && !alreadyHasCls)
             return this.addClass(cls);
         else if (!turnOn && alreadyHasCls)
@@ -128,29 +129,29 @@ class Elem {
     // **  Nodes
     append(...children: this[]): this {
         for (let child of children)
-            this._htmlElement.appendChild(child.e);
+            this.e.appendChild(child.e);
         return this;
     }
     
-    cacheAppend(keyChildObj: TMap<Elem>): this {
+    cacheAppend(keyChildObj: TMap<this>): this {
         for (let [key, child] of dict(keyChildObj).items()) {
-            this._htmlElement.appendChild(child.e);
+            this.e.appendChild(child.e);
             this[key] = child;
         }
         return this;
     }
     
     child(selector: string): Elem {
-        return new Elem({htmlElement: this._htmlElement.querySelector(selector)});
+        return new Elem({htmlElement: this.e.querySelector(selector)});
     }
     
     replaceChild(newChild: this, oldChild: this): this {
-        this._htmlElement.replaceChild(newChild._htmlElement, oldChild._htmlElement);
+        this.e.replaceChild(newChild.e, oldChild.e);
         return this;
     }
     
     children(): Elem[] {
-        const childrenVanilla = <HTMLElement[]>Array.from(this._htmlElement.children);
+        const childrenVanilla = <HTMLElement[]>Array.from(this.e.children);
         const toElem = (c: HTMLElement) => new Elem({htmlElement: c});
         return childrenVanilla.map(toElem);
     }
@@ -163,8 +164,8 @@ class Elem {
     
     empty(): this {
         // TODO: is this faster than innerHTML = ""?
-        while (this._htmlElement.firstChild)
-            this._htmlElement.removeChild(this._htmlElement.firstChild);
+        while (this.e.firstChild)
+            this.e.removeChild(this.e.firstChild);
         return this;
     }
     
@@ -172,13 +173,13 @@ class Elem {
     // **  Events
     on(evTypeFnPairs: TElemEvents): this {
         for (let [evType, evFn] of Object.entries(evTypeFnPairs))
-            this._htmlElement.addEventListener(evType, evFn);
+            this.e.addEventListener(evType, evFn);
         return this;
     }
     
     
     touchstart(fn: (ev: Event) => any, options?: { once: boolean }): this {
-        this._htmlElement.addEventListener('touchstart', function _f(ev: Event) {
+        this.e.addEventListener('touchstart', function _f(ev: Event) {
             ev.preventDefault();
             fn(ev);
             if (options && options.once)
@@ -194,7 +195,7 @@ class Elem {
         else // happens in Browserstack Safari, maybe also actual iOS safari
             evType = 'mousedown';
         
-        this._htmlElement.addEventListener(evType, function _f(ev: Event): void {
+        this.e.addEventListener(evType, function _f(ev: Event): void {
             ev.preventDefault();
             fn(ev);
             if (options && options.once)
@@ -205,7 +206,7 @@ class Elem {
     
     
     click(fn, ...args: any[]): this {
-        this._htmlElement.addEventListener('click', fn);
+        this.e.addEventListener('click', fn);
         return this;
     }
     
@@ -213,17 +214,17 @@ class Elem {
     
     attr(attrValPairs: TElemAttrs): this {
         for (let [attr, val] of enumerate(attrValPairs))
-            this._htmlElement.setAttribute(attr, val);
+            this.e.setAttribute(attr, val);
         return this;
     }
     
     removeAttribute(qualifiedName: string): this {
-        this._htmlElement.removeAttribute(qualifiedName);
+        this.e.removeAttribute(qualifiedName);
         return this;
     }
     
     data(key: string, parse: boolean = true) {
-        const data = this._htmlElement.getAttribute(`data-${key}`);
+        const data = this.e.getAttribute(`data-${key}`);
         if (parse)
             return JSON.parse(data);
         else
@@ -234,19 +235,19 @@ class Elem {
     fadeOut(dur: number): this {
         if (dur == 0)
             return this.css({opacity: 0});
-        let opacity = float(this._htmlElement.style.opacity);
+        let opacity = float(this.e.style.opacity);
         
         if (opacity === undefined || isNaN(opacity)) {
             console.warn('fadeOut htmlElement has NO opacity at all', {
                 opacity,
-                'this._htmlElement': this._htmlElement,
+                'this.e': this.e,
                 this: this
             });
             return this.css({opacity: 0});
         } else if (opacity <= 0) {
             console.warn('fadeOut opacity was lower than 0', {
                 opacity,
-                'this._htmlElement': this._htmlElement,
+                'this.e': this.e,
                 this: this
             });
             return this;
@@ -272,18 +273,18 @@ class Elem {
     fadeIn(dur: number): this {
         if (dur == 0)
             return this.css({opacity: 1});
-        let opacity = float(this._htmlElement.style.opacity);
+        let opacity = float(this.e.style.opacity);
         if (opacity == undefined || isNaN(opacity)) {
             console.warn('fadeIn htmlElement has NO opacity at all', {
                 opacity,
-                'this._htmlElement': this._htmlElement,
+                'this.e': this.e,
                 this: this
             });
             return this.css({opacity: 1});
         } else if (opacity > 1) {
             console.warn('fadeIn opacity was higher than 0', {
                 opacity,
-                'this._htmlElement': this._htmlElement,
+                'this.e': this.e,
                 this: this
             });
             return this;
@@ -313,6 +314,8 @@ class Elem {
 
 
 class Div extends Elem {
+    _htmlElement: HTMLDivElement;
+    
     constructor({id, text, cls}: TSubElemOptions = {}) {
         super({tag: "div", text, cls});
         if (id)
@@ -321,10 +324,13 @@ class Div extends Elem {
 }
 
 class Span extends Elem {
+    _htmlElement: HTMLSpanElement;
+    
     constructor({id, text, cls}: TSubElemOptions = {}) {
         super({tag: 'span', text, cls});
         if (id)
             this.id(id);
+        
     }
 }
 
@@ -338,6 +344,7 @@ class Img extends Elem {
         if (id)
             this.id(id);
         this._htmlElement.src = src;
+        
     }
 }
 

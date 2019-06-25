@@ -13,8 +13,8 @@ class Dict<T> {
         Object.assign(this, obj);
     }
     
-    items(): [string, T[keyof T]][] {
-        return Object.entries(this);
+    items(): [keyof T, T[keyof T]][] {
+        return <Array<[keyof T, T[keyof T]]>>Object.entries(this);
     }
 }
 
@@ -85,10 +85,9 @@ keys([1, 2, 3]);
 entries([1, 2, 3]);
 values([1, 2, 3]);
 
-const enumRT = "IterableIterator<T[] | (string | number | TMap<T>[string])[]>";
 
-
-function* enumerate<T>(obj: TMap<T> | T[]) {
+function enumerate<T>(o: T): T extends any[] ? IterableIterator<[number, T]> : IterableIterator<[keyof T, T[keyof T]]> // GOOD (equiv)
+function* enumerate(obj) {
     if (Array.isArray(obj)) {
         let i = 0;
         for (let x of obj) {
@@ -104,45 +103,6 @@ function* enumerate<T>(obj: TMap<T> | T[]) {
 }
 
 
-interface Animal {
-    name: string,
-    size: string
-}
-
-const dog: Animal = {
-    name: "yosi",
-    size: "big"
-};
-const cat: { name: string, size: string } = {
-    name: "yosi",
-    size: "big"
-};
-
-function* inumerate<T>(obj: T): IterableIterator<keyof T> {
-    for (let k in obj) {
-        yield k
-    }
-}
-
-function* lenumerate<T>(obj: T): IterableIterator<T[keyof T]> {
-    for (let k in obj) {
-        yield obj[k]
-    }
-}
-
-function* henumerate<T, K extends keyof T>(obj: T): IterableIterator<(keyof T | T[keyof T])[]> {
-    for (let k in obj) {
-        yield [k, obj[k]]
-    }
-}
-
-for (let [k, v] of henumerate(dog)) {
-    
-
-}
-for (let n of enumerate([1, 2, 3])) {
-
-}
 const ajax: TAjax = (() => {
     
     

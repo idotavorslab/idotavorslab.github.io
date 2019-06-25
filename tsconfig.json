@@ -13,7 +13,7 @@
 		/* Enable all strict type-checking options. */
 		"noImplicitAny": false,
 		/* Raise error on expressions and declarations with an implied 'any' type. */
-		"strictNullChecks": false
+		"strictNullChecks": false,
 		/* Enable strict null checks. */
 		// "allowJs": true,                       /* Allow javascript files to be compiled. */
 		// "checkJs": true,                       /* Report errors in .js files. */
