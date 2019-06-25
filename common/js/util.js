@@ -8,8 +8,10 @@ class Dict {
     constructor(obj) {
         Object.assign(this, obj);
     }
-    items() {
-        return Object.entries(this);
+    *items() {
+        for (let k in this) {
+            yield [k, this[k]];
+        }
     }
 }
 function dict(obj) {
@@ -32,18 +34,6 @@ class Str extends String {
 function str(val) {
     return new Str(val);
 }
-function keys(obj) {
-    return Object.keys(obj);
-}
-function entries(obj) {
-    return Object.entries(obj);
-}
-function values(obj) {
-    return Object.values(obj);
-}
-keys([1, 2, 3]);
-entries([1, 2, 3]);
-values([1, 2, 3]);
 function* enumerate(obj) {
     if (Array.isArray(obj)) {
         let i = 0;

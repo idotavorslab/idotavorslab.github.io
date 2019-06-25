@@ -72,7 +72,7 @@ class Elem {
     }
     
     css(css: TElemCssOpts): this {
-        for (let [styleAttr, styleVal] of enumerate(css))
+        for (let [styleAttr, styleVal] of dict(css).items())
             this.e.style[<string>styleAttr] = styleVal;
         return this;
     }
@@ -172,7 +172,7 @@ class Elem {
     
     // **  Events
     on(evTypeFnPairs: TElemEvents): this {
-        for (let [evType, evFn] of Object.entries(evTypeFnPairs))
+        for (let [evType, evFn] of dict(evTypeFnPairs).items())
             this.e.addEventListener(evType, evFn);
         return this;
     }
@@ -213,7 +213,7 @@ class Elem {
     // **  Attributes
     
     attr(attrValPairs: TElemAttrs): this {
-        for (let [attr, val] of enumerate(attrValPairs))
+        for (let [attr, val] of dict(attrValPairs).items())
             this.e.setAttribute(attr, val);
         return this;
     }

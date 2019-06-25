@@ -9,13 +9,56 @@ function int(x, base?: StringOrNumber | Function): number {
 }
 
 class Dict<T> {
+    
+    
     constructor(obj: T) {
         Object.assign(this, obj);
+        // this.items = items;
+        
+        /*function* items() {
+            for (let k in this) {
+                yield <[keyof T, T[keyof T]]>[k, this[k]]
+            }
+            
+        }
+        */
+        
+        // items(): [keyof T, T[keyof T]][] {
+        //     return <Array<[keyof T, T[keyof T]]>>Object.entries(this);
+        // }
+        // * items() {
+        //     for (let k in this) {
+        //         yield [k, this[k]]
+        //     }
+        // }
+        
+        
     }
     
-    items(): [keyof T, T[keyof T]][] {
-        return <Array<[keyof T, T[keyof T]]>>Object.entries(this);
+    * items(): IterableIterator<[Extract<keyof T, string>, T[Extract<keyof T, string>]]> {
+        for (let k in this) {
+            // yield [k, this[k]]
+            yield <[Extract<keyof T, string>, T[Extract<keyof T, string>]]><unknown>[k, this[k]]
+        }
+        
     }
+    
+    /** items(): IterableIterator<[Extract<K, string>, T[Extract<K, string>]]> {
+        for (let k in this) {
+            yield <[Extract<keyof this, string>, this[Extract<keyof this, string>]]>[k, this[k]]
+        }
+        
+    }
+     */
+    
+    /** items(): IterableIterator<[Extract<keyof this, string>, this[Extract<keyof this, string>]]> {
+        for (let k in this) {
+            yield <[Extract<K, string>, T[Extract<K, string>]]>[k, this[k]]
+        }
+        
+    }
+     */
+    
 }
 
 function dict<T>(obj: T): Dict<T> {
@@ -68,22 +111,6 @@ class Str extends String {
 function str(val) {
     return new Str(val);
 }
-
-function keys<T>(obj: TMap<T> | T[]): string[] {
-    return Object.keys(obj);
-}
-
-function entries<T>(obj: TMap<T> | T[]): [string, T][] {
-    return Object.entries(obj);
-}
-
-function values<T>(obj: TMap<T> | T[]): T[] {
-    return Object.values(obj);
-}
-
-keys([1, 2, 3]);
-entries([1, 2, 3]);
-values([1, 2, 3]);
 
 
 function enumerate<T>(o: T): T extends any[] ? IterableIterator<[number, T]> : IterableIterator<[keyof T, T[keyof T]]> // GOOD (equiv)
