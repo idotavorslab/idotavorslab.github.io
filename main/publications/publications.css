@@ -1,9 +1,2 @@
-div#papers_container {
-  text-align: left;
-}
-
-paper {
-  display: block;
-  position: relative;
-  margin: 0 0 60px 0;
-}
+div#papers_container{text-align:left}paper{display:block;position:relative;margin:0 0 60px 0}
+/*# sourceMappingURL=publications.css.map */
