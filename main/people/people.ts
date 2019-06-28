@@ -71,7 +71,7 @@ const PeoplePage = () => {
         const peopleContainer = div({id: "people_container"})
             .append(...people);
         
-        home.empty().append(personViewer.e, peopleContainer);
+        Home.empty().append(personViewer.e, peopleContainer);
         
         
     }

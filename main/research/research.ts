@@ -5,7 +5,7 @@ const ResearchPage = () => {
         // elem({id: 'page_css'}).attr({href: 'main/research/research.css'});
         let req = new Request('main/research/research.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
-        home.empty();
+        Home.empty();
         console.log(data);
         for (let [title, {image, text}] of dict(data).items()) {
             let article = elem({tag: "article"});
@@ -15,7 +15,7 @@ const ResearchPage = () => {
                     div({text: text, cls: "text"}),
                 )
                 .css({backgroundImage: `url("main/research/${image}")`});
-            home.append(article);
+            Home.append(article);
         }
         
         

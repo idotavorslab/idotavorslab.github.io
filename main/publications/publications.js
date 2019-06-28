@@ -1,7 +1,7 @@
 const PublicationsPage = () => {
     async function init() {
         console.log('PublicationsPage init');
-        home.empty();
+        Home.empty();
         let req = new Request('main/publications/publications.json', { cache: "no-cache" });
         const data = await (await fetch(req)).json();
         console.log(data);
@@ -14,7 +14,7 @@ const PublicationsPage = () => {
         }
         const papersContainer = div({ id: "papers_container" })
             .append(...papers);
-        home.append(papersContainer);
+        Home.append(papersContainer);
     }
     return { init };
 };

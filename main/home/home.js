@@ -1,7 +1,7 @@
 const HomePage = () => {
     async function init() {
         console.log('HomePage init');
-        home.empty();
+        Home.empty();
         elem({ id: 'page_css' }).attr({ href: 'main/home/home.css' });
         let req = new Request('main/home/home.json', { cache: "no-cache" });
         const data = await (await fetch(req)).json();
@@ -11,7 +11,7 @@ const HomePage = () => {
             article
                 .append(div({ text: title, cls: "title" }), div({ text: text, cls: "text" }))
                 .css({ backgroundImage: `url("main/home/${image}")` });
-            home.append(article);
+            Home.append(article);
         }
     }
     return { init };
@@ -22,4 +22,5 @@ const carousel = elem({
         right: '.right'
     }
 });
+console.log(carousel);
 //# sourceMappingURL=home.js.map

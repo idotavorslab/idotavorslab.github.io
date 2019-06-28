@@ -2,7 +2,7 @@ const HomePage = () => {
     async function init() {
         
         console.log('HomePage init');
-        home.empty();
+        Home.empty();
         elem({id: 'page_css'}).attr({href: 'main/home/home.css'});
         let req = new Request('main/home/home.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
@@ -15,7 +15,7 @@ const HomePage = () => {
                     div({text: text, cls: "text"}),
                 )
                 .css({backgroundImage: `url("main/home/${image}")`});
-            home.append(article);
+            Home.append(article);
         }
         
         
@@ -31,6 +31,7 @@ const carousel = elem({
         right: '.right'
     }
 });
+console.log(carousel);
 /*carousel.on({
     pointerdown: () => {
         console.log(carousel.children());

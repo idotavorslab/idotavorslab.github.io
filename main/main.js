@@ -1,21 +1,5 @@
 const isIphone = window.clientInformation.userAgent.includes('iPhone');
-const home = elem({ query: 'home' });
-const navbar = elem({
-    query: 'navbar',
-    children: {
-        home: '.home',
-        research: '.research',
-        people: '.people',
-        publications: '.publications',
-        photos: '.photos',
-        contact: '.contact',
-        tau: '.tau',
-    }
-});
-navbar.select = child => {
-    for (let k of [navbar.research, navbar.people, navbar.publications, navbar.photos, navbar.contact])
-        k.toggleClass('selected', k === child);
-};
+const Home = elem({ query: 'home' });
 navbar.home.pointerdown(() => window.location.reload());
 navbar.research.pointerdown(() => {
     navbar.select(navbar.research);

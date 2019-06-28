@@ -2,7 +2,7 @@ const PublicationsPage = () => {
     async function init() {
         
         console.log('PublicationsPage init');
-        home.empty();
+        Home.empty();
         // elem({id: 'page_css'}).attr({href: 'main/publications/publications.css'});
         let req = new Request('main/publications/publications.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
@@ -24,7 +24,7 @@ const PublicationsPage = () => {
         }
         const papersContainer = div({id: "papers_container"})
             .append(...papers);
-        home.append(papersContainer);
+        Home.append(papersContainer);
         
         
     }
