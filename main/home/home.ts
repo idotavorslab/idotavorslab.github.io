@@ -25,8 +25,9 @@ const HomePage = () => {
     return {init}
 };
 
+
 const carousel = elem({
-    query: "body > main > home > carousel", children: {
+    query: "carousel", children: {
         left: '.left',
         right: '.right'
     }

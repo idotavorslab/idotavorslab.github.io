@@ -6,7 +6,6 @@ function int(x, base?: StringOrNumber | Function): number {
     return parseInt(x, <number>base);
 }
 
-type ExK<T> = Extract<keyof T, string>;
 
 class Dict<T> {
     constructor(obj: T) {
