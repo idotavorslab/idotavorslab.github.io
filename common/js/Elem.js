@@ -60,12 +60,11 @@ class Elem {
             this.e.style[styleAttr] = styleVal;
         return this;
     }
+    animate(options) {
+        options.animationTimingFunction;
+    }
     class() {
         return Array.from(this.e.classList);
-    }
-    remove() {
-        this.e.remove();
-        return this;
     }
     addClass(cls, ...clses) {
         this.e.classList.add(cls);
@@ -120,6 +119,10 @@ class Elem {
     empty() {
         while (this.e.firstChild)
             this.e.removeChild(this.e.firstChild);
+        return this;
+    }
+    remove() {
+        this.e.remove();
         return this;
     }
     on(evTypeFnPairs, options) {

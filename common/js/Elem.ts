@@ -1,3 +1,397 @@
+type TEvent = keyof HTMLElementEventMap;
+type TEventFunctionMap<K> = {
+    [P in Extract<K, string>]?: (evt: Event) => void
+};
+
+
+type TElemOptions = {
+    tag?: "span" | "div" | "button" | "img" | any;
+    id?: string;
+    text?: string;
+    htmlElement?: HTMLElement;
+    query?: string;
+    children?: TMap<string>;
+    cls?: string;
+};
+
+type TSubElemOptions = {
+    id?: string;
+    text?: string;
+    cls?: string;
+};
+type TImgOptions = {
+    id?: string;
+    src?: string;
+    cls?: string;
+};
+
+type TElemAttrs = {
+    src?: string;
+    href?: string;
+};
+
+interface TElemCssOpts {
+    alignContentS?: string;
+    alignItems?: string;
+    alignSelf?: string;
+    alignmentBaseline?: string;
+    animation?: string;
+    animationDelay?: string;
+    animationDirection?: string;
+    animationDuration?: string;
+    animationFillMode?: string;
+    animationIterationCount?: string;
+    animationName?: string;
+    animationPlayState?: string;
+    animationTimingFunction?: string;
+    backfaceVisibility?: string;
+    background?: string;
+    backgroundAttachment?: string;
+    backgroundClip?: string;
+    backgroundColor?: string;
+    backgroundImage?: string;
+    backgroundOrigin?: string;
+    backgroundPosition?: string;
+    backgroundPositionX?: string;
+    backgroundPositionY?: string;
+    backgroundRepeat?: string;
+    backgroundSize?: string;
+    baselineShift?: string;
+    border?: string;
+    borderBottom?: string;
+    borderBottomColor?: string;
+    borderBottomLeftRadius?: string;
+    borderBottomRightRadius?: string;
+    borderBottomStyle?: string;
+    borderBottomWidth?: string;
+    borderCollapse?: string;
+    borderColor?: string;
+    borderImage?: string;
+    borderImageOutset?: string;
+    borderImageRepeat?: string;
+    borderImageSlice?: string;
+    borderImageSource?: string;
+    borderImageWidth?: string;
+    borderLeft?: string;
+    borderLeftColor?: string;
+    borderLeftStyle?: string;
+    borderLeftWidth?: string;
+    borderRadius?: string;
+    borderRight?: string;
+    borderRightColor?: string;
+    borderRightStyle?: string;
+    borderRightWidth?: string;
+    borderSpacing?: string;
+    borderStyle?: string;
+    borderTop?: string;
+    borderTopColor?: string;
+    borderTopLeftRadius?: string;
+    borderTopRightRadius?: string;
+    borderTopStyle?: string;
+    borderTopWidth?: string;
+    borderWidth?: string;
+    bottom?: string;
+    boxShadow?: string;
+    boxSizing?: string;
+    breakAfter?: string;
+    breakBefore?: string;
+    breakInside?: string;
+    captionSide?: string;
+    clear?: string;
+    clip?: string;
+    clipPath?: string;
+    clipRule?: string;
+    color?: string;
+    colorInterpolationFilters?: string;
+    columnCount?: any;
+    columnFill?: string;
+    columnGap?: any;
+    columnRule?: string;
+    columnRuleColor?: any;
+    columnRuleStyle?: string;
+    columnRuleWidth?: any;
+    columnSpan?: string;
+    columnWidth?: any;
+    columns?: string;
+    content?: string;
+    counterIncrement?: string;
+    counterReset?: string;
+    cssFloat?: string;
+    cssText?: string;
+    cursor?: string;
+    direction?: string;
+    display?: string;
+    dominantBaseline?: string;
+    emptyCells?: string;
+    enableBackground?: string;
+    fill?: string;
+    fillOpacity?: string;
+    fillRule?: string;
+    filter?: string;
+    flex?: string;
+    flexBasis?: string;
+    flexDirection?: string;
+    flexFlow?: string;
+    flexGrow?: string;
+    flexShrink?: string;
+    flexWrap?: string;
+    floodColor?: string;
+    floodOpacity?: string;
+    font?: string;
+    fontFamily?: string;
+    fontFeatureSettings?: string;
+    fontSize?: string;
+    fontSizeAdjust?: string;
+    fontStretch?: string;
+    fontStyle?: string;
+    fontVariant?: string;
+    fontWeight?: string;
+    gap?: string;
+    glyphOrientationHorizontal?: string;
+    glyphOrientationVertical?: string;
+    grid?: string;
+    gridArea?: string;
+    gridAutoColumns?: string;
+    gridAutoFlow?: string;
+    gridAutoRows?: string;
+    gridColumn?: string;
+    gridColumnEnd?: string;
+    gridColumnGap?: string;
+    gridColumnStart?: string;
+    gridGap?: string;
+    gridRow?: string;
+    gridRowEnd?: string;
+    gridRowGap?: string;
+    gridRowStart?: string;
+    gridTemplate?: string;
+    gridTemplateAreas?: string;
+    gridTemplateColumns?: string;
+    gridTemplateRows?: string;
+    height?: string;
+    imeMode?: string;
+    justifyContent?: string;
+    justifyItems?: string;
+    justifySelf?: string;
+    kerning?: string;
+    layoutGrid?: string;
+    layoutGridChar?: string;
+    layoutGridLine?: string;
+    layoutGridMode?: string;
+    layoutGridType?: string;
+    left?: string;
+    readonly length?: number;
+    letterSpacing?: string;
+    lightingColor?: string;
+    lineBreak?: string;
+    lineHeight?: string;
+    listStyle?: string;
+    listStyleImage?: string;
+    listStylePosition?: string;
+    listStyleType?: string;
+    margin?: string;
+    marginBottom?: string;
+    marginLeft?: string;
+    marginRight?: string;
+    marginTop?: string;
+    marker?: string;
+    markerEnd?: string;
+    markerMid?: string;
+    markerStart?: string;
+    mask?: string;
+    maskImage?: string;
+    maxHeight?: string;
+    maxWidth?: string;
+    minHeight?: string;
+    minWidth?: string;
+    msContentZoomChaining?: string;
+    msContentZoomLimit?: string;
+    msContentZoomLimitMax?: any;
+    msContentZoomLimitMin?: any;
+    msContentZoomSnap?: string;
+    msContentZoomSnapPoints?: string;
+    msContentZoomSnapType?: string;
+    msContentZooming?: string;
+    msFlowFrom?: string;
+    msFlowInto?: string;
+    msFontFeatureSettings?: string;
+    msGridColumn?: any;
+    msGridColumnAlign?: string;
+    msGridColumnSpan?: any;
+    msGridColumns?: string;
+    msGridRow?: any;
+    msGridRowAlign?: string;
+    msGridRowSpan?: any;
+    msGridRows?: string;
+    msHighContrastAdjust?: string;
+    msHyphenateLimitChars?: string;
+    msHyphenateLimitLines?: any;
+    msHyphenateLimitZone?: any;
+    msHyphens?: string;
+    msImeAlign?: string;
+    msOverflowStyle?: string;
+    msScrollChaining?: string;
+    msScrollLimit?: string;
+    msScrollLimitXMax?: any;
+    msScrollLimitXMin?: any;
+    msScrollLimitYMax?: any;
+    msScrollLimitYMin?: any;
+    msScrollRails?: string;
+    msScrollSnapPointsX?: string;
+    msScrollSnapPointsY?: string;
+    msScrollSnapType?: string;
+    msScrollSnapX?: string;
+    msScrollSnapY?: string;
+    msScrollTranslation?: string;
+    msTextCombineHorizontal?: string;
+    msTextSizeAdjust?: any;
+    msTouchAction?: string;
+    msTouchSelect?: string;
+    msUserSelect?: string;
+    msWrapFlow?: string;
+    msWrapMargin?: any;
+    msWrapThrough?: string;
+    objectFit?: string;
+    objectPosition?: string;
+    opacity?: string | number;
+    order?: string;
+    orphans?: string;
+    outline?: string;
+    outlineColor?: string;
+    outlineOffset?: string;
+    outlineStyle?: string;
+    outlineWidth?: string;
+    overflow?: string;
+    overflowX?: string;
+    overflowY?: string;
+    padding?: string;
+    paddingBottom?: string;
+    paddingLeft?: string;
+    paddingRight?: string;
+    paddingTop?: string;
+    pageBreakAfter?: string;
+    pageBreakBefore?: string;
+    pageBreakInside?: string;
+    readonly parentRule?: CSSRule;
+    penAction?: string;
+    perspective?: string;
+    perspectiveOrigin?: string;
+    pointerEvents?: string;
+    position?: string;
+    quotes?: string;
+    resize?: string;
+    right?: string;
+    rotate?: string;
+    rowGap?: string;
+    rubyAlign?: string;
+    rubyOverhang?: string;
+    rubyPosition?: string;
+    scale?: string;
+    scrollBehavior?: string;
+    stopColor?: string;
+    stopOpacity?: string;
+    stroke?: string;
+    strokeDasharray?: string;
+    strokeDashoffset?: string;
+    strokeLinecap?: string;
+    strokeLinejoin?: string;
+    strokeMiterlimit?: string;
+    strokeOpacity?: string;
+    strokeWidth?: string;
+    tableLayout?: string;
+    textAlign?: string;
+    textAlignLast?: string;
+    textAnchor?: string;
+    textCombineUpright?: string;
+    textDecoration?: string;
+    textIndent?: string;
+    textJustify?: string;
+    textKashida?: string;
+    textKashidaSpace?: string;
+    textOverflow?: string;
+    textShadow?: string;
+    textTransform?: string;
+    textUnderlinePosition?: string;
+    top?: string;
+    touchAction?: string;
+    transform?: string;
+    transformOrigin?: string;
+    transformStyle?: string;
+    transition?: string;
+    transitionDelay?: string;
+    transitionDuration?: string;
+    transitionProperty?: string;
+    transitionTimingFunction?: string;
+    translate?: string;
+    unicodeBidi?: string;
+    userSelect?: string;
+    verticalAlign?: string;
+    visibility?: string;
+    
+    webkitColumnBreakAfter?: string;
+    webkitColumnBreakBefore?: string;
+    webkitColumnBreakInside?: string;
+    webkitColumnCount?: any;
+    webkitColumnGap?: any;
+    webkitColumnRule?: string;
+    webkitColumnRuleColor?: any;
+    webkitColumnRuleStyle?: string;
+    webkitColumnRuleWidth?: any;
+    webkitColumnSpan?: string;
+    webkitColumnWidth?: any;
+    webkitColumns?: string;
+    
+    webkitUserModify?: string;
+    webkitUserSelect?: string;
+    webkitWritingMode?: string;
+    whiteSpace?: string;
+    widows?: string;
+    width?: string;
+    wordBreak?: string;
+    wordSpacing?: string;
+    wordWrap?: string;
+    writingMode?: string;
+    zIndex?: string;
+    zoom?: string;
+    
+    
+}
+
+type CubicBezierFunction = (p1: number, p2: number, p3: number, p4: number) => any;
+type Jumpterm = 'jump-start' | 'jump-end' | 'jump-none' | 'jump-both' | 'start' | 'end';
+/**Displays an animation iteration along n stops along the transition, displaying each stop for equal lengths of time.
+ * For example, if n is 5,  there are 5 steps.
+ * Whether the animation holds temporarily at 0%, 20%, 40%, 60% and 80%, on the 20%, 40%, 60%, 80% and 100%, or makes 5 stops between the 0% and 100% along the animation, or makes 5 stops including the 0% and 100% marks (on the 0%, 25%, 50%, 75%, and 100%) depends on which of the following jump terms is used*/
+type StepsFunction = (n: number, jumpterm: Jumpterm) => any;
+type AnimationTimingFunction =
+    'linear'
+    | 'ease'
+    | 'ease-in'
+    | 'ease-out'
+    | 'ease-in-out'
+    | 'step-start'
+    | 'step-end'
+    | StepsFunction
+    | CubicBezierFunction
+
+interface AnimationOptions {
+    animationDelay?: string;
+    animationDirection?: 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
+    animationDuration?: string;
+    animationFillMode?: 'none' | 'forwards' | 'backwards' | 'both';
+    animationIterationCount?: number;
+    animationName: string;
+    animationPlayState?: 'paused' | 'running';
+    /** Also accepts:
+     * cubic-bezier(p1, p2, p3, p4)
+     * 'ease' == 'cubic-bezier(0.25, 0.1, 0.25, 1.0)'
+     * 'linear' == 'cubic-bezier(0.0, 0.0, 1.0, 1.0)'
+     * 'ease-in' == 'cubic-bezier(0.42, 0, 1.0, 1.0)'
+     * 'ease-out' == 'cubic-bezier(0, 0, 0.58, 1.0)'
+     * 'ease-in-out' == 'cubic-bezier(0.42, 0, 0.58, 1.0)'
+     * */
+    animationTimingFunction?: AnimationTimingFunction;
+}
+
 class Elem {
     _htmlElement: HTMLElement;
     
@@ -77,17 +471,14 @@ class Elem {
         return this;
     }
     
-    class(): string[] {
-        return Array.from(this.e.classList);
-    }
-    
-    remove(): this {
-        this.e.remove();
-        return this;
+    animate(options: AnimationOptions) {
+        options.animationTimingFunction
     }
     
     // **  Classes
-    
+    class(): string[] {
+        return Array.from(this.e.classList);
+    }
     
     addClass(cls: string, ...clses: string[]): this {
         this.e.classList.add(cls);
@@ -162,6 +553,10 @@ class Elem {
         return this;
     }
     
+    remove(): this {
+        this.e.remove();
+        return this;
+    }
     
     // **  Events
     on(evTypeFnPairs: TEventFunctionMap<TEvent>, options?: AddEventListenerOptions): this {

@@ -15,8 +15,24 @@ const HomePage = () => {
         }
     });
     console.log(carousel);
+    carousel.headline.on({
+        pointerdown: () => {
+            console.log('headline pointerdown');
+        },
+    });
+    carousel.left.on({
+        pointerdown: () => {
+            console.log('left pointerdown');
+            carousel.left.animate({});
+        },
+    });
+    carousel.right.on({
+        pointerdown: () => {
+            console.log('right pointerdown');
+        },
+    });
     async function init() {
-        console.log('HomePage init');
+        console.group('HomePage init');
         let req = new Request('main/research/research.json', { cache: "no-cache" });
         const data = await (await fetch(req)).json();
         console.log(data);
@@ -27,6 +43,7 @@ const HomePage = () => {
         carousel.css({ backgroundImage: `linear-gradient(#999, #888), url("main/research/${carouselItems[0].image}")` });
         carousel.headline.text(carouselItems[0].title);
         console.log(carouselItems);
+        console.groupEnd();
     }
     return { init };
 };

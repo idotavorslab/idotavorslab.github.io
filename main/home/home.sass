@@ -22,7 +22,7 @@ carousel
         font:
             family: OpenSansBold
             size: 40px
-            //weight: 700
+    //weight: 700
 
 
     button
@@ -38,7 +38,7 @@ carousel
 
         cursor: pointer
         height: $button_side
-        text-shadow: 5px 5px 5px black
+        //text-shadow: 5px 5px 5px black
         font:
             family: monospace
             size: 35px
@@ -46,13 +46,24 @@ carousel
         align-self: center
         grid-row: 2/2
 
-        //opacity: 0
-        transition: opacity 150ms
+        &:focus
+            outline: unset
+            animation:
+                name: downAndUp
+                duration: 25ms
+                iteration-count: 1
+                timing-function: linear
 
-    button.left
-        //background-image: url("carousel/images/arrow-left.svg")
-        grid-column: 1/1
+        &[class="left"]
+            //background-image: url("carousel/images/arrow-left.svg")
+            grid-column: 1/1
 
-    button.right
-        //background-image: url("carousel/images/arrow-right.svg")
-        grid-column: 3/3
+        &[class="right"]
+            //background-image: url("carousel/images/arrow-right.svg")
+            grid-column: 3/3
+
+@keyframes downAndUp
+    0%
+        transform: translateY(5px)
+    100%
+        transform: translateY(0px)

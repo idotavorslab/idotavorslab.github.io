@@ -26,10 +26,29 @@ const HomePage = () => {
         }
     });
     console.log(carousel);
+    carousel.headline.on({
+        pointerdown: () => {
+            console.log('headline pointerdown');
+        },
+        
+    });
+    carousel.left.on({
+        pointerdown: () => {
+            console.log('left pointerdown');
+            carousel.left.animate({});
+        },
+        
+    });
+    carousel.right.on({
+        pointerdown: () => {
+            console.log('right pointerdown');
+        },
+        
+    });
     
     async function init() {
         
-        console.log('HomePage init');
+        console.group('HomePage init');
         let req = new Request('main/research/research.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
         console.log(data);
@@ -42,6 +61,7 @@ const HomePage = () => {
         console.log(carouselItems);
         
         
+        console.groupEnd();
     }
     
     
@@ -49,19 +69,7 @@ const HomePage = () => {
 };
 
 HomePage().init();
-/*carousel.on({
-    pointerdown: () => {
-        console.log(carousel.children());
-    },
-    mouseover: () => {
-        buttonLeft.css({opacity: 1});
-        buttonRight.css({opacity: 1});
-    },
-    mouseout: () => {
-        buttonLeft.css({opacity: 0});
-        buttonRight.css({opacity: 0});
-    }
-});
-*/
+
+
 
 
