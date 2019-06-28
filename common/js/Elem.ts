@@ -120,7 +120,7 @@ class Elem {
     }
     
     // **  Nodes
-    append(...children: this[]): this {
+    append(...children: Elem[]): this {
         for (let child of children)
             this.e.appendChild(child.e);
         return this;

@@ -9,8 +9,9 @@ class Dict {
         Object.assign(this, obj);
     }
     *items() {
-        for (let k in this) {
-            yield [k, this[k]];
+        const proxy = this;
+        for (let k in proxy) {
+            yield [k, proxy[k]];
         }
     }
 }
@@ -39,12 +40,11 @@ function* enumerate(obj) {
         let i = 0;
         for (let x of obj) {
             yield [i, x];
-            i++;
         }
     }
     else {
-        for (let k in obj) {
-            yield [k, obj[k]];
+        for (let prop in obj) {
+            yield [prop, obj[prop]];
         }
     }
 }
@@ -64,7 +64,7 @@ const ajax = (() => {
         }
         catch (e) {
             if (e instanceof SyntaxError) {
-                console.warn('failed JSON parsing xhr responseText. returning raw', { xhr });
+                console.warn("failed JSON parsing xhr responseText. returning raw", { xhr });
                 return resolve(xhr.responseText);
             }
             else {
@@ -74,25 +74,25 @@ const ajax = (() => {
         }
     }
     function _baseRequest(type, url, data) {
-        if (!url.startsWith('/'))
+        if (!url.startsWith("/"))
             url = "/" + url;
         const xhr = new XMLHttpRequest();
         return new Promise(async (resolve, reject) => {
             await xhr.open(str(type).upper(), url, true);
             xhr.onload = () => _tryResolveResponse(xhr, resolve, reject);
-            if (type === 'get')
+            if (type === "get")
                 xhr.send();
-            else if (type === 'post')
+            else if (type === "post")
                 xhr.send(JSON.stringify(data));
             else
                 throw new Error(`util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`);
         });
     }
     function get(url) {
-        return _baseRequest('get', url);
+        return _baseRequest("get", url);
     }
     function post(url, data) {
-        return _baseRequest('post', url, data);
+        return _baseRequest("post", url, data);
     }
     return { post, get };
 })();

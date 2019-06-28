@@ -1,31 +1,24 @@
 function float(str: string): number {
     return parseFloat(str);
-    
 }
 
-
 function int(x, base?: StringOrNumber | Function): number {
-    return parseInt(x, <number>base)
+    return parseInt(x, <number>base);
 }
 
 type ExK<T> = Extract<keyof T, string>;
 
 class Dict<T> {
-    
-    
     constructor(obj: T) {
         Object.assign(this, obj);
-        
     }
     
-    * items(): IterableIterator<[ExK<T>, T[ExK<T>]]> {
-        for (let k in this) {
-            yield <[ExK<T>, T[ExK<T>]]><unknown>[k, this[k]]
+    * items(): IterableIterator<[string, T[keyof T]]> {
+        const proxy = this as unknown as T;
+        for (let k in proxy) {
+            yield [k, proxy[k]];
         }
-        
     }
-    
-    
 }
 
 function dict<T>(obj: T): Dict<T> {
@@ -33,7 +26,6 @@ function dict<T>(obj: T): Dict<T> {
 }
 
 class Str extends String {
-    
     constructor(value) {
         super(value);
     }
@@ -47,10 +39,9 @@ class Str extends String {
     }
     
     lower(): string {
-        return this.toLowerCase()
+        return this.toLowerCase();
     }
 }
-
 
 // const oldProto = Str.prototype;
 // Str = function (lol) {
@@ -79,35 +70,30 @@ function str(val) {
     return new Str(val);
 }
 
-
-function enumerate<T>(o: T): T extends any[] ? IterableIterator<[number, T]> : IterableIterator<[keyof T, T[keyof T]]>
+function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
+function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
 function* enumerate(obj) {
     if (Array.isArray(obj)) {
-        let i = 0;
+        let i: number = 0;
         for (let x of obj) {
             yield [i, x];
-            i++
         }
     } else {
-        for (let k in obj) {
-            yield [k, obj[k]]
+        for (let prop in obj) {
+            yield [prop, obj[prop]];
         }
     }
-    
 }
 
 function wait(ms: number): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
 async function concurrent<T>(...promises: Promise<T>[]): Promise<T[]> {
     return await Promise.all(promises);
 }
 
 const ajax: TAjax = (() => {
-    
-    
     function _tryResolveResponse(xhr: XMLHttpRequest, resolve, reject) {
         if (xhr.status != 200) {
             return reject(xhr);
@@ -116,7 +102,10 @@ const ajax: TAjax = (() => {
             return resolve(JSON.parse(xhr.responseText));
         } catch (e) {
             if (e instanceof SyntaxError) {
-                console.warn('failed JSON parsing xhr responseText. returning raw', {xhr});
+                console.warn(
+                    "failed JSON parsing xhr responseText. returning raw",
+                    {xhr}
+                );
                 return resolve(xhr.responseText);
             } else {
                 console.error({xhr});
@@ -125,28 +114,31 @@ const ajax: TAjax = (() => {
         }
     }
     
-    
-    function _baseRequest(type: 'get' | 'post', url: string, data?: object): Promise<object> {
-        if (!url.startsWith('/')) url = "/" + url;
+    function _baseRequest(
+        type: "get" | "post",
+        url: string,
+        data?: object
+    ): Promise<object> {
+        if (!url.startsWith("/")) url = "/" + url;
         const xhr = new XMLHttpRequest();
         return new Promise(async (resolve, reject) => {
             await xhr.open(str(type).upper(), url, true);
             xhr.onload = () => _tryResolveResponse(xhr, resolve, reject);
-            if (type === 'get')
-                xhr.send();
-            else if (type === 'post')
-                xhr.send(JSON.stringify(data));
+            if (type === "get") xhr.send();
+            else if (type === "post") xhr.send(JSON.stringify(data));
             else
-                throw new Error(`util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`);
+                throw new Error(
+                    `util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`
+                );
         });
     }
     
     function get(url: string): Promise<object> {
-        return _baseRequest('get', url);
+        return _baseRequest("get", url);
     }
     
     function post(url: string, data: any): Promise<object> {
-        return _baseRequest('post', url, data);
+        return _baseRequest("post", url, data);
     }
     
     return {post, get};
