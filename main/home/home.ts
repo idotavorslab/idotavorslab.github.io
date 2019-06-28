@@ -1,22 +1,45 @@
 const HomePage = () => {
+    class CarouselItem {
+        title: string;
+        image: string;
+        text: string;
+        
+        constructor(title: string, image: string, text: string) {
+            this.title = title;
+            this.image = image;
+            this.text = text;
+        }
+    }
+    
+    interface Carousel extends Elem {
+        left: Elem;
+        right: Elem;
+        headline: Elem;
+    }
+    
+    const carouselItems: CarouselItem[] = [];
+    const carousel: Carousel = <Carousel>elem({
+        query: "carousel", children: {
+            left: '.left',
+            right: '.right',
+            headline: 'headline'
+        }
+    });
+    console.log(carousel);
+    
     async function init() {
         
         console.log('HomePage init');
-        Home.empty();
-        elem({id: 'page_css'}).attr({href: 'main/home/home.css'});
-        let req = new Request('main/home/home.json', {cache: "no-cache"});
+        let req = new Request('main/research/research.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
         console.log(data);
         for (let [title, {image, text}] of dict(data).items()) {
-            let article = elem({tag: "article"});
-            article
-                .append(
-                    div({text: title, cls: "title"}),
-                    div({text: text, cls: "text"}),
-                )
-                .css({backgroundImage: `url("main/home/${image}")`});
-            Home.append(article);
+            let item = new CarouselItem(title, image, text);
+            carouselItems.push(item);
         }
+        carousel.css({backgroundImage: `url("main/research/${carouselItems[0].image}")`});
+        carousel.headline.text(carouselItems[0].title);
+        console.log(carouselItems);
         
         
     }
@@ -25,14 +48,7 @@ const HomePage = () => {
     return {init}
 };
 
-
-const carousel = elem({
-    query: "carousel", children: {
-        left: '.left',
-        right: '.right'
-    }
-});
-console.log(carousel);
+HomePage().init();
 /*carousel.on({
     pointerdown: () => {
         console.log(carousel.children());
