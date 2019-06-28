@@ -24,7 +24,7 @@ const HomePage = () => {
             let item = new CarouselItem(title, image, text);
             carouselItems.push(item);
         }
-        carousel.css({ backgroundImage: `url("main/research/${carouselItems[0].image}")` });
+        carousel.css({ backgroundImage: `linear-gradient(#999, #555), url("main/research/${carouselItems[0].image}")` });
         carousel.headline.text(carouselItems[0].title);
         console.log(carouselItems);
     }
