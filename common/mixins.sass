@@ -1,35 +1,6 @@
-@mixin font_smoothing($val)
-  @supports (-webkit-font-smoothing: $val)
-    -webkit-font-smoothing: $val
-
-@mixin background_image($url)
-  $fmtd_url: url($url)
-  @each $pre in (null, moz, o, webkit)
-    $prop: null
-    @if ($pre == null)
-      $prop: background-image
-    @else
-      $prop: -#{$pre}-background-image
-
-    @supports ($prop: $fmtd_url)
-      #{$prop}: $fmtd_url
-
-
-@mixin moz_or_wk($prop, $val)
-  @supports not ($prop: -moz-#{$val})
-    #{$prop}: -webkit-#{$val}
-
-  @supports ($prop: -moz-#{$val})
-    #{$prop}: -moz-#{$val}
-
-
-@mixin fill_available($prop, $min_val)
-  @supports ($prop: -moz-available)
-    #{$prop}: -moz-available
-    @if (index(height, $prop))
-      min-#{$prop}: $min_val
-
-
-  @supports not ($prop: -moz-available)
-    #{$prop}: -webkit-fill-available
+@mixin four_way_text_shadow($x, $y, $blur, $color)
+    // TODO: fix
+    //  should be eg:
+    //  4px 2px 1px black, -4px 2px 1px black, 4px -2px 1px black, -4px -2px 1px black
+    text-shadow: $x $y $blur $color, $x * -1 $y $blur $color, $x $y * -1 $blur $color, $x * -1 $y * -1 $blur $color
 

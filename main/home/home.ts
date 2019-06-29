@@ -29,25 +29,25 @@ const HomePage = () => {
                 },
                 
             });
-            const _animateButton = btn => btn.animate({
+            let _buttonAnimation: AnimateOptions = {
                 name: 'downAndUp',
                 duration: '25ms',
                 timingFunction: 'linear',
                 iterationCount: 1
-            });
+            };
             this.left.on({
                 pointerdown: () => {
                     console.log('left pointerdown', this);
-                    _animateButton(this.left);
-                    this.switchLeft();
+                    this.left.animate(_buttonAnimation);
+                    this._switchLeft();
                 },
                 
             });
             this.right.on({
                 pointerdown: () => {
                     console.log('right pointerdown');
-                    _animateButton(this.right);
-                    this.switchRight();
+                    this.right.animate(_buttonAnimation);
+                    this._switchRight();
                 },
                 
             });
@@ -61,15 +61,15 @@ const HomePage = () => {
             else if (this.currentIndex == this.items.length)
                 this.currentIndex = 0;
             console.log('this.currentIndex: ', this.currentIndex);
-            this.css({backgroundImage: `linear-gradient(#999, #888), url("main/research/${this.items[this.currentIndex].image}")`});
+            this.css({backgroundImage: `linear-gradient(rgb(100,100,100), #FFF), url("main/research/${this.items[this.currentIndex].image}")`});
             this.headline.text(this.items[this.currentIndex].title);
         }
         
-        switchRight() {
+        private _switchRight() {
             this._switch(this.currentIndex + 1);
         }
         
-        switchLeft() {
+        private _switchLeft() {
             this._switch(this.currentIndex - 1);
         }
         

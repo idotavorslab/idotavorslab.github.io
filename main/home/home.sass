@@ -1,3 +1,4 @@
+@import "../../common/mixins"
 carousel
     $carousel_height: 400px
     $button_side: 70px
@@ -15,6 +16,7 @@ carousel
 
 
     headline
+        @include four_way_text_shadow(0px, 3px, 8px, rgba(0, 0, 0, 0.05))
         grid-row: 1/1
         grid-column: span 3
         margin-top: 10px
@@ -48,18 +50,12 @@ carousel
 
         &:focus
             outline: unset
-            //animation:
-                name: downAndUp
-                duration: 25ms
-                iteration-count: 1
-                timing-function: linear
+
 
         &[class="left"]
-            //background-image: url("carousel/images/arrow-left.svg")
             grid-column: 1/1
 
         &[class="right"]
-            //background-image: url("carousel/images/arrow-right.svg")
             grid-column: 3/3
 
 @keyframes downAndUp
