@@ -38,7 +38,9 @@ const PeoplePage = () => {
         console.log(data);
         const people = [];
         personViewer.init();
-        for (let [name, { image, role, cv, email }] of dict(data).items()) {
+        const { team, alumni } = data;
+        console.log({ team, alumni });
+        for (let [name, { image, role, cv, email }] of dict(team).items()) {
             let person = elem({ tag: "person" });
             person
                 .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
