@@ -23,7 +23,11 @@
     font-family: "OpenSansItalic"
     src: url("common/fonts/OpenSans-Italic.ttf")
 
+html
+    min-height: 100%
+
 body
+    margin: 0
     overflow: overlay
     font-family: "OpenSans", sans-serif
     -webkit-font-smoothing: antialiased
@@ -32,10 +36,10 @@ body
 
 main
     @media screen and (min-width: 1600px)
-            margin: 40px auto
+        margin: 40px auto
     @media screen and (max-width: 1600px)
-            margin: 30px auto
-    
+        margin: 30px auto
+
     max-width: 100%
     text-align: center
     @import 'main/navbar/navbar.sass'
@@ -55,8 +59,8 @@ main
     bottom: 0
     background-color: rgba(0, 0, 0, 0.5)
     color: white
-    // font-weight: 500
-    // @include four_way_text_shadow(1px, 1px, 1px, white)
+// font-weight: 500
+// @include four_way_text_shadow(1px, 1px, 1px, white)
 
 @import 'main/home/home.sass'
 @import 'main/research/research.sass'
