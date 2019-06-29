@@ -10,15 +10,22 @@
     grid-template-columns: $button_side 20% auto 20% $button_side
     height: $carousel_height
     color: rgb(225, 225, 225)
-    background:
-        repeat: no-repeat
-        position: center
-        size: cover
-        blend-mode: multiply
+    
 
     &[class~="animated"]
         animation: contrastDownAndReset 200ms linear
-
+    
+    .image
+        
+        position: absolute
+        width: 100%
+        height: 100%
+        z-index: -1
+        background:
+            repeat: no-repeat
+            position: center
+            size: cover
+            blend-mode: multiply
     headline
         @include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
         position: absolute

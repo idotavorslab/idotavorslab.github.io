@@ -17,6 +17,7 @@ const HomePage = () => {
         headline: Elem;
         content: Elem;
         items: CarouselItem[];
+        image: Elem;
         currentIndex: number;
         
         constructor(elemOptions: ElemOptions, items: CarouselItem[]) {
@@ -30,21 +31,16 @@ const HomePage = () => {
                 },
                 
             });
-            let _buttonAnimation: AnimateOptions = {
-                name: 'scaleDownAndReset',
-                duration: '50ms',
-                timingFunction: 'linear',
-                // iterationCount: 1
-            };
+            
             this.left.click(async () => {
                 // console.log('%cleft click', 'font-weight: 700; font-size: 15px', this);
                 TweenLite.to(this.content.e, 0.1, {opacity: 0});
                 TweenLite.to(this.headline.e, 0.1, {opacity: 0});
+                
+                
                 TweenLite.fromTo(this.e, 0.2, {filter: 'brightness(1)'}, {
                     filter: 'brightness(0.5)',
                     ease: Power2.easeIn,
-                    // useFrames: true,
-                    // lazy: true,
                     onStart: () => {
                     
                     },
@@ -56,38 +52,7 @@ const HomePage = () => {
                         TweenLite.to(this.e, 1, {filter: 'brightness(1)'})
                     }
                 })
-                /*TweenMax.fromTo(this.e, 1,
-                    {filter: 'brightness(1)'}, {
-                        filter: 'brightness(0.75)',
-                        ease: Power4.easeOut,
-                        onComplete: () => {
-                            this._switchLeft();
-                            TweenLite.to(this.e, 1, {filter: 'brightness(1)'})
-                        }
-                    });
-                */
                 
-                /*this.animate({
-                    name: 'contrastDownAndReset',
-                    duration: '1500ms',
-                    timingFunction: "linear",
-                });
-                */
-                
-                // this.left.animate(_buttonAnimation);
-                /*this.left.removeClass('animated');
-                window.requestAnimationFrame(time => {
-                    window.requestAnimationFrame(time => {
-                        this.left.addClass('animated');
-                    })
-                });
-                this.removeClass('animated');
-                window.requestAnimationFrame(time => {
-                    window.requestAnimationFrame(time => {
-                        this.addClass('animated');
-                    })
-                })
-                */
                 
             });
             this.right.click(() => {
@@ -107,7 +72,7 @@ const HomePage = () => {
             // console.log('_switch, index: ', index, 'this.currentIndex: ', this.currentIndex, 'current item: ', this.items[this.currentIndex]);
             this.content.text(this.items[this.currentIndex].content);
             this.headline.text(this.items[this.currentIndex].title);
-            this.css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")`});
+            this.image.css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")`});
         }
         
         private _switchRight() {
@@ -138,7 +103,8 @@ const HomePage = () => {
                 left: '.left',
                 right: '.right',
                 content: 'content',
-                headline: 'headline'
+                headline: 'headline',
+                image: '.image'
             }
         }, carouselItems);
         console.log(carousel);

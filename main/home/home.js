@@ -17,11 +17,6 @@ const HomePage = () => {
                     console.log('headline pointerdown');
                 },
             });
-            let _buttonAnimation = {
-                name: 'scaleDownAndReset',
-                duration: '50ms',
-                timingFunction: 'linear',
-            };
             this.left.click(async () => {
                 TweenLite.to(this.content.e, 0.1, { opacity: 0 });
                 TweenLite.to(this.headline.e, 0.1, { opacity: 0 });
@@ -53,7 +48,7 @@ const HomePage = () => {
                 this.currentIndex = 0;
             this.content.text(this.items[this.currentIndex].content);
             this.headline.text(this.items[this.currentIndex].title);
-            this.css({ backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")` });
+            this.image.css({ backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")` });
         }
         _switchRight() {
             this._switch(this.currentIndex + 1);
@@ -77,7 +72,8 @@ const HomePage = () => {
                 left: '.left',
                 right: '.right',
                 content: 'content',
-                headline: 'headline'
+                headline: 'headline',
+                image: '.image'
             }
         }, carouselItems);
         console.log(carousel);
