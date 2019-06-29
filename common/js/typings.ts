@@ -191,6 +191,7 @@ interface ToVars extends CssOptions {
     callbackScope?: Object;
     delay?: number;
     ease?: Ease;
+    lazy?: boolean;
     immediateRender?: boolean;
     onComplete?: Function;
     onCompleteParams?: any[];
