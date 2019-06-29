@@ -1,4 +1,4 @@
-const navbar = elem({
+const Navbar = elem({
     query: 'navbar',
     children: {
         home: '.home',
@@ -10,21 +10,18 @@ const navbar = elem({
         tau: '.tau',
     }
 });
-navbar.select = child => {
-    for (let k of [navbar.research, navbar.people, navbar.publications, navbar.photos, navbar.contact])
+Navbar.select = child => {
+    for (let k of [Navbar.research, Navbar.people, Navbar.publications, Navbar.photos, Navbar.contact])
         k.toggleClass('selected', k === child);
 };
-navbar.home.pointerdown(() => window.location.reload());
-navbar.research.pointerdown(() => {
-    navbar.select(navbar.research);
+Navbar.home.pointerdown(() => window.location.reload());
+Navbar.research.pointerdown(() => {
     ResearchPage().init();
 });
-navbar.people.pointerdown(() => {
-    navbar.select(navbar.people);
+Navbar.people.pointerdown(() => {
     PeoplePage().init();
 });
-navbar.publications.pointerdown(() => {
-    navbar.select(navbar.publications);
+Navbar.publications.pointerdown(() => {
     return PublicationsPage().init();
 });
 //# sourceMappingURL=navbar.js.map

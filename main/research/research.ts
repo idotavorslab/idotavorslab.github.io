@@ -5,6 +5,8 @@ const ResearchPage = () => {
     }
     
     async function init(selectedIndex?: number) {
+        Navbar.select(Navbar.research);
+        console.log({Navbar});
         // await TL.toAsync(Home.e, 0.03, {opacity: 0});
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
         let req = new Request('main/research/research.json', {cache: "no-cache"});

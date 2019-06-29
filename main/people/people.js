@@ -1,6 +1,8 @@
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
+        console.log({ Navbar });
+        Navbar.select(Navbar.people);
         const personViewer = {
             init: function () {
                 console.log('init');

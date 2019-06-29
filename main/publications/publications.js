@@ -1,6 +1,7 @@
 const PublicationsPage = () => {
     async function init() {
         console.log('PublicationsPage init');
+        Navbar.select(Navbar.publications);
         let req = new Request('main/publications/publications.json', { cache: "no-cache" });
         const data = await (await fetch(req)).json();
         console.log(data);

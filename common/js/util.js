@@ -115,11 +115,6 @@ body.clientWidth: ${document.body.clientWidth}
 iPhone: ${isIphone}
 `;
 }
-const setWindowStatsInnerText = () => {
-    document.getElementById('window_stats').innerText = windowStats();
-};
-document.addEventListener("DOMContentLoaded", setWindowStatsInnerText);
-window.onresize = setWindowStatsInnerText;
 function copyToClipboard(val) {
     const copyText = elem({ tag: "input" });
     copyText.e.value = val;
