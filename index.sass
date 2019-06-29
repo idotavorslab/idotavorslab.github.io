@@ -1,3 +1,4 @@
+@import "common/mixins"
 @font-face
     font-family: "OpenSans"
     src: url("common/fonts/OpenSans-Regular.ttf")
@@ -13,9 +14,11 @@
 @font-face
     font-family: "OpenSansLight"
     src: url("common/fonts/OpenSans-Light.ttf")
+
 @font-face
     font-family: "OpenSansLightItalic"
     src: url("common/fonts/OpenSans-LightItalic.ttf")
+
 @font-face
     font-family: "OpenSansItalic"
     src: url("common/fonts/OpenSans-Italic.ttf")
@@ -39,6 +42,13 @@ main
         position: relative
         display: block
         opacity: 1
+
+#window_stats
+    position: fixed
+    bottom: 0
+    background-color: rgba(0, 0, 0, 0.1)
+    font-weight: 700
+    @include four_way_text_shadow(1px, 1px, 1px, white)
 
 @import 'main/home/home.sass'
 @import 'main/research/research.sass'

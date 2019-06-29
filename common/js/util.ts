@@ -159,6 +159,28 @@ function round(n: number, d: number = 0) {
     return int(n * fr) / fr;
 }
 
+function windowStats() {
+    console.log(window.clientInformation.userAgent);
+    return `
+window.outerHeight: ${window.outerHeight}
+window.innerHeight: ${window.innerHeight}
+window.outerWidth: ${window.outerWidth}
+window.innerWidth: ${window.innerWidth}
+html.clientHeight: ${document.documentElement.clientHeight}
+html.clientWidth: ${document.documentElement.clientWidth}
+body.clientHeight: ${document.body.clientHeight}
+body.clientWidth: ${document.body.clientWidth}
+iPhone: ${isIphone}
+`
+}
+
+const setWindowStatsInnerText = () => {
+    document.getElementById('window_stats').innerText = windowStats();
+};
+
+document.addEventListener("DOMContentLoaded", setWindowStatsInnerText);
+window.onresize = setWindowStatsInnerText;
+
 function copyToClipboard(val) {
     const copyText = elem({tag: "input"});
     copyText.e.value = val;
