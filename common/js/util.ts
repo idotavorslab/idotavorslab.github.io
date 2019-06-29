@@ -146,3 +146,4 @@ const ajax: TAjax = (() => {
     
     return {post, get};
 })();
+const TL = TweenLite;

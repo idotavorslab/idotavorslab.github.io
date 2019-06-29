@@ -96,4 +96,5 @@ const ajax = (() => {
     }
     return { post, get };
 })();
+const TL = TweenLite;
 //# sourceMappingURL=util.js.map

@@ -209,59 +209,6 @@ interface ToVars extends CssOptions {
     
 }
 
-interface TweenMax extends TweenLite {
-    delayedCall(delay: number, callback: Function, params?: any[], scope?: any, useFrames?: boolean): TweenMax;
-    
-    from(target: Object, duration: number, vars: Object): TweenMax;
-    
-    fromTo(target: Object, duration: number, fromVars: Object, toVars: ToVars): TweenMax;
-    
-    getAllTweens(includeTimelines?: boolean): any[];
-    
-    getTweensOf(target: Object): any[];
-    
-    invalidate(): any;
-    
-    isTweening(target: Object): boolean;
-    
-    killAll(complete?: boolean, tweens?: boolean, delayedCalls?: boolean, timelines?: boolean): void;
-    
-    killChildTweensOf(parent: any, complete?: boolean): void;
-    
-    killDelayedCallsTo(func: Function): void;
-    
-    killTweensOf(target: Object, vars?: Object): void;
-    
-    pauseAll(tweens?: boolean, delayedCalls?: boolean, timelines?: boolean): void;
-    
-    progress(value: number): any;
-    
-    repeat(value: number): any;
-    
-    repeatDelay(value: number): any;
-    
-    resumeAll(tweens?: boolean, delayedCalls?: boolean, timelines?: boolean): void;
-    
-    set(target: Object, vars: Object): TweenMax;
-    
-    staggerFrom(targets: Object[], duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
-    
-    staggerFromTo(targets: Object[], duration: number, fromVars: Object, toVars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
-    
-    staggerTo(targets: Object[], duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
-    
-    time(value: number, suppressEvents?: boolean): any;
-    
-    to(target: Object, duration: number, vars: Object): TweenMax;
-    
-    totalDuration(value: number): any;
-    
-    totalProgress(value: number): any;
-    
-    updateTo(vars: Object, resetDuration?: boolean): any;
-    
-    yoyo(value?: boolean): any;
-}
 
 //com.greensock.easing
 interface Back {
@@ -443,7 +390,6 @@ declare var SimpleTimeline: SimpleTimeline;
 declare var TimelineLite: TimelineLite;
 declare var TimelineMax: TimelineMax;
 declare var TweenLite: TweenLite;
-declare var TweenMax: TweenMax;
 
 //com.greensock.easing
 declare var Back: Back;

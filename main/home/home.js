@@ -11,50 +11,43 @@ const HomePage = () => {
             super(elemOptions);
             this.items = items;
             this.currentIndex = 0;
-            this._switch(0);
+            this._switch();
             this.headline.on({
                 pointerdown: () => {
                     console.log('headline pointerdown');
                 },
             });
-            this.left.click(async () => {
-                TweenLite.to(this.content.e, 0.1, { opacity: 0 });
-                TweenLite.to(this.headline.e, 0.1, { opacity: 0 });
-                TweenLite.fromTo(this.e, 0.2, { filter: 'brightness(1)' }, {
-                    filter: 'brightness(0.5)',
-                    ease: Power2.easeIn,
-                    onStart: () => {
-                    },
-                    onComplete: () => {
-                        console.log('complete');
-                        this._switchLeft();
-                        TweenLite.to(this.content.e, 0.3, { opacity: 1 });
-                        TweenLite.to(this.headline.e, 0.1, { opacity: 1 });
-                        TweenLite.to(this.e, 1, { filter: 'brightness(1)' });
-                    }
-                });
+            this.left.click(() => {
+                this._switch("left");
             });
             this.right.click(() => {
-                console.log('right click');
-                this._switchRight();
-                this.right.animate(_buttonAnimation);
+                this._switch("right");
             });
         }
-        _switch(index) {
-            this.currentIndex = index;
-            if (this.currentIndex == -1)
-                this.currentIndex = this.items.length - 1;
-            else if (this.currentIndex == this.items.length)
-                this.currentIndex = 0;
-            this.content.text(this.items[this.currentIndex].content);
-            this.headline.text(this.items[this.currentIndex].title);
-            this.image.css({ backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")` });
-        }
-        _switchRight() {
-            this._switch(this.currentIndex + 1);
-        }
-        _switchLeft() {
-            this._switch(this.currentIndex - 1);
+        _switch(to) {
+            TL.to([this.content.e, this.headline.e], 0.1, { opacity: 0 });
+            TL.fromTo(this.e, 0.2, { filter: 'brightness(1)' }, {
+                filter: 'brightness(0.5)',
+                ease: Power2.easeIn,
+                onComplete: () => {
+                    console.log('complete');
+                    if (to === "right")
+                        this.currentIndex++;
+                    else if (to === "left")
+                        this.currentIndex--;
+                    else if (to !== undefined)
+                        throw new TypeError(`_switch illegal 'to' param, got: ${to}`);
+                    if (this.currentIndex == -1)
+                        this.currentIndex = this.items.length - 1;
+                    else if (this.currentIndex == this.items.length)
+                        this.currentIndex = 0;
+                    this.content.text(this.items[this.currentIndex].content);
+                    this.headline.text(this.items[this.currentIndex].title);
+                    this.image.css({ backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")` });
+                    TL.to([this.content.e, this.headline.e], 0.3, { opacity: 1 });
+                    TL.to(this.e, 1, { filter: 'brightness(1)' });
+                }
+            });
         }
     }
     async function init() {
