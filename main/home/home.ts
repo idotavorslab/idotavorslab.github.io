@@ -2,12 +2,12 @@ const HomePage = () => {
     class CarouselItem {
         title: string;
         image: string;
-        text: string;
+        content: string;
         
-        constructor(title: string, image: string, text: string) {
+        constructor(title: string, image: string, content: string) {
             this.title = title;
             this.image = image;
-            this.text = text;
+            this.content = content;
         }
     }
     
@@ -15,6 +15,7 @@ const HomePage = () => {
         left: Elem;
         right: Elem;
         headline: Elem;
+        content: Elem;
         items: CarouselItem[];
         currentIndex: number;
         
@@ -61,8 +62,9 @@ const HomePage = () => {
             else if (this.currentIndex == this.items.length)
                 this.currentIndex = 0;
             console.log('this.currentIndex: ', this.currentIndex);
-            this.css({backgroundImage: `linear-gradient(rgb(100,100,100), #FFF), url("main/research/${this.items[this.currentIndex].image}")`});
+            this.css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")`});
             this.headline.text(this.items[this.currentIndex].title);
+            this.content.text(this.items[this.currentIndex].content);
         }
         
         private _switchRight() {
@@ -84,14 +86,15 @@ const HomePage = () => {
         console.log({data});
         
         const carouselItems = [];
-        for (let [title, {image, text}] of dict(data).items()) {
-            let item = new CarouselItem(title, image, text);
+        for (let [title, {image, content}] of dict(data).items()) {
+            let item = new CarouselItem(title, image, content);
             carouselItems.push(item);
         }
         const carousel = new Carousel({
             query: "carousel", children: {
                 left: '.left',
                 right: '.right',
+                content: 'content',
                 headline: 'headline'
             }
         }, carouselItems);
