@@ -170,7 +170,7 @@ interface TweenLite extends Animation {
     
     from(target: Object, duration: number, vars: Object): TweenLite;
     
-    fromTo(target: Object, duration: number, fromVars: Object, toVars: Object): TweenLite;
+    fromTo(target: Object, duration: number, fromVars: Object, toVars: ToVars): TweenLite;
     
     getTweensOf(target: Object): any[];
     
@@ -182,7 +182,7 @@ interface TweenLite extends Animation {
     
     set(target: Object, vars: Object): TweenLite;
     
-    to(target: Object, duration: number, vars: Object): TweenLite;
+    to(target: Object, duration: number, vars: ToVars): TweenLite;
 }
 
 
@@ -191,6 +191,7 @@ interface ToVars extends CssOptions {
     callbackScope?: Object;
     delay?: number;
     ease?: Ease;
+    immediateRender?: boolean;
     onComplete?: Function;
     onCompleteParams?: any[];
     onCompleteScope?: Object;

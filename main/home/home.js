@@ -23,12 +23,14 @@ const HomePage = () => {
                 timingFunction: 'linear',
             };
             this.left.click(async () => {
-                TweenMax.fromTo(this.e, 0.05, { filter: 'brightness(1)' }, {
-                    filter: 'brightness(0.75)',
-                    ease: Power4.easeOut,
+                TweenLite.fromTo(this.e, 1, { filter: 'brightness(1)' }, {
+                    filter: 'brightness(0.2)',
+                    autoCSS: true,
+                    onStart: () => {
+                        console.log('onstart');
+                    },
                     onComplete: () => {
-                        this._switchLeft();
-                        TweenMax.to(this.e, 1, { filter: 'brightness(1)' });
+                        console.log('oncomplete');
                     }
                 });
             });

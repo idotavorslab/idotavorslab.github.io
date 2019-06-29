@@ -38,15 +38,26 @@ const HomePage = () => {
             };
             this.left.click(async () => {
                 // console.log('%cleft click', 'font-weight: 700; font-size: 15px', this);
-                TweenMax.fromTo(this.e, 0.05,
+                TweenLite.fromTo(this.e, 1, {filter: 'brightness(1)'}, {
+                    filter: 'brightness(0.2)',
+                    autoCSS: true,
+                    onStart: () => {
+                        console.log('onstart')
+                    },
+                    onComplete: () => {
+                        console.log('oncomplete')
+                    }
+                })
+                /*TweenMax.fromTo(this.e, 1,
                     {filter: 'brightness(1)'}, {
                         filter: 'brightness(0.75)',
                         ease: Power4.easeOut,
                         onComplete: () => {
                             this._switchLeft();
-                            TweenMax.to(this.e, 1, {filter: 'brightness(1)'})
+                            TweenLite.to(this.e, 1, {filter: 'brightness(1)'})
                         }
                     });
+                */
                 
                 /*this.animate({
                     name: 'contrastDownAndReset',
