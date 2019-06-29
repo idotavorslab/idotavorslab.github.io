@@ -15,7 +15,7 @@ const HomePage = () => {
             this.headline.on({
                 pointerdown: () => {
                     console.log('headline pointerdown');
-                    ResearchPage().init();
+                    ResearchPage().init(this.currentIndex);
                 },
             });
             this.left.pointerdown(() => {
