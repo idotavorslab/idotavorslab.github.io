@@ -38,7 +38,10 @@ main
 
 
     home
-        top: 80px
+        @media screen and (min-width: 1600px)
+            top: 80px
+        @media screen and (max-width: 1600px)
+            top: 40px
         position: relative
         display: block
         opacity: 1
@@ -46,9 +49,10 @@ main
 #window_stats
     position: fixed
     bottom: 0
-    background-color: rgba(0, 0, 0, 0.1)
-    font-weight: 700
-    @include four_way_text_shadow(1px, 1px, 1px, white)
+    background-color: rgba(0, 0, 0, 0.5)
+    color: white
+    // font-weight: 500
+    // @include four_way_text_shadow(1px, 1px, 1px, white)
 
 @import 'main/home/home.sass'
 @import 'main/research/research.sass'
