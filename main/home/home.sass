@@ -6,14 +6,12 @@
     $button_side: 70px
     position: relative
     display: grid
-    grid-template-rows: 20% 20% 20% 20% 20%
+    grid-template-rows: 25% 15% 20% 20% 20%
     grid-template-columns: $button_side 20% auto 20% $button_side
     height: $carousel_height
     color: rgb(225, 225, 225)
     
 
-    &[class~="animated"]
-        animation: contrastDownAndReset 200ms linear
     
     .image
         
@@ -33,9 +31,13 @@
         //grid-row: 1/1
         //grid-column: 2/5
         //margin: auto
+        cursor: pointer
         letter-spacing: 1px
         padding-top: 13px
         padding-bottom: 12px
+        &:hover
+            color: white
+        transition: color 200ms
         font:
             family: OpenSansBold
             size: 40px

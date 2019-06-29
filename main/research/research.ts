@@ -13,7 +13,7 @@ const ResearchPage = () => {
                     div({text: title, cls: "title"}),
                     div({text: content, cls: "content"}),
                 )
-                .css({backgroundImage: `url("main/research/${image}")`});
+                .css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${image}")`});
             Home.append(article);
         }
         

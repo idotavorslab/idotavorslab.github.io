@@ -28,16 +28,17 @@ const HomePage = () => {
             this.headline.on({
                 pointerdown: () => {
                     console.log('headline pointerdown');
+                    ResearchPage().init();
                 },
                 
             });
             
-            this.left.click(() => {
+            this.left.pointerdown(() => {
                 this._switch("left");
                 
                 
             });
-            this.right.click(() => {
+            this.right.pointerdown(() => {
                 this._switch("right");
             });
         }
@@ -48,7 +49,6 @@ const HomePage = () => {
                 filter: 'brightness(0.5)',
                 ease: Power2.easeIn,
                 onComplete: () => {
-                    console.log('complete');
                     if (to === "right")
                         this.currentIndex++;
                     else if (to === "left")

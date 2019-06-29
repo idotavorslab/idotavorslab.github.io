@@ -1,4 +1,4 @@
-type TPersonViewer = {
+type PersonViewer = {
     init: () => void,
     e: Div,
     isopen: boolean,
@@ -9,7 +9,7 @@ type TPersonViewer = {
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
-        const personViewer: TPersonViewer = {
+        const personViewer: PersonViewer = {
             init: function () {
                 console.log('init');
                 this.e.cacheAppend({
