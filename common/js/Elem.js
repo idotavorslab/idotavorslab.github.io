@@ -69,7 +69,7 @@ class Elem {
     animate(opts) {
         const optionals = [opts.timingFunction, opts.delay, opts.iterationCount, opts.direction, opts.fillMode, opts.playState];
         const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
-        this.on({ animationend: () => this.uncss("animation") });
+        this.on({ animationend: () => this.uncss('animation') }, { once: true });
         this.css({ animation });
         return this;
     }
@@ -136,8 +136,14 @@ class Elem {
         return this;
     }
     on(evTypeFnPairs, options) {
-        for (let [evType, evFn] of dict(evTypeFnPairs).items())
-            this.e.addEventListener(evType, evFn, options);
+        const that = this;
+        for (let [evType, evFn] of dict(evTypeFnPairs).items()) {
+            this.e.addEventListener(evType, function _f(evt) {
+                evFn(evt);
+                if (options && options.once)
+                    that.e.removeEventListener(evType, _f);
+            });
+        }
         return this;
     }
     touchstart(fn, options) {

@@ -488,7 +488,7 @@ class Elem {
         // filter out undefined, whitespace separate. mandatories first.
         const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
         // reset so can run animation again
-        this.on({animationend: () => this.uncss("animation")});
+        this.on({animationend: () => this.uncss('animation')}, {once: true});
         this.css({animation});
         return this;
     }
@@ -578,8 +578,14 @@ class Elem {
     
     // **  Events
     on(evTypeFnPairs: TEventFunctionMap<TEvent>, options?: AddEventListenerOptions): this {
-        for (let [evType, evFn] of dict(evTypeFnPairs).items())
-            this.e.addEventListener(evType, evFn, options);
+        const that = this;
+        for (let [evType, evFn] of dict(evTypeFnPairs).items()) {
+            this.e.addEventListener(evType, function _f(evt) {
+                evFn(evt);
+                if (options && options.once)
+                    that.e.removeEventListener(evType, _f);
+            });
+        }
         return this;
     }
     
