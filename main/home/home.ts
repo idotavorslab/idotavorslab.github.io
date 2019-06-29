@@ -32,25 +32,29 @@ const HomePage = () => {
             });
             let _buttonAnimation: AnimateOptions = {
                 name: 'downAndUp',
-                duration: '25ms',
-                timingFunction: 'linear',
-                iterationCount: 1
+                duration: '1000ms',
+                // timingFunction: 'linear',
+                // iterationCount: 1
             };
-            this.left.on({
-                pointerdown: () => {
-                    console.log('left pointerdown', this);
-                    this.left.animate(_buttonAnimation);
-                    this._switchLeft();
-                },
-                
+            // this.left.click(async () => {
+            this.left.click(async () => {
+                console.log('%cleft click', 'font-weight: 700; font-size: 15px', this);
+                // this.left.animate(_buttonAnimation);
+                /*this.left.addClass('animated');
+                await wait(25);
+                */
+                this._switchLeft();
+                this.left.removeClass('animated');
+                window.requestAnimationFrame(time => {
+                    window.requestAnimationFrame(time => {
+                        this.left.addClass('animated');
+                    })
+                })
             });
-            this.right.on({
-                pointerdown: () => {
-                    console.log('right pointerdown');
-                    this.right.animate(_buttonAnimation);
-                    this._switchRight();
-                },
-                
+            this.right.click(() => {
+                console.log('right click');
+                this.right.animate(_buttonAnimation);
+                this._switchRight();
             });
         }
         
@@ -61,10 +65,12 @@ const HomePage = () => {
                 this.currentIndex = this.items.length - 1;
             else if (this.currentIndex == this.items.length)
                 this.currentIndex = 0;
-            console.log('this.currentIndex: ', this.currentIndex);
-            this.css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")`});
-            this.headline.text(this.items[this.currentIndex].title);
+            console.log('_switch, index: ', index, 'this.currentIndex: ', this.currentIndex, 'current item: ', this.items[this.currentIndex]);
             this.content.text(this.items[this.currentIndex].content);
+            this.headline.text(this.items[this.currentIndex].title);
+            // document.getElementById('carousel_headline').innerText = this.items[1].title;
+            // document.getElementById('carousel_headline').innerText = "Bgin";
+            this.css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")`});
         }
         
         private _switchRight() {
@@ -91,11 +97,11 @@ const HomePage = () => {
             carouselItems.push(item);
         }
         const carousel = new Carousel({
-            query: "carousel", children: {
-                left: '.left',
-                right: '.right',
+            query: "#carousel", children: {
+                left: '#left_button',
+                right: '#right_button',
                 content: 'content',
-                headline: 'headline'
+                headline: '#carousel_headline'
             }
         }, carouselItems);
         console.log(carousel);
