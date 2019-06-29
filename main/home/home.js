@@ -12,6 +12,31 @@ const HomePage = () => {
             this.items = items;
             this.currentIndex = 0;
             this._switch(0);
+            this.headline.on({
+                pointerdown: () => {
+                    console.log('headline pointerdown');
+                },
+            });
+            const _animateButton = btn => btn.animate({
+                name: 'downAndUp',
+                duration: '25ms',
+                timingFunction: 'linear',
+                iterationCount: 1
+            });
+            this.left.on({
+                pointerdown: () => {
+                    console.log('left pointerdown', this);
+                    _animateButton(this.left);
+                    this.switchLeft();
+                },
+            });
+            this.right.on({
+                pointerdown: () => {
+                    console.log('right pointerdown');
+                    _animateButton(this.right);
+                    this.switchRight();
+                },
+            });
         }
         _switch(index) {
             this.currentIndex = index;
@@ -48,27 +73,6 @@ const HomePage = () => {
             }
         }, carouselItems);
         console.log(carousel);
-        carousel.headline.on({
-            pointerdown: () => {
-                console.log('headline pointerdown');
-            },
-        });
-        carousel.left.on({
-            pointerdown: () => {
-                console.log('left pointerdown', { carousel });
-                carousel.left.animate({
-                    name: 'downAndUp',
-                    duration: '25ms',
-                    timingFunction: 'linear',
-                    iterationCount: 1
-                });
-            },
-        });
-        carousel.right.on({
-            pointerdown: () => {
-                console.log('right pointerdown');
-            },
-        });
         console.groupEnd();
     }
     return { init };
