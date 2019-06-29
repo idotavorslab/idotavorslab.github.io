@@ -19,12 +19,11 @@ const ResearchPage = () => {
         }
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
+            const howFar = selectedIndex / articles.length;
             selectedArticle.e.scrollIntoView({ behavior: "smooth" });
-            await wait(1000);
-            selectedArticle.content.addClass('highlighted');
+            await wait(howFar * 1000);
             selectedArticle.title.addClass('highlighted');
-            await wait(700);
-            selectedArticle.content.removeClass('highlighted');
+            await wait(1500);
             selectedArticle.title.removeClass('highlighted');
         }
     }

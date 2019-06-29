@@ -25,8 +25,9 @@ const ResearchPage = () => {
         }
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
+            const howFar = selectedIndex / articles.length;
             selectedArticle.e.scrollIntoView({behavior: "smooth"});
-            await wait(1000);
+            await wait(howFar * 1000);
             /*
             for (let i = 0; i < 100; i++) {
                 selectedArticle.title.css({
@@ -44,10 +45,10 @@ const ResearchPage = () => {
                 backgroundImage: null,
             });
             */
-            selectedArticle.content.addClass('highlighted');
+            // selectedArticle.content.addClass('highlighted');
             selectedArticle.title.addClass('highlighted');
-            await wait(700);
-            selectedArticle.content.removeClass('highlighted');
+            await wait(1500);
+            // selectedArticle.content.removeClass('highlighted');
             selectedArticle.title.removeClass('highlighted');
             
             

@@ -16,13 +16,13 @@ article
     div.title
         @include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
         width: fit-content
-        //border-bottom:
-            color: rgba(218, 165, 32, 0)
+        border-bottom:
             width: 1px
             style: solid
+            color: rgba(204, 204, 204, 0)
 
-        //transition: border-bottom-color 1s
-        transition: text-shadow 700ms ease-in-out
+        transition: border-bottom-color 1s
+        //transition: text-shadow 700ms ease-in-out
         font:
             family: OpenSansBold
             size: 35px
@@ -36,7 +36,11 @@ article
             bottom: -10px
 
         &[class~="highlighted"]
-            @include four_way_text_shadow(1px, 1px, 5px, rgba(255, 255, 255, 0.2))
+            border-bottom:
+                width: 1px
+                style: solid
+                color: rgba(204, 204, 204, 1)
+        //@include four_way_text_shadow(1px, 1px, 5px, rgba(255, 255, 255, 0.2))
 
     div.content
         width: 50%
@@ -46,5 +50,5 @@ article
             top: 40px
         transition: color 700ms ease-in-out
 
-        &[class~="highlighted"]
+        //&[class~="highlighted"]
             color: white
