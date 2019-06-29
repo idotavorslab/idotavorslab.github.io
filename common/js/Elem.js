@@ -60,11 +60,18 @@ class Elem {
             this.e.style[styleAttr] = styleVal;
         return this;
     }
+    uncss(...removeProps) {
+        let css = {};
+        for (let prop of removeProps)
+            css[prop] = '';
+        return this.css(css);
+    }
     animate(opts) {
         const optionals = [opts.timingFunction, opts.delay, opts.iterationCount, opts.direction, opts.fillMode, opts.playState];
         const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
-        this.on({ animationend: () => this.css({ animation: null }) });
+        this.on({ animationend: () => this.uncss("animation") });
         this.css({ animation });
+        return this;
     }
     class() {
         return Array.from(this.e.classList);

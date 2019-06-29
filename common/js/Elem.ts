@@ -475,14 +475,22 @@ class Elem {
         return this;
     }
     
-    animate(opts: AnimateOptions) {
+    uncss(...removeProps: (keyof CssOptions)[]): this {
+        let css = {};
+        for (let prop of removeProps)
+            css[prop] = '';
+        return this.css(css);
+    }
+    
+    animate(opts: AnimateOptions): this {
         // ordered
         const optionals = [opts.timingFunction, opts.delay, opts.iterationCount, opts.direction, opts.fillMode, opts.playState];
         // filter out undefined, whitespace separate. mandatories first.
         const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
         // reset so can run animation again
-        this.on({animationend: () => this.css({animation: null})});
-        this.css({animation})
+        this.on({animationend: () => this.uncss("animation")});
+        this.css({animation});
+        return this;
     }
     
     // **  Classes
