@@ -31,30 +31,50 @@ const HomePage = () => {
                 
             });
             let _buttonAnimation: AnimateOptions = {
-                name: 'downAndUp',
-                duration: '1000ms',
-                // timingFunction: 'linear',
+                name: 'scaleDownAndReset',
+                duration: '50ms',
+                timingFunction: 'linear',
                 // iterationCount: 1
             };
-            // this.left.click(async () => {
             this.left.click(async () => {
-                console.log('%cleft click', 'font-weight: 700; font-size: 15px', this);
-                // this.left.animate(_buttonAnimation);
-                /*this.left.addClass('animated');
-                await wait(25);
+                // console.log('%cleft click', 'font-weight: 700; font-size: 15px', this);
+                TweenMax.fromTo(this.e, 0.05,
+                    {filter: 'brightness(1)'}, {
+                        filter: 'brightness(0.75)',
+                        ease: Power4.easeOut,
+                        onComplete: () => {
+                            this._switchLeft();
+                            TweenMax.to(this.e, 1, {filter: 'brightness(1)'})
+                        }
+                    });
+                
+                /*this.animate({
+                    name: 'contrastDownAndReset',
+                    duration: '1500ms',
+                    timingFunction: "linear",
+                });
                 */
-                this._switchLeft();
-                this.left.removeClass('animated');
+                
+                // this.left.animate(_buttonAnimation);
+                /*this.left.removeClass('animated');
                 window.requestAnimationFrame(time => {
                     window.requestAnimationFrame(time => {
                         this.left.addClass('animated');
                     })
+                });
+                this.removeClass('animated');
+                window.requestAnimationFrame(time => {
+                    window.requestAnimationFrame(time => {
+                        this.addClass('animated');
+                    })
                 })
+                */
+                
             });
             this.right.click(() => {
                 console.log('right click');
-                this.right.animate(_buttonAnimation);
                 this._switchRight();
+                this.right.animate(_buttonAnimation);
             });
         }
         
@@ -65,11 +85,9 @@ const HomePage = () => {
                 this.currentIndex = this.items.length - 1;
             else if (this.currentIndex == this.items.length)
                 this.currentIndex = 0;
-            console.log('_switch, index: ', index, 'this.currentIndex: ', this.currentIndex, 'current item: ', this.items[this.currentIndex]);
+            // console.log('_switch, index: ', index, 'this.currentIndex: ', this.currentIndex, 'current item: ', this.items[this.currentIndex]);
             this.content.text(this.items[this.currentIndex].content);
             this.headline.text(this.items[this.currentIndex].title);
-            // document.getElementById('carousel_headline').innerText = this.items[1].title;
-            // document.getElementById('carousel_headline').innerText = "Bgin";
             this.css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")`});
         }
         
@@ -98,10 +116,10 @@ const HomePage = () => {
         }
         const carousel = new Carousel({
             query: "#carousel", children: {
-                left: '#left_button',
-                right: '#right_button',
+                left: '.left',
+                right: '.right',
                 content: 'content',
-                headline: '#carousel_headline'
+                headline: 'headline'
             }
         }, carouselItems);
         console.log(carousel);

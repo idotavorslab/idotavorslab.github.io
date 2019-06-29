@@ -1,13 +1,5 @@
 @import "../../common/mixins"
-#carousel_headline
-    //@include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
-    grid-row: 1/1
-    grid-column: 2/5
-    margin: auto
-    letter-spacing: 1px
-    font:
-        family: OpenSansBold
-        size: 40px
+
 
 #carousel
     $carousel_height: 400px
@@ -18,24 +10,37 @@
     grid-template-columns: $button_side 20% auto 20% $button_side
     height: $carousel_height
     color: rgb(225, 225, 225)
-
     background:
         repeat: no-repeat
         position: center
         size: cover
         blend-mode: multiply
 
+    &[class~="animated"]
+        animation: contrastDownAndReset 200ms linear
+
+    headline
+        @include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
+        position: absolute
+        width: fill-available
+        //grid-row: 1/1
+        //grid-column: 2/5
+        //margin: auto
+        letter-spacing: 1px
+        font:
+            family: OpenSansBold
+            size: 40px
 
     content
         @include four_way_text_shadow(0px, 1px, 2px, rgba(0, 0, 0, 0.2))
         //color: #555
         //font-weight: 600
         margin-top: 10px
-        font-size: 20px
+        font-size: 18px
         grid-row: 2/5
         grid-column: 3/4
 
-    & > button
+    button
         width: $button_side
         background:
             color: rgba(0, 0, 0, 0)
@@ -49,7 +54,7 @@
 
         cursor: pointer
         height: $button_side
-        //@include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
+        @include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
         font:
             family: monospace
             size: 35px
@@ -57,27 +62,28 @@
         align-self: center
         grid-row: 3/3
 
-        //&:focus
+        &:focus
             outline: unset
 
 
-
-        &[id="left_button"]
+        &[class~="left"]
             grid-column: 1/1
 
-        &[id="right_button"]
+        &[class~="right"]
             grid-column: 5/5
 
-.animated
-    //animation: downAndUp 1000ms linear 0s 1 normal running
-    //animation: downAndUp 1000ms linear 0s 1 alternate running
-    animation: downAndUp 25ms linear
+        &[class~="animated"]
+            animation: scaleDownAndReset 50ms linear
 
 
-@keyframes downAndUp
+@keyframes contrastDownAndReset
     0%
-        transform: translateY(5px)
-    //color: orange
+        filter: brightness(1.5)
     100%
-        //color: grey
-        transform: translateY(0px)
+        filter: contrast(1)
+
+@keyframes scaleDownAndReset
+    0%
+        transform: scale(0.8)
+    100%
+        transform: scale(1)

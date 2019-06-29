@@ -70,13 +70,6 @@ class Elem {
         console.group('animate, opts: ', opts);
         const optionals = [opts.timingFunction, opts.delay, opts.iterationCount, opts.direction, opts.fillMode, opts.playState];
         const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
-        console.log('animation: ', animation);
-        this.on({
-            animationend: () => {
-                console.log('animate > animationend', this);
-                this.e.style.animation = '';
-            },
-        }, { once: true, capture: true, passive: true });
         console.groupEnd();
         return this.css({ animation });
     }
@@ -147,7 +140,6 @@ class Elem {
         for (let [evType, evFn] of dict(evTypeFnPairs).items()) {
             this.e.addEventListener(evType, function _f(evt) {
                 evFn(evt);
-                console.log('addEventListener, evt: ', evt, 'options: ', options, 'this: ', this);
             }, options);
         }
         return this;
