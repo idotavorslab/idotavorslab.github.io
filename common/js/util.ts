@@ -154,3 +154,44 @@ const TL = {
     }))
 };
 
+function round(n: number, d: number = 0) {
+    const fr = 10 ** d;
+    return int(n * fr) / fr;
+}
+
+function copyToClipboard(val) {
+    const copyText = elem({tag: "input"});
+    copyText.e.value = val;
+    elem({htmlElement: document.body}).append(copyText);
+    copyText.e.select();
+    document.execCommand("copy");
+    copyText.remove();
+}
+
+function calcCssValue(h1, h2) {
+    const x = (100 * (h1[1] - h2[1])) / (h1[0] - h2[0]);
+    const y = (h1[0] * h2[1] - h2[0] * h1[1]) / (h1[0] - h2[0]);
+    const isYPos = y >= 0;
+    const expression = `calc(${round(x, 2)}vh ${isYPos ? '+' : '-'} ${round(Math.abs(y), 2)}px)`;
+    copyToClipboard(expression);
+    return expression
+}
+
+function calcAbsValue(cssStr: string, height: number) {
+    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
+    const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
+    const ispositive = cssStr.includes('+');
+    const format = (h) => {
+        let n = h * float(vh) / 100;
+        if (ispositive)
+            n += float(px);
+        else
+            n -= float(px);
+        return `${round(n, 2)}px`;
+    };
+    const expression = format(height);
+    copyToClipboard(expression);
+    return expression;
+    
+    
+}
