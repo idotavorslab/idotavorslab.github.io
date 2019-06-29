@@ -5,13 +5,14 @@ const ResearchPage = () => {
     }
     
     async function init(selectedIndex?: number) {
-        
+        // await TL.toAsync(Home.e, 0.03, {opacity: 0});
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
         let req = new Request('main/research/research.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
-        Home.empty();
+        // Home.empty();
         console.log(data);
         const articles: Article[] = [];
+        let emptied = false;
         for (let [title, {image, content}] of dict(data).items()) {
             let article = elem({tag: "article"});
             article
@@ -21,34 +22,21 @@ const ResearchPage = () => {
                 })
                 .css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${image}")`});
             articles.push(article as Article);
+            if (!emptied) {
+                Home.empty();
+                emptied = true;
+            }
             Home.append(article);
         }
+        // await TL.toAsync(Home.e, 0.03, {opacity: 1});
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
             const howFar = selectedIndex / articles.length;
             selectedArticle.e.scrollIntoView({behavior: "smooth"});
             await wait(howFar * 1000);
-            /*
-            for (let i = 0; i < 100; i++) {
-                selectedArticle.title.css({
-                    backgroundImage: `linear-gradient(0.75turn, rgba(0,0,0,${0.4 * i / 100}),rgba(0,0,0,0))`,
-                });
-                await wait(3);
-            }
-            for (let j = 0; j < 100; j++) {
-                selectedArticle.title.css({
-                    backgroundImage: `linear-gradient(0.75turn, rgba(0,0,0,${0.4 * (100 - j) / 100}),rgba(0,0,0,0) ${100 - j}%)`,
-                });
-                await wait(5);
-            }
-            selectedArticle.title.css({
-                backgroundImage: null,
-            });
-            */
-            // selectedArticle.content.addClass('highlighted');
+            
             selectedArticle.title.addClass('highlighted');
             await wait(1500);
-            // selectedArticle.content.removeClass('highlighted');
             selectedArticle.title.removeClass('highlighted');
             
             

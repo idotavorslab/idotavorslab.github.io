@@ -146,4 +146,11 @@ const ajax: TAjax = (() => {
     
     return {post, get};
 })();
-const TL = TweenLite;
+const TL = {
+    ...TweenLite,
+    toAsync: (target: Object, duration: number, vars) => new Promise((resolve, reject) => TL.to(target, duration, {
+        ...vars,
+        onComplete: resolve
+    }))
+};
+

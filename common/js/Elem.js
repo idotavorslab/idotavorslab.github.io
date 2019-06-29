@@ -235,7 +235,11 @@ class Elem {
             steps = dur;
             opStep = 1 / steps;
         }
-        console.log(`fade(${dur}, ${to}) had opacity, no transition. opacity: ${opacity}`, { steps, opStep, everyms });
+        console.log(`fade(${dur}, ${to}) had opacity, no transition. (good) opacity: ${opacity}`, {
+            steps,
+            opStep,
+            everyms
+        });
         const reachedTo = isFadeOut ? (op) => op - opStep > 0 : (op) => op + opStep < 1;
         const interval = setInterval(() => {
             if (reachedTo(opacity)) {

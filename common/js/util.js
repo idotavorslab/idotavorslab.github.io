@@ -96,5 +96,5 @@ const ajax = (() => {
     }
     return { post, get };
 })();
-const TL = TweenLite;
+const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => new Promise((resolve, reject) => TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }))) });
 //# sourceMappingURL=util.js.map

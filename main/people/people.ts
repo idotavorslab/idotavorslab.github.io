@@ -9,6 +9,7 @@ type PersonViewer = {
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
+        
         const personViewer: PersonViewer = {
             init: function () {
                 console.log('init');

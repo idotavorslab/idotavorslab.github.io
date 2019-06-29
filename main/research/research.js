@@ -3,9 +3,9 @@ const ResearchPage = () => {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
         let req = new Request('main/research/research.json', { cache: "no-cache" });
         const data = await (await fetch(req)).json();
-        Home.empty();
         console.log(data);
         const articles = [];
+        let emptied = false;
         for (let [title, { image, content }] of dict(data).items()) {
             let article = elem({ tag: "article" });
             article
@@ -15,6 +15,10 @@ const ResearchPage = () => {
             })
                 .css({ backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${image}")` });
             articles.push(article);
+            if (!emptied) {
+                Home.empty();
+                emptied = true;
+            }
             Home.append(article);
         }
         if (selectedIndex !== undefined) {
