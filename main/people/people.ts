@@ -73,7 +73,9 @@ const PeoplePage = () => {
             people.push(person);
         }
         const peopleContainer = div({id: "people_container"})
-            .append(div({cls: 'title', text: 'Team'}), ...people);
+            .append(div({cls: 'title', text: 'Team'}),
+                div({cls: 'separator'}),
+                ...people);
         
         Home.empty().append(personViewer.e, peopleContainer);
         
