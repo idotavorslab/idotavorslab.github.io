@@ -23,7 +23,12 @@ const HomePage = () => {
     carousel.left.on({
         pointerdown: () => {
             console.log('left pointerdown');
-            carousel.left.animate({});
+            carousel.left.animate({
+                name: 'downAndUp',
+                duration: '25ms',
+                timingFunction: 'linear',
+                iterationCount: 1
+            });
         },
     });
     carousel.right.on({

@@ -92,6 +92,10 @@ async function concurrent<T>(...promises: Promise<T>[]): Promise<T[]> {
     return await Promise.all(promises);
 }
 
+type TAjax = {
+    post: (url: string, data: any) => Promise<any>;
+    get: (url: string) => Promise<any>;
+};
 const ajax: TAjax = (() => {
     function _tryResolveResponse(xhr: XMLHttpRequest, resolve, reject) {
         if (xhr.status != 200) {

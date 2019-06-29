@@ -48,7 +48,7 @@ carousel
 
         &:focus
             outline: unset
-            animation:
+            //animation:
                 name: downAndUp
                 duration: 25ms
                 iteration-count: 1
@@ -64,6 +64,8 @@ carousel
 
 @keyframes downAndUp
     0%
+        transform: translateY(0px)
+    10%
         transform: translateY(5px)
     100%
         transform: translateY(0px)

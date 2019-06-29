@@ -4,7 +4,7 @@ type TEventFunctionMap<K> = {
 };
 
 
-type TElemOptions = {
+type ElemOptions = {
     tag?: "span" | "div" | "button" | "img" | any;
     id?: string;
     text?: string;
@@ -30,20 +30,20 @@ type TElemAttrs = {
     href?: string;
 };
 
-interface TElemCssOpts {
+interface CssOptions {
     alignContentS?: string;
     alignItems?: string;
     alignSelf?: string;
     alignmentBaseline?: string;
     animation?: string;
     animationDelay?: string;
-    animationDirection?: string;
+    animationDirection?: AnimationDirection;
     animationDuration?: string;
-    animationFillMode?: string;
-    animationIterationCount?: string;
+    animationFillMode?: AnimationFillMode;
+    animationIterationCount?: number;
     animationName?: string;
-    animationPlayState?: string;
-    animationTimingFunction?: string;
+    animationPlayState?: AnimationPlayState;
+    animationTimingFunction?: AnimationTimingFunction;
     backfaceVisibility?: string;
     background?: string;
     backgroundAttachment?: string;
@@ -356,12 +356,13 @@ interface TElemCssOpts {
     
 }
 
-type CubicBezierFunction = (p1: number, p2: number, p3: number, p4: number) => any;
+type CubicBezierFunction = [number, number, number, number];
 type Jumpterm = 'jump-start' | 'jump-end' | 'jump-none' | 'jump-both' | 'start' | 'end';
+
 /**Displays an animation iteration along n stops along the transition, displaying each stop for equal lengths of time.
  * For example, if n is 5,  there are 5 steps.
  * Whether the animation holds temporarily at 0%, 20%, 40%, 60% and 80%, on the 20%, 40%, 60%, 80% and 100%, or makes 5 stops between the 0% and 100% along the animation, or makes 5 stops including the 0% and 100% marks (on the 0%, 25%, 50%, 75%, and 100%) depends on which of the following jump terms is used*/
-type StepsFunction = (n: number, jumpterm: Jumpterm) => any;
+type StepsFunction = [number, Jumpterm];
 type AnimationTimingFunction =
     'linear'
     | 'ease'
@@ -372,15 +373,18 @@ type AnimationTimingFunction =
     | 'step-end'
     | StepsFunction
     | CubicBezierFunction
+type AnimationDirection = 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
+type AnimationFillMode = 'none' | 'forwards' | 'backwards' | 'both';
 
-interface AnimationOptions {
-    animationDelay?: string;
-    animationDirection?: 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
-    animationDuration?: string;
-    animationFillMode?: 'none' | 'forwards' | 'backwards' | 'both';
-    animationIterationCount?: number;
-    animationName: string;
-    animationPlayState?: 'paused' | 'running';
+
+interface AnimateOptions {
+    delay?: string;
+    direction?: AnimationDirection;
+    duration: string;
+    fillMode?: AnimationFillMode;
+    iterationCount?: number;
+    name: string;
+    playState?: AnimationPlayState;
     /** Also accepts:
      * cubic-bezier(p1, p2, p3, p4)
      * 'ease' == 'cubic-bezier(0.25, 0.1, 0.25, 1.0)'
@@ -389,14 +393,14 @@ interface AnimationOptions {
      * 'ease-out' == 'cubic-bezier(0, 0, 0.58, 1.0)'
      * 'ease-in-out' == 'cubic-bezier(0.42, 0, 0.58, 1.0)'
      * */
-    animationTimingFunction?: AnimationTimingFunction;
+    timingFunction?: AnimationTimingFunction;
 }
 
 class Elem {
     _htmlElement: HTMLElement;
     
     
-    constructor(elemOptions: TElemOptions) {
+    constructor(elemOptions: ElemOptions) {
         const {tag, id, htmlElement, text, query, children, cls} = elemOptions;
         
         if ([tag, id, htmlElement, query].filter(x => x).length > 1)
@@ -465,14 +469,20 @@ class Elem {
         return this;
     }
     
-    css(css: TElemCssOpts): this {
+    css(css: CssOptions): this {
         for (let [styleAttr, styleVal] of dict(css).items())
             this.e.style[<string>styleAttr] = styleVal;
         return this;
     }
     
-    animate(options: AnimationOptions) {
-        options.animationTimingFunction
+    animate(opts: AnimateOptions) {
+        // ordered
+        const optionals = [opts.timingFunction, opts.delay, opts.iterationCount, opts.direction, opts.fillMode, opts.playState];
+        // filter out undefined, whitespace separate. mandatories first.
+        const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
+        // reset so can run animation again
+        this.on({animationend: () => this.css({animation: null})});
+        this.css({animation})
     }
     
     // **  Classes
@@ -886,7 +896,7 @@ class Img extends Elem {
 }
 
 
-function elem(elemOptions: TElemOptions): Elem {
+function elem(elemOptions: ElemOptions): Elem {
     return new Elem(elemOptions);
 }
 

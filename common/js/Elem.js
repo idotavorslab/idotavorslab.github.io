@@ -60,8 +60,11 @@ class Elem {
             this.e.style[styleAttr] = styleVal;
         return this;
     }
-    animate(options) {
-        options.animationTimingFunction;
+    animate(opts) {
+        const optionals = [opts.timingFunction, opts.delay, opts.iterationCount, opts.direction, opts.fillMode, opts.playState];
+        const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
+        this.on({ animationend: () => this.css({ animation: null }) });
+        this.css({ animation });
     }
     class() {
         return Array.from(this.e.classList);
