@@ -104,7 +104,7 @@ const PeoplePage = () => {
                 ...alumniArr);
         
         
-        Home.empty().append(personViewer.e,
+        Home.empty().addClass('squeezed').append(personViewer.e,
             teamContainer, alumniContainer);
         
         

@@ -74,7 +74,7 @@ const PeoplePage = () => {
         }
         const alumniContainer = div({ id: "alumni_container" })
             .append(div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), ...alumniArr);
-        Home.empty().append(personViewer.e, teamContainer, alumniContainer);
+        Home.empty().addClass('squeezed').append(personViewer.e, teamContainer, alumniContainer);
     }
     return { init };
 };
