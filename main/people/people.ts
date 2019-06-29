@@ -51,8 +51,8 @@ const PeoplePage = () => {
         const people = [];
         personViewer.init();
         const {team, alumni} = data;
-        console.log({team, alumni});
         
+        // **  Team
         for (let [name, {image, role, cv, email}] of dict(team).items()) {
             let person = elem({tag: "person"});
             person
@@ -72,12 +72,40 @@ const PeoplePage = () => {
             });
             people.push(person);
         }
-        const peopleContainer = div({id: "people_container"})
+        const teamContainer = div({id: "team_container"})
             .append(div({cls: 'title', text: 'Team'}),
                 div({cls: 'separator'}),
                 ...people);
         
-        Home.empty().append(personViewer.e, peopleContainer);
+        // **  Alumni
+        const alumniArr = [];
+        for (let [name, {image, role, cv, email}] of dict(alumni).items()) {
+            let alum = elem({tag: "person"});
+            alum
+                .append(
+                    img({src: `main/people/${image}`}),
+                    div({text: name, cls: "name"}),
+                    div({text: role, cls: "role"}),
+                );
+            alum.pointerdown(() => {
+                if (!personViewer.isopen) {
+                    personViewer.open();
+                    personViewer.populate(name, image, cv, email);
+                } else {
+                    personViewer.populate(name, image, cv, email)
+                }
+                
+            });
+            alumniArr.push(alum);
+        }
+        const alumniContainer = div({id: "alumni_container"})
+            .append(div({cls: 'title', text: 'Alumni'}),
+                div({cls: 'separator'}),
+                ...alumniArr);
+        
+        
+        Home.empty().append(personViewer.e,
+            teamContainer, alumniContainer);
         
         
     }
