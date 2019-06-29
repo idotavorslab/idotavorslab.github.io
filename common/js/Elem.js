@@ -69,9 +69,9 @@ class Elem {
     animate(opts) {
         const optionals = [opts.timingFunction, opts.delay, opts.iterationCount, opts.direction, opts.fillMode, opts.playState];
         const animation = `${opts.name} ${opts.duration} ${optionals.filter(v => v).join(' ')}`;
-        this.on({ animationend: () => this.uncss('animation') }, { once: true });
-        this.css({ animation });
-        return this;
+        return this
+            .on({ animationend: () => this.uncss('animation') }, { once: true })
+            .css({ animation });
     }
     class() {
         return Array.from(this.e.classList);
