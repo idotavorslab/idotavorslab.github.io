@@ -15,7 +15,10 @@ const ResearchPage = () => {
                 title: div({ text: title, cls: "title" }),
                 content: div({ text: content, cls: "content" }),
             })
-                .css({ backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 40%, rgba(255,255,255,0)), url("main/research/${image}")` });
+                .css({
+                backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 40%, rgba(255,255,255,0)),
+                                        url("main/research/${image}")`
+            });
             articles.push(article);
             if (!emptied) {
                 Home.empty();
