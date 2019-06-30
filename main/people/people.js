@@ -46,13 +46,9 @@ const PeoplePage = () => {
             person
                 .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
             person.pointerdown(() => {
-                if (!personViewer.isopen) {
+                if (!personViewer.isopen)
                     personViewer.open();
-                    personViewer.populate(name, image, cv, email);
-                }
-                else {
-                    personViewer.populate(name, image, cv, email);
-                }
+                personViewer.populate(name, image, cv, email);
             });
             people.push(person);
         }
@@ -64,13 +60,9 @@ const PeoplePage = () => {
             alum
                 .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
             alum.pointerdown(() => {
-                if (!personViewer.isopen) {
+                if (!personViewer.isopen)
                     personViewer.open();
-                    personViewer.populate(name, image, cv, email);
-                }
-                else {
-                    personViewer.populate(name, image, cv, email);
-                }
+                personViewer.populate(name, image, cv, email);
             });
             alumniArr.push(alum);
         }
