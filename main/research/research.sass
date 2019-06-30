@@ -6,7 +6,8 @@ article
     @media screen and (max-width: 800px)
         height: auto
         padding-bottom: 20px
-    color: rgb(225, 225, 225)
+    // color: rgb(225, 225, 225)
+    color: rgb(34, 34, 34)
     // TODO: padding top 0?
     padding:
         top: 0px
@@ -14,21 +15,23 @@ article
         size: cover
         position: center
         repeat: no-repeat
-        blend-mode: multiply
+        // blend-mode: multiply
+        blend-mode: screen
 
 
     div.title
-        @include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
+        // @include four_way_text_shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
+        @include four_way_text_shadow(1px, 1px, 3px, rgba(255, 255, 255, 0.1))
         width: fit-content
         border-bottom:
             width: 1px
             style: solid
-            color: rgba(204, 204, 204, 0)
+            color: rgba(34, 34, 34, 0)
 
         transition: border-bottom-color 1s
         //transition: text-shadow 700ms ease-in-out
         font-family: OpenSansBold
-        
+
         text-align: left
         @media screen and (min-width: 800px)
             font-size: 35px
@@ -48,14 +51,13 @@ article
             margin:
                 left: 20px
                 bottom: -10px
-        
 
         &[class~="highlighted"]
             border-bottom:
                 width: 1px
                 style: solid
-                color: rgba(204, 204, 204, 1)
-        //@include four_way_text_shadow(1px, 1px, 5px, rgba(255, 255, 255, 0.2))
+                color: rgba(34, 34, 34, 1)
+
 
     div.content
         @media screen and (min-width: 800px)
@@ -72,6 +74,11 @@ article
                 top: 25px
         text-align: left
         transition: color 700ms ease-in-out
+        padding: 15px
+        border-radius: 7px
+        margin: 0 auto auto auto
+        background:
+            image: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.6))
+            blend-mode: screen
 
-        //&[class~="highlighted"]
-            color: white
+
