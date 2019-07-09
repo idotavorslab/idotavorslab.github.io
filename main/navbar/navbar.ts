@@ -5,7 +5,7 @@ type TNavbarDivChild =
     | INavbar["photos"]
     | INavbar["contact"]
 
-interface INavbar extends Elem {
+interface INavbar extends BetterHTMLElement {
     home: Img,
     research: Div,
     people: Div,

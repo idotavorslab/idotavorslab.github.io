@@ -6,7 +6,7 @@ const HomePage = () => {
             this.content = content;
         }
     }
-    class Carousel extends Elem {
+    class Carousel extends BetterHTMLElement {
         constructor(elemOptions, items) {
             super(elemOptions);
             this.items = items;

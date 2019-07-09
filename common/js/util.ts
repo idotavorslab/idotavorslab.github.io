@@ -13,6 +13,7 @@ class Dict<T> {
     }
     
     * items(): IterableIterator<[string, T[keyof T]]> {
+        // TODO: lol
         const proxy = this as unknown as T;
         for (let k in proxy) {
             yield [k, proxy[k]];

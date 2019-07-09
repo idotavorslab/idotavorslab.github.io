@@ -11,13 +11,13 @@ const HomePage = () => {
         }
     }
     
-    class Carousel extends Elem {
-        left: Elem;
-        right: Elem;
-        headline: Elem;
-        content: Elem;
+    class Carousel extends BetterHTMLElement {
+        left: BetterHTMLElement;
+        right: BetterHTMLElement;
+        headline: BetterHTMLElement;
+        content: BetterHTMLElement;
         items: CarouselItem[];
-        image: Elem;
+        image: BetterHTMLElement;
         currentIndex: number;
         
         constructor(elemOptions: ElemOptions, items: CarouselItem[]) {

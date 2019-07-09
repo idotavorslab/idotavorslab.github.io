@@ -1,5 +1,5 @@
 const ResearchPage = () => {
-    interface Article extends Elem {
+    interface Article extends BetterHTMLElement {
         title: Div;
         content: Div;
     }
