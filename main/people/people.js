@@ -23,7 +23,7 @@ const PeoplePage = () => {
             isopen: false,
             open: async function () {
                 console.log('opening');
-                this.e.setClass('open');
+                this.e.class('open');
                 await this.e.fadeIn(500);
                 this.isopen = true;
             },

@@ -19,8 +19,8 @@ except FileNotFoundError:
     print(f'{localdtspath} not found, skipping')
     pass
 
-print(f'downloading betterhtmlelement@latest/dist/all.js and all.d.ts to /common/js/...')
+print(f'downloading betterhtmlelement@latest/dist/all.js and all.d.ts to /common/js/ as betterhtmlelement...')
 urllib.request.urlretrieve(jsurl, localjspath)
 urllib.request.urlretrieve(dtsurl, localdtspath)
 
-os.system('py -3.7 -m http.server')
+os.system('python3 -m http.server')
