@@ -1,3 +1,7 @@
+#####
+TODO:
+#####
+
 Photos => Gallery
     Sorted by year - recent first
     Going between photos like in mudriks
@@ -28,3 +32,8 @@ Home - structure like ron shamir's
     Our Lab (where ron's "ACGT"): image like ACGT, then a small title like mudriks, and some text
     Research "box" - where ron's squares. only titles and a thumbnail. gets thumbnails from research.json "thumbnail" field.  square boxes with thumbnail in bg and title on top
     News - where and like ron's, square small pic like mudriks, then title and subtitle
+    
+####
+DEV:
+####
+betterhtmlelement.js is downloaded with sourcemapping: all.js
