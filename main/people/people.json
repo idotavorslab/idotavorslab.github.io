@@ -1,11 +1,11 @@
 {
   "team": {
     "ido tavor": {
-		"role": "award-winning scientist",
-		"image": "inbal.jpeg",
-		"cv": "Dr. Mudrik started her academic career as student of the interdisciplinary program for outstanding students. She completed two Ph.D. dissertations at Tel Aviv University: her Ph.D. in cognitive neuroscience (psychology department) focused on the role of consciousness and attention in processing contextual violations, under the guidance of Prof. Dominique Lamy and Prof. Leon Deouell from the Hebrew University of Jerusalem. Her Ph.D. in philosophy was a descriptive-deconstructive analysis of the mind-body problem in neuroscience under the supervision of Prof. Marcelo Dascal. She then continued to a postdoctoral fellowship at the California Institute of Technology. There, she worked in the lab of Prof. Christof Koch in the division of biology, and in the lab of Prof. Ralph Adolphs in the division of humanities and social sciences. In 2015, she began her appointment as a faculty member in Tel Aviv University’s school of psychological science and the Sagol school of neuroscience.",
-		"email": "mudrikli@post.tau.ac.il"
-	  },
+      "role": "award-winning scientist",
+      "image": "inbal.jpeg",
+      "cv": "Dr. Mudrik started her academic career as student of the interdisciplinary program for outstanding students. She completed two Ph.D. dissertations at Tel Aviv University: her Ph.D. in cognitive neuroscience (psychology department) focused on the role of consciousness and attention in processing contextual violations, under the guidance of Prof. Dominique Lamy and Prof. Leon Deouell from the Hebrew University of Jerusalem. Her Ph.D. in philosophy was a descriptive-deconstructive analysis of the mind-body problem in neuroscience under the supervision of Prof. Marcelo Dascal. She then continued to a postdoctoral fellowship at the California Institute of Technology. There, she worked in the lab of Prof. Christof Koch in the division of biology, and in the lab of Prof. Ralph Adolphs in the division of humanities and social sciences. In 2015, she began her appointment as a faculty member in Tel Aviv University’s school of psychological science and the Sagol school of neuroscience.",
+      "email": "mudrikli@post.tau.ac.il"
+    },
     "liad mudrik": {
       "role": "principal investigator",
       "image": "liad.jpg",
