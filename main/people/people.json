@@ -1,50 +1,56 @@
 {
-	"team": {
-		"liad mudrik": {
-			"role": "principal investigator",
-			"image": "liad.jpg",
-			"cv": "Dr. Mudrik started her academic career as student of the interdisciplinary program for outstanding students. She completed two Ph.D. dissertations at Tel Aviv University: her Ph.D. in cognitive neuroscience (psychology department) focused on the role of consciousness and attention in processing contextual violations, under the guidance of Prof. Dominique Lamy and Prof. Leon Deouell from the Hebrew University of Jerusalem. Her Ph.D. in philosophy was a descriptive-deconstructive analysis of the mind-body problem in neuroscience under the supervision of Prof. Marcelo Dascal. She then continued to a postdoctoral fellowship at the California Institute of Technology. There, she worked in the lab of Prof. Christof Koch in the division of biology, and in the lab of Prof. Ralph Adolphs in the division of humanities and social sciences. In 2015, she began her appointment as a faculty member in Tel Aviv University’s school of psychological science and the Sagol school of neuroscience.",
-			"email": "mudrikli@post.tau.ac.il"
-		},
-		"Adva Levi": {
-			"role": "lab manager",
-			"image": "adva.jpg",
-			"cv": "Adva Levi received her B.A. in Psychology and Philosophy from Tel Aviv University . She is currently an M.A. student in the Cognitive Psychology department in Tel-Aviv University."
-		},
-		"amir tal": {
-			"role": "post doc",
-			"image": "amir.jpg",
-			"cv": "Amir received his BSc in computer science and philosophy from Tel-Aviv University, where he studied philosophy of consciousness with Dr. Mudrik. He went on to pursue an MSc and then a PhD in neuroscience at Bar-Ilan University, under the supervision of Prof. Moshe Bar. Amir is interested in unconscious heuristics for learning and generalization. He studies how conscious information is integrated with unconscious information when they differ and even contradict one another. He hopes to shed light on how we construct our subjective model of the world, so that we don’t always trust it too much."
-		},
-		"uri korisky": {
-			"role": "PhD Student",
-			"image": "uri.jpg"
-		},
-		"liad shmudrik": {
-			"role": "principal inveshtigator",
-			"image": "liad.jpg"
-		},
-		"Adva shlevi": {
-			"role": "lab shmanager",
-			"image": "adva.jpg"
-		},
-		"amir shtal": {
-			"role": "posh doc",
-			"image": "amir.jpg"
-		}
-	},
-	"alumni": {
-		"inbal gur arie": {
-			"role": "MA Student",
-			"image": "inbal.jpeg",
-			"cv": "Inbal is a student in the direct M.A. track in cognitive psychology. Her B.A. studies are in psychology, and her  B.mus is in piano performance from the Buchman- Mehta school of music, both from Tel Aviv University. Inbal is especially interested in consciousness, decision making, free will, and music cognition.",
-			"email": "http://www.mudriklab.tau.ac.il/people/inbal4434@gmail.com"
-		},
-		"nataly davidson litvak": {
-			"role": "MA student",
-			"cv": "Nataly received her B.A. in Psychology from the Open University of Israel. She is currently a Masters student in the Cognitive Psychology department in Tel-Aviv University.",
-			"image": "nataly.jpg",
-			"email": "http://www.mudriklab.tau.ac.il/people/natalyd1@mail.tau.ac.il"
-		}
-	}
+  "team": {
+    "ido tavor": {
+		"role": "award-winning scientist",
+		"image": "inbal.jpeg",
+		"cv": "Dr. Mudrik started her academic career as student of the interdisciplinary program for outstanding students. She completed two Ph.D. dissertations at Tel Aviv University: her Ph.D. in cognitive neuroscience (psychology department) focused on the role of consciousness and attention in processing contextual violations, under the guidance of Prof. Dominique Lamy and Prof. Leon Deouell from the Hebrew University of Jerusalem. Her Ph.D. in philosophy was a descriptive-deconstructive analysis of the mind-body problem in neuroscience under the supervision of Prof. Marcelo Dascal. She then continued to a postdoctoral fellowship at the California Institute of Technology. There, she worked in the lab of Prof. Christof Koch in the division of biology, and in the lab of Prof. Ralph Adolphs in the division of humanities and social sciences. In 2015, she began her appointment as a faculty member in Tel Aviv University’s school of psychological science and the Sagol school of neuroscience.",
+		"email": "mudrikli@post.tau.ac.il"
+	  },
+    "liad mudrik": {
+      "role": "principal investigator",
+      "image": "liad.jpg",
+      "cv": "Dr. Mudrik started her academic career as student of the interdisciplinary program for outstanding students. She completed two Ph.D. dissertations at Tel Aviv University: her Ph.D. in cognitive neuroscience (psychology department) focused on the role of consciousness and attention in processing contextual violations, under the guidance of Prof. Dominique Lamy and Prof. Leon Deouell from the Hebrew University of Jerusalem. Her Ph.D. in philosophy was a descriptive-deconstructive analysis of the mind-body problem in neuroscience under the supervision of Prof. Marcelo Dascal. She then continued to a postdoctoral fellowship at the California Institute of Technology. There, she worked in the lab of Prof. Christof Koch in the division of biology, and in the lab of Prof. Ralph Adolphs in the division of humanities and social sciences. In 2015, she began her appointment as a faculty member in Tel Aviv University’s school of psychological science and the Sagol school of neuroscience.",
+      "email": "mudrikli@post.tau.ac.il"
+    },
+    "Adva Levi": {
+      "role": "lab manager",
+      "image": "adva.jpg",
+      "cv": "Adva Levi received her B.A. in Psychology and Philosophy from Tel Aviv University . She is currently an M.A. student in the Cognitive Psychology department in Tel-Aviv University."
+    },
+    "amir tal": {
+      "role": "post doc",
+      "image": "amir.jpg",
+      "cv": "Amir received his BSc in computer science and philosophy from Tel-Aviv University, where he studied philosophy of consciousness with Dr. Mudrik. He went on to pursue an MSc and then a PhD in neuroscience at Bar-Ilan University, under the supervision of Prof. Moshe Bar. Amir is interested in unconscious heuristics for learning and generalization. He studies how conscious information is integrated with unconscious information when they differ and even contradict one another. He hopes to shed light on how we construct our subjective model of the world, so that we don’t always trust it too much."
+    },
+    "uri korisky": {
+      "role": "PhD Student",
+      "image": "uri.jpg"
+    },
+    "liad shmudrik": {
+      "role": "principal inveshtigator",
+      "image": "liad.jpg"
+    },
+    "Adva shlevi": {
+      "role": "lab shmanager",
+      "image": "adva.jpg"
+    },
+    "amir shtal": {
+      "role": "posh doc",
+      "image": "amir.jpg"
+    }
+  },
+  "alumni": {
+    "inbal gur arie": {
+      "role": "MA Student",
+      "image": "inbal.jpeg",
+      "cv": "Inbal is a student in the direct M.A. track in cognitive psychology. Her B.A. studies are in psychology, and her  B.mus is in piano performance from the Buchman- Mehta school of music, both from Tel Aviv University. Inbal is especially interested in consciousness, decision making, free will, and music cognition.",
+      "email": "http://www.mudriklab.tau.ac.il/people/inbal4434@gmail.com"
+    },
+    "nataly davidson litvak": {
+      "role": "MA student",
+      "cv": "Nataly received her B.A. in Psychology from the Open University of Israel. She is currently a Masters student in the Cognitive Psychology department in Tel-Aviv University.",
+      "image": "nataly.jpg",
+      "email": "http://www.mudriklab.tau.ac.il/people/natalyd1@mail.tau.ac.il"
+    }
+  }
 }
