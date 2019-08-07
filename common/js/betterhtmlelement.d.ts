@@ -25,6 +25,7 @@ declare type TElemAttrs = {
     src?: string;
     href?: string;
 };
+
 interface CssOptions {
     alignContentS?: string;
     alignItems?: string;
@@ -347,15 +348,26 @@ interface CssOptions {
     zIndex?: string;
     zoom?: string;
 }
+
 declare type CubicBezierFunction = [number, number, number, number];
 declare type Jumpterm = 'jump-start' | 'jump-end' | 'jump-none' | 'jump-both' | 'start' | 'end';
 /**Displays an animation iteration along n stops along the transition, displaying each stop for equal lengths of time.
  * For example, if n is 5,  there are 5 steps.
  * Whether the animation holds temporarily at 0%, 20%, 40%, 60% and 80%, on the 20%, 40%, 60%, 80% and 100%, or makes 5 stops between the 0% and 100% along the animation, or makes 5 stops including the 0% and 100% marks (on the 0%, 25%, 50%, 75%, and 100%) depends on which of the following jump terms is used*/
 declare type StepsFunction = [number, Jumpterm];
-declare type AnimationTimingFunction = 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'step-start' | 'step-end' | StepsFunction | CubicBezierFunction;
+declare type AnimationTimingFunction =
+    'linear'
+    | 'ease'
+    | 'ease-in'
+    | 'ease-out'
+    | 'ease-in-out'
+    | 'step-start'
+    | 'step-end'
+    | StepsFunction
+    | CubicBezierFunction;
 declare type AnimationDirection = 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
 declare type AnimationFillMode = 'none' | 'forwards' | 'backwards' | 'both';
+
 interface AnimateOptions {
     delay?: string;
     direction?: AnimationDirection;
@@ -374,63 +386,107 @@ interface AnimateOptions {
      * */
     timingFunction?: AnimationTimingFunction;
 }
+
 declare class BetterHTMLElement {
     _htmlElement: HTMLElement;
+    
     constructor(elemOptions: ElemOptions);
+    
     readonly e: HTMLElement;
+    
     html(html: string): this;
+    
     text(txt: string): this;
+    
     id(id: string): this;
+    
     css(css: CssOptions): this;
+    
     uncss(...removeProps: (keyof CssOptions)[]): this;
+    
     class(cls: string): this;
     class(): string[];
+    
     addClass(cls: string, ...clses: string[]): this;
+    
     removeClass(cls: string): this;
+    
     replaceClass(oldToken: string, newToken: string): this;
+    
     toggleClass(cls: string, force?: boolean): this;
+    
     append(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
+    
     cacheAppend(keyChildObj: TMap<BetterHTMLElement>): this;
+    
     child<K extends keyof HTMLElementTagNameMap>(selector: K): this;
     child<K extends keyof SVGElementTagNameMap>(selector: K): this;
     child(selector: string): BetterHTMLElement;
+    
     replaceChild(newChild: Node, oldChild: Node): this;
     replaceChild(newChild: BetterHTMLElement, oldChild: BetterHTMLElement): this;
+    
     children(): BetterHTMLElement[];
+    
     cacheChildren(keySelectorObj: TMap<string>): void;
+    
     empty(): this;
+    
     remove(): this;
+    
     on(evTypeFnPairs: TEventFunctionMap<TEvent>, options?: AddEventListenerOptions): this;
+    
     touchstart(fn: (ev: Event) => any, options?: AddEventListenerOptions): this;
+    
     pointerdown(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
     click(): this;
     click(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
     attr(attrValPairs: TElemAttrs): this;
+    
     removeAttribute(qualifiedName: string): this;
+    
     data(key: string, parse?: boolean): any;
+    
     fade(dur: number, to: 0 | 1): Promise<this>;
+    
     fadeOut(dur: number): Promise<this>;
+    
     fadeIn(dur: number): Promise<this>;
 }
+
 declare class Div extends BetterHTMLElement {
     _htmlElement: HTMLDivElement;
-    constructor({ id, text, cls }?: TSubElemOptions);
+    
+    constructor({id, text, cls}?: TSubElemOptions);
 }
+
 declare class Span extends BetterHTMLElement {
     _htmlElement: HTMLSpanElement;
-    constructor({ id, text, cls }?: TSubElemOptions);
+    
+    constructor({id, text, cls}?: TSubElemOptions);
 }
+
 declare class Img extends BetterHTMLElement {
     _htmlElement: HTMLImageElement;
-    constructor({ id, src, cls }: TImgOptions);
+    
+    constructor({id, src, cls}: TImgOptions);
 }
+
 declare function elem(elemOptions: ElemOptions): BetterHTMLElement;
-declare function span({ id, text, cls }: TSubElemOptions): Span;
-declare function div({ id, text, cls }: TSubElemOptions): Div;
-declare function img({ id, src, cls }: TImgOptions): Img;
+
+declare function span({id, text, cls}: TSubElemOptions): Span;
+
+declare function div({id, text, cls}: TSubElemOptions): Div;
+
+declare function img({id, src, cls}: TImgOptions): Img;
+
 declare type TMap<T> = {
     [s: string]: T;
 };
+
 declare function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
 declare function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
+
 declare function wait(ms: number): Promise<any>;
