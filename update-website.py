@@ -1,6 +1,6 @@
-change = input('what was changed?\t')
+change = raw_input('what was changed?\t')
 if not change:
-    change = input('bad input, what was changed man?\t')
+    change = raw_input('bad input, what was changed man?\t')
     if not change:
         print('i give up. exiting')
         import sys
@@ -8,4 +8,4 @@ if not change:
         sys.exit()
 import os
 
-os.system(f'git commit -a -m "{change}" && git push')
+os.system('git commit -a -m "' + change + '" && git push')

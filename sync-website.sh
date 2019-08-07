@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python3 sync-website.py
+python sync-website.py

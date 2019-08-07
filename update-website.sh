@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python3 update-website.py
+python update-website.py
