@@ -1,8 +1,6 @@
 import urllib.request
 import os
 
-# import http.server as server
-
 jsurl = 'https://cdn.jsdelivr.net/gh/giladbarnea/betterhtmlelement@latest/dist/all.js'
 dtsurl = 'https://cdn.jsdelivr.net/gh/giladbarnea/betterhtmlelement@latest/dist/all.d.ts'
 localjspath = os.path.join(os.getcwd(), 'common/js/betterhtmlelement.js')
@@ -22,5 +20,3 @@ except FileNotFoundError:
 print(f'downloading betterhtmlelement@latest/dist/all.js and all.d.ts to /common/js/ as betterhtmlelement...')
 urllib.request.urlretrieve(jsurl, localjspath)
 urllib.request.urlretrieve(dtsurl, localdtspath)
-
-os.system('python3 -m http.server')

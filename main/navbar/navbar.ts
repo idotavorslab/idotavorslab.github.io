@@ -2,7 +2,7 @@ type TNavbarDivChild =
     INavbar["research"]
     | INavbar["people"]
     | INavbar["publications"]
-    | INavbar["photos"]
+    | INavbar["gallery"]
     | INavbar["contact"]
 
 interface INavbar extends BetterHTMLElement {
@@ -10,7 +10,7 @@ interface INavbar extends BetterHTMLElement {
     research: Div,
     people: Div,
     publications: Div,
-    photos: Div,
+    gallery: Div,
     contact: Div,
     tau: Img,
     select: (child: TNavbarDivChild) => void
@@ -23,14 +23,14 @@ const Navbar = <INavbar>elem({
         research: '.research',
         people: '.people',
         publications: '.publications',
-        photos: '.photos',
+        gallery: '.gallery',
         contact: '.contact',
         tau: '.tau',
     }
 });
 
 Navbar.select = child => {
-    for (let k of [Navbar.research, Navbar.people, Navbar.publications, Navbar.photos, Navbar.contact])
+    for (let k of [Navbar.research, Navbar.people, Navbar.publications, Navbar.gallery, Navbar.contact])
         k.toggleClass('selected', k === child);
     
 };

@@ -211,11 +211,19 @@ class BetterHTMLElement {
 	}
 
 	pointerdown(fn, options) {
-		this.e.addEventListener('pointerdown', function _f(ev) {
+		let action;
+		if (window.PointerEvent) {
+			console.log('window.PointerEvent ok, using pointerdown');
+			action = 'pointerdown';
+		} else {
+			console.log('window.PointerEvent NOT ok, using mousedown');
+			action = 'mousedown';
+		}
+		this.e.addEventListener(action, function _f(ev) {
 			ev.preventDefault();
 			fn(ev);
 			if (options && options.once) // TODO: maybe native options.once is enough
-				this.removeEventListener('pointerdown', _f);
+				this.removeEventListener(action, _f);
 		});
 		return this;
 	}
