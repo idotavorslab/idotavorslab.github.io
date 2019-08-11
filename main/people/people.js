@@ -32,7 +32,7 @@ const PeoplePage = () => {
                 this.e.name.text(name);
                 this.e.img.attr({ src: `main/people/${image}` });
                 this.e.cv.text(cv);
-                this.e.email.text(`Email: ${email}`);
+                this.e.email.html(`Email: <a href="mailto:${email}">${email}</a>`);
             }
         };
         const req = new Request('main/people/people.json', { cache: "no-cache" });
