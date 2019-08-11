@@ -17,10 +17,11 @@
       "image": "adva.jpg",
       "cv": "Adva Levi received her B.A. in Psychology and Philosophy from Tel Aviv University . She is currently an M.A. student in the Cognitive Psychology department in Tel-Aviv University."
     },
-    "amir tal": {
-      "role": "post doc",
-      "image": "amir.jpg",
-      "cv": "Amir received his BSc in computer science and philosophy from Tel-Aviv University, where he studied philosophy of consciousness with Dr. Mudrik. He went on to pursue an MSc and then a PhD in neuroscience at Bar-Ilan University, under the supervision of Prof. Moshe Bar. Amir is interested in unconscious heuristics for learning and generalization. He studies how conscious information is integrated with unconscious information when they differ and even contradict one another. He hopes to shed light on how we construct our subjective model of the world, so that we don’t always trust it too much."
+    "yael shavit": {
+      "role": "PhD Student",
+      "image": "yael.jpg",
+      "cv": "Yael received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is now a PhD student in the lab, currently focusing on microstructural charactarization of the human cortex using diffusion MRI."
+	  "email": "yael.shvt5@gmail.com"
     },
     "uri korisky": {
       "role": "PhD Student",
