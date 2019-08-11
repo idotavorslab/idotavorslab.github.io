@@ -5,7 +5,7 @@ const PeoplePage = () => {
         Navbar.select(Navbar.people);
         const personViewer = {
             init: function () {
-                console.log('init');
+                console.log('init', this);
                 this.e.cacheAppend({
                     name: div({ cls: "name" }),
                     img: img({}),
@@ -22,7 +22,7 @@ const PeoplePage = () => {
             e: div({ id: "person_viewer" }),
             isopen: false,
             open: async function () {
-                console.log('opening');
+                console.log('opening', this);
                 this.e.class('open');
                 await this.e.fadeIn(500);
                 this.isopen = true;
@@ -32,7 +32,7 @@ const PeoplePage = () => {
                 this.e.name.text(name);
                 this.e.img.attr({ src: `main/people/${image}` });
                 this.e.cv.text(cv);
-                this.e.email.text(`Email: ${email}`);
+                this.e.email.html(`Email: <a href="mailto:${email}">${email}</a>`);
             }
         };
         const req = new Request('main/people/people.json', { cache: "no-cache" });
