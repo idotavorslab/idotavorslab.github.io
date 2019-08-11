@@ -1,11 +1,8 @@
-change = raw_input('what was changed?\t')
-if not change:
-    change = raw_input('bad input, what was changed man?\t')
-    if not change:
-        print('i give up. exiting')
-        import sys
-
-        sys.exit()
+change = raw_input('What was changed? (no quotes)\t')
+trynum = 1
+while not change:
+    change = raw_input('Bad input, what was changed? (trynum: %d)\t' % trynum)
+    trynum += 1
 import os
 
-os.system('git commit -a -m "' + change + '" && git push')
+os.system('git add . && git commit -a -m "' + change + '" && git push')
