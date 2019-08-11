@@ -26,7 +26,8 @@ Contacts
     recruiting link
 
 
-
+People
+    [x] email hyperlink
 
 Home - structure like ron shamir's
     Our Lab (where ron's "ACGT"): image like ACGT, then a small title like mudriks, and some text
