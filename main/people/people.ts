@@ -13,7 +13,7 @@ const PeoplePage = () => {
         Navbar.select(Navbar.people);
         const personViewer: PersonViewer = {
             init: function () {
-                console.log('init', this);
+                console.log('init');
                 this.e.cacheAppend({
                     name: div({cls: "name"}),
                     img: img({}),
@@ -31,7 +31,7 @@ const PeoplePage = () => {
             e: div({id: "person_viewer"}),
             isopen: false,
             open: async function () {
-                console.log('opening', this);
+                console.log('opening');
                 this.e.class('open');
                 await this.e.fadeIn(500);
                 this.isopen = true;
