@@ -6,13 +6,16 @@ const PublicationsPage = () => {
         const data = await (await fetch(req)).json();
         console.log(data);
         const papers = [];
-        for (let [title, { year, creds, mag, link }] of dict(data).items()) {
+        for (let [title, { year, creds, mag, thumbnail, link }] of dict(data).items()) {
             let paper = elem({ tag: "paper" });
             paper.cacheAppend({
-                title: div({ text: title, cls: "title" }),
-                creds: span({ text: creds, cls: "creds" }),
-                year: span({ text: ` (${year})`, cls: "year" }),
-                mag: div({ text: mag, cls: "mag" }),
+                thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
+                content: div({ cls: "content-div" }).cacheAppend({
+                    title: div({ text: title, cls: "title" }),
+                    creds: span({ text: creds, cls: "creds" }),
+                    year: span({ text: ` (${year})`, cls: "year" }),
+                    mag: div({ text: mag, cls: "mag" })
+                })
             }).pointerdown(() => {
                 if (link.includes('http') || link.includes('www'))
                     window.open(link);

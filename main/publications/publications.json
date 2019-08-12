@@ -1,20 +1,23 @@
 {
 	"Does It Matter Whether You or Your Brain Did It? An Empirical Investigation of the Influence of the Double Subject Fallacy on Moral Responsibility Judgments.": {
 		"year": 2019,
-		"creds":"Maoz, U., Sita, K. R., van Boxtel, J. J. A., & Mudrik, L.",
-		"mag":"frontiers in psychology, 10.",
-		"link":"mypdf.pdf"
+		"creds": "Maoz, U., Sita, K. R., van Boxtel, J. J. A., & Mudrik, L.",
+		"mag": "frontiers in psychology, 10.",
+		"thumbnail": "thumb.jpg",
+		"link": "mypdf.pdf"
 	},
 	"Imaging object-scene relations processing in visible and invisible natural scenes .": {
 		"year": 2019,
-		"creds":"Faivre, N., Dubois, J., Schwartz, n., & Mudrik, L.",
-		"mag":"Scientific Reports, 9(1).",
-		"link":"http://www.mudriklab.tau.ac.il/wp-content/uploads/2019/03/Faivre_et_al_2019.pdf"
+		"creds": "Faivre, N., Dubois, J., Schwartz, n., & Mudrik, L.",
+		"mag": "Scientific Reports, 9(1).",
+		"thumbnail": "thumb.jpg",
+		"link": "http://www.mudriklab.tau.ac.il/wp-content/uploads/2019/03/Faivre_et_al_2019.pdf"
 	},
 	"Real-life” continuous flash suppression (CFS)-CFS with real-world objects using augmented reality goggles.": {
 		"year": 2018,
-		"creds":"Korisky, U., Hirschhorn, R., & Mudrik, L.",
-		"mag":"Behavior Research Methods, 1-13.",
-		"link":"http://www.mudriklab.tau.ac.il/wp-content/uploads/2018/11/Korisky_et_al_2018_BRM.pdf"
+		"creds": "Korisky, U., Hirschhorn, R., & Mudrik, L.",
+		"mag": "Behavior Research Methods, 1-13.",
+		"thumbnail": "thumb.jpg",
+		"link": "http://www.mudriklab.tau.ac.il/wp-content/uploads/2018/11/Korisky_et_al_2018_BRM.pdf"
 	}
 }
