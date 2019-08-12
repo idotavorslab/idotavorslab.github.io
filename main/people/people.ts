@@ -15,15 +15,14 @@ const PeoplePage = () => {
         // **  personViewer
         const personViewer: PersonViewer = {
             init: function () {
+                
                 console.log('init');
                 this.e.cacheAppend({
                     name: div({cls: "name"}),
-                    imgCvContainer: div({cls:"img-cv-container"}).cacheAppend({
+                    imgCvContainer: div({cls: "img-cv-container"}).cacheAppend({
                         img: img({}),
                         cv: div({cls: "cv"})
                     }),
-                    // img: img({}),
-                    // cv: div({cls: "cv"}),
                     email: div({cls: "email"}),
                     minimize: div({text: "_", cls: "minimize"})
                 });
