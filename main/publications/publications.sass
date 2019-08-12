@@ -16,12 +16,21 @@ paper
     display: block
     position: relative
     margin: 0 0 60px 0
+    background-color: rgb(245, 245, 245)
+    padding: 30px
+    display: -webkit-box
+
+    img.thumbnail
+        margin:
+            right: 30px
+        border: 1px solid rgba(0, 0, 0, 0.2)
 
     div
         margin:
             bottom: 5px
+            top: 5px
 
-    div[class~="title"]
+    div.title
 
         text-decoration:
             color: goldenrod
@@ -29,8 +38,16 @@ paper
             line: underline
         font:
             family: OpenSansSemiBold
+        margin:
+            right: 80px
 
-    div[class~="mag"]
+    span.creds
+        color: #777
+
+    span.year
+        color: #777
+
+    div.mag
         margin:
             top: 5px
         font:
