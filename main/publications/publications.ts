@@ -15,7 +15,10 @@ const PublicationsPage = () => {
                 year: span({text: ` (${year})`, cls: "year"}),
                 mag: div({text: mag, cls: "mag"}),
             }).pointerdown(() => {
-                window.open(link)
+                if (link.includes('http') || link.includes('www'))
+                    window.open(link);
+                else
+                    window.open(`main/publications/${link}`)
             });
             
             papers.push(paper);
