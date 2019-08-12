@@ -14,7 +14,7 @@
 		},
 		"niv tik": {
 			"role": "PhD student",
-			"image": "niv.jpeg",
+			"image": "niv.jpg",
 			"cv": "Niv completed his undergraduate studies in biology and psychology at Ben - Gurion University in 2015. Between 2015 and 2017 he worked as a research assistant in the Functional Neuroimaging lab in Sheba Medical Center. Niv is currently a PhD student. His Research focuses mainly on individual variability in brain connectivity and its relationship to brain activity, both in healthy volunteers and individuals suffering from psychiatric conditions.",
 			"email": "nivtik@mail.tau.ac.il"
 		},
@@ -33,28 +33,26 @@
 			"image": "naama.jpg",
 			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks",
 			"email": "naamaf@mail.tau.ac.il"
-		},
-		"Adva shlevi": {
-			"role": "lab shmanager",
-			"image": "adva.jpg"
-		},
-		"amir shtal": {
-			"role": "posh doc",
-			"image": "amir.jpg"
 		}
 	},
 	"alumni": {
-		"inbal gur arie": {
-			"role": "MA Student",
-			"image": "inbal.jpeg",
-			"cv": "Inbal is a student in the direct M.A. track in cognitive psychology. Her B.A. studies are in psychology, and her  B.mus is in piano performance from the Buchman- Mehta school of music, both from Tel Aviv University. Inbal is especially interested in consciousness, decision making, free will, and music cognition.",
-			"email": "http://www.mudriklab.tau.ac.il/people/inbal4434@gmail.com"
+		"niv tik": {
+			"role": "PhD student",
+			"image": "niv.jpg",
+			"cv": "Niv completed his undergraduate studies in biology and psychology at Ben - Gurion University in 2015. Between 2015 and 2017 he worked as a research assistant in the Functional Neuroimaging lab in Sheba Medical Center. Niv is currently a PhD student. His Research focuses mainly on individual variability in brain connectivity and its relationship to brain activity, both in healthy volunteers and individuals suffering from psychiatric conditions.",
+			"email": "nivtik@mail.tau.ac.il"
 		},
-		"nataly davidson litvak": {
-			"role": "MA student",
-			"cv": "Nataly received her B.A. in Psychology from the Open University of Israel. She is currently a Masters student in the Cognitive Psychology department in Tel-Aviv University.",
-			"image": "nataly.jpg",
-			"email": "http://www.mudriklab.tau.ac.il/people/natalyd1@mail.tau.ac.il"
+		"yael shavit": {
+			"role": "PhD Student",
+			"image": "yael.jpg",
+			"cv": "Yael received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is now a PhD student in the lab, currently focusing on microstructural charactarization of the human cortex using diffusion MRI.",
+			"email": "yael.shvt5@gmail.com"
+		},
+		"naama friedman": {
+			"role": "MSc student",
+			"image": "naama.jpg",
+			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks",
+			"email": "naamaf@mail.tau.ac.il"
 		}
 	}
 }
