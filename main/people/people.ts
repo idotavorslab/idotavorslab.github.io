@@ -11,13 +11,19 @@ const PeoplePage = () => {
         console.log('PeoplePage init');
         console.log({Navbar});
         Navbar.select(Navbar.people);
+        
+        // **  personViewer
         const personViewer: PersonViewer = {
             init: function () {
                 console.log('init');
                 this.e.cacheAppend({
                     name: div({cls: "name"}),
-                    img: img({}),
-                    cv: div({cls: "cv"}),
+                    imgCvContainer: div({cls:"img-cv-container"}).cacheAppend({
+                        img: img({}),
+                        cv: div({cls: "cv"})
+                    }),
+                    // img: img({}),
+                    // cv: div({cls: "cv"}),
                     email: div({cls: "email"}),
                     minimize: div({text: "_", cls: "minimize"})
                 });
@@ -40,8 +46,8 @@ const PeoplePage = () => {
             populate: function (name, image, cv, email) {
                 console.log('populating');
                 this.e.name.text(name);
-                this.e.img.attr({src: `main/people/${image}`});
-                this.e.cv.text(cv);
+                this.e.imgCvContainer.img.attr({src: `main/people/${image}`});
+                this.e.imgCvContainer.cv.text(cv);
                 this.e.email.html(`Email: <a href="mailto:${email}">${email}</a>`);
             }
         };
