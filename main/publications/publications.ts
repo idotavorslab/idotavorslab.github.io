@@ -17,7 +17,7 @@ const PublicationsPage = () => {
             }).pointerdown(() => {
                 if (link.includes('http') || link.includes('www'))
                     window.open(link);
-                else
+                else // local
                     window.open(`main/publications/${link}`)
             });
             
