@@ -7,20 +7,34 @@
     flex-wrap: wrap
     margin: 0 auto 40px auto
     @media screen and (min-width: 1400px)
-        // [20][260][20] = 300 x 4 = 1200
         width: 1200px
         person
+            // [20][260][20] = 300 x 4 = 1200
             margin: auto 20px 60px 20px
             width: 260px
     @media screen and (min-width: 1140px) and (max-width: 1400px)
         width: 1040px
         person
+            // [10][240][10] = 260 x 4 = 1040
             margin: auto 10px 60px 10px
             width: 240px
     @media screen and (max-width: 1140px)
         width: calc(80vw)
+
         person
-            margin: auto 10px 60px 10px
+            @for $i from 1 through 5
+                @for $j from 1 through 5
+                    $n: ($i - 1) * 5 + $j
+                    $realn: ($n - 2) % 3
+                    &:nth-child(#{$n})
+                        @if $realn == 1
+                            margin: auto auto 60px 10px
+                        @else if $realn == 2
+                            margin: auto auto 60px auto
+                        @else
+                            margin: auto 10px 60px auto
+
+
             width: 240px
 
     div.separator
