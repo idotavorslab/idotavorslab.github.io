@@ -2,6 +2,7 @@
 // BREAKPOINTS:     1400, 1140
 // DEPENDENCIES:    peopleContainerMixin width, person_viewer width, person width and margin
 ////////////////////
+$imgHeight: 185px
 @mixin peopleContainerMixin
     display: flex
     flex-wrap: wrap
@@ -112,6 +113,7 @@ div#person_viewer
 
     img
         margin-bottom: 20px
+        height: $imgHeight
 
     div.cv
         color: #444
@@ -148,7 +150,7 @@ person
         repeat: no-repeat
 
     img
-        height: 185px
+        height: $imgHeight
 
     div
         text-transform: capitalize
