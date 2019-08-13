@@ -11,7 +11,7 @@ const PublicationsPage = () => {
                 .cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }).pointerdown(_openLink),
                 content: div({ cls: "content-div" }).cacheAppend({
-                    title: div({ text: title, cls: "title" }).pointerdown(_openLink),
+                    title: div({ text: title, cls: "paper-title" }).pointerdown(_openLink),
                     creds: span({ text: creds, cls: "creds" }),
                     year: span({ text: ` (${year})`, cls: "year" }),
                     mag: div({ text: mag, cls: "mag" }).pointerdown(_openLink)

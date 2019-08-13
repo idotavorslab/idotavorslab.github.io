@@ -35,8 +35,24 @@ div#papers_container
     @else
         transition: #{$prop} $easeOut
 
-paper
+year
+    div.title
+        color: #ccc
+        letter-spacing: 1px
+        margin:
+            bottom: 10px
+        font:
+            family: OpenSansLight
+            size: 25px
 
+    div.papers
+        border-left: 1px solid #ddd
+        padding:
+            left: 40px
+        margin:
+            left: 30px
+
+paper
     position: relative
     margin: 0 0 60px 0
     background-color: rgb(245, 245, 245)
@@ -75,7 +91,7 @@ paper
             color: #888
             font-size: 14px
 
-        div.title
+        div.paper-title
             margin-bottom: 10px
             @include hoverMixin(color)
             font:
