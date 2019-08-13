@@ -36,7 +36,11 @@ body
 
 a
     text-decoration: none
-    color: #3b82f0
+    color: $googleBlue
+    transition: color 200ms ease-out
+
+    &:hover
+        color: #888
 
 main
     @media screen and (min-width: 1600px)
@@ -58,6 +62,7 @@ main
         display: block
         opacity: 1
 
+        // TODO: when does this happen?
         &[class~="squeezed"]
             margin: 0 20px
 
@@ -67,25 +72,8 @@ main
     bottom: 0
     background-color: rgba(0, 0, 0, 0.5)
     color: white
-// font-weight: 500
-// @include four_way_text_shadow(1px, 1px, 1px, white)
 
 @import 'main/home/home.sass'
 @import 'main/research/research.sass'
 @import 'main/people/people.sass'
 @import 'main/publications/publications.sass'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
