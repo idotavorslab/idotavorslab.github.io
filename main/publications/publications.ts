@@ -45,18 +45,29 @@ const PublicationsPage = () => {
         // papers.sort((a, b) => b.year - a.year);
         
         
-        const years: TMap<[Paper]> = {};
+        const yearToPaper: TMap<[Paper]> = {};
         for (let paper of papers) {
-            if (paper.year in years) {
-                years[paper.year].push(paper);
+            if (paper.year in yearToPaper) {
+                yearToPaper[paper.year].push(paper);
             } else {
-                years[paper.year] = [paper];
+                yearToPaper[paper.year] = [paper];
             }
             
-            
         }
+        const yearElems: BetterHTMLElement[] = [];
+        for (let year of Object.keys(yearToPaper).reverse()) { // 2019, 2018, 2016
+            console.log(year);
+            let yearElem = elem({tag: 'year'}).cacheAppend({
+                title: div({cls: 'title'}).text(year),
+                papers: div({cls: 'papers'}).append(...yearToPaper[year].map(p => p.elem))
+            });
+            yearElems.push(yearElem)
+        }
+        
+        // const papersContainer = div({id: "papers_container"})
+        //     .append(...papers.map(p => p.elem));
         const papersContainer = div({id: "papers_container"})
-            .append(...papers.map(p => p.elem));
+            .append(...yearElems);
         Home.empty().append(papersContainer);
         
         

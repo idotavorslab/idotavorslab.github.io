@@ -19,6 +19,13 @@ class Dict<T> {
             yield [k, proxy[k]];
         }
     }
+    
+    * keys(): IterableIterator<string> {
+        const proxy = this as unknown as T;
+        for (let k in proxy) {
+            yield k;
+        }
+    }
 }
 
 function dict<T>(obj: T): Dict<T> {

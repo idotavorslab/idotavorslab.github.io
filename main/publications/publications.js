@@ -33,17 +33,26 @@ const PublicationsPage = () => {
         for (let [title, { year, creds, mag, thumbnail, link }] of dict(data).items()) {
             papers.push(new Paper(title, year, creds, mag, thumbnail, link));
         }
-        const years = {};
+        const yearToPaper = {};
         for (let paper of papers) {
-            if (paper.year in years) {
-                years[paper.year].push(paper);
+            if (paper.year in yearToPaper) {
+                yearToPaper[paper.year].push(paper);
             }
             else {
-                years[paper.year] = [paper];
+                yearToPaper[paper.year] = [paper];
             }
         }
+        const yearElems = [];
+        for (let year of Object.keys(yearToPaper).reverse()) {
+            console.log(year);
+            let yearElem = elem({ tag: 'year' }).cacheAppend({
+                title: div({ cls: 'title' }).text(year),
+                papers: div({ cls: 'papers' }).append(...yearToPaper[year].map(p => p.elem))
+            });
+            yearElems.push(yearElem);
+        }
         const papersContainer = div({ id: "papers_container" })
-            .append(...papers.map(p => p.elem));
+            .append(...yearElems);
         Home.empty().append(papersContainer);
     }
     return { init };
