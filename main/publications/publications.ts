@@ -25,7 +25,9 @@ const PublicationsPage = () => {
                     year: span({text: ` (${year})`, cls: "year"}),
                     mag: div({text: mag, cls: "mag"})
                 }),
-                pdf: div({cls: 'pdf-div'}).text(link.split('.').reverse()[0].toUpperCase()) // ext
+                pdf: div({cls: 'pdf-div'})
+                    .pointerdown(openLink)
+                    .text(link.split('.').reverse()[0].toUpperCase()) // ext
                 
             });
             

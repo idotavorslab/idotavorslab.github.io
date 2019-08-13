@@ -10,16 +10,21 @@ div#papers_container
         width: 1040px
     margin: auto
 
-@mixin hoverMixin($prop)
+@mixin hoverMixin($prop, $withText:false)
 
     &:hover
         @if ($prop == color)
             color: #888
         @else
-            border: 1px solid rgba(0, 0, 0, 0.4)
+            border: 1px solid #999
+            @if ($withText == true)
+                color: #444
 
     cursor: pointer
-    transition: #{$prop} 200ms ease-out
+    @if ($withText == true)
+        transition: #{$prop} 200ms ease-out, color 200ms ease-out
+    @else
+        transition: #{$prop} 200ms ease-out
 
 paper
     color: #111
@@ -29,6 +34,11 @@ paper
     background-color: rgb(245, 245, 245)
     padding: 30px
     display: flex
+    border:
+        width: 1px
+        color: #ddd
+        style: solid
+        radius: 2px
 
     img.thumbnail
         margin: auto 30px auto 0
@@ -37,14 +47,18 @@ paper
 
 
     div.pdf-div
+        @include hoverMixin(border, true)
         margin:
             top: auto
             right: 0
             bottom: auto
             left: auto
         padding: 10px
-        border: 1px solid #ccc
-        border-radius: 2px
+        border:
+            width: 1px
+            color: #ccc
+            style: solid
+            radius: 2px
         font:
             family: OpenSansLight
         color: #888
