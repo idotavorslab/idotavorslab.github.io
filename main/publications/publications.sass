@@ -36,14 +36,31 @@ div#papers_container
         transition: #{$prop} $easeOut
 
 year
-    div.title
+    div.title-and-separator-container
+        display: flex
         color: #ccc
-        letter-spacing: 1px
-        margin:
-            bottom: 10px
-        font:
-            family: OpenSansLight
-            size: 25px
+
+        span.year-span
+            letter-spacing: 1px
+            margin:
+                bottom: 10px
+            font:
+                family: OpenSansLight
+                size: 25px
+
+        div.minimize
+            margin: auto 0 auto auto
+            text-align: center
+            font-size: 17px
+            color: #888
+            //color: rgba(0, 0, 0, 0.5)
+            @include borderMixin(#ccc, 2px)
+            //border: 1px solid rgba(0, 0, 0, 0.3)
+            width: 40px
+            height: 40px
+            @include hoverMixin(border, true)
+            //&:hover
+                cursor: pointer
 
     div.papers
         border-left: 1px solid #ddd

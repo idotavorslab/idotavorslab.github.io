@@ -58,8 +58,13 @@ const PublicationsPage = () => {
         for (let year of Object.keys(yearToPaper).reverse()) { // 2019, 2018, 2016
             console.log(year);
             let yearElem = elem({tag: 'year'}).cacheAppend({
-                title: div({cls: 'title'}).text(year),
-                papers: div({cls: 'papers'}).append(...yearToPaper[year].map(p => p.elem))
+                title: div({cls: 'title-and-separator-container'})
+                    .append(
+                        span({cls: 'year-span'}).text(year),
+                        // div({cls: 'minimize'}).text('_')
+                    ),
+                papers: div({cls: 'papers'})
+                    .append(...yearToPaper[year].map(p => p.elem))
             });
             yearElems.push(yearElem)
         }
