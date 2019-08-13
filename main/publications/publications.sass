@@ -10,21 +10,30 @@ div#papers_container
         width: 1040px
     margin: auto
 
+@mixin borderMixin($color, $radius:null)
+    border:
+        width: 1px
+        color: $color
+        style: solid
+        @if ($radius)
+            radius: $radius
+
 @mixin hoverMixin($prop, $withText:false)
 
     &:hover
         @if ($prop == color)
             color: #888
         @else
-            border: 1px solid #999
+            @include borderMixin(#999)
             @if ($withText == true)
                 color: #444
 
     cursor: pointer
+    $easeOut: 200ms ease-out
     @if ($withText == true)
-        transition: #{$prop} 200ms ease-out, color 200ms ease-out
+        transition: #{$prop} $easeOut, color $easeOut
     @else
-        transition: #{$prop} 200ms ease-out
+        transition: #{$prop} $easeOut
 
 paper
     color: #111
@@ -34,11 +43,7 @@ paper
     background-color: rgb(245, 245, 245)
     padding: 30px
     display: flex
-    border:
-        width: 1px
-        color: #ddd
-        style: solid
-        radius: 2px
+    @include borderMixin(#ddd, 2px)
 
     img.thumbnail
         margin: auto 30px auto 0
@@ -54,11 +59,7 @@ paper
             bottom: auto
             left: auto
         padding: 10px
-        border:
-            width: 1px
-            color: #ccc
-            style: solid
-            radius: 2px
+        @include borderMixin(#ccc, 2px)
         font:
             family: OpenSansLight
         color: #888
