@@ -6,6 +6,13 @@
 		"thumbnail": "thumb.jpg",
 		"link": "mypdf.pdf"
 	},
+	"Mock Paper from 2016": {
+		"year": 2016,
+		"creds": "Someone, someone else",
+		"mag": "Best magazine",
+		"thumbnail": "thumb.jpg",
+		"link": "mypdf.pdf"
+	},
 	"Imaging object-scene relations processing in visible and invisible natural scenes .": {
 		"year": 2019,
 		"creds": "Faivre, N., Dubois, J., Schwartz, n., & Mudrik, L.",

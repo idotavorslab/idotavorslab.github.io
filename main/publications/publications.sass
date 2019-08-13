@@ -10,48 +10,117 @@ div#papers_container
         width: 1040px
     margin: auto
 
-paper
-    color: #111111
+@mixin borderMixin($color, $radius:null)
+    border:
+        width: 1px
+        color: $color
+        style: solid
+        @if ($radius)
+            radius: $radius
+
+@mixin hoverMixin($prop, $withText:false)
+
+    &:hover
+        @if ($prop == color)
+            color: #888
+        @else
+            @include borderMixin(#999)
+            @if ($withText == true)
+                color: #444
+
     cursor: pointer
-    display: block
+    $easeOut: 200ms ease-out
+    @if ($withText == true)
+        transition: #{$prop} $easeOut, color $easeOut
+    @else
+        transition: #{$prop} $easeOut
+
+year
+    div.title-and-separator-container
+        display: flex
+        color: #ccc
+
+        span.year-span
+            letter-spacing: 1px
+            margin:
+                bottom: 10px
+            font:
+                family: OpenSansLight
+                size: 25px
+
+        div.minimize
+            margin: auto 0 auto auto
+            text-align: center
+            font-size: 17px
+            color: #888
+            //color: rgba(0, 0, 0, 0.5)
+            @include borderMixin(#ccc, 2px)
+            //border: 1px solid rgba(0, 0, 0, 0.3)
+            width: 40px
+            height: 40px
+            @include hoverMixin(border, true)
+            //&:hover
+                cursor: pointer
+
+    div.papers
+        border-left: 1px solid #ddd
+        padding:
+            left: 40px
+        margin:
+            left: 30px
+
+paper
     position: relative
     margin: 0 0 60px 0
     background-color: rgb(245, 245, 245)
     padding: 30px
-    display: -webkit-box
+    display: flex
+    @include borderMixin(#ddd, 2px)
 
     img.thumbnail
+        margin: auto 30px auto 0
+        border: 1px solid #ccc
+        @include hoverMixin(border)
+
+
+    div.pdf-div
+        @include hoverMixin(border, true)
         margin:
-            right: 30px
-        border: 1px solid rgba(0, 0, 0, 0.2)
-
-    div
-        margin:
-            bottom: 5px
-            top: 5px
-
-    div.title
-
-        text-decoration:
-            color: goldenrod
-            style: solid
-            line: underline
+            top: auto
+            right: 0
+            bottom: auto
+            left: auto
+        padding: 10px
+        @include borderMixin(#ccc, 2px)
         font:
-            family: OpenSansSemiBold
-        margin:
-            right: 80px
+            family: OpenSansLight
+        color: #888
+        background-color: rgb(250, 250, 250)
 
-    span.creds
-        color: #777
+    div.content-div
+        div
+            margin:
+                top: 5px
+                right: 30px
+                bottom: 5px
 
-    span.year
-        color: #777
+        span
+            color: #888
+            font-size: 14px
 
-    div.mag
-        margin:
-            top: 5px
-        font:
-            family: OpenSansItalic
+        div.paper-title
+            margin-bottom: 10px
+            @include hoverMixin(color)
+            font:
+                family: OpenSansSemiBold
+
+
+        div.mag
+            font-size: 16px
+            color: #444
+            @include hoverMixin(color)
+            font:
+                family: OpenSansItalic
 
 
 

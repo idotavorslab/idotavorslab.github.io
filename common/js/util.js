@@ -14,6 +14,12 @@ class Dict {
             yield [k, proxy[k]];
         }
     }
+    *keys() {
+        const proxy = this;
+        for (let k in proxy) {
+            yield k;
+        }
+    }
 }
 function dict(obj) {
     return new Dict(obj);

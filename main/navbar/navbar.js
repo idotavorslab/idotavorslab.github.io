@@ -22,6 +22,6 @@ Navbar.people.pointerdown(() => {
     PeoplePage().init();
 });
 Navbar.publications.pointerdown(() => {
-    return PublicationsPage().init();
+    PublicationsPage().init();
 });
 //# sourceMappingURL=navbar.js.map
