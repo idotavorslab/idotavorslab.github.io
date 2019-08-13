@@ -10,6 +10,17 @@ div#papers_container
         width: 1040px
     margin: auto
 
+@mixin hoverMixin($prop)
+
+    &:hover
+        @if ($prop == color)
+            color: #888
+        @else
+            border: 1px solid rgba(0, 0, 0, 0.4)
+
+    cursor: pointer
+    transition: #{$prop} 200ms ease-out
+
 paper
     color: #111111
 
@@ -20,9 +31,10 @@ paper
     display: flex
 
     img.thumbnail
-        cursor: pointer
         margin: auto 30px auto 0
         border: 1px solid rgba(0, 0, 0, 0.2)
+        @include hoverMixin(border)
+
 
     div
         margin:
@@ -31,10 +43,7 @@ paper
 
     div.title
 
-        &:hover
-            color: #888
-        transition: color 200ms ease-out
-        cursor: pointer
+        @include hoverMixin(color)
         font:
             family: OpenSansSemiBold
 
@@ -45,6 +54,7 @@ paper
         color: #888
 
     div.mag
+        @include hoverMixin(color)
         margin:
             top: 5px
         font:
