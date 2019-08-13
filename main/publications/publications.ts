@@ -24,7 +24,8 @@ const PublicationsPage = () => {
                     creds: span({text: creds, cls: "creds"}),
                     year: span({text: ` (${year})`, cls: "year"}),
                     mag: div({text: mag, cls: "mag"})
-                })
+                }),
+                pdf: div({cls: 'pdf-div'}).text('PDF')
                 
             });
             
