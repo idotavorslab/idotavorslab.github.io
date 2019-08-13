@@ -12,8 +12,7 @@ div#papers_container
 
 paper
     color: #111111
-    cursor: pointer
-    //display: block
+
     position: relative
     margin: 0 0 60px 0
     background-color: rgb(245, 245, 245)
@@ -21,6 +20,7 @@ paper
     display: flex
 
     img.thumbnail
+        cursor: pointer
         margin: auto 30px auto 0
         border: 1px solid rgba(0, 0, 0, 0.2)
 
@@ -31,18 +31,18 @@ paper
 
     div.title
 
-        text-decoration:
-            color: goldenrod
-            style: solid
-            line: underline
+        &:hover
+            color: #888
+        transition: color 200ms ease-out
+        cursor: pointer
         font:
             family: OpenSansSemiBold
 
     span.creds
-        color: #777
+        color: #888
 
     span.year
-        color: #777
+        color: #888
 
     div.mag
         margin:

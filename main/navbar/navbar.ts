@@ -45,5 +45,5 @@ Navbar.people.pointerdown(() => {
 });
 Navbar.publications.pointerdown(() => {
     
-    return PublicationsPage().init();
+    PublicationsPage().init();
 });

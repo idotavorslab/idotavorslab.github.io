@@ -8,19 +8,20 @@ const PublicationsPage = () => {
         const papers = [];
         for (let [title, { year, creds, mag, thumbnail, link }] of dict(data).items()) {
             let paper = elem({ tag: "paper" });
-            paper.cacheAppend({
-                thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
-                content: div({ cls: "content-div" }).cacheAppend({
-                    title: div({ text: title, cls: "title" }),
-                    creds: span({ text: creds, cls: "creds" }),
-                    year: span({ text: ` (${year})`, cls: "year" }),
-                    mag: div({ text: mag, cls: "mag" })
-                })
-            }).pointerdown(() => {
+            function openLink() {
                 if (link.includes('http') || link.includes('www'))
                     window.open(link);
                 else
                     window.open(`main/publications/${link}`);
+            }
+            paper.cacheAppend({
+                thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }).pointerdown(openLink),
+                content: div({ cls: "content-div" }).cacheAppend({
+                    title: div({ text: title, cls: "title" }).pointerdown(openLink),
+                    creds: span({ text: creds, cls: "creds" }),
+                    year: span({ text: ` (${year})`, cls: "year" }),
+                    mag: div({ text: mag, cls: "mag" })
+                })
             });
             papers.push(paper);
         }
@@ -30,4 +31,5 @@ const PublicationsPage = () => {
     }
     return { init };
 };
+PublicationsPage().init();
 //# sourceMappingURL=publications.js.map

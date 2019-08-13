@@ -9,20 +9,23 @@ const PublicationsPage = () => {
         const papers = [];
         for (let [title, {year, creds, mag, thumbnail, link}] of dict(data).items()) {
             let paper = elem({tag: "paper"});
+            
+            function openLink() {
+                if (link.includes('http') || link.includes('www'))
+                    window.open(link);
+                else // local
+                    window.open(`main/publications/${link}`)
+            }
+            
             paper.cacheAppend({
-                thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}),
+                thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}).pointerdown(openLink),
                 content: div({cls: "content-div"}).cacheAppend({
-                    title: div({text: title, cls: "title"}),
+                    title: div({text: title, cls: "title"}).pointerdown(openLink),
                     creds: span({text: creds, cls: "creds"}),
                     year: span({text: ` (${year})`, cls: "year"}),
                     mag: div({text: mag, cls: "mag"})
                 })
                 
-            }).pointerdown(() => {
-                if (link.includes('http') || link.includes('www'))
-                    window.open(link);
-                else // local
-                    window.open(`main/publications/${link}`)
             });
             
             papers.push(paper);
@@ -38,3 +41,4 @@ const PublicationsPage = () => {
     
     return {init}
 };
+PublicationsPage().init();
