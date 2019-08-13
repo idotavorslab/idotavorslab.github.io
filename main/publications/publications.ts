@@ -18,7 +18,7 @@ const PublicationsPage = () => {
                         title: div({text: title, cls: "title"}).pointerdown(_openLink),
                         creds: span({text: creds, cls: "creds"}),
                         year: span({text: ` (${year})`, cls: "year"}),
-                        mag: div({text: mag, cls: "mag"})
+                        mag: div({text: mag, cls: "mag"}).pointerdown(_openLink)
                     }),
                     pdf: div({cls: 'pdf-div'})
                         .pointerdown(_openLink)
@@ -37,35 +37,24 @@ const PublicationsPage = () => {
         const data = await (await fetch(req)).json();
         console.log('PublicationsPage data:', data);
         const papers: Paper[] = [];
+        
         for (let [title, {year, creds, mag, thumbnail, link}] of dict(data).items()) {
-            
-            
-            // function openLink() {
-            //     if (link.includes('http') || link.includes('www'))
-            //         window.open(link);
-            //     else // local
-            //         window.open(`main/publications/${link}`)
-            // }
-            //
-            // let paper = elem({tag: "paper"})
-            //     .cacheAppend({
-            //         thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}).pointerdown(openLink),
-            //         content: div({cls: "content-div"}).cacheAppend({
-            //             title: div({text: title, cls: "title"}).pointerdown(openLink),
-            //             creds: span({text: creds, cls: "creds"}),
-            //             year: span({text: ` (${year})`, cls: "year"}),
-            //             mag: div({text: mag, cls: "mag"})
-            //         }),
-            //         pdf: div({cls: 'pdf-div'})
-            //             .pointerdown(openLink)
-            //             .text(link.split('.').reverse()[0].toUpperCase()) // ext
-            //
-            //     });
-            
             papers.push(new Paper(title, year, creds, mag, thumbnail, link));
+        }
+        
+        // papers.sort((a, b) => b.year - a.year);
+        
+        
+        const years: TMap<[Paper]> = {};
+        for (let paper of papers) {
+            if (paper.year in years) {
+                years[paper.year].push(paper);
+            } else {
+                years[paper.year] = [paper];
+            }
+            
             
         }
-        papers.sort((a, b) => b.year - a.year);
         const papersContainer = div({id: "papers_container"})
             .append(...papers.map(p => p.elem));
         Home.empty().append(papersContainer);

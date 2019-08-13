@@ -14,7 +14,7 @@ const PublicationsPage = () => {
                     title: div({ text: title, cls: "title" }).pointerdown(_openLink),
                     creds: span({ text: creds, cls: "creds" }),
                     year: span({ text: ` (${year})`, cls: "year" }),
-                    mag: div({ text: mag, cls: "mag" })
+                    mag: div({ text: mag, cls: "mag" }).pointerdown(_openLink)
                 }),
                 pdf: div({ cls: 'pdf-div' })
                     .pointerdown(_openLink)
@@ -33,7 +33,15 @@ const PublicationsPage = () => {
         for (let [title, { year, creds, mag, thumbnail, link }] of dict(data).items()) {
             papers.push(new Paper(title, year, creds, mag, thumbnail, link));
         }
-        papers.sort((a, b) => b.year - a.year);
+        const years = {};
+        for (let paper of papers) {
+            if (paper.year in years) {
+                years[paper.year].push(paper);
+            }
+            else {
+                years[paper.year] = [paper];
+            }
+        }
         const papersContainer = div({ id: "papers_container" })
             .append(...papers.map(p => p.elem));
         Home.empty().append(papersContainer);
