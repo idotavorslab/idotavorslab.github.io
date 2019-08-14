@@ -61,8 +61,6 @@ const HomePage = () => {
                         this.currentIndex = 0;
                     this.content.text(this.items[this.currentIndex].content);
                     this.headline.text(this.items[this.currentIndex].title);
-                    // this.image.css({backgroundImage: `linear-gradient(rgb(100,100,100), #222), url("main/research/${this.items[this.currentIndex].image}")`});
-                    
                     this.image.css({backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 40%, rgba(255,255,255,0)), url("main/research/${this.items[this.currentIndex].image}")`});
                     TL.to([this.content.e, this.headline.e], 0.3, {opacity: 1});
                     TL.to(this.e, 1, {opacity: 1})

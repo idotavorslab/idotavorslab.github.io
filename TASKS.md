@@ -8,9 +8,10 @@ Photos => Gallery
     Meshes? sketchfab api or files?
     
 Publications
-    Sorted by year
-    Structure like http://neuroimaging.tau.ac.il/?page_id=19 (Selected, than expandable by year. also sorted)
-    Visual like Ron Shamirs with thumbnail http://acgt.cs.tau.ac.il/latest-years-publications/
+    [x] Sorted by year
+    [x] Structure like http://neuroimaging.tau.ac.il/?page_id=19 
+    [ ] Each year is expandable
+    [x] Visual like Ron Shamirs with thumbnail http://acgt.cs.tau.ac.il/latest-years-publications/
 
 Courses
     "pretty mobile-like", not a list. image, title, text, link. http://schonberglab.tau.ac.il/funding/
@@ -21,13 +22,14 @@ Funding
     (logo, title, subtitle) http://schonberglab.tau.ac.il/funding/
 
 
-Contacts
+Contact
     lab twitter
     recruiting link
 
 
 People
     [x] email hyperlink
+    [ ] Fix People viewer proportions
 
 Home - structure like ron shamir's
     Our Lab (where ron's "ACGT"): image like ACGT, then a small title like mudriks, and some text

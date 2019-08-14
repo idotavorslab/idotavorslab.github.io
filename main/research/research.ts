@@ -12,7 +12,7 @@ const ResearchPage = () => {
         let req = new Request('main/research/research.json', {cache: "no-cache"});
         const data = await (await fetch(req)).json();
         // Home.empty();
-        console.log(data);
+        console.log('ResearchPage data', data);
         const articles: Article[] = [];
         let emptied = false;
         for (let [title, {image, content}] of dict(data).items()) {
@@ -33,6 +33,7 @@ const ResearchPage = () => {
             }
             Home.append(article);
         }
+        console.log('ResearchPage done for loop');
         // await TL.toAsync(Home.e, 0.03, {opacity: 1});
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
