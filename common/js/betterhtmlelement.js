@@ -75,18 +75,30 @@ class BetterHTMLElement {
 	}
 
 	html(html) {
-		this.e.innerHTML = html;
-		return this;
+		if (html === undefined) {
+			return this.e.innerHTML;
+		} else {
+			this.e.innerHTML = html;
+			return this;
+		}
 	}
 
 	text(txt) {
-		this.e.innerText = txt;
-		return this;
+		if (txt === undefined) {
+			return this.e.innerText;
+		} else {
+			this.e.innerText = txt;
+			return this;
+		}
 	}
 
 	id(id) {
-		this.e.id = id;
-		return this;
+		if (id === undefined) {
+			return this.e.id;
+		} else {
+			this.e.id = id;
+			return this;
+		}
 	}
 
 	css(css) {
@@ -367,21 +379,4 @@ function div({ id, text, cls }) {
 
 function img({ id, src, cls }) {
 	return new Img({ id, src, cls });
-}
-
-function* enumerate(obj) {
-	if (Array.isArray(obj)) {
-		let i = 0;
-		for (let x of obj) {
-			yield [i, x];
-		}
-	} else {
-		for (let prop in obj) {
-			yield [prop, obj[prop]];
-		}
-	}
-}
-
-function wait(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -130,7 +130,7 @@ const ajax: TAjax = (() => {
         url: string,
         data?: object
     ): Promise<object> {
-        if (!url.startsWith("/")) url = "/" + url;
+        // if (!url.startsWith("/")) url = "/" + url;
         const xhr = new XMLHttpRequest();
         return new Promise(async (resolve, reject) => {
             await xhr.open(str(type).upper(), url, true);
@@ -156,10 +156,14 @@ const ajax: TAjax = (() => {
 })();
 const TL = {
     ...TweenLite,
-    toAsync: (target: Object, duration: number, vars) => new Promise((resolve, reject) => TL.to(target, duration, {
-        ...vars,
-        onComplete: resolve
-    }))
+    toAsync: (target: object, duration: number, vars: ToVars) => {
+        return new Promise(resolve => {
+            return TL.to(target, duration, {
+                ...vars,
+                onComplete: resolve
+            });
+        });
+    }
 };
 
 function round(n: number, d: number = 0) {

@@ -80,8 +80,6 @@ const ajax = (() => {
         }
     }
     function _baseRequest(type, url, data) {
-        if (!url.startsWith("/"))
-            url = "/" + url;
         const xhr = new XMLHttpRequest();
         return new Promise(async (resolve, reject) => {
             await xhr.open(str(type).upper(), url, true);
@@ -102,7 +100,11 @@ const ajax = (() => {
     }
     return { post, get };
 })();
-const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => new Promise((resolve, reject) => TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }))) });
+const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => {
+        return new Promise(resolve => {
+            return TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }));
+        });
+    } });
 function round(n, d = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;

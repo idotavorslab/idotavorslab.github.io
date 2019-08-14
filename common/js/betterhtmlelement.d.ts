@@ -1,13 +1,17 @@
+declare class BadArgumentsAmountError extends Error {
+    constructor(expectedArgsNum: number | number[], passedArgs: any, details?: string);
+}
+
 declare type TEvent = keyof HTMLElementEventMap;
 declare type TEventFunctionMap<K> = {
     [P in Extract<K, string>]?: (evt: Event) => void;
 };
 declare type ElemOptions = {
-    tag?: "span" | "div" | "button" | "img" | any;
+    tag?: keyof HTMLElementTagNameMap;
     id?: string;
     text?: string;
     htmlElement?: HTMLElement;
-    query?: string;
+    query?: keyof HTMLElementTagNameMap | string;
     children?: TMap<string>;
     cls?: string;
 };
@@ -395,10 +399,13 @@ declare class BetterHTMLElement {
     readonly e: HTMLElement;
     
     html(html: string): this;
+    html(): string;
     
     text(txt: string): this;
+    text(): string;
     
     id(id: string): this;
+    id(): string;
     
     css(css: CssOptions): this;
     
@@ -419,8 +426,7 @@ declare class BetterHTMLElement {
     
     cacheAppend(keyChildObj: TMap<BetterHTMLElement>): this;
     
-    child<K extends keyof HTMLElementTagNameMap>(selector: K): this;
-    child<K extends keyof SVGElementTagNameMap>(selector: K): this;
+    child<K extends keyof HTMLElementTagNameMap>(selector: K): BetterHTMLElement;
     child(selector: string): BetterHTMLElement;
     
     replaceChild(newChild: Node, oldChild: Node): this;
@@ -428,7 +434,8 @@ declare class BetterHTMLElement {
     
     children(): BetterHTMLElement[];
     
-    cacheChildren(keySelectorObj: TMap<string>): void;
+    cacheChildren(keySelectorObj: TMap<string>): any;
+    cacheChildren(keySelectorObj: TMap<keyof HTMLElementTagNameMap>): any;
     
     empty(): this;
     

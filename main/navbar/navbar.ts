@@ -28,7 +28,13 @@ const Navbar = <INavbar>elem({
         tau: '.tau',
     }
 });
-const separators = elem({query: 'separators', children: {left: '.left', right: '.right'}});
+
+interface ISeparators extends BetterHTMLElement {
+    right: BetterHTMLElement,
+    left: BetterHTMLElement,
+}
+
+const separators = <ISeparators>elem({query: 'separators', children: {left: '.left', right: '.right'}});
 // const separators = document.getElementsByTagName('separators');
 // const separatorLeft = elem({htmlElement: <HTMLElement>separators.item(0)});
 // const separatorRight = elem({htmlElement: <HTMLElement>separators.item(1)});
