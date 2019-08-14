@@ -6,11 +6,11 @@
 			"cv": "Dr. Tavor started his academic career in Tel Aviv University’s undergraduate program in Biology and Psychology with emphasis on Neuroscience. He completed his Ph.D. in Neurobiology under the guidance of Prof. Yaniv Assaf studying rapid learning-related structural plasticity in the living human brain. He then proceeded to a postdoctoral fellowship at the Oxford Centre for Functional MRI of the Brain (FMRIB) at the University of Oxford. There, working with Prof. Saad Jbabdi he studied individual variability in brain function and connectivity. In 2017, Ido joined Tel Aviv University as a senior lecturer at the Sackler Faculty of Medicine and the Sagol School of Neuroscience.",
 			"email": "idotavor@tauex.tau.ac.il"
 		},
-		"liad mudrik": {
-			"role": "principal investigator",
-			"image": "liad.jpg",
-			"cv": "Dr. Mudrik started her academic career as student of the interdisciplinary program for outstanding students. She completed two Ph.D. dissertations at Tel Aviv University: her Ph.D. in cognitive neuroscience (psychology department) focused on the role of consciousness and attention in processing contextual violations, under the guidance of Prof. Dominique Lamy and Prof. Leon Deouell from the Hebrew University of Jerusalem. Her Ph.D. in philosophy was a descriptive-deconstructive analysis of the mind-body problem in neuroscience under the supervision of Prof. Marcelo Dascal. She then continued to a postdoctoral fellowship at the California Institute of Technology. There, she worked in the lab of Prof. Christof Koch in the division of biology, and in the lab of Prof. Ralph Adolphs in the division of humanities and social sciences. In 2015, she began her appointment as a faculty member in Tel Aviv University’s school of psychological science and the Sagol school of neuroscience.",
-			"email": "mudrikli@post.tau.ac.il"
+		"michal bernstein-eliav": {
+			"role": "postdoctoral fellow",
+			"image": "michal.jpg",
+			"cv": ".",
+			"email": "bernste2@mail.tau.ac.il"
 		},
 		"niv tik": {
 			"role": "PhD student",
@@ -24,14 +24,16 @@
 			"cv": "Yael received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is now a PhD student in the lab, currently focusing on microstructural charactarization of the human cortex using diffusion MRI.",
 			"email": "yael.shvt5@gmail.com"
 		},
-		"uri korisky": {
+		"dana gefen doron": {
 			"role": "PhD Student",
-			"image": "uri.jpg"
+			"image": "dana.jpg",
+			"cv": "Dana is a physical medicine and rehabilitation specialist working mainly with people who suffered acquired brain injuries. She completed her MSc in neurobiology in Tel Aviv University under the guidance of Prof. Yaniv Assaf, studying rapid learning related structural plasticity in the elderly and in epileptic patients. Dana is currently a PhD student focusing on learning capacity, brain connectivity and structural plasticity in healthy aging."
+			"email": "dorondana@gmail.com"
 		},
 		"naama friedman": {
 			"role": "MSc student",
 			"image": "naama.jpg",
-			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks",
+			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks.",
 			"email": "naamaf@mail.tau.ac.il"
 		}
 	},
