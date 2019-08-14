@@ -10,16 +10,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 	});
 };
 
+class BadArgumentsAmountError extends Error {
+	constructor(expectedArgsNum, passedArgs, details) {
+		const requiresExactNumOfArgs = !Array.isArray(expectedArgsNum);
+		const validArgs = {};
+		for (let [argname, argval] of Object.entries(passedArgs)) {
+			if (argval)
+				validArgs[argname] = argval;
+		}
+		const argNamesValues = Object.entries(validArgs).flatMap(([argname, argval]) => `${argname}: ${argval}`).join(', ');
+		let message;
+		if (requiresExactNumOfArgs) {
+			message = `Didn't receive exactly ${expectedArgsNum} arg. `;
+		} else {
+			message = `Didn't receive between ${expectedArgsNum[0]} to ${expectedArgsNum[1]} args. `;
+		}
+		message += `Instead, out of ${Object.keys(passedArgs).length} received (${Object.keys(passedArgs)}), ${Object.keys(validArgs).length} had value: ${argNamesValues}. ${details ? 'Details: ' + details : ''}`;
+		super(message);
+	}
+}
+
 class BetterHTMLElement {
 	constructor(elemOptions) {
 		const { tag, id, htmlElement, text, query, children, cls } = elemOptions;
-		if ([tag, id, htmlElement, query].filter(x => x).length > 1)
-			throw new Error(`Received more than one, pass exactly one of: [tag, id, htmlElement, query], ${{
+		if ([tag, id, htmlElement, query].filter(x => x).length > 1) {
+			throw new BadArgumentsAmountError(1, {
 				tag,
 				id,
 				htmlElement,
 				query
-			}}`);
+			});
+		}
+		if (tag && children)
+			throw new BadArgumentsAmountError(1, {
+				tag,
+				children
+			}, 'children and tag options are mutually exclusive, since tag implies creating a new element and children implies getting an existing one.');
 		if (tag)
 			this._htmlElement = document.createElement(tag);
 		else if (id)
@@ -28,29 +54,20 @@ class BetterHTMLElement {
 			this._htmlElement = document.querySelector(query);
 		else if (htmlElement)
 			this._htmlElement = htmlElement;
-		else
-			throw new Error(`Didn't receive one, pass exactly one of: [tag, id, htmlElement, query], ${{
+		else {
+			throw new BadArgumentsAmountError(1, {
 				tag,
 				id,
 				htmlElement,
 				query
-			}}`);
+			});
+		}
 		if (text !== undefined)
 			this.text(text);
 		if (cls !== undefined)
 			this.class(cls);
-		if (children !== undefined) {
-			if (tag)
-				throw new Error(`Received children and tag, impossible since tag implies creating a new element and children implies getting an existing one. ${{
-					tag,
-					id,
-					htmlElement,
-					text,
-					query,
-					children
-				}}`);
+		if (children !== undefined)
 			this.cacheChildren(children);
-		}
 	}
 
 	get e() {

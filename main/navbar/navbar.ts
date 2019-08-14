@@ -28,9 +28,10 @@ const Navbar = <INavbar>elem({
         tau: '.tau',
     }
 });
-const separators = document.getElementsByTagName('separator');
-const separatorLeft = elem({htmlElement: <HTMLElement>separators.item(0)});
-const separatorRight = elem({htmlElement: <HTMLElement>separators.item(1)});
+const separators = elem({query: 'separators', children: {left: '.left', right: '.right'}});
+// const separators = document.getElementsByTagName('separators');
+// const separatorLeft = elem({htmlElement: <HTMLElement>separators.item(0)});
+// const separatorRight = elem({htmlElement: <HTMLElement>separators.item(1)});
 
 function linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, string]) {
     return `linear-gradient(90deg, rgba(0, 0, 0, ${opac_stop_1[0]}) ${opac_stop_1[1]}, rgba(0, 0, 0, ${opac_stop_2[0]}) ${opac_stop_2[1]})`
@@ -39,10 +40,10 @@ function linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, str
 function startSeparatorAnimation() {
     
     console.log('startSeparatorAnimation()');
-    const tl = TL.fromTo(separatorLeft.e, 1, {backgroundImage: linearGradient([0, '0%'], [0.15, '150%'])}, {
+    const tl = TL.fromTo(separators.left.e, 1, {backgroundImage: linearGradient([0, '0%'], [0.15, '150%'])}, {
         backgroundImage: linearGradient([0, '0%'], [0.75, '10%']),
     });
-    TL.fromTo(separatorRight.e, 1, {backgroundImage: linearGradient([0.15, '-50%'], [0, '100%'])}, {
+    TL.fromTo(separators.right.e, 1, {backgroundImage: linearGradient([0.15, '-50%'], [0, '100%'])}, {
         backgroundImage: linearGradient([0.75, '90%'], [0, '100%']),
     });
     
@@ -50,9 +51,9 @@ function startSeparatorAnimation() {
 
 function killSeparatorAnimation() {
     console.log('killSeparatorAnimation()');
-    TL.killTweensOf([separatorLeft.e, separatorRight.e]);
-    separatorLeft.css({backgroundImage: linearGradient([0, '0%'], [0.1, '10%'])});
-    separatorRight.css({backgroundImage: linearGradient([0.1, '90%'], [0, '100%'])});
+    TL.killTweensOf([separators.left.e, separators.right.e]);
+    separators.left.css({backgroundImage: linearGradient([0, '0%'], [0.1, '10%'])});
+    separators.right.css({backgroundImage: linearGradient([0.1, '90%'], [0, '100%'])});
 }
 
 Navbar.select = (child) => {
