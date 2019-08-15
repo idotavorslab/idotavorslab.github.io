@@ -144,9 +144,12 @@ div#home_container
                 @include titleMixin
 
         div#news
-            width: 90vw
+            background-color: rgb(250, 250, 250)
+            @include borderMixin(#ddd, 2px)
+            width: 80vw
+            padding: 30px
             margin:
-                left: 100px
+                left: 70px
 
             div.date
                 color: #555
