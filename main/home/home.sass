@@ -113,8 +113,7 @@
         &[class~="animated"]
             animation: scaleDownAndReset 50ms linear
 
-div#intro_container
-    display: flex
+div#home_container
     text-align: left
     @media screen and (min-width: 1400px)
         width: 1300px
@@ -122,28 +121,44 @@ div#intro_container
         width: 1040px
     margin: auto
 
-    div#news
-        width: 90vw
+    div#intro_container
+        display: flex
         margin:
-            left: 100px
-            //right: 150px
+            bottom: 60px
 
-    div#non_news
-        text-align: justify
 
-        img.main-img
-            margin-bottom: 50px
+        div#non_news
+            text-align: justify
 
-        div
-            position: relative
+            img
+                display: block
+                margin:
+                    right: auto
+                    left: auto
+                    bottom: 50px
 
+            div
+                position: relative
+
+            div.title
+                @include titleMixin
+
+        div#news
+            width: 90vw
+            margin:
+                left: 100px
+
+            div.date
+                color: #555
+                font-size: 15px
+
+            div.title
+                @include titleMixin(large)
+                margin-bottom: 15px
+
+    div#research_snippets_container
         div.title
-            font:
-                family: OpenSansBold
-                size: x-large
-            margin-bottom: 5px
-            color: #444
-            letter-spacing: 1px
+            @include titleMixin
 
 @keyframes contrastDownAndReset
     0%
