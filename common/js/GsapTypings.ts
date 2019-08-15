@@ -401,3 +401,5 @@ declare namespace Gsap {
     
     type EventCallback = "onComplete" | "onUpdate" | "onStart" | "onReverseComplete" | string;
 }
+declare const Power2;
+declare const TweenLite;

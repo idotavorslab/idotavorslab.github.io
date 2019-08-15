@@ -156,8 +156,7 @@ const ajax: TAjax = (() => {
 })();
 const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown> } = {
     
-    // @ts-ignore
-    ...window.TweenLite,
+    ...TweenLite,
     toAsync: (target: object, duration: number, vars: Gsap.ToVars) =>
         new Promise(resolve =>
             TL.to(target, duration,
@@ -171,6 +170,11 @@ const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.
 function round(n: number, d: number = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;
+}
+
+async function fetchJson(path: string, cache: RequestCache) {
+    let req = new Request(path, {cache});
+    return (await (await fetch(req)).json());
 }
 
 function windowStats() {

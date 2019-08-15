@@ -77,16 +77,15 @@ const HomePage = () => {
     async function init() {
         
         console.group('HomePage init');
-        let req = new Request('main/research/research.json', {cache: "no-cache"});
-        const data = await (await fetch(req)).json();
-        console.log({data});
+        const data = await fetchJson('main/research/research.json', "no-cache");
+        console.log('data', data);
         
         const carouselItems = [];
         for (let [title, {image, content}] of dict(data).items()) {
             let item = new CarouselItem(title, image, content);
             carouselItems.push(item);
         }
-        const carousel = new Carousel({
+        /*const carousel = new Carousel({
             query: "#carousel", children: {
                 left: '.left',
                 right: '.right',
@@ -96,6 +95,7 @@ const HomePage = () => {
             }
         }, carouselItems);
         console.log(carousel);
+        */
         
         
         console.groupEnd();
