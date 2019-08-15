@@ -13,7 +13,6 @@ class Dict<T> {
     }
     
     * items(): IterableIterator<[string, T[keyof T]]> {
-        // TODO: lol
         const proxy = this as unknown as T;
         for (let k in proxy) {
             yield [k, proxy[k]];
@@ -80,7 +79,7 @@ function str(val) {
 function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
 function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
 function* enumerate(obj) {
-    if (Array.isArray(obj)) {
+    if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
         let i: number = 0;
         for (let x of obj) {
             yield [i, x];

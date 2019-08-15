@@ -77,7 +77,7 @@ const HomePage = () => {
     async function init() {
         
         console.group('HomePage init');
-        const data = await fetchJson('main/research/research.json', "no-cache");
+        /*const data = await fetchJson('main/research/research.json', "no-cache");
         console.log('data', data);
         
         const carouselItems = [];
@@ -85,7 +85,7 @@ const HomePage = () => {
             let item = new CarouselItem(title, image, content);
             carouselItems.push(item);
         }
-        /*const carousel = new Carousel({
+        const carousel = new Carousel({
             query: "#carousel", children: {
                 left: '.left',
                 right: '.right',
@@ -96,8 +96,23 @@ const HomePage = () => {
         }, carouselItems);
         console.log(carousel);
         */
-        
-        
+        const data = await fetchJson('main/home/home.json', "no-cache");
+        const news = elem({
+            query: '#news', children: {
+                date: '.date',
+                title: '.title',
+                content: '.content',
+                radios: '.radios'
+            }
+        });
+        // console.log('news', news);
+        // const radiosContainer = elem({query: '.radios'});
+        // console.log(enumerate(dict(data.news).items()));
+        const radioItems = [];
+        for (let [i, [title, {date, content}]] of enumerate(dict(data.news).items())) {
+            console.log({i, title, date, content});
+            radioItems.push(elem({tag: 'radio'}))
+        }
         console.groupEnd();
     }
     

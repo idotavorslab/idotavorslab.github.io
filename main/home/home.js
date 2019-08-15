@@ -52,12 +52,19 @@ const HomePage = () => {
     }
     async function init() {
         console.group('HomePage init');
-        const data = await fetchJson('main/research/research.json', "no-cache");
-        console.log('data', data);
-        const carouselItems = [];
-        for (let [title, { image, content }] of dict(data).items()) {
-            let item = new CarouselItem(title, image, content);
-            carouselItems.push(item);
+        const data = await fetchJson('main/home/home.json', "no-cache");
+        const news = elem({
+            query: '#news', children: {
+                date: '.date',
+                title: '.title',
+                content: '.content',
+                radios: '.radios'
+            }
+        });
+        const radioItems = [];
+        for (let [i, [title, { date, content }]] of enumerate(dict(data.news).items())) {
+            console.log({ i, title, date, content });
+            radioItems.push(elem({ tag: 'radio' }));
         }
         console.groupEnd();
     }

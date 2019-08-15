@@ -42,7 +42,7 @@ function str(val) {
     return new Str(val);
 }
 function* enumerate(obj) {
-    if (Array.isArray(obj)) {
+    if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
         let i = 0;
         for (let x of obj) {
             yield [i, x];
