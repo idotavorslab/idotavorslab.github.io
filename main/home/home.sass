@@ -181,14 +181,20 @@ div#intro_container
             margin: auto auto 0 auto
 
             radio
+                @include borderMixin(#ccc, null)
+                background-color: white
+                cursor: pointer
                 display: inline-block
                 width: 15px
                 height: 15px
-                background-color: black
                 border-radius: 100px
                 margin:
                     left: 5px
                     right: 5px
+
+                &.selected
+                    background-color: #ccc
+                    border-color: #bbb
 
 //&:first-of-type
     margin-left: 0px
