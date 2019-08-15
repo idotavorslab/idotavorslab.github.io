@@ -155,7 +155,8 @@ const ajax: TAjax = (() => {
     return {post, get};
 })();
 const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown> } = {
-
+    
+    // @ts-ignore
     ...window.TweenLite,
     toAsync: (target: object, duration: number, vars: Gsap.ToVars) =>
         new Promise(resolve =>
