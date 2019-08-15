@@ -77,6 +77,7 @@ function str(val) {
 }
 
 function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
+function enumerate<T>(obj: IterableIterator<T>): IterableIterator<[number, T]>;
 function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
 function* enumerate(obj) {
     if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {

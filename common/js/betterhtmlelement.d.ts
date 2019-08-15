@@ -9,7 +9,7 @@ declare type TEventFunctionMap<K> = {
 declare type HTMLTag = keyof HTMLElementTagNameMap;
 declare type QuerySelector = HTMLTag | string;
 declare type ElemOptions = {
-    tag?: HTMLTag;
+    tag?: QuerySelector;
     id?: string;
     text?: string;
     htmlElement?: HTMLElement;
@@ -403,7 +403,9 @@ declare class BetterHTMLElement {
     html(html: string): this;
     html(): string;
     
+    /**Sets the element's innerText and returns this*/
     text(txt: string): this;
+    /**Gets the element's innerText*/
     text(): string;
     
     id(id: string): this;
@@ -426,18 +428,21 @@ declare class BetterHTMLElement {
     
     append(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
     
+    /**For each item, `append(child)` and stores it by `[key]`. */
     cacheAppend(keyChildObj: TMap<BetterHTMLElement>): this;
     
+    /**Gets a child with `querySelector`*/
     child<K extends HTMLTag>(selector: K): BetterHTMLElement;
     child(selector: string): BetterHTMLElement;
     
     replaceChild(newChild: Node, oldChild: Node): this;
     replaceChild(newChild: BetterHTMLElement, oldChild: BetterHTMLElement): this;
     
+    /**Returns a BetterHTMLElement list of all children */
     children(): BetterHTMLElement[];
     
-    cacheChildren(keySelectorObj: TMap<string>): any;
-    cacheChildren(keySelectorObj: TMap<HTMLTag>): any;
+    /**Gets each existing child by `selector`, and stores it by `[key]` */
+    cacheChildren(keySelectorObj: TMap<QuerySelector>): BetterHTMLElement;
     
     empty(): this;
     
@@ -494,5 +499,3 @@ declare function img({id, src, cls}: TImgOptions): Img;
 declare type TMap<T> = {
     [s: string]: T;
 };
-
-

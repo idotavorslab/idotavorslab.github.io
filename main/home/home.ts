@@ -1,4 +1,6 @@
 const HomePage = () => {
+    type News = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
+    
     class CarouselItem {
         title: string;
         image: string;
@@ -97,7 +99,7 @@ const HomePage = () => {
         console.log(carousel);
         */
         const data = await fetchJson('main/home/home.json', "no-cache");
-        const news = elem({
+        const news: News = <News>elem({
             query: '#news', children: {
                 date: '.date',
                 title: '.title',
@@ -108,10 +110,18 @@ const HomePage = () => {
         // console.log('news', news);
         // const radiosContainer = elem({query: '.radios'});
         // console.log(enumerate(dict(data.news).items()));
-        const radioItems = [];
+        // const radioItems = [];
         for (let [i, [title, {date, content}]] of enumerate(dict(data.news).items())) {
             console.log({i, title, date, content});
-            radioItems.push(elem({tag: 'radio'}))
+            if (i === 0) {
+                news.date.text(`${date}:`);
+                news.title.text(title);
+                news.content.html(content);
+                news.radios.append(elem({tag: 'radio', cls: 'selected'}))
+            } else {
+                news.radios.append(elem({tag: 'radio'}))
+            }
+            
         }
         console.groupEnd();
     }

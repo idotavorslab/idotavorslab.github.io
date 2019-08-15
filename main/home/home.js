@@ -61,10 +61,17 @@ const HomePage = () => {
                 radios: '.radios'
             }
         });
-        const radioItems = [];
         for (let [i, [title, { date, content }]] of enumerate(dict(data.news).items())) {
             console.log({ i, title, date, content });
-            radioItems.push(elem({ tag: 'radio' }));
+            if (i === 0) {
+                news.date.text(`${date}:`);
+                news.title.text(title);
+                news.content.html(content);
+                news.radios.append(elem({ tag: 'radio', cls: 'selected' }));
+            }
+            else {
+                news.radios.append(elem({ tag: 'radio' }));
+            }
         }
         console.groupEnd();
     }
