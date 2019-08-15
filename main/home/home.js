@@ -77,7 +77,6 @@ const HomePage = () => {
                 popuplateNews(date, title, content, radio);
             }
             radio.pointerdown(() => {
-                console.log('pointerdown, selectedRadioIndex:', selectedRadioIndex, 'i:', i, 'radioElems:', JSON.parse(JSON.stringify(radioElems)));
                 radioElems[selectedRadioIndex].toggleClass('selected');
                 popuplateNews(date, title, content, radio);
                 selectedRadioIndex = radioElems.indexOf(radio);
