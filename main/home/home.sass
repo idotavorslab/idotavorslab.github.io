@@ -175,15 +175,11 @@ div#intro_container
             margin-bottom: 15px
 
         div.radios
-            //display: flex
-            //flex-wrap: wrap
-            //justify-content: center
             margin: auto auto 0 auto
 
             radio
                 @include borderMixin(#ccc, null)
-                background-color: white
-                cursor: pointer
+
                 display: inline-block
                 width: 15px
                 height: 15px
@@ -192,9 +188,15 @@ div#intro_container
                     left: 5px
                     right: 5px
 
-                &.selected
-                    background-color: #ccc
-                    border-color: #bbb
+                &:not([class="selected"])
+                    background-color: white
+                    cursor: pointer
+
+                &[class="selected"]
+                    &.selected
+                        background-color: #ccc
+                        border-color: #bbb
+
 
 //&:first-of-type
     margin-left: 0px
