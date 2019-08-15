@@ -3,6 +3,14 @@
 		"Something really exciting happened!": {
 			"date": "Aug 15 2019",
 			"content": "We are very happy to announce that this thing actually happened. We've all worked very hard for it, and it was all worth it.<br>Congrats!"
+		},
+		"Something else happened a few weeks ago": {
+			"date": "Sep 7 2019",
+			"content": "This is another thing that happened, but it's not as exciting as the new one"
+		},
+		"Something happened two years ago and everybody forgot": {
+			"date": "Feb 23 2017",
+			"content": "This item made everyone happy at the time, but it's not really relevant now. Its irrelevance is further emphasized by the fact that half of the lab member were replaced by now"
 		}
 	}
 }

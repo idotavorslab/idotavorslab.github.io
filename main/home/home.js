@@ -61,17 +61,29 @@ const HomePage = () => {
                 radios: '.radios'
             }
         });
-        for (let [i, [title, { date, content }]] of enumerate(dict(data.news).items())) {
-            console.log({ i, title, date, content });
+        let i = 0;
+        function popuplateNews(date, title, content, radio) {
+            news.date.text(`${date}:`);
+            news.title.text(title);
+            news.content.html(content);
+            radio.toggleClass('selected');
+        }
+        const radioElems = [];
+        let selectedRadioIndex = 0;
+        for (let [title, { date, content }] of dict(data.news).items()) {
+            let radio = elem({ tag: 'radio' });
+            radioElems.push(radio);
             if (i === 0) {
-                news.date.text(`${date}:`);
-                news.title.text(title);
-                news.content.html(content);
-                news.radios.append(elem({ tag: 'radio', cls: 'selected' }));
+                popuplateNews(date, title, content, radio);
             }
-            else {
-                news.radios.append(elem({ tag: 'radio' }));
-            }
+            radio.pointerdown(() => {
+                console.log('pointerdown, selectedRadioIndex:', selectedRadioIndex, 'i:', i, 'radioElems:', JSON.parse(JSON.stringify(radioElems)));
+                radioElems[selectedRadioIndex].toggleClass('selected');
+                popuplateNews(date, title, content, radio);
+                selectedRadioIndex = radioElems.indexOf(radio);
+            });
+            news.radios.append(radio);
+            i++;
         }
         console.groupEnd();
     }
