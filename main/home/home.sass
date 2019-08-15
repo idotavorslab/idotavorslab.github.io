@@ -113,20 +113,37 @@
         &[class~="animated"]
             animation: scaleDownAndReset 50ms linear
 
-intro
-    position: relative
-    display: inline-block
+div#intro_container
+    display: flex
+    text-align: left
+    @media screen and (min-width: 1400px)
+        width: 1300px
+    @media screen and (min-width: 1140px) and (max-width: 1400px)
+        width: 1040px
+    margin: auto
 
-    div.title
-        position: relative
-        width: 100%
-        text-align: left
-        font:
-            family: OpenSansBold
-            size: x-large
-        margin-bottom: 5px
-        color: #444
-        letter-spacing: 1px
+    div#news
+        width: 90vw
+        margin:
+            left: 100px
+            //right: 150px
+
+    div#non_news
+        text-align: justify
+
+        img.main-img
+            margin-bottom: 50px
+
+        div
+            position: relative
+
+        div.title
+            font:
+                family: OpenSansBold
+                size: x-large
+            margin-bottom: 5px
+            color: #444
+            letter-spacing: 1px
 
 @keyframes contrastDownAndReset
     0%
