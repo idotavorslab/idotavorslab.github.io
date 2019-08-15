@@ -32,21 +32,6 @@ class BadArgumentsAmountError extends Error {
 
 // TODO: make BetterHTMLElement<T>, for use in eg child function
 class BetterHTMLElement {
-	/*[Symbol.toPrimitive](hint) {
-		 console.log('from toPrimitive, hint: ', hint, '\nthis: ', this);
-		 return this._htmlElement;
-	}
-
-	valueOf() {
-		 console.log('from valueOf, this: ', this);
-		 return this;
-	}
-
-	toString() {
-		 console.log('from toString, this: ', this);
-		 return this;
-	}
-	*/
 	constructor(elemOptions) {
 		const { tag, id, htmlElement, text, query, children, cls } = elemOptions;
 		if ([tag, id, htmlElement, query].filter(x => x).length > 1) {
@@ -101,6 +86,7 @@ class BetterHTMLElement {
 		*/
 	}
 
+	/**Return the wrapped HTMLElement*/
 	get e() {
 		return this._htmlElement;
 	}
@@ -114,8 +100,6 @@ class BetterHTMLElement {
 		}
 	}
 
-	/**If a value is passed, sets the element's innerText and returns this.
-	 * If no value is passed, returns the element's innerText.*/
 	text(txt) {
 		if (txt === undefined) {
 			return this.e.innerText;
@@ -134,12 +118,14 @@ class BetterHTMLElement {
 		}
 	}
 
+	/**For each `[styleAttr, styleVal]` pair, set the `style[styleAttr]` to `styleVal`.*/
 	css(css) {
 		for (let [styleAttr, styleVal] of enumerate(css))
 			this.e.style[styleAttr] = styleVal;
 		return this;
 	}
 
+	/**Remove the value of the passed style properties*/
 	uncss(...removeProps) {
 		let css = {};
 		for (let prop of removeProps)
@@ -148,11 +134,11 @@ class BetterHTMLElement {
 	}
 
 	class(cls) {
-		if (cls !== undefined) {
+		if (cls === undefined) {
+			return Array.from(this.e.classList);
+		} else {
 			this.e.className = cls;
 			return this;
-		} else {
-			return Array.from(this.e.classList);
 		}
 	}
 
@@ -163,8 +149,10 @@ class BetterHTMLElement {
 		return this;
 	}
 
-	removeClass(cls) {
+	removeClass(cls, ...clses) {
 		this.e.classList.remove(cls);
+		for (let c of clses)
+			this.e.classList.remove(c);
 		return this;
 	}
 
@@ -179,16 +167,18 @@ class BetterHTMLElement {
 	}
 
 	// **  Nodes
+	/**Append one or several `BetterHTMLElement`s or vanilla `Node`s*/
 	append(...nodes) {
 		if (nodes[0] instanceof BetterHTMLElement)
 			for (let node of nodes)
 				this.e.append(node.e);
 		else
 			for (let node of nodes)
-				this.e.append(node);
+				this.e.append(node); // TODO: test what happens when passed strings
 		return this;
 	}
 
+	/**For each `[key, child]` pair, `append(child)` and store it in `this[key]`. */
 	cacheAppend(keyChildObj) {
 		for (let [key, child] of enumerate(keyChildObj)) {
 			this.append(child);
@@ -206,17 +196,22 @@ class BetterHTMLElement {
 		return this;
 	}
 
+	/**Return a `BetterHTMLElement` list of all children */
 	children() {
 		const childrenVanilla = Array.from(this.e.children);
 		const toElem = (c) => new BetterHTMLElement({ htmlElement: c });
 		return childrenVanilla.map(toElem);
 	}
 
+	/**For each `[key, selector]` pair, get `this.child(selector)`, and store it in `this[key]`. Useful for eg `navbar.home.toggleClass("selected")`
+	 * @see this.child*/
 	cacheChildren(keySelectorObj) {
 		for (let [key, selector] of enumerate(keySelectorObj))
 			this[key] = this.child(selector);
+		return this;
 	}
 
+	/**Remove all children from DOM*/
 	empty() {
 		// TODO: is this faster than innerHTML = ""?
 		while (this.e.firstChild)
@@ -224,6 +219,7 @@ class BetterHTMLElement {
 		return this;
 	}
 
+	/**Remove element from DOM*/
 	remove() {
 		this.e.remove();
 		return this;
@@ -252,6 +248,7 @@ class BetterHTMLElement {
 	mouseover		        pointerover
 	mouseup	    touchend    pointerup
 	*/
+	/** Add a `touchstart` event listener. This is the fast alternative to `click` listeners for mobile (no 300ms wait). */
 	touchstart(fn, options) {
 		this.e.addEventListener('touchstart', function _f(ev) {
 			ev.preventDefault();
@@ -262,6 +259,7 @@ class BetterHTMLElement {
 		return this;
 	}
 
+	/** Add a `pointerdown` event listener if browser supports `pointerdown`, else send `mousedown` (safari). */
 	pointerdown(fn, options) {
 		let action;
 		try {
@@ -280,22 +278,32 @@ class BetterHTMLElement {
 	}
 
 	click(fn, options) {
-		this.e.addEventListener('click', fn, options);
-		return this;
+		if (fn === undefined) {
+			this.e.click();
+			return this;
+		} else {
+			this.e.addEventListener('click', fn, options);
+			return this;
+		}
 	}
 
 	// **  Attributes
+	/** For each `[attr, val]` pair, apply `setAttribute`*/
 	attr(attrValPairs) {
 		for (let [attr, val] of enumerate(attrValPairs))
 			this.e.setAttribute(attr, val);
 		return this;
 	}
 
-	removeAttribute(qualifiedName) {
+	/** `removeAttribute` */
+	removeAttr(qualifiedName, ...qualifiedNames) {
 		this.e.removeAttribute(qualifiedName);
+		for (let qn of qualifiedNames)
+			this.e.removeAttribute(qn);
 		return this;
 	}
 
+	/**`getAttribute(`data-${key}`)`. JSON.parse it by default.*/
 	data(key, parse = true) {
 		const data = this.e.getAttribute(`data-${key}`);
 		if (parse)

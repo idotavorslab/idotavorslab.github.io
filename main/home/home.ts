@@ -78,7 +78,6 @@ const HomePage = () => {
     
     async function init() {
         
-        console.group('HomePage init');
         /*const data = await fetchJson('main/research/research.json', "no-cache");
         console.log('data', data);
         
@@ -128,17 +127,18 @@ const HomePage = () => {
             }
             radio.pointerdown(async () => {
                 radioElems[selectedRadioIndex].toggleClass('selected');
-                TL.to(news.children().map(c => c.e), 0.1, {opacity: 0,});
+                
+                TL.to(newsChildren, 0.1, {opacity: 0,});
                 await wait(25);
                 popuplateNews(date, title, content, radio);
-                TL.to(news.children().map(c => c.e), 0.1, {opacity: 1});
+                TL.to(newsChildren, 0.1, {opacity: 1});
                 selectedRadioIndex = radioElems.indexOf(radio);
             });
             news.radios.append(radio);
             i++;
             
         }
-        console.groupEnd();
+        let newsChildren = news.children().map(c => c.e);
     }
     
     
