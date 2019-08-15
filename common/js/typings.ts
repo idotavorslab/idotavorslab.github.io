@@ -1,4 +1,0 @@
-type StringOrNumber = string | number;
-
-
-

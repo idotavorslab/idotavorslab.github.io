@@ -2,7 +2,7 @@ function float(str: string): number {
     return parseFloat(str);
 }
 
-function int(x, base?: StringOrNumber | Function): number {
+function int(x, base?: string | number | Function): number {
     return parseInt(x, <number>base);
 }
 
@@ -154,9 +154,9 @@ const ajax: TAjax = (() => {
     
     return {post, get};
 })();
-const TL = {
+const TL: Gsap.TweenLite = {
     ...TweenLite,
-    toAsync: (target: object, duration: number, vars: ToVars) => {
+    toAsync: (target: object, duration: number, vars: Gsap.ToVars) => {
         return new Promise(resolve => {
             return TL.to(target, duration, {
                 ...vars,

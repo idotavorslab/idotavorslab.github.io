@@ -49,6 +49,7 @@ function startSeparatorAnimation() {
     const tl = TL.fromTo(separators.left.e, 1, {backgroundImage: linearGradient([0, '0%'], [0.15, '150%'])}, {
         backgroundImage: linearGradient([0, '0%'], [0.75, '10%']),
     });
+    
     TL.fromTo(separators.right.e, 1, {backgroundImage: linearGradient([0.15, '-50%'], [0, '100%'])}, {
         backgroundImage: linearGradient([0.75, '90%'], [0, '100%']),
     });
