@@ -2,7 +2,7 @@ function float(str: string): number {
     return parseFloat(str);
 }
 
-function int(x, base?: StringOrNumber | Function): number {
+function int(x, base?: string | number | Function): number {
     return parseInt(x, <number>base);
 }
 
@@ -13,7 +13,6 @@ class Dict<T> {
     }
     
     * items(): IterableIterator<[string, T[keyof T]]> {
-        // TODO: lol
         const proxy = this as unknown as T;
         for (let k in proxy) {
             yield [k, proxy[k]];
@@ -78,9 +77,10 @@ function str(val) {
 }
 
 function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
+function enumerate<T>(obj: IterableIterator<T>): IterableIterator<[number, T]>;
 function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
 function* enumerate(obj) {
-    if (Array.isArray(obj)) {
+    if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
         let i: number = 0;
         for (let x of obj) {
             yield [i, x];
@@ -130,7 +130,7 @@ const ajax: TAjax = (() => {
         url: string,
         data?: object
     ): Promise<object> {
-        if (!url.startsWith("/")) url = "/" + url;
+        // if (!url.startsWith("/")) url = "/" + url;
         const xhr = new XMLHttpRequest();
         return new Promise(async (resolve, reject) => {
             await xhr.open(str(type).upper(), url, true);
@@ -154,17 +154,27 @@ const ajax: TAjax = (() => {
     
     return {post, get};
 })();
-const TL = {
+const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown> } = {
+    
     ...TweenLite,
-    toAsync: (target: Object, duration: number, vars) => new Promise((resolve, reject) => TL.to(target, duration, {
-        ...vars,
-        onComplete: resolve
-    }))
+    toAsync: (target: object, duration: number, vars: Gsap.ToVars) =>
+        new Promise(resolve =>
+            TL.to(target, duration,
+                {
+                    ...vars,
+                    onComplete: resolve
+                })
+        )
 };
 
 function round(n: number, d: number = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;
+}
+
+async function fetchJson(path: string, cache: RequestCache) {
+    let req = new Request(path, {cache});
+    return (await (await fetch(req)).json());
 }
 
 function windowStats() {

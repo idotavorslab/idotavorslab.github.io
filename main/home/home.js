@@ -52,24 +52,38 @@ const HomePage = () => {
     }
     async function init() {
         console.group('HomePage init');
-        let req = new Request('main/research/research.json', { cache: "no-cache" });
-        const data = await (await fetch(req)).json();
-        console.log({ data });
-        const carouselItems = [];
-        for (let [title, { image, content }] of dict(data).items()) {
-            let item = new CarouselItem(title, image, content);
-            carouselItems.push(item);
-        }
-        const carousel = new Carousel({
-            query: "#carousel", children: {
-                left: '.left',
-                right: '.right',
-                content: 'content',
-                headline: 'headline',
-                image: '.image'
+        const data = await fetchJson('main/home/home.json', "no-cache");
+        const news = elem({
+            query: '#news', children: {
+                date: '.date',
+                title: '.title',
+                content: '.content',
+                radios: '.radios'
             }
-        }, carouselItems);
-        console.log(carousel);
+        });
+        let i = 0;
+        function popuplateNews(date, title, content, radio) {
+            news.date.text(`${date}:`);
+            news.title.text(title);
+            news.content.html(content);
+            radio.toggleClass('selected');
+        }
+        const radioElems = [];
+        let selectedRadioIndex = 0;
+        for (let [title, { date, content }] of dict(data.news).items()) {
+            let radio = elem({ tag: 'radio' });
+            radioElems.push(radio);
+            if (i === 0) {
+                popuplateNews(date, title, content, radio);
+            }
+            radio.pointerdown(() => {
+                radioElems[selectedRadioIndex].toggleClass('selected');
+                popuplateNews(date, title, content, radio);
+                selectedRadioIndex = radioElems.indexOf(radio);
+            });
+            news.radios.append(radio);
+            i++;
+        }
         console.groupEnd();
     }
     return { init };

@@ -10,13 +10,6 @@ div#papers_container
         width: 1040px
     margin: auto
 
-@mixin borderMixin($color, $radius:null)
-    border:
-        width: 1px
-        color: $color
-        style: solid
-        @if ($radius)
-            radius: $radius
 
 @mixin hoverMixin($prop, $withText:false)
 
@@ -24,7 +17,7 @@ div#papers_container
         @if ($prop == color)
             color: #888
         @else
-            @include borderMixin(#999)
+            @include borderMixin(#999, null)
             @if ($withText == true)
                 color: #444
 
@@ -53,7 +46,7 @@ year
             text-align: center
             font-size: 17px
             color: #888
-            @include borderMixin(#ccc, 2px)
+            @include borderMixin(#ccc)
             width: 40px
             height: 40px
             @include hoverMixin(border, true)
@@ -68,10 +61,10 @@ year
 paper
     position: relative
     margin: 0 0 60px 0
-    background-color: rgb(245, 245, 245)
+    background-color: $lightGreyBG
     padding: 30px
     display: flex
-    @include borderMixin(#ddd, 2px)
+    @include borderMixin(#ddd)
 
     img.thumbnail
         margin: auto 30px auto 0
@@ -87,7 +80,7 @@ paper
             bottom: auto
             left: auto
         padding: 10px
-        @include borderMixin(#ccc, 2px)
+        @include borderMixin(#ccc)
         font:
             family: OpenSansLight
         color: #888

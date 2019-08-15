@@ -2,3 +2,20 @@
     text-shadow: $x $y $blur $color, $x * -1 $y $blur $color, $x $y * -1 $blur $color, $x * -1 $y * -1 $blur $color
 
 $googleBlue: #3b82f0
+$lightGreyBG: rgb(245, 245, 245)
+@mixin titleMixin($font-size: x-large)
+
+    font:
+        family: OpenSansBold
+        size: $font-size
+    margin-bottom: 5px
+    color: #444
+    letter-spacing: 1px
+
+@mixin borderMixin($color, $radius:2px)
+    border:
+        width: 1px
+        color: $color
+        style: solid
+        @if ($radius)
+            radius: $radius

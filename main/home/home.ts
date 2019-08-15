@@ -1,4 +1,6 @@
 const HomePage = () => {
+    type News = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
+    
     class CarouselItem {
         title: string;
         image: string;
@@ -77,9 +79,8 @@ const HomePage = () => {
     async function init() {
         
         console.group('HomePage init');
-        let req = new Request('main/research/research.json', {cache: "no-cache"});
-        const data = await (await fetch(req)).json();
-        console.log({data});
+        /*const data = await fetchJson('main/research/research.json', "no-cache");
+        console.log('data', data);
         
         const carouselItems = [];
         for (let [title, {image, content}] of dict(data).items()) {
@@ -96,8 +97,44 @@ const HomePage = () => {
             }
         }, carouselItems);
         console.log(carousel);
+        */
+        const data = await fetchJson('main/home/home.json', "no-cache");
+        const news: News = <News>elem({
+            query: '#news', children: {
+                date: '.date',
+                title: '.title',
+                content: '.content',
+                radios: '.radios'
+            }
+        });
         
+        let i = 0;
         
+        function popuplateNews(date, title, content, radio: BetterHTMLElement) {
+            news.date.text(`${date}:`);
+            news.title.text(title);
+            news.content.html(content);
+            radio.toggleClass('selected');
+        }
+        
+        const radioElems: BetterHTMLElement[] = [];
+        let selectedRadioIndex = 0;
+        for (let [title, {date, content}] of dict(data.news).items()) {
+            // console.log({i, title, date, content});
+            let radio = elem({tag: 'radio'});
+            radioElems.push(radio);
+            if (i === 0) {
+                popuplateNews(date, title, content, radio);
+            }
+            radio.pointerdown(() => {
+                radioElems[selectedRadioIndex].toggleClass('selected');
+                popuplateNews(date, title, content, radio);
+                selectedRadioIndex = radioElems.indexOf(radio);
+            });
+            news.radios.append(radio);
+            i++;
+            
+        }
         console.groupEnd();
     }
     

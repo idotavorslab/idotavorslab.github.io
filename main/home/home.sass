@@ -113,6 +113,102 @@
         &[class~="animated"]
             animation: scaleDownAndReset 50ms linear
 
+@mixin containerMixin
+    text-align: left
+    @media screen and (min-width: 1400px)
+        width: 1300px
+    @media screen and (min-width: 1140px) and (max-width: 1400px)
+        width: 1040px
+    margin: auto
+
+div#home_container
+    @include containerMixin
+//text-align: left
+//@media screen and (min-width: 1400px)
+//    width: 1300px
+//@media screen and (min-width: 1140px) and (max-width: 1400px)
+//    width: 1040px
+//margin: auto
+//height: 700px
+
+div#intro_container
+    @include containerMixin
+    display: flex
+    position: relative
+    margin:
+        bottom: 60px
+
+
+    div#non_news
+        text-align: justify
+
+        img
+            display: block
+            margin:
+                right: auto
+                left: auto
+                bottom: 50px
+
+        div
+            position: relative
+
+        div.title
+            @include titleMixin
+
+    div#news
+        position: relative
+        display: flex
+        flex-direction: column
+        background-color: rgb(250, 250, 250)
+        @include borderMixin(#ddd)
+        width: 80vw
+        padding: 30px
+        margin:
+            left: 70px
+
+        div.date
+            color: rgb(95, 95, 95)
+            font-size: 15px
+
+        div.title
+            @include titleMixin(large)
+            margin-bottom: 15px
+
+        div.radios
+            margin: auto auto 0 auto
+
+            radio
+                @include borderMixin(#ccc, null)
+
+                display: inline-block
+                width: 15px
+                height: 15px
+                border-radius: 100px
+                margin:
+                    left: 5px
+                    right: 5px
+
+                &:not([class="selected"])
+                    background-color: white
+                    cursor: pointer
+
+                &[class="selected"]
+                    &.selected
+                        background-color: #ccc
+                        border-color: #bbb
+
+
+//&:first-of-type
+    margin-left: 0px
+
+//&:last-of-type
+    margin-right: 0px
+
+div#research_snippets_container
+    @include containerMixin
+
+    div.title
+        @include titleMixin
 
 @keyframes contrastDownAndReset
     0%

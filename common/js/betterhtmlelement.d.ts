@@ -1,13 +1,19 @@
+declare class BadArgumentsAmountError extends Error {
+    constructor(expectedArgsNum: number | number[], passedArgs: any, details?: string);
+}
+
 declare type TEvent = keyof HTMLElementEventMap;
 declare type TEventFunctionMap<K> = {
     [P in Extract<K, string>]?: (evt: Event) => void;
 };
+declare type HTMLTag = keyof HTMLElementTagNameMap;
+declare type QuerySelector = HTMLTag | string;
 declare type ElemOptions = {
-    tag?: "span" | "div" | "button" | "img" | any;
+    tag?: QuerySelector;
     id?: string;
     text?: string;
     htmlElement?: HTMLElement;
-    query?: string;
+    query?: QuerySelector;
     children?: TMap<string>;
     cls?: string;
 };
@@ -395,10 +401,15 @@ declare class BetterHTMLElement {
     readonly e: HTMLElement;
     
     html(html: string): this;
+    html(): string;
     
+    /**Sets the element's innerText and returns this*/
     text(txt: string): this;
+    /**Gets the element's innerText*/
+    text(): string;
     
     id(id: string): this;
+    id(): string;
     
     css(css: CssOptions): this;
     
@@ -417,18 +428,21 @@ declare class BetterHTMLElement {
     
     append(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
     
+    /**For each item, `append(child)` and stores it by `[key]`. */
     cacheAppend(keyChildObj: TMap<BetterHTMLElement>): this;
     
-    child<K extends keyof HTMLElementTagNameMap>(selector: K): this;
-    child<K extends keyof SVGElementTagNameMap>(selector: K): this;
+    /**Gets a child with `querySelector`*/
+    child<K extends HTMLTag>(selector: K): BetterHTMLElement;
     child(selector: string): BetterHTMLElement;
     
     replaceChild(newChild: Node, oldChild: Node): this;
     replaceChild(newChild: BetterHTMLElement, oldChild: BetterHTMLElement): this;
     
+    /**Returns a BetterHTMLElement list of all children */
     children(): BetterHTMLElement[];
     
-    cacheChildren(keySelectorObj: TMap<string>): void;
+    /**Gets each existing child by `selector`, and stores it by `[key]` */
+    cacheChildren(keySelectorObj: TMap<QuerySelector>): BetterHTMLElement;
     
     empty(): this;
     
@@ -485,8 +499,3 @@ declare function img({id, src, cls}: TImgOptions): Img;
 declare type TMap<T> = {
     [s: string]: T;
 };
-
-declare function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
-declare function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
-
-declare function wait(ms: number): Promise<any>;

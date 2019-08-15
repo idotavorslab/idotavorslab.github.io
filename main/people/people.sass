@@ -51,15 +51,11 @@ $imgHeight: 185px
             image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0) 20%)
 
     div.title
+        @include titleMixin
+        // TODO: comment out these and check whether necessary
         position: relative
         width: 100%
         text-align: left
-        font:
-            family: OpenSansBold
-            size: x-large
-        margin-bottom: 5px
-        color: #444
-        letter-spacing: 1px
 
 
 div#team_container

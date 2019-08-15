@@ -42,7 +42,7 @@ function str(val) {
     return new Str(val);
 }
 function* enumerate(obj) {
-    if (Array.isArray(obj)) {
+    if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
         let i = 0;
         for (let x of obj) {
             yield [i, x];
@@ -80,8 +80,6 @@ const ajax = (() => {
         }
     }
     function _baseRequest(type, url, data) {
-        if (!url.startsWith("/"))
-            url = "/" + url;
         const xhr = new XMLHttpRequest();
         return new Promise(async (resolve, reject) => {
             await xhr.open(str(type).upper(), url, true);
@@ -102,10 +100,14 @@ const ajax = (() => {
     }
     return { post, get };
 })();
-const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => new Promise((resolve, reject) => TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }))) });
+const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => new Promise(resolve => TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }))) });
 function round(n, d = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;
+}
+async function fetchJson(path, cache) {
+    let req = new Request(path, { cache });
+    return (await (await fetch(req)).json());
 }
 function windowStats() {
     console.log(window.clientInformation.userAgent);
