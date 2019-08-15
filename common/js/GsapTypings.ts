@@ -4,7 +4,7 @@ declare namespace Gsap {
          * Base class for all TweenLite, TweenMax, TimelineLite, and TimelineMax classes, providing core methods/properties/() => voidality, but there is no reason to create an instance of this
          * class directly.
          */
-        constructor(duration?: number, vars?: Vars);
+        constructor(duration?: number, vars?: Gsap.Vars);
         
         /**
          * A place to store any data you want (initially populated with vars.data if it exists).
@@ -12,18 +12,18 @@ declare namespace Gsap {
         data: any;
         
         /** [Read-only] Parent timeline. */
-        readonly timeline: SimpleTimeline;
+        readonly timeline: Gsap.SimpleTimeline;
         
         /** The vars object passed into the constructor which stores configuration variables like onComplete, onUpdate, etc. */
-        vars: Vars;
+        vars: Gsap.Vars;
         
         /** Gets or sets the animation's initial delay which is the length of time in seconds (or frames for frames-based tweens) before the animation should begin. */
         delay(): number;
-        delay(value: number): Animation;
+        delay(value: number): Gsap.Animation;
         
         /** Gets or sets the animation's duration, not including any repeats or repeatDelays (which are only available in TweenMax and TimelineMax). */
         duration(): number;
-        duration(value: number): Animation;
+        duration(value: number): Gsap.Animation;
         
         /** Returns the time at which the animation will finish according to the parent timeline's local time. */
         endTime(includeRepeats?: boolean): number;
@@ -32,14 +32,14 @@ declare namespace Gsap {
          * Gets or sets an event callback like "onComplete", "onUpdate", "onStart", "onReverseComplete" or "onRepeat" (onRepeat only applies to TweenMax or TimelineMax instances) along with any
          * parameters that should be passed to that callback.
          */
-        eventCallback(type: EventCallback): (...args: any[]) => void;
-        eventCallback(type: EventCallback, callback: (...args: any[]) => void, params?: any[], scope?: any): Animation;
+        eventCallback(type: Gsap.EventCallback): (...args: any[]) => void;
+        eventCallback(type: Gsap.EventCallback, callback: (...args: any[]) => void, params?: any[], scope?: any): Gsap.Animation;
         
         /**
          * Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously recorded
          * starting values.
          */
-        invalidate(): Animation;
+        invalidate(): Gsap.Animation;
         
         /**
          * Indicates whether or not the animation is currently active (meaning the virtual playhead is actively moving across this instance's time span and it is not paused, nor are any of its
@@ -48,155 +48,155 @@ declare namespace Gsap {
         isActive(): boolean;
         
         /** Kills the animation entirely or in part depending on the parameters. */
-        kill(vars: Vars, target?: Target): Animation;
+        kill(vars: Gsap.Vars, target?: Gsap.Target): Gsap.Animation;
         
         /** Pauses the instance, optionally jumping to a specific time. */
-        pause(atTime?: any, suppressEvents?: boolean): Animation;
+        pause(atTime?: any, suppressEvents?: boolean): Gsap.Animation;
         
         /** Gets or sets the animation's paused state which indicates whether or not the animation is currently paused. */
         paused(): boolean;
-        paused(value: boolean): Animation;
+        paused(value: boolean): Gsap.Animation;
         
         /** Begins playing forward, optionally from a specific time (by default playback begins from wherever the playhead currently is). */
-        play(from?: any, suppressEvents?: boolean): Animation;
+        play(from?: any, suppressEvents?: boolean): Gsap.Animation;
         
         /**
          * Gets or sets the animations's progress which is a value between 0 and 1 indicating the position of the virtual playhead (excluding repeats) where 0 is at the beginning, 0.5 is at the
          * halfway point, and 1 is at the end (complete).
          */
         progress(): number;
-        progress(value: number, suppressEvents?: boolean): Animation;
+        progress(value: number, suppressEvents?: boolean): Gsap.Animation;
         
         /** Restarts and begins playing forward from the beginning. */
-        restart(includeDelay?: boolean, suppressEvents?: boolean): Animation;
+        restart(includeDelay?: boolean, suppressEvents?: boolean): Gsap.Animation;
         
         /** Resumes playing without altering direction (forward or reversed), optionally jumping to a specific time first. */
-        resume(from?: any, suppressEvents?: boolean): Animation;
+        resume(from?: any, suppressEvents?: boolean): Gsap.Animation;
         
         /** Reverses playback so that all aspects of the animation are oriented backwards including, for example, a tween's ease. */
-        reverse(from?: any, suppressEvents?: boolean): Animation;
+        reverse(from?: any, suppressEvents?: boolean): Gsap.Animation;
         
         /** Gets or sets the animation's reversed state which indicates whether or not the animation should be played backwards. */
         reversed(): boolean;
-        reversed(value: boolean): Animation;
+        reversed(value: boolean): Gsap.Animation;
         
         /** Jumps to a specific time without affecting whether or not the instance is paused or reversed. */
-        seek(time: any, suppressEvents?: boolean): Animation;
+        seek(time: any, suppressEvents?: boolean): Gsap.Animation;
         
         /** Gets or sets the time at which the animation begins on its parent timeline (after any delay that was defined). */
         startTime(): number;
-        startTime(value: number): Animation;
+        startTime(value: number): Gsap.Animation;
         
         /**
          * Gets or sets the local position of the playhead (essentially the current time), described in seconds (or frames for frames-based animations) which will never be less than 0 or greater
          * than the animation's duration.
          */
         time(): number;
-        time(value: number, suppressEvents?: boolean): Animation;
+        time(value: number, suppressEvents?: boolean): Gsap.Animation;
         
         /** Factor that's used to scale time in the animation where 1 = normal speed (the default), 0.5 = half speed, 2 = double speed, etc. */
         timeScale(): number;
-        timeScale(value: number): Animation;
+        timeScale(value: number): Gsap.Animation;
         
         /** Gets or sets the animation's total duration including any repeats or repeatDelays (which are only available in TweenMax and TimelineMax). */
         totalDuration(): number;
-        totalDuration(value: number): Animation;
+        totalDuration(value: number): Gsap.Animation;
         
         /**
          * Gets or sets the animation's total progress which is a value between 0 and 1 indicating the position of the virtual playhead (including repeats) where 0 is at the beginning, 0.5 is at
          * the halfway point, and 1 is at the end (complete).
          */
         totalProgress(): number;
-        totalProgress(value: number, suppressEvents?: boolean): Animation;
+        totalProgress(value: number, suppressEvents?: boolean): Gsap.Animation;
         
         /** Gets or sets the position of the playhead according to the totalDuration which includes any repeats and repeatDelays (only available in TweenMax and TimelineMax). */
         totalTime(): number;
-        totalTime(time: number, suppressEvents?: boolean): Animation;
+        totalTime(time: number, suppressEvents?: boolean): Gsap.Animation;
     }
     
     class Ticker {
-        static addEventListener(type: "tick", callback: (...args: any[]) => void, scope: object, useParams: boolean, priority: number)
+        addEventListener(type: "tick", callback: (...args: any[]) => void, scope: object, useParams: boolean, priority: number)
         
-        static removeEventListener(type: "tick", callback: (...args: any[]) => void)
+        removeEventListener(type: "tick", callback: (...args: any[]) => void)
         
-        static useRAF(turnOn: boolean)
+        useRAF(turnOn: boolean)
         
-        static fps(val: number)
+        fps(val: number)
     }
     
-    class TweenLite extends Gsap.Animation {
+    class Tween extends Gsap.Animation {
         constructor(target: any, duration: number, vars: any);
         
         /** Provides An easy way to change the default easing equation. */
-        static defaultEase: Easing.Ease;
+        static defaultEase: Gsap.Easing.Ease;
         
         /** Provides An easy way to change the default overwrite mode. */
-        static defaultOverwrite: Overwrite;
+        static defaultOverwrite: Gsap.Overwrite;
         
         /** A function that should be called when any tween gets overwritten by another tween (great for debugging).*/
-        static onOverwrite: (overwrittenTween: Animation, overwritingTween: Animation, target: Target, overwrittenProperties: any[]) => any;
+        static onOverwrite: (overwrittenTween: Gsap.Animation, overwritingTween: Gsap.Animation, target: Gsap.Target, overwrittenProperties: any[]) => any;
         
         /** The selector engine (like jQuery) that should be used when a tween receives a string as its target, like TweenLite.to("#myID", 1, {x:"100px"}). */
         static selector: (query: QuerySelector) => any;
         
         
         /** Target object (or array of objects) whose properties the tween affects. */
-        readonly target: Target;
+        readonly target: Gsap.Target;
         
         /**
          * The object that dispatches a "tick" event each time the engine updates, making it easy for you to add your own listener(s) to run custom logic after each update
          * (great for game developers).
          */
-        static ticker: Ticker;
+        static ticker: Gsap.Ticker;
         
         
         /** Provides a simple way to call a () => void after a set amount of time (or frames). */
-        static delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: any, useFrames?: boolean): TweenLite;
+        delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: any, useFrames?: boolean): Gsap.Tween;
         
         /**
          * Static method for creating a TweenLite instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for doing
          * things like animating objects onto the screen because you can set them up initially the way you want them to look at the end of the tween and then animate in from elsewhere.
          */
-        static from(target: Target, duration: number, vars: Vars): TweenLite;
+        from(target: Gsap.Target, duration: number, vars: Gsap.Vars): Gsap.Tween;
         
         /**
          * Static method for creating a TweenLite instance that allows you to define both the starting and ending values (as opposed to to() and from() tweens which are based on the target's
          * current values at one end or the other).
          */
-        static fromTo(target: Target, duration: number, fromVars: any, toVars: ToVars): TweenLite;
+        fromTo(target: Gsap.Target, duration: number, fromVars: any, toVars: ToVars): Gsap.Tween;
         
         /**
          * Returns an array containing all the tweens of a particular target (or group of targets) that have not been released for garbage collection yet which typically happens within a few
          * seconds after the tween completes.
          */
-        static getTweensOf(target: any, onlyActive?: boolean): TweenLite[];
+        getTweensOf(target: any, onlyActive?: boolean): Gsap.Tween[];
         
         /**
          * [override] Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously
          * recorded starting values.
          */
-        invalidate(): TweenLite;
+        invalidate(): Gsap.Tween;
         
         /** Immediately kills all of the delayedCalls to a particular () => void. */
-        static killDelayedCallsTo(func: (...args: any[]) => void): void;
+        killDelayedCallsTo(func: (...args: any[]) => void): void;
         
         /** Kills all the tweens (or specific tweening properties) of a particular object or delayedCalls to a particular () => void. */
-        static killTweensOf(target: object | object[], onlyActive?: boolean, vars?: object): void;
+        killTweensOf(target: object | object[], onlyActive?: boolean, vars?: object): void;
         
         /** Permits you to control what happens when too much time elapses between two ticks (updates) of the engine, adjusting the core timing mechanism to compensate and avoid "jumps". */
-        static lagSmoothing(threshold: number, adjustedLag: number): void;
+        lagSmoothing(threshold: number, adjustedLag: number): void;
         
         /**
          * Forces a render of all active tweens which can be useful if, for example, you set up a bunch of from() tweens and then you need to force an immediate render (even of "lazy" tweens) to
          * avoid a brief delay before things render on the very next tick.
          */
-        static render(): void;
+        render(): void;
         
         /** Immediately sets properties of the target accordingly - essentially a zero-duration to() tween with a more intuitive name. */
-        static set(target: any, vars: object): TweenLite;
+        set(target: any, vars: object): Gsap.Tween;
         
         /** Static method for creating a TweenLite instance that animates to the specified destination values (from the current values). */
-        static to(target: object, duration: number, vars: ToVars): TweenLite;
+        to(target: object, duration: number, vars: ToVars): Gsap.Tween;
     }
     
     class SimpleTimeline extends Animation {
@@ -381,11 +381,11 @@ declare namespace Gsap {
     
     interface ToVars extends BaseVars {
         autoCSS?: boolean;
-        ease?: Easing.Ease;
+        ease?: Gsap.Easing.Ease;
         immediateRender?: boolean;
         lazy?: boolean;
         onOverwrite?: (...args: any[]) => void;
-        overwrite?: Overwrite,
+        overwrite?: Gsap.Overwrite,
         startAt?: object;
         
         

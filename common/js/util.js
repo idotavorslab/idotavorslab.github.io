@@ -100,11 +100,7 @@ const ajax = (() => {
     }
     return { post, get };
 })();
-const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => {
-        return new Promise(resolve => {
-            return TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }));
-        });
-    } });
+const TL = Object.assign({}, window.TweenLite, { toAsync: (target, duration, vars) => new Promise(resolve => TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }))) });
 function round(n, d = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;

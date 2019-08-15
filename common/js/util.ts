@@ -154,16 +154,17 @@ const ajax: TAjax = (() => {
     
     return {post, get};
 })();
-const TL: Gsap.TweenLite = {
-    ...TweenLite,
-    toAsync: (target: object, duration: number, vars: Gsap.ToVars) => {
-        return new Promise(resolve => {
-            return TL.to(target, duration, {
-                ...vars,
-                onComplete: resolve
-            });
-        });
-    }
+const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown> } = {
+
+    ...window.TweenLite,
+    toAsync: (target: object, duration: number, vars: Gsap.ToVars) =>
+        new Promise(resolve =>
+            TL.to(target, duration,
+                {
+                    ...vars,
+                    onComplete: resolve
+                })
+        )
 };
 
 function round(n: number, d: number = 0) {

@@ -46,7 +46,7 @@ function linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, str
 function startSeparatorAnimation() {
     
     console.log('startSeparatorAnimation()');
-    const tl = TL.fromTo(separators.left.e, 1, {backgroundImage: linearGradient([0, '0%'], [0.15, '150%'])}, {
+    TL.fromTo(separators.left.e, 1, {backgroundImage: linearGradient([0, '0%'], [0.15, '150%'])}, {
         backgroundImage: linearGradient([0, '0%'], [0.75, '10%']),
     });
     
