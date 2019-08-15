@@ -126,9 +126,12 @@ const HomePage = () => {
             if (i === 0) {
                 popuplateNews(date, title, content, radio);
             }
-            radio.pointerdown(() => {
+            radio.pointerdown(async () => {
                 radioElems[selectedRadioIndex].toggleClass('selected');
+                TL.to(news.children().map(c => c.e), 0.1, {opacity: 0,});
+                await wait(25);
                 popuplateNews(date, title, content, radio);
+                TL.to(news.children().map(c => c.e), 0.1, {opacity: 1});
                 selectedRadioIndex = radioElems.indexOf(radio);
             });
             news.radios.append(radio);
