@@ -59,12 +59,12 @@ const navbar = new Navbar({
 });
 
 
-interface ISeparators extends BetterHTMLElement {
+interface Separators extends BetterHTMLElement {
     right: BetterHTMLElement,
     left: BetterHTMLElement,
 }
 
-const _separators = <ISeparators>elem({query: 'separators', children: {left: '.left', right: '.right'}});
+const _separators = <Separators>elem({query: 'separators', children: {left: '.left', right: '.right'}});
 
 
 function _linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, string]) {

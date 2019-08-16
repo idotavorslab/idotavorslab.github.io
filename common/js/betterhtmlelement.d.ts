@@ -29,7 +29,7 @@ declare type TImgOptions = {
 };
 
 interface CssOptions {
-    alignContentS?: string;
+    alignContent?: string;
     alignItems?: string;
     alignSelf?: string;
     alignmentBaseline?: string;
@@ -498,10 +498,10 @@ declare class BetterHTMLElement {
     click(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
     
     /** For each `[attr, val]` pair, apply `setAttribute`*/
-    attr(attrValPairs: TMap<keyof CssOptions>): this;
+    attr(attrValPairs: TMap<string>): this;
     
     /** `removeAttribute` */
-    removeAttr(qualifiedName: keyof CssOptions & string, ...qualifiedNames: (keyof CssOptions & string)[]): this;
+    removeAttr(qualifiedName: string, ...qualifiedNames: string[]): this;
     
     /**`getAttribute(`data-${key}`)`. JSON.parse it by default.*/
     data(key: string, parse?: boolean): string | TMap<string>;
@@ -536,28 +536,28 @@ declare function elem({tag, text, cls}: {
     tag: QuerySelector;
     text?: string;
     cls?: string;
-}): any;
+}): BetterHTMLElement;
 /**Get an existing element by `id`. Optionally, set its `text`, `cls` or cache `children`*/
 declare function elem({id, text, cls, children}: {
     id: string;
     text?: string;
     cls?: string;
     children?: TMap<string>;
-}): any;
+}): BetterHTMLElement;
 /**Get an existing element by `query`. Optionally, set its `text`, `cls` or cache `children`*/
 declare function elem({query, text, cls, children}: {
     query: QuerySelector;
     text?: string;
     cls?: string;
     children?: TMap<string>;
-}): any;
+}): BetterHTMLElement;
 /**Wrap an existing HTMLElement. Optionally, set its `text`, `cls` or cache `children`*/
 declare function elem({htmlElement, text, cls, children}: {
     htmlElement: HTMLElement;
     text?: string;
     cls?: string;
     children?: TMap<string>;
-}): any;
+}): BetterHTMLElement;
 
 declare function span({id, text, cls}: TSubElemOptions): Span;
 

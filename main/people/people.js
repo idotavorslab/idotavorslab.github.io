@@ -3,7 +3,7 @@ const PeoplePage = () => {
         console.log('PeoplePage init');
         const personViewer = {
             init: function () {
-                console.log('init');
+                console.log('personViewer init');
                 this.e.cacheAppend({
                     name: div({ cls: "name" }),
                     imgCvContainer: div({ cls: "img-cv-container" }).cacheAppend({
@@ -35,8 +35,7 @@ const PeoplePage = () => {
                 this.e.email.html(`Email: <a href="mailto:${email}">${email}</a>`);
             }
         };
-        const req = new Request('main/people/people.json', { cache: "no-cache" });
-        const data = await (await fetch(req)).json();
+        const data = await fetchJson('main/people/people.json', "no-cache");
         console.log(data);
         const people = [];
         personViewer.init();
@@ -58,8 +57,7 @@ const PeoplePage = () => {
         for (let [name, { image, role, cv, email }] of dict(alumni).items()) {
             let alum = elem({ tag: "person" });
             alum
-                .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
-            alum.pointerdown(() => {
+                .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown(() => {
                 if (!personViewer.isopen)
                     personViewer.open();
                 personViewer.populate(name, image, cv, email);
