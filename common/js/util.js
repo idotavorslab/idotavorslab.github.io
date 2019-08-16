@@ -107,7 +107,7 @@ function round(n, d = 0) {
 }
 async function fetchJson(path, cache) {
     let req = new Request(path, { cache });
-    return (await (await fetch(req)).json());
+    return (await fetch(req)).json();
 }
 function windowStats() {
     console.log(window.clientInformation.userAgent);
@@ -134,24 +134,24 @@ function copyToClipboard(val) {
 function calcCssValue(h1, h2) {
     const x = (100 * (h1[1] - h2[1])) / (h1[0] - h2[0]);
     const y = (h1[0] * h2[1] - h2[0] * h1[1]) / (h1[0] - h2[0]);
-    const isYPos = y >= 0;
-    const expression = `calc(${round(x, 2)}vh ${isYPos ? '+' : '-'} ${round(Math.abs(y), 2)}px)`;
+    const isYPositive = y >= 0;
+    const expression = `calc(${round(x, 2)}vw ${isYPositive ? '+' : '-'} ${round(Math.abs(y), 2)}px)`;
     copyToClipboard(expression);
     return expression;
 }
-function calcAbsValue(cssStr, height) {
-    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
+function calcAbsValue(cssStr, width) {
+    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vw'));
     const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
     const ispositive = cssStr.includes('+');
-    const format = (h) => {
-        let n = h * float(vh) / 100;
+    const format = (w) => {
+        let n = w * float(vh) / 100;
         if (ispositive)
             n += float(px);
         else
             n -= float(px);
         return `${round(n, 2)}px`;
     };
-    const expression = format(height);
+    const expression = format(width);
     copyToClipboard(expression);
     return expression;
 }

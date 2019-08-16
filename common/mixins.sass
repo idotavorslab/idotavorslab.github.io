@@ -19,3 +19,107 @@ $lightGreyBG: rgb(245, 245, 245)
         style: solid
         @if ($radius)
             radius: $radius
+
+@mixin flexContainerMixin($childTag, $tight:false)
+    display: flex
+    flex-wrap: wrap
+    margin: 0 auto 40px auto
+
+    @if ($tight == true)
+
+
+        #{$childTag}
+            margin: auto 0 0 0
+            padding: 8px
+            border:
+                bottom: 1px solid #ccc
+                left: 1px solid #ccc
+
+            &:last-of-type
+                border-right: 1px solid #ccc
+
+    // ***  1140 <= screen
+    // 4 items
+    @media screen and (min-width: 1140px)
+
+        @if ($tight == true)
+            #{$childTag}
+                &:nth-of-type(4n+4)
+                    border-right: 1px solid #ccc
+
+
+                @for $i from 1 through 4
+                    &:nth-child(#{$i})
+                        border-top: 1px solid #ccc
+
+        // **  1400 <= screen
+        // 4 items across 1200px
+        @media screen and (min-width: 1400px)
+            width: 1200px
+
+            #{$childTag}
+                @if ($tight == true)
+                    // [8][284][8] x 4 = 1192
+                    width: 282px
+                @else
+                    // [20][260][20] = 300 x 4 = 1200
+                    margin: auto 20px 60px 20px
+                    width: 260px
+
+        // **  1140 <= screen <= 1400
+        // 4 tight items across 1200px
+        @media screen and (max-width: 1400px)
+            width: 1040px
+            #{$childTag}
+                @if ($tight == true)
+                    // [8][242][8] = 258 * 4 = 1032
+                    width: 242px
+                @else
+                    // [10][240][10] = 260 x 4 = 1040
+                    margin: auto 10px 60px 10px
+                    width: 240px
+
+    // ***  screen <= 1140
+    // 3 items across 80vw
+    @media screen and (max-width: 1140px)
+        width: calc(80vw)
+
+
+        #{$childTag}
+            // [1140, 286], [1040, 260]
+            width: calc(26vw - 10.4px)
+            @if ($tight == true)
+                &:nth-of-type(3n+3)
+                    border-right: 1px solid #ccc
+
+                @for $i from 1 through 3
+                    &:nth-child(#{$i})
+                        border-top: 1px solid #ccc
+
+
+            @else
+
+                // 1st: left 10px
+                &:nth-of-type(3n+1)
+                    margin: auto auto 60px 10px
+
+                // 2st: right, left auto
+                &:nth-of-type(3n+2)
+                    margin: auto auto 60px auto
+
+                // 3st: right 10px
+                &:nth-of-type(3n+3)
+                    margin: auto 10px 60px auto
+
+
+                // last: right 10px
+                &:last-of-type
+                    margin: auto 10px 60px auto
+
+                @for $i from 1 through 3
+                    &:nth-child(#{$i})
+                        border-top: 1px solid #ccc
+
+
+
+

@@ -9,18 +9,16 @@ type PersonViewer = {
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
-        console.log({Navbar});
-        Navbar.select(Navbar.people);
         
         // **  personViewer
         const personViewer: PersonViewer = {
             init: function () {
                 
-                console.log('init');
+                console.log('personViewer init');
                 this.e.cacheAppend({
                     name: div({cls: "name"}),
                     imgCvContainer: div({cls: "img-cv-container"}).cacheAppend({
-                        img: img({}),
+                        img: img(),
                         cv: div({cls: "cv"})
                     }),
                     email: div({cls: "email"}),
@@ -51,10 +49,9 @@ const PeoplePage = () => {
             }
         };
         
-        const req = new Request('main/people/people.json', {cache: "no-cache"});
-        const data = await (await fetch(req)).json();
-        console.log(data);
-        const people = [];
+        const data = await fetchJson('main/people/people.json', "no-cache");
+        console.log('people data', data);
+        const people: BetterHTMLElement[] = [];
         personViewer.init();
         const {team, alumni} = data;
         
@@ -77,9 +74,11 @@ const PeoplePage = () => {
             people.push(person);
         }
         const teamContainer = div({id: "team_container"})
-            .append(div({cls: 'title', text: 'Team'}),
+            .append(
+                div({cls: 'title', text: 'Team'}),
                 div({cls: 'separator'}),
-                ...people);
+                ...people
+            );
         
         // **  Alumni
         const alumniArr = [];
@@ -90,8 +89,7 @@ const PeoplePage = () => {
                     img({src: `main/people/${image}`}),
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
-                );
-            alum.pointerdown(() => {
+                ).pointerdown(() => {
                 if (!personViewer.isopen)
                     personViewer.open();
                 
@@ -100,14 +98,20 @@ const PeoplePage = () => {
             });
             alumniArr.push(alum);
         }
-        const alumniContainer = div({id: "alumni_container"})
-            .append(div({cls: 'title', text: 'Alumni'}),
-                div({cls: 'separator'}),
-                ...alumniArr);
+        const alumniContainer =
+            div({id: "alumni_container"})
+                .append(
+                    div({cls: 'title', text: 'Alumni'}),
+                    div({cls: 'separator'}),
+                    ...alumniArr
+                );
         
         
-        Home.empty().addClass('squeezed').append(personViewer.e,
-            teamContainer, alumniContainer);
+        Home.empty().addClass('squeezed').append(
+            personViewer.e,
+            teamContainer,
+            alumniContainer
+        );
         
         
     }

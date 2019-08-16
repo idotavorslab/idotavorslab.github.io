@@ -1,15 +1,13 @@
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
-        console.log({ Navbar });
-        Navbar.select(Navbar.people);
         const personViewer = {
             init: function () {
-                console.log('init');
+                console.log('personViewer init');
                 this.e.cacheAppend({
                     name: div({ cls: "name" }),
                     imgCvContainer: div({ cls: "img-cv-container" }).cacheAppend({
-                        img: img({}),
+                        img: img(),
                         cv: div({ cls: "cv" })
                     }),
                     email: div({ cls: "email" }),
@@ -37,9 +35,8 @@ const PeoplePage = () => {
                 this.e.email.html(`Email: <a href="mailto:${email}">${email}</a>`);
             }
         };
-        const req = new Request('main/people/people.json', { cache: "no-cache" });
-        const data = await (await fetch(req)).json();
-        console.log(data);
+        const data = await fetchJson('main/people/people.json', "no-cache");
+        console.log('people data', data);
         const people = [];
         personViewer.init();
         const { team, alumni } = data;
@@ -60,8 +57,7 @@ const PeoplePage = () => {
         for (let [name, { image, role, cv, email }] of dict(alumni).items()) {
             let alum = elem({ tag: "person" });
             alum
-                .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
-            alum.pointerdown(() => {
+                .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown(() => {
                 if (!personViewer.isopen)
                     personViewer.open();
                 personViewer.populate(name, image, cv, email);

@@ -4,39 +4,7 @@
 ////////////////////
 $imgHeight: 185px
 @mixin peopleContainerMixin
-    display: flex
-    flex-wrap: wrap
-    margin: 0 auto 40px auto
-    @media screen and (min-width: 1400px)
-        width: 1200px
-        person
-            // [20][260][20] = 300 x 4 = 1200
-            margin: auto 20px 60px 20px
-            width: 260px
-    @media screen and (min-width: 1140px) and (max-width: 1400px)
-        width: 1040px
-        person
-            // [10][240][10] = 260 x 4 = 1040
-            margin: auto 10px 60px 10px
-            width: 240px
-
-    // flex to 3 imgs per row
-    @media screen and (max-width: 1140px)
-        width: calc(80vw)
-
-        person
-            &:nth-of-type(3n+1)
-                margin: auto auto 60px 10px
-
-            &:nth-of-type(3n+2)
-                margin: auto auto 60px auto
-
-            &:nth-of-type(3n+3)
-                margin: auto 10px 60px auto
-
-            &:last-of-type
-                margin: auto 10px 60px auto
-            width: 240px
+    @include flexContainerMixin(person)
 
     div.separator
         position: relative

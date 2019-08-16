@@ -5,13 +5,10 @@ const ResearchPage = () => {
     }
     
     async function init(selectedIndex?: number) {
-        Navbar.select(Navbar.research);
-        console.log({Navbar});
-        // await TL.toAsync(Home.e, 0.03, {opacity: 0});
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        let req = new Request('main/research/research.json', {cache: "no-cache"});
-        const data = await (await fetch(req)).json();
-        // Home.empty();
+        const data = await fetchJson('main/research/research.json', "no-cache");
+        // let req = new Request('main/research/research.json', {cache: "no-cache"});
+        // const data = await (await fetch(req)).json();
         console.log('ResearchPage data', data);
         const articles: Article[] = [];
         let emptied = false;
@@ -34,7 +31,6 @@ const ResearchPage = () => {
             Home.append(article);
         }
         console.log('ResearchPage done for loop');
-        // await TL.toAsync(Home.e, 0.03, {opacity: 1});
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
             const howFar = selectedIndex / articles.length;
