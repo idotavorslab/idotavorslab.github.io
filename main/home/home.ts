@@ -119,14 +119,6 @@ const HomePage = () => {
         }
         
         
-        // switchTo(selectedItem: NewsDataItem) {
-        //     newsElem.date.text(`${selectedItem.date}:`);
-        //     newsElem.title.text(selectedItem.title);
-        //     newsElem.content.html(selectedItem.content);
-        //     selectedItem.radio.toggleClass('selected');
-        //     this._selected = selectedItem;
-        // }
-        
         push(item: NewsDataItem) {
             this.data.push(item);
             item.radio.pointerdown(async () => {
