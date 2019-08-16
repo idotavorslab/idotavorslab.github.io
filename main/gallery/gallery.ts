@@ -5,16 +5,23 @@ const GalleryPage = () => {
         
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         console.log('GalleryPage data', data);
-        const imgs: BetterHTMLElement[] = [];
-        for (let imgObj of data) {
-            console.log(imgObj);
-            imgs.push(img({src: `main/gallery/${imgObj.file}`}))
+        const divs: BetterHTMLElement[] = [];
+        for (let {description, file} of data) {
+            let divElem = div({cls: 'container-div'}).append(
+                div({cls: 'tooltip', text: description}),
+                img({src: `main/gallery/${file}`})
+            );
+            divElem.pointerdown(() => {
+                alert(`You expected that to zoom in the image right? Yeah me too. Soon`)
+            });
+            
+            divs.push(divElem)
         }
         
-        const imgContainer = div({id: 'img_container'}).append(...imgs);
+        const imgContainer = div({id: 'img_container'}).append(...divs);
         Home.empty().addClass('squeezed').append(imgContainer)
     }
     
     return {init}
 };
-GalleryPage().init();
+

@@ -1,8 +1,34 @@
 div#img_container
     @include flexContainerMixin(img, true)
 
-    img
-        //border:
-        //    top: 1px solid #ccc
-        //    left: 1px solid #ccc
-        cursor: pointer
+    div.container-div
+        margin:
+            top: -3px
+            bottom: -3px
+            right: -1px
+
+        &:hover
+            //div.tooltip
+                opacity: 1
+
+            img
+                opacity: 0.5
+
+        div.tooltip
+            background-color: rgba(255, 255, 255, 0.3)
+            z-index: 1
+            color: #666
+            transition: opacity 500ms
+            opacity: 0
+            width: 298px
+            margin-top: 16px
+            position: absolute
+            @include fourWayTextShadow(1px, 1px, 1px, rgba(255, 255, 255))
+            font:
+                family: OpenSansSemiBold
+
+        img
+            cursor: pointer
+            transition: opacity 100ms
+
+

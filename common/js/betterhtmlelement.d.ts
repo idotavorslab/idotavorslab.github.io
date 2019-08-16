@@ -559,11 +559,11 @@ declare function elem({htmlElement, text, cls, children}: {
     children?: TMap<string>;
 }): BetterHTMLElement;
 
-declare function span({id, text, cls}: TSubElemOptions): Span;
+declare function span({id, text, cls}?: TSubElemOptions): Span;
 
-declare function div({id, text, cls}: TSubElemOptions): Div;
+declare function div({id, text, cls}?: TSubElemOptions): Div;
 
-declare function img({id, src, cls}: TImgOptions): Img;
+declare function img({id, src, cls}?: TImgOptions): Img;
 
 declare type TMap<T> = {
     [s: string]: T;

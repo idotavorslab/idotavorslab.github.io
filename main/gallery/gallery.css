@@ -1,1 +1,64 @@
-div#img_container{display:flex;flex-wrap:wrap;margin:0 auto 40px auto}@media screen and (min-width: 1400px){div#img_container{width:1200px}div#img_container person{margin:auto 20px 60px 20px;width:260px}}@media screen and (min-width: 1140px)and (max-width: 1400px){div#img_container{width:1040px}div#img_container person{margin:auto 10px 60px 10px;width:240px}}@media screen and (max-width: 1140px){div#img_container{width:calc(80vw)}div#img_container person{width:240px}div#img_container person:nth-of-type(3n+1){margin:auto auto 60px 10px}div#img_container person:nth-of-type(3n+2){margin:auto auto 60px auto}div#img_container person:nth-of-type(3n+3){margin:auto 10px 60px auto}div#img_container person:last-of-type{margin:auto 10px 60px auto}}div#img_container img{position:relative;overflow:hidden;height:240px;cursor:pointer;background-position:top;background-repeat:no-repeat}/*# sourceMappingURL=gallery.css.map */
+div#img_container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto 40px auto
+}
+
+@media screen and (min-width: 1400px) {
+    div#img_container {
+        width: 1200px
+    }
+
+    div#img_container person {
+        margin: auto 20px 60px 20px;
+        width: 260px
+    }
+}
+
+@media screen and (min-width: 1140px)and (max-width: 1400px) {
+    div#img_container {
+        width: 1040px
+    }
+
+    div#img_container person {
+        margin: auto 10px 60px 10px;
+        width: 240px
+    }
+}
+
+@media screen and (max-width: 1140px) {
+    div#img_container {
+        width: calc(80vw)
+    }
+
+    div#img_container person {
+        width: 240px
+    }
+
+    div#img_container person:nth-of-type(3n+1) {
+        margin: auto auto 60px 10px
+    }
+
+    div#img_container person:nth-of-type(3n+2) {
+        margin: auto auto 60px auto
+    }
+
+    div#img_container person:nth-of-type(3n+3) {
+        margin: auto 10px 60px auto
+    }
+
+    div#img_container person:last-of-type {
+        margin: auto 10px 60px auto
+    }
+}
+
+div#img_container img {
+    position: relative;
+    overflow: hidden;
+    height: 240px;
+    cursor: pointer;
+    background-position: top;
+    background-repeat: no-repeat
+}
+
+/*# sourceMappingURL=gallery.css.map */

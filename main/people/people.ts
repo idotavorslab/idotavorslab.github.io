@@ -18,7 +18,7 @@ const PeoplePage = () => {
                 this.e.cacheAppend({
                     name: div({cls: "name"}),
                     imgCvContainer: div({cls: "img-cv-container"}).cacheAppend({
-                        img: img({}),
+                        img: img(),
                         cv: div({cls: "cv"})
                     }),
                     email: div({cls: "email"}),

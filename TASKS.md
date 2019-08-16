@@ -16,7 +16,7 @@ Publications
 Courses
     "pretty mobile-like", not a list. image, title, text, link. http://schonberglab.tau.ac.il/funding/
 
-News
+[x] News
 
 Funding
     (logo, title, subtitle) http://schonberglab.tau.ac.il/funding/
