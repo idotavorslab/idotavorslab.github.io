@@ -5,11 +5,10 @@ const GalleryPage = () => {
         
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         console.log('GalleryPage data', data);
-        const srcs = data.imgs;
         const imgs: BetterHTMLElement[] = [];
-        for (let src of srcs) {
-            console.log(src);
-            imgs.push(img({src: `main/gallery/${src}`}))
+        for (let imgObj of data) {
+            console.log(imgObj);
+            imgs.push(img({src: `main/gallery/${imgObj.file}`}))
         }
         
         const imgContainer = div({id: 'img_container'}).append(...imgs);
