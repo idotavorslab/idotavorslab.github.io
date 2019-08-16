@@ -210,28 +210,34 @@ function copyToClipboard(val) {
     copyText.remove();
 }
 
-function calcCssValue(h1, h2) {
+/**@example
+ * calcCssValue([1138, 286], [1040, 260])
+ * > "calc(26.53vw - 15.91px)"*/
+function calcCssValue(h1: [number, number], h2: [number, number]) {
     const x = (100 * (h1[1] - h2[1])) / (h1[0] - h2[0]);
     const y = (h1[0] * h2[1] - h2[0] * h1[1]) / (h1[0] - h2[0]);
-    const isYPos = y >= 0;
-    const expression = `calc(${round(x, 2)}vh ${isYPos ? '+' : '-'} ${round(Math.abs(y), 2)}px)`;
+    const isYPositive = y >= 0;
+    const expression = `calc(${round(x, 2)}vw ${isYPositive ? '+' : '-'} ${round(Math.abs(y), 2)}px)`;
     copyToClipboard(expression);
     return expression
 }
 
-function calcAbsValue(cssStr: string, height: number) {
-    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
+/**@example
+ * calcAbsValue("calc(26.53vw - 15.91px)", 1040)
+ * > "260px"*/
+function calcAbsValue(cssStr: string, width: number): string {
+    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vw'));
     const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
     const ispositive = cssStr.includes('+');
-    const format = (h) => {
-        let n = h * float(vh) / 100;
+    const format = (w) => {
+        let n = w * float(vh) / 100;
         if (ispositive)
             n += float(px);
         else
             n -= float(px);
         return `${round(n, 2)}px`;
     };
-    const expression = format(height);
+    const expression = format(width);
     copyToClipboard(expression);
     return expression;
     
