@@ -1,8 +1,7 @@
 const ResearchPage = () => {
     async function init(selectedIndex) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        let req = new Request('main/research/research.json', { cache: "no-cache" });
-        const data = await (await fetch(req)).json();
+        const data = await fetchJson('main/research/research.json', "no-cache");
         console.log('ResearchPage data', data);
         const articles = [];
         let emptied = false;

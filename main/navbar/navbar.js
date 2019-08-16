@@ -13,6 +13,7 @@ class Navbar extends BetterHTMLElement {
         };
         for (let k of ["research", "people", "publications", "gallery", "contact"]) {
             this[k].pointerdown(() => {
+                console.log('this[k].pointerdown, k:', k);
                 this._gotoPage(k);
             });
         }
@@ -20,13 +21,14 @@ class Navbar extends BetterHTMLElement {
     async _gotoPage(pageName) {
         _startSeparatorAnimation();
         const pageObj = this._pageNameObjMap[pageName];
-        this._select(pageObj);
+        this._select(this[pageName]);
         await pageObj().init();
         _killSeparatorAnimation();
     }
     _select(child) {
-        for (let k of [this.research, this.people, this.publications, this.gallery, this.contact])
+        for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
             k.toggleClass('selected', k === child);
+        }
     }
 }
 const navbar = new Navbar({
@@ -46,7 +48,6 @@ function _linearGradient(opac_stop_1, opac_stop_2) {
     return `linear-gradient(90deg, rgba(0, 0, 0, ${opac_stop_1[0]}) ${opac_stop_1[1]}, rgba(0, 0, 0, ${opac_stop_2[0]}) ${opac_stop_2[1]})`;
 }
 function _startSeparatorAnimation() {
-    console.log('startSeparatorAnimation()');
     TL.fromTo(_separators.left.e, 1, { backgroundImage: _linearGradient([0, '0%'], [0.15, '150%']) }, {
         backgroundImage: _linearGradient([0, '0%'], [0.75, '10%']),
     });
@@ -55,7 +56,6 @@ function _startSeparatorAnimation() {
     });
 }
 function _killSeparatorAnimation() {
-    console.log('killSeparatorAnimation()');
     TL.killTweensOf([_separators.left.e, _separators.right.e]);
     _separators.left.css({ backgroundImage: _linearGradient([0, '0%'], [0.1, '10%']) });
     _separators.right.css({ backgroundImage: _linearGradient([0.1, '90%'], [0, '100%']) });

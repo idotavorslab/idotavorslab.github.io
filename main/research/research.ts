@@ -5,11 +5,10 @@ const ResearchPage = () => {
     }
     
     async function init(selectedIndex?: number) {
-        // Navbar.select(Navbar.research);
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        let req = new Request('main/research/research.json', {cache: "no-cache"});
-        const data = await (await fetch(req)).json();
-        // Home.empty();
+        const data = await fetchJson('main/research/research.json', "no-cache");
+        // let req = new Request('main/research/research.json', {cache: "no-cache"});
+        // const data = await (await fetch(req)).json();
         console.log('ResearchPage data', data);
         const articles: Article[] = [];
         let emptied = false;
