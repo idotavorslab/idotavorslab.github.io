@@ -1,5 +1,7 @@
 div#img_container
-    @include flexContainerMixin(img)
+    @include flexContainerMixin(img, true)
 
     img
+        padding: 5px
+        border: 1px solid #ccc
         cursor: pointer

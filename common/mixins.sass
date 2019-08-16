@@ -20,17 +20,22 @@ $lightGreyBG: rgb(245, 245, 245)
         @if ($radius)
             radius: $radius
 
-@mixin flexContainerMixin($childTag)
+@mixin flexContainerMixin($childTag,$tight:false)
     display: flex
     flex-wrap: wrap
     margin: 0 auto 40px auto
     // 1400px <= screen: 4 items across 1200px
     @media screen and (min-width: 1400px)
         width: 1200px
+
         #{$childTag}
-            // [20][260][20] = 300 x 4 = 1200
-            margin: auto 20px 60px 20px
-            width: 260px
+            @if ($tight == true)
+                margin: auto 0 60px 0
+                width: 288px
+            @else
+                // [20][260][20] = 300 x 4 = 1200
+                margin: auto 20px 60px 20px
+                width: 260px
 
     // 1140px <= screen <= 1400px: 4 tight items across 1200px
     @media screen and (min-width: 1140px) and (max-width: 1400px)
