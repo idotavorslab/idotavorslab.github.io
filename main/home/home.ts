@@ -92,6 +92,7 @@ const HomePage = () => {
         
         constructor() {
             this.data = [];
+            this._selected = undefined;
             setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];

@@ -48,7 +48,7 @@ function startSeparatorAnimation() {
     console.log('startSeparatorAnimation()');
     TL.fromTo(separators.left.e, 1, {backgroundImage: linearGradient([0, '0%'], [0.15, '150%'])}, {
         backgroundImage: linearGradient([0, '0%'], [0.75, '10%']),
-    })
+    });
     TL.fromTo(separators.right.e, 1, {backgroundImage: linearGradient([0.15, '-50%'], [0, '100%'])}, {
         backgroundImage: linearGradient([0.75, '90%'], [0, '100%']),
     });
@@ -62,6 +62,12 @@ function killSeparatorAnimation() {
     separators.right.css({backgroundImage: linearGradient([0.1, '90%'], [0, '100%'])});
 }
 
+async function gotoPage(page) {
+    startSeparatorAnimation();
+    await page().init();
+    killSeparatorAnimation();
+}
+
 Navbar.select = (child) => {
     for (let k of [Navbar.research, Navbar.people, Navbar.publications, Navbar.gallery, Navbar.contact])
         k.toggleClass('selected', k === child);
@@ -72,21 +78,15 @@ Navbar.home.pointerdown(() => {
     startSeparatorAnimation();
     window.location.reload();
 });
-Navbar.research.pointerdown(async () => {
-    
-    startSeparatorAnimation();
-    await ResearchPage().init();
-    killSeparatorAnimation();
-    
-    
+Navbar.research.pointerdown(() => {
+    gotoPage(ResearchPage);
 });
 Navbar.people.pointerdown(async () => {
-    startSeparatorAnimation();
-    await PeoplePage().init();
-    killSeparatorAnimation();
+    gotoPage(PeoplePage);
 });
 Navbar.publications.pointerdown(async () => {
-    startSeparatorAnimation();
-    await PublicationsPage().init();
-    killSeparatorAnimation();
+    gotoPage(PublicationsPage);
+});
+Navbar.gallery.pointerdown(async () => {
+    gotoPage(GalleryPage);
 });
