@@ -9,8 +9,6 @@ type PersonViewer = {
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
-        console.log({Navbar});
-        Navbar.select(Navbar.people);
         
         // **  personViewer
         const personViewer: PersonViewer = {

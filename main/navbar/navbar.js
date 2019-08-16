@@ -1,4 +1,35 @@
-const Navbar = elem({
+class Navbar extends BetterHTMLElement {
+    constructor({ query, children }) {
+        super({ query, children });
+        this.home.pointerdown(() => {
+            _startSeparatorAnimation();
+            window.location.reload();
+        });
+        this._pageNameObjMap = {
+            research: ResearchPage,
+            people: PeoplePage,
+            publications: PublicationsPage,
+            gallery: GalleryPage
+        };
+        for (let k of ["research", "people", "publications", "gallery", "contact"]) {
+            this[k].pointerdown(() => {
+                this._gotoPage(k);
+            });
+        }
+    }
+    async _gotoPage(pageName) {
+        _startSeparatorAnimation();
+        const pageObj = this._pageNameObjMap[pageName];
+        this._select(pageObj);
+        await pageObj().init();
+        _killSeparatorAnimation();
+    }
+    _select(child) {
+        for (let k of [this.research, this.people, this.publications, this.gallery, this.contact])
+            k.toggleClass('selected', k === child);
+    }
+}
+const navbar = new Navbar({
     query: 'navbar',
     children: {
         home: '.home',
@@ -10,48 +41,23 @@ const Navbar = elem({
         tau: '.tau',
     }
 });
-const separators = elem({ query: 'separators', children: { left: '.left', right: '.right' } });
-function linearGradient(opac_stop_1, opac_stop_2) {
+const _separators = elem({ query: 'separators', children: { left: '.left', right: '.right' } });
+function _linearGradient(opac_stop_1, opac_stop_2) {
     return `linear-gradient(90deg, rgba(0, 0, 0, ${opac_stop_1[0]}) ${opac_stop_1[1]}, rgba(0, 0, 0, ${opac_stop_2[0]}) ${opac_stop_2[1]})`;
 }
-function startSeparatorAnimation() {
+function _startSeparatorAnimation() {
     console.log('startSeparatorAnimation()');
-    TL.fromTo(separators.left.e, 1, { backgroundImage: linearGradient([0, '0%'], [0.15, '150%']) }, {
-        backgroundImage: linearGradient([0, '0%'], [0.75, '10%']),
+    TL.fromTo(_separators.left.e, 1, { backgroundImage: _linearGradient([0, '0%'], [0.15, '150%']) }, {
+        backgroundImage: _linearGradient([0, '0%'], [0.75, '10%']),
     });
-    TL.fromTo(separators.right.e, 1, { backgroundImage: linearGradient([0.15, '-50%'], [0, '100%']) }, {
-        backgroundImage: linearGradient([0.75, '90%'], [0, '100%']),
+    TL.fromTo(_separators.right.e, 1, { backgroundImage: _linearGradient([0.15, '-50%'], [0, '100%']) }, {
+        backgroundImage: _linearGradient([0.75, '90%'], [0, '100%']),
     });
 }
-function killSeparatorAnimation() {
+function _killSeparatorAnimation() {
     console.log('killSeparatorAnimation()');
-    TL.killTweensOf([separators.left.e, separators.right.e]);
-    separators.left.css({ backgroundImage: linearGradient([0, '0%'], [0.1, '10%']) });
-    separators.right.css({ backgroundImage: linearGradient([0.1, '90%'], [0, '100%']) });
+    TL.killTweensOf([_separators.left.e, _separators.right.e]);
+    _separators.left.css({ backgroundImage: _linearGradient([0, '0%'], [0.1, '10%']) });
+    _separators.right.css({ backgroundImage: _linearGradient([0.1, '90%'], [0, '100%']) });
 }
-async function gotoPage(page) {
-    startSeparatorAnimation();
-    await page().init();
-    killSeparatorAnimation();
-}
-Navbar.select = (child) => {
-    for (let k of [Navbar.research, Navbar.people, Navbar.publications, Navbar.gallery, Navbar.contact])
-        k.toggleClass('selected', k === child);
-};
-Navbar.home.pointerdown(() => {
-    startSeparatorAnimation();
-    window.location.reload();
-});
-Navbar.research.pointerdown(() => {
-    gotoPage(ResearchPage);
-});
-Navbar.people.pointerdown(async () => {
-    gotoPage(PeoplePage);
-});
-Navbar.publications.pointerdown(async () => {
-    gotoPage(PublicationsPage);
-});
-Navbar.gallery.pointerdown(async () => {
-    gotoPage(GalleryPage);
-});
 //# sourceMappingURL=navbar.js.map

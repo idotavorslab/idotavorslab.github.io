@@ -1,7 +1,5 @@
 const ResearchPage = () => {
     async function init(selectedIndex) {
-        Navbar.select(Navbar.research);
-        console.log({ Navbar });
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
         let req = new Request('main/research/research.json', { cache: "no-cache" });
         const data = await (await fetch(req)).json();
