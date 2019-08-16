@@ -1,5 +1,5 @@
 const HomePage = () => {
-    type newsDataItem = { title: string, date: string, content: string, radio: BetterHTMLElement };
+    type NewsDataItem = { title: string, date: string, content: string, radio: BetterHTMLElement, index: number };
     type NewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
     /** The single #news>date,title,content,radios html to show selected news */
     const newsElem: NewsElem = <NewsElem>elem({
@@ -10,7 +10,7 @@ const HomePage = () => {
             radios: '.radios'
         }
     });
-    const newsChildren = newsElem.children().map(c => c.e);
+    const newsChildren: HTMLElement[] = newsElem.children().map(c => c.e);
     
     /*class CarouselItem {
         title: string;
@@ -87,11 +87,21 @@ const HomePage = () => {
     }
     */
     class NewsData {
-        readonly data: newsDataItem[];
-        private _selected: newsDataItem;
+        readonly data: NewsDataItem[];
+        private _selected: NewsDataItem;
         
         constructor() {
             this.data = [];
+            setInterval(() => {
+                let targetIndex = this._selected.index + 1;
+                let targetItem = this.data[targetIndex];
+                if (targetItem === undefined) {
+                    targetIndex -= this.data.length;
+                    targetItem = this.data[targetIndex];
+                }
+                this.switchTo(targetItem)
+            }, 10000);
+            
             return new Proxy(this, {
                 get(target, prop: string | number | symbol, receiver: any): any {
                     if (prop in target) {
@@ -101,36 +111,42 @@ const HomePage = () => {
                     if (!isNaN(parsedInt)) {
                         return target.data[parsedInt];
                     }
-                    console.error("NewsData.constructor.proxy.get, prop not in target and parsedInt is NaN",
+                    console.warn("NewsData.constructor.proxy.get, prop not in target and parsedInt is NaN",
                         JSON.parse(JSON.stringify({target, prop})));
-                    
+                    return undefined;
                 }
             })
         }
         
-        select(index: number) {
-            const newsDataItem = this[index];
-            newsElem.date.text(`${newsDataItem.date}:`);
-            newsElem.title.text(newsDataItem.title);
-            newsElem.content.html(newsDataItem.content);
-            newsDataItem.radio.toggleClass('selected');
-            this._selected = newsDataItem;
-        }
         
+        // switchTo(selectedItem: NewsDataItem) {
+        //     newsElem.date.text(`${selectedItem.date}:`);
+        //     newsElem.title.text(selectedItem.title);
+        //     newsElem.content.html(selectedItem.content);
+        //     selectedItem.radio.toggleClass('selected');
+        //     this._selected = selectedItem;
+        // }
         
-        push(item: newsDataItem) {
+        push(item: NewsDataItem) {
             this.data.push(item);
-            const itemIndex = this.data.length - 1;
             item.radio.pointerdown(async () => {
-                this._selected.radio.toggleClass('selected');
-                TL.to(newsChildren, 0.1, {opacity: 0,});
-                await wait(25);
-                this.select(itemIndex);
-                TL.to(newsChildren, 0.1, {opacity: 1});
+                await this.switchTo(item);
             })
         }
         
         
+        async switchTo(selectedItem: NewsDataItem) {
+            if (this._selected !== undefined)
+                this._selected.radio.toggleClass('selected');
+            TL.to(newsChildren, 0.1, {opacity: 0});
+            await wait(25);
+            newsElem.date.text(`${selectedItem.date}:`);
+            newsElem.title.text(selectedItem.title);
+            newsElem.content.html(selectedItem.content);
+            selectedItem.radio.toggleClass('selected');
+            this._selected = selectedItem;
+            TL.to(newsChildren, 0.1, {opacity: 1});
+        }
     }
     
     async function init() {
@@ -163,9 +179,10 @@ const HomePage = () => {
         
         let i = 0;
         for (let [title, {date, content}] of dict(data.news).items()) {
-            newsData.push({title, date, content, radio: elem({tag: 'radio'})});
+            let item: NewsDataItem = {title, date, content, radio: elem({tag: 'radio'}), index: i};
+            newsData.push(item);
             if (i === 0) {
-                newsData.select(0);
+                newsData.switchTo(item);
             }
             
             newsElem.radios.append(newsData[i].radio);
@@ -173,9 +190,7 @@ const HomePage = () => {
             
         }
         
-        setInterval(() => {
         
-        }, 7000)
     }
     
     

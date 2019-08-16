@@ -11,6 +11,15 @@ const HomePage = () => {
     class NewsData {
         constructor() {
             this.data = [];
+            setInterval(() => {
+                let targetIndex = this._selected.index + 1;
+                let targetItem = this.data[targetIndex];
+                if (targetItem === undefined) {
+                    targetIndex -= this.data.length;
+                    targetItem = this.data[targetIndex];
+                }
+                this.switchTo(targetItem);
+            }, 10000);
             return new Proxy(this, {
                 get(target, prop, receiver) {
                     if (prop in target) {
@@ -20,28 +29,28 @@ const HomePage = () => {
                     if (!isNaN(parsedInt)) {
                         return target.data[parsedInt];
                     }
-                    console.error("NewsData.constructor.proxy.get, prop not in target and parsedInt is NaN", JSON.parse(JSON.stringify({ target, prop })));
+                    console.warn("NewsData.constructor.proxy.get, prop not in target and parsedInt is NaN", JSON.parse(JSON.stringify({ target, prop })));
+                    return undefined;
                 }
             });
         }
-        select(index) {
-            const newsDataItem = this[index];
-            newsElem.date.text(`${newsDataItem.date}:`);
-            newsElem.title.text(newsDataItem.title);
-            newsElem.content.html(newsDataItem.content);
-            newsDataItem.radio.toggleClass('selected');
-            this._selected = newsDataItem;
-        }
         push(item) {
             this.data.push(item);
-            const itemIndex = this.data.length - 1;
             item.radio.pointerdown(async () => {
-                this._selected.radio.toggleClass('selected');
-                TL.to(newsChildren, 0.1, { opacity: 0, });
-                await wait(25);
-                this.select(itemIndex);
-                TL.to(newsChildren, 0.1, { opacity: 1 });
+                await this.switchTo(item);
             });
+        }
+        async switchTo(selectedItem) {
+            if (this._selected !== undefined)
+                this._selected.radio.toggleClass('selected');
+            TL.to(newsChildren, 0.1, { opacity: 0 });
+            await wait(25);
+            newsElem.date.text(`${selectedItem.date}:`);
+            newsElem.title.text(selectedItem.title);
+            newsElem.content.html(selectedItem.content);
+            selectedItem.radio.toggleClass('selected');
+            this._selected = selectedItem;
+            TL.to(newsChildren, 0.1, { opacity: 1 });
         }
     }
     async function init() {
@@ -49,15 +58,14 @@ const HomePage = () => {
         const newsData = new NewsData();
         let i = 0;
         for (let [title, { date, content }] of dict(data.news).items()) {
-            newsData.push({ title, date, content, radio: elem({ tag: 'radio' }) });
+            let item = { title, date, content, radio: elem({ tag: 'radio' }), index: i };
+            newsData.push(item);
             if (i === 0) {
-                newsData.select(0);
+                newsData.switchTo(item);
             }
             newsElem.radios.append(newsData[i].radio);
             i++;
         }
-        setInterval(() => {
-        }, 7000);
     }
     return { init };
 };
