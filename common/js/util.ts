@@ -174,7 +174,7 @@ function round(n: number, d: number = 0) {
 
 async function fetchJson(path: string, cache: RequestCache) {
     let req = new Request(path, {cache});
-    return (await (await fetch(req)).json());
+    return (await fetch(req)).json();
 }
 
 function windowStats() {

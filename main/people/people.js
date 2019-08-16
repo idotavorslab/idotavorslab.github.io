@@ -36,7 +36,7 @@ const PeoplePage = () => {
             }
         };
         const data = await fetchJson('main/people/people.json', "no-cache");
-        console.log(data);
+        console.log('people data', data);
         const people = [];
         personViewer.init();
         const { team, alumni } = data;

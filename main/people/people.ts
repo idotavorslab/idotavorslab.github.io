@@ -50,8 +50,8 @@ const PeoplePage = () => {
         };
         
         const data = await fetchJson('main/people/people.json', "no-cache");
-        console.log(data);
-        const people = [];
+        console.log('people data', data);
+        const people: BetterHTMLElement[] = [];
         personViewer.init();
         const {team, alumni} = data;
         

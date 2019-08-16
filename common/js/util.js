@@ -107,7 +107,7 @@ function round(n, d = 0) {
 }
 async function fetchJson(path, cache) {
     let req = new Request(path, { cache });
-    return (await (await fetch(req)).json());
+    return (await fetch(req)).json();
 }
 function windowStats() {
     console.log(window.clientInformation.userAgent);
