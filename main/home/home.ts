@@ -1,7 +1,7 @@
 const HomePage = () => {
-    type News = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
+    type NewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
     
-    class CarouselItem {
+    /*class CarouselItem {
         title: string;
         image: string;
         content: string;
@@ -74,6 +74,7 @@ const HomePage = () => {
         
         
     }
+    */
     
     
     async function init() {
@@ -98,7 +99,7 @@ const HomePage = () => {
         console.log(carousel);
         */
         const data = await fetchJson('main/home/home.json', "no-cache");
-        const news: News = <News>elem({
+        const newsElem: NewsElem = <NewsElem>elem({
             query: '#news', children: {
                 date: '.date',
                 title: '.title',
@@ -110,35 +111,38 @@ const HomePage = () => {
         let i = 0;
         
         function popuplateNews(date, title, content, radio: BetterHTMLElement) {
-            news.date.text(`${date}:`);
-            news.title.text(title);
-            news.content.html(content);
+            newsElem.date.text(`${date}:`);
+            newsElem.title.text(title);
+            newsElem.content.html(content);
             radio.toggleClass('selected');
         }
         
-        const radioElems: BetterHTMLElement[] = [];
-        let selectedRadioIndex = 0;
+        
+        const newsObjs: { title: string, date: string, content: string, radio: BetterHTMLElement }[] = [];
+        let lastSelectedRadioIndex = 0;
         for (let [title, {date, content}] of dict(data.news).items()) {
-            // console.log({i, title, date, content});
             let radio = elem({tag: 'radio'});
-            radioElems.push(radio);
+            newsObjs.push({title, date, content, radio});
             if (i === 0) {
                 popuplateNews(date, title, content, radio);
             }
             radio.pointerdown(async () => {
-                radioElems[selectedRadioIndex].toggleClass('selected');
-                
+                newsObjs[lastSelectedRadioIndex].radio.toggleClass('selected');
                 TL.to(newsChildren, 0.1, {opacity: 0,});
                 await wait(25);
                 popuplateNews(date, title, content, radio);
                 TL.to(newsChildren, 0.1, {opacity: 1});
-                selectedRadioIndex = radioElems.indexOf(radio);
+                lastSelectedRadioIndex = radioElems.indexOf(radio);
             });
-            news.radios.append(radio);
+            newsElem.radios.append(radio);
             i++;
             
         }
-        let newsChildren = news.children().map(c => c.e);
+        const radioElems = newsObjs.map(news => news.radio);
+        const newsChildren = newsElem.children().map(c => c.e);
+        setInterval(() => {
+        
+        }, 7000)
     }
     
     
