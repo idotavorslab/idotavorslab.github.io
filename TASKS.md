@@ -2,10 +2,12 @@
 TODO:
 #####
 
-Photos => Gallery
-    Sorted by year - recent first
-    Going between photos like in mudriks
-    Meshes? sketchfab api or files?
+Gallery
+    [ ] Sorted by year?
+    [ ] Going between photos like in mudriks
+    [ ] Meshes? sketchfab api or files?
+    [ ] Tooltip?
+    [ ] python script to popuplate json?
     
 Publications
     [x] Sorted by year
