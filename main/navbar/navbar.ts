@@ -74,10 +74,10 @@ function _linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, st
 function _startSeparatorAnimation() {
     
     // console.log('startSeparatorAnimation()');
-    TL.fromTo(_separators.left.e, 1, {backgroundImage: _linearGradient([0, '0%'], [0.15, '150%'])}, {
+    TL.fromTo(_separators.left.e, 0.5, {backgroundImage: _linearGradient([0, '0%'], [0.15, '150%'])}, {
         backgroundImage: _linearGradient([0, '0%'], [0.75, '10%']),
     });
-    TL.fromTo(_separators.right.e, 1, {backgroundImage: _linearGradient([0.15, '-50%'], [0, '100%'])}, {
+    TL.fromTo(_separators.right.e, 0.5, {backgroundImage: _linearGradient([0.15, '-50%'], [0, '100%'])}, {
         backgroundImage: _linearGradient([0.75, '90%'], [0, '100%']),
     });
     

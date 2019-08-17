@@ -24,8 +24,9 @@ const PeoplePage = () => {
                     email: div({cls: "email"}),
                     minimize: div({text: "_", cls: "minimize"})
                 });
+                
                 this.e.minimize.pointerdown(async () => {
-                    
+    
                     await this.e.fadeOut(50);
                     this.isopen = false;
                     this.e.removeClass('open');
