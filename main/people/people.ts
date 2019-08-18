@@ -102,13 +102,13 @@ const PeoplePage = () => {
         const alumniContainer =
             div({id: "alumni_container"})
                 .append(
-                    div({cls: 'title', text: 'Alumni'}),
-                    div({cls: 'separator'}),
+                    // div({cls: 'title', text: 'Alumni'}),
+                    // div({cls: 'separator'}),
                     ...alumniArr
                 );
         
         
-        Home.empty().addClass('squeezed').append(
+        Home.empty().append(
             personViewer.e,
             teamContainer,
             alumniContainer

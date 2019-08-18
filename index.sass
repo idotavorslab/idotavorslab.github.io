@@ -48,7 +48,13 @@ main
     margin: $marginVertical auto
 
     max-width: 100%
-    width: var(--W0)
+    // 1535 <= screen
+    @media screen and (min-width: $BP0)
+        width: var(--W0)
+
+    // 1240 <= screen <= 1535
+    @media screen and (min-width: $BP1) and (max-width: $BP0)
+        width: var(--W1)
     text-align: center
     @import 'main/navbar/navbar.sass'
 

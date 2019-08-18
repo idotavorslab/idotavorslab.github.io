@@ -29,6 +29,25 @@
             rows: repeat(2, auto)
         row-gap: 40px
 
+    #{$childTag}
+        // every 4th == last in row
+        &:nth-of-type(4n+4)
+            margin: auto 1px auto auto
+
+        // first in row
+        &:nth-of-type(4n+1)
+            margin: auto auto auto 0
+        // [20][260][20] = 300 x 4 = 1200
+        margin: auto
+        // 1535 <= screen
+        @media screen and (min-width: $BP0)
+            width: 260px
+
+        // 1240 <= screen <= 1535
+        @media screen and (min-width: $BP1) and (max-width: $BP0)
+            width: 260px
+
+
     @if ($tight == true)
         #{$childTag}
             margin: auto 0 0 0
@@ -40,9 +59,9 @@
             &:last-of-type
                 border-right: 1px solid var(--GREY3)
 
-    // ***  1140 <= screen
+    // ***  1240 <= screen
     // 4 items
-    @media screen and (min-width: 1140px)
+    @media screen and (min-width: $BP1)
 
         @if ($tight == true)
             #{$childTag}
@@ -55,38 +74,20 @@
                     &:nth-child(#{$i})
                         border-top: 1px solid var(--GREY3)
 
-        // **  1400 <= screen
+        // **  1535 <= screen
         // 4 items across --W0 == 1140px
         @media screen and (min-width: $BP0)
-            //width: 1200px no need because main width
 
 
             #{$childTag}
                 @if ($tight == true)
                     // [8][284][8] x 4 = 1192
                     width: 282px
-                @else
-                    // [20][260][20] = 300 x 4 = 1200
-                    //margin: auto 20px 60px 20px
-                    //margin: auto auto 60px auto
-                    margin: auto
 
 
-                    width: 260px
-
-                // every 4th == last in row
-                &:nth-of-type(4n+4)
-                    margin: auto 1px auto auto
-
-                // first in row
-                &:nth-of-type(4n+1)
-                    margin: auto auto auto 0
-
-
-        // **  1140 <= screen <= 1400
-        // 4 tight items across 1200px
-        @media screen and (max-width: 1400px)
-            //width: 1040px
+        // **  1240 <= screen <= 1535
+        // 4 tight items across --W0 == 1140px
+        @media screen and (max-width: $BP0)
             #{$childTag}
                 @if ($tight == true)
                     // [8][242][8] = 258 * 4 = 1032
@@ -96,9 +97,9 @@
         margin: auto 10px 60px 10px
         width: 240px
 
-    // ***  screen <= 1140
+    // ***  screen <= 1240
     // 3 items across 80vw
-    @media screen and (max-width: 1140px)
+    @media screen and (max-width: $BP1)
         width: calc(80vw)
 
 
