@@ -56,10 +56,10 @@
                         border-top: 1px solid var(--GREY3)
 
         // **  1400 <= screen
-        // 4 items across 1140px
-        // TODO: BP0
-        @media screen and (min-width: 1400px)
+        // 4 items across --W0 == 1140px
+        @media screen and (min-width: $BP0)
             //width: 1200px no need because main width
+
 
             #{$childTag}
                 @if ($tight == true)
@@ -71,30 +71,30 @@
                     //margin: auto auto 60px auto
                     margin: auto
 
-                    //&:last-of-type
-                        margin: auto 0px 60px auto
 
-                    // every 4th == last in row
-                    &:nth-of-type(4n+4)
-                        margin: auto 0px auto auto
-
-                    // first in row
-                    &:nth-of-type(4n+1)
-                        margin: auto 0
                     width: 260px
+
+                // every 4th == last in row
+                &:nth-of-type(4n+4)
+                    margin: auto 1px auto auto
+
+                // first in row
+                &:nth-of-type(4n+1)
+                    margin: auto auto auto 0
+
 
         // **  1140 <= screen <= 1400
         // 4 tight items across 1200px
         @media screen and (max-width: 1400px)
-            width: 1040px
+            //width: 1040px
             #{$childTag}
                 @if ($tight == true)
                     // [8][242][8] = 258 * 4 = 1032
                     width: 242px
-                @else
-                    // [10][240][10] = 260 x 4 = 1040
-                    margin: auto 10px 60px 10px
-                    width: 240px
+    //@else
+        // [10][240][10] = 260 x 4 = 1040
+        margin: auto 10px 60px 10px
+        width: 240px
 
     // ***  screen <= 1140
     // 3 items across 80vw

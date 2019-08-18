@@ -52,7 +52,7 @@ const PeoplePage = () => {
             people.push(person);
         }
         const teamContainer = div({ id: "team_container" })
-            .append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), ...people);
+            .append(...people);
         const alumniArr = [];
         for (let [name, { image, role, cv, email }] of dict(alumni).items()) {
             let alum = elem({ tag: "person" });
@@ -70,4 +70,5 @@ const PeoplePage = () => {
     }
     return { init };
 };
+PeoplePage().init();
 //# sourceMappingURL=people.js.map

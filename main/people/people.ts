@@ -26,7 +26,7 @@ const PeoplePage = () => {
                 });
                 
                 this.e.minimize.pointerdown(async () => {
-    
+                    
                     await this.e.fadeOut(50);
                     this.isopen = false;
                     this.e.removeClass('open');
@@ -76,8 +76,8 @@ const PeoplePage = () => {
         }
         const teamContainer = div({id: "team_container"})
             .append(
-                div({cls: 'title', text: 'Team'}),
-                div({cls: 'separator'}),
+                // div({cls: 'title', text: 'Team'}),
+                // div({cls: 'separator'}),
                 ...people
             );
         
@@ -120,3 +120,4 @@ const PeoplePage = () => {
     
     return {init}
 };
+PeoplePage().init();
