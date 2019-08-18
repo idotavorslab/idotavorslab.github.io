@@ -2,9 +2,9 @@ navbar
     $font-size: 20px
     $img-width: 80px
     font-size: $font-size
-    max-width: fit-content
     margin: auto auto 40px auto
-    display: -webkit-box
+    display: flex
+    width: $BP0
 
     & > div, img
         cursor: pointer
@@ -24,6 +24,9 @@ navbar
     // tau logo
     & > img.tau
         height: $img-width
+
+    :nth-last-child(2)
+        margin-right: auto
 
     & > div
         $padding-top: $img-width / 2 - $font-size / 2
