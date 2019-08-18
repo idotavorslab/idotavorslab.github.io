@@ -15,9 +15,9 @@ div#papers_container
 
     &:hover
         @if ($prop == color)
-            color: $GREY5
+            color: $GREY6
         @else
-            @include borderMixin(rgb(153, 153, 153), null)
+            @include borderMixin($GREY5, null)
             @if ($withText == true)
                 color: #444
 
@@ -45,7 +45,7 @@ year
             margin: auto 0 auto auto
             text-align: center
             font-size: 17px
-            color: $GREY5
+            color: $GREY6
             @include borderMixin($GREY3)
             width: 40px
             height: 40px
@@ -83,7 +83,7 @@ paper
         @include borderMixin($GREY3)
         font:
             family: OpenSansLight
-        color: $GREY5
+        color: $GREY6
         background-color: $GREY01
 
     div.content-div
@@ -94,7 +94,7 @@ paper
                 bottom: 5px
 
         span
-            color: $GREY5
+            color: $GREY6
             font-size: 14px
 
         div.paper-title
