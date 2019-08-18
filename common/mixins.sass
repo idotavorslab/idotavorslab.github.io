@@ -25,11 +25,13 @@
     margin: 0 auto 40px auto
     grid:
         template:
-            columns: repeat(4, auto)
+            // TODO: why 285px??
+            columns: repeat(4, 285px)
             rows: repeat(2, auto)
         row-gap: 40px
 
     #{$childTag}
+        margin: auto
         // every 4th == last in row
         &:nth-of-type(4n+4)
             margin: auto 1px auto auto
@@ -37,8 +39,8 @@
         // first in row
         &:nth-of-type(4n+1)
             margin: auto auto auto 0
-        // [20][260][20] = 300 x 4 = 1200
-        margin: auto
+
+
         // 1535 <= screen
         @media screen and (min-width: $BP0)
             width: 260px
@@ -92,10 +94,7 @@
                 @if ($tight == true)
                     // [8][242][8] = 258 * 4 = 1032
                     width: 242px
-    //@else
-        // [10][240][10] = 260 x 4 = 1040
-        margin: auto 10px 60px 10px
-        width: 240px
+
 
     // ***  screen <= 1240
     // 3 items across 80vw
