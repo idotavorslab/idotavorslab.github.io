@@ -100,8 +100,6 @@ const PeoplePage = () => {
         const alumniGrid =
             div({id: "alumni_grid"})
                 .append(
-                    // div({cls: 'title', text: 'Alumni'}),
-                    // div({cls: 'separator'}),
                     ...alumniArr
                 );
         

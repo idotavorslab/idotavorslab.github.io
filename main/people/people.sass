@@ -3,8 +3,7 @@
 // DEPENDENCIES:    peopleContainerMixin width, person_viewer width, person width and margin
 ////////////////////
 $imgHeight: 185px
-@mixin peopleContainerMixin
-    @include flexContainerMixin(person)
+
 
 div.separator
     position: relative
@@ -27,10 +26,10 @@ div.title
 
 
 div#team_grid
-    @include peopleContainerMixin
+    @include flexContainerMixin(person)
 
 div#alumni_grid
-    @include peopleContainerMixin
+    @include flexContainerMixin(person)
 
 
 div#person_viewer
