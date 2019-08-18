@@ -19,7 +19,7 @@ div#papers_container
         @else
             @include borderMixin(var(--GREY5), null)
             @if ($withText == true)
-                color: #444
+                color: var(--GREY7)
 
     cursor: pointer
     $easeOut: 200ms ease-out
@@ -106,7 +106,7 @@ paper
 
         div.mag
             font-size: 16px
-            color: #444
+            color: var(--GREY7)
             @include hoverMixin(color)
             font:
                 family: OpenSansItalic

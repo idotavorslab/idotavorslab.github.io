@@ -1,4 +1,4 @@
-#carousel
+//#carousel
     --carousel_height: 500px
     @media screen and (min-width: 800px)
         --button_side: 70px
@@ -67,7 +67,6 @@
 
         grid-row: 2/5
         @media screen and (min-width: 800px)
-            // font-size: 18px
             font-size: 18px
             grid-column: 3/4
             text-align: justify
@@ -83,7 +82,7 @@
         position: absolute
         border:
             width: 0
-        color: #000
+        color: black
         cursor: pointer
         height: -webkit-fill-available
         @include fourWayTextShadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
@@ -112,11 +111,12 @@
 
 
 div#intro_container
+    $marginBottom: 60px
     text-align: left
     display: flex
     position: relative
     margin:
-        bottom: 60px
+        bottom: $marginBottom
 
 
     div#non_news
@@ -127,7 +127,7 @@ div#intro_container
             margin:
                 right: auto
                 left: auto
-                bottom: 50px
+                bottom: $marginBottom
 
         div
             position: relative
