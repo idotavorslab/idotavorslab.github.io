@@ -15,7 +15,7 @@ div#papers_container
 
     &:hover
         @if ($prop == color)
-            color: #888
+            color: $GREY5
         @else
             @include borderMixin(rgb(153, 153, 153), null)
             @if ($withText == true)
@@ -31,7 +31,7 @@ div#papers_container
 year
     div.title-and-separator-container
         display: flex
-        color: #ccc
+        color: $GREY3
 
         span.year-span
             letter-spacing: 1px
@@ -45,14 +45,14 @@ year
             margin: auto 0 auto auto
             text-align: center
             font-size: 17px
-            color: #888
-            @include borderMixin(#ccc)
+            color: $GREY5
+            @include borderMixin($GREY3)
             width: 40px
             height: 40px
             @include hoverMixin(border, true)
 
     div.papers
-        border-left: 1px solid #ddd
+        border-left: 1px solid $GREY2
         padding:
             left: 40px
         margin:
@@ -64,11 +64,11 @@ paper
     background-color: $GREY02
     padding: 30px
     display: flex
-    @include borderMixin(#ddd)
+    @include borderMixin($GREY2)
 
     img.thumbnail
         margin: auto 30px auto 0
-        border: 1px solid #ccc
+        border: 1px solid $GREY3
         @include hoverMixin(border)
 
 
@@ -80,11 +80,11 @@ paper
             bottom: auto
             left: auto
         padding: 10px
-        @include borderMixin(#ccc)
+        @include borderMixin($GREY3)
         font:
             family: OpenSansLight
-        color: #888
-        background-color: rgb(250, 250, 250)
+        color: $GREY5
+        background-color: $GREY01
 
     div.content-div
         div
@@ -94,7 +94,7 @@ paper
                 bottom: 5px
 
         span
-            color: #888
+            color: $GREY5
             font-size: 14px
 
         div.paper-title

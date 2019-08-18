@@ -33,7 +33,7 @@ body
     font-family: "OpenSans", sans-serif
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
-    color: #333
+    color: $GREY6
 
 a
     text-decoration: none
@@ -41,13 +41,16 @@ a
     transition: color 200ms ease-out
 
     &:hover
-        color: #888
+        color: $GREY5
 
 main
-    @media screen and (min-width: 1600px)
-        margin: 40px auto
-    @media screen and (max-width: 1600px)
-        margin: 30px auto
+    $marginVertical: 40px
+    margin: $marginVertical auto
+    //@media screen and (min-width: $BP0)
+    //    margin: 40px auto
+    //@media screen and (max-width: $BP0)
+    //    margin: 30px auto
+
 
     max-width: 100%
     width: $W0
@@ -58,7 +61,8 @@ main
         margin:
             top: 0
             right: auto
-            bottom: 39px
+            // 1px sep height
+            bottom: $marginVertical - 1
             left: 0
         display: inline-block
 
@@ -83,16 +87,12 @@ main
 
 
     home
-        //margin-top: 40px
-        //padding-top: 40px
-        //border-top:
         position: relative
         display: block
-        //display: none
         opacity: 1
 
         // people.ts
-        &[class~="squeezed"]
+        //&[class~="squeezed"]
             margin: 0 20px
 
 

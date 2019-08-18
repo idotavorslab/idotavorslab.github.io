@@ -31,11 +31,11 @@
             margin: auto 0 0 0
             padding: 8px
             border:
-                bottom: 1px solid #ccc
-                left: 1px solid #ccc
+                bottom: 1px solid $GREY3
+                left: 1px solid $GREY3
 
             &:last-of-type
-                border-right: 1px solid #ccc
+                border-right: 1px solid $GREY3
 
     // ***  1140 <= screen
     // 4 items
@@ -44,12 +44,12 @@
         @if ($tight == true)
             #{$childTag}
                 &:nth-of-type(4n+4)
-                    border-right: 1px solid #ccc
+                    border-right: 1px solid $GREY3
 
 
                 @for $i from 1 through 4
                     &:nth-child(#{$i})
-                        border-top: 1px solid #ccc
+                        border-top: 1px solid $GREY3
 
         // **  1400 <= screen
         // 4 items across 1200px
@@ -89,11 +89,11 @@
             width: calc(26vw - 10.4px)
             @if ($tight == true)
                 &:nth-of-type(3n+3)
-                    border-right: 1px solid #ccc
+                    border-right: 1px solid $GREY3
 
                 @for $i from 1 through 3
                     &:nth-child(#{$i})
-                        border-top: 1px solid #ccc
+                        border-top: 1px solid $GREY3
 
 
             @else
@@ -117,7 +117,7 @@
 
                 @for $i from 1 through 3
                     &:nth-child(#{$i})
-                        border-top: 1px solid #ccc
+                        border-top: 1px solid $GREY3
 
 
 
