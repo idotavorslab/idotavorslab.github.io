@@ -7,7 +7,7 @@ const GalleryPage = () => {
         
         const imgViewerContainer: ImgViewerContainer = <ImgViewerContainer>div({
             id: 'img_viewer_container'
-        }).cacheAppend({imgViewer: img({cls: 'img-viewer'})});
+        }).cacheAppend({imgViewer: div({cls: 'img-viewer'})});
         document.body.append(imgViewerContainer.e);
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         console.log('GalleryPage data', data);
@@ -18,7 +18,7 @@ const GalleryPage = () => {
                 img({src: `main/gallery/${file}`})
             );
             divElem.pointerdown(() => {
-                imgViewerContainer.imgViewer.attr({src: `main/gallery/${file}`})
+                imgViewerContainer.imgViewer.css({backgroundImage: `url('main/gallery/${file}')`})
             });
             
             divs.push(divElem)
@@ -31,4 +31,4 @@ const GalleryPage = () => {
     return {init}
 };
 
-GalleryPage().init();
+// GalleryPage().init();

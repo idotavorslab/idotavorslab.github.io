@@ -70,4 +70,5 @@ const HomePage = () => {
     }
     return { init };
 };
+HomePage().init();
 //# sourceMappingURL=home.js.map
