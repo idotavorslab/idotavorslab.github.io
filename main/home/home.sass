@@ -18,7 +18,7 @@
         grid-template-columns: var(--button_side) 15% auto 15% var(--button_side)
 
     height: var(--carousel_height)
-    color: $GREY8
+    color: var(--GREY8)
 
 
     .image
@@ -139,8 +139,8 @@ div#intro_container
         position: relative
         display: flex
         flex-direction: column
-        background-color: $GREY01
-        @include borderMixin($GREY2)
+        background-color: var(--GREY01)
+        @include borderMixin(var(--GREY2))
         width: 80vw
         padding: 30px
         margin:
@@ -158,7 +158,7 @@ div#intro_container
             margin: auto auto 0 auto
 
             radio
-                @include borderMixin($GREY3, null)
+                @include borderMixin(var(--GREY3), null)
 
                 display: inline-block
                 width: 15px
@@ -175,8 +175,8 @@ div#intro_container
 
                 &[class="selected"]
                     &.selected
-                        background-color: $GREY3
-                        border-color: $GREY4
+                        background-color: var(--GREY3)
+                        border-color: var(--GREY4)
 
 
 //&:first-of-type

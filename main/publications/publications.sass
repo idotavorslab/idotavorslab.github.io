@@ -15,9 +15,9 @@ div#papers_container
 
     &:hover
         @if ($prop == color)
-            color: $GREY6
+            color: var(--GREY6)
         @else
-            @include borderMixin($GREY5, null)
+            @include borderMixin(var(--GREY5), null)
             @if ($withText == true)
                 color: #444
 
@@ -31,7 +31,7 @@ div#papers_container
 year
     div.title-and-separator-container
         display: flex
-        color: $GREY3
+        color: var(--GREY3)
 
         span.year-span
             letter-spacing: 1px
@@ -45,14 +45,14 @@ year
             margin: auto 0 auto auto
             text-align: center
             font-size: 17px
-            color: $GREY6
-            @include borderMixin($GREY3)
+            color: var(--GREY6)
+            @include borderMixin(var(--GREY3))
             width: 40px
             height: 40px
             @include hoverMixin(border, true)
 
     div.papers
-        border-left: 1px solid $GREY2
+        border-left: 1px solid var(--GREY2)
         padding:
             left: 40px
         margin:
@@ -61,14 +61,14 @@ year
 paper
     position: relative
     margin: 0 0 60px 0
-    background-color: $GREY02
+    background-color: var(--GREY02)
     padding: 30px
     display: flex
-    @include borderMixin($GREY2)
+    @include borderMixin(var(--GREY2))
 
     img.thumbnail
         margin: auto 30px auto 0
-        border: 1px solid $GREY3
+        border: 1px solid var(--GREY3)
         @include hoverMixin(border)
 
 
@@ -80,11 +80,11 @@ paper
             bottom: auto
             left: auto
         padding: 10px
-        @include borderMixin($GREY3)
+        @include borderMixin(var(--GREY3))
         font:
             family: OpenSansLight
-        color: $GREY6
-        background-color: $GREY01
+        color: var(--GREY6)
+        background-color: var(--GREY01)
 
     div.content-div
         div
@@ -94,7 +94,7 @@ paper
                 bottom: 5px
 
         span
-            color: $GREY6
+            color: var(--GREY6)
             font-size: 14px
 
         div.paper-title

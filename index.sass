@@ -33,27 +33,22 @@ body
     font-family: "OpenSans", sans-serif
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
-    color: $GREY7
+    color: var(--GREY7)
 
 a
     text-decoration: none
-    color: $GOOGLEBLUE
+    color: var(--GOOGLEBLUE)
     transition: color 200ms ease-out
 
     &:hover
-        color: $GREY6
+        color: var(--GREY6)
 
 main
     $marginVertical: 40px
     margin: $marginVertical auto
-    //@media screen and (min-width: $BP0)
-    //    margin: 40px auto
-    //@media screen and (max-width: $BP0)
-    //    margin: 30px auto
-
 
     max-width: 100%
-    width: $W0
+    width: var(--W0)
     text-align: center
     @import 'main/navbar/navbar.sass'
 
@@ -91,9 +86,9 @@ main
         display: block
         opacity: 1
 
-        // people.ts
-        //&[class~="squeezed"]
-            margin: 0 20px
+// people.ts
+//&[class~="squeezed"]
+    margin: 0 20px
 
 
 #window_stats
