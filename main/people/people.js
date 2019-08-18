@@ -51,7 +51,7 @@ const PeoplePage = () => {
             });
             people.push(person);
         }
-        const teamContainer = div({ id: "team_container" })
+        const teamGrid = div({ id: "team_grid" })
             .append(...people);
         const alumniArr = [];
         for (let [name, { image, role, cv, email }] of dict(alumni).items()) {
@@ -64,9 +64,9 @@ const PeoplePage = () => {
             });
             alumniArr.push(alum);
         }
-        const alumniContainer = div({ id: "alumni_container" })
+        const alumniGrid = div({ id: "alumni_grid" })
             .append(...alumniArr);
-        Home.empty().append(personViewer.e, teamContainer, alumniContainer);
+        Home.empty().append(personViewer.e, div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
     }
     return { init };
 };

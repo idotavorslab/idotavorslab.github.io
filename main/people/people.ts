@@ -74,10 +74,8 @@ const PeoplePage = () => {
             });
             people.push(person);
         }
-        const teamContainer = div({id: "team_container"})
+        const teamGrid = div({id: "team_grid"})
             .append(
-                // div({cls: 'title', text: 'Team'}),
-                // div({cls: 'separator'}),
                 ...people
             );
         
@@ -99,8 +97,8 @@ const PeoplePage = () => {
             });
             alumniArr.push(alum);
         }
-        const alumniContainer =
-            div({id: "alumni_container"})
+        const alumniGrid =
+            div({id: "alumni_grid"})
                 .append(
                     // div({cls: 'title', text: 'Alumni'}),
                     // div({cls: 'separator'}),
@@ -110,8 +108,12 @@ const PeoplePage = () => {
         
         Home.empty().append(
             personViewer.e,
-            teamContainer,
-            alumniContainer
+            div({cls: 'title', text: 'Team'}),
+            div({cls: 'separator'}),
+            teamGrid,
+            div({cls: 'title', text: 'Alumni'}),
+            div({cls: 'separator'}),
+            alumniGrid
         );
         
         
