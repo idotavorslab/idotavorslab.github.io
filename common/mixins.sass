@@ -20,13 +20,16 @@
             radius: $radius
 
 @mixin flexContainerMixin($childTag, $tight:false)
-    display: flex
-    flex-wrap: wrap
+    display: grid
+    //flex-wrap: wrap
     margin: 0 auto 40px auto
+    grid:
+        template:
+            columns: repeat(4, auto)
+            rows: repeat(2, auto)
+        row-gap: 40px
 
     @if ($tight == true)
-
-
         #{$childTag}
             margin: auto 0 0 0
             padding: 8px
@@ -43,6 +46,7 @@
 
         @if ($tight == true)
             #{$childTag}
+                // every 4th == last in row
                 &:nth-of-type(4n+4)
                     border-right: 1px solid var(--GREY3)
 
@@ -52,9 +56,10 @@
                         border-top: 1px solid var(--GREY3)
 
         // **  1400 <= screen
-        // 4 items across 1200px
+        // 4 items across 1140px
+        // TODO: BP0
         @media screen and (min-width: 1400px)
-            width: 1200px
+            //width: 1200px no need because main width
 
             #{$childTag}
                 @if ($tight == true)
@@ -62,7 +67,20 @@
                     width: 282px
                 @else
                     // [20][260][20] = 300 x 4 = 1200
-                    margin: auto 20px 60px 20px
+                    //margin: auto 20px 60px 20px
+                    //margin: auto auto 60px auto
+                    margin: auto
+
+                    //&:last-of-type
+                        margin: auto 0px 60px auto
+
+                    // every 4th == last in row
+                    &:nth-of-type(4n+4)
+                        margin: auto 0px auto auto
+
+                    // first in row
+                    &:nth-of-type(4n+1)
+                        margin: auto 0
                     width: 260px
 
         // **  1140 <= screen <= 1400
@@ -88,6 +106,7 @@
             // [1140, 286], [1040, 260]
             width: calc(26vw - 10.4px)
             @if ($tight == true)
+                // every 3th == last in row
                 &:nth-of-type(3n+3)
                     border-right: 1px solid var(--GREY3)
 
