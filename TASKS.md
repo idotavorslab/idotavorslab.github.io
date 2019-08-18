@@ -2,17 +2,35 @@
 TODO:
 #####
 
-Photos => Gallery
-    Sorted by year - recent first
-    Going between photos like in mudriks
-    Meshes? sketchfab api or files?
+MORKI:
+    
+    Navbar:
+        Everything aligned to "0" (left of 1200px), besides last (right) one aligned right
+    
+    Research:
+        Adhere to regular grid (1200 etc)
+    
+    People:
+        Align pictures to left (no weird padding compared to title)
+        open the viewer beneath given person. viewer's width is 2 people wide. 
+            person is always on the left side of viewer. see morki structure example.jpg 
+    
+    Publications:
+        Hover on publication as 1 unit, drop shadow
+        morki publications structure.png
+Gallery
+    [ ] Sorted by year?
+    [ ] Going between photos like in mudriks
+    [ ] Meshes? sketchfab api or files?
+    [ ] Tooltip?
+    [ ] python script to popuplate json?
     
 Publications
     [x] Sorted by year
     [x] Structure like http://neuroimaging.tau.ac.il/?page_id=19 
     [ ] Each year is expandable
     [x] Visual like Ron Shamirs with thumbnail http://acgt.cs.tau.ac.il/latest-years-publications/
-
+    
 Courses
     "pretty mobile-like", not a list. image, title, text, link. http://schonberglab.tau.ac.il/funding/
 
