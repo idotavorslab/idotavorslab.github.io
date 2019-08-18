@@ -17,7 +17,7 @@ div#papers_container
         @if ($prop == color)
             color: #888
         @else
-            @include borderMixin(#999, null)
+            @include borderMixin(rgb(153, 153, 153), null)
             @if ($withText == true)
                 color: #444
 
@@ -61,7 +61,7 @@ year
 paper
     position: relative
     margin: 0 0 60px 0
-    background-color: $lightGreyBG
+    background-color: $GREY02
     padding: 30px
     display: flex
     @include borderMixin(#ddd)
