@@ -110,21 +110,9 @@
         &[class~="animated"]
             animation: scaleDownAndReset 50ms linear
 
-@mixin containerMixin
-    text-align: left
-    @media screen and (min-width: 1400px)
-        width: 1300px
-    @media screen and (min-width: 1140px) and (max-width: 1400px)
-        width: 1040px
-    margin: auto
-
-// TODO: no such element #home_container
-div#home_container
-    @include containerMixin
-
 
 div#intro_container
-    @include containerMixin
+    text-align: left
     display: flex
     position: relative
     margin:
@@ -198,7 +186,7 @@ div#intro_container
     margin-right: 0px
 
 div#research_snippets_container
-    @include containerMixin
+    text-align: left
 
     div.title
         @include titleMixin

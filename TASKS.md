@@ -5,7 +5,7 @@ TODO:
 MORKI:
     
     Navbar:
-        Everything aligned to "0" (left of 1200px), besides last (right) one aligned right
+        [x] Everything aligned to "0" (left of 1200px), besides last (right) one aligned right
     
     Research:
         Adhere to regular grid (1200 etc)
