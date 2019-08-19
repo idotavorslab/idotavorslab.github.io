@@ -75,7 +75,7 @@ const PeoplePage = () => {
                         .text(this.cv)
                         .css({ gridColumn })
                         .append(div({ cls: 'email' }).html(`Email: <a href="mailto:${this.email}">${this.email}</a>`));
-                    let rightmostPersonIndex = 3 + (this.row % 4) * 4;
+                    let rightmostPersonIndex = Math.min(3 + (this.row % 4) * 4, People.length - 1);
                     console.log({ gridColumn, rightmostPersonIndex });
                     People[rightmostPersonIndex].after(PersonExpando);
                     await wait(0);
