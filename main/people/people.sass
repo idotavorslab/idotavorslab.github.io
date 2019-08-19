@@ -25,83 +25,6 @@ div#alumni_grid
     @include flexContainerMixin(person)
 
 
-div#person_viewer
-    height: 0px
-    $transDur: 500ms cubic-bezier(0, 0, 0, 1)
-    transition: height $transDur, padding-top $transDur, padding-bottom $transDur
-    margin:
-        top: auto
-        right: auto
-        bottom: -10px
-        left: auto
-    text-align: left
-    opacity: 0
-    padding: 0 50px
-    position: relative
-    // has to be the same as peopleContainerMixin max-width
-    // TODO: responsive like peopleContainerMixin
-    width: 1200px
-
-    $dim: 40px
-    $otherdim: 50px
-
-    &.open
-        margin:
-            top: 0px
-            right: auto
-            bottom: $dim
-            left: auto
-        height: 500px
-        border:
-            left: 1px solid goldenrod
-            bottom: 1px solid goldenrod
-        padding: $dim $otherdim
-
-        & div.minimize:hover
-            cursor: pointer
-
-    div.name
-        text-transform: uppercase
-        font-weight: bolder
-        margin-bottom: 10px
-        letter-spacing: 0.5px
-
-    div.img-cv-container
-        display: -webkit-box
-
-        img
-            margin:
-                bottom: 20px
-                right: $dim
-            height: round($imgHeight * 1.25)
-
-        div.cv
-            color: var(--GREY7)
-            text-align: justify
-            line-height: 23px
-            position: absolute
-            display: inline
-            margin:
-                bottom: 20px
-                right: $otherdim * 2
-
-
-    div.minimize
-
-        position: absolute
-        top: 0
-        right: $otherdim
-        text-align: center
-        font-size: $dim / 2.4
-        color: rgba(0, 0, 0, 0.5)
-        border: 1px solid rgba(0, 0, 0, 0.3)
-        width: $dim
-        height: $dim
-
-        &:hover
-            cursor: default
-
-
 person
     position: relative
     overflow: hidden
@@ -160,6 +83,8 @@ div.person-expando
         // -50px
         top: calc(var(--GAP) * -5 / 6)
 
+    &.collapsed
+        padding: 0
 
     &.expanded
         // *  DEP: mixins.sass --tagWidth == 255px

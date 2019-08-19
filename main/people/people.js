@@ -15,9 +15,13 @@ const PeoplePage = () => {
                     People[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
                 }
             }
-            pullbackPeopleBelow() {
+            async pullbackPeopleBelow() {
                 for (let [i, j] of this.yieldIndexesBelow()) {
-                    People[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}` });
+                    People[i * 4 + j].css({ marginTop: `${-GAP}px` });
+                }
+                await wait(500);
+                for (let [i, j] of this.yieldIndexesBelow()) {
+                    People[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}`, marginTop: `0px` });
                 }
             }
             unfocusOthers() {
@@ -35,8 +39,9 @@ const PeoplePage = () => {
                 }
             }
             async collapseExpando() {
-                elem({ query: '.expanded' }).removeClass('expanded').css({ padding: 0 });
-                await wait(500);
+                PersonExpando.removeClass('expanded').addClass('collapsed');
+                this.focusOthers();
+                await this.pullbackPeopleBelow();
                 PersonExpando.remove();
             }
             async expandExpando() {
@@ -70,20 +75,13 @@ const PeoplePage = () => {
                     console.log('PersonExpando.email', PersonExpando.email);
                     PersonExpando
                         .text(this.cv)
-                        .css({ gridColumn });
-                    if (PersonExpando.email === undefined) {
-                        PersonExpando
-                            .cacheAppend({ email: div({ cls: 'email' }) })
-                            .email.html(`Email: <a href="mailto:${this.email}">${this.email}</a>`);
-                    }
-                    else {
-                        console.warn('PersonExpando.email is NOT undefined!');
-                    }
+                        .css({ gridColumn })
+                        .append(div({ cls: 'email' }).html(`Email: <a href="mailto:${this.email}">${this.email}</a>`));
                     let rightmostPersonIndex = 3 + (this.row % 4) * 4;
                     console.log({ gridColumn, rightmostPersonIndex });
                     People[rightmostPersonIndex].after(PersonExpando);
                     await wait(0);
-                    PersonExpando.addClass('expanded');
+                    PersonExpando.removeClass('collapsed').addClass('expanded');
                 }
                 else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
