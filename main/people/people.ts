@@ -53,7 +53,7 @@ const PeoplePage = () => {
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
         const people: BetterHTMLElement[] = [];
-        personViewer.init();
+        // personViewer.init();
         const {team, alumni} = data;
         
         // **  Team
@@ -65,7 +65,7 @@ const PeoplePage = () => {
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
                 );
-            person.pointerdown(() => {
+            person.pointerdown(async () => {
                 // if (!personViewer.isopen)
                 //     personViewer.open();
                 //
@@ -83,7 +83,9 @@ const PeoplePage = () => {
                             
                             console.log('i:', i, 'j:', j, `i * 4 + j:`, i * 4 + j);
                             // 4,5,6,7                  3/3     (go over row and increment gridRow)
-                            people[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`})
+                            people[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
+                            
+                            
                         }
                     }
                     // unfocus all persons
@@ -108,8 +110,11 @@ const PeoplePage = () => {
                     }
                     let rightmostPersonIndex = 3 + (personRow % 4) * 4;
                     console.log({gridColumn, rightmostPersonIndex});
-                    people[rightmostPersonIndex].after(div({text: cv, cls: 'person-content'}).css({gridColumn}))
+                    let personExpando = div({text: cv, cls: 'person-expando'}).css({gridColumn});
+                    people[rightmostPersonIndex].after(personExpando);
                     
+                    await wait(0);
+                    personExpando.addClass('expanded');
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
@@ -149,7 +154,7 @@ const PeoplePage = () => {
         
         
         Home.empty().append(
-            personViewer.e,
+            // personViewer.e,
             div({cls: 'title', text: 'Team'}),
             div({cls: 'separator'}),
             teamGrid,

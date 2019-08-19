@@ -134,16 +134,31 @@ person
             family: OpenSansItalic
 
 
-div.person-content
+div.person-expando
     text-align: justify
-    background-color: var(--GREY01)
-    padding: 30px
-    @include borderMixin(var(--GREY3))
+    // 30px
+    --expandoPadding: calc(var(--GAP) / 2)
+
+    // *  DEP: mixins.sass --tagWidth == 255px
+    // 255 - 30*2  =  195px
+    width: calc(255px - 2 * var(--expandoPadding))
+    height: 0
+    overflow: hidden
+    color: var(--GREY01)
+    transition: height 100ms, width 100ms, color 250ms cubic-bezier(0.5, -0.7, 1, 0.5), background 250ms cubic-bezier(0.5, -0.7, 1, 0.5)
+    background-color: var(--GREY00)
+    padding: var(--expandoPadding)
+    @include borderMixin(var(--GREY00))
 
     // DEP: mixins.sass flexContainerMixin grid-row-gap
     margin:
         // -50px
         top: calc(var(--GAP) * -5 / 6)
 
-//&.expanded
-    display: unset
+    &.expanded
+        // *  DEP: mixins.sass --tagWidth == 255px
+        width: calc(255px * 2)
+        height: 240px
+        color: var(--GREY7)
+        background-color: var(--GREY01)
+        border-color: var(--GREY3)

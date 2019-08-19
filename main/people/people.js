@@ -38,13 +38,12 @@ const PeoplePage = () => {
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
         const people = [];
-        personViewer.init();
         const { team, alumni } = data;
         for (let [name, { image, role, cv, email }] of dict(team).items()) {
             let person = elem({ tag: "person" });
             person
                 .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
-            person.pointerdown(() => {
+            person.pointerdown(async () => {
                 if (window.innerWidth >= BP0) {
                     let personIndex = people.indexOf(person);
                     let personRow = int(personIndex / 4);
@@ -76,7 +75,10 @@ const PeoplePage = () => {
                     }
                     let rightmostPersonIndex = 3 + (personRow % 4) * 4;
                     console.log({ gridColumn, rightmostPersonIndex });
-                    people[rightmostPersonIndex].after(div({ text: cv, cls: 'person-content' }).css({ gridColumn }));
+                    let personExpando = div({ text: cv, cls: 'person-expando' }).css({ gridColumn });
+                    people[rightmostPersonIndex].after(personExpando);
+                    await wait(0);
+                    personExpando.addClass('expanded');
                 }
                 else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
@@ -100,7 +102,7 @@ const PeoplePage = () => {
         }
         const alumniGrid = div({ id: "alumni_grid" })
             .append(...alumniArr);
-        Home.empty().append(personViewer.e, div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
+        Home.empty().append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
     }
     return { init };
 };
