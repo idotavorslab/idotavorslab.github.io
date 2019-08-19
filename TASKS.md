@@ -11,13 +11,18 @@ MORKI:
         Adhere to regular grid (1200 etc)
     
     People:
-        Align pictures to left (no weird padding compared to title)
+        [x] Align pictures to left (no weird padding compared to title)
         open the viewer beneath given person. viewer's width is 2 people wide. 
             person is always on the left side of viewer. see morki structure example.jpg 
     
     Publications:
         Hover on publication as 1 unit, drop shadow
         morki publications structure.png
+
+Home
+    [ ] News
+        [ ] Stop cycling on user interaction
+
 Gallery
     [ ] Sorted by year?
     [ ] Going between photos like in mudriks
@@ -34,7 +39,7 @@ Publications
 Courses
     "pretty mobile-like", not a list. image, title, text, link. http://schonberglab.tau.ac.il/funding/
 
-[x] News
+
 
 Funding
     (logo, title, subtitle) http://schonberglab.tau.ac.il/funding/
