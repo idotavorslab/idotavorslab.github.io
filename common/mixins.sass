@@ -20,15 +20,18 @@
 
 @mixin flexContainerMixin($childTag, $tight:false)
     display: grid
-    //flex-wrap: wrap
-    margin: 0 auto 40px auto
+    --personWidth: 260px
+    // TODO: when in other media query, W1 (not W0) etc
+    --gap: calc(calc(var(--W0) - calc(var(--personWidth) * 4)) / 3)
+    margin: 0 auto var(--gap) auto
     grid:
         template:
-            // TODO: when in other media query, W1 (not W0) etc
-            columns: repeat(4, calc(var(--W0) / 4))
+
+            columns: repeat(4, var(--personWidth))
             rows: repeat(2, auto)
         // TODO: maybe this should be 60px like $gap home.sass
-        row-gap: 40px
+        row-gap: var(--gap)
+        column-gap: var(--gap)
 
     #{$childTag}
         margin: auto
@@ -43,11 +46,11 @@
 
         // 1535 <= screen
         @media screen and (min-width: $BP0)
-            width: 260px
+            width: var(--personWidth)
 
         // 1340 <= screen <= 1535
         @media screen and (min-width: $BP1) and (max-width: $BP0)
-            width: 260px
+            width: var(--personWidth)
 
 
     @if ($tight == true)
