@@ -46,6 +46,8 @@ const PeoplePage = () => {
                         this.row = int(this.index / 4);
                         this.indexInRow = this.index % 4;
                     }
+                    if (this.row >= 1)
+                        this.e.scrollIntoView({ behavior: 'smooth' });
                     this._pushPeopleBelow();
                     this._toggleOthersFocus();
                     let gridColumn;
@@ -119,5 +121,4 @@ const PeoplePage = () => {
     }
     return { init };
 };
-PeoplePage().init();
 //# sourceMappingURL=people.js.map

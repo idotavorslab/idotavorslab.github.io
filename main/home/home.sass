@@ -147,7 +147,7 @@ div#intro_container
         background-color: var(--GREY01)
         @include borderMixin(var(--GREY2))
         // 30px
-        padding: var(--GAP) / 2
+        padding: calc(var(--GAP) / 2)
         margin:
             left: var(--GAP)
 
@@ -167,13 +167,13 @@ div#intro_container
 
                 display: inline-block
                 // 15px
-                width: var(--GAP) / 4
-                height: var(--GAP) / 4
+                width: calc(var(--GAP) / 4)
+                height: calc(var(--GAP) / 4)
                 border-radius: 100px
                 // 5px
                 margin:
-                    left: var(--GAP) / 12
-                    right: var(--GAP) / 12
+                    left: calc(var(--GAP) / 12)
+                    right: calc(var(--GAP) / 12)
                 transition: background 100ms
 
                 &:not([class="selected"])

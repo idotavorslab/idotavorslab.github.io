@@ -85,12 +85,11 @@ const PeoplePage = () => {
                         this.indexInRow = this.index % 4;
                     }
                     
-                    // if (this.row >= 1)
-                    //     this.e.scrollIntoView({behavior: 'smooth'});
+                    if (this.row >= 1)
+                        this.e.scrollIntoView({behavior: 'smooth'});
                     this._pushPeopleBelow();
                     this._toggleOthersFocus();
                     
-                    // 3, 7, 11.. last person in each row
                     let gridColumn;
                     switch (this.indexInRow) {
                         case 0:
@@ -190,4 +189,4 @@ const PeoplePage = () => {
     
     return {init}
 };
-PeoplePage().init();
+// PeoplePage().init();
