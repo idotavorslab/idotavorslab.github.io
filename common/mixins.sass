@@ -20,16 +20,17 @@
 
 @mixin flexContainerMixin($childTag, $tight:false)
     display: grid
-    --personWidth: 260px
+    // has to be pic size
+    --tagWidth: 260px
     // TODO: when in other media query, W1 (not W0) etc
-    --gap: calc(calc(var(--W0) - calc(var(--personWidth) * 4)) / 3)
+    // (1200 - 4 * 260) / 3  =  (1200 - 1040) / 3  =  160 / 3  =  53.333
+    --gap: calc((var(--W0) - var(--tagWidth) * 4) / 3)
     margin: 0 auto var(--gap) auto
     grid:
         template:
 
-            columns: repeat(4, var(--personWidth))
+            columns: repeat(4, var(--tagWidth))
             rows: repeat(2, auto)
-        // TODO: maybe this should be 60px like $gap home.sass
         row-gap: var(--gap)
         column-gap: var(--gap)
 
@@ -46,11 +47,11 @@
 
         // 1535 <= screen
         @media screen and (min-width: $BP0)
-            width: var(--personWidth)
+            width: var(--tagWidth)
 
         // 1340 <= screen <= 1535
         @media screen and (min-width: $BP1) and (max-width: $BP0)
-            width: var(--personWidth)
+            width: var(--tagWidth)
 
 
     @if ($tight == true)
