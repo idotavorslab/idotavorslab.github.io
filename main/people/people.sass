@@ -85,8 +85,6 @@ div#person_viewer
                 bottom: 20px
                 right: $otherdim * 2
 
-    div.email
-        color: var(--GREY7)
 
     div.minimize
 
@@ -145,6 +143,10 @@ div.person-expando
     height: 0
     overflow: hidden
     color: white
+
+    a
+        color: white
+        transition: color 300ms cubic-bezier(1, 0, 1, 0)
     transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), color 300ms cubic-bezier(1, 0, 1, 0), box-shadow 2000ms
     background-color: white
     padding: var(--expandoPadding)
@@ -156,11 +158,21 @@ div.person-expando
         // -50px
         top: calc(var(--GAP) * -5 / 6)
 
+
     &.expanded
         // *  DEP: mixins.sass --tagWidth == 255px
         width: calc(255px * 2)
-        height: 240px
+        height: 260px
         color: var(--GREY7)
         background-color: var(--GREY01)
         border-color: var(--GREY3)
         box-shadow: 0px 2px 10px var(--GREY3)
+
+        div.email
+            a
+                color: var(--GOOGLEBLUE)
+
+            margin:
+                // 10px
+                top: calc(var(--GAP) / 6)
+

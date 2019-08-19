@@ -75,7 +75,9 @@ const PeoplePage = () => {
                     }
                     let rightmostPersonIndex = 3 + (personRow % 4) * 4;
                     console.log({ gridColumn, rightmostPersonIndex });
-                    let personExpando = div({ text: cv, cls: 'person-expando' }).css({ gridColumn });
+                    let personExpando = div({ text: cv, cls: 'person-expando' })
+                        .append(div({ cls: 'email' }).html(`Email: <a href="mailto:${email}">${email}</a>`))
+                        .css({ gridColumn });
                     people[rightmostPersonIndex].after(personExpando);
                     await wait(0);
                     personExpando.addClass('expanded');
@@ -83,7 +85,6 @@ const PeoplePage = () => {
                 else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
-                people.reverse()[0].css({ gridRow: '3/3' });
             });
             people.push(person);
         }
