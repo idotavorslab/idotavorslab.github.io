@@ -17,11 +17,7 @@ const PeoplePage = () => {
             }
             async pullbackPeopleBelow() {
                 for (let [i, j] of this.yieldIndexesBelow()) {
-                    People[i * 4 + j].css({ marginTop: `${-GAP}px` });
-                }
-                await wait(500);
-                for (let [i, j] of this.yieldIndexesBelow()) {
-                    People[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}`, marginTop: `0px` });
+                    People[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}` });
                 }
             }
             unfocusOthers() {

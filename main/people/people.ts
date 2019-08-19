@@ -30,12 +30,16 @@ const PeoplePage = () => {
             }
             
             async pullbackPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                // *  This is unneeded if there's no padding transition
+                /*for (let [i, j] of this.yieldIndexesBelow()) {
                     People[i * 4 + j].css({marginTop: `${-GAP}px`});
                 }
-                await wait(500); // *  DEP: people.sass padding transition
+                // await wait(500); // *  DEP: people.sass .person-expando padding transitions (any)
+                */
                 for (let [i, j] of this.yieldIndexesBelow()) {
-                    People[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`, marginTop: `0px`});
+                    // *  Resetting margin-top is unneeded if there's no padding transition
+                    // People[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`, marginTop: `0px`});
+                    People[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`});
                 }
             }
             
@@ -57,9 +61,7 @@ const PeoplePage = () => {
             
             async collapseExpando() {
                 PersonExpando.removeClass('expanded').addClass('collapsed');
-                /*PersonExpando.removeClass('expanded');
-                TL.fromTo([PersonExpando.e], 0.5, {padding: `${GAP / 2}px`}, {padding: 0});
-                */
+                
                 
                 this.focusOthers();
                 await this.pullbackPeopleBelow();
@@ -107,7 +109,6 @@ const PeoplePage = () => {
                     
                     await wait(0);
                     PersonExpando.removeClass('collapsed').addClass('expanded');
-                    // PersonExpando.addClass('expanded').css({padding: `${GAP / 2}px`});
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
