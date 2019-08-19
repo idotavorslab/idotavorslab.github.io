@@ -71,7 +71,6 @@ const PeoplePage = () => {
                 //
                 // personViewer.populate(name, image, cv, email)
                 
-                // person.css({gridRow: '1/3'});
                 if (window.innerWidth >= BP0) {
                     let personIndex = people.indexOf(person);
                     // eg 0
@@ -85,6 +84,12 @@ const PeoplePage = () => {
                             console.log('i:', i, 'j:', j, `i * 4 + j:`, i * 4 + j);
                             // 4,5,6,7                  3/3     (go over row and increment gridRow)
                             people[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`})
+                        }
+                    }
+                    // unfocus all persons
+                    for (let p of people) {
+                        if (p !== person) {
+                            p.toggleClass('unfocused')
                         }
                     }
                     // 3, 7, 11.. last person in each row

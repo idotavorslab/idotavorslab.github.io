@@ -107,12 +107,15 @@ div#person_viewer
 person
     position: relative
     overflow: hidden
-    //height: 240px
     height: auto
     cursor: pointer
     background:
         position: top
         repeat: no-repeat
+    transition: opacity 100ms
+
+    &.unfocused
+        opacity: 0.5
 
     img
         height: $imgHeight
@@ -132,7 +135,6 @@ person
 
 
 div.person-content
-    //display: none
     text-align: justify
     background-color: var(--GREY01)
     padding: 30px

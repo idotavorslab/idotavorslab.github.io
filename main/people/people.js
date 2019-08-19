@@ -56,6 +56,11 @@ const PeoplePage = () => {
                             people[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
                         }
                     }
+                    for (let p of people) {
+                        if (p !== person) {
+                            p.toggleClass('unfocused');
+                        }
+                    }
                     let gridColumn;
                     switch (personIndexInRow) {
                         case 0:
