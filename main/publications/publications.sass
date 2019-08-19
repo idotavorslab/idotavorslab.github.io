@@ -1,13 +1,9 @@
-////////////////////
-// BREAKPOINTS:     1400, 1140
-// DEPENDENCIES:
-////////////////////
 div#papers_container
     text-align: left
-    @media screen and (min-width: 1400px)
-        width: 1200px
-    @media screen and (min-width: 1140px) and (max-width: 1400px)
-        width: 1040px
+    //@media screen and (min-width: $BP0)
+    //    width: 1200px
+    //@media screen and (min-width: 1140px) and (max-width: 1400px)
+    //    width: 1040px
     margin: auto
 
 
@@ -106,7 +102,6 @@ paper
 
         div.mag
             font-size: 16px
-            color: var(--GREY7)
             @include hoverMixin(color)
             font:
                 family: OpenSansItalic
