@@ -29,6 +29,8 @@ person
     background:
         position: top
         repeat: no-repeat
+    //box-shadow: 0px 2px 10px var(--GREY3)
+    box-shadow: 0px 2px 10px white
     cursor: pointer
     height: auto
     overflow: hidden
@@ -39,21 +41,25 @@ person
         opacity: 0.4
         filter: blur(2px) contrast(0.8)
 
+    &.expanded
+        box-shadow: 0px 2px 10px var(--GREY5)
+
     img
         height: $imgHeight
 
 
     div.name
-        text-transform: capitalize
         font:
             size: large
             family: OpenSansSemiBold
+        text-transform: capitalize
 
     div.role
-        text-transform: capitalize
         color: var(--GREY6)
         font:
             family: OpenSansItalic
+        padding-bottom: 5px
+        text-transform: capitalize
 
 
 div.person-expando

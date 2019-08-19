@@ -9,6 +9,7 @@ const PeoplePage = () => {
                 this.arr = arr;
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
                     event.cancelBubble = true;
+                    this.toggleClass('expanded');
                     if (IsExpanded)
                         this.collapseExpando();
                     else

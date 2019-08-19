@@ -22,6 +22,7 @@ const PeoplePage = () => {
                     div({text: role, cls: "role"}),
                 ).pointerdown((event) => {
                         event.cancelBubble = true; // doesn't bubble up to grid
+                        this.toggleClass('expanded');
                         if (IsExpanded)
                             this.collapseExpando();
                         else
@@ -130,6 +131,7 @@ const PeoplePage = () => {
                 await this._pullbackPeopleBelow();
                 PersonExpando.remove();
                 this.ownsExpando = false;
+                
             }
         }
         
