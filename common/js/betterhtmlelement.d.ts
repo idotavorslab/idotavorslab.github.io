@@ -457,6 +457,8 @@ declare class BetterHTMLElement {
     
     toggleClass(cls: string, force?: boolean): this;
     
+    after(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
+    
     /**Append one or several `BetterHTMLElement`s or vanilla `Node`s*/
     append(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
     

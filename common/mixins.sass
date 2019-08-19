@@ -27,17 +27,18 @@
             // TODO: when in other media query, W1 (not W0) etc
             columns: repeat(4, calc(var(--W0) / 4))
             rows: repeat(2, auto)
+        // TODO: maybe this should be 60px like $gap home.sass
         row-gap: 40px
 
     #{$childTag}
         margin: auto
         // every 4th == last in row
         &:nth-of-type(4n+4)
-            margin: auto 1px auto auto
+            margin: 0 1px auto auto
 
         // first in row
         &:nth-of-type(4n+1)
-            margin: auto auto auto 0
+            margin: 0 auto auto 0
 
 
         // 1535 <= screen

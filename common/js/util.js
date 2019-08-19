@@ -1,3 +1,8 @@
+const BP0 = 1535;
+const BP1 = 1340;
+const $BP2 = 1023;
+const W0 = 1200;
+const W1 = 984;
 function float(str) {
     return parseFloat(str);
 }

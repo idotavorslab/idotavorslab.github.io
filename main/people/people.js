@@ -45,9 +45,38 @@ const PeoplePage = () => {
             person
                 .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" }));
             person.pointerdown(() => {
-                if (!personViewer.isopen)
-                    personViewer.open();
-                personViewer.populate(name, image, cv, email);
+                if (window.innerWidth >= BP0) {
+                    let personIndex = people.indexOf(person);
+                    let personRow = int(personIndex / 4);
+                    let personIndexInRow = personIndex % 4;
+                    console.log({ personIndex, personRow, personIndexInRow });
+                    for (let i = personRow + 1; i <= people.length / 4; i++) {
+                        for (let j = 0; j < 4 && i * 4 + j < people.length; j++) {
+                            console.log('i:', i, 'j:', j, `i * 4 + j:`, i * 4 + j);
+                            people[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
+                        }
+                    }
+                    let gridColumn;
+                    switch (personIndexInRow) {
+                        case 0:
+                            gridColumn = '1/3';
+                            break;
+                        case 1:
+                        case 2:
+                            gridColumn = '2/4';
+                            break;
+                        case 3:
+                            gridColumn = '3/5';
+                            break;
+                    }
+                    let rightmostPersonIndex = 3 + (personRow % 4) * 4;
+                    console.log({ gridColumn, rightmostPersonIndex });
+                    people[rightmostPersonIndex].after(div({ text: cv, cls: 'person-content' }).css({ gridColumn }));
+                }
+                else if (window.innerWidth >= BP1) {
+                    console.warn('people.ts. person pointerdown BP1 no code');
+                }
+                people.reverse()[0].css({ gridRow: '3/3' });
             });
             people.push(person);
         }

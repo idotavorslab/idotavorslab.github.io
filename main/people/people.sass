@@ -111,7 +111,8 @@ div#person_viewer
 person
     position: relative
     overflow: hidden
-    height: 240px
+    //height: 240px
+    height: auto
     cursor: pointer
     background:
         position: top
@@ -120,19 +121,23 @@ person
     img
         height: $imgHeight
 
-    div
-        text-transform: capitalize
-
 
     div.name
-        color: black
+        text-transform: capitalize
         font:
             size: large
             family: OpenSansSemiBold
 
     div.role
+        text-transform: capitalize
         color: var(--GREY6)
         font:
             family: OpenSansItalic
 
 
+div.person-content
+    //display: none
+    text-align: justify
+
+    //&.expanded
+        display: unset
