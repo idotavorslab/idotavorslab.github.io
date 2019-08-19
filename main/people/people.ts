@@ -57,6 +57,10 @@ const PeoplePage = () => {
             
             async collapseExpando() {
                 PersonExpando.removeClass('expanded').addClass('collapsed');
+                /*PersonExpando.removeClass('expanded');
+                TL.fromTo([PersonExpando.e], 0.5, {padding: `${GAP / 2}px`}, {padding: 0});
+                */
+                
                 this.focusOthers();
                 await this.pullbackPeopleBelow();
                 PersonExpando.remove();
@@ -103,6 +107,7 @@ const PeoplePage = () => {
                     
                     await wait(0);
                     PersonExpando.removeClass('collapsed').addClass('expanded');
+                    // PersonExpando.addClass('expanded').css({padding: `${GAP / 2}px`});
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
