@@ -23,7 +23,7 @@ const PeoplePage = () => {
                         if (IsExpanded)
                             this.collapseExpando();
                         else
-                            this.expandExpando();
+                            this._expandExpando();
                         IsExpanded = !IsExpanded;
                         
                     }
@@ -31,7 +31,7 @@ const PeoplePage = () => {
             }
             
             
-            * yieldIndexesBelow() {
+            private* _yieldIndexesBelow() {
                 
                 for (let i = this.row + 1; i <= People.length / 4; i++) {
                     for (let j = 0; j < 4 && i * 4 + j < People.length; j++) {
@@ -44,21 +44,21 @@ const PeoplePage = () => {
                 }
             }
             
-            pushPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+            private _pushPeopleBelow() {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     People[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
                 }
                 
             }
             
-            async pullbackPeopleBelow() {
+            private async _pullbackPeopleBelow() {
                 // *  This is unneeded if there's no padding transition
-                // for (let [i, j] of this.yieldIndexesBelow()) {
+                // for (let [i, j] of this._yieldIndexesBelow()) {
                 //     People[i * 4 + j].css({marginTop: `${-GAP}px`});
                 // }
                 // await wait(500); // *  DEP: people.sass .person-expando padding transitions (any)
                 
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     // *  Resetting margin-top is unneeded if there's no padding transition
                     // People[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`, marginTop: `0px`});
                     People[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`});
@@ -66,7 +66,7 @@ const PeoplePage = () => {
             }
             
             
-            toggleOthersFocus() {
+            private _toggleOthersFocus() {
                 for (let p of People) {
                     if (p !== this)
                         p.toggleClass('unfocused');
@@ -74,16 +74,8 @@ const PeoplePage = () => {
                 
             }
             
-            async collapseExpando() {
-                PersonExpando.removeClass('expanded').addClass('collapsed');
-                
-                this.toggleOthersFocus();
-                await this.pullbackPeopleBelow();
-                PersonExpando.remove();
-                this.ownsExpando = false;
-            }
             
-            async expandExpando() {
+            private async _expandExpando() {
                 if (window.innerWidth >= BP0) {
                     if (this.index === undefined) {
                         this.index = People.indexOf(this);
@@ -93,8 +85,8 @@ const PeoplePage = () => {
                     
                     if (this.row >= 1)
                         this.e.scrollIntoView({behavior: 'smooth'});
-                    this.pushPeopleBelow();
-                    this.toggleOthersFocus();
+                    this._pushPeopleBelow();
+                    this._toggleOthersFocus();
                     
                     // 3, 7, 11.. last person in each row
                     let gridColumn;
@@ -128,6 +120,15 @@ const PeoplePage = () => {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
                 
+            }
+            
+            async collapseExpando() {
+                PersonExpando.removeClass('expanded').addClass('collapsed');
+                
+                this._toggleOthersFocus();
+                await this._pullbackPeopleBelow();
+                PersonExpando.remove();
+                this.ownsExpando = false;
             }
         }
         

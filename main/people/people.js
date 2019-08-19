@@ -11,11 +11,11 @@ const PeoplePage = () => {
                     if (IsExpanded)
                         this.collapseExpando();
                     else
-                        this.expandExpando();
+                        this._expandExpando();
                     IsExpanded = !IsExpanded;
                 });
             }
-            *yieldIndexesBelow() {
+            *_yieldIndexesBelow() {
                 for (let i = this.row + 1; i <= People.length / 4; i++) {
                     for (let j = 0; j < 4 && i * 4 + j < People.length; j++) {
                         console.log('i:', i, 'j:', j, `i * 4 + j:`, i * 4 + j);
@@ -23,30 +23,23 @@ const PeoplePage = () => {
                     }
                 }
             }
-            pushPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+            _pushPeopleBelow() {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     People[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
                 }
             }
-            async pullbackPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+            async _pullbackPeopleBelow() {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     People[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}` });
                 }
             }
-            toggleOthersFocus() {
+            _toggleOthersFocus() {
                 for (let p of People) {
                     if (p !== this)
                         p.toggleClass('unfocused');
                 }
             }
-            async collapseExpando() {
-                PersonExpando.removeClass('expanded').addClass('collapsed');
-                this.toggleOthersFocus();
-                await this.pullbackPeopleBelow();
-                PersonExpando.remove();
-                this.ownsExpando = false;
-            }
-            async expandExpando() {
+            async _expandExpando() {
                 if (window.innerWidth >= BP0) {
                     if (this.index === undefined) {
                         this.index = People.indexOf(this);
@@ -55,8 +48,8 @@ const PeoplePage = () => {
                     }
                     if (this.row >= 1)
                         this.e.scrollIntoView({ behavior: 'smooth' });
-                    this.pushPeopleBelow();
-                    this.toggleOthersFocus();
+                    this._pushPeopleBelow();
+                    this._toggleOthersFocus();
                     let gridColumn;
                     switch (this.indexInRow) {
                         case 0:
@@ -84,6 +77,13 @@ const PeoplePage = () => {
                 else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
+            }
+            async collapseExpando() {
+                PersonExpando.removeClass('expanded').addClass('collapsed');
+                this._toggleOthersFocus();
+                await this._pullbackPeopleBelow();
+                PersonExpando.remove();
+                this.ownsExpando = false;
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");
