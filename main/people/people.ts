@@ -8,6 +8,28 @@ const PeoplePage = () => {
             indexInRow: number;
             cv: string;
             email: string;
+            ownsExpando: boolean;
+            
+            constructor(image: string, name: string, role: string, cv: string, email: string) {
+                super({tag: 'person'});
+                this.cv = cv;
+                this.email = email;
+                this.append(
+                    img({src: `main/people/${image}`}),
+                    div({text: name, cls: "name"}),
+                    div({text: role, cls: "role"}),
+                ).pointerdown((event) => {
+                        event.cancelBubble = true; // doesn't bubble up to grid
+                        if (IsExpanded)
+                            this.collapseExpando();
+                        else
+                            this.expandExpando();
+                        IsExpanded = !IsExpanded;
+                        
+                    }
+                )
+            }
+            
             
             * yieldIndexesBelow() {
                 
@@ -44,16 +66,12 @@ const PeoplePage = () => {
             }
             
             
-            async toggleOthersFocus() {
-                for (let i = 1; i < People.length; i++) {
-                    let down = People[this.index - i];
-                    if (down)
-                        down.toggleClass('unfocused');
-                    let up = People[this.index + i];
-                    if (up)
-                        up.toggleClass('unfocused');
-                    await wait(25);
+            toggleOthersFocus() {
+                for (let p of People) {
+                    if (p !== this)
+                        p.toggleClass('unfocused');
                 }
+                
             }
             
             async collapseExpando() {
@@ -62,6 +80,7 @@ const PeoplePage = () => {
                 this.toggleOthersFocus();
                 await this.pullbackPeopleBelow();
                 PersonExpando.remove();
+                this.ownsExpando = false;
             }
             
             async expandExpando() {
@@ -71,12 +90,7 @@ const PeoplePage = () => {
                         this.row = int(this.index / 4);
                         this.indexInRow = this.index % 4;
                     }
-                    console.log({
-                        index: this.index,
-                        row: this.row,
-                        indexInRow: this.indexInRow,
-                        'IsExpanded (result of click)': IsExpanded
-                    });
+                    
                     if (this.row >= 1)
                         this.e.scrollIntoView({behavior: 'smooth'});
                     this.pushPeopleBelow();
@@ -109,35 +123,17 @@ const PeoplePage = () => {
                     
                     await wait(0);
                     PersonExpando.removeClass('collapsed').addClass('expanded');
+                    this.ownsExpando = true;
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
                 
             }
-            
-            constructor(image: string, name: string, role: string, cv: string, email: string) {
-                super({tag: 'person'});
-                this.cv = cv;
-                this.email = email;
-                this.append(
-                    img({src: `main/people/${image}`}),
-                    div({text: name, cls: "name"}),
-                    div({text: role, cls: "role"}),
-                ).pointerdown(() => {
-                    IsExpanded = !IsExpanded;
-                    if (!IsExpanded)
-                        this.collapseExpando();
-                    else
-                        this.expandExpando();
-                    
-                })
-            }
         }
         
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
-        const People: BetterHTMLElement[] = [];
-        // const PersonExpando: any & { email: Div } = div({cls: 'person-expando'}).cacheAppend({email: div({cls: 'email'})});
+        const People: Person[] = [];
         type TPersonExpando = Div & { email: Div };
         const PersonExpando: TPersonExpando = <TPersonExpando>div({cls: 'person-expando'});
         
@@ -150,9 +146,13 @@ const PeoplePage = () => {
             People.push(person);
         }
         const teamGrid = div({id: "team_grid"})
-            .append(
-                ...People
-            );
+            .append(...People)
+            .pointerdown(event => {
+                if (IsExpanded) {
+                    People.find(p => p.ownsExpando).collapseExpando();
+                    IsExpanded = !IsExpanded;
+                }
+            });
         
         // **  Alumni
         const alumniArr = [];

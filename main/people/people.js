@@ -2,6 +2,19 @@ const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
         class Person extends BetterHTMLElement {
+            constructor(image, name, role, cv, email) {
+                super({ tag: 'person' });
+                this.cv = cv;
+                this.email = email;
+                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
+                    event.cancelBubble = true;
+                    if (IsExpanded)
+                        this.collapseExpando();
+                    else
+                        this.expandExpando();
+                    IsExpanded = !IsExpanded;
+                });
+            }
             *yieldIndexesBelow() {
                 for (let i = this.row + 1; i <= People.length / 4; i++) {
                     for (let j = 0; j < 4 && i * 4 + j < People.length; j++) {
@@ -20,15 +33,10 @@ const PeoplePage = () => {
                     People[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}` });
                 }
             }
-            async toggleOthersFocus() {
-                for (let i = 1; i < People.length; i++) {
-                    let down = People[this.index - i];
-                    if (down)
-                        down.toggleClass('unfocused');
-                    let up = People[this.index + i];
-                    if (up)
-                        up.toggleClass('unfocused');
-                    await wait(25);
+            toggleOthersFocus() {
+                for (let p of People) {
+                    if (p !== this)
+                        p.toggleClass('unfocused');
                 }
             }
             async collapseExpando() {
@@ -36,6 +44,7 @@ const PeoplePage = () => {
                 this.toggleOthersFocus();
                 await this.pullbackPeopleBelow();
                 PersonExpando.remove();
+                this.ownsExpando = false;
             }
             async expandExpando() {
                 if (window.innerWidth >= BP0) {
@@ -44,12 +53,6 @@ const PeoplePage = () => {
                         this.row = int(this.index / 4);
                         this.indexInRow = this.index % 4;
                     }
-                    console.log({
-                        index: this.index,
-                        row: this.row,
-                        indexInRow: this.indexInRow,
-                        'IsExpanded (result of click)': IsExpanded
-                    });
                     if (this.row >= 1)
                         this.e.scrollIntoView({ behavior: 'smooth' });
                     this.pushPeopleBelow();
@@ -76,22 +79,11 @@ const PeoplePage = () => {
                     People[rightmostPersonIndex].after(PersonExpando);
                     await wait(0);
                     PersonExpando.removeClass('collapsed').addClass('expanded');
+                    this.ownsExpando = true;
                 }
                 else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
-            }
-            constructor(image, name, role, cv, email) {
-                super({ tag: 'person' });
-                this.cv = cv;
-                this.email = email;
-                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown(() => {
-                    IsExpanded = !IsExpanded;
-                    if (!IsExpanded)
-                        this.collapseExpando();
-                    else
-                        this.expandExpando();
-                });
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");
@@ -105,7 +97,13 @@ const PeoplePage = () => {
             People.push(person);
         }
         const teamGrid = div({ id: "team_grid" })
-            .append(...People);
+            .append(...People)
+            .pointerdown(event => {
+            if (IsExpanded) {
+                People.find(p => p.ownsExpando).collapseExpando();
+                IsExpanded = !IsExpanded;
+            }
+        });
         const alumniArr = [];
         for (let [name, { image, role, cv, email }] of dict(alumni).items()) {
             let alum = elem({ tag: "person" });
