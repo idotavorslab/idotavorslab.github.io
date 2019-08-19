@@ -72,7 +72,6 @@ const PeoplePage = () => {
                             gridColumn = '3/5';
                             break;
                     }
-                    console.log('PersonExpando.email', PersonExpando.email);
                     PersonExpando
                         .text(this.cv)
                         .css({ gridColumn })
@@ -91,15 +90,12 @@ const PeoplePage = () => {
                 super({ tag: 'person' });
                 this.cv = cv;
                 this.email = email;
-                this
-                    .append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown(async () => {
+                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown(() => {
                     IsExpanded = !IsExpanded;
-                    if (!IsExpanded) {
+                    if (!IsExpanded)
                         this.collapseExpando();
-                    }
-                    else {
+                    else
                         this.expandExpando();
-                    }
                 });
             }
         }

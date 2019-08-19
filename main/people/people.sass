@@ -69,10 +69,12 @@ div.person-expando
     color: white
 
 
+    $colorTrans: color 300ms cubic-bezier(1, 0, 1, 0)
+
     a
         color: white
-        transition: color 300ms cubic-bezier(1, 0, 1, 0)
-    transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), color 300ms cubic-bezier(1, 0, 1, 0), box-shadow 1000ms, padding 500ms
+        transition: $colorTrans
+    transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, padding 500ms, box-shadow 1500ms
     background-color: white
     padding: var(--expandoPadding)
     box-shadow: 0px 1px 2px white

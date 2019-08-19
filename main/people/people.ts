@@ -69,7 +69,6 @@ const PeoplePage = () => {
                         this.row = int(this.index / 4);
                         this.indexInRow = this.index % 4;
                     }
-                    // eg 0
                     console.log({
                         index: this.index,
                         row: this.row,
@@ -93,8 +92,6 @@ const PeoplePage = () => {
                             gridColumn = '3/5';
                             break;
                     }
-                    // PersonExpando.text(this.cv).css({gridColumn}).email.html(`Email: <a href="mailto:${this.email}">${this.email}</a>`);
-                    console.log('PersonExpando.email', PersonExpando.email);
                     PersonExpando
                         .text(this.cv)
                         .css({gridColumn})
@@ -116,19 +113,17 @@ const PeoplePage = () => {
                 super({tag: 'person'});
                 this.cv = cv;
                 this.email = email;
-                this
-                    .append(
-                        img({src: `main/people/${image}`}),
-                        div({text: name, cls: "name"}),
-                        div({text: role, cls: "role"}),
-                    ).pointerdown(async () => {
-                    
+                this.append(
+                    img({src: `main/people/${image}`}),
+                    div({text: name, cls: "name"}),
+                    div({text: role, cls: "role"}),
+                ).pointerdown(() => {
                     IsExpanded = !IsExpanded;
-                    if (!IsExpanded) {
+                    if (!IsExpanded)
                         this.collapseExpando();
-                    } else {
+                    else
                         this.expandExpando();
-                    }
+                    
                 })
             }
         }
