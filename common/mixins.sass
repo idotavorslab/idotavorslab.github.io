@@ -2,11 +2,11 @@
     text-shadow: $x $y $blur $color, $x * -1 $y $blur $color, $x $y * -1 $blur $color, $x * -1 $y * -1 $blur $color
 
 
-@mixin titleMixin($font-size: x-large)
+@mixin titleMixin($fontSize: x-large)
 
     font:
         family: OpenSansBold
-        size: $font-size
+        size: $fontSize
     margin-bottom: 5px
     letter-spacing: 1px
 
@@ -24,8 +24,8 @@
     margin: 0 auto 40px auto
     grid:
         template:
-            // TODO: why 285px??
-            columns: repeat(4, 285px)
+            // TODO: when in other media query, W1 (not W0) etc
+            columns: repeat(4, calc(var(--W0) / 4))
             rows: repeat(2, auto)
         row-gap: 40px
 
