@@ -137,8 +137,11 @@ div.person-content
     background-color: var(--GREY01)
     padding: 30px
     @include borderMixin(var(--GREY3))
+
+    // DEP: mixins.sass flexContainerMixin grid-row-gap
     margin:
-        bottom: calc(var(--gap) / 2)
+        // -50px
+        top: calc(var(--GAP) * -5 / 6)
 
 //&.expanded
     display: unset

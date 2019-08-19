@@ -111,12 +111,12 @@
 
 
 div#intro_container
-    $gap: 60px
+    //$gap: 60px
     text-align: left
     display: flex
     position: relative
     margin:
-        bottom: $gap
+        bottom: var(--GAP)
 
 
     div#non_news
@@ -132,7 +132,7 @@ div#intro_container
             margin:
                 right: auto
                 left: auto
-                bottom: $gap
+                bottom: var(--GAP)
 
         div
             position: relative
@@ -147,9 +147,9 @@ div#intro_container
         background-color: var(--GREY01)
         @include borderMixin(var(--GREY2))
         // 30px
-        padding: $gap / 2
+        padding: var(--GAP) / 2
         margin:
-            left: $gap
+            left: var(--GAP)
 
         div.date
             color: rgb(95, 95, 95)
@@ -167,13 +167,13 @@ div#intro_container
 
                 display: inline-block
                 // 15px
-                width: $gap / 4
-                height: $gap / 4
+                width: var(--GAP) / 4
+                height: var(--GAP) / 4
                 border-radius: 100px
                 // 5px
                 margin:
-                    left: $gap / 12
-                    right: $gap / 12
+                    left: var(--GAP) / 12
+                    right: var(--GAP) / 12
                 transition: background 100ms
 
                 &:not([class="selected"])
