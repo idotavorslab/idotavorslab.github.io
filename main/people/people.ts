@@ -43,31 +43,23 @@ const PeoplePage = () => {
                 }
             }
             
-            async unfocusOthers() {
-                for (let p of People) {
-                    if (p !== this) {
-                        p.addClass('unfocused');
-                        await wait(50);
-                    }
-                }
-            }
             
-            async focusOthers() {
-                for (let i = People.length - 1; i >= 0; i--) {
-                    let p = People[i];
-                    if (p !== this) {
-                        p.removeClass('unfocused');
-                        await wait(50);
-                    }
+            async toggleOthersFocus() {
+                for (let i = 1; i < People.length; i++) {
+                    let down = People[this.index - i];
+                    if (down)
+                        down.toggleClass('unfocused');
+                    let up = People[this.index + i];
+                    if (up)
+                        up.toggleClass('unfocused');
+                    await wait(25);
                 }
-                
             }
             
             async collapseExpando() {
                 PersonExpando.removeClass('expanded').addClass('collapsed');
                 
-                
-                this.focusOthers();
+                this.toggleOthersFocus();
                 await this.pullbackPeopleBelow();
                 PersonExpando.remove();
             }
@@ -85,8 +77,10 @@ const PeoplePage = () => {
                         indexInRow: this.indexInRow,
                         'IsExpanded (result of click)': IsExpanded
                     });
+                    if (this.row >= 1)
+                        this.e.scrollIntoView({behavior: 'smooth'});
                     this.pushPeopleBelow();
-                    this.unfocusOthers();
+                    this.toggleOthersFocus();
                     
                     // 3, 7, 11.. last person in each row
                     let gridColumn;
