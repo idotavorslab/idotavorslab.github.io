@@ -31,11 +31,11 @@ const PeoplePage = () => {
             
             async pullbackPeopleBelow() {
                 // *  This is unneeded if there's no padding transition
-                /*for (let [i, j] of this.yieldIndexesBelow()) {
-                    People[i * 4 + j].css({marginTop: `${-GAP}px`});
-                }
+                // for (let [i, j] of this.yieldIndexesBelow()) {
+                //     People[i * 4 + j].css({marginTop: `${-GAP}px`});
+                // }
                 // await wait(500); // *  DEP: people.sass .person-expando padding transitions (any)
-                */
+                
                 for (let [i, j] of this.yieldIndexesBelow()) {
                     // *  Resetting margin-top is unneeded if there's no padding transition
                     // People[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`, marginTop: `0px`});
@@ -43,20 +43,24 @@ const PeoplePage = () => {
                 }
             }
             
-            unfocusOthers() {
+            async unfocusOthers() {
                 for (let p of People) {
                     if (p !== this) {
-                        p.addClass('unfocused')
+                        p.addClass('unfocused');
+                        await wait(50);
                     }
                 }
             }
             
-            focusOthers() {
-                for (let p of People) {
+            async focusOthers() {
+                for (let i = People.length - 1; i >= 0; i--) {
+                    let p = People[i];
                     if (p !== this) {
-                        p.removeClass('unfocused')
+                        p.removeClass('unfocused');
+                        await wait(50);
                     }
                 }
+                
             }
             
             async collapseExpando() {

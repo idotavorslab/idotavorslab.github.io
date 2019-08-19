@@ -20,17 +20,20 @@ const PeoplePage = () => {
                     People[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}` });
                 }
             }
-            unfocusOthers() {
+            async unfocusOthers() {
                 for (let p of People) {
                     if (p !== this) {
                         p.addClass('unfocused');
+                        await wait(50);
                     }
                 }
             }
-            focusOthers() {
-                for (let p of People) {
+            async focusOthers() {
+                for (let i = People.length - 1; i >= 0; i--) {
+                    let p = People[i];
                     if (p !== this) {
                         p.removeClass('unfocused');
+                        await wait(50);
                     }
                 }
             }
