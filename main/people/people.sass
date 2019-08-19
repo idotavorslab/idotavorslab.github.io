@@ -114,6 +114,7 @@ person
 
     &.unfocused
         opacity: 0.4
+        filter: blur(2px) contrast(0.8)
 
     img
         height: $imgHeight
@@ -162,7 +163,7 @@ div.person-expando
     &.expanded
         // *  DEP: mixins.sass --tagWidth == 255px
         width: calc(255px * 2)
-        height: 260px
+        height: 270px
         color: var(--GREY7)
         background-color: var(--GREY01)
         border-color: var(--GREY3)
