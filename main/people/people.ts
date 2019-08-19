@@ -1,62 +1,15 @@
-type PersonViewer = {
-    init: () => void,
-    e: Div,
-    isopen: boolean,
-    open: () => void,
-    populate: (name: string, image: string, cv: string, email: string) => void
-};
-
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
         
-        // **  personViewer
-        const personViewer: PersonViewer = {
-            init: function () {
-                
-                console.log('personViewer init');
-                this.e.cacheAppend({
-                    name: div({cls: "name"}),
-                    imgCvContainer: div({cls: "img-cv-container"}).cacheAppend({
-                        img: img(),
-                        cv: div({cls: "cv"})
-                    }),
-                    email: div({cls: "email"}),
-                    minimize: div({text: "_", cls: "minimize"})
-                });
-                
-                this.e.minimize.pointerdown(async () => {
-                    
-                    await this.e.fadeOut(50);
-                    this.isopen = false;
-                    this.e.removeClass('open');
-                });
-            },
-            e: div({id: "person_viewer"}),
-            isopen: false,
-            open: async function () {
-                console.log('opening');
-                this.e.class('open');
-                await this.e.fadeIn(500);
-                this.isopen = true;
-                
-            },
-            populate: function (name, image, cv, email) {
-                console.log('populating');
-                this.e.name.text(name);
-                this.e.imgCvContainer.img.attr({src: `main/people/${image}`});
-                this.e.imgCvContainer.cv.text(cv);
-                this.e.email.html(`Email: <a href="mailto:${email}">${email}</a>`);
-            }
-        };
         
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
         const people: BetterHTMLElement[] = [];
-        // personViewer.init();
         const {team, alumni} = data;
         
         // **  Team
+        let isExpanded = false;
         for (let [name, {image, role, cv, email}] of dict(team).items()) {
             let person = elem({tag: "person"});
             person
@@ -66,17 +19,19 @@ const PeoplePage = () => {
                     div({text: role, cls: "role"}),
                 );
             person.pointerdown(async () => {
-                // if (!personViewer.isopen)
-                //     personViewer.open();
-                //
-                // personViewer.populate(name, image, cv, email)
-                
+                console.group('person.pointerdown');
+                isExpanded = !isExpanded;
+                if (!isExpanded) {
+                    elem({query: '.expanded'}).removeClass('expanded').css({padding: 0});
+                    
+                    return;
+                }
                 if (window.innerWidth >= BP0) {
                     let personIndex = people.indexOf(person);
                     // eg 0
                     let personRow = int(personIndex / 4);
                     let personIndexInRow = personIndex % 4;
-                    console.log({personIndex, personRow, personIndexInRow});
+                    console.log({personIndex, personRow, personIndexInRow, 'isExpanded (result of click)': isExpanded});
                     // i=1; i<=1 (from next row and on)
                     for (let i = personRow + 1; i <= people.length / 4; i++) {
                         for (let j = 0; j < 4 && i * 4 + j < people.length; j++) {
@@ -119,7 +74,7 @@ const PeoplePage = () => {
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
-                
+                console.groupEnd();
             });
             people.push(person);
         }
