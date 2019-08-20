@@ -164,11 +164,13 @@ function calcAbsValue(cssStr, width) {
 function _(s) {
     return s.split('. ').join('\n');
 }
-function log(target, name, descriptor, ...outargs) {
-    const orig = descriptor.value;
-    descriptor.value = function (...args) {
-        console.log(`%c${name}`, 'color: #ffc66d');
-        return orig.apply(this, args);
+function log(bold = false) {
+    return function _log(target, name, descriptor, ...outargs) {
+        const orig = descriptor.value;
+        descriptor.value = function (...args) {
+            console.log(`%c${name}`, `color: #ffc66d${bold ? '; font-weight: bold' : ''}`);
+            return orig.apply(this, args);
+        };
     };
 }
 //# sourceMappingURL=util.js.map

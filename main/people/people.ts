@@ -32,41 +32,42 @@ const PeoplePage = () => {
                     div({text: role, cls: "role"}),
                 ).pointerdown((event) => this._toggleExpando(event));
                 
-                // this.pushPeopleBelow = log.bind(() => this._pushPeopleBelow()); pass
                 
-                // this._pushPeopleBelow = log.bind(() => this._pushPeopleBelow());
             }
             
-            @log
+            @log(true)
             private async _toggleExpando(event: Event) {
-                // console.log(_(`toggleExpando. expando:`), expando, 'this:', this);
+                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 event.cancelBubble = true; // doesn't bubble up to grid
                 
                 if (expando.isExpanded) {
                     if (expando.owner === this) {
                         this.collapseExpando();
                     } else {
-                        await expando.owner.collapseExpando();
-                        this._expandExpando();
+                        expando.owner.collapseExpando();
+                        await this._expandExpando();
                     }
                 } else {
-                    this._expandExpando();
+                    await this._expandExpando();
                 }
-                expando.isExpanded = !expando.isExpanded;
+                // expando.isExpanded = !expando.isExpanded;
             }
             
-            @log
-            async collapseExpando() {
+            @log()
+            collapseExpando() {
+                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 expando.removeClass('expanded').addClass('collapsed');
                 this._toggleOthersFocus();
-                await this._pullbackPeopleBelow();
+                this._pullbackPeopleBelow();
                 expando.remove();
                 expando.owner = null;
+                expando.isExpanded = false;
                 
             }
             
-            @log
+            @log()
             private async _expandExpando() {
+                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 if (window.innerWidth >= BP0) {
                     if (this._index === undefined) {
                         this._index = this._arr.indexOf(this);
@@ -105,13 +106,13 @@ const PeoplePage = () => {
                     await wait(0);
                     expando.removeClass('collapsed').addClass('expanded');
                     expando.owner = this;
+                    expando.isExpanded = true;
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
                 
             }
             
-            @log
             private* _yieldIndexesBelow() {
                 
                 for (let i = this._row + 1; i <= this._arr.length / 4; i++) {
@@ -122,7 +123,6 @@ const PeoplePage = () => {
                 }
             }
             
-            @log
             private _pushPeopleBelow() {
                 for (let [i, j] of this._yieldIndexesBelow()) {
                     this._arr[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
@@ -130,8 +130,7 @@ const PeoplePage = () => {
                 
             }
             
-            @log
-            private async _pullbackPeopleBelow() {
+            private _pullbackPeopleBelow() {
                 // *  This is unneeded if there's no padding transition
                 // for (let [i, j] of this._yieldIndexesBelow()) {
                 //     People[i * 4 + j].css({marginTop: `${-GAP}px`});
@@ -141,12 +140,13 @@ const PeoplePage = () => {
                 for (let [i, j] of this._yieldIndexesBelow()) {
                     // *  Resetting margin-top is unneeded if there's no padding transition
                     // People[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`, marginTop: `0px`});
-                    this._arr[i * 4 + j].css({gridRow: `${i + 1}/${i + 1}`});
+                    this._arr[i * 4 + j].uncss("gridRow");
                 }
             }
             
-            @log
+            @log()
             private _toggleOthersFocus() {
+                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 for (let p of this._arr) {
                     if (p !== this)
                         p.toggleClass('unfocused');
@@ -178,7 +178,7 @@ const PeoplePage = () => {
                 .pointerdown(() => {
                     if (expando.isExpanded) {
                         expando.owner.collapseExpando();
-                        expando.isExpanded = !expando.isExpanded;
+                        // expando.isExpanded = !expando.isExpanded;
                     }
                 });
             
