@@ -5,6 +5,7 @@ const PeoplePage = () => {
         
         class Expando extends Div {
             public isExpanded: boolean = false;
+            public owner: Person = null;
             
             constructor() {
                 super({cls: 'person-expando'});
@@ -18,7 +19,8 @@ const PeoplePage = () => {
             private _row: number;
             private readonly _arr: Person[];
             private readonly _email: string;
-            public ownsExpando: boolean = false;
+            
+            // public ownsExpando: boolean = false;
             
             constructor(image: string, name: string, role: string, cv: string, email: string, arr: Person[]) {
                 super({tag: 'person'});
@@ -34,14 +36,17 @@ const PeoplePage = () => {
             
             
             private _toggleExpando(event: Event) {
-                console.log(_(`toggleExpando. IsExpanded: ${expando.isExpanded}. ownsExpando: ${this.ownsExpando}. this:`), this);
+                console.log(_(`toggleExpando. expando:`), expando, 'this:', this);
                 event.cancelBubble = true; // doesn't bubble up to grid
-                if (expando.isExpanded)
-                    this.toggleClass('expanded');
-                if (expando.isExpanded)
-                    this.collapseExpando();
-                else
+                
+                if (expando.isExpanded) {
+                    if (expando.owner === this) {
+                        this.collapseExpando();
+                    } else {
+                    }
+                } else {
                     this._expandExpando();
+                }
                 expando.isExpanded = !expando.isExpanded;
             }
             
@@ -50,7 +55,8 @@ const PeoplePage = () => {
                 this._toggleOthersFocus();
                 await this._pullbackPeopleBelow();
                 expando.remove();
-                this.ownsExpando = false;
+                expando.owner = null;
+                // this.ownsExpando = false;
                 
             }
             
@@ -92,7 +98,8 @@ const PeoplePage = () => {
                     
                     await wait(0);
                     expando.removeClass('collapsed').addClass('expanded');
-                    this.ownsExpando = true;
+                    expando.owner = this;
+                    // this.ownsExpando = true;
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
@@ -146,13 +153,11 @@ const PeoplePage = () => {
         console.log('people data', data);
         
         
-        // const Expando: BetterHTMLElement = {...div({cls: 'person-expando'}), isExpanded: false};
         const expando = new Expando();
         
         
         const {team, alumni} = data;
         
-        // let IsExpanded = false;
         
         function gridFactory(gridData, id: string): Div {
             const arr: Person[] = [];
@@ -164,7 +169,8 @@ const PeoplePage = () => {
                 .append(...arr)
                 .pointerdown(() => {
                     if (expando.isExpanded) {
-                        arr.find(person => person.ownsExpando).collapseExpando();
+                        // arr.find(person => person.ownsExpando).collapseExpando();
+                        expando.owner.collapseExpando();
                         expando.isExpanded = !expando.isExpanded;
                     }
                 });

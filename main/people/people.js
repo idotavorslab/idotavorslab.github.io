@@ -5,26 +5,30 @@ const PeoplePage = () => {
             constructor() {
                 super({ cls: 'person-expando' });
                 this.isExpanded = false;
+                this.owner = null;
             }
         }
         class Person extends BetterHTMLElement {
             constructor(image, name, role, cv, email, arr) {
                 super({ tag: 'person' });
-                this.ownsExpando = false;
                 this._cv = cv;
                 this._email = email;
                 this._arr = arr;
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => this._toggleExpando(event));
             }
             _toggleExpando(event) {
-                console.log(_(`toggleExpando. IsExpanded: ${expando.isExpanded}. ownsExpando: ${this.ownsExpando}. this:`), this);
+                console.log(_(`toggleExpando. expando:`), expando, 'this:', this);
                 event.cancelBubble = true;
-                if (expando.isExpanded)
-                    this.toggleClass('expanded');
-                if (expando.isExpanded)
-                    this.collapseExpando();
-                else
+                if (expando.isExpanded) {
+                    if (expando.owner === this) {
+                        this.collapseExpando();
+                    }
+                    else {
+                    }
+                }
+                else {
                     this._expandExpando();
+                }
                 expando.isExpanded = !expando.isExpanded;
             }
             async collapseExpando() {
@@ -32,7 +36,7 @@ const PeoplePage = () => {
                 this._toggleOthersFocus();
                 await this._pullbackPeopleBelow();
                 expando.remove();
-                this.ownsExpando = false;
+                expando.owner = null;
             }
             async _expandExpando() {
                 if (window.innerWidth >= BP0) {
@@ -66,7 +70,7 @@ const PeoplePage = () => {
                     this._arr[rightmostPersonIndex].after(expando);
                     await wait(0);
                     expando.removeClass('collapsed').addClass('expanded');
-                    this.ownsExpando = true;
+                    expando.owner = this;
                 }
                 else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
@@ -110,7 +114,7 @@ const PeoplePage = () => {
                 .append(...arr)
                 .pointerdown(() => {
                 if (expando.isExpanded) {
-                    arr.find(person => person.ownsExpando).collapseExpando();
+                    expando.owner.collapseExpando();
                     expando.isExpanded = !expando.isExpanded;
                 }
             });
