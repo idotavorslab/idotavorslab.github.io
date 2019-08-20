@@ -1,7 +1,4 @@
-//@import "../../common/mixins"
-
-
-#carousel
+//#carousel
     --carousel_height: 500px
     @media screen and (min-width: 800px)
         --button_side: 70px
@@ -21,7 +18,7 @@
         grid-template-columns: var(--button_side) 15% auto 15% var(--button_side)
 
     height: var(--carousel_height)
-    color: rgb(34, 34, 34)
+    color: var(--GREY8)
 
 
     .image
@@ -70,7 +67,6 @@
 
         grid-row: 2/5
         @media screen and (min-width: 800px)
-            // font-size: 18px
             font-size: 18px
             grid-column: 3/4
             text-align: justify
@@ -86,7 +82,7 @@
         position: absolute
         border:
             width: 0
-        color: #000
+        color: black
         cursor: pointer
         height: -webkit-fill-available
         @include fourWayTextShadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
@@ -113,41 +109,30 @@
         &[class~="animated"]
             animation: scaleDownAndReset 50ms linear
 
-@mixin containerMixin
-    text-align: left
-    @media screen and (min-width: 1400px)
-        width: 1300px
-    @media screen and (min-width: 1140px) and (max-width: 1400px)
-        width: 1040px
-    margin: auto
-
-div#home_container
-    @include containerMixin
-//text-align: left
-//@media screen and (min-width: 1400px)
-//    width: 1300px
-//@media screen and (min-width: 1140px) and (max-width: 1400px)
-//    width: 1040px
-//margin: auto
-//height: 700px
 
 div#intro_container
-    @include containerMixin
+    //$gap: 60px
+    text-align: left
     display: flex
     position: relative
     margin:
-        bottom: 60px
+        bottom: var(--GAP)
 
 
     div#non_news
         text-align: justify
+        // 740px + #news margin-left (60px) == 800
+        // 800 == 2/3 of 1200 (W0)
+        $nonNewsWidth: 740px
+        width: $nonNewsWidth
 
         img
+            width: $nonNewsWidth
             display: block
             margin:
                 right: auto
                 left: auto
-                bottom: 50px
+                bottom: var(--GAP)
 
         div
             position: relative
@@ -159,12 +144,12 @@ div#intro_container
         position: relative
         display: flex
         flex-direction: column
-        background-color: rgb(250, 250, 250)
-        @include borderMixin(#ddd)
-        width: 80vw
-        padding: 30px
+        background-color: var(--GREY01)
+        @include borderMixin(var(--GREY2))
+        // 30px
+        padding: calc(var(--GAP) / 2)
         margin:
-            left: 70px
+            left: var(--GAP)
 
         div.date
             color: rgb(95, 95, 95)
@@ -178,15 +163,17 @@ div#intro_container
             margin: auto auto 0 auto
 
             radio
-                @include borderMixin(#ccc, null)
+                @include borderMixin(var(--GREY3), null)
 
                 display: inline-block
-                width: 15px
-                height: 15px
+                // 15px
+                width: calc(var(--GAP) / 4)
+                height: calc(var(--GAP) / 4)
                 border-radius: 100px
+                // 5px
                 margin:
-                    left: 5px
-                    right: 5px
+                    left: calc(var(--GAP) / 12)
+                    right: calc(var(--GAP) / 12)
                 transition: background 100ms
 
                 &:not([class="selected"])
@@ -195,18 +182,12 @@ div#intro_container
 
                 &[class="selected"]
                     &.selected
-                        background-color: #ccc
-                        border-color: #bbb
+                        background-color: var(--GREY3)
+                        border-color: var(--GREY4)
 
-
-//&:first-of-type
-    margin-left: 0px
-
-//&:last-of-type
-    margin-right: 0px
 
 div#research_snippets_container
-    @include containerMixin
+    text-align: left
 
     div.title
         @include titleMixin

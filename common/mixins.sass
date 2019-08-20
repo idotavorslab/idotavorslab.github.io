@@ -1,15 +1,13 @@
 @mixin fourWayTextShadow($x, $y, $blur, $color)
     text-shadow: $x $y $blur $color, $x * -1 $y $blur $color, $x $y * -1 $blur $color, $x * -1 $y * -1 $blur $color
 
-$googleBlue: #3b82f0
-$lightGreyBG: rgb(245, 245, 245)
-@mixin titleMixin($font-size: x-large)
+
+@mixin titleMixin($fontSize: x-large)
 
     font:
         family: OpenSansBold
-        size: $font-size
+        size: $fontSize
     margin-bottom: 5px
-    color: #444
     letter-spacing: 1px
 
 @mixin borderMixin($color, $radius:2px)
@@ -21,67 +19,94 @@ $lightGreyBG: rgb(245, 245, 245)
             radius: $radius
 
 @mixin flexContainerMixin($childTag, $tight:false)
-    display: flex
-    flex-wrap: wrap
-    margin: 0 auto 40px auto
+    display: grid
+    // *  must be pic size
+    // *  pic size must be 255 so gap is 60;  (W0 - 4 x tagWidth) : 3
+    // *  DEP: people.sass .person-expando width
+    --tagWidth: 255px
+    // TODO: when in other media query, W1 (not W0) etc
+    // (1200 - 4 * 255) / 3  =  (1200 - 1020) / 3  =  180 / 3  =  60  ==  --GAP
+    //--gap: calc((var(--W0) - var(--tagWidth) * 4) / 3)
+    // *  must be pic size
+    margin: 0 auto var(--GAP) auto
+    grid:
+        template:
+
+            columns: repeat(4, var(--tagWidth))
+            rows: repeat(2, auto)
+        // *  DEP: people.sass .person-expando margin-bottom
+        row-gap: var(--GAP)
+        column-gap: var(--GAP)
+
+    #{$childTag}
+        margin: auto
+        // every 4th == last in row
+        &:nth-of-type(4n+4)
+            margin: 0 1px auto auto
+
+        // first in row
+        &:nth-of-type(4n+1)
+            margin: 0 auto auto 0
+
+
+        // 1535 <= screen
+        @media screen and (min-width: $BP0)
+            width: var(--tagWidth)
+
+        // 1340 <= screen <= 1535
+        @media screen and (min-width: $BP1) and (max-width: $BP0)
+            width: var(--tagWidth)
+
 
     @if ($tight == true)
-
-
         #{$childTag}
             margin: auto 0 0 0
             padding: 8px
             border:
-                bottom: 1px solid #ccc
-                left: 1px solid #ccc
+                bottom: 1px solid var(--GREY3)
+                left: 1px solid var(--GREY3)
 
             &:last-of-type
-                border-right: 1px solid #ccc
+                border-right: 1px solid var(--GREY3)
 
-    // ***  1140 <= screen
+    // ***  1340 <= screen
     // 4 items
-    @media screen and (min-width: 1140px)
+    @media screen and (min-width: $BP1)
 
         @if ($tight == true)
             #{$childTag}
+                // every 4th == last in row
                 &:nth-of-type(4n+4)
-                    border-right: 1px solid #ccc
+                    border-right: 1px solid var(--GREY3)
 
 
                 @for $i from 1 through 4
                     &:nth-child(#{$i})
-                        border-top: 1px solid #ccc
+                        border-top: 1px solid var(--GREY3)
 
-        // **  1400 <= screen
-        // 4 items across 1200px
-        @media screen and (min-width: 1400px)
-            width: 1200px
+        // **  1535 <= screen
+        // 4 items across --W0 == 1140px
+        @media screen and (min-width: $BP0)
+
 
             #{$childTag}
                 @if ($tight == true)
                     // [8][284][8] x 4 = 1192
                     width: 282px
-                @else
-                    // [20][260][20] = 300 x 4 = 1200
-                    margin: auto 20px 60px 20px
-                    width: 260px
 
-        // **  1140 <= screen <= 1400
-        // 4 tight items across 1200px
-        @media screen and (max-width: 1400px)
-            width: 1040px
+
+        // **  1340 <= screen <= 1535
+        // 4 tight items across --W0 == 1140px
+        @media screen and (max-width: $BP0)
             #{$childTag}
                 @if ($tight == true)
                     // [8][242][8] = 258 * 4 = 1032
                     width: 242px
-                @else
-                    // [10][240][10] = 260 x 4 = 1040
-                    margin: auto 10px 60px 10px
-                    width: 240px
 
-    // ***  screen <= 1140
+
+    // ***  screen <= 1340
     // 3 items across 80vw
-    @media screen and (max-width: 1140px)
+    @media screen and (max-width: $BP1)
         width: calc(80vw)
 
 
@@ -89,12 +114,13 @@ $lightGreyBG: rgb(245, 245, 245)
             // [1140, 286], [1040, 260]
             width: calc(26vw - 10.4px)
             @if ($tight == true)
+                // every 3th == last in row
                 &:nth-of-type(3n+3)
-                    border-right: 1px solid #ccc
+                    border-right: 1px solid var(--GREY3)
 
                 @for $i from 1 through 3
                     &:nth-child(#{$i})
-                        border-top: 1px solid #ccc
+                        border-top: 1px solid var(--GREY3)
 
 
             @else
@@ -118,7 +144,7 @@ $lightGreyBG: rgb(245, 245, 245)
 
                 @for $i from 1 through 3
                     &:nth-child(#{$i})
-                        border-top: 1px solid #ccc
+                        border-top: 1px solid var(--GREY3)
 
 
 

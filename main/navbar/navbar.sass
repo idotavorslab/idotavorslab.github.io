@@ -1,48 +1,50 @@
 navbar
-    $font-size: 20px
-    $img-width: 80px
-    font-size: $font-size
-    max-width: fit-content
+    $fontSize: 20px
+    $imgWidth: 80px
+    font-size: $fontSize
     margin: auto auto 40px auto
-    display: -webkit-box
+    display: flex
 
     & > div, img
         cursor: pointer
 
     & > div, img.home
-        $margin-right: $font-size * 2
+        $marginRight: $fontSize * 2
         margin:
             top: 0
-            right: $margin-right
+            right: $marginRight
             left: 0
             bottom: 0
 
     // doctor.svg
     & > img.home
-        width: $img-width
+        width: $imgWidth
 
     // tau logo
     & > img.tau
-        height: $img-width
+        height: $imgWidth
+
+    :nth-last-child(2)
+        margin-right: auto
 
     & > div
-        $padding-top: $img-width / 2 - $font-size / 2
-        padding: $padding-top 0 0 0
+        $paddingTop: $imgWidth / 2 - $fontSize / 2
+        padding: $paddingTop 0 0 0
         transition: color 200ms ease-out, border-bottom-color 200ms ease-out
         display: block
 
         &:hover
-            color: #888
+            color: var(--GREY6)
 
 
-        border-bottom-color: rgba(218, 165, 32, 0)
+        border-bottom-color: var(--TRANS)
 
         &.selected
-            $border-width: 1px
-            margin-bottom: $padding-top - 22 - $border-width
+            $borderWidth: 1px
+            margin-bottom: $paddingTop - 22 - $borderWidth
             border-bottom:
                 color: rgba(218, 165, 32, 1)
-                width: $border-width
+                width: $borderWidth
                 style: solid
 
 

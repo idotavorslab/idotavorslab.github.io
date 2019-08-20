@@ -261,11 +261,11 @@ interface CssOptions {
     overflow?: string;
     overflowX?: string;
     overflowY?: string;
-    padding?: string;
-    paddingBottom?: string;
-    paddingLeft?: string;
-    paddingRight?: string;
-    paddingTop?: string;
+    padding?: string | number;
+    paddingBottom?: string | number;
+    paddingLeft?: string | number;
+    paddingRight?: string | number;
+    paddingTop?: string | number;
     pageBreakAfter?: string;
     pageBreakBefore?: string;
     pageBreakInside?: string;
@@ -325,6 +325,7 @@ interface CssOptions {
     userSelect?: string;
     verticalAlign?: string;
     visibility?: string;
+    
     webkitColumnBreakAfter?: string;
     webkitColumnBreakBefore?: string;
     webkitColumnBreakInside?: string;
@@ -337,6 +338,7 @@ interface CssOptions {
     webkitColumnSpan?: string;
     webkitColumnWidth?: any;
     webkitColumns?: string;
+    
     webkitUserModify?: string;
     webkitUserSelect?: string;
     webkitWritingMode?: string;
@@ -349,6 +351,8 @@ interface CssOptions {
     writingMode?: string;
     zIndex?: string;
     zoom?: string;
+    
+    
 }
 
 declare type CubicBezierFunction = [number, number, number, number];
@@ -456,6 +460,8 @@ declare class BetterHTMLElement {
     replaceClass(oldToken: string, newToken: string): this;
     
     toggleClass(cls: string, force?: boolean): this;
+    
+    after(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
     
     /**Append one or several `BetterHTMLElement`s or vanilla `Node`s*/
     append(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
