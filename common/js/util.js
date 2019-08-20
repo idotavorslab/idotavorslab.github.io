@@ -161,4 +161,7 @@ function calcAbsValue(cssStr, width) {
     copyToClipboard(expression);
     return expression;
 }
+function _(s) {
+    return s.split('. ').join('\n');
+}
 //# sourceMappingURL=util.js.map

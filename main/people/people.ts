@@ -26,7 +26,7 @@ const PeoplePage = () => {
             
             
             private _toggleExpando(event: Event) {
-                console.log('toggleExpando, person i:', this._index);
+                console.log(_(`toggleExpando. IsExpanded: ${IsExpanded}. this:`), this);
                 event.cancelBubble = true; // doesn't bubble up to grid
                 this.toggleClass('expanded');
                 if (IsExpanded)
@@ -35,6 +35,61 @@ const PeoplePage = () => {
                     this._expandExpando();
                 IsExpanded = !IsExpanded;
             }
+            
+            async collapseExpando() {
+                Expando.removeClass('expanded').addClass('collapsed');
+                this._toggleOthersFocus();
+                await this._pullbackPeopleBelow();
+                Expando.remove();
+                this.ownsExpando = false;
+                
+            }
+            
+            private async _expandExpando() {
+                if (window.innerWidth >= BP0) {
+                    if (this._index === undefined) {
+                        this._index = this._arr.indexOf(this);
+                        this._row = int(this._index / 4);
+                        this._indexInRow = this._index % 4;
+                    }
+                    
+                    if (this._row >= 1)
+                        this.e.scrollIntoView({behavior: 'smooth'});
+                    this._pushPeopleBelow();
+                    this._toggleOthersFocus();
+                    
+                    let gridColumn;
+                    switch (this._indexInRow) {
+                        case 0:
+                            gridColumn = '1/3';
+                            break;
+                        case 1:
+                        case 2:
+                            gridColumn = '2/4';
+                            break;
+                        case 3:
+                            gridColumn = '3/5';
+                            break;
+                    }
+                    Expando
+                        .text(this._cv)
+                        .css({gridColumn})
+                        .append(div({cls: 'email'}).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
+                    
+                    
+                    let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
+                    
+                    this._arr[rightmostPersonIndex].after(Expando);
+                    
+                    await wait(0);
+                    Expando.removeClass('collapsed').addClass('expanded');
+                    this.ownsExpando = true;
+                } else if (window.innerWidth >= BP1) {
+                    console.warn('people.ts. person pointerdown BP1 no code');
+                }
+                
+            }
+            
             
             private* _yieldIndexesBelow() {
                 
@@ -67,7 +122,6 @@ const PeoplePage = () => {
                 }
             }
             
-            
             private _toggleOthersFocus() {
                 for (let p of this._arr) {
                     if (p !== this)
@@ -77,67 +131,13 @@ const PeoplePage = () => {
             }
             
             
-            private async _expandExpando() {
-                if (window.innerWidth >= BP0) {
-                    if (this._index === undefined) {
-                        this._index = this._arr.indexOf(this);
-                        this._row = int(this._index / 4);
-                        this._indexInRow = this._index % 4;
-                    }
-                    
-                    if (this._row >= 1)
-                        this.e.scrollIntoView({behavior: 'smooth'});
-                    this._pushPeopleBelow();
-                    this._toggleOthersFocus();
-                    
-                    let gridColumn;
-                    switch (this._indexInRow) {
-                        case 0:
-                            gridColumn = '1/3';
-                            break;
-                        case 1:
-                        case 2:
-                            gridColumn = '2/4';
-                            break;
-                        case 3:
-                            gridColumn = '3/5';
-                            break;
-                    }
-                    PersonExpando
-                        .text(this._cv)
-                        .css({gridColumn})
-                        .append(div({cls: 'email'}).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
-                    
-                    
-                    let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
-                    
-                    this._arr[rightmostPersonIndex].after(PersonExpando);
-                    
-                    await wait(0);
-                    PersonExpando.removeClass('collapsed').addClass('expanded');
-                    this.ownsExpando = true;
-                } else if (window.innerWidth >= BP1) {
-                    console.warn('people.ts. person pointerdown BP1 no code');
-                }
-                
-            }
-            
-            async collapseExpando() {
-                PersonExpando.removeClass('expanded').addClass('collapsed');
-                
-                this._toggleOthersFocus();
-                await this._pullbackPeopleBelow();
-                PersonExpando.remove();
-                this.ownsExpando = false;
-                
-            }
         }
         
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
         
         
-        const PersonExpando = div({cls: 'person-expando'});
+        const Expando = div({cls: 'person-expando'});
         
         const {team, alumni} = data;
         let IsExpanded = false;

@@ -10,7 +10,7 @@ const PeoplePage = () => {
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => this._toggleExpando(event));
             }
             _toggleExpando(event) {
-                console.log('toggleExpando, person i:', this._index);
+                console.log(_(`toggleExpando. IsExpanded: ${IsExpanded}. this:`), this);
                 event.cancelBubble = true;
                 this.toggleClass('expanded');
                 if (IsExpanded)
@@ -19,28 +19,12 @@ const PeoplePage = () => {
                     this._expandExpando();
                 IsExpanded = !IsExpanded;
             }
-            *_yieldIndexesBelow() {
-                for (let i = this._row + 1; i <= this._arr.length / 4; i++) {
-                    for (let j = 0; j < 4 && i * 4 + j < this._arr.length; j++) {
-                        yield [i, j];
-                    }
-                }
-            }
-            _pushPeopleBelow() {
-                for (let [i, j] of this._yieldIndexesBelow()) {
-                    this._arr[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
-                }
-            }
-            async _pullbackPeopleBelow() {
-                for (let [i, j] of this._yieldIndexesBelow()) {
-                    this._arr[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}` });
-                }
-            }
-            _toggleOthersFocus() {
-                for (let p of this._arr) {
-                    if (p !== this)
-                        p.toggleClass('unfocused');
-                }
+            async collapseExpando() {
+                Expando.removeClass('expanded').addClass('collapsed');
+                this._toggleOthersFocus();
+                await this._pullbackPeopleBelow();
+                Expando.remove();
+                this.ownsExpando = false;
             }
             async _expandExpando() {
                 if (window.innerWidth >= BP0) {
@@ -66,31 +50,47 @@ const PeoplePage = () => {
                             gridColumn = '3/5';
                             break;
                     }
-                    PersonExpando
+                    Expando
                         .text(this._cv)
                         .css({ gridColumn })
                         .append(div({ cls: 'email' }).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
                     let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
-                    this._arr[rightmostPersonIndex].after(PersonExpando);
+                    this._arr[rightmostPersonIndex].after(Expando);
                     await wait(0);
-                    PersonExpando.removeClass('collapsed').addClass('expanded');
+                    Expando.removeClass('collapsed').addClass('expanded');
                     this.ownsExpando = true;
                 }
                 else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
             }
-            async collapseExpando() {
-                PersonExpando.removeClass('expanded').addClass('collapsed');
-                this._toggleOthersFocus();
-                await this._pullbackPeopleBelow();
-                PersonExpando.remove();
-                this.ownsExpando = false;
+            *_yieldIndexesBelow() {
+                for (let i = this._row + 1; i <= this._arr.length / 4; i++) {
+                    for (let j = 0; j < 4 && i * 4 + j < this._arr.length; j++) {
+                        yield [i, j];
+                    }
+                }
+            }
+            _pushPeopleBelow() {
+                for (let [i, j] of this._yieldIndexesBelow()) {
+                    this._arr[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
+                }
+            }
+            async _pullbackPeopleBelow() {
+                for (let [i, j] of this._yieldIndexesBelow()) {
+                    this._arr[i * 4 + j].css({ gridRow: `${i + 1}/${i + 1}` });
+                }
+            }
+            _toggleOthersFocus() {
+                for (let p of this._arr) {
+                    if (p !== this)
+                        p.toggleClass('unfocused');
+                }
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
-        const PersonExpando = div({ cls: 'person-expando' });
+        const Expando = div({ cls: 'person-expando' });
         const { team, alumni } = data;
         let IsExpanded = false;
         function gridFactory(gridData, id) {
