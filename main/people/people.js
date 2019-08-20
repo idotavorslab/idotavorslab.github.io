@@ -1,29 +1,37 @@
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
+        class Expando extends Div {
+            constructor() {
+                super({ cls: 'person-expando' });
+                this.isExpanded = false;
+            }
+        }
         class Person extends BetterHTMLElement {
             constructor(image, name, role, cv, email, arr) {
                 super({ tag: 'person' });
+                this.ownsExpando = false;
                 this._cv = cv;
                 this._email = email;
                 this._arr = arr;
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => this._toggleExpando(event));
             }
             _toggleExpando(event) {
-                console.log(_(`toggleExpando. IsExpanded: ${IsExpanded}. this:`), this);
+                console.log(_(`toggleExpando. IsExpanded: ${expando.isExpanded}. ownsExpando: ${this.ownsExpando}. this:`), this);
                 event.cancelBubble = true;
-                this.toggleClass('expanded');
-                if (IsExpanded)
+                if (expando.isExpanded)
+                    this.toggleClass('expanded');
+                if (expando.isExpanded)
                     this.collapseExpando();
                 else
                     this._expandExpando();
-                IsExpanded = !IsExpanded;
+                expando.isExpanded = !expando.isExpanded;
             }
             async collapseExpando() {
-                Expando.removeClass('expanded').addClass('collapsed');
+                expando.removeClass('expanded').addClass('collapsed');
                 this._toggleOthersFocus();
                 await this._pullbackPeopleBelow();
-                Expando.remove();
+                expando.remove();
                 this.ownsExpando = false;
             }
             async _expandExpando() {
@@ -50,14 +58,14 @@ const PeoplePage = () => {
                             gridColumn = '3/5';
                             break;
                     }
-                    Expando
+                    expando
                         .text(this._cv)
                         .css({ gridColumn })
                         .append(div({ cls: 'email' }).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
                     let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
-                    this._arr[rightmostPersonIndex].after(Expando);
+                    this._arr[rightmostPersonIndex].after(expando);
                     await wait(0);
-                    Expando.removeClass('collapsed').addClass('expanded');
+                    expando.removeClass('collapsed').addClass('expanded');
                     this.ownsExpando = true;
                 }
                 else if (window.innerWidth >= BP1) {
@@ -90,9 +98,8 @@ const PeoplePage = () => {
         }
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
-        const Expando = div({ cls: 'person-expando' });
+        const expando = new Expando();
         const { team, alumni } = data;
-        let IsExpanded = false;
         function gridFactory(gridData, id) {
             const arr = [];
             for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
@@ -102,9 +109,9 @@ const PeoplePage = () => {
             const grid = div({ id })
                 .append(...arr)
                 .pointerdown(() => {
-                if (IsExpanded) {
+                if (expando.isExpanded) {
                     arr.find(person => person.ownsExpando).collapseExpando();
-                    IsExpanded = !IsExpanded;
+                    expando.isExpanded = !expando.isExpanded;
                 }
             });
             return grid;

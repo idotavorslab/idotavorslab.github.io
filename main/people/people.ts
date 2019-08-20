@@ -3,6 +3,14 @@ const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
         
+        class Expando extends Div {
+            public isExpanded: boolean = false;
+            
+            constructor() {
+                super({cls: 'person-expando'});
+            }
+        }
+        
         class Person extends BetterHTMLElement {
             private _cv: string;
             private _index: number;
@@ -10,7 +18,7 @@ const PeoplePage = () => {
             private _row: number;
             private readonly _arr: Person[];
             private readonly _email: string;
-            public ownsExpando: boolean;
+            public ownsExpando: boolean = false;
             
             constructor(image: string, name: string, role: string, cv: string, email: string, arr: Person[]) {
                 super({tag: 'person'});
@@ -26,21 +34,22 @@ const PeoplePage = () => {
             
             
             private _toggleExpando(event: Event) {
-                console.log(_(`toggleExpando. IsExpanded: ${IsExpanded}. this:`), this);
+                console.log(_(`toggleExpando. IsExpanded: ${expando.isExpanded}. ownsExpando: ${this.ownsExpando}. this:`), this);
                 event.cancelBubble = true; // doesn't bubble up to grid
-                this.toggleClass('expanded');
-                if (IsExpanded)
+                if (expando.isExpanded)
+                    this.toggleClass('expanded');
+                if (expando.isExpanded)
                     this.collapseExpando();
                 else
                     this._expandExpando();
-                IsExpanded = !IsExpanded;
+                expando.isExpanded = !expando.isExpanded;
             }
             
             async collapseExpando() {
-                Expando.removeClass('expanded').addClass('collapsed');
+                expando.removeClass('expanded').addClass('collapsed');
                 this._toggleOthersFocus();
                 await this._pullbackPeopleBelow();
-                Expando.remove();
+                expando.remove();
                 this.ownsExpando = false;
                 
             }
@@ -71,7 +80,7 @@ const PeoplePage = () => {
                             gridColumn = '3/5';
                             break;
                     }
-                    Expando
+                    expando
                         .text(this._cv)
                         .css({gridColumn})
                         .append(div({cls: 'email'}).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
@@ -79,10 +88,10 @@ const PeoplePage = () => {
                     
                     let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
                     
-                    this._arr[rightmostPersonIndex].after(Expando);
+                    this._arr[rightmostPersonIndex].after(expando);
                     
                     await wait(0);
-                    Expando.removeClass('collapsed').addClass('expanded');
+                    expando.removeClass('collapsed').addClass('expanded');
                     this.ownsExpando = true;
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
@@ -137,10 +146,13 @@ const PeoplePage = () => {
         console.log('people data', data);
         
         
-        const Expando = div({cls: 'person-expando'});
+        // const Expando: BetterHTMLElement = {...div({cls: 'person-expando'}), isExpanded: false};
+        const expando = new Expando();
+        
         
         const {team, alumni} = data;
-        let IsExpanded = false;
+        
+        // let IsExpanded = false;
         
         function gridFactory(gridData, id: string): Div {
             const arr: Person[] = [];
@@ -151,9 +163,9 @@ const PeoplePage = () => {
             const grid = div({id})
                 .append(...arr)
                 .pointerdown(() => {
-                    if (IsExpanded) {
+                    if (expando.isExpanded) {
                         arr.find(person => person.ownsExpando).collapseExpando();
-                        IsExpanded = !IsExpanded;
+                        expando.isExpanded = !expando.isExpanded;
                     }
                 });
             
