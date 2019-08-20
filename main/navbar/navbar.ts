@@ -73,7 +73,6 @@ function _linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, st
 
 function _startSeparatorAnimation() {
     
-    // console.log('startSeparatorAnimation()');
     TL.fromTo(_separators.left.e, 0.5, {backgroundImage: _linearGradient([0, '0%'], [0.15, '150%'])}, {
         backgroundImage: _linearGradient([0, '0%'], [0.75, '10%']),
     });
@@ -84,7 +83,6 @@ function _startSeparatorAnimation() {
 }
 
 function _killSeparatorAnimation() {
-    // console.log('killSeparatorAnimation()');
     TL.killTweensOf([_separators.left.e, _separators.right.e]);
     _separators.left.css({backgroundImage: _linearGradient([0, '0%'], [0.1, '10%'])});
     _separators.right.css({backgroundImage: _linearGradient([0.1, '90%'], [0, '100%'])});
