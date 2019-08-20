@@ -20,7 +20,6 @@ const PeoplePage = () => {
             private readonly _arr: Person[];
             private readonly _email: string;
             
-            // public ownsExpando: boolean = false;
             
             constructor(image: string, name: string, role: string, cv: string, email: string, arr: Person[]) {
                 super({tag: 'person'});
@@ -31,18 +30,24 @@ const PeoplePage = () => {
                     img({src: `main/people/${image}`}),
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
-                ).pointerdown((event) => this._toggleExpando(event))
+                ).pointerdown((event) => this._toggleExpando(event));
+                
+                // this.pushPeopleBelow = log.bind(() => this._pushPeopleBelow()); pass
+                
+                // this._pushPeopleBelow = log.bind(() => this._pushPeopleBelow());
             }
             
-            
-            private _toggleExpando(event: Event) {
-                console.log(_(`toggleExpando. expando:`), expando, 'this:', this);
+            @log
+            private async _toggleExpando(event: Event) {
+                // console.log(_(`toggleExpando. expando:`), expando, 'this:', this);
                 event.cancelBubble = true; // doesn't bubble up to grid
                 
                 if (expando.isExpanded) {
                     if (expando.owner === this) {
                         this.collapseExpando();
                     } else {
+                        await expando.owner.collapseExpando();
+                        this._expandExpando();
                     }
                 } else {
                     this._expandExpando();
@@ -50,16 +55,17 @@ const PeoplePage = () => {
                 expando.isExpanded = !expando.isExpanded;
             }
             
+            @log
             async collapseExpando() {
                 expando.removeClass('expanded').addClass('collapsed');
                 this._toggleOthersFocus();
                 await this._pullbackPeopleBelow();
                 expando.remove();
                 expando.owner = null;
-                // this.ownsExpando = false;
                 
             }
             
+            @log
             private async _expandExpando() {
                 if (window.innerWidth >= BP0) {
                     if (this._index === undefined) {
@@ -99,14 +105,13 @@ const PeoplePage = () => {
                     await wait(0);
                     expando.removeClass('collapsed').addClass('expanded');
                     expando.owner = this;
-                    // this.ownsExpando = true;
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
                 
             }
             
-            
+            @log
             private* _yieldIndexesBelow() {
                 
                 for (let i = this._row + 1; i <= this._arr.length / 4; i++) {
@@ -117,6 +122,7 @@ const PeoplePage = () => {
                 }
             }
             
+            @log
             private _pushPeopleBelow() {
                 for (let [i, j] of this._yieldIndexesBelow()) {
                     this._arr[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
@@ -124,6 +130,7 @@ const PeoplePage = () => {
                 
             }
             
+            @log
             private async _pullbackPeopleBelow() {
                 // *  This is unneeded if there's no padding transition
                 // for (let [i, j] of this._yieldIndexesBelow()) {
@@ -138,6 +145,7 @@ const PeoplePage = () => {
                 }
             }
             
+            @log
             private _toggleOthersFocus() {
                 for (let p of this._arr) {
                     if (p !== this)
@@ -169,7 +177,6 @@ const PeoplePage = () => {
                 .append(...arr)
                 .pointerdown(() => {
                     if (expando.isExpanded) {
-                        // arr.find(person => person.ownsExpando).collapseExpando();
                         expando.owner.collapseExpando();
                         expando.isExpanded = !expando.isExpanded;
                     }

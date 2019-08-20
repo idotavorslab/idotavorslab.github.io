@@ -1,3 +1,9 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
@@ -16,14 +22,15 @@ const PeoplePage = () => {
                 this._arr = arr;
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => this._toggleExpando(event));
             }
-            _toggleExpando(event) {
-                console.log(_(`toggleExpando. expando:`), expando, 'this:', this);
+            async _toggleExpando(event) {
                 event.cancelBubble = true;
                 if (expando.isExpanded) {
                     if (expando.owner === this) {
                         this.collapseExpando();
                     }
                     else {
+                        await expando.owner.collapseExpando();
+                        this._expandExpando();
                     }
                 }
                 else {
@@ -100,6 +107,27 @@ const PeoplePage = () => {
                 }
             }
         }
+        __decorate([
+            log
+        ], Person.prototype, "_toggleExpando", null);
+        __decorate([
+            log
+        ], Person.prototype, "collapseExpando", null);
+        __decorate([
+            log
+        ], Person.prototype, "_expandExpando", null);
+        __decorate([
+            log
+        ], Person.prototype, "_yieldIndexesBelow", null);
+        __decorate([
+            log
+        ], Person.prototype, "_pushPeopleBelow", null);
+        __decorate([
+            log
+        ], Person.prototype, "_pullbackPeopleBelow", null);
+        __decorate([
+            log
+        ], Person.prototype, "_toggleOthersFocus", null);
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
         const expando = new Expando();

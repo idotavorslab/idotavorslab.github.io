@@ -255,3 +255,40 @@ function calcAbsValue(cssStr: string, width: number): string {
 function _(s: string): string {
     return s.split('. ').join('\n')
 }
+
+function log(target, name, descriptor, ...outargs) {
+    /*console.log(
+        'OUTSIDE',
+        '\nthis:', this, // window
+        '\ntarget:', target, // class Person
+        '\nname:', name,
+        // '\ndescriptor:', JSON.parse(JSON.stringify(descriptor)),
+        '\ndescriptor:', descriptor,
+        // '\ndescriptor.value:', descriptor.value,
+        '\noutargs:', outargs,
+        '\narguments:', arguments,
+    );
+    */
+    
+    
+    const orig = descriptor.value;
+    descriptor.value = function (...args) {
+        /*console.log(
+            'INSIDE',
+            '\nthis:', this,
+            '\nargs:', args,
+            '\ntarget:', target,
+            '\nname:', name,
+            '\ndescriptor:', JSON.parse(JSON.stringify(descriptor)),
+            '\ndescriptor.value:', descriptor.value,
+            '\norig:', orig
+        );
+        */
+        console.log(`%c${name}`, 'color: #ffc66d');
+        return orig.apply(this, args);
+    };
+    // return descriptor;
+    
+}
+
+
