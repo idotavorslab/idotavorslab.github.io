@@ -38,9 +38,6 @@ const PeoplePage = () => {
                 
                 for (let i = this.row + 1; i <= this.arr.length / 4; i++) {
                     for (let j = 0; j < 4 && i * 4 + j < this.arr.length; j++) {
-                        
-                        // console.log('i:', i, 'j:', j, `i * 4 + j:`, i * 4 + j);
-                        // 4,5,6,7                  3/3     (go over row and increment gridRow)
                         yield [i, j];
                         
                     }

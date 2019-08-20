@@ -29,7 +29,6 @@ person
     background:
         position: top
         repeat: no-repeat
-    //box-shadow: 0px 2px 10px var(--GREY3)
     box-shadow: 0px 2px 10px white
     cursor: pointer
     height: auto
@@ -41,8 +40,9 @@ person
         opacity: 0.4
         filter: blur(2px) contrast(0.8)
 
-    &.expanded
-        box-shadow: 0px 2px 10px var(--GREY5)
+    //&.expanded
+        // *  DEP: person-expando.expanded
+        box-shadow: 0px 2px 10px var(--GREY3)
 
     img
         height: $imgHeight
@@ -110,8 +110,8 @@ div.person-expando
                 // 10px
                 top: calc(var(--GAP) / 6)
 
-        background-color: var(--GREY01)
-        border-color: var(--GREY3)
+        //background-color: var(--GREY01)
+        //background-color: white
         box-shadow: 0px 2px 10px var(--GREY3)
         color: var(--GREY7)
         height: 270px

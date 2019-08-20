@@ -19,8 +19,13 @@ MORKI:
         Hover on publication as 1 unit, drop shadow
         morki publications structure.png
 
-Home
-    [ ] News
+Home - structure like ron shamir's
+    [x] Our Lab (where ron's "ACGT"): image like ACGT, then a small title like mudriks, and some text
+    [ ] Research "box" - where ron's squares. only titles and a thumbnail. gets thumbnails from research.json "thumbnail" field.  
+        square boxes with thumbnail in bg and title on top
+    News
+        [x] Basic structure
+        [ ] Thumbnail to each news item
         [ ] Stop cycling on user interaction
 
 Gallery
@@ -35,10 +40,10 @@ Publications
     [x] Structure like http://neuroimaging.tau.ac.il/?page_id=19 
     [ ] Each year is expandable
     [x] Visual like Ron Shamirs with thumbnail http://acgt.cs.tau.ac.il/latest-years-publications/
+    [ ] Selected Publications
     
 Courses
     "pretty mobile-like", not a list. image, title, text, link. http://schonberglab.tau.ac.il/funding/
-
 
 
 Funding
@@ -52,13 +57,9 @@ Contact
 
 People
     [x] email hyperlink
-    [ ] Fix People viewer proportions
+    [x] Fix People viewer proportions
 
-Home - structure like ron shamir's
-    Our Lab (where ron's "ACGT"): image like ACGT, then a small title like mudriks, and some text
-    Research "box" - where ron's squares. only titles and a thumbnail. gets thumbnails from research.json "thumbnail" field.  
-        square boxes with thumbnail in bg and title on top
-    News - where and like ron's, square small pic like mudriks, then title and subtitle
+
     
 ####
 DEV:
