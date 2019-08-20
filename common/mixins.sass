@@ -21,8 +21,8 @@
 @mixin flexContainerMixin($childTag, $tight:false)
     display: grid
     // *  must be pic size
-    // *  pic size must be 255 so gap is 60;  (W0 - 4 x tagWidth) : 3
-    // *  DEP: people.sass .person-expando width
+    //     pic size must be 255 so gap is 60;  (W0 - 4 x tagWidth) : 3
+    //     DEP: people.sass .person-expando width
     --tagWidth: 255px
     // TODO: when in other media query, W1 (not W0) etc
     // (1200 - 4 * 255) / 3  =  (1200 - 1020) / 3  =  180 / 3  =  60  ==  --GAP
