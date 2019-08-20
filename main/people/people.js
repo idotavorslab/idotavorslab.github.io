@@ -23,7 +23,6 @@ const PeoplePage = () => {
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => this._toggleExpando(event));
             }
             async _toggleExpando(event) {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 event.cancelBubble = true;
                 if (expando.isExpanded) {
                     if (expando.owner === this) {
@@ -39,16 +38,14 @@ const PeoplePage = () => {
                 }
             }
             collapseExpando() {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 expando.removeClass('expanded').addClass('collapsed');
                 this._toggleOthersFocus();
                 this._pullbackPeopleBelow();
-                expando.remove();
+                expando.remove().empty();
                 expando.owner = null;
                 expando.isExpanded = false;
             }
             async _expandExpando() {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 if (window.innerWidth >= BP0) {
                     if (this._index === undefined) {
                         this._index = this._arr.indexOf(this);
@@ -73,9 +70,8 @@ const PeoplePage = () => {
                             break;
                     }
                     expando
-                        .text(this._cv)
                         .css({ gridColumn })
-                        .append(div({ cls: 'email' }).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
+                        .append(div({ cls: 'close' }).pointerdown(() => expando.owner.collapseExpando()), div({ cls: 'cv' }).html(this._cv), div({ cls: 'email' }).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
                     let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
                     this._arr[rightmostPersonIndex].after(expando);
                     await wait(0);
@@ -105,7 +101,6 @@ const PeoplePage = () => {
                 }
             }
             _toggleOthersFocus() {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 for (let p of this._arr) {
                     if (p !== this)
                         p.toggleClass('unfocused');
@@ -135,12 +130,7 @@ const PeoplePage = () => {
                 arr.push(person);
             }
             const grid = div({ id })
-                .append(...arr)
-                .pointerdown(() => {
-                if (expando.isExpanded) {
-                    expando.owner.collapseExpando();
-                }
-            });
+                .append(...arr);
             return grid;
         }
         const teamGrid = gridFactory(team, 'team_grid');

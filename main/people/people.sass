@@ -63,7 +63,7 @@ person
 
 
 div.person-expando
-    @include borderMixin(white)
+    @include borderMixin(var(--GREY02))
 
 
     // 30px
@@ -86,12 +86,29 @@ div.person-expando
     text-align: left
 
     //transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, padding 500ms, box-shadow 1500ms
-    transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms
+    transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
 
     // *  DEP: mixins.sass --tagWidth == 255px
     // 255 - 30*2  =  195px
     width: calc(255px - 2 * var(--expandoPadding))
 
+    div.close
+        //background-color: #db4437
+        background-color: #f3685e
+        border-radius: 100px
+        cursor: pointer
+        // 15px
+        height: calc(var(--GAP) / 4)
+        margin:
+            left: auto
+            top: -20px
+            right: -20px
+        opacity: 0
+        transition: opacity 0.5s cubic-bezier(0, -1, .6, .2), background 100ms
+        width: calc(var(--GAP) / 4)
+
+        &:hover
+            background-color: #DB4337
 
     a
         color: white
@@ -110,13 +127,18 @@ div.person-expando
                 // 10px
                 top: calc(var(--GAP) / 6)
 
+        div.close
+            opacity: 1
+
+
         //background-color: var(--GREY01)
-        //background-color: white
+        border-color: white
         box-shadow: 0px 2px 10px var(--GREY3)
         color: var(--GREY7)
         height: 270px
         // *  DEP: mixins.sass --tagWidth == 255px
         width: calc(255px * 2)
+
 
 
 

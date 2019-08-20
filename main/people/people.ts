@@ -13,7 +13,7 @@ const PeoplePage = () => {
         }
         
         class Person extends BetterHTMLElement {
-            private _cv: string;
+            private readonly _cv: string;
             private _index: number;
             private _indexInRow: number;
             private _row: number;
@@ -37,7 +37,7 @@ const PeoplePage = () => {
             
             @log(true)
             private async _toggleExpando(event: Event): Promise<void> {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
+                // console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 event.cancelBubble = true; // doesn't bubble up to grid
                 
                 if (expando.isExpanded) {
@@ -54,11 +54,11 @@ const PeoplePage = () => {
             
             @log()
             collapseExpando(): void {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
+                // console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 expando.removeClass('expanded').addClass('collapsed');
                 this._toggleOthersFocus();
                 this._pullbackPeopleBelow();
-                expando.remove();
+                expando.remove().empty();
                 expando.owner = null;
                 expando.isExpanded = false;
                 
@@ -66,7 +66,7 @@ const PeoplePage = () => {
             
             @log()
             private async _expandExpando(): Promise<void> {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
+                // console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 if (window.innerWidth >= BP0) {
                     if (this._index === undefined) {
                         this._index = this._arr.indexOf(this);
@@ -93,9 +93,13 @@ const PeoplePage = () => {
                             break;
                     }
                     expando
-                        .text(this._cv)
+                    // .text(this._cv)
                         .css({gridColumn})
-                        .append(div({cls: 'email'}).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`));
+                        .append(
+                            div({cls: 'close'}).pointerdown(() => expando.owner.collapseExpando()),
+                            div({cls: 'cv'}).html(this._cv),
+                            div({cls: 'email'}).html(`Email: <a href="mailto:${this._email}">${this._email}</a>`)
+                        );
                     
                     
                     let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
@@ -106,6 +110,7 @@ const PeoplePage = () => {
                     expando.removeClass('collapsed').addClass('expanded');
                     expando.owner = this;
                     expando.isExpanded = true;
+                    
                 } else if (window.innerWidth >= BP1) {
                     console.warn('people.ts. person pointerdown BP1 no code');
                 }
@@ -145,7 +150,7 @@ const PeoplePage = () => {
             
             @log()
             private _toggleOthersFocus(): void {
-                console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
+                // console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));
                 for (let p of this._arr) {
                     if (p !== this)
                         p.toggleClass('unfocused');
@@ -173,13 +178,13 @@ const PeoplePage = () => {
                 arr.push(person);
             }
             const grid = div({id})
-                .append(...arr)
-                .pointerdown(() => {
-                    if (expando.isExpanded) {
-                        expando.owner.collapseExpando();
-                        // expando.isExpanded = !expando.isExpanded;
-                    }
-                });
+                .append(...arr);
+            // .pointerdown(() => {
+            //     if (expando.isExpanded) {
+            //         console.log('%cgrid pointerdown', 'font-weight:bold');
+            //         expando.owner.collapseExpando();
+            //     }
+            // });
             
             return grid;
         }
