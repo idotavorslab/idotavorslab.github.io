@@ -172,7 +172,7 @@ const HomePage = () => {
         
         let i = 0;
         for (let [title, {date, content}] of dict(data.news).items()) {
-            let item: NewsDataItem = {title, date, content, radio: elem({tag: 'radio'}), index: i};
+            let item: NewsDataItem = {title, date, content, radio: div({cls: 'radio'}), index: i};
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);

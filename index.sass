@@ -58,7 +58,7 @@ main
     text-align: center
     @import 'main/navbar/navbar.sass'
 
-    separators
+    div#separators
         margin:
             top: 0px
             right: auto
@@ -67,34 +67,29 @@ main
             left: 0
         display: inline-block
 
-        & > separator
+        [class~="separator"]
             position: absolute
             height: 1px
             width: 50%
             transition: background 500ms
 
-
-        separator.left
+        [class~="left"]
             left: 0
             background:
                 image: linear-gradient(90deg, var(--TRANS) 0%, rgba(0, 0, 0, 0.1) 10%)
 
 
-        separator.right
+        [class~="right"]
             left: 50%
 
             background:
                 image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%)
 
 
-    home
+    div#home
         position: relative
         display: block
         opacity: 1
-
-// people.ts
-//&[class~="squeezed"]
-    margin: 0 20px
 
 
 #window_stats
