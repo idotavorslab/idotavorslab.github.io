@@ -11,8 +11,7 @@ class Navbar extends BetterHTMLElement {
     constructor({query, children}) {
         super({query, children});
         this.home.pointerdown(() => {
-            /*            _startSeparatorAnimation();
-            */
+            _startSeparatorAnimation();
             window.location.reload();
         });
         this._pageNameObjMap = {
@@ -31,13 +30,11 @@ class Navbar extends BetterHTMLElement {
     }
     
     private async _gotoPage(pageName: "research" | "people" | "publications" | "gallery" | "contact") {
-        /*        _startSeparatorAnimation();
-        */
+        _startSeparatorAnimation();
         const pageObj = this._pageNameObjMap[pageName];
         this._select(this[pageName]);
         await pageObj().init();
-        /*        _killSeparatorAnimation();
-        */
+        _killSeparatorAnimation();
     }
     
     private _select(child: Div) {
@@ -49,7 +46,7 @@ class Navbar extends BetterHTMLElement {
 }
 
 const navbar = new Navbar({
-    query: '#navbar',
+    query: 'div#navbar',
     children: {
         home: '.home',
         research: '.research',
@@ -62,12 +59,12 @@ const navbar = new Navbar({
 });
 
 
-/*interface Separators extends BetterHTMLElement {
+interface Separators extends BetterHTMLElement {
     right: BetterHTMLElement,
     left: BetterHTMLElement,
 }
 
-const _separators = <Separators>elem({query: 'separators', children: {left: '.left', right: '.right'}});
+const _separators = <Separators>elem({query: 'div#separators', children: {left: '.left', right: '.right'}});
 
 
 function _linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, string]) {
@@ -90,5 +87,4 @@ function _killSeparatorAnimation() {
     _separators.left.css({backgroundImage: _linearGradient([0, '0%'], [0.1, '10%'])});
     _separators.right.css({backgroundImage: _linearGradient([0.1, '90%'], [0, '100%'])});
 }
-*/
 

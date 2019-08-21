@@ -111,12 +111,11 @@
 
 
 div#intro_container
-    //$gap: 60px
-    text-align: left
     display: flex
-    position: relative
     margin:
         bottom: var(--GAP)
+    position: relative
+    text-align: left
 
 
     div#non_news
@@ -127,12 +126,12 @@ div#intro_container
         width: $nonNewsWidth
 
         img
-            width: $nonNewsWidth
             display: block
             margin:
                 right: auto
                 left: auto
                 bottom: var(--GAP)
+            width: $nonNewsWidth
 
         div
             position: relative
@@ -141,16 +140,15 @@ div#intro_container
             @include titleMixin
 
     div#news
-        position: relative
-        display: flex
-
-        flex-direction: column
-        background-color: var(--GREY01)
         @include borderMixin(var(--GREY2))
-        // 30px
-        padding: calc(var(--GAP) / 2)
+        background-color: var(--GREY01)
+        display: flex
+        flex-direction: column
         margin:
             left: var(--GAP)
+        // 30px
+        padding: calc(var(--GAP) / 2)
+        position: relative
 
         div.date
             color: rgb(95, 95, 95)
@@ -163,28 +161,29 @@ div#intro_container
         div.radios
             margin: auto auto 0 auto
 
-            radio
+            .radio
                 @include borderMixin(var(--GREY3), null)
 
-                display: inline-block
-                // 15px
-                width: calc(var(--GAP) / 4)
-                height: calc(var(--GAP) / 4)
+                background-color: white
                 border-radius: 100px
+
+                cursor: pointer
+                display: inline-block
+
+                height: calc(var(--GAP) / 4)
+
                 // 5px
                 margin:
                     left: calc(var(--GAP) / 12)
                     right: calc(var(--GAP) / 12)
                 transition: background 100ms
 
-                &:not([class="selected"])
-                    background-color: white
-                    cursor: pointer
+                // 15px
+                width: calc(var(--GAP) / 4)
 
-                &[class="selected"]
-                    &.selected
-                        background-color: var(--GREY3)
-                        border-color: var(--GREY4)
+                &[class~="selected"]
+                    background-color: var(--GREY3)
+                    border-color: var(--GREY4)
 
 
 div#research_snippets_container
@@ -193,13 +192,13 @@ div#research_snippets_container
     div.title
         @include titleMixin
 
-@keyframes contrastDownAndReset
+//@keyframes contrastDownAndReset
     0%
         filter: brightness(1.5)
     100%
         filter: contrast(1)
 
-@keyframes scaleDownAndReset
+//@keyframes scaleDownAndReset
     0%
         transform: scale(0.8)
     100%

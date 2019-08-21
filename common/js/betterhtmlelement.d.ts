@@ -325,7 +325,6 @@ interface CssOptions {
     userSelect?: string;
     verticalAlign?: string;
     visibility?: string;
-    
     webkitColumnBreakAfter?: string;
     webkitColumnBreakBefore?: string;
     webkitColumnBreakInside?: string;
@@ -338,7 +337,6 @@ interface CssOptions {
     webkitColumnSpan?: string;
     webkitColumnWidth?: any;
     webkitColumns?: string;
-    
     webkitUserModify?: string;
     webkitUserSelect?: string;
     webkitWritingMode?: string;
@@ -351,8 +349,6 @@ interface CssOptions {
     writingMode?: string;
     zIndex?: string;
     zoom?: string;
-    
-    
 }
 
 declare type CubicBezierFunction = [number, number, number, number];
@@ -522,18 +518,21 @@ declare class BetterHTMLElement {
 declare class Div extends BetterHTMLElement {
     _htmlElement: HTMLDivElement;
     
+    /**Create an Div element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
 }
 
 declare class Span extends BetterHTMLElement {
     _htmlElement: HTMLSpanElement;
     
+    /**Create an Span element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
 }
 
 declare class Img extends BetterHTMLElement {
     _htmlElement: HTMLImageElement;
     
+    /**Create an Img element. Optionally set its id, src or cls.*/
     constructor({id, src, cls}: TImgOptions);
 }
 
@@ -565,10 +564,13 @@ declare function elem({htmlElement, text, cls, children}: {
     children?: TMap<string>;
 }): BetterHTMLElement;
 
+/**Create an Span element. Optionally set its id, text or cls.*/
 declare function span({id, text, cls}?: TSubElemOptions): Span;
 
+/**Create an Div element. Optionally set its id, text or cls.*/
 declare function div({id, text, cls}?: TSubElemOptions): Div;
 
+/**Create an Img element. Optionally set its id, src or cls.*/
 declare function img({id, src, cls}?: TImgOptions): Img;
 
 declare type TMap<T> = {
