@@ -11,7 +11,8 @@ class Navbar extends BetterHTMLElement {
     constructor({query, children}) {
         super({query, children});
         this.home.pointerdown(() => {
-            _startSeparatorAnimation();
+            /*            _startSeparatorAnimation();
+            */
             window.location.reload();
         });
         this._pageNameObjMap = {
@@ -30,11 +31,13 @@ class Navbar extends BetterHTMLElement {
     }
     
     private async _gotoPage(pageName: "research" | "people" | "publications" | "gallery" | "contact") {
-        _startSeparatorAnimation();
+        /*        _startSeparatorAnimation();
+        */
         const pageObj = this._pageNameObjMap[pageName];
         this._select(this[pageName]);
         await pageObj().init();
-        _killSeparatorAnimation();
+        /*        _killSeparatorAnimation();
+        */
     }
     
     private _select(child: Div) {
@@ -46,7 +49,7 @@ class Navbar extends BetterHTMLElement {
 }
 
 const navbar = new Navbar({
-    query: 'navbar',
+    query: '#navbar',
     children: {
         home: '.home',
         research: '.research',
@@ -59,7 +62,7 @@ const navbar = new Navbar({
 });
 
 
-interface Separators extends BetterHTMLElement {
+/*interface Separators extends BetterHTMLElement {
     right: BetterHTMLElement,
     left: BetterHTMLElement,
 }
@@ -87,4 +90,5 @@ function _killSeparatorAnimation() {
     _separators.left.css({backgroundImage: _linearGradient([0, '0%'], [0.1, '10%'])});
     _separators.right.css({backgroundImage: _linearGradient([0.1, '90%'], [0, '100%'])});
 }
+*/
 
