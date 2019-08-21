@@ -113,6 +113,9 @@
 div#intro_container
     //$gap: 60px
     text-align: left
+    display: -webkit-box
+    display: -ms-flexbox
+    display: -webkit-flex
     display: flex
     position: relative
     margin:
@@ -142,7 +145,11 @@ div#intro_container
 
     div#news
         position: relative
+        display: -webkit-box
+        display: -ms-flexbox
+        display: -webkit-flex
         display: flex
+
         flex-direction: column
         background-color: var(--GREY01)
         @include borderMixin(var(--GREY2))
