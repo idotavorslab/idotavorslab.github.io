@@ -142,7 +142,7 @@ const HomePage = () => {
         }
     }
     
-    async function init() {
+    async function __init() {
         
         /*const data = await fetchJson('main/research/research.json', "no-cache");
         console.log('data', data);
@@ -183,6 +183,10 @@ const HomePage = () => {
             
         }
         
+        
+    }
+    
+    function init() {
         
     }
     

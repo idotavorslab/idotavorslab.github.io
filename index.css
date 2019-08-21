@@ -76,7 +76,7 @@ main {
     width: var(--W1);
   }
 }
-main navbar {
+main div#navbar {
   font-size: 20px;
   margin: auto auto 40px auto;
   display: -webkit-box;
@@ -84,34 +84,34 @@ main navbar {
   display: -webkit-flex;
   display: flex;
 }
-main navbar > div, main navbar img {
+main div#navbar > div, main div#navbar img {
   cursor: pointer;
 }
-main navbar > div, main navbar img.home {
+main div#navbar > div, main div#navbar img.home {
   margin-top: 0;
   margin-right: 40px;
   margin-left: 0;
   margin-bottom: 0;
 }
-main navbar > img.home {
+main div#navbar > img.home {
   width: 80px;
 }
-main navbar > img.tau {
+main div#navbar > img.tau {
   height: 80px;
 }
-main navbar div:nth-last-child(2) {
+main div#navbar div:nth-last-child(2) {
   margin-right: auto;
 }
-main navbar > div {
+main div#navbar > div {
   padding: 30px 0 0 0;
   transition: color 200ms ease-out, border-bottom-color 200ms ease-out;
   display: block;
   border-bottom-color: var(--TRANS);
 }
-main navbar > div:hover {
+main div#navbar > div:hover {
   color: var(--GREY6);
 }
-main navbar > div.selected {
+main div#navbar > div.selected {
   margin-bottom: 7px;
   border-bottom-color: goldenrod;
   border-bottom-width: 1px;
