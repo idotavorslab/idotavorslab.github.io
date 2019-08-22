@@ -1,4 +1,3 @@
-type Group = "team" | "alumni";
 const PeoplePage = () => {
     
     async function init() {
@@ -23,7 +22,6 @@ const PeoplePage = () => {
                 let length = this._push(person);
                 let index = length - 1;
                 person.index = index;
-                person.indexInRow = index % ROWSIZE;
                 person.group = this;
                 return index;
             }
@@ -31,7 +29,7 @@ const PeoplePage = () => {
             static unfocusOthers(person: Person): void {
                 for (let p of [...team, ...alumni]) {
                     if (p !== person) {
-                        p.addClass('unfocused')
+                        p.unfocus();
                     }
                 }
             }
@@ -39,15 +37,15 @@ const PeoplePage = () => {
             static focusOthers(person: Person): void {
                 for (let p of [...team, ...alumni]) {
                     if (p !== person) {
-                        p.removeClass('unfocused')
+                        p.focus();
                     }
                 }
             }
             
             
             * yieldIndexesBelow(person: Person): IterableIterator<[number, number]> {
-                const row = int(person.index / ROWSIZE);
-                for (let i = row + 1; i <= this.length / ROWSIZE; i++) {
+                // const row = int(person.index / ROWSIZE);
+                for (let i = person.row() + 1; i <= this.length / ROWSIZE; i++) {
                     for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
                         yield [i, j];
                     }
@@ -67,8 +65,8 @@ const PeoplePage = () => {
             }
             
             squeezeExpandoBelow(person: Person): void {
-                const row = int(person.index / ROWSIZE);
-                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + (row % ROWSIZE) * ROWSIZE, this.length - 1);
+                // const row = int(person.index / ROWSIZE);
+                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + (person.row() % ROWSIZE) * ROWSIZE, this.length - 1);
                 this[rightmostPersonIndex].after(expando);
             }
             
@@ -93,7 +91,8 @@ const PeoplePage = () => {
             
             async toggle(event: Event, pressed: Person) {
                 console.group('toggle');
-                if (this.owner === null) {
+                if (this.owner === null) {  // **  Expand
+                    console.log('this.owner === null, expanding');
                     People.unfocusOthers(pressed);
                     this.owner = pressed;
                     this.owner.group.pushPeopleBelow(this.owner);
@@ -104,32 +103,56 @@ const PeoplePage = () => {
                     this.removeClass('collapsed').addClass('expanded');
                     this.isExpanded = true;
                 } else {
-                    if (this.owner === pressed) {
+                    console.log('this.owner !== null');
+                    if (this.owner === pressed) { // **  Collapse
+                        console.log('this.owner === pressed, collapsing');
                         People.focusOthers(this.owner);
                         this.removeClass('expanded').addClass('collapsed').remove();
                         this.owner.group.pullbackPeopleBelow(this.owner);
                         this.owner = null;
                         this.isExpanded = false;
-                    } else {
-                    
+                    } else {    // **  Transform
+                        console.log('this.owner !== pressed (expanded and someone else was pressed)');
+                        this.owner.unfocus();
+                        pressed.focus();
+                        
+                        if (this.owner.group === pressed.group) {
+                            console.log('same group');
+                            if (this.owner.row() === pressed.row()) {
+                                console.log('same row, doing nothing');
+                            } else { // *  Same group, different row
+                                console.log('different row');
+                                this.removeClass('expanded').addClass('collapsed').remove();
+                                this.owner.group.pullbackPeopleBelow(this.owner);
+                                this.owner.group.pushPeopleBelow(pressed);
+                                this.owner.group.squeezeExpandoBelow(pressed);
+                                await wait(0);
+                                this.removeClass('collapsed').addClass('expanded');
+                                this.owner = pressed;
+                            }
+                        } else { // *  Different group
+                            console.log('different group');
+                            this.removeClass('expanded').addClass('collapsed').remove();
+                            this.owner.group.pullbackPeopleBelow(this.owner);
+                            pressed.group.pushPeopleBelow(pressed);
+                            pressed.group.squeezeExpandoBelow(pressed);
+                            await wait(0);
+                            this.removeClass('collapsed').addClass('expanded');
+                            this.owner = pressed;
+                        }
+                        
+                        
+                        this.setGridColumn(pressed);
+                        this.setHtml(pressed);
                     }
                 }
-                /*if (this.owner === pressed) {
-                    if (!this.isExpanded) {
-                        throw new Error("pressed IS owner and !isExpanded. bad flow")
-                    } else {
-                        this.removeClass('expanded').addClass('collapsed');
-                    }
-                } else { // pressed NOT owner
                 
-                }
-                */
                 console.groupEnd();
             }
             
             setGridColumn(person: Person) {
                 let gridColumn;
-                switch (person.indexInRow) {
+                switch (person.indexInRow()) {
                     case 0:
                         gridColumn = '1/3';
                         break;
@@ -154,25 +177,15 @@ const PeoplePage = () => {
         
         class Person extends BetterHTMLElement {
             public cv: string;
-            // private readonly _index: number;
-            // private readonly _indexInRow: number;
-            // private readonly _row: number;
-            // private readonly _arr: Person[];
             public email: string;
             public group: People;
             public index: number;
-            public indexInRow: 0 | 1 | 2 | 3;
             
             
             constructor(image: string, name: string, role: string, cv: string, email: string) {
                 super({tag: 'person'});
                 this.cv = cv;
                 this.email = email;
-                // this._arr = arr;
-                // this._index = index;
-                // this._row = int(this._index / 4);
-                // this._indexInRow = this._index % 4;
-                
                 this.append(
                     img({src: `main/people/${image}`}),
                     div({text: name, cls: "name"}),
@@ -182,6 +195,21 @@ const PeoplePage = () => {
                 
             }
             
+            focus(): Person {
+                return this.removeClass('unfocused');
+            }
+            
+            unfocus(): Person {
+                return this.addClass('unfocused');
+            }
+            
+            indexInRow(): number {
+                return this.index % ROWSIZE;
+            }
+            
+            row(): number {
+                return int(this.index / ROWSIZE);
+            }
             
             private async _toggleExpando(event: Event): Promise<void> {
                 // console.log(_(`expando.isExpanded: ${expando.isExpanded}. expando.owner: ${expando.owner ? expando.owner._email : expando.owner}. this._email: ${this._email}`));

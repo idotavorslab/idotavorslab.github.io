@@ -24,27 +24,25 @@ const PeoplePage = () => {
                 let length = this._push(person);
                 let index = length - 1;
                 person.index = index;
-                person.indexInRow = index % ROWSIZE;
                 person.group = this;
                 return index;
             }
             static unfocusOthers(person) {
                 for (let p of [...team, ...alumni]) {
                     if (p !== person) {
-                        p.addClass('unfocused');
+                        p.unfocus();
                     }
                 }
             }
             static focusOthers(person) {
                 for (let p of [...team, ...alumni]) {
                     if (p !== person) {
-                        p.removeClass('unfocused');
+                        p.focus();
                     }
                 }
             }
             *yieldIndexesBelow(person) {
-                const row = int(person.index / ROWSIZE);
-                for (let i = row + 1; i <= this.length / ROWSIZE; i++) {
+                for (let i = person.row() + 1; i <= this.length / ROWSIZE; i++) {
                     for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
                         yield [i, j];
                     }
@@ -61,8 +59,7 @@ const PeoplePage = () => {
                 }
             }
             squeezeExpandoBelow(person) {
-                const row = int(person.index / ROWSIZE);
-                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + (row % ROWSIZE) * ROWSIZE, this.length - 1);
+                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + (person.row() % ROWSIZE) * ROWSIZE, this.length - 1);
                 this[rightmostPersonIndex].after(expando);
             }
         }
@@ -80,6 +77,7 @@ const PeoplePage = () => {
             async toggle(event, pressed) {
                 console.group('toggle');
                 if (this.owner === null) {
+                    console.log('this.owner === null, expanding');
                     People.unfocusOthers(pressed);
                     this.owner = pressed;
                     this.owner.group.pushPeopleBelow(this.owner);
@@ -91,7 +89,9 @@ const PeoplePage = () => {
                     this.isExpanded = true;
                 }
                 else {
+                    console.log('this.owner !== null');
                     if (this.owner === pressed) {
+                        console.log('this.owner === pressed, collapsing');
                         People.focusOthers(this.owner);
                         this.removeClass('expanded').addClass('collapsed').remove();
                         this.owner.group.pullbackPeopleBelow(this.owner);
@@ -99,13 +99,44 @@ const PeoplePage = () => {
                         this.isExpanded = false;
                     }
                     else {
+                        console.log('this.owner !== pressed (expanded and someone else was pressed)');
+                        this.owner.unfocus();
+                        pressed.focus();
+                        if (this.owner.group === pressed.group) {
+                            console.log('same group');
+                            if (this.owner.row() === pressed.row()) {
+                                console.log('same row, doing nothing');
+                            }
+                            else {
+                                console.log('different row');
+                                this.removeClass('expanded').addClass('collapsed').remove();
+                                this.owner.group.pullbackPeopleBelow(this.owner);
+                                this.owner.group.pushPeopleBelow(pressed);
+                                this.owner.group.squeezeExpandoBelow(pressed);
+                                await wait(0);
+                                this.removeClass('collapsed').addClass('expanded');
+                                this.owner = pressed;
+                            }
+                        }
+                        else {
+                            console.log('different group');
+                            this.removeClass('expanded').addClass('collapsed').remove();
+                            this.owner.group.pullbackPeopleBelow(this.owner);
+                            pressed.group.pushPeopleBelow(pressed);
+                            pressed.group.squeezeExpandoBelow(pressed);
+                            await wait(0);
+                            this.removeClass('collapsed').addClass('expanded');
+                            this.owner = pressed;
+                        }
+                        this.setGridColumn(pressed);
+                        this.setHtml(pressed);
                     }
                 }
                 console.groupEnd();
             }
             setGridColumn(person) {
                 let gridColumn;
-                switch (person.indexInRow) {
+                switch (person.indexInRow()) {
                     case 0:
                         gridColumn = '1/3';
                         break;
@@ -130,6 +161,18 @@ const PeoplePage = () => {
                 this.cv = cv;
                 this.email = email;
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => expando.toggle(event, this));
+            }
+            focus() {
+                return this.removeClass('unfocused');
+            }
+            unfocus() {
+                return this.addClass('unfocused');
+            }
+            indexInRow() {
+                return this.index % ROWSIZE;
+            }
+            row() {
+                return int(this.index / ROWSIZE);
             }
             async _toggleExpando(event) {
                 console.group(`_toggleExpando | ${this._email}`);
