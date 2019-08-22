@@ -99,7 +99,7 @@ const PeoplePage = () => {
             async toggle(event, pressed) {
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
-                    await this.pushSqueezeAndExpand(pressed);
+                    await this.pushAfterAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                     return;
                 }
@@ -112,21 +112,26 @@ const PeoplePage = () => {
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) {
                         this.collapse();
-                        await this.pushSqueezeAndExpand(pressed);
+                        await this.pushAfterAndExpand(pressed);
                     }
                     this.ownPopulateAndPosition(pressed);
                 }
                 else {
                     this.collapse();
-                    await this.pushSqueezeAndExpand(pressed);
+                    await this.pushAfterAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                 }
             }
-            async pushSqueezeAndExpand(pressed) {
+            async pushAfterAndExpand(pressed) {
                 pressed.pushPeopleBelow();
                 pressed.squeezeExpandoBelow();
                 await wait(0);
                 this.expand();
+            }
+            ownPopulateAndPosition(pressed) {
+                this.owner = pressed;
+                this.setHtml();
+                this.setGridColumn();
             }
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
@@ -140,14 +145,9 @@ const PeoplePage = () => {
                 People.focusOthers(this.owner);
                 this.owner = null;
             }
-            ownPopulateAndPosition(pressed) {
-                this.owner = pressed;
-                this.setGridColumn(pressed);
-                this.setHtml(pressed);
-            }
-            setGridColumn(person) {
+            setGridColumn() {
                 let gridColumn;
-                switch (person.indexInRow()) {
+                switch (this.owner.indexInRow()) {
                     case 0:
                         gridColumn = '1/3';
                         break;
@@ -161,9 +161,9 @@ const PeoplePage = () => {
                 }
                 this.css({ gridColumn });
             }
-            setHtml(person) {
-                this.cv.html(person.cv);
-                this.email.html(`Email: <a href="mailto:${person.email}">${person.email}</a>`);
+            setHtml() {
+                this.cv.html(this.owner.cv);
+                this.email.html(`Email: <a href="mailto:${this.owner.email}">${this.owner.email}</a>`);
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");

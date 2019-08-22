@@ -157,7 +157,7 @@ const PeoplePage = () => {
                 if (this.owner === null) {
                     // *  Expand
                     People.unfocusOthers(pressed);
-                    await this.pushSqueezeAndExpand(pressed);
+                    await this.pushAfterAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                     return;
                 }
@@ -173,23 +173,29 @@ const PeoplePage = () => {
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) { // *  Same group, different row
                         this.collapse();
-                        await this.pushSqueezeAndExpand(pressed);
+                        await this.pushAfterAndExpand(pressed);
                     }
                     this.ownPopulateAndPosition(pressed);
                 } else { // *  Different group
                     this.collapse();
-                    await this.pushSqueezeAndExpand(pressed);
+                    await this.pushAfterAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                 }
                 
                 
             }
             
-            async pushSqueezeAndExpand(pressed: Person) {
+            async pushAfterAndExpand(pressed: Person) {
                 pressed.pushPeopleBelow();
                 pressed.squeezeExpandoBelow();
                 await wait(0);
                 this.expand();
+            }
+            
+            ownPopulateAndPosition(pressed: Person) {
+                this.owner = pressed;
+                this.setHtml();
+                this.setGridColumn();
             }
             
             collapse() {
@@ -207,15 +213,10 @@ const PeoplePage = () => {
                 this.owner = null;
             }
             
-            ownPopulateAndPosition(pressed: Person) {
-                this.owner = pressed;
-                this.setGridColumn(pressed);
-                this.setHtml(pressed);
-            }
             
-            setGridColumn(person: Person) {
+            setGridColumn() {
                 let gridColumn;
-                switch (person.indexInRow()) {
+                switch (this.owner.indexInRow()) {
                     case 0:
                         gridColumn = '1/3';
                         break;
@@ -230,9 +231,9 @@ const PeoplePage = () => {
                 this.css({gridColumn})
             }
             
-            setHtml(person: Person) {
-                this.cv.html(person.cv);
-                this.email.html(`Email: <a href="mailto:${person.email}">${person.email}</a>`);
+            setHtml() {
+                this.cv.html(this.owner.cv);
+                this.email.html(`Email: <a href="mailto:${this.owner.email}">${this.owner.email}</a>`);
             }
             
             
