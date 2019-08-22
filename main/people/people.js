@@ -97,32 +97,22 @@ const PeoplePage = () => {
                 });
             }
             async toggle(event, pressed) {
+                if (this.owner === pressed) {
+                    this.close();
+                    return;
+                }
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
                     await this.pushSqueezeAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                     return;
                 }
-                if (this.owner === pressed) {
-                    this.close();
-                    return;
-                }
                 this.owner.unfocus();
                 pressed.focus();
-                if (this.owner.group === pressed.group) {
-                    if (this.owner.row() !== pressed.row()) {
-                        this.collapse();
-                        this.owner.pullbackPeopleBelow();
-                        await this.pushSqueezeAndExpand(pressed);
-                    }
-                    this.ownPopulateAndPosition(pressed);
-                }
-                else {
-                    this.collapse();
-                    this.owner.pullbackPeopleBelow();
-                    await this.pushSqueezeAndExpand(pressed);
-                    this.ownPopulateAndPosition(pressed);
-                }
+                this.collapse();
+                this.owner.pullbackPeopleBelow();
+                await this.pushSqueezeAndExpand(pressed);
+                this.ownPopulateAndPosition(pressed);
             }
             async pushSqueezeAndExpand(pressed) {
                 pressed.pushPeopleBelow();

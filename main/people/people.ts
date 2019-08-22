@@ -154,6 +154,12 @@ const PeoplePage = () => {
             
             
             async toggle(event: Event, pressed: Person) {
+                if (this.owner === pressed) {
+                    // *  Close
+                    this.close();
+                    return;
+                    
+                }
                 if (this.owner === null) {
                     // *  Expand
                     People.unfocusOthers(pressed);
@@ -161,28 +167,14 @@ const PeoplePage = () => {
                     this.ownPopulateAndPosition(pressed);
                     return;
                 }
-                if (this.owner === pressed) {
-                    // *  Close
-                    this.close();
-                    return;
-                    
-                }
+                
                 // **  Transform
                 this.owner.unfocus();
                 pressed.focus();
-                if (this.owner.group === pressed.group) {
-                    if (this.owner.row() !== pressed.row()) { // *  Same group, different row
-                        this.collapse();
-                        this.owner.pullbackPeopleBelow();
-                        await this.pushSqueezeAndExpand(pressed);
-                    }
-                    this.ownPopulateAndPosition(pressed);
-                } else { // *  Different group
-                    this.collapse();
-                    this.owner.pullbackPeopleBelow();
-                    await this.pushSqueezeAndExpand(pressed);
-                    this.ownPopulateAndPosition(pressed);
-                }
+                this.collapse();
+                this.owner.pullbackPeopleBelow();
+                await this.pushSqueezeAndExpand(pressed);
+                this.ownPopulateAndPosition(pressed);
                 
                 
             }
