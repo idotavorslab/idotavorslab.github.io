@@ -163,8 +163,7 @@ const PeoplePage = () => {
                 if (this.owner === null) {
                     // *  Expand
                     People.unfocusOthers(pressed);
-                    await this.pushSqueezeAndExpand(pressed);
-                    this.ownPopulateAndPosition(pressed);
+                    await this.open(pressed);
                     return;
                 }
                 
@@ -172,22 +171,27 @@ const PeoplePage = () => {
                 this.owner.unfocus();
                 pressed.focus();
                 this.collapse();
-                this.owner.pullbackPeopleBelow();
-                await this.pushSqueezeAndExpand(pressed);
-                this.ownPopulateAndPosition(pressed);
+                
+                
+                await this.open(pressed);
                 
                 
             }
             
-            async pushSqueezeAndExpand(pressed: Person) {
+            async open(pressed: Person) {
                 pressed.pushPeopleBelow();
                 pressed.squeezeExpandoBelow();
                 await wait(0);
                 this.expand();
+                this.owner = pressed;
+                this.setGridColumn(pressed);
+                this.setHtml(pressed);
             }
+            
             
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
+                this.owner.pullbackPeopleBelow();
             }
             
             expand() {
@@ -195,17 +199,11 @@ const PeoplePage = () => {
             }
             
             close() {
-                this.collapse();
-                this.owner.pullbackPeopleBelow();
                 People.focusOthers(this.owner);
+                this.collapse();
                 this.owner = null;
             }
             
-            ownPopulateAndPosition(pressed: Person) {
-                this.owner = pressed;
-                this.setGridColumn(pressed);
-                this.setHtml(pressed);
-            }
             
             setGridColumn(person: Person) {
                 let gridColumn;
