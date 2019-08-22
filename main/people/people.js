@@ -91,7 +91,7 @@ const PeoplePage = () => {
                 else {
                     console.log('this.owner !== null');
                     if (this.owner === pressed) {
-                        console.log('this.owner === pressed, collapsing');
+                        console.log(`this.owner (${this.owner.email}) === pressed (${pressed.email}), collapsing`);
                         People.focusOthers(this.owner);
                         this.removeClass('expanded').addClass('collapsed').remove();
                         this.owner.group.pullbackPeopleBelow(this.owner);
@@ -99,7 +99,7 @@ const PeoplePage = () => {
                         this.isExpanded = false;
                     }
                     else {
-                        console.log('this.owner !== pressed (expanded and someone else was pressed)');
+                        console.log(`this.owner (${this.owner.email}) !== pressed (${pressed.email}) (expanded and someone else was pressed)`);
                         this.owner.unfocus();
                         pressed.focus();
                         if (this.owner.group === pressed.group) {
@@ -115,7 +115,6 @@ const PeoplePage = () => {
                                 this.owner.group.squeezeExpandoBelow(pressed);
                                 await wait(0);
                                 this.removeClass('collapsed').addClass('expanded');
-                                this.owner = pressed;
                             }
                         }
                         else {
@@ -126,8 +125,8 @@ const PeoplePage = () => {
                             pressed.group.squeezeExpandoBelow(pressed);
                             await wait(0);
                             this.removeClass('collapsed').addClass('expanded');
-                            this.owner = pressed;
                         }
+                        this.owner = pressed;
                         this.setGridColumn(pressed);
                         this.setHtml(pressed);
                     }
@@ -163,9 +162,11 @@ const PeoplePage = () => {
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => expando.toggle(event, this));
             }
             focus() {
+                console.log(`focusing: ${this.email}`);
                 return this.removeClass('unfocused');
             }
             unfocus() {
+                console.log(`UNfocusing: ${this.email}`);
                 return this.addClass('unfocused');
             }
             indexInRow() {

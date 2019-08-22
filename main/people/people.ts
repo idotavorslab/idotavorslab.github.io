@@ -105,14 +105,14 @@ const PeoplePage = () => {
                 } else {
                     console.log('this.owner !== null');
                     if (this.owner === pressed) { // **  Collapse
-                        console.log('this.owner === pressed, collapsing');
+                        console.log(`this.owner (${this.owner.email}) === pressed (${pressed.email}), collapsing`);
                         People.focusOthers(this.owner);
                         this.removeClass('expanded').addClass('collapsed').remove();
                         this.owner.group.pullbackPeopleBelow(this.owner);
                         this.owner = null;
                         this.isExpanded = false;
                     } else {    // **  Transform
-                        console.log('this.owner !== pressed (expanded and someone else was pressed)');
+                        console.log(`this.owner (${this.owner.email}) !== pressed (${pressed.email}) (expanded and someone else was pressed)`);
                         this.owner.unfocus();
                         pressed.focus();
                         
@@ -128,7 +128,7 @@ const PeoplePage = () => {
                                 this.owner.group.squeezeExpandoBelow(pressed);
                                 await wait(0);
                                 this.removeClass('collapsed').addClass('expanded');
-                                this.owner = pressed;
+                                
                             }
                         } else { // *  Different group
                             console.log('different group');
@@ -138,10 +138,9 @@ const PeoplePage = () => {
                             pressed.group.squeezeExpandoBelow(pressed);
                             await wait(0);
                             this.removeClass('collapsed').addClass('expanded');
-                            this.owner = pressed;
                         }
                         
-                        
+                        this.owner = pressed;
                         this.setGridColumn(pressed);
                         this.setHtml(pressed);
                     }
@@ -196,10 +195,12 @@ const PeoplePage = () => {
             }
             
             focus(): Person {
+                console.log(`focusing: ${this.email}`);
                 return this.removeClass('unfocused');
             }
             
             unfocus(): Person {
+                console.log(`UNfocusing: ${this.email}`);
                 return this.addClass('unfocused');
             }
             
