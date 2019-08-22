@@ -3,6 +3,13 @@ const PeoplePage = () => {
     
     async function init() {
         console.log('PeoplePage init');
+        let ROWSIZE;
+        if (window.innerWidth >= BP0) {
+            ROWSIZE = 4;
+        } else {
+            console.warn('people.ts. init BP1 no code, defaulting ROWSIZE 4');
+            ROWSIZE = 4;
+        }
         
         class People extends Array<Person> {
             private readonly _push: (...items: Person[]) => number;
@@ -13,8 +20,10 @@ const PeoplePage = () => {
             }
             
             push(person: Person) {
-                let index = this._push(person);
+                let length = this._push(person);
+                let index = length - 1;
                 person.index = index;
+                person.indexInRow = index % ROWSIZE;
                 person.group = this;
                 return index;
             }
@@ -28,10 +37,10 @@ const PeoplePage = () => {
             }
             
             
-            * yieldIndexesBelow(person: Person) {
-                const row = int(person.index / 4);
-                for (let i = row + 1; i <= this.length / 4; i++) {
-                    for (let j = 0; j < 4 && i * 4 + j < this.length; j++) {
+            * yieldIndexesBelow(person: Person): IterableIterator<[number, number]> {
+                const row = int(person.index / ROWSIZE);
+                for (let i = row + 1; i <= this.length / ROWSIZE; i++) {
+                    for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
                         yield [i, j];
                     }
                 }
@@ -41,6 +50,12 @@ const PeoplePage = () => {
                 for (let [i, j] of this.yieldIndexesBelow(person)) {
                     this[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
                 }
+            }
+            
+            squeezeExpandoBelow(person: Person): void {
+                const row = int(person.index / ROWSIZE);
+                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + (row % ROWSIZE) * ROWSIZE, this.length - 1);
+                this[rightmostPersonIndex].after(expando);
             }
             
         }
@@ -62,12 +77,18 @@ const PeoplePage = () => {
             }
             
             
-            toggle(event: Event, pressed: Person) {
+            async toggle(event: Event, pressed: Person) {
                 console.group('toggle');
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
                     this.owner = pressed;
                     this.owner.group.pushPeopleBelow(this.owner);
+                    this.setGridColumn(this.owner);
+                    this.setHtml(this.owner);
+                    this.owner.group.squeezeExpandoBelow(this.owner);
+                    await wait(0);
+                    this.removeClass('collapsed').addClass('expanded');
+                    this.isExpanded = true;
                 }
                 /*if (this.owner === pressed) {
                     if (!this.isExpanded) {
@@ -82,24 +103,47 @@ const PeoplePage = () => {
                 console.groupEnd();
             }
             
+            setGridColumn(person: Person) {
+                let gridColumn;
+                switch (person.indexInRow) {
+                    case 0:
+                        gridColumn = '1/3';
+                        break;
+                    case 1:
+                        gridColumn = '2/4';
+                        break;
+                    case 2:
+                    case 3:
+                        gridColumn = '3/5';
+                        break;
+                }
+                this.css({gridColumn})
+            }
+            
+            setHtml(person: Person) {
+                this.cv.html(person.cv);
+                this.email.html(`Email: <a href="mailto:${person.email}">${person.email}</a>`);
+            }
+            
             
         }
         
         class Person extends BetterHTMLElement {
-            private readonly _cv: string;
+            public cv: string;
             // private readonly _index: number;
             // private readonly _indexInRow: number;
             // private readonly _row: number;
             // private readonly _arr: Person[];
-            private readonly _email: string;
+            public email: string;
             public group: People;
             public index: number;
+            public indexInRow: 0 | 1 | 2 | 3;
             
             
             constructor(image: string, name: string, role: string, cv: string, email: string) {
                 super({tag: 'person'});
-                this._cv = cv;
-                this._email = email;
+                this.cv = cv;
+                this.email = email;
                 // this._arr = arr;
                 // this._index = index;
                 // this._row = int(this._index / 4);
@@ -170,7 +214,6 @@ const PeoplePage = () => {
                         expandoGridColumn = '3/5';
                         break;
                 }
-                console.log(`_setExpandoGridColumn, _indexInRow: ${this._indexInRow}, setting expandoGridColumn: ${expandoGridColumn}`);
                 expando.css({gridColumn: expandoGridColumn})
             }
             
@@ -278,6 +321,7 @@ const PeoplePage = () => {
         console.log('people data', data);
         const expando = new Expando();
         const {team: teamData, alumni: alumniData} = data;
+        
         const team: People = new People();
         const alumni: People = new People();
         
