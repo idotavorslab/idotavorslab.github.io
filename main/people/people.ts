@@ -1,7 +1,49 @@
+type Group = "team" | "alumni";
 const PeoplePage = () => {
     
     async function init() {
         console.log('PeoplePage init');
+        
+        class People extends Array<Person> {
+            private readonly _push: (...items: Person[]) => number;
+            
+            constructor() {
+                super();
+                this._push = super.push;
+            }
+            
+            push(person: Person) {
+                let index = this._push(person);
+                person.index = index;
+                person.group = this;
+                return index;
+            }
+            
+            static unfocusOthers(person: Person): void {
+                for (let p of [...team, ...alumni]) {
+                    if (p !== person) {
+                        p.addClass('unfocused')
+                    }
+                }
+            }
+            
+            
+            * yieldIndexesBelow(person: Person) {
+                const row = int(person.index / 4);
+                for (let i = row + 1; i <= this.length / 4; i++) {
+                    for (let j = 0; j < 4 && i * 4 + j < this.length; j++) {
+                        yield [i, j];
+                    }
+                }
+            }
+            
+            pushPeopleBelow(person: Person): void {
+                for (let [i, j] of this.yieldIndexesBelow(person)) {
+                    this[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
+                }
+            }
+            
+        }
         
         class Expando extends Div {
             public isExpanded: boolean = false;
@@ -11,39 +53,63 @@ const PeoplePage = () => {
             public email: Div;
             
             constructor() {
-                super({cls: 'person-expando'});
+                super({id: 'person_expando'});
                 this.cacheAppend({
                     close: div({cls: 'close'}).pointerdown(() => this.owner.collapseExpando()),
                     cv: div({cls: 'cv'}),
                     email: div({cls: 'email'})
                 })
             }
+            
+            
+            toggle(event: Event, pressed: Person) {
+                console.group('toggle');
+                if (this.owner === null) {
+                    People.unfocusOthers(pressed);
+                    this.owner = pressed;
+                    this.owner.group.pushPeopleBelow(this.owner);
+                }
+                /*if (this.owner === pressed) {
+                    if (!this.isExpanded) {
+                        throw new Error("pressed IS owner and !isExpanded. bad flow")
+                    } else {
+                        this.removeClass('expanded').addClass('collapsed');
+                    }
+                } else { // pressed NOT owner
+                
+                }
+                */
+                console.groupEnd();
+            }
+            
+            
         }
         
         class Person extends BetterHTMLElement {
             private readonly _cv: string;
-            private readonly _index: number;
-            private readonly _indexInRow: number;
-            private readonly _row: number;
-            private readonly _arr: Person[];
+            // private readonly _index: number;
+            // private readonly _indexInRow: number;
+            // private readonly _row: number;
+            // private readonly _arr: Person[];
             private readonly _email: string;
+            public group: People;
+            public index: number;
             
             
-            constructor(image: string, name: string, role: string, cv: string, email: string, arr: Person[], index: number) {
+            constructor(image: string, name: string, role: string, cv: string, email: string) {
                 super({tag: 'person'});
                 this._cv = cv;
                 this._email = email;
-                this._arr = arr;
-                
-                this._index = index;
-                this._row = int(this._index / 4);
-                this._indexInRow = this._index % 4;
+                // this._arr = arr;
+                // this._index = index;
+                // this._row = int(this._index / 4);
+                // this._indexInRow = this._index % 4;
                 
                 this.append(
                     img({src: `main/people/${image}`}),
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
-                ).pointerdown((event) => this._toggleExpando(event));
+                ).pointerdown((event) => expando.toggle(event, this));
                 
                 
             }
@@ -176,7 +242,6 @@ const PeoplePage = () => {
                 for (let [i, j] of this._yieldIndexesBelow()) {
                     this._arr[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
                 }
-                
             }
             
             private _pullbackPeopleBelow(): void {
@@ -184,7 +249,7 @@ const PeoplePage = () => {
                 // for (let [i, j] of this._yieldIndexesBelow()) {
                 //     People[i * 4 + j].css({marginTop: `${-GAP}px`});
                 // }
-                // await wait(500); // *  DEP: people.sass .person-expando padding transitions (any)
+                // await wait(500); // *  DEP: people.sass .person_expando padding transitions (any)
                 
                 for (let [i, j] of this._yieldIndexesBelow()) {
                     // *  Resetting margin-top is unneeded if there's no padding transition
@@ -211,31 +276,28 @@ const PeoplePage = () => {
         
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
-        
-        
         const expando = new Expando();
+        const {team: teamData, alumni: alumniData} = data;
+        const team: People = new People();
+        const alumni: People = new People();
         
-        
-        const {team, alumni} = data;
-        
-        
-        function gridFactory(gridData, id: string): Div {
-            const arr: Person[] = [];
+        function gridFactory(gridData, gridId: string, people: People): Div {
+            
             let index = 0;
             for (let [name, {image, role, cv, email}] of dict(gridData).items()) {
-                let person = new Person(image, name, role, cv, email, arr, index);
-                arr.push(person);
+                let person = new Person(image, name, role, cv, email);
+                people.push(person);
                 index++;
             }
-            const grid = div({id}).append(...arr);
+            const grid = div({id: gridId}).append(...people);
             
             
             return grid;
         }
         
         // **  Grids
-        const teamGrid = gridFactory(team, 'team_grid');
-        const alumniGrid = gridFactory(alumni, 'alumni_grid');
+        const teamGrid = gridFactory(teamData, 'team_grid', team);
+        const alumniGrid = gridFactory(alumniData, 'alumni_grid', alumni);
         
         
         Home.empty().append(

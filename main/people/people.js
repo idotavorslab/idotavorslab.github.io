@@ -7,9 +7,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
+        class People extends Array {
+            constructor() {
+                super();
+                this._push = super.push;
+            }
+            push(person) {
+                let index = this._push(person);
+                person.index = index;
+                person.group = this;
+                return index;
+            }
+            static unfocusOthers(person) {
+                for (let p of [...team, ...alumni]) {
+                    if (p !== person) {
+                        p.addClass('unfocused');
+                    }
+                }
+            }
+            *yieldIndexesBelow(person) {
+                const row = int(person.index / 4);
+                for (let i = row + 1; i <= this.length / 4; i++) {
+                    for (let j = 0; j < 4 && i * 4 + j < this.length; j++) {
+                        yield [i, j];
+                    }
+                }
+            }
+            pushPeopleBelow(person) {
+                for (let [i, j] of this.yieldIndexesBelow(person)) {
+                    this[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
+                }
+            }
+        }
         class Expando extends Div {
             constructor() {
-                super({ cls: 'person-expando' });
+                super({ id: 'person_expando' });
                 this.isExpanded = false;
                 this.owner = null;
                 this.cacheAppend({
@@ -18,17 +50,22 @@ const PeoplePage = () => {
                     email: div({ cls: 'email' })
                 });
             }
+            toggle(event, pressed) {
+                console.group('toggle');
+                if (this.owner === null) {
+                    People.unfocusOthers(pressed);
+                    this.owner = pressed;
+                    this.owner.group.pushPeopleBelow(this.owner);
+                }
+                console.groupEnd();
+            }
         }
         class Person extends BetterHTMLElement {
-            constructor(image, name, role, cv, email, arr, index) {
+            constructor(image, name, role, cv, email) {
                 super({ tag: 'person' });
                 this._cv = cv;
                 this._email = email;
-                this._arr = arr;
-                this._index = index;
-                this._row = int(this._index / 4);
-                this._indexInRow = this._index % 4;
-                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => this._toggleExpando(event));
+                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => expando.toggle(event, this));
             }
             async _toggleExpando(event) {
                 console.group(`_toggleExpando | ${this._email}`);
@@ -161,20 +198,21 @@ const PeoplePage = () => {
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
         const expando = new Expando();
-        const { team, alumni } = data;
-        function gridFactory(gridData, id) {
-            const arr = [];
+        const { team: teamData, alumni: alumniData } = data;
+        const team = new People();
+        const alumni = new People();
+        function gridFactory(gridData, gridId, people) {
             let index = 0;
             for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
-                let person = new Person(image, name, role, cv, email, arr, index);
-                arr.push(person);
+                let person = new Person(image, name, role, cv, email);
+                people.push(person);
                 index++;
             }
-            const grid = div({ id }).append(...arr);
+            const grid = div({ id: gridId }).append(...people);
             return grid;
         }
-        const teamGrid = gridFactory(team, 'team_grid');
-        const alumniGrid = gridFactory(alumni, 'alumni_grid');
+        const teamGrid = gridFactory(teamData, 'team_grid', team);
+        const alumniGrid = gridFactory(alumniData, 'alumni_grid', alumni);
         Home.empty().append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
     }
     return { init };
