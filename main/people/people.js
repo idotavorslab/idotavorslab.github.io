@@ -35,6 +35,13 @@ const PeoplePage = () => {
                     }
                 }
             }
+            static focusOthers(person) {
+                for (let p of [...team, ...alumni]) {
+                    if (p !== person) {
+                        p.removeClass('unfocused');
+                    }
+                }
+            }
             *yieldIndexesBelow(person) {
                 const row = int(person.index / ROWSIZE);
                 for (let i = row + 1; i <= this.length / ROWSIZE; i++) {
@@ -46,6 +53,11 @@ const PeoplePage = () => {
             pushPeopleBelow(person) {
                 for (let [i, j] of this.yieldIndexesBelow(person)) {
                     this[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
+                }
+            }
+            pullbackPeopleBelow(person) {
+                for (let [i, j] of this.yieldIndexesBelow(person)) {
+                    this[i * 4 + j].uncss("gridRow");
                 }
             }
             squeezeExpandoBelow(person) {
@@ -77,6 +89,17 @@ const PeoplePage = () => {
                     await wait(0);
                     this.removeClass('collapsed').addClass('expanded');
                     this.isExpanded = true;
+                }
+                else {
+                    if (this.owner === pressed) {
+                        People.focusOthers(this.owner);
+                        this.removeClass('expanded').addClass('collapsed').remove();
+                        this.owner.group.pullbackPeopleBelow(this.owner);
+                        this.owner = null;
+                        this.isExpanded = false;
+                    }
+                    else {
+                    }
                 }
                 console.groupEnd();
             }
