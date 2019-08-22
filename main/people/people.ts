@@ -147,7 +147,7 @@ const PeoplePage = () => {
                     console.log('this.owner === null, expanding');
                     People.unfocusOthers(pressed);
                     this.owner = pressed;
-                    pressed.group.pushPeopleBelow(pressed);
+                    pressed.pushPeopleBelow();
                     this.setGridColumn(this.owner);
                     this.setHtml(this.owner);
                     pressed.group.squeezeExpandoBelow(pressed);
@@ -174,7 +174,7 @@ const PeoplePage = () => {
                                 console.log('different row');
                                 this.collapse();
                                 this.owner.group.pullbackPeopleBelow(this.owner);
-                                pressed.group.pushPeopleBelow(pressed);
+                                pressed.pushPeopleBelow();
                                 pressed.group.squeezeExpandoBelow(pressed);
                                 await wait(0);
                                 this.removeClass('collapsed').addClass('expanded');
@@ -184,7 +184,7 @@ const PeoplePage = () => {
                             console.log('different group');
                             this.collapse();
                             this.owner.group.pullbackPeopleBelow(this.owner);
-                            pressed.group.pushPeopleBelow(pressed);
+                            pressed.pushPeopleBelow();
                             pressed.group.squeezeExpandoBelow(pressed);
                             await wait(0);
                             this.removeClass('collapsed').addClass('expanded');
