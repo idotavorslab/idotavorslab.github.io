@@ -154,61 +154,49 @@ const PeoplePage = () => {
             
             
             async toggle(event: Event, pressed: Person) {
-                console.group('toggle');
-                if (this.owner === null) {  // **  Expand
-                    console.log('this.owner === null, expanding');
+                if (this.owner === null) {
+                    // **  Expand
                     People.unfocusOthers(pressed);
-                    this.owner = pressed;
                     pressed.pushPeopleBelow();
-                    this.setGridColumn(this.owner);
-                    this.setHtml(this.owner);
                     pressed.squeezeExpandoBelow();
                     await wait(0);
                     this.expand();
+                    this.owner = pressed;
+                    this.setGridColumn(pressed);
+                    this.setHtml(pressed);
+                    return;
+                }
+                if (this.owner === pressed) {
+                    // **  Collapse
+                    this.close();
+                    
                 } else {
-                    console.log('this.owner !== null');
-                    if (this.owner === pressed) { // **  Collapse
-                        console.log(`this.owner (${this.owner.email}) === pressed (${pressed.email}), collapsing`);
-                        People.focusOthers(this.owner);
-                        this.collapse();
-                        this.owner.pullbackPeopleBelow();
-                        this.owner = null;
-                    } else {    // **  Transform
-                        console.log(`this.owner (${this.owner.email}) !== pressed (${pressed.email}) (expanded and someone else was pressed)`);
-                        this.owner.unfocus();
-                        pressed.focus();
-                        
-                        if (this.owner.group === pressed.group) {
-                            console.log('same group');
-                            if (this.owner.row() === pressed.row()) {
-                                console.log('same row, doing nothing');
-                            } else { // *  Same group, different row
-                                console.log('different row');
-                                this.collapse();
-                                this.owner.pullbackPeopleBelow();
-                                pressed.pushPeopleBelow();
-                                pressed.squeezeExpandoBelow();
-                                await wait(0);
-                                this.removeClass('collapsed').addClass('expanded');
-                                
-                            }
-                        } else { // *  Different group
-                            console.log('different group');
+                    // **  Transform
+                    this.owner.unfocus();
+                    pressed.focus();
+                    if (this.owner.group === pressed.group) {
+                        if (this.owner.row() !== pressed.row()) { // *  Same group, different row
                             this.collapse();
                             this.owner.pullbackPeopleBelow();
                             pressed.pushPeopleBelow();
                             pressed.squeezeExpandoBelow();
                             await wait(0);
-                            this.removeClass('collapsed').addClass('expanded');
+                            this.expand();
                         }
-                        
-                        this.owner = pressed;
-                        this.setGridColumn(pressed);
-                        this.setHtml(pressed);
+                    } else { // *  Different group
+                        this.collapse();
+                        this.owner.pullbackPeopleBelow();
+                        pressed.pushPeopleBelow();
+                        pressed.squeezeExpandoBelow();
+                        await wait(0);
+                        this.expand();
                     }
+                    
+                    this.owner = pressed;
+                    this.setGridColumn(pressed);
+                    this.setHtml(pressed);
                 }
                 
-                console.groupEnd();
             }
             
             collapse() {

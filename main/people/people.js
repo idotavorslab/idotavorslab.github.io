@@ -97,61 +97,45 @@ const PeoplePage = () => {
                 });
             }
             async toggle(event, pressed) {
-                console.group('toggle');
                 if (this.owner === null) {
-                    console.log('this.owner === null, expanding');
                     People.unfocusOthers(pressed);
-                    this.owner = pressed;
                     pressed.pushPeopleBelow();
-                    this.setGridColumn(this.owner);
-                    this.setHtml(this.owner);
                     pressed.squeezeExpandoBelow();
                     await wait(0);
                     this.expand();
+                    this.owner = pressed;
+                    this.setGridColumn(pressed);
+                    this.setHtml(pressed);
+                    return;
+                }
+                if (this.owner === pressed) {
+                    this.close();
                 }
                 else {
-                    console.log('this.owner !== null');
-                    if (this.owner === pressed) {
-                        console.log(`this.owner (${this.owner.email}) === pressed (${pressed.email}), collapsing`);
-                        People.focusOthers(this.owner);
-                        this.collapse();
-                        this.owner.pullbackPeopleBelow();
-                        this.owner = null;
-                    }
-                    else {
-                        console.log(`this.owner (${this.owner.email}) !== pressed (${pressed.email}) (expanded and someone else was pressed)`);
-                        this.owner.unfocus();
-                        pressed.focus();
-                        if (this.owner.group === pressed.group) {
-                            console.log('same group');
-                            if (this.owner.row() === pressed.row()) {
-                                console.log('same row, doing nothing');
-                            }
-                            else {
-                                console.log('different row');
-                                this.collapse();
-                                this.owner.pullbackPeopleBelow();
-                                pressed.pushPeopleBelow();
-                                pressed.squeezeExpandoBelow();
-                                await wait(0);
-                                this.removeClass('collapsed').addClass('expanded');
-                            }
-                        }
-                        else {
-                            console.log('different group');
+                    this.owner.unfocus();
+                    pressed.focus();
+                    if (this.owner.group === pressed.group) {
+                        if (this.owner.row() !== pressed.row()) {
                             this.collapse();
                             this.owner.pullbackPeopleBelow();
                             pressed.pushPeopleBelow();
                             pressed.squeezeExpandoBelow();
                             await wait(0);
-                            this.removeClass('collapsed').addClass('expanded');
+                            this.expand();
                         }
-                        this.owner = pressed;
-                        this.setGridColumn(pressed);
-                        this.setHtml(pressed);
                     }
+                    else {
+                        this.collapse();
+                        this.owner.pullbackPeopleBelow();
+                        pressed.pushPeopleBelow();
+                        pressed.squeezeExpandoBelow();
+                        await wait(0);
+                        this.expand();
+                    }
+                    this.owner = pressed;
+                    this.setGridColumn(pressed);
+                    this.setHtml(pressed);
                 }
-                console.groupEnd();
             }
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
