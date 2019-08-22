@@ -471,7 +471,7 @@ div#home person div.role {
   padding-bottom: 5px;
   text-transform: capitalize;
 }
-div#home div.person-expando {
+div#home div#person_expando {
   border-width: 1px;
   border-color: var(--GREY02);
   border-style: solid;
@@ -488,7 +488,7 @@ div#home div.person-expando {
   transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), color 300ms cubic-bezier(1, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0);
   width: calc(255px - 2 * var(--expandoPadding));
 }
-div#home div.person-expando div.close {
+div#home div#person_expando div.close {
   background-color: #f3685e;
   border-radius: 100px;
   cursor: pointer;
@@ -500,30 +500,30 @@ div#home div.person-expando div.close {
   transition: opacity 0.5s cubic-bezier(0, -1, 0.6, 0.2), background 100ms;
   width: calc(var(--GAP) / 4);
 }
-div#home div.person-expando div.close:hover {
+div#home div#person_expando div.close:hover {
   background-color: #DB4337;
 }
-div#home div.person-expando a {
+div#home div#person_expando a {
   color: white;
   transition: color 300ms cubic-bezier(1, 0, 1, 0);
 }
-div#home div.person-expando.collapsed {
+div#home div#person_expando.collapsed {
   padding: 0;
 }
-div#home div.person-expando.expanded {
+div#home div#person_expando.expanded {
   border-color: white;
   box-shadow: 0px 2px 10px var(--GREY3);
   color: var(--GREY7);
   height: 270px;
   width: calc(255px * 2);
 }
-div#home div.person-expando.expanded div.email {
+div#home div#person_expando.expanded div.email {
   margin-top: calc(var(--GAP) / 6);
 }
-div#home div.person-expando.expanded div.email a {
+div#home div#person_expando.expanded div.email a {
   color: var(--GOOGLEBLUE);
 }
-div#home div.person-expando.expanded div.close {
+div#home div#person_expando.expanded div.close {
   opacity: 1;
 }
 

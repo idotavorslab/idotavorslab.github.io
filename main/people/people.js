@@ -1,157 +1,192 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
-        class Expando extends Div {
-            constructor() {
-                super({ cls: 'person-expando' });
-                this.isExpanded = false;
-                this.owner = null;
-                this.cacheAppend({
-                    close: div({ cls: 'close' }).pointerdown(() => this.owner.collapseExpando()),
-                    cv: div({ cls: 'cv' }),
-                    email: div({ cls: 'email' })
-                });
-            }
+        let ROWSIZE;
+        if (window.innerWidth >= BP0) {
+            ROWSIZE = 4;
+        }
+        else {
+            console.warn('people.ts. init BP1 no code, defaulting ROWSIZE 4');
+            ROWSIZE = 4;
         }
         class Person extends BetterHTMLElement {
-            constructor(image, name, role, cv, email, arr) {
+            constructor(image, name, role, cv, email) {
                 super({ tag: 'person' });
-                this._cv = cv;
-                this._email = email;
-                this._arr = arr;
-                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => this._toggleExpando(event));
+                this.cv = cv;
+                this.email = email;
+                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => expando.toggle(event, this));
             }
-            async _toggleExpando(event) {
-                console.group('_toggleExpando');
-                event.cancelBubble = true;
-                if (expando.isExpanded) {
-                    if (expando.owner === this) {
-                        this.collapseExpando();
-                    }
-                    else {
-                    }
-                }
-                else {
-                    await this._expandExpando();
-                }
-                console.groupEnd();
+            focus() {
+                console.log(`focusing: ${this.email}`);
+                return this.removeClass('unfocused');
             }
-            _setExpandoGridColumn() {
-                let expandoGridColumn;
-                switch (this._indexInRow) {
-                    case 0:
-                        expandoGridColumn = '1/3';
-                        break;
-                    case 1:
-                        expandoGridColumn = '2/4';
-                        break;
-                    case 2:
-                        expandoGridColumn = '3/5';
-                        break;
-                    case 3:
-                        expandoGridColumn = '3/5';
-                        break;
-                }
-                expando.css({ gridColumn: expandoGridColumn });
+            unfocus() {
+                console.log(`UNfocusing: ${this.email}`);
+                return this.addClass('unfocused');
             }
-            _setExpandoHtml() {
-                expando.cv.html(this._cv);
-                expando.email.html(`Email: <a href="mailto:${this._email}">${this._email}</a>`);
+            indexInRow() {
+                return this.index % ROWSIZE;
             }
-            collapseExpando() {
-                expando.removeClass('expanded').addClass('collapsed');
-                this._toggleOthersFocus();
-                this._pullbackPeopleBelow();
-                expando.remove().empty();
-                expando.owner = null;
-                expando.isExpanded = false;
+            row() {
+                return int(this.index / ROWSIZE);
             }
-            async _expandExpando() {
-                if (window.innerWidth >= BP0) {
-                    if (this._index === undefined) {
-                        this._index = this._arr.indexOf(this);
-                        this._row = int(this._index / 4);
-                        this._indexInRow = this._index % 4;
-                    }
-                    if (this._row >= 1)
-                        this.e.scrollIntoView({ behavior: 'smooth' });
-                    if (!expando.isExpanded) {
-                        this._pushPeopleBelow();
-                        this._toggleOthersFocus();
-                    }
-                    else {
-                        this.toggleClass('unfocused', false);
-                    }
-                    this._setExpandoGridColumn();
-                    this._setExpandoHtml();
-                    let rightmostPersonIndex = Math.min(3 + (this._row % 4) * 4, this._arr.length - 1);
-                    this._arr[rightmostPersonIndex].after(expando);
-                    await wait(0);
-                    if (!expando.isExpanded) {
-                        expando.removeClass('collapsed').addClass('expanded');
-                        expando.owner = this;
-                        expando.isExpanded = true;
-                    }
-                }
-                else if (window.innerWidth >= BP1) {
-                    console.warn('people.ts. person pointerdown BP1 no code');
-                }
-            }
-            *_yieldIndexesBelow() {
-                for (let i = this._row + 1; i <= this._arr.length / 4; i++) {
-                    for (let j = 0; j < 4 && i * 4 + j < this._arr.length; j++) {
+            *yieldIndexesBelow() {
+                for (let i = this.row() + 1; i <= this.group.length / ROWSIZE; i++) {
+                    for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.group.length; j++) {
                         yield [i, j];
                     }
                 }
             }
-            _pushPeopleBelow() {
-                for (let [i, j] of this._yieldIndexesBelow()) {
-                    this._arr[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
+            pushPeopleBelow() {
+                for (let [i, j] of this.yieldIndexesBelow()) {
+                    this.group[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
                 }
             }
-            _pullbackPeopleBelow() {
-                for (let [i, j] of this._yieldIndexesBelow()) {
-                    this._arr[i * 4 + j].uncss("gridRow");
+            pullbackPeopleBelow() {
+                for (let [i, j] of this.yieldIndexesBelow()) {
+                    this.group[i * 4 + j].uncss("gridRow");
                 }
             }
-            _toggleOthersFocus() {
-                for (let p of this._arr) {
-                    p.toggleClass('unfocused', p !== this);
+            squeezeExpandoBelow() {
+                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + this.row() * ROWSIZE, this.group.length - 1);
+                this.group[rightmostPersonIndex].after(expando);
+            }
+        }
+        class People extends Array {
+            constructor() {
+                super();
+                this._push = super.push;
+            }
+            push(person) {
+                let length = this._push(person);
+                let index = length - 1;
+                person.index = index;
+                person.group = this;
+                return index;
+            }
+            static unfocusOthers(person) {
+                for (let p of [...team, ...alumni]) {
+                    if (p !== person) {
+                        p.unfocus();
+                    }
+                }
+            }
+            static focusOthers(person) {
+                for (let p of [...team, ...alumni]) {
+                    if (p !== person) {
+                        p.focus();
+                    }
+                }
+            }
+            *yieldIndexesBelow(person) {
+                for (let i = person.row() + 1; i <= this.length / ROWSIZE; i++) {
+                    for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
+                        yield [i, j];
+                    }
                 }
             }
         }
-        __decorate([
-            log()
-        ], Person.prototype, "collapseExpando", null);
-        __decorate([
-            log()
-        ], Person.prototype, "_expandExpando", null);
-        __decorate([
-            log()
-        ], Person.prototype, "_toggleOthersFocus", null);
+        class Expando extends Div {
+            constructor() {
+                super({ id: 'person_expando' });
+                this.owner = null;
+                this.append(div({ cls: 'close' }).pointerdown(() => this.close()))
+                    .cacheAppend({
+                    cv: div({ cls: 'cv' }),
+                    email: div({ cls: 'email' })
+                });
+            }
+            async toggle(event, pressed) {
+                if (this.owner === null) {
+                    People.unfocusOthers(pressed);
+                    await this.pushAfterAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                    return;
+                }
+                if (this.owner === pressed) {
+                    this.close();
+                    return;
+                }
+                this.owner.unfocus();
+                pressed.focus();
+                if (this.owner.group === pressed.group) {
+                    if (this.owner.row() !== pressed.row()) {
+                        this.collapse();
+                        await this.pushAfterAndExpand(pressed);
+                    }
+                    this.ownPopulateAndPosition(pressed);
+                }
+                else {
+                    this.collapse();
+                    await this.pushAfterAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                }
+            }
+            async pushAfterAndExpand(pressed) {
+                pressed.pushPeopleBelow();
+                pressed.squeezeExpandoBelow();
+                await wait(0);
+                this.expand();
+            }
+            ownPopulateAndPosition(pressed) {
+                this.owner = pressed;
+                this.setHtml();
+                this.setGridColumn();
+            }
+            collapse() {
+                this.removeClass('expanded').addClass('collapsed').remove();
+                this.owner.pullbackPeopleBelow();
+            }
+            expand() {
+                this.removeClass('collapsed').addClass('expanded');
+            }
+            close() {
+                this.collapse();
+                People.focusOthers(this.owner);
+                this.owner = null;
+            }
+            setGridColumn() {
+                let gridColumn;
+                switch (this.owner.indexInRow()) {
+                    case 0:
+                        gridColumn = '1/3';
+                        break;
+                    case 1:
+                        gridColumn = '2/4';
+                        break;
+                    case 2:
+                    case 3:
+                        gridColumn = '3/5';
+                        break;
+                }
+                this.css({ gridColumn });
+            }
+            setHtml() {
+                this.cv.html(this.owner.cv);
+                this.email.html(`Email: <a href="mailto:${this.owner.email}">${this.owner.email}</a>`);
+            }
+        }
         const data = await fetchJson('main/people/people.json', "no-cache");
         console.log('people data', data);
         const expando = new Expando();
-        const { team, alumni } = data;
-        function gridFactory(gridData, id) {
-            const arr = [];
+        const { team: teamData, alumni: alumniData } = data;
+        const team = new People();
+        const alumni = new People();
+        function gridFactory(gridData, gridId, people) {
+            let index = 0;
             for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
-                let person = new Person(image, name, role, cv, email, arr);
-                arr.push(person);
+                let person = new Person(image, name, role, cv, email);
+                people.push(person);
+                index++;
             }
-            const grid = div({ id }).append(...arr);
+            const grid = div({ id: gridId }).append(...people);
             return grid;
         }
-        const teamGrid = gridFactory(team, 'team_grid');
-        const alumniGrid = gridFactory(alumni, 'alumni_grid');
+        const teamGrid = gridFactory(teamData, 'team_grid', team);
+        const alumniGrid = gridFactory(alumniData, 'alumni_grid', alumni);
         Home.empty().append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
     }
     return { init };
 };
+PeoplePage().init();
 //# sourceMappingURL=people.js.map
