@@ -42,6 +42,15 @@ const PeoplePage = () => {
                     this.group[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
                 }
             }
+            pullbackPeopleBelow() {
+                for (let [i, j] of this.yieldIndexesBelow()) {
+                    this.group[i * 4 + j].uncss("gridRow");
+                }
+            }
+            squeezeExpandoBelow() {
+                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + this.row() * ROWSIZE, this.group.length - 1);
+                this.group[rightmostPersonIndex].after(expando);
+            }
         }
         class People extends Array {
             constructor() {
@@ -76,20 +85,6 @@ const PeoplePage = () => {
                     }
                 }
             }
-            pushPeopleBelow(person) {
-                for (let [i, j] of this.yieldIndexesBelow(person)) {
-                    this[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
-                }
-            }
-            pullbackPeopleBelow(person) {
-                for (let [i, j] of this.yieldIndexesBelow(person)) {
-                    this[i * 4 + j].uncss("gridRow");
-                }
-            }
-            squeezeExpandoBelow(person) {
-                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + person.row() * ROWSIZE, this.length - 1);
-                this[rightmostPersonIndex].after(expando);
-            }
         }
         class Expando extends Div {
             constructor() {
@@ -110,7 +105,7 @@ const PeoplePage = () => {
                     pressed.pushPeopleBelow();
                     this.setGridColumn(this.owner);
                     this.setHtml(this.owner);
-                    pressed.group.squeezeExpandoBelow(pressed);
+                    pressed.squeezeExpandoBelow();
                     await wait(0);
                     this.expand();
                 }
@@ -120,7 +115,7 @@ const PeoplePage = () => {
                         console.log(`this.owner (${this.owner.email}) === pressed (${pressed.email}), collapsing`);
                         People.focusOthers(this.owner);
                         this.collapse();
-                        this.owner.group.pullbackPeopleBelow(this.owner);
+                        this.owner.pullbackPeopleBelow();
                         this.owner = null;
                     }
                     else {
@@ -135,9 +130,9 @@ const PeoplePage = () => {
                             else {
                                 console.log('different row');
                                 this.collapse();
-                                this.owner.group.pullbackPeopleBelow(this.owner);
+                                this.owner.pullbackPeopleBelow();
                                 pressed.pushPeopleBelow();
-                                pressed.group.squeezeExpandoBelow(pressed);
+                                pressed.squeezeExpandoBelow();
                                 await wait(0);
                                 this.removeClass('collapsed').addClass('expanded');
                             }
@@ -145,9 +140,9 @@ const PeoplePage = () => {
                         else {
                             console.log('different group');
                             this.collapse();
-                            this.owner.group.pullbackPeopleBelow(this.owner);
+                            this.owner.pullbackPeopleBelow();
                             pressed.pushPeopleBelow();
-                            pressed.group.squeezeExpandoBelow(pressed);
+                            pressed.squeezeExpandoBelow();
                             await wait(0);
                             this.removeClass('collapsed').addClass('expanded');
                         }
@@ -166,7 +161,7 @@ const PeoplePage = () => {
             }
             close() {
                 this.collapse();
-                this.owner.group.pullbackPeopleBelow(this.owner);
+                this.owner.pullbackPeopleBelow();
                 People.focusOthers(this.owner);
                 this.owner = null;
             }
