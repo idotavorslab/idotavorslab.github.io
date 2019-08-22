@@ -9,6 +9,40 @@ const PeoplePage = () => {
             console.warn('people.ts. init BP1 no code, defaulting ROWSIZE 4');
             ROWSIZE = 4;
         }
+        class Person extends BetterHTMLElement {
+            constructor(image, name, role, cv, email) {
+                super({ tag: 'person' });
+                this.cv = cv;
+                this.email = email;
+                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => expando.toggle(event, this));
+            }
+            focus() {
+                console.log(`focusing: ${this.email}`);
+                return this.removeClass('unfocused');
+            }
+            unfocus() {
+                console.log(`UNfocusing: ${this.email}`);
+                return this.addClass('unfocused');
+            }
+            indexInRow() {
+                return this.index % ROWSIZE;
+            }
+            row() {
+                return int(this.index / ROWSIZE);
+            }
+            *yieldIndexesBelow() {
+                for (let i = this.row() + 1; i <= this.group.length / ROWSIZE; i++) {
+                    for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.group.length; j++) {
+                        yield [i, j];
+                    }
+                }
+            }
+            pushPeopleBelow() {
+                for (let [i, j] of this.yieldIndexesBelow()) {
+                    this.group[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
+                }
+            }
+        }
         class People extends Array {
             constructor() {
                 super();
@@ -53,7 +87,7 @@ const PeoplePage = () => {
                 }
             }
             squeezeExpandoBelow(person) {
-                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + (person.row() % ROWSIZE) * ROWSIZE, this.length - 1);
+                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + person.row() * ROWSIZE, this.length - 1);
                 this[rightmostPersonIndex].after(expando);
             }
         }
@@ -61,8 +95,8 @@ const PeoplePage = () => {
             constructor() {
                 super({ id: 'person_expando' });
                 this.owner = null;
-                this.cacheAppend({
-                    close: div({ cls: 'close' }).pointerdown(() => this.collapse()),
+                this.append(div({ cls: 'close' }).pointerdown(() => this.close()))
+                    .cacheAppend({
                     cv: div({ cls: 'cv' }),
                     email: div({ cls: 'email' })
                 });
@@ -73,19 +107,19 @@ const PeoplePage = () => {
                     console.log('this.owner === null, expanding');
                     People.unfocusOthers(pressed);
                     this.owner = pressed;
-                    this.owner.group.pushPeopleBelow(this.owner);
+                    pressed.group.pushPeopleBelow(pressed);
                     this.setGridColumn(this.owner);
                     this.setHtml(this.owner);
-                    this.owner.group.squeezeExpandoBelow(this.owner);
+                    pressed.group.squeezeExpandoBelow(pressed);
                     await wait(0);
-                    this.removeClass('collapsed').addClass('expanded');
+                    this.expand();
                 }
                 else {
                     console.log('this.owner !== null');
                     if (this.owner === pressed) {
                         console.log(`this.owner (${this.owner.email}) === pressed (${pressed.email}), collapsing`);
                         People.focusOthers(this.owner);
-                        this.removeClass('expanded').addClass('collapsed').remove();
+                        this.collapse();
                         this.owner.group.pullbackPeopleBelow(this.owner);
                         this.owner = null;
                     }
@@ -100,17 +134,17 @@ const PeoplePage = () => {
                             }
                             else {
                                 console.log('different row');
-                                this.removeClass('expanded').addClass('collapsed').remove();
+                                this.collapse();
                                 this.owner.group.pullbackPeopleBelow(this.owner);
-                                this.owner.group.pushPeopleBelow(pressed);
-                                this.owner.group.squeezeExpandoBelow(pressed);
+                                pressed.group.pushPeopleBelow(pressed);
+                                pressed.group.squeezeExpandoBelow(pressed);
                                 await wait(0);
                                 this.removeClass('collapsed').addClass('expanded');
                             }
                         }
                         else {
                             console.log('different group');
-                            this.removeClass('expanded').addClass('collapsed').remove();
+                            this.collapse();
                             this.owner.group.pullbackPeopleBelow(this.owner);
                             pressed.group.pushPeopleBelow(pressed);
                             pressed.group.squeezeExpandoBelow(pressed);
@@ -126,6 +160,12 @@ const PeoplePage = () => {
             }
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
+            }
+            expand() {
+                this.removeClass('collapsed').addClass('expanded');
+            }
+            close() {
+                this.collapse();
                 this.owner.group.pullbackPeopleBelow(this.owner);
                 People.focusOthers(this.owner);
                 this.owner = null;
@@ -149,28 +189,6 @@ const PeoplePage = () => {
             setHtml(person) {
                 this.cv.html(person.cv);
                 this.email.html(`Email: <a href="mailto:${person.email}">${person.email}</a>`);
-            }
-        }
-        class Person extends BetterHTMLElement {
-            constructor(image, name, role, cv, email) {
-                super({ tag: 'person' });
-                this.cv = cv;
-                this.email = email;
-                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => expando.toggle(event, this));
-            }
-            focus() {
-                console.log(`focusing: ${this.email}`);
-                return this.removeClass('unfocused');
-            }
-            unfocus() {
-                console.log(`UNfocusing: ${this.email}`);
-                return this.addClass('unfocused');
-            }
-            indexInRow() {
-                return this.index % ROWSIZE;
-            }
-            row() {
-                return int(this.index / ROWSIZE);
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");
