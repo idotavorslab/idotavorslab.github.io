@@ -112,14 +112,12 @@ const PeoplePage = () => {
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) {
                         this.collapse();
-                        this.owner.pullbackPeopleBelow();
                         await this.pushSqueezeAndExpand(pressed);
                     }
                     this.ownPopulateAndPosition(pressed);
                 }
                 else {
                     this.collapse();
-                    this.owner.pullbackPeopleBelow();
                     await this.pushSqueezeAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                 }
@@ -132,13 +130,13 @@ const PeoplePage = () => {
             }
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
+                this.owner.pullbackPeopleBelow();
             }
             expand() {
                 this.removeClass('collapsed').addClass('expanded');
             }
             close() {
                 this.collapse();
-                this.owner.pullbackPeopleBelow();
                 People.focusOthers(this.owner);
                 this.owner = null;
             }

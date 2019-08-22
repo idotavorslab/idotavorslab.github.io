@@ -173,13 +173,11 @@ const PeoplePage = () => {
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) { // *  Same group, different row
                         this.collapse();
-                        this.owner.pullbackPeopleBelow();
                         await this.pushSqueezeAndExpand(pressed);
                     }
                     this.ownPopulateAndPosition(pressed);
                 } else { // *  Different group
                     this.collapse();
-                    this.owner.pullbackPeopleBelow();
                     await this.pushSqueezeAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                 }
@@ -196,6 +194,7 @@ const PeoplePage = () => {
             
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
+                this.owner.pullbackPeopleBelow();
             }
             
             expand() {
@@ -204,7 +203,6 @@ const PeoplePage = () => {
             
             close() {
                 this.collapse();
-                this.owner.pullbackPeopleBelow();
                 People.focusOthers(this.owner);
                 this.owner = null;
             }
