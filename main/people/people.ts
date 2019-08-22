@@ -154,42 +154,48 @@ const PeoplePage = () => {
             
             
             async toggle(event: Event, pressed: Person) {
+                if (this.owner === null) {
+                    // *  Expand
+                    People.unfocusOthers(pressed);
+                    await this.pushSqueezeAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                    return;
+                }
                 if (this.owner === pressed) {
                     // *  Close
                     this.close();
                     return;
                     
                 }
-                if (this.owner === null) {
-                    // *  Expand
-                    People.unfocusOthers(pressed);
-                    await this.open(pressed);
-                    return;
-                }
-                
                 // **  Transform
                 this.owner.unfocus();
                 pressed.focus();
-                this.collapse();
-                await this.open(pressed);
+                if (this.owner.group === pressed.group) {
+                    if (this.owner.row() !== pressed.row()) { // *  Same group, different row
+                        this.collapse();
+                        this.owner.pullbackPeopleBelow();
+                        await this.pushSqueezeAndExpand(pressed);
+                    }
+                    this.ownPopulateAndPosition(pressed);
+                } else { // *  Different group
+                    this.collapse();
+                    this.owner.pullbackPeopleBelow();
+                    await this.pushSqueezeAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                }
                 
                 
             }
             
-            async open(pressed: Person) {
+            async pushSqueezeAndExpand(pressed: Person) {
                 pressed.pushPeopleBelow();
                 pressed.squeezeExpandoBelow();
                 await wait(0);
                 this.expand();
-                this.owner = pressed;
-                this.setGridColumn();
-                this.setHtml();
             }
-            
             
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
-                this.owner.pullbackPeopleBelow();
             }
             
             expand() {
@@ -197,15 +203,21 @@ const PeoplePage = () => {
             }
             
             close() {
-                People.focusOthers(this.owner);
                 this.collapse();
+                this.owner.pullbackPeopleBelow();
+                People.focusOthers(this.owner);
                 this.owner = null;
             }
             
+            ownPopulateAndPosition(pressed: Person) {
+                this.owner = pressed;
+                this.setGridColumn(pressed);
+                this.setHtml(pressed);
+            }
             
-            setGridColumn() {
+            setGridColumn(person: Person) {
                 let gridColumn;
-                switch (this.owner.indexInRow()) {
+                switch (person.indexInRow()) {
                     case 0:
                         gridColumn = '1/3';
                         break;
@@ -220,9 +232,9 @@ const PeoplePage = () => {
                 this.css({gridColumn})
             }
             
-            setHtml() {
-                this.cv.html(this.owner.cv);
-                this.email.html(`Email: <a href="mailto:${this.owner.email}">${this.owner.email}</a>`);
+            setHtml(person: Person) {
+                this.cv.html(person.cv);
+                this.email.html(`Email: <a href="mailto:${person.email}">${person.email}</a>`);
             }
             
             

@@ -97,44 +97,59 @@ const PeoplePage = () => {
                 });
             }
             async toggle(event, pressed) {
+                if (this.owner === null) {
+                    People.unfocusOthers(pressed);
+                    await this.pushSqueezeAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                    return;
+                }
                 if (this.owner === pressed) {
                     this.close();
                     return;
                 }
-                if (this.owner === null) {
-                    People.unfocusOthers(pressed);
-                    await this.open(pressed);
-                    return;
-                }
                 this.owner.unfocus();
                 pressed.focus();
-                this.collapse();
-                await this.open(pressed);
+                if (this.owner.group === pressed.group) {
+                    if (this.owner.row() !== pressed.row()) {
+                        this.collapse();
+                        this.owner.pullbackPeopleBelow();
+                        await this.pushSqueezeAndExpand(pressed);
+                    }
+                    this.ownPopulateAndPosition(pressed);
+                }
+                else {
+                    this.collapse();
+                    this.owner.pullbackPeopleBelow();
+                    await this.pushSqueezeAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                }
             }
-            async open(pressed) {
+            async pushSqueezeAndExpand(pressed) {
                 pressed.pushPeopleBelow();
                 pressed.squeezeExpandoBelow();
                 await wait(0);
                 this.expand();
-                this.owner = pressed;
-                this.setGridColumn();
-                this.setHtml();
             }
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
-                this.owner.pullbackPeopleBelow();
             }
             expand() {
                 this.removeClass('collapsed').addClass('expanded');
             }
             close() {
-                People.focusOthers(this.owner);
                 this.collapse();
+                this.owner.pullbackPeopleBelow();
+                People.focusOthers(this.owner);
                 this.owner = null;
             }
-            setGridColumn() {
+            ownPopulateAndPosition(pressed) {
+                this.owner = pressed;
+                this.setGridColumn(pressed);
+                this.setHtml(pressed);
+            }
+            setGridColumn(person) {
                 let gridColumn;
-                switch (this.owner.indexInRow()) {
+                switch (person.indexInRow()) {
                     case 0:
                         gridColumn = '1/3';
                         break;
@@ -148,9 +163,9 @@ const PeoplePage = () => {
                 }
                 this.css({ gridColumn });
             }
-            setHtml() {
-                this.cv.html(this.owner.cv);
-                this.email.html(`Email: <a href="mailto:${this.owner.email}">${this.owner.email}</a>`);
+            setHtml(person) {
+                this.cv.html(person.cv);
+                this.email.html(`Email: <a href="mailto:${person.email}">${person.email}</a>`);
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");
