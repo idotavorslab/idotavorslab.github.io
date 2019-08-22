@@ -80,6 +80,7 @@ div#main div#navbar {
   font-size: 20px;
   margin: auto auto 40px auto;
   display: flex;
+  height: 80px;
 }
 div#main div#navbar > div, div#main div#navbar img {
   cursor: pointer;
