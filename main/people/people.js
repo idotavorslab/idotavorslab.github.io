@@ -103,9 +103,7 @@ const PeoplePage = () => {
                     pressed.squeezeExpandoBelow();
                     await wait(0);
                     this.expand();
-                    this.owner = pressed;
-                    this.setGridColumn(pressed);
-                    this.setHtml(pressed);
+                    this.ownPopulateAndPosition(pressed);
                     return;
                 }
                 if (this.owner === pressed) {
@@ -122,6 +120,10 @@ const PeoplePage = () => {
                             pressed.squeezeExpandoBelow();
                             await wait(0);
                             this.expand();
+                            this.ownPopulateAndPosition(pressed);
+                        }
+                        else {
+                            this.ownPopulateAndPosition(pressed);
                         }
                     }
                     else {
@@ -131,10 +133,8 @@ const PeoplePage = () => {
                         pressed.squeezeExpandoBelow();
                         await wait(0);
                         this.expand();
+                        this.ownPopulateAndPosition(pressed);
                     }
-                    this.owner = pressed;
-                    this.setGridColumn(pressed);
-                    this.setHtml(pressed);
                 }
             }
             collapse() {
@@ -148,6 +148,11 @@ const PeoplePage = () => {
                 this.owner.pullbackPeopleBelow();
                 People.focusOthers(this.owner);
                 this.owner = null;
+            }
+            ownPopulateAndPosition(pressed) {
+                this.owner = pressed;
+                this.setGridColumn(pressed);
+                this.setHtml(pressed);
             }
             setGridColumn(person) {
                 let gridColumn;
