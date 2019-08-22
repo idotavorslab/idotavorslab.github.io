@@ -155,48 +155,43 @@ const PeoplePage = () => {
             
             async toggle(event: Event, pressed: Person) {
                 if (this.owner === null) {
-                    // **  Expand
+                    // *  Expand
                     People.unfocusOthers(pressed);
-                    pressed.pushPeopleBelow();
-                    pressed.squeezeExpandoBelow();
-                    await wait(0);
-                    this.expand();
+                    await this.pushSqueezeAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                     return;
                 }
                 if (this.owner === pressed) {
-                    // **  Collapse
+                    // *  Close
                     this.close();
-                    
-                } else {
-                    // **  Transform
-                    this.owner.unfocus();
-                    pressed.focus();
-                    if (this.owner.group === pressed.group) {
-                        if (this.owner.row() !== pressed.row()) { // *  Same group, different row
-                            this.collapse();
-                            this.owner.pullbackPeopleBelow();
-                            pressed.pushPeopleBelow();
-                            pressed.squeezeExpandoBelow();
-                            await wait(0);
-                            this.expand();
-                            this.ownPopulateAndPosition(pressed);
-                        } else {
-                            this.ownPopulateAndPosition(pressed);
-                        }
-                    } else { // *  Different group
-                        this.collapse();
-                        this.owner.pullbackPeopleBelow();
-                        pressed.pushPeopleBelow();
-                        pressed.squeezeExpandoBelow();
-                        await wait(0);
-                        this.expand();
-                        this.ownPopulateAndPosition(pressed);
-                    }
-                    
+                    return;
                     
                 }
+                // **  Transform
+                this.owner.unfocus();
+                pressed.focus();
+                if (this.owner.group === pressed.group) {
+                    if (this.owner.row() !== pressed.row()) { // *  Same group, different row
+                        this.collapse();
+                        this.owner.pullbackPeopleBelow();
+                        await this.pushSqueezeAndExpand(pressed);
+                    }
+                    this.ownPopulateAndPosition(pressed);
+                } else { // *  Different group
+                    this.collapse();
+                    this.owner.pullbackPeopleBelow();
+                    await this.pushSqueezeAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                }
                 
+                
+            }
+            
+            async pushSqueezeAndExpand(pressed: Person) {
+                pressed.pushPeopleBelow();
+                pressed.squeezeExpandoBelow();
+                await wait(0);
+                this.expand();
             }
             
             collapse() {

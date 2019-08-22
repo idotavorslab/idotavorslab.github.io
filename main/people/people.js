@@ -99,43 +99,36 @@ const PeoplePage = () => {
             async toggle(event, pressed) {
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
-                    pressed.pushPeopleBelow();
-                    pressed.squeezeExpandoBelow();
-                    await wait(0);
-                    this.expand();
+                    await this.pushSqueezeAndExpand(pressed);
                     this.ownPopulateAndPosition(pressed);
                     return;
                 }
                 if (this.owner === pressed) {
                     this.close();
+                    return;
                 }
-                else {
-                    this.owner.unfocus();
-                    pressed.focus();
-                    if (this.owner.group === pressed.group) {
-                        if (this.owner.row() !== pressed.row()) {
-                            this.collapse();
-                            this.owner.pullbackPeopleBelow();
-                            pressed.pushPeopleBelow();
-                            pressed.squeezeExpandoBelow();
-                            await wait(0);
-                            this.expand();
-                            this.ownPopulateAndPosition(pressed);
-                        }
-                        else {
-                            this.ownPopulateAndPosition(pressed);
-                        }
-                    }
-                    else {
+                this.owner.unfocus();
+                pressed.focus();
+                if (this.owner.group === pressed.group) {
+                    if (this.owner.row() !== pressed.row()) {
                         this.collapse();
                         this.owner.pullbackPeopleBelow();
-                        pressed.pushPeopleBelow();
-                        pressed.squeezeExpandoBelow();
-                        await wait(0);
-                        this.expand();
-                        this.ownPopulateAndPosition(pressed);
+                        await this.pushSqueezeAndExpand(pressed);
                     }
+                    this.ownPopulateAndPosition(pressed);
                 }
+                else {
+                    this.collapse();
+                    this.owner.pullbackPeopleBelow();
+                    await this.pushSqueezeAndExpand(pressed);
+                    this.ownPopulateAndPosition(pressed);
+                }
+            }
+            async pushSqueezeAndExpand(pressed) {
+                pressed.pushPeopleBelow();
+                pressed.squeezeExpandoBelow();
+                await wait(0);
+                this.expand();
             }
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
