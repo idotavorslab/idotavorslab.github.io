@@ -171,8 +171,6 @@ const PeoplePage = () => {
                 this.owner.unfocus();
                 pressed.focus();
                 this.collapse();
-                
-                
                 await this.open(pressed);
                 
                 
@@ -184,8 +182,8 @@ const PeoplePage = () => {
                 await wait(0);
                 this.expand();
                 this.owner = pressed;
-                this.setGridColumn(pressed);
-                this.setHtml(pressed);
+                this.setGridColumn();
+                this.setHtml();
             }
             
             
@@ -205,9 +203,9 @@ const PeoplePage = () => {
             }
             
             
-            setGridColumn(person: Person) {
+            setGridColumn() {
                 let gridColumn;
-                switch (person.indexInRow()) {
+                switch (this.owner.indexInRow()) {
                     case 0:
                         gridColumn = '1/3';
                         break;
@@ -222,9 +220,9 @@ const PeoplePage = () => {
                 this.css({gridColumn})
             }
             
-            setHtml(person: Person) {
-                this.cv.html(person.cv);
-                this.email.html(`Email: <a href="mailto:${person.email}">${person.email}</a>`);
+            setHtml() {
+                this.cv.html(this.owner.cv);
+                this.email.html(`Email: <a href="mailto:${this.owner.email}">${this.owner.email}</a>`);
             }
             
             
