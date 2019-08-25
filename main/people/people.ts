@@ -110,6 +110,7 @@ const PeoplePage = () => {
             }
             
             
+            /*
             * yieldIndexesBelow(person: Person): IterableIterator<[number, number]> {
                 for (let i = person.row() + 1; i <= this.length / ROWSIZE; i++) {
                     for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
@@ -118,7 +119,7 @@ const PeoplePage = () => {
                 }
             }
             
-            /*pushPeopleBelow(person: Person): void {
+            pushPeopleBelow(person: Person): void {
                 for (let [i, j] of this.yieldIndexesBelow(person)) {
                     this[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
                 }
@@ -148,10 +149,7 @@ const PeoplePage = () => {
                 this.append(
                     elem({tag: 'svg'})
                         .id('svg_root')
-                        .attr({
-                            viewBox: '0 0 15 15',
-                            
-                        })
+                        .attr({viewBox: '0 0 15 15'})
                         .append(
                             elem({tag: 'path', cls: 'upright'}),
                             elem({tag: 'path', cls: 'downleft'})

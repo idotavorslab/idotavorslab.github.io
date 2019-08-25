@@ -78,13 +78,6 @@ const PeoplePage = () => {
                     }
                 }
             }
-            *yieldIndexesBelow(person) {
-                for (let i = person.row() + 1; i <= this.length / ROWSIZE; i++) {
-                    for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
-                        yield [i, j];
-                    }
-                }
-            }
         }
         class Expando extends Div {
             constructor() {
@@ -92,9 +85,7 @@ const PeoplePage = () => {
                 this.owner = null;
                 this.append(elem({ tag: 'svg' })
                     .id('svg_root')
-                    .attr({
-                    viewBox: '0 0 15 15',
-                })
+                    .attr({ viewBox: '0 0 15 15' })
                     .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
                     .pointerdown(() => this.close()))
                     .cacheAppend({
