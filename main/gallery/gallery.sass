@@ -52,21 +52,22 @@ div#img_viewer_container
         opacity: 1
 
     div.right, div.left
-        font-family: monospace
-        color: white
-        font-size: 120px
+        //@include fourWayTextShadow(1px, 1px, 1px, var(--GREY7))
+        //font-family: monospace
+        //color: white
+        //font-size: 120px
         margin: auto 0px
+        width: 60px
         z-index: 5
+        filter: invert(1) drop-shadow(2px 4px 6px black)
 
         &.right
             margin-left: auto
-            margin-right: 20px
+            margin-right: 0px
 
         &.left
-            margin-left: 20px
-
-    //width: 196px
-    //height: 600px
+            //margin-left: 20px
+            transform: rotate(180deg)
 
 
     div.img-viewer
