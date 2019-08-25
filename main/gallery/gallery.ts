@@ -5,7 +5,7 @@ const GalleryPage = () => {
         console.log('GalleryPage init');
         const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 185.343 185.343">
-    <path style="fill:#010002;"
+    <path style="fill:#000;"
 		  d="M 51.707,185.343
     c -2.741,0-5.493-1.044-7.593-3.149
     c -4.194-4.194-4.194-10.981,0-15.175
@@ -21,26 +21,30 @@ const GalleryPage = () => {
 </svg>
 `;
         
-        const gotoAdjImg = (event: Event) => {
+        const gotoAdjImg = async ({currentTarget}) => {
             let selectedIndex = files.indexOf(selectedFile);
-            console.log('index of selected file: ', selectedIndex);
-            if (event.currentTarget.id === 'left_chevron') {
+            if (currentTarget.id === 'left_chevron') {
                 if (selectedIndex === 0)
                     selectedIndex = files.length - 1;
                 else
                     selectedIndex -= 1;
+                
+                imgViewerContainer.left.css({transform: 'translateX(-4px)'});
+                await wait(25);
+                imgViewerContainer.left.uncss("transform");
+                
             } else { // right
                 if (selectedIndex === files.length - 1)
                     selectedIndex = 0;
                 else
                     selectedIndex += 1;
+                
+                imgViewerContainer.right.css({transform: 'translateX(4px)'});
+                await wait(25);
+                imgViewerContainer.right.uncss("transform");
             }
             
-            
-            console.log('selected index AFTER:', selectedIndex);
             selectedFile = files[selectedIndex];
-            
-            
             imgViewerContainer.img.attr({src: `main/gallery/${selectedFile}`});
         };
         const imgViewerContainer: ImgViewerContainer = <ImgViewerContainer>div({id: 'img_viewer_container'})

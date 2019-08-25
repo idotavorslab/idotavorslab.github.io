@@ -4,7 +4,7 @@ images
     position: absolute
 
     &[class="theater"]
-        filter: brightness(0.25) blur(1px) sepia(1) saturate(0.8)
+        filter: brightness(0.20) blur(1px) sepia(1)
 
     &:not([class="theater"])
         div.img-container
@@ -33,52 +33,46 @@ images
                 transition: opacity 100ms
 
 div#img_viewer_container
-    //background:
-        repeat: no-repeat
-        size: contain
+    --containerWidth: 800px
 
     display: flex
-    height: 600px
-    margin: auto 198px
+    left: 50%
+    // -1 x ((800 / 2) + 60) == -460px
+    margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--GAP)))
     opacity: 0
-    position: relative
+    position: fixed
     transition: opacity 200ms
-    //width: 800px
-    width: auto
+    // 800 + 60 x 2 == 920px
+    width: calc(var(--containerWidth) + 2 * var(--GAP))
     z-index: -1
 
     &.on
-        z-index: 5
         opacity: 1
+        z-index: 5
 
     div#right_chevron, div#left_chevron
-        //@include fourWayTextShadow(1px, 1px, 1px, var(--GREY7))
-        //font-family: monospace
-        //color: white
-        //font-size: 120px
         cursor: pointer
         filter: invert(1) drop-shadow(2px 4px 6px black)
-        margin: auto 0px
-        width: 60px
+        margin: auto
+        opacity: 0.8
+        transition: opacity 100ms
+        width: var(--GAP)
         z-index: 5
 
-        &[class="right"]
-            margin-left: auto
-            margin-right: -80px
+        &:hover
+            opacity: 1
+
+
+        //&[class="right"]
+            margin: auto
 
         &[class="left"]
-            margin-left: -80px
-            transform: rotate(180deg)
+            //margin: auto 0
+
+            svg
+                transform: rotate(180deg)
 
 
     img
-        position: absolute
-        border: 2px solid black
-        //background:
-            repeat: no-repeat
-            size: contain
-            color: var(--GREY7)
         height: 600px
-        //width: 800px
-        //margin: auto
 

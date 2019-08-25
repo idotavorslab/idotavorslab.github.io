@@ -12,6 +12,7 @@
   --GREY5: rgb(153, 153, 153);
   --GREY6: rgb(136, 136, 136);
   --GREY7: rgb(68, 68, 68);
+  --GREY8: rgb(40, 40, 40);
   --TRANS: rgba(0, 0, 0, 0);
 }
 
@@ -52,7 +53,7 @@ body {
   color: var(--GREY7);
 }
 body.theater {
-  background-color: var(--GREY7);
+  background-color: var(--GREY8);
 }
 
 a {
@@ -711,7 +712,7 @@ images img:nth-of-type(4n+1) {
   }
 }
 images[class=theater] {
-  filter: brightness(0.25) blur(1px) sepia(1) saturate(0.8);
+  filter: brightness(0.2) blur(1px) sepia(1);
 }
 images:not([class=theater]) div.img-container:hover img {
   opacity: 0.5;
@@ -722,37 +723,36 @@ images:not([class=theater]) div.img-container img {
 }
 
 div#img_viewer_container {
+  --containerWidth: 800px;
   display: flex;
-  height: 600px;
-  margin: auto 198px;
+  left: 50%;
+  margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--GAP)));
   opacity: 0;
-  position: relative;
+  position: fixed;
   transition: opacity 200ms;
-  width: auto;
+  width: calc(var(--containerWidth) + 2 * var(--GAP));
   z-index: -1;
 }
 div#img_viewer_container.on {
-  z-index: 5;
   opacity: 1;
+  z-index: 5;
 }
 div#img_viewer_container div#right_chevron, div#img_viewer_container div#left_chevron {
   cursor: pointer;
   filter: invert(1) drop-shadow(2px 4px 6px black);
-  margin: auto 0px;
-  width: 60px;
+  margin: auto;
+  opacity: 0.8;
+  transition: opacity 100ms;
+  width: var(--GAP);
   z-index: 5;
 }
-div#img_viewer_container div#right_chevron[class=right], div#img_viewer_container div#left_chevron[class=right] {
-  margin-left: auto;
-  margin-right: -80px;
+div#img_viewer_container div#right_chevron:hover, div#img_viewer_container div#left_chevron:hover {
+  opacity: 1;
 }
-div#img_viewer_container div#right_chevron[class=left], div#img_viewer_container div#left_chevron[class=left] {
-  margin-left: -80px;
+div#img_viewer_container div#right_chevron[class=left] svg, div#img_viewer_container div#left_chevron[class=left] svg {
   transform: rotate(180deg);
 }
 div#img_viewer_container img {
-  position: absolute;
-  border: 2px solid black;
   height: 600px;
 }
 
