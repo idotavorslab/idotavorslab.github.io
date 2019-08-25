@@ -91,7 +91,7 @@ const PeoplePage = () => {
                 super({ id: 'person_expando' });
                 this.owner = null;
                 this.append(elem({ tag: 'svg' })
-                    .id('SVGRoot')
+                    .id('svg_root')
                     .attr({
                     viewBox: '0 0 15 15',
                 })

@@ -92,8 +92,10 @@ div#home
         // 255 - 30*2  =  195px
         width: calc(255px - 2 * var(--expandoPadding))
 
-        svg#SVGRoot
+        svg#svg_root
+            // 15px
             --dim: calc(var(--GAP) / 4)
+            cursor: pointer
             display: block
             margin-left: auto
             margin-right: calc(var(--dim) * -1)
@@ -101,11 +103,16 @@ div#home
             position: relative
             width: var(--dim)
 
+            &:hover
+                path
+                    stroke-width: 1.1px
+
 
             path
                 fill: none
                 stroke-width: 1px
                 stroke: var(--GREY6)
+
 
                 &.upright
                     d: path("m 14 1 l -13 13")
@@ -113,8 +120,7 @@ div#home
                 &.downleft
                     d: path("m 1 1 l 13 13")
 
-        div.close
-            //background-color: #db4437
+        //div.close
             background-color: #f3685e
             border-radius: 100px
             cursor: pointer
