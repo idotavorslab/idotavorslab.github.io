@@ -1,14 +1,19 @@
 const GalleryPage = () => {
     async function init() {
         console.log('GalleryPage init');
-        const imgViewer = div({ id: 'img_viewer' });
+        const imgViewerContainer = div({ id: 'img_viewer_container' })
+            .cacheAppend({
+            imgViewer: div({ cls: 'img-viewer' }),
+        });
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         console.log('GalleryPage data', data);
         const divs = [];
         for (let { description, file } of data) {
             let divElem = div({ cls: 'img-container' }).append(img({ src: `main/gallery/${file}` }));
             divElem.pointerdown(() => {
-                imgViewer.css({ backgroundImage: `url('main/gallery/${file}')` }).toggleClass('on', true);
+                imgViewerContainer
+                    .toggleClass('on', true)
+                    .imgViewer.css({ backgroundImage: `url('main/gallery/${file}')` });
                 Body.toggleClass('theater', true);
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
@@ -16,7 +21,7 @@ const GalleryPage = () => {
             divs.push(divElem);
         }
         const images = elem({ tag: 'images' }).append(...divs);
-        Home.empty().append(images, imgViewer);
+        Home.empty().append(images, imgViewerContainer);
     }
     return { init };
 };
