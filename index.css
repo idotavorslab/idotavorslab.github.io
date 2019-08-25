@@ -742,7 +742,7 @@ div#img_viewer_container div#right_chevron, div#img_viewer_container div#left_ch
   filter: invert(1) drop-shadow(2px 4px 6px black);
   margin: auto;
   opacity: 0.8;
-  transition: opacity 100ms;
+  transition: opacity 100ms, transform 25ms;
   width: var(--GAP);
   z-index: 5;
 }

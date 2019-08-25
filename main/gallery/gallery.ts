@@ -44,9 +44,10 @@ const GalleryPage = () => {
                 side = "right";
                 
             }
+            imgViewerContainer[side].on({
+                transitionend: () => imgViewerContainer[side].css({transform: `translateX(0)`})
+            }, {once: true});
             imgViewerContainer[side].css({transform: `translateX(${side === "left" ? "-" : ""}4px)`});
-            await wait(25);
-            imgViewerContainer[side].uncss("transform");
             selectedFile = files[selectedIndex];
             imgViewerContainer.img.attr({src: `main/gallery/${selectedFile}`});
         };
