@@ -22,6 +22,7 @@ const GalleryPage = () => {
             let selectedIndex = files.indexOf(selectedFile);
             let side;
             if (currentTarget.id === 'left_chevron') {
+                console.log('left chevron pointerdown');
                 if (selectedIndex === 0)
                     selectedIndex = files.length - 1;
                 else
@@ -29,6 +30,7 @@ const GalleryPage = () => {
                 side = "left";
             }
             else {
+                console.log('right chevron pointerdown');
                 if (selectedIndex === files.length - 1)
                     selectedIndex = 0;
                 else
@@ -41,31 +43,59 @@ const GalleryPage = () => {
             selectedFile = files[selectedIndex];
             imgViewerContainer.img.attr({ src: `main/gallery/${selectedFile}` });
         };
+        function closeImgViewer() {
+            Body.toggleClass('theater', false);
+            images.toggleClass('theater', false);
+            navbar.css({ opacity: 1 });
+            imgViewerContainer
+                .toggleClass('on', false);
+            imgViewerContainer.isopen = false;
+        }
         const imgViewerContainer = div({ id: 'img_viewer_container' })
             .cacheAppend({
             left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).pointerdown(gotoAdjImg),
             img: img({}),
             right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).pointerdown(gotoAdjImg)
+        }).pointerdown((event) => {
+            console.log('imgViewerContainer pointerdown, stopping propagation');
+            event.stopPropagation();
         });
+        imgViewerContainer.isopen = false;
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
         const divs = [];
         let selectedFile = null;
         for (let { description, file } of data) {
-            let imgContainer = div({ cls: 'img-container' }).append(img({ src: `main/gallery/${file}` }));
-            imgContainer.pointerdown(() => {
+            let imgContainer = div({ cls: 'img-container' })
+                .append(img({ src: `main/gallery/${file}` })).pointerdown((event) => {
+                console.log('imgContainer pointerdown, isopen (before):', imgViewerContainer.isopen);
+                event.stopPropagation();
+                if (imgViewerContainer.isopen)
+                    return closeImgViewer();
                 selectedFile = file;
                 imgViewerContainer
                     .toggleClass('on', true)
                     .img.attr({ src: `main/gallery/${selectedFile}` });
+                imgViewerContainer.isopen = true;
                 Body.toggleClass('theater', true);
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
             });
             divs.push(imgContainer);
         }
-        const images = elem({ tag: 'images' }).append(...divs);
+        const images = elem({ tag: 'images' })
+            .append(...divs)
+            .pointerdown((event) => {
+            console.log('images pointerdown, stopping propagation');
+            event.stopPropagation();
+        });
+        elem({ htmlElement: document }).pointerdown(() => {
+            if (!imgViewerContainer.isopen)
+                return;
+            console.log('document pointerdown, closeImgViewer()');
+            closeImgViewer();
+        });
         Home.empty().append(images, imgViewerContainer);
     }
     return { init };
