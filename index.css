@@ -51,6 +51,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--GREY7);
 }
+body.theater {
+  background-color: var(--GREY7);
+}
 
 a {
   text-decoration: none;
@@ -707,15 +710,13 @@ images img:nth-of-type(4n+1) {
     border-top: 1px solid var(--GREY3);
   }
 }
-images div.img-container {
-  margin-top: -3px;
-  margin-bottom: -3px;
-  margin-right: -1px;
+images[class=theater] {
+  filter: brightness(0.25) blur(1px) sepia(1) saturate(0.8);
 }
-images div.img-container:hover img {
+images:not([class=theater]) div.img-container:hover img {
   opacity: 0.5;
 }
-images div.img-container img {
+images:not([class=theater]) div.img-container img {
   cursor: pointer;
   transition: opacity 100ms;
 }
@@ -726,10 +727,16 @@ div#img_viewer {
   border: 2px solid black;
   display: block;
   height: 600px;
-  margin: 0 auto 0 auto;
+  margin: auto;
+  opacity: 0;
   position: relative;
+  transition: opacity 200ms;
   width: 800px;
+  z-index: -1;
+}
+div#img_viewer.on {
   z-index: 5;
+  opacity: 1;
 }
 
 /*# sourceMappingURL=index.css.map */

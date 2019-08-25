@@ -8,7 +8,10 @@ const GalleryPage = () => {
         for (let { description, file } of data) {
             let divElem = div({ cls: 'img-container' }).append(img({ src: `main/gallery/${file}` }));
             divElem.pointerdown(() => {
-                imgViewer.css({ backgroundImage: `url('main/gallery/${file}')` });
+                imgViewer.css({ backgroundImage: `url('main/gallery/${file}')` }).toggleClass('on', true);
+                Body.toggleClass('theater', true);
+                images.toggleClass('theater', true);
+                navbar.css({ opacity: 0 });
             });
             divs.push(divElem);
         }
