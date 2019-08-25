@@ -488,20 +488,29 @@ div#home div#person_expando {
   transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), color 300ms cubic-bezier(1, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0);
   width: calc(255px - 2 * var(--expandoPadding));
 }
-div#home div#person_expando div.close {
-  background-color: #f3685e;
-  border-radius: 100px;
+div#home div#person_expando svg#svg_root {
+  --dim: calc(var(--GAP) / 4);
   cursor: pointer;
-  height: calc(var(--GAP) / 4);
+  display: block;
   margin-left: auto;
-  margin-top: -20px;
-  margin-right: -20px;
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0, -1, 0.6, 0.2), background 100ms;
-  width: calc(var(--GAP) / 4);
+  margin-right: calc(var(--dim) * -1);
+  margin-top: calc(var(--dim) * -1);
+  position: relative;
+  width: var(--dim);
 }
-div#home div#person_expando div.close:hover {
-  background-color: #DB4337;
+div#home div#person_expando svg#svg_root:hover path {
+  stroke-width: 1.1px;
+}
+div#home div#person_expando svg#svg_root path {
+  fill: none;
+  stroke-width: 1px;
+  stroke: var(--GREY6);
+}
+div#home div#person_expando svg#svg_root path.upright {
+  d: path("m 14 1 l -13 13");
+}
+div#home div#person_expando svg#svg_root path.downleft {
+  d: path("m 1 1 l 13 13");
 }
 div#home div#person_expando a {
   color: white;

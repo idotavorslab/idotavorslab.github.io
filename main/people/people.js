@@ -78,19 +78,16 @@ const PeoplePage = () => {
                     }
                 }
             }
-            *yieldIndexesBelow(person) {
-                for (let i = person.row() + 1; i <= this.length / ROWSIZE; i++) {
-                    for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
-                        yield [i, j];
-                    }
-                }
-            }
         }
         class Expando extends Div {
             constructor() {
                 super({ id: 'person_expando' });
                 this.owner = null;
-                this.append(div({ cls: 'close' }).pointerdown(() => this.close()))
+                this.append(elem({ tag: 'svg' })
+                    .id('svg_root')
+                    .attr({ viewBox: '0 0 15 15' })
+                    .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
+                    .pointerdown(() => this.close()))
                     .cacheAppend({
                     cv: div({ cls: 'cv' }),
                     email: div({ cls: 'email' })
@@ -188,5 +185,4 @@ const PeoplePage = () => {
     }
     return { init };
 };
-PeoplePage().init();
 //# sourceMappingURL=people.js.map
