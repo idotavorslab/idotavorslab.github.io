@@ -489,17 +489,18 @@ div#home div#person_expando {
   width: calc(255px - 2 * var(--expandoPadding));
 }
 div#home div#person_expando svg#SVGRoot {
+  --dim: calc(var(--GAP) / 4);
   display: block;
   margin-left: auto;
-  margin-right: -15px;
-  margin-top: -15px;
+  margin-right: calc(var(--dim) * -1);
+  margin-top: calc(var(--dim) * -1);
   position: relative;
-  width: 15px;
+  width: var(--dim);
 }
 div#home div#person_expando svg#SVGRoot path {
   fill: none;
   stroke-width: 1px;
-  stroke: #888;
+  stroke: var(--GREY6);
 }
 div#home div#person_expando svg#SVGRoot path.upright {
   d: path("m 14 1 l -13 13");

@@ -93,18 +93,19 @@ div#home
         width: calc(255px - 2 * var(--expandoPadding))
 
         svg#SVGRoot
+            --dim: calc(var(--GAP) / 4)
             display: block
             margin-left: auto
-            margin-right: -15px
-            margin-top: -15px
+            margin-right: calc(var(--dim) * -1)
+            margin-top: calc(var(--dim) * -1)
             position: relative
-            width: 15px
+            width: var(--dim)
 
 
             path
                 fill: none
                 stroke-width: 1px
-                stroke: #888
+                stroke: var(--GREY6)
 
                 &.upright
                     d: path("m 14 1 l -13 13")
