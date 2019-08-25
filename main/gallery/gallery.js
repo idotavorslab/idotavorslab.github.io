@@ -18,26 +18,48 @@ const GalleryPage = () => {
 
 </svg>
 `;
+        const gotoAdjImg = (event) => {
+            let selectedIndex = files.indexOf(selectedFile);
+            console.log('index of selected file: ', selectedIndex);
+            if (event.currentTarget.id === 'left_chevron') {
+                if (selectedIndex === 0)
+                    selectedIndex = files.length - 1;
+                else
+                    selectedIndex -= 1;
+            }
+            else {
+                if (selectedIndex === files.length - 1)
+                    selectedIndex = 0;
+                else
+                    selectedIndex += 1;
+            }
+            console.log('selected index AFTER:', selectedIndex);
+            selectedFile = files[selectedIndex];
+            imgViewerContainer.img.attr({ src: `main/gallery/${selectedFile}` });
+        };
         const imgViewerContainer = div({ id: 'img_viewer_container' })
             .cacheAppend({
-            left: div({ cls: 'left' }).html(chevronSvg),
-            imgViewer: div({ cls: 'img-viewer' }),
-            right: div({ cls: 'right' }).html(chevronSvg)
+            left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).pointerdown(gotoAdjImg),
+            img: img({}),
+            right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).pointerdown(gotoAdjImg)
         });
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
+        const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
         const divs = [];
+        let selectedFile = null;
         for (let { description, file } of data) {
-            let divElem = div({ cls: 'img-container' }).append(img({ src: `main/gallery/${file}` }));
-            divElem.pointerdown(() => {
+            let imgContainer = div({ cls: 'img-container' }).append(img({ src: `main/gallery/${file}` }));
+            imgContainer.pointerdown(() => {
+                selectedFile = file;
                 imgViewerContainer
                     .toggleClass('on', true)
-                    .imgViewer.css({ backgroundImage: `url('main/gallery/${file}')` });
+                    .img.attr({ src: `main/gallery/${selectedFile}` });
                 Body.toggleClass('theater', true);
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
             });
-            divs.push(divElem);
+            divs.push(imgContainer);
         }
         const images = elem({ tag: 'images' }).append(...divs);
         Home.empty().append(images, imgViewerContainer);

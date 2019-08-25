@@ -735,27 +735,25 @@ div#img_viewer_container.on {
   z-index: 5;
   opacity: 1;
 }
-div#img_viewer_container div.right, div#img_viewer_container div.left {
+div#img_viewer_container div#right_chevron, div#img_viewer_container div#left_chevron {
+  cursor: pointer;
+  filter: invert(1) drop-shadow(2px 4px 6px black);
   margin: auto 0px;
   width: 60px;
   z-index: 5;
-  filter: invert(1) drop-shadow(2px 4px 6px black);
 }
-div#img_viewer_container div.right.right, div#img_viewer_container div.left.right {
+div#img_viewer_container div#right_chevron[class=right], div#img_viewer_container div#left_chevron[class=right] {
   margin-left: auto;
-  margin-right: 0px;
+  margin-right: -80px;
 }
-div#img_viewer_container div.right.left, div#img_viewer_container div.left.left {
+div#img_viewer_container div#right_chevron[class=left], div#img_viewer_container div#left_chevron[class=left] {
+  margin-left: -80px;
   transform: rotate(180deg);
 }
-div#img_viewer_container div.img-viewer {
+div#img_viewer_container img {
   position: absolute;
   border: 2px solid black;
-  background-repeat: no-repeat;
-  background-size: contain;
   height: 600px;
-  width: 800px;
-  margin: auto;
 }
 
 /*# sourceMappingURL=index.css.map */

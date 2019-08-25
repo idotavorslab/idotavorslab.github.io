@@ -51,32 +51,34 @@ div#img_viewer_container
         z-index: 5
         opacity: 1
 
-    div.right, div.left
+    div#right_chevron, div#left_chevron
         //@include fourWayTextShadow(1px, 1px, 1px, var(--GREY7))
         //font-family: monospace
         //color: white
         //font-size: 120px
+        cursor: pointer
+        filter: invert(1) drop-shadow(2px 4px 6px black)
         margin: auto 0px
         width: 60px
         z-index: 5
-        filter: invert(1) drop-shadow(2px 4px 6px black)
 
-        &.right
+        &[class="right"]
             margin-left: auto
-            margin-right: 0px
+            margin-right: -80px
 
-        &.left
-            //margin-left: 20px
+        &[class="left"]
+            margin-left: -80px
             transform: rotate(180deg)
 
 
-    div.img-viewer
+    img
         position: absolute
         border: 2px solid black
-        background:
+        //background:
             repeat: no-repeat
             size: contain
+            color: var(--GREY7)
         height: 600px
-        width: 800px
-        margin: auto
+        //width: 800px
+        //margin: auto
 
