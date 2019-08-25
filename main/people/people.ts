@@ -291,4 +291,4 @@ const PeoplePage = () => {
     
     return {init}
 };
-PeoplePage().init();
+// PeoplePage().init();
