@@ -101,12 +101,7 @@ const GalleryPage = () => {
         }
         
         const images = elem({tag: 'images'})
-            .append(...divs)
-            .pointerdown((event: Event) => {
-                // dont trigger document.pointerdown;
-                console.log('images pointerdown, stopping propagation');
-                event.stopPropagation();
-            });
+            .append(...divs);
         
         elem({htmlElement: document}).pointerdown(() => {
             if (!imgViewerContainer.isopen)
@@ -121,4 +116,4 @@ const GalleryPage = () => {
     return {init}
 };
 
-GalleryPage().init();
+// GalleryPage().init();
