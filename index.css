@@ -488,6 +488,25 @@ div#home div#person_expando {
   transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), color 300ms cubic-bezier(1, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0);
   width: calc(255px - 2 * var(--expandoPadding));
 }
+div#home div#person_expando svg#SVGRoot {
+  display: block;
+  margin-left: auto;
+  margin-right: -15px;
+  margin-top: -15px;
+  position: relative;
+  width: 15px;
+}
+div#home div#person_expando svg#SVGRoot path {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #888;
+}
+div#home div#person_expando svg#SVGRoot path.upright {
+  d: path("m 14 1 l -13 13");
+}
+div#home div#person_expando svg#SVGRoot path.downleft {
+  d: path("m 1 1 l 13 13");
+}
 div#home div#person_expando div.close {
   background-color: #f3685e;
   border-radius: 100px;

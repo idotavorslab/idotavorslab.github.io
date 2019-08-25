@@ -90,7 +90,13 @@ const PeoplePage = () => {
             constructor() {
                 super({ id: 'person_expando' });
                 this.owner = null;
-                this.append(div({ cls: 'close' }).pointerdown(() => this.close()))
+                this.append(elem({ tag: 'svg' })
+                    .id('SVGRoot')
+                    .attr({
+                    viewBox: '0 0 15 15',
+                })
+                    .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
+                    .pointerdown(() => this.close()))
                     .cacheAppend({
                     cv: div({ cls: 'cv' }),
                     email: div({ cls: 'email' })
