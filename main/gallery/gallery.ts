@@ -14,7 +14,7 @@ const GalleryPage = () => {
         const divs: BetterHTMLElement[] = [];
         for (let {description, file} of data) {
             let divElem = div({cls: 'img-container'}).append(
-                div({cls: 'tooltip', text: description}),
+                // div({cls: 'tooltip', text: description}),
                 img({src: `main/gallery/${file}`})
             );
             divElem.pointerdown(() => {
@@ -25,10 +25,10 @@ const GalleryPage = () => {
         }
         
         const imgContainer = elem({tag: 'images'}).append(...divs);
-        Home.empty().addClass('squeezed').append(imgContainer)
+        Home.empty().append(imgContainer)
     }
     
     return {init}
 };
 
-// GalleryPage().init();
+GalleryPage().init();
