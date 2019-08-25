@@ -1,5 +1,6 @@
 images
     @include flexContainerMixin(img, true)
+    position: absolute
 
     div.img-container
         margin:
@@ -31,5 +32,14 @@ images
             cursor: pointer
             transition: opacity 100ms
 
-.img-viewer
-    position: absolute
+div#img_viewer
+    background:
+        repeat: no-repeat
+        size: contain
+    border: 2px solid black
+    display: block
+    height: 600px
+    margin: 0 auto 0 auto
+    position: relative
+    width: 800px
+    z-index: 5

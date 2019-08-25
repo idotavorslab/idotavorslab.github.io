@@ -332,7 +332,10 @@ div#home div.title {
 div#home div#team_grid {
   display: grid;
   --tagWidth: 255px;
-  margin: 0 auto var(--GAP) auto;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: var(--GAP);
+  margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);
   grid-row-gap: var(--GAP);
@@ -389,7 +392,10 @@ div#home div#team_grid person:nth-of-type(4n+1) {
 div#home div#alumni_grid {
   display: grid;
   --tagWidth: 255px;
-  margin: 0 auto var(--GAP) auto;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: var(--GAP);
+  margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);
   grid-row-gap: var(--GAP);
@@ -652,11 +658,15 @@ paper div.content-div div.mag:hover {
 images {
   display: grid;
   --tagWidth: 294px;
-  margin: 0 auto var(--GAP) auto;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);
   grid-row-gap: 8px;
   grid-column-gap: 8px;
+  position: absolute;
 }
 images img {
   margin: auto;
@@ -710,8 +720,16 @@ images div.img-container img {
   transition: opacity 100ms;
 }
 
-.img-viewer {
-  position: absolute;
+div#img_viewer {
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 2px solid black;
+  display: block;
+  height: 600px;
+  margin: 0 auto 0 auto;
+  position: relative;
+  width: 800px;
+  z-index: 5;
 }
 
 /*# sourceMappingURL=index.css.map */

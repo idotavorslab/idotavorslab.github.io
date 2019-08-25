@@ -31,7 +31,15 @@
         // (1200 - 4 * 255) / 3  =  (1200 - 1020) / 3  =  180 / 3  =  60  ==  --GAP
         --tagWidth: 255px
 
-    margin: 0 auto var(--GAP) auto
+    margin:
+        top: 0
+        right: auto
+        @if ($tight == true)
+            bottom: auto
+        @else
+            bottom: var(--GAP)
+        left: auto
+
     grid:
         template:
             columns: repeat(4, var(--tagWidth))
