@@ -85,11 +85,7 @@ const GalleryPage = () => {
             divs.push(imgContainer);
         }
         const images = elem({ tag: 'images' })
-            .append(...divs)
-            .pointerdown((event) => {
-            console.log('images pointerdown, stopping propagation');
-            event.stopPropagation();
-        });
+            .append(...divs);
         elem({ htmlElement: document }).pointerdown(() => {
             if (!imgViewerContainer.isopen)
                 return;
@@ -100,5 +96,4 @@ const GalleryPage = () => {
     }
     return { init };
 };
-GalleryPage().init();
 //# sourceMappingURL=gallery.js.map

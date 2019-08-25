@@ -12,7 +12,7 @@ MORKI:
     
     People:
         [x] Align pictures to left (no weird padding compared to title)
-        open the viewer beneath given person. viewer's width is 2 people wide. 
+        [x] open the viewer beneath given person. viewer's width is 2 people wide. 
             person is always on the left side of viewer. see morki structure example.jpg 
     
     Publications:
@@ -30,7 +30,7 @@ Home - structure like ron shamir's
 
 Gallery
     [ ] Sorted by year?
-    [ ] Going between photos like in mudriks
+    [x] Going between photos like in mudriks
     [ ] Meshes? sketchfab api or files?
     [ ] Tooltip?
     [ ] python script to popuplate json?
