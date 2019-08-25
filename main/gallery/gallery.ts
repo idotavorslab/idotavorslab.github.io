@@ -12,21 +12,9 @@ const GalleryPage = () => {
         // document.body.append(imgViewerContainer.e);
         const imgViewerContainer: ImgViewerContainer = <ImgViewerContainer>div({id: 'img_viewer_container'})
             .cacheAppend({
-                /*left: div({cls: 'left'}).append(elem({tag: 'svg'})
-                    .attr({viewBox: '0 0 196 600'})
-                    .append(
-                        elem({tag: 'path'}),
-                        elem({tag: 'path'})
-                    )),
-                */
+                left: div({cls: 'left', text: '<'}),
                 imgViewer: div({cls: 'img-viewer'}),
-                /*                right: div({cls: 'right'}).append(elem({tag: 'svg'})
-                                    .attr({viewBox: '0 0 196 600'})
-                                    .append(
-                                        elem({tag: 'path'}),
-                                        elem({tag: 'path'})
-                                    ))
-                */
+                right: div({cls: 'right',text:'>'})
             });
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         console.log('GalleryPage data', data);

@@ -3,7 +3,9 @@ const GalleryPage = () => {
         console.log('GalleryPage init');
         const imgViewerContainer = div({ id: 'img_viewer_container' })
             .cacheAppend({
+            left: div({ cls: 'left', text: '<' }),
             imgViewer: div({ cls: 'img-viewer' }),
+            right: div({ cls: 'right', text: '>' })
         });
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         console.log('GalleryPage data', data);
