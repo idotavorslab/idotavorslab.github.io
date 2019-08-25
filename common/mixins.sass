@@ -20,23 +20,38 @@
 
 @mixin flexContainerMixin($childTag, $tight:false)
     display: grid
-    // *  must be pic size
-    //     pic size must be 255 so gap is 60;  (W0 - 4 x tagWidth) : 3
-    //     DEP: people.sass .person_expando width
-    --tagWidth: 255px
-    // TODO: when in other media query, W1 (not W0) etc
-    // (1200 - 4 * 255) / 3  =  (1200 - 1020) / 3  =  180 / 3  =  60  ==  --GAP
-    //--gap: calc((var(--W0) - var(--tagWidth) * 4) / 3)
-    // *  must be pic size
-    margin: 0 auto var(--GAP) auto
+    @if ($tight == true)
+        // (1200 - 4 * 294) / 3  =  (1200 - 1176) / 3  =  180 / 3  =  8  ==  row/column-gap
+        --tagWidth: 294px
+    @else
+        // *  must be pic size
+        //     pic size must be 255 so gap is 60;  (W0 - 4 x tagWidth) : 3
+        //     DEP: people.sass #person_expando width
+        // TODO: when in other media query, W1 (not W0) etc
+        // (1200 - 4 * 255) / 3  =  (1200 - 1020) / 3  =  180 / 3  =  60  ==  --GAP
+        --tagWidth: 255px
+
+    margin:
+        top: 0
+        right: auto
+        @if ($tight == true)
+            bottom: auto
+        @else
+            bottom: var(--GAP)
+        left: auto
+
     grid:
         template:
-
             columns: repeat(4, var(--tagWidth))
             rows: repeat(2, auto)
-        // *  DEP: people.sass .person_expando margin-bottom
-        row-gap: var(--GAP)
-        column-gap: var(--GAP)
+
+        @if ($tight == true)
+            row-gap: 8px
+            column-gap: 8px
+        @else
+
+            row-gap: var(--GAP)
+            column-gap: var(--GAP)
 
     #{$childTag}
         margin: auto
@@ -58,7 +73,7 @@
             width: var(--tagWidth)
 
 
-    @if ($tight == true)
+    //@if ($tight == true)
         #{$childTag}
             margin: auto 0 0 0
             padding: 8px
@@ -73,7 +88,7 @@
     // 4 items
     @media screen and (min-width: $BP1)
 
-        @if ($tight == true)
+        //@if ($tight == true)
             #{$childTag}
                 // every 4th == last in row
                 &:nth-of-type(4n+4)
@@ -85,23 +100,23 @@
                         border-top: 1px solid var(--GREY3)
 
         // **  1535 <= screen
-        // 4 items across --W0 == 1140px
+        // 4 items across --W0
         @media screen and (min-width: $BP0)
 
 
-            #{$childTag}
-                @if ($tight == true)
-                    // [8][284][8] x 4 = 1192
-                    width: 282px
+        //#{$childTag}
+            @if ($tight == true)
+                // [8][284][8] x 4 = 1192
+                width: 282px
 
 
         // **  1340 <= screen <= 1535
-        // 4 tight items across --W0 == 1140px
+        // 4 tight items across --W0
         @media screen and (max-width: $BP0)
-            #{$childTag}
-                @if ($tight == true)
-                    // [8][242][8] = 258 * 4 = 1032
-                    width: 242px
+    //#{$childTag}
+        @if ($tight == true)
+            // [8][242][8] = 258 * 4 = 1032
+            width: 242px
 
 
     // ***  screen <= 1340

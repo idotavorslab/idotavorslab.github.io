@@ -12,6 +12,7 @@
   --GREY5: rgb(153, 153, 153);
   --GREY6: rgb(136, 136, 136);
   --GREY7: rgb(68, 68, 68);
+  --GREY8: rgb(40, 40, 40);
   --TRANS: rgba(0, 0, 0, 0);
 }
 
@@ -50,6 +51,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--GREY7);
+}
+body.theater {
+  background-color: var(--GREY8);
 }
 
 a {
@@ -332,7 +336,10 @@ div#home div.title {
 div#home div#team_grid {
   display: grid;
   --tagWidth: 255px;
-  margin: 0 auto var(--GAP) auto;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: var(--GAP);
+  margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);
   grid-row-gap: var(--GAP);
@@ -389,7 +396,10 @@ div#home div#team_grid person:nth-of-type(4n+1) {
 div#home div#alumni_grid {
   display: grid;
   --tagWidth: 255px;
-  margin: 0 auto var(--GAP) auto;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: var(--GAP);
+  margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);
   grid-row-gap: var(--GAP);
@@ -651,12 +661,16 @@ paper div.content-div div.mag:hover {
 
 images {
   display: grid;
-  --tagWidth: 255px;
-  margin: 0 auto var(--GAP) auto;
+  --tagWidth: 294px;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);
-  grid-row-gap: var(--GAP);
-  grid-column-gap: var(--GAP);
+  grid-row-gap: 8px;
+  grid-column-gap: 8px;
+  position: absolute;
 }
 images img {
   margin: auto;
@@ -675,42 +689,6 @@ images img:nth-of-type(4n+1) {
 @media screen and (min-width: 1340px) and (max-width: 1535px) {
   images img {
     width: var(--tagWidth);
-  }
-}
-images img {
-  margin: auto 0 0 0;
-  padding: 8px;
-  border-bottom: 1px solid var(--GREY3);
-  border-left: 1px solid var(--GREY3);
-}
-images img:last-of-type {
-  border-right: 1px solid var(--GREY3);
-}
-@media screen and (min-width: 1340px) {
-  images img:nth-of-type(4n+4) {
-    border-right: 1px solid var(--GREY3);
-  }
-  images img:nth-child(1) {
-    border-top: 1px solid var(--GREY3);
-  }
-  images img:nth-child(2) {
-    border-top: 1px solid var(--GREY3);
-  }
-  images img:nth-child(3) {
-    border-top: 1px solid var(--GREY3);
-  }
-  images img:nth-child(4) {
-    border-top: 1px solid var(--GREY3);
-  }
-}
-@media screen and (min-width: 1340px) and (min-width: 1535px) {
-  images img {
-    width: 282px;
-  }
-}
-@media screen and (min-width: 1340px) and (max-width: 1535px) {
-  images img {
-    width: 242px;
   }
 }
 @media screen and (max-width: 1340px) {
@@ -733,19 +711,49 @@ images img:last-of-type {
     border-top: 1px solid var(--GREY3);
   }
 }
-images div.img-container {
-  margin-top: -3px;
-  margin-bottom: -3px;
-  margin-right: -1px;
+images[class=theater] {
+  filter: brightness(0.2) blur(1px) sepia(1);
 }
-images div.img-container:hover img {
+images:not([class=theater]) div.img-container:hover img {
   opacity: 0.5;
 }
-images div.img-container img {
+images:not([class=theater]) div.img-container img {
   cursor: pointer;
   transition: opacity 100ms;
 }
 
-.img-viewer {
-  position: absolute;
+div#img_viewer_container {
+  --containerWidth: 800px;
+  display: flex;
+  left: 50%;
+  margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--GAP)));
+  opacity: 0;
+  position: fixed;
+  transition: opacity 200ms;
+  width: calc(var(--containerWidth) + 2 * var(--GAP));
+  z-index: -1;
 }
+div#img_viewer_container.on {
+  opacity: 1;
+  z-index: 5;
+}
+div#img_viewer_container div#right_chevron, div#img_viewer_container div#left_chevron {
+  cursor: pointer;
+  filter: invert(1) drop-shadow(2px 4px 6px black);
+  margin: auto;
+  opacity: 0.8;
+  transition: opacity 100ms;
+  width: var(--GAP);
+  z-index: 5;
+}
+div#img_viewer_container div#right_chevron:hover, div#img_viewer_container div#left_chevron:hover {
+  opacity: 1;
+}
+div#img_viewer_container div#right_chevron[class=left] svg, div#img_viewer_container div#left_chevron[class=left] svg {
+  transform: rotate(180deg);
+}
+div#img_viewer_container img {
+  height: 600px;
+}
+
+/*# sourceMappingURL=index.css.map */
