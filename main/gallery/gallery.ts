@@ -23,15 +23,15 @@ const GalleryPage = () => {
         
         const gotoAdjImg = async ({currentTarget}) => {
             let selectedIndex = files.indexOf(selectedFile);
+            let side;
             if (currentTarget.id === 'left_chevron') {
                 if (selectedIndex === 0)
                     selectedIndex = files.length - 1;
                 else
                     selectedIndex -= 1;
                 
-                imgViewerContainer.left.css({transform: 'translateX(-4px)'});
-                await wait(25);
-                imgViewerContainer.left.uncss("transform");
+                side = "left";
+                
                 
             } else { // right
                 if (selectedIndex === files.length - 1)
@@ -39,11 +39,12 @@ const GalleryPage = () => {
                 else
                     selectedIndex += 1;
                 
-                imgViewerContainer.right.css({transform: 'translateX(4px)'});
-                await wait(25);
-                imgViewerContainer.right.uncss("transform");
+                side = "right";
+                
             }
-            
+            imgViewerContainer[side].css({transform: `translateX(${side === "left" ? "-" : ""}4px)`});
+            await wait(25);
+            imgViewerContainer[side].uncss("transform");
             selectedFile = files[selectedIndex];
             imgViewerContainer.img.attr({src: `main/gallery/${selectedFile}`});
         };
