@@ -41,6 +41,7 @@ Publications
     [ ] Each year is expandable
     [x] Visual like Ron Shamirs with thumbnail http://acgt.cs.tau.ac.il/latest-years-publications/
     [ ] Selected Publications
+    [x] Each paper is a link, not sub elements
     
 Courses
     "pretty mobile-like", not a list. image, title, text, link. http://schonberglab.tau.ac.il/funding/
