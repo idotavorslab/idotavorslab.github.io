@@ -108,8 +108,7 @@ const GalleryPage = () => {
         const images = elem({tag: 'images'})
             .append(...divs);
         
-        // @ts-ignore
-        elem({htmlElement: document})
+        DocumentElem
             .pointerdown(() => {
                 if (!imgViewer.isopen)
                     return;
@@ -148,4 +147,4 @@ const GalleryPage = () => {
     return {init}
 };
 
-GalleryPage().init();
+// GalleryPage().init();

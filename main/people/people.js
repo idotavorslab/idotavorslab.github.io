@@ -14,14 +14,16 @@ const PeoplePage = () => {
                 super({ tag: 'person' });
                 this.cv = cv;
                 this.email = email;
-                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => expando.toggle(event, this));
+                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
+                    console.log('person pointerdown, stopping prop and toggling expando');
+                    event.stopPropagation();
+                    expando.toggle(this);
+                });
             }
             focus() {
-                console.log(`focusing: ${this.email}`);
                 return this.removeClass('unfocused');
             }
             unfocus() {
-                console.log(`UNfocusing: ${this.email}`);
                 return this.addClass('unfocused');
             }
             indexInRow() {
@@ -87,13 +89,17 @@ const PeoplePage = () => {
                     .id('svg_root')
                     .attr({ viewBox: '0 0 15 15' })
                     .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
-                    .pointerdown(() => this.close()))
+                    .pointerdown((event) => {
+                    console.log('svg pointerdown, stopping prop and closing');
+                    event.stopPropagation();
+                    this.close();
+                }))
                     .cacheAppend({
                     cv: div({ cls: 'cv' }),
                     email: div({ cls: 'email' })
                 });
             }
-            async toggle(event, pressed) {
+            async toggle(pressed) {
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
                     await this.pushAfterAndExpand(pressed);
@@ -182,7 +188,14 @@ const PeoplePage = () => {
         const teamGrid = gridFactory(teamData, 'team_grid', team);
         const alumniGrid = gridFactory(alumniData, 'alumni_grid', alumni);
         Home.empty().append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
+        DocumentElem
+            .pointerdown(() => {
+            console.log('DocumentElem pointerdown');
+            if (expando.owner !== null)
+                expando.close();
+        });
     }
     return { init };
 };
+PeoplePage().init();
 //# sourceMappingURL=people.js.map

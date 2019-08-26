@@ -91,7 +91,7 @@ const GalleryPage = () => {
         }
         const images = elem({ tag: 'images' })
             .append(...divs);
-        elem({ htmlElement: document })
+        DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)
                 return;
@@ -119,5 +119,4 @@ const GalleryPage = () => {
     }
     return { init };
 };
-GalleryPage().init();
 //# sourceMappingURL=gallery.js.map

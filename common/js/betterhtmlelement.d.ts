@@ -8,15 +8,6 @@ declare type TEventFunctionMap<K> = {
 };
 declare type HTMLTag = keyof HTMLElementTagNameMap;
 declare type QuerySelector = HTMLTag | string;
-declare type ElemOptions = {
-    tag?: QuerySelector;
-    id?: string;
-    text?: string;
-    htmlElement?: HTMLElement;
-    query?: QuerySelector;
-    children?: TMap<string>;
-    cls?: string;
-};
 declare type TSubElemOptions = {
     id?: string;
     text?: string;
@@ -417,6 +408,7 @@ interface AnimateOptions {
 declare class BetterHTMLElement {
     protected readonly _htmlElement: HTMLElement;
     private readonly _isSvg;
+    private readonly _listeners;
     
     /**Create an element of `tag`. Optionally, set its `text` and / or `cls`*/
     constructor({tag, text, cls}: {
@@ -611,6 +603,9 @@ declare class BetterHTMLElement {
     
     transform(options: TransformOptions): Promise<unknown>;
     
+    /** Remove the event listener of `event`, if exists.*/
+    off(event: TEvent): this;
+    
     /** For each `[attr, val]` pair, apply `setAttribute`*/
     attr(attrValPairs: TMap<string>): this;
     /** apply `getAttribute`*/
@@ -632,14 +627,14 @@ declare class BetterHTMLElement {
 declare class Div extends BetterHTMLElement {
     protected readonly _htmlElement: HTMLDivElement;
     
-    /**Create an Div element. Optionally set its id, text or cls.*/
+    /**Create a Div element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
 }
 
 declare class Span extends BetterHTMLElement {
     protected readonly _htmlElement: HTMLSpanElement;
     
-    /**Create an Span element. Optionally set its id, text or cls.*/
+    /**Create a Span element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
 }
 

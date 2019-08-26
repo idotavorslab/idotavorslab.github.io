@@ -508,9 +508,6 @@ div#home div#person_expando svg#svg_root {
   position: relative;
   width: var(--dim);
 }
-div#home div#person_expando svg#svg_root:hover path {
-  stroke-width: 1.1px;
-}
 div#home div#person_expando svg#svg_root path {
   fill: none;
   stroke-width: 1px;
