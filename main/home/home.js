@@ -10,17 +10,10 @@ const HomePage = () => {
     const newsChildren = newsElem.children().map(c => c.e);
     class NewsData {
         constructor() {
+            this._userPressed = false;
             this.data = [];
             this._selected = undefined;
-            setInterval(() => {
-                let targetIndex = this._selected.index + 1;
-                let targetItem = this.data[targetIndex];
-                if (targetItem === undefined) {
-                    targetIndex -= this.data.length;
-                    targetItem = this.data[targetIndex];
-                }
-                this.switchTo(targetItem);
-            }, 10000);
+            this.startAutoSwitch();
             return new Proxy(this, {
                 get(target, prop, receiver) {
                     if (prop in target) {
@@ -38,6 +31,8 @@ const HomePage = () => {
         push(item) {
             this.data.push(item);
             item.radio.pointerdown(async () => {
+                this._userPressed = true;
+                this.stopAutoSwitch();
                 await this.switchTo(item);
             });
         }
@@ -53,8 +48,26 @@ const HomePage = () => {
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
         }
+        startAutoSwitch() {
+            if (this._userPressed)
+                return;
+            this._interval = setInterval(() => {
+                let targetIndex = this._selected.index + 1;
+                let targetItem = this.data[targetIndex];
+                if (targetItem === undefined) {
+                    targetIndex -= this.data.length;
+                    targetItem = this.data[targetIndex];
+                }
+                this.switchTo(targetItem);
+            }, 10000);
+        }
+        stopAutoSwitch() {
+            clearInterval(this._interval);
+        }
     }
     async function init() {
+        newsElem.mouseover(() => newsData.stopAutoSwitch());
+        newsElem.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
         const newsData = new NewsData();
         let i = 0;
@@ -70,4 +83,5 @@ const HomePage = () => {
     }
     return { init };
 };
+HomePage().init();
 //# sourceMappingURL=home.js.map

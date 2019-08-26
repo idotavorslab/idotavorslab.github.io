@@ -30,7 +30,10 @@ class Navbar extends BetterHTMLElement {
     }
     
     private async _gotoPage(pageName: "research" | "people" | "publications" | "gallery" | "contact") {
-        DocumentElem.off("pointerdown");
+        // DocumentElem.off("pointerdown");
+        console.log('navbar.ts.Navbar._gotoPage');
+        DocumentElem.allOff();
+        
         _startSeparatorAnimation();
         const pageObj = this._pageNameObjMap[pageName];
         this._select(this[pageName]);

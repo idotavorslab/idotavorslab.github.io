@@ -1,52 +1,58 @@
+@mixin selectedMixin($paddingTop)
+	$borderWidth: 1px
+	margin-bottom: $paddingTop - 22 - $borderWidth
+	border-bottom:
+		color: rgba(218, 165, 32, 1)
+		width: $borderWidth
+		style: solid
+
 div#navbar
-    $fontSize: 20px
-    $imgWidth: 80px
-    font-size: $fontSize
-    margin: auto auto 40px auto
-    display: flex
-    height: 80px
+	$fontSize: 20px
+	$imgWidth: 80px
+	font-size: $fontSize
+	margin: auto auto 40px auto
+	display: flex
+	height: 80px
 
-    & > div, img
-        cursor: pointer
+	& > div, img
+		cursor: pointer
 
-    & > div, img.home
-        $marginRight: $fontSize * 2
-        margin:
-            top: 0
-            right: $marginRight
-            left: 0
-            bottom: auto
+	& > div, img.home
+		$marginRight: $fontSize * 2
+		margin:
+			top: 0
+			right: $marginRight
+			left: 0
+			bottom: auto
 
-    // doctor.svg
-    & > img.home
-        width: $imgWidth
+	// doctor.svg
+	& > img.home
+		width: $imgWidth
 
-    // tau logo
-    & > img.tau
-        height: $imgWidth
+	// tau logo
+	& > img.tau
+		height: $imgWidth
 
-    div:nth-last-child(2)
-        margin-right: auto
+	div:nth-last-child(2)
+		margin-right: auto
 
-    & > div
-        $paddingTop: $imgWidth / 2 - $fontSize / 2
-        padding: $paddingTop 0 0 0
-        transition: color 200ms ease-out, border-bottom-color 200ms ease-out
-        display: block
-
-        &:hover
-            color: var(--GREY6)
+	& > div
+		$paddingTop: $imgWidth / 2 - $fontSize / 2
+		padding: $paddingTop 0 0 0
+		transition: color 200ms ease-out, border-bottom-color 200ms ease-out
+		display: block
 
 
-        border-bottom-color: var(--TRANS)
+		&:hover
+			@include selectedMixin($paddingTop)
+			color: var(--GREY6)
 
-        &.selected
-            $borderWidth: 1px
-            margin-bottom: $paddingTop - 22 - $borderWidth
-            border-bottom:
-                color: rgba(218, 165, 32, 1)
-                width: $borderWidth
-                style: solid
+
+		border-bottom-color: var(--TRANS)
+
+		&.selected
+			@include selectedMixin($paddingTop)
+
 
 
 

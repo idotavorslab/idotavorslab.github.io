@@ -80,6 +80,17 @@ const GalleryPage = () => {
         const divs: BetterHTMLElement[] = [];
         let selectedFile: string = null;
         for (let {description, file} of data) {
+            /*const removeExt = (s) => s.split('.').slice(0, file.split('.').length - 1).join();
+            file = removeExt(file);
+            let req1 = new Request(`main/gallery/${file}-294x220.5.jpeg`, {cache: "no-cache"});
+            let {ok} = await fetch(req1);
+            console.log(`main/gallery/${file}-294x220.5.jpeg`, ok);
+            if (ok)
+                file = `${file}-294x220.5.jpeg`;
+            else
+                file = `${file}.jpeg`;
+            */
+            
             let imgContainer = div({cls: 'img-container'})
                 .append(
                     // div({cls: 'tooltip', text: description}),

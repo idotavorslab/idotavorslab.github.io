@@ -43,12 +43,9 @@ const PublicationsPage = () => {
         const yearElems = [];
         for (let year of Object.keys(yearToPaper).reverse()) {
             console.log(year);
-            let yearElem = elem({ tag: 'year' }).cacheAppend({
-                title: div({ cls: 'title-and-separator-container' })
-                    .append(span({ cls: 'year-span' }).text(year)),
-                papers: div({ cls: 'papers' })
-                    .append(...yearToPaper[year].map(p => p.elem))
-            });
+            let yearElem = elem({ tag: 'year' }).append(div({ cls: 'papers' })
+                .append(div({ cls: 'title-and-minimize-flex' })
+                .append(span({ cls: 'year-title' }).text(year)), ...yearToPaper[year].map(p => p.elem)));
             yearElems.push(yearElem);
         }
         const papersContainer = div({ id: "papers_container" })
@@ -57,5 +54,4 @@ const PublicationsPage = () => {
     }
     return { init };
 };
-PublicationsPage().init();
 //# sourceMappingURL=publications.js.map

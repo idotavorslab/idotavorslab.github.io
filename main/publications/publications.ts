@@ -55,15 +55,17 @@ const PublicationsPage = () => {
         const yearElems: BetterHTMLElement[] = [];
         for (let year of Object.keys(yearToPaper).reverse()) { // 2019, 2018, 2016
             console.log(year);
-            let yearElem = elem({tag: 'year'}).cacheAppend({
-                title: div({cls: 'title-and-separator-container'})
+            let yearElem = elem({tag: 'year'}).append(
+                div({cls: 'papers'})
                     .append(
-                        span({cls: 'year-span'}).text(year),
-                        // div({cls: 'minimize'}).text('_')
-                    ),
-                papers: div({cls: 'papers'})
-                    .append(...yearToPaper[year].map(p => p.elem))
-            });
+                        div({cls: 'title-and-minimize-flex'})
+                            .append(
+                                span({cls: 'year-title'}).text(year),
+                                // div({cls: 'minimize'}).text('_')
+                            ),
+                        ...yearToPaper[year].map(p => p.elem),
+                    )
+            );
             yearElems.push(yearElem)
         }
         
