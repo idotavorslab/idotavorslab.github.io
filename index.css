@@ -560,17 +560,17 @@ year div.title-and-minimize-flex span.year-title {
   font-size: 25px;
 }
 year div.title-and-minimize-flex div.minimize {
-  margin: auto 0 auto auto;
-  text-align: center;
-  font-size: 14px;
-  color: var(--GREY6);
   border-width: 1px;
   border-color: var(--GREY3);
   border-style: solid;
   border-radius: 2px;
-  width: 32px;
+  color: var(--GREY6);
+  font-size: 14px;
   height: 32px;
+  margin: auto 0 auto auto;
+  text-align: center;
   transition: box-shadow 200ms;
+  width: 32px;
 }
 year div.title-and-minimize-flex div.minimize:hover {
   cursor: pointer;
@@ -579,7 +579,6 @@ year div.title-and-minimize-flex div.minimize:hover {
 year div.papers {
   border-left: 1px solid var(--GREY2);
   padding-left: 40px;
-  margin-left: calc(var(--GAP) / 2);
 }
 
 paper {
