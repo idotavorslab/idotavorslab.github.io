@@ -18,10 +18,10 @@ const GalleryPage = () => {
 
 </svg>
 `;
-        const gotoAdjImg = async ({ currentTarget }) => {
+        const gotoAdjImg = async (event) => {
+            event.stopPropagation();
             let selectedIndex = files.indexOf(selectedFile);
-            let side;
-            if (currentTarget.id === 'left_chevron') {
+            if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
                 if (selectedIndex === 0)
                     selectedIndex = files.length - 1;
@@ -36,7 +36,7 @@ const GalleryPage = () => {
                     selectedIndex += 1;
             }
             selectedFile = files[selectedIndex];
-            imgViewerContainer.img.attr({ src: `main/gallery/${selectedFile}` });
+            imgViewerContainer.img.src(`main/gallery/${selectedFile}`);
         };
         function closeImgViewer() {
             Body.toggleClass('theater', false);
@@ -71,7 +71,7 @@ const GalleryPage = () => {
                 selectedFile = file;
                 imgViewerContainer
                     .toggleClass('on', true)
-                    .img.attr({ src: `main/gallery/${selectedFile}` });
+                    .img.src(`main/gallery/${selectedFile}`);
                 imgViewerContainer.isopen = true;
                 Body.toggleClass('theater', true);
                 images.toggleClass('theater', true);

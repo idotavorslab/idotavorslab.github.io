@@ -21,10 +21,10 @@ const GalleryPage = () => {
 </svg>
 `;
         
-        const gotoAdjImg = async ({currentTarget}) => {
+        const gotoAdjImg = async (event: Event) => {
+            event.stopPropagation();
             let selectedIndex = files.indexOf(selectedFile);
-            let side;
-            if (currentTarget.id === 'left_chevron') {
+            if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
                 if (selectedIndex === 0)
                     selectedIndex = files.length - 1;
@@ -43,7 +43,7 @@ const GalleryPage = () => {
             }
             
             selectedFile = files[selectedIndex];
-            imgViewerContainer.img.attr({src: `main/gallery/${selectedFile}`});
+            imgViewerContainer.img.src(`main/gallery/${selectedFile}`);
         };
         
         function closeImgViewer() {
@@ -61,7 +61,7 @@ const GalleryPage = () => {
                 img: img({}),
                 right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).pointerdown(gotoAdjImg)
             }).pointerdown((event: Event) => {
-                // dont trigger document.pointerdown
+                // clicked on img, not chevrons
                 console.log('imgViewerContainer pointerdown, stopping propagation');
                 event.stopPropagation();
             });
@@ -77,6 +77,7 @@ const GalleryPage = () => {
                     // div({cls: 'tooltip', text: description}),
                     img({src: `main/gallery/${file}`})
                 ).pointerdown((event: Event) => {
+                    // if open: clicked on other images in the bg. if closed: open imgViewer
                     console.log('imgContainer pointerdown, isopen (before):', imgViewerContainer.isopen);
                     event.stopPropagation();
                     if (imgViewerContainer.isopen)
@@ -84,7 +85,7 @@ const GalleryPage = () => {
                     selectedFile = file;
                     imgViewerContainer
                         .toggleClass('on', true)
-                        .img.attr({src: `main/gallery/${selectedFile}`});
+                        .img.src(`main/gallery/${selectedFile}`);
                     imgViewerContainer.isopen = true;
                     Body.toggleClass('theater', true);
                     images.toggleClass('theater', true);

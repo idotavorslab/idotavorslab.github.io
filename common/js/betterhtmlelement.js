@@ -676,6 +676,15 @@ class Img extends BetterHTMLElement {
 		if (src)
 			this._htmlElement.src = src;
 	}
+
+	src(src) {
+		if (src === undefined) {
+			return this._htmlElement.src;
+		} else {
+			this._htmlElement.src = src;
+			return this;
+		}
+	}
 }
 
 function elem(elemOptions) {

@@ -645,6 +645,9 @@ declare class Img extends BetterHTMLElement {
     
     /**Create an Img element. Optionally set its id, src or cls.*/
     constructor({id, src, cls}: TImgOptions);
+    
+    src(src: string): this;
+    src(): string;
 }
 
 /**Create an element of `tag`. Optionally, set its `text` and / or `cls`*/
