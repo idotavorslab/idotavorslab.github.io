@@ -1,8 +1,8 @@
 const HomePage = () => {
-    type NewsDataItem = { title: string, date: string, content: string, radio: BetterHTMLElement, index: number };
-    type NewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
+    type TNewsDataItem = { title: string, date: string, content: string, radio: BetterHTMLElement, index: number };
+    type TNewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
     /** The single #news>date,title,content,radios html to show selected news */
-    const newsElem: NewsElem = <NewsElem>elem({
+    const newsElem: TNewsElem = <TNewsElem>elem({
         query: '#news', children: {
             date: '.date',
             title: '.title',
@@ -87,13 +87,14 @@ const HomePage = () => {
     }
     */
     class NewsData {
-        readonly data: NewsDataItem[];
-        private _selected: NewsDataItem;
+        readonly data: TNewsDataItem[];
+        private _selected: TNewsDataItem;
+        private readonly _interval: number;
         
         constructor() {
             this.data = [];
             this._selected = undefined;
-            setInterval(() => {
+            this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
                 if (targetItem === undefined) {
@@ -101,7 +102,7 @@ const HomePage = () => {
                     targetItem = this.data[targetIndex];
                 }
                 this.switchTo(targetItem)
-            }, 10000);
+            }, 1000);
             
             return new Proxy(this, {
                 get(target, prop: string | number | symbol, receiver: any): any {
@@ -120,7 +121,7 @@ const HomePage = () => {
         }
         
         
-        push(item: NewsDataItem) {
+        push(item: TNewsDataItem) {
             this.data.push(item);
             item.radio.pointerdown(async () => {
                 await this.switchTo(item);
@@ -128,7 +129,7 @@ const HomePage = () => {
         }
         
         
-        async switchTo(selectedItem: NewsDataItem) {
+        async switchTo(selectedItem: TNewsDataItem) {
             if (this._selected !== undefined)
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, {opacity: 0});
@@ -140,10 +141,19 @@ const HomePage = () => {
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, {opacity: 1});
         }
+        
+        clearInterval() {
+            console.log('clearInterval');
+            clearInterval(this._interval);
+        }
     }
     
     async function init() {
-        
+        newsElem.on({
+            mouseover: () => {
+                newsData.clearInterval();
+            }
+        });
         /*const data = await fetchJson('main/research/research.json', "no-cache");
         console.log('data', data);
         
@@ -172,7 +182,7 @@ const HomePage = () => {
         
         let i = 0;
         for (let [title, {date, content}] of dict(data.news).items()) {
-            let item: NewsDataItem = {title, date, content, radio: div({cls: 'radio'}), index: i};
+            let item: TNewsDataItem = {title, date, content, radio: div({cls: 'radio'}), index: i};
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
