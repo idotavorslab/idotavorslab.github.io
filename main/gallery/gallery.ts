@@ -21,30 +21,37 @@ const GalleryPage = () => {
 </svg>
 `;
         
-        const gotoAdjImg = async (event: Event) => {
-            event.stopPropagation();
-            let selectedIndex = files.indexOf(selectedFile);
-            if (event.currentTarget.id === 'left_chevron') {
-                console.log('left chevron pointerdown');
-                if (selectedIndex === 0)
-                    selectedIndex = files.length - 1;
-                else
-                    selectedIndex -= 1;
-                
-                
-            } else { // right
-                console.log('right chevron pointerdown');
-                if (selectedIndex === files.length - 1)
-                    selectedIndex = 0;
-                else
-                    selectedIndex += 1;
-                
-                
-            }
-            
+        function switchToImg(selectedIndex: number) {
             selectedFile = files[selectedIndex];
             imgViewerContainer.img.src(`main/gallery/${selectedFile}`);
-        };
+        }
+        
+        function getRightIndex(selectedIndex: number) {
+            if (selectedIndex === files.length - 1)
+                return 0;
+            else
+                return selectedIndex + 1;
+        }
+        
+        function getLeftIndex(selectedIndex: number) {
+            if (selectedIndex === 0)
+                return files.length - 1;
+            else
+                return selectedIndex - 1;
+        }
+        
+        async function gotoAdjImg(event: PointerEvent) {
+            event.stopPropagation();
+            let selectedIndex = files.indexOf(selectedFile);
+            // @ts-ignore
+            if (event.currentTarget.id === 'left_chevron') {
+                console.log('left chevron pointerdown');
+                switchToImg(getLeftIndex(selectedIndex));
+            } else { // right
+                console.log('right chevron pointerdown');
+                switchToImg(getRightIndex(selectedIndex));
+            }
+        }
         
         function closeImgViewer() {
             Body.toggleClass('theater', false);
@@ -99,12 +106,30 @@ const GalleryPage = () => {
         const images = elem({tag: 'images'})
             .append(...divs);
         
+        // @ts-ignore
         elem({htmlElement: document}).pointerdown(() => {
             if (!imgViewerContainer.isopen)
                 return;
             console.log('document pointerdown, closeImgViewer()');
             closeImgViewer();
-        });
+        }).on({
+                keydown: (event: KeyboardEvent) => {
+                    console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
+                    if (imgViewerContainer.isopen) {
+                        if (event.key === "Escape") {
+                            return closeImgViewer();
+                        } else if (event.key.startsWith("Arrow")) {
+                            let selectedIndex = files.indexOf(selectedFile);
+                            if (event.key === "ArrowLeft") {
+                                switchToImg(getLeftIndex(selectedIndex));
+                            } else if (event.key === "ArrowRight") {
+                                switchToImg(getRightIndex(selectedIndex));
+                            }
+                        }
+                    }
+                },
+            }
+        );
         
         Home.empty().append(images, imgViewerContainer)
     }
