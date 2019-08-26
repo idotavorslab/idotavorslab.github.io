@@ -9,7 +9,7 @@ Home - structure like ron shamir's
     News
         [x] Basic structure
         [ ] Thumbnail to each news item
-        [ ] Stop cycling on user interaction
+        [x] Stop cycling on user interaction
 
 Research
     [ ] Adhere to regular grid (1200 etc)

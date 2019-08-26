@@ -13,6 +13,7 @@ const HomePage = () => {
             this._userPressed = false;
             this.data = [];
             this._selected = undefined;
+            this.startAutoSwitch();
             return new Proxy(this, {
                 get(target, prop, receiver) {
                     if (prop in target) {

@@ -111,6 +111,10 @@ div#main div#navbar > div {
   border-bottom-color: var(--TRANS);
 }
 div#main div#navbar > div:hover {
+  margin-bottom: 7px;
+  border-bottom-color: goldenrod;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   color: var(--GREY6);
 }
 div#main div#navbar > div.selected {

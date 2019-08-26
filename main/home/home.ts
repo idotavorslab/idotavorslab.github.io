@@ -95,17 +95,8 @@ const HomePage = () => {
         constructor() {
             this.data = [];
             this._selected = undefined;
-            // this.startAutoSwitch();
-            /*this._interval = setInterval(() => {
-                let targetIndex = this._selected.index + 1;
-                let targetItem = this.data[targetIndex];
-                if (targetItem === undefined) {
-                    targetIndex -= this.data.length;
-                    targetItem = this.data[targetIndex];
-                }
-                this.switchTo(targetItem)
-            }, 1000);
-            */
+            this.startAutoSwitch();
+            
             
             return new Proxy(this, {
                 get(target, prop: string | number | symbol, receiver: any): any {
@@ -137,6 +128,8 @@ const HomePage = () => {
         async switchTo(selectedItem: TNewsDataItem) {
             if (this._selected !== undefined)
                 this._selected.radio.toggleClass('selected');
+            
+            
             TL.to(newsChildren, 0.1, {opacity: 0});
             await wait(25);
             newsElem.date.text(`${selectedItem.date}:`);
@@ -145,11 +138,14 @@ const HomePage = () => {
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, {opacity: 1});
+            
         }
         
         startAutoSwitch() {
             if (this._userPressed)
                 return;
+            
+            
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
