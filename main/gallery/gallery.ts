@@ -31,8 +31,6 @@ const GalleryPage = () => {
                 else
                     selectedIndex -= 1;
                 
-                side = "left";
-                
                 
             } else { // right
                 console.log('right chevron pointerdown');
@@ -41,13 +39,9 @@ const GalleryPage = () => {
                 else
                     selectedIndex += 1;
                 
-                side = "right";
                 
             }
-            imgViewerContainer[side].on({
-                transitionend: () => imgViewerContainer[side].css({transform: `translateX(0)`})
-            }, {once: true});
-            imgViewerContainer[side].css({transform: `translateX(${side === "left" ? "-" : ""}4px)`});
+            
             selectedFile = files[selectedIndex];
             imgViewerContainer.img.attr({src: `main/gallery/${selectedFile}`});
         };
@@ -117,4 +111,4 @@ const GalleryPage = () => {
     return {init}
 };
 
-// GalleryPage().init();
+GalleryPage().init();

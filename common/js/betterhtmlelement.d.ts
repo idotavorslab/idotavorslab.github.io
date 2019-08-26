@@ -370,6 +370,31 @@ declare type AnimationTimingFunction =
 declare type AnimationDirection = 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
 declare type AnimationFillMode = 'none' | 'forwards' | 'backwards' | 'both';
 
+interface TransformOptions {
+    matrix?: [number, number, number, number, number, number];
+    matrix3d?: [number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number];
+    perspective?: string;
+    rotate?: string;
+    rotate3d?: [number, number, number, string];
+    rotateX?: string;
+    rotateY?: string;
+    rotateZ?: string;
+    scale?: number;
+    scale3d?: [number, number, number];
+    scaleX?: [number, number, number];
+    scaleY?: [number, number, number];
+    skew?: [string, string];
+    skewX?: string;
+    skewY?: string;
+    translate?: [string, string];
+    translate3d?: [string, string, string];
+    translateX?: string;
+    translateY?: string;
+    translateZ?: string;
+}
+
+declare const SVG_NS_URI = "http://www.w3.org/2000/svg";
+
 interface AnimateOptions {
     delay?: string;
     direction?: AnimationDirection;
@@ -390,7 +415,8 @@ interface AnimateOptions {
 }
 
 declare class BetterHTMLElement {
-    _htmlElement: HTMLElement;
+    protected readonly _htmlElement: HTMLElement;
+    private readonly _isSvg;
     
     /**Create an element of `tag`. Optionally, set its `text` and / or `cls`*/
     constructor({tag, text, cls}: {
@@ -444,6 +470,8 @@ declare class BetterHTMLElement {
     /**Remove the value of the passed style properties*/
     uncss(...removeProps: (keyof CssOptions)[]): this;
     
+    is(element: BetterHTMLElement): void;
+    
     /**`.className = cls`*/
     class(cls: string): this;
     /**Return a string array of the element's classes (not a classList)*/
@@ -457,10 +485,25 @@ declare class BetterHTMLElement {
     
     toggleClass(cls: string, force?: boolean): this;
     
+    hasClass(cls: string): boolean;
+    
+    /**Insert one or several `BetterHTMLElement`s or vanilla `Node`s just after `this`.*/
     after(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
     
-    /**Append one or several `BetterHTMLElement`s or vanilla `Node`s*/
+    /**Insert `this` just after a `BetterHTMLElement` or vanilla `Node`s.*/
+    insertAfter(node: BetterHTMLElement | (string | Node)): this;
+    
+    /**Insert one or several `BetterHTMLElement`s or vanilla `Node`s after the last child of `this`*/
     append(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
+    
+    /**Append `this` to a `BetterHTMLElement` or a vanilla `Node`*/
+    appendTo(node: BetterHTMLElement | (string | Node)): this;
+    
+    /**Inserts one or several `BetterHTMLElement`s or vanilla `Node`s just before `this`*/
+    before(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
+    
+    /**Insert `this` just before a `BetterHTMLElement` or vanilla `Node`s.*/
+    insertBefore(node: BetterHTMLElement | (string | Node)): this;
     
     /**For each `[key, child]` pair, `append(child)` and store it in `this[key]`. */
     cacheAppend(keyChildObj: TMap<BetterHTMLElement>): this;
@@ -476,6 +519,8 @@ declare class BetterHTMLElement {
     /**Return a `BetterHTMLElement` list of all children */
     children(): BetterHTMLElement[];
     
+    clone(deep?: boolean): BetterHTMLElement;
+    
     /**For each `[key, selector]` pair, get `this.child(selector)`, and store it in `this[key]`. Useful for eg `navbar.home.toggleClass("selected")`
      * @see this.child*/
     cacheChildren(keySelectorObj: TMap<QuerySelector>): BetterHTMLElement;
@@ -486,7 +531,23 @@ declare class BetterHTMLElement {
     /**Remove element from DOM*/
     remove(): this;
     
+    find(): void;
+    
+    first(): void;
+    
+    last(): void;
+    
+    next(): void;
+    
+    not(): void;
+    
+    parent(): void;
+    
+    parents(): void;
+    
     on(evTypeFnPairs: TEventFunctionMap<TEvent>, options?: AddEventListenerOptions): this;
+    
+    one(): void;
     
     /** Add a `touchstart` event listener. This is the fast alternative to `click` listeners for mobile (no 300ms wait). */
     touchstart(fn: (ev: Event) => any, options?: AddEventListenerOptions): this;
@@ -499,8 +560,58 @@ declare class BetterHTMLElement {
     /**Add a `click` event listener. You should probably use `pointerdown()` if on desktop, or `touchstart()` if on mobile.*/
     click(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
     
+    /**Blur (unfocus) the element.*/
+    blur(): this;
+    /**Add a `blur` event listener*/
+    blur(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
+    /**Focus the element.*/
+    focus(): this;
+    /**Add a `focus` event listener*/
+    focus(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
+    /**Add a `change` event listener*/
+    change(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
+    /**Add a `contextmenu` event listener*/
+    contextmenu(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
+    /**Simulate a double click of the element.*/
+    dblclick(): this;
+    /**Add a `dblclick` event listener*/
+    dblclick(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
+    /**Simulate a mouseenter event to the element.*/
+    mouseenter(): this;
+    /**Add a `mouseenter` event listener*/
+    mouseenter(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
+    
+    keydown(): void;
+    
+    keyup(): void;
+    
+    keypress(): void;
+    
+    mousedown(): void;
+    
+    hover(): void;
+    
+    mouseleave(): void;
+    
+    mousemove(): void;
+    
+    mouseout(): void;
+    
+    mouseover(): void;
+    
+    mouseup(): void;
+    
+    transform(options: TransformOptions): Promise<unknown>;
+    
     /** For each `[attr, val]` pair, apply `setAttribute`*/
     attr(attrValPairs: TMap<string>): this;
+    /** apply `getAttribute`*/
+    attr(attributeName: string): string;
     
     /** `removeAttribute` */
     removeAttr(qualifiedName: string, ...qualifiedNames: string[]): this;
@@ -516,21 +627,21 @@ declare class BetterHTMLElement {
 }
 
 declare class Div extends BetterHTMLElement {
-    _htmlElement: HTMLDivElement;
+    protected readonly _htmlElement: HTMLDivElement;
     
     /**Create an Div element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
 }
 
 declare class Span extends BetterHTMLElement {
-    _htmlElement: HTMLSpanElement;
+    protected readonly _htmlElement: HTMLSpanElement;
     
     /**Create an Span element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
 }
 
 declare class Img extends BetterHTMLElement {
-    _htmlElement: HTMLImageElement;
+    protected readonly _htmlElement: HTMLImageElement;
     
     /**Create an Img element. Optionally set its id, src or cls.*/
     constructor({id, src, cls}: TImgOptions);

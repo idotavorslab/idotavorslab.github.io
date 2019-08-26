@@ -742,12 +742,21 @@ div#img_viewer_container div#right_chevron, div#img_viewer_container div#left_ch
   filter: invert(1) drop-shadow(2px 4px 6px black);
   margin: auto;
   opacity: 0.8;
-  transition: opacity 100ms, transform 25ms;
+  transition: opacity 100ms, transform 50ms;
   width: var(--GAP);
   z-index: 5;
 }
 div#img_viewer_container div#right_chevron:hover, div#img_viewer_container div#left_chevron:hover {
   opacity: 1;
+}
+div#img_viewer_container div#right_chevron[class=right], div#img_viewer_container div#left_chevron[class=right] {
+  margin: auto;
+}
+div#img_viewer_container div#right_chevron[class=right]:active svg, div#img_viewer_container div#left_chevron[class=right]:active svg {
+  transform: translateX(4px);
+}
+div#img_viewer_container div#right_chevron[class=left]:active svg, div#img_viewer_container div#left_chevron[class=left]:active svg {
+  transform: rotate(180deg) translateX(4px);
 }
 div#img_viewer_container div#right_chevron[class=left] svg, div#img_viewer_container div#left_chevron[class=left] svg {
   transform: rotate(180deg);
