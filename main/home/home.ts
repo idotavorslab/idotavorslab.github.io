@@ -90,11 +90,12 @@ const HomePage = () => {
         readonly data: TNewsDataItem[];
         private _selected: TNewsDataItem;
         private _interval: number;
+        private _userPressed: boolean = false;
         
         constructor() {
             this.data = [];
             this._selected = undefined;
-            this.startAutoSwitch();
+            // this.startAutoSwitch();
             /*this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -126,6 +127,8 @@ const HomePage = () => {
         push(item: TNewsDataItem) {
             this.data.push(item);
             item.radio.pointerdown(async () => {
+                this._userPressed = true;
+                this.stopAutoSwitch();
                 await this.switchTo(item);
             })
         }
@@ -145,6 +148,8 @@ const HomePage = () => {
         }
         
         startAutoSwitch() {
+            if (this._userPressed)
+                return;
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -153,11 +158,10 @@ const HomePage = () => {
                     targetItem = this.data[targetIndex];
                 }
                 this.switchTo(targetItem)
-            }, 1000);
+            }, 10000);
         }
         
         stopAutoSwitch() {
-            console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }

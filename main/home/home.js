@@ -10,9 +10,9 @@ const HomePage = () => {
     const newsChildren = newsElem.children().map(c => c.e);
     class NewsData {
         constructor() {
+            this._userPressed = false;
             this.data = [];
             this._selected = undefined;
-            this.startAutoSwitch();
             return new Proxy(this, {
                 get(target, prop, receiver) {
                     if (prop in target) {
@@ -30,6 +30,8 @@ const HomePage = () => {
         push(item) {
             this.data.push(item);
             item.radio.pointerdown(async () => {
+                this._userPressed = true;
+                this.stopAutoSwitch();
                 await this.switchTo(item);
             });
         }
@@ -46,6 +48,8 @@ const HomePage = () => {
             TL.to(newsChildren, 0.1, { opacity: 1 });
         }
         startAutoSwitch() {
+            if (this._userPressed)
+                return;
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -54,10 +58,9 @@ const HomePage = () => {
                     targetItem = this.data[targetIndex];
                 }
                 this.switchTo(targetItem);
-            }, 1000);
+            }, 10000);
         }
         stopAutoSwitch() {
-            console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }
