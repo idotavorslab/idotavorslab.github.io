@@ -31,7 +31,6 @@ Home - structure like ron shamir's
 Gallery
     [ ] Sorted by year?
     [x] Going between photos like in mudriks
-    [ ] On hover transform, on click opacity
     [ ] Meshes? sketchfab api or files?
     [ ] Tooltip?
     [ ] python script to popuplate json?
@@ -59,7 +58,7 @@ Contact
 People
     [x] email hyperlink
     [x] Fix People viewer proportions
-    [ ] Outside click closes viewer
+    [x] Outside click closes viewer
 
 
     

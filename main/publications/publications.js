@@ -58,4 +58,5 @@ const PublicationsPage = () => {
     }
     return { init };
 };
+PublicationsPage().init();
 //# sourceMappingURL=publications.js.map

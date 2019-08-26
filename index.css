@@ -585,48 +585,38 @@ year div.papers {
 }
 
 paper {
-  position: relative;
-  margin: 0 0 60px 0;
-  background-color: var(--GREY02);
-  padding: 30px;
-  display: flex;
   border-width: 1px;
   border-color: var(--GREY2);
   border-style: solid;
   border-radius: 2px;
+  background-color: var(--GREY02);
+  display: flex;
+  margin: 0 0 60px 0;
+  padding: 30px;
+  position: relative;
+  transition: box-shadow 200ms;
+}
+paper:hover {
+  cursor: pointer;
+  box-shadow: 0px 5px 6px 0px var(--GREY4);
 }
 paper img.thumbnail {
-  margin: auto 30px auto 0;
   border: 1px solid var(--GREY3);
-  cursor: pointer;
-  transition: border 200ms ease-out;
-}
-paper img.thumbnail:hover {
-  border-width: 1px;
-  border-color: var(--GREY5);
-  border-style: solid;
+  margin: auto 30px auto 0;
 }
 paper div.pdf-div {
-  cursor: pointer;
-  transition: border 200ms ease-out, color 200ms ease-out;
+  border-width: 1px;
+  border-color: var(--GREY3);
+  border-style: solid;
+  border-radius: 2px;
+  background-color: var(--GREY01);
+  color: var(--GREY6);
+  font-family: OpenSansLight;
   margin-top: auto;
   margin-right: 0;
   margin-bottom: auto;
   margin-left: auto;
   padding: 10px;
-  border-width: 1px;
-  border-color: var(--GREY3);
-  border-style: solid;
-  border-radius: 2px;
-  font-family: OpenSansLight;
-  color: var(--GREY6);
-  background-color: var(--GREY01);
-}
-paper div.pdf-div:hover {
-  border-width: 1px;
-  border-color: var(--GREY5);
-  border-style: solid;
-  color: var(--GREY7);
 }
 paper div.content-div div {
   margin-top: 5px;
@@ -638,22 +628,12 @@ paper div.content-div span {
   font-size: 14px;
 }
 paper div.content-div div.paper-title {
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: color 200ms ease-out;
   font-family: OpenSansSemiBold;
-}
-paper div.content-div div.paper-title:hover {
-  color: var(--GREY6);
+  margin-bottom: 10px;
 }
 paper div.content-div div.mag {
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 200ms ease-out;
   font-family: OpenSansItalic;
-}
-paper div.content-div div.mag:hover {
-  color: var(--GREY6);
+  font-size: 16px;
 }
 
 images {
