@@ -9,17 +9,16 @@ const PublicationsPage = () => {
             }
             this.elem = elem({ tag: "paper" })
                 .cacheAppend({
-                thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }).pointerdown(_openLink),
+                thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
                 content: div({ cls: "content-div" }).cacheAppend({
-                    title: div({ text: title, cls: "paper-title" }).pointerdown(_openLink),
+                    title: div({ text: title, cls: "paper-title" }),
                     creds: span({ text: creds, cls: "creds" }),
                     year: span({ text: ` (${year})`, cls: "year" }),
-                    mag: div({ text: mag, cls: "mag" }).pointerdown(_openLink)
+                    mag: div({ text: mag, cls: "mag" }),
                 }),
                 pdf: div({ cls: 'pdf-div' })
-                    .pointerdown(_openLink)
                     .text(link.split('.').reverse()[0].toUpperCase())
-            });
+            }).pointerdown(_openLink);
             this.year = year;
         }
     }
@@ -58,4 +57,5 @@ const PublicationsPage = () => {
     }
     return { init };
 };
+PublicationsPage().init();
 //# sourceMappingURL=publications.js.map

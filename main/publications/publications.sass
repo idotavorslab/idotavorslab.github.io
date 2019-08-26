@@ -51,32 +51,37 @@ year
             left: 30px
 
 paper
-    position: relative
-    margin: 0 0 60px 0
-    background-color: var(--GREY02)
-    padding: 30px
-    display: flex
     @include borderMixin(var(--GREY2))
+    background-color: var(--GREY02)
+    display: flex
+    margin: 0 0 60px 0
+    padding: 30px
+    position: relative
+    transition: box-shadow 200ms
+
+    &:hover
+        cursor: pointer
+        box-shadow: 0px 5px 6px 0px var(--GREY4)
 
     img.thumbnail
-        margin: auto 30px auto 0
+        //@include hoverMixin(border)
         border: 1px solid var(--GREY3)
-        @include hoverMixin(border)
+        margin: auto 30px auto 0
 
 
     div.pdf-div
-        @include hoverMixin(border, true)
+        //@include hoverMixin(border, true)
+        @include borderMixin(var(--GREY3))
+        background-color: var(--GREY01)
+        color: var(--GREY6)
+        font:
+            family: OpenSansLight
         margin:
             top: auto
             right: 0
             bottom: auto
             left: auto
         padding: 10px
-        @include borderMixin(var(--GREY3))
-        font:
-            family: OpenSansLight
-        color: var(--GREY6)
-        background-color: var(--GREY01)
 
     div.content-div
         div
@@ -90,17 +95,17 @@ paper
             font-size: 14px
 
         div.paper-title
-            margin-bottom: 10px
-            @include hoverMixin(color)
+            //@include hoverMixin(color)
             font:
                 family: OpenSansSemiBold
+            margin-bottom: 10px
 
 
         div.mag
-            font-size: 16px
-            @include hoverMixin(color)
+            //@include hoverMixin(color)
             font:
                 family: OpenSansItalic
+                size: 16px
 
 
 

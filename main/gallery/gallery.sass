@@ -32,7 +32,41 @@ images
                 cursor: pointer
                 transition: opacity 100ms
 
-div#img_viewer_container
+div#img_viewer_close
+    position: fixed
+    top: var(--GAP)
+    right: var(--GAP)
+    opacity: 0
+    transition: opacity 100ms
+
+    &.on
+        opacity: 0.8
+        cursor: pointer
+
+        &:hover
+            opacity: 1
+
+    svg
+        display: block
+        // *  DEP: gallery.ts imgViewerClose attr viewBox
+        --dim: 32px
+        width: var(--dim)
+        height: var(--dim)
+
+
+        path
+            fill: none
+            stroke-width: 4px
+            stroke: white
+
+            // *  DEP: svg --dim
+            &.upright
+                d: path("m 31 1 l -30 30")
+
+            &.downleft
+                d: path("m 1 1 l 30 30")
+
+div#img_viewer
     --containerWidth: 800px
 
     display: flex
@@ -51,23 +85,30 @@ div#img_viewer_container
         z-index: 5
 
     div#right_chevron, div#left_chevron
+
         cursor: pointer
         filter: invert(1) drop-shadow(2px 4px 6px black)
         margin: auto
         opacity: 0.8
-        transition: opacity 100ms
-        width: var(--GAP)
+        transition: opacity 100ms, transform 50ms
+        width: 44px
         z-index: 5
 
         &:hover
             opacity: 1
 
 
-        //&[class="right"]
+        &[class="right"]
             margin: auto
 
+            &:active
+                svg
+                    transform: translateX(4px)
+
         &[class="left"]
-            //margin: auto 0
+            &:active
+                svg
+                    transform: rotate(180deg) translateX(4px)
 
             svg
                 transform: rotate(180deg)

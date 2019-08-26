@@ -21,56 +21,59 @@ const GalleryPage = () => {
 </svg>
 `;
         
-        const gotoAdjImg = async ({currentTarget}) => {
+        function switchToImg(selectedIndex: number) {
+            selectedFile = files[selectedIndex];
+            imgViewer.img.src(`main/gallery/${selectedFile}`);
+        }
+        
+        function getRightIndex(selectedIndex: number) {
+            if (selectedIndex === files.length - 1)
+                return 0;
+            else
+                return selectedIndex + 1;
+        }
+        
+        function getLeftIndex(selectedIndex: number) {
+            if (selectedIndex === 0)
+                return files.length - 1;
+            else
+                return selectedIndex - 1;
+        }
+        
+        async function gotoAdjImg(event: PointerEvent) {
+            event.stopPropagation();
             let selectedIndex = files.indexOf(selectedFile);
-            let side;
-            if (currentTarget.id === 'left_chevron') {
+            // @ts-ignore
+            if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
-                if (selectedIndex === 0)
-                    selectedIndex = files.length - 1;
-                else
-                    selectedIndex -= 1;
-                
-                side = "left";
-                
-                
+                switchToImg(getLeftIndex(selectedIndex));
             } else { // right
                 console.log('right chevron pointerdown');
-                if (selectedIndex === files.length - 1)
-                    selectedIndex = 0;
-                else
-                    selectedIndex += 1;
-                
-                side = "right";
-                
+                switchToImg(getRightIndex(selectedIndex));
             }
-            imgViewerContainer[side].css({transform: `translateX(${side === "left" ? "-" : ""}4px)`});
-            await wait(25);
-            imgViewerContainer[side].uncss("transform");
-            selectedFile = files[selectedIndex];
-            imgViewerContainer.img.attr({src: `main/gallery/${selectedFile}`});
-        };
+        }
         
         function closeImgViewer() {
             Body.toggleClass('theater', false);
             images.toggleClass('theater', false);
             navbar.css({opacity: 1});
-            imgViewerContainer
+            imgViewer
                 .toggleClass('on', false);
-            imgViewerContainer.isopen = false;
+            imgViewerClose.toggleClass('on', false);
+            imgViewer.isopen = false;
         }
         
-        const imgViewerContainer: ImgViewerContainer = <ImgViewerContainer>div({id: 'img_viewer_container'})
+        const imgViewer: ImgViewerContainer = <ImgViewerContainer>div({id: 'img_viewer'})
             .cacheAppend({
                 left: div({id: 'left_chevron', cls: 'left'}).html(chevronSvg).pointerdown(gotoAdjImg),
                 img: img({}),
                 right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).pointerdown(gotoAdjImg)
             }).pointerdown((event: Event) => {
-                // dont trigger document.pointerdown
-                console.log('imgViewerContainer pointerdown, stopping propagation');
+                // clicked on img, not chevrons
+                console.log('imgViewer pointerdown, stopping propagation');
                 event.stopPropagation();
             });
-        imgViewerContainer.isopen = false;
+        imgViewer.isopen = false;
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
@@ -82,15 +85,17 @@ const GalleryPage = () => {
                     // div({cls: 'tooltip', text: description}),
                     img({src: `main/gallery/${file}`})
                 ).pointerdown((event: Event) => {
-                    console.log('imgContainer pointerdown, isopen (before):', imgViewerContainer.isopen);
+                    // if open: clicked on other images in the bg. if closed: open imgViewer
+                    console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
                     event.stopPropagation();
-                    if (imgViewerContainer.isopen)
+                    if (imgViewer.isopen)
                         return closeImgViewer();
                     selectedFile = file;
-                    imgViewerContainer
+                    imgViewerClose.toggleClass('on', true);
+                    imgViewer
                         .toggleClass('on', true)
-                        .img.attr({src: `main/gallery/${selectedFile}`});
-                    imgViewerContainer.isopen = true;
+                        .img.src(`main/gallery/${selectedFile}`);
+                    imgViewer.isopen = true;
                     Body.toggleClass('theater', true);
                     images.toggleClass('theater', true);
                     navbar.css({opacity: 0});
@@ -103,14 +108,40 @@ const GalleryPage = () => {
         const images = elem({tag: 'images'})
             .append(...divs);
         
-        elem({htmlElement: document}).pointerdown(() => {
-            if (!imgViewerContainer.isopen)
-                return;
-            console.log('document pointerdown, closeImgViewer()');
-            closeImgViewer();
-        });
-        
-        Home.empty().append(images, imgViewerContainer)
+        DocumentElem
+            .pointerdown(() => {
+                if (!imgViewer.isopen)
+                    return;
+                console.log('document pointerdown, closeImgViewer()');
+                closeImgViewer();
+            })
+            .keydown((event: KeyboardEvent) => {
+                    console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
+                    if (!imgViewer.isopen)
+                        return;
+                    
+                    if (event.key === "Escape")
+                        return closeImgViewer();
+                    
+                    if (event.key.startsWith("Arrow")) {
+                        let selectedIndex = files.indexOf(selectedFile);
+                        if (event.key === "ArrowLeft")
+                            return switchToImg(getLeftIndex(selectedIndex));
+                        else if (event.key === "ArrowRight")
+                            return switchToImg(getRightIndex(selectedIndex));
+                        
+                    }
+                }
+            );
+        const imgViewerClose = div({id: 'img_viewer_close'}).append(
+            elem({tag: 'svg'})
+                .attr({viewBox: `0 0 32 32`})
+                .append(
+                    elem({tag: 'path', cls: 'upright'}),
+                    elem({tag: 'path', cls: 'downleft'})
+                )
+        ).pointerdown(closeImgViewer);
+        Home.empty().append(images, imgViewer, imgViewerClose)
     }
     
     return {init}

@@ -25,18 +25,20 @@ const PeoplePage = () => {
                     img({src: `main/people/${image}`}),
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
-                ).pointerdown((event) => expando.toggle(event, this));
+                ).pointerdown((event) => {
+                    console.log('person pointerdown, stopping prop and toggling expando');
+                    event.stopPropagation();
+                    expando.toggle(this);
+                });
                 
                 
             }
             
             focus(): Person {
-                console.log(`focusing: ${this.email}`);
                 return this.removeClass('unfocused');
             }
             
             unfocus(): Person {
-                console.log(`UNfocusing: ${this.email}`);
                 return this.addClass('unfocused');
             }
             
@@ -146,15 +148,25 @@ const PeoplePage = () => {
             
             constructor() {
                 super({id: 'person_expando'});
-                this.append(
-                    elem({tag: 'svg'})
-                        .id('svg_root')
-                        .attr({viewBox: '0 0 15 15'})
-                        .append(
-                            elem({tag: 'path', cls: 'upright'}),
-                            elem({tag: 'path', cls: 'downleft'})
-                        )
-                        .pointerdown(() => this.close()))
+                this
+                    .pointerdown((event: Event) => {
+                        // prevent propagation to DocumentElem
+                        console.log('expando pointerdown, stopping propagation');
+                        event.stopPropagation();
+                    })
+                    .append(
+                        elem({tag: 'svg'})
+                            .id('svg_root')
+                            .attr({viewBox: '0 0 15 15'})
+                            .append(
+                                elem({tag: 'path', cls: 'upright'}),
+                                elem({tag: 'path', cls: 'downleft'})
+                            )
+                            .pointerdown((event) => {
+                                console.log('svg pointerdown, stopping prop and closing');
+                                event.stopPropagation();
+                                this.close();
+                            }))
                     .cacheAppend({
                         cv: div({cls: 'cv'}),
                         email: div({cls: 'email'})
@@ -162,7 +174,7 @@ const PeoplePage = () => {
             }
             
             
-            async toggle(event: Event, pressed: Person) {
+            async toggle(pressed: Person) {
                 if (this.owner === null) {
                     // *  Expand
                     People.unfocusOthers(pressed);
@@ -284,6 +296,14 @@ const PeoplePage = () => {
             div({cls: 'separator'}),
             alumniGrid
         );
+        
+        
+        DocumentElem
+            .pointerdown(() => {
+                console.log('DocumentElem pointerdown');
+                if (expando.owner !== null)
+                    expando.close()
+            });
         
         
     }
