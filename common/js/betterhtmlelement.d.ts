@@ -587,17 +587,23 @@ declare class BetterHTMLElement {
     
     keypress(): void;
     
-    mousedown(): void;
-    
     hover(): void;
+    
+    mousedown(): void;
     
     mouseleave(): void;
     
     mousemove(): void;
     
-    mouseout(): void;
+    /**Simulate a mouseout event to the element.*/
+    mouseout(): this;
+    /**Add a `mouseout` event listener*/
+    mouseout(fn: (event: MouseEvent) => any, options?: AddEventListenerOptions): this;
     
-    mouseover(): void;
+    /**Simulate a mouseover event to the element.*/
+    mouseover(): this;
+    /**Add a `mouseover` event listener*/
+    mouseover(fn: (event: MouseEvent) => any, options?: AddEventListenerOptions): this;
     
     mouseup(): void;
     
@@ -605,6 +611,8 @@ declare class BetterHTMLElement {
     
     /** Remove the event listener of `event`, if exists.*/
     off(event: TEvent): this;
+    
+    allOff(): this;
     
     /** For each `[attr, val]` pair, apply `setAttribute`*/
     attr(attrValPairs: TMap<string>): this;

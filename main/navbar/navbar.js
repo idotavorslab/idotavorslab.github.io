@@ -19,7 +19,8 @@ class Navbar extends BetterHTMLElement {
         }
     }
     async _gotoPage(pageName) {
-        DocumentElem.off("pointerdown");
+        console.log('navbar.ts.Navbar._gotoPage');
+        DocumentElem.allOff();
         _startSeparatorAnimation();
         const pageObj = this._pageNameObjMap[pageName];
         this._select(this[pageName]);

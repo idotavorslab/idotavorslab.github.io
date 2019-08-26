@@ -163,15 +163,10 @@ const HomePage = () => {
     }
     
     async function init() {
-        newsElem.on({
-            mouseover: () => {
-                newsData.stopAutoSwitch();
-            },
-            mouseout: () => {
-                newsData.startAutoSwitch();
-            }
-        });
-        /*const data = await fetchJson('main/research/research.json', "no-cache");
+        newsElem.mouseover(() => newsData.stopAutoSwitch());
+        newsElem.mouseout(() => newsData.startAutoSwitch());
+        
+        /*
         console.log('data', data);
         
         const carouselItems = [];

@@ -66,14 +66,8 @@ const HomePage = () => {
         }
     }
     async function init() {
-        newsElem.on({
-            mouseover: () => {
-                newsData.stopAutoSwitch();
-            },
-            mouseout: () => {
-                newsData.startAutoSwitch();
-            }
-        });
+        newsElem.mouseover(() => newsData.stopAutoSwitch());
+        newsElem.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
         const newsData = new NewsData();
         let i = 0;
