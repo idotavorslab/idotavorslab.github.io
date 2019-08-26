@@ -32,6 +32,35 @@ images
                 cursor: pointer
                 transition: opacity 100ms
 
+div#img_viewer_close
+    position: fixed
+    top: var(--GAP)
+    right: var(--GAP)
+    opacity: 0
+    &.on
+        opacity: 1
+    svg
+        cursor: pointer
+        display: block
+        // *  DEP: gallery.ts imgViewerClose attr viewBox
+        --dim: calc(var(--GAP) / 2)
+        width: var(--dim)
+        height: var(--dim)
+
+
+
+        path
+            fill: none
+            stroke-width: 2px
+            stroke: var(--GREY6)
+
+
+            &.upright
+                d: path("m 29 1 l -28 28")
+
+            &.downleft
+                d: path("m 1 1 l 28 28")
+
 div#img_viewer_container
     --containerWidth: 800px
 

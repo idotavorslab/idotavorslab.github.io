@@ -722,6 +722,34 @@ images:not([class=theater]) div.img-container img {
   transition: opacity 100ms;
 }
 
+div#img_viewer_close {
+  position: fixed;
+  top: var(--GAP);
+  right: var(--GAP);
+  opacity: 0;
+}
+div#img_viewer_close.on {
+  opacity: 1;
+}
+div#img_viewer_close svg {
+  cursor: pointer;
+  display: block;
+  --dim: calc(var(--GAP) / 2);
+  width: var(--dim);
+  height: var(--dim);
+}
+div#img_viewer_close svg path {
+  fill: none;
+  stroke-width: 2px;
+  stroke: var(--GREY6);
+}
+div#img_viewer_close svg path.upright {
+  d: path("m 29 1 l -28 28");
+}
+div#img_viewer_close svg path.downleft {
+  d: path("m 1 1 l 28 28");
+}
+
 div#img_viewer_container {
   --containerWidth: 800px;
   display: flex;

@@ -52,6 +52,7 @@ const GalleryPage = () => {
             navbar.css({ opacity: 1 });
             imgViewerContainer
                 .toggleClass('on', false);
+            imgViewerClose.toggleClass('on', false);
             imgViewerContainer.isopen = false;
         }
         const imgViewerContainer = div({ id: 'img_viewer_container' })
@@ -77,6 +78,7 @@ const GalleryPage = () => {
                 if (imgViewerContainer.isopen)
                     return closeImgViewer();
                 selectedFile = file;
+                imgViewerClose.toggleClass('on', true);
                 imgViewerContainer
                     .toggleClass('on', true)
                     .img.src(`main/gallery/${selectedFile}`);
@@ -98,20 +100,22 @@ const GalleryPage = () => {
         })
             .keydown((event) => {
             console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
-            if (imgViewerContainer.isopen) {
-                if (event.key === "Escape") {
-                    return closeImgViewer();
-                }
-                else if (event.key.startsWith("Arrow")) {
-                    let selectedIndex = files.indexOf(selectedFile);
-                    if (event.key === "ArrowLeft")
-                        switchToImg(getLeftIndex(selectedIndex));
-                    else if (event.key === "ArrowRight")
-                        switchToImg(getRightIndex(selectedIndex));
-                }
+            if (!imgViewerContainer.isopen)
+                return;
+            if (event.key === "Escape")
+                return closeImgViewer();
+            if (event.key.startsWith("Arrow")) {
+                let selectedIndex = files.indexOf(selectedFile);
+                if (event.key === "ArrowLeft")
+                    return switchToImg(getLeftIndex(selectedIndex));
+                else if (event.key === "ArrowRight")
+                    return switchToImg(getRightIndex(selectedIndex));
             }
         });
-        Home.empty().append(images, imgViewerContainer);
+        const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
+            .attr({ viewBox: `0 0 ${GAP / 2} ${GAP / 2}` })
+            .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
+        Home.empty().append(images, imgViewerContainer, imgViewerClose);
     }
     return { init };
 };
