@@ -548,17 +548,17 @@ div#papers_container {
   margin: auto;
 }
 
-year div.title-and-separator-container {
+year div.title-and-minimize-flex {
   display: flex;
   color: var(--GREY3);
 }
-year div.title-and-separator-container span.year-span {
+year div.title-and-minimize-flex span.year-title {
   letter-spacing: 1px;
-  margin-bottom: 10px;
+  margin-bottom: calc(var(--GAP) / 2);
   font-family: OpenSansLight;
   font-size: 25px;
 }
-year div.title-and-separator-container div.minimize {
+year div.title-and-minimize-flex div.minimize {
   margin: auto 0 auto auto;
   text-align: center;
   font-size: 17px;
@@ -572,7 +572,7 @@ year div.title-and-separator-container div.minimize {
   cursor: pointer;
   transition: border 200ms ease-out, color 200ms ease-out;
 }
-year div.title-and-separator-container div.minimize:hover {
+year div.title-and-minimize-flex div.minimize:hover {
   border-width: 1px;
   border-color: var(--GREY5);
   border-style: solid;
@@ -581,7 +581,7 @@ year div.title-and-separator-container div.minimize:hover {
 year div.papers {
   border-left: 1px solid var(--GREY2);
   padding-left: 40px;
-  margin-left: 30px;
+  margin-left: calc(var(--GAP) / 2);
 }
 
 paper {
@@ -591,8 +591,8 @@ paper {
   border-radius: 2px;
   background-color: var(--GREY02);
   display: flex;
-  margin: 0 0 60px 0;
-  padding: 30px;
+  margin: 0 0 var(--GAP) 0;
+  padding: calc(var(--GAP) / 2);
   position: relative;
   transition: box-shadow 200ms;
 }
@@ -602,7 +602,7 @@ paper:hover {
 }
 paper img.thumbnail {
   border: 1px solid var(--GREY3);
-  margin: auto 30px auto 0;
+  margin: auto calc(var(--GAP) / 2) auto 0;
 }
 paper div.pdf-div {
   border-width: 1px;
@@ -620,7 +620,7 @@ paper div.pdf-div {
 }
 paper div.content-div div {
   margin-top: 5px;
-  margin-right: 30px;
+  margin-right: calc(var(--GAP) / 2);
   margin-bottom: 5px;
 }
 paper div.content-div span {

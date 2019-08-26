@@ -21,14 +21,15 @@ div#papers_container
         transition: #{$prop} $easeOut
 
 year
-    div.title-and-separator-container
+    div.title-and-minimize-flex
         display: flex
         color: var(--GREY3)
 
-        span.year-span
+        span.year-title
             letter-spacing: 1px
             margin:
-                bottom: 10px
+                // 30px
+                bottom: calc(var(--GAP) / 2)
             font:
                 family: OpenSansLight
                 size: 25px
@@ -48,14 +49,16 @@ year
         padding:
             left: 40px
         margin:
-            left: 30px
+            // 30px
+            left: calc(var(--GAP) / 2)
 
 paper
     @include borderMixin(var(--GREY2))
     background-color: var(--GREY02)
     display: flex
-    margin: 0 0 60px 0
-    padding: 30px
+    margin: 0 0 var(--GAP) 0
+    // 30px
+    padding: calc(var(--GAP) / 2)
     position: relative
     transition: box-shadow 200ms
 
@@ -64,13 +67,12 @@ paper
         box-shadow: 0px 5px 6px 0px var(--GREY4)
 
     img.thumbnail
-        //@include hoverMixin(border)
         border: 1px solid var(--GREY3)
-        margin: auto 30px auto 0
+        // 30px
+        margin: auto calc(var(--GAP) / 2) auto 0
 
 
     div.pdf-div
-        //@include hoverMixin(border, true)
         @include borderMixin(var(--GREY3))
         background-color: var(--GREY01)
         color: var(--GREY6)
@@ -87,7 +89,8 @@ paper
         div
             margin:
                 top: 5px
-                right: 30px
+                // 30px
+                right: calc(var(--GAP) / 2)
                 bottom: 5px
 
         span
@@ -95,14 +98,12 @@ paper
             font-size: 14px
 
         div.paper-title
-            //@include hoverMixin(color)
             font:
                 family: OpenSansSemiBold
             margin-bottom: 10px
 
 
         div.mag
-            //@include hoverMixin(color)
             font:
                 family: OpenSansItalic
                 size: 16px
