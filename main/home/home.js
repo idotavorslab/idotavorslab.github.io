@@ -12,15 +12,7 @@ const HomePage = () => {
         constructor() {
             this.data = [];
             this._selected = undefined;
-            this._interval = setInterval(() => {
-                let targetIndex = this._selected.index + 1;
-                let targetItem = this.data[targetIndex];
-                if (targetItem === undefined) {
-                    targetIndex -= this.data.length;
-                    targetItem = this.data[targetIndex];
-                }
-                this.switchTo(targetItem);
-            }, 1000);
+            this.startAutoSwitch();
             return new Proxy(this, {
                 get(target, prop, receiver) {
                     if (prop in target) {
@@ -53,15 +45,29 @@ const HomePage = () => {
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
         }
-        clearInterval() {
-            console.log('clearInterval');
+        startAutoSwitch() {
+            this._interval = setInterval(() => {
+                let targetIndex = this._selected.index + 1;
+                let targetItem = this.data[targetIndex];
+                if (targetItem === undefined) {
+                    targetIndex -= this.data.length;
+                    targetItem = this.data[targetIndex];
+                }
+                this.switchTo(targetItem);
+            }, 1000);
+        }
+        stopAutoSwitch() {
+            console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }
     async function init() {
         newsElem.on({
             mouseover: () => {
-                newsData.clearInterval();
+                newsData.stopAutoSwitch();
+            },
+            mouseout: () => {
+                newsData.startAutoSwitch();
             }
         });
         const data = await fetchJson('main/home/home.json', "no-cache");

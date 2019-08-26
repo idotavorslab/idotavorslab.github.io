@@ -89,12 +89,13 @@ const HomePage = () => {
     class NewsData {
         readonly data: TNewsDataItem[];
         private _selected: TNewsDataItem;
-        private readonly _interval: number;
+        private _interval: number;
         
         constructor() {
             this.data = [];
             this._selected = undefined;
-            this._interval = setInterval(() => {
+            this.startAutoSwitch();
+            /*this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
                 if (targetItem === undefined) {
@@ -103,6 +104,7 @@ const HomePage = () => {
                 }
                 this.switchTo(targetItem)
             }, 1000);
+            */
             
             return new Proxy(this, {
                 get(target, prop: string | number | symbol, receiver: any): any {
@@ -142,8 +144,20 @@ const HomePage = () => {
             TL.to(newsChildren, 0.1, {opacity: 1});
         }
         
-        clearInterval() {
-            console.log('clearInterval');
+        startAutoSwitch() {
+            this._interval = setInterval(() => {
+                let targetIndex = this._selected.index + 1;
+                let targetItem = this.data[targetIndex];
+                if (targetItem === undefined) {
+                    targetIndex -= this.data.length;
+                    targetItem = this.data[targetIndex];
+                }
+                this.switchTo(targetItem)
+            }, 1000);
+        }
+        
+        stopAutoSwitch() {
+            console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }
@@ -151,7 +165,10 @@ const HomePage = () => {
     async function init() {
         newsElem.on({
             mouseover: () => {
-                newsData.clearInterval();
+                newsData.stopAutoSwitch();
+            },
+            mouseout: () => {
+                newsData.startAutoSwitch();
             }
         });
         /*const data = await fetchJson('main/research/research.json', "no-cache");
