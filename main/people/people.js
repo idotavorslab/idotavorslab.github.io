@@ -85,7 +85,12 @@ const PeoplePage = () => {
             constructor() {
                 super({ id: 'person_expando' });
                 this.owner = null;
-                this.append(elem({ tag: 'svg' })
+                this
+                    .pointerdown((event) => {
+                    console.log('expando pointerdown, stopping propagation');
+                    event.stopPropagation();
+                })
+                    .append(elem({ tag: 'svg' })
                     .id('svg_root')
                     .attr({ viewBox: '0 0 15 15' })
                     .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))

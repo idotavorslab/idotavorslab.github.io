@@ -148,19 +148,25 @@ const PeoplePage = () => {
             
             constructor() {
                 super({id: 'person_expando'});
-                this.append(
-                    elem({tag: 'svg'})
-                        .id('svg_root')
-                        .attr({viewBox: '0 0 15 15'})
-                        .append(
-                            elem({tag: 'path', cls: 'upright'}),
-                            elem({tag: 'path', cls: 'downleft'})
-                        )
-                        .pointerdown((event) => {
-                            console.log('svg pointerdown, stopping prop and closing');
-                            event.stopPropagation();
-                            this.close();
-                        }))
+                this
+                    .pointerdown((event: Event) => {
+                        // prevent propagation to DocumentElem
+                        console.log('expando pointerdown, stopping propagation');
+                        event.stopPropagation();
+                    })
+                    .append(
+                        elem({tag: 'svg'})
+                            .id('svg_root')
+                            .attr({viewBox: '0 0 15 15'})
+                            .append(
+                                elem({tag: 'path', cls: 'upright'}),
+                                elem({tag: 'path', cls: 'downleft'})
+                            )
+                            .pointerdown((event) => {
+                                console.log('svg pointerdown, stopping prop and closing');
+                                event.stopPropagation();
+                                this.close();
+                            }))
                     .cacheAppend({
                         cv: div({cls: 'cv'}),
                         email: div({cls: 'email'})
