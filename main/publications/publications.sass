@@ -24,12 +24,14 @@ year
     div.title-and-minimize-flex
         display: flex
         color: var(--GREY3)
+        margin:
+            // 30px
+            bottom: calc(var(--GAP) / 2)
 
         span.year-title
             letter-spacing: 1px
-            margin:
-                // 30px
-                bottom: calc(var(--GAP) / 2)
+            margin: auto 0
+
             font:
                 family: OpenSansLight
                 size: 25px
@@ -37,12 +39,17 @@ year
         div.minimize
             margin: auto 0 auto auto
             text-align: center
-            font-size: 17px
+            font-size: 14px
             color: var(--GREY6)
             @include borderMixin(var(--GREY3))
-            width: 40px
-            height: 40px
-            @include hoverMixin(border, true)
+            width: 32px
+            height: 32px
+            transition: box-shadow 200ms
+
+            &:hover
+                cursor: pointer
+                box-shadow: 0px 2px 3px 0px var(--GREY2)
+            //@include hoverMixin(border, true)
 
     div.papers
         border-left: 1px solid var(--GREY2)

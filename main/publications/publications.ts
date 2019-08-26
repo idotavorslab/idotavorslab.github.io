@@ -67,7 +67,7 @@ const PublicationsPage = () => {
                         div({cls: 'title-and-minimize-flex'})
                             .append(
                                 span({cls: 'year-title'}).text(year),
-                                // div({cls: 'minimize'}).text('_')
+                                div({cls: 'minimize'}).text('_')
                             ),
                         ...yearToPaper[year].map(p => p.elem),
                     )

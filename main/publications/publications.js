@@ -46,7 +46,7 @@ const PublicationsPage = () => {
             let yearElem = elem({ tag: 'year' }).cacheAppend({
                 papers: div({ cls: 'papers' })
                     .append(div({ cls: 'title-and-minimize-flex' })
-                    .append(span({ cls: 'year-title' }).text(year)), ...yearToPaper[year].map(p => p.elem))
+                    .append(span({ cls: 'year-title' }).text(year), div({ cls: 'minimize' }).text('_')), ...yearToPaper[year].map(p => p.elem))
             });
             yearElems.push(yearElem);
         }
