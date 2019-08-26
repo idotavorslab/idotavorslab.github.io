@@ -727,30 +727,34 @@ div#img_viewer_close {
   top: var(--GAP);
   right: var(--GAP);
   opacity: 0;
+  transition: opacity 100ms;
 }
 div#img_viewer_close.on {
+  opacity: 0.8;
+  cursor: pointer;
+}
+div#img_viewer_close.on:hover {
   opacity: 1;
 }
 div#img_viewer_close svg {
-  cursor: pointer;
   display: block;
-  --dim: calc(var(--GAP) / 2);
+  --dim: 32px;
   width: var(--dim);
   height: var(--dim);
 }
 div#img_viewer_close svg path {
   fill: none;
-  stroke-width: 2px;
-  stroke: var(--GREY6);
+  stroke-width: 4px;
+  stroke: white;
 }
 div#img_viewer_close svg path.upright {
-  d: path("m 29 1 l -28 28");
+  d: path("m 31 1 l -30 30");
 }
 div#img_viewer_close svg path.downleft {
-  d: path("m 1 1 l 28 28");
+  d: path("m 1 1 l 30 30");
 }
 
-div#img_viewer_container {
+div#img_viewer {
   --containerWidth: 800px;
   display: flex;
   left: 50%;
@@ -761,35 +765,35 @@ div#img_viewer_container {
   width: calc(var(--containerWidth) + 2 * var(--GAP));
   z-index: -1;
 }
-div#img_viewer_container.on {
+div#img_viewer.on {
   opacity: 1;
   z-index: 5;
 }
-div#img_viewer_container div#right_chevron, div#img_viewer_container div#left_chevron {
+div#img_viewer div#right_chevron, div#img_viewer div#left_chevron {
   cursor: pointer;
   filter: invert(1) drop-shadow(2px 4px 6px black);
   margin: auto;
   opacity: 0.8;
   transition: opacity 100ms, transform 50ms;
-  width: var(--GAP);
+  width: 44px;
   z-index: 5;
 }
-div#img_viewer_container div#right_chevron:hover, div#img_viewer_container div#left_chevron:hover {
+div#img_viewer div#right_chevron:hover, div#img_viewer div#left_chevron:hover {
   opacity: 1;
 }
-div#img_viewer_container div#right_chevron[class=right], div#img_viewer_container div#left_chevron[class=right] {
+div#img_viewer div#right_chevron[class=right], div#img_viewer div#left_chevron[class=right] {
   margin: auto;
 }
-div#img_viewer_container div#right_chevron[class=right]:active svg, div#img_viewer_container div#left_chevron[class=right]:active svg {
+div#img_viewer div#right_chevron[class=right]:active svg, div#img_viewer div#left_chevron[class=right]:active svg {
   transform: translateX(4px);
 }
-div#img_viewer_container div#right_chevron[class=left]:active svg, div#img_viewer_container div#left_chevron[class=left]:active svg {
+div#img_viewer div#right_chevron[class=left]:active svg, div#img_viewer div#left_chevron[class=left]:active svg {
   transform: rotate(180deg) translateX(4px);
 }
-div#img_viewer_container div#right_chevron[class=left] svg, div#img_viewer_container div#left_chevron[class=left] svg {
+div#img_viewer div#right_chevron[class=left] svg, div#img_viewer div#left_chevron[class=left] svg {
   transform: rotate(180deg);
 }
-div#img_viewer_container img {
+div#img_viewer img {
   height: 600px;
 }
 

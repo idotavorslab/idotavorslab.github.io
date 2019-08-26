@@ -20,7 +20,7 @@ const GalleryPage = () => {
 `;
         function switchToImg(selectedIndex) {
             selectedFile = files[selectedIndex];
-            imgViewerContainer.img.src(`main/gallery/${selectedFile}`);
+            imgViewer.img.src(`main/gallery/${selectedFile}`);
         }
         function getRightIndex(selectedIndex) {
             if (selectedIndex === files.length - 1)
@@ -50,21 +50,21 @@ const GalleryPage = () => {
             Body.toggleClass('theater', false);
             images.toggleClass('theater', false);
             navbar.css({ opacity: 1 });
-            imgViewerContainer
+            imgViewer
                 .toggleClass('on', false);
             imgViewerClose.toggleClass('on', false);
-            imgViewerContainer.isopen = false;
+            imgViewer.isopen = false;
         }
-        const imgViewerContainer = div({ id: 'img_viewer_container' })
+        const imgViewer = div({ id: 'img_viewer' })
             .cacheAppend({
             left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).pointerdown(gotoAdjImg),
             img: img({}),
             right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).pointerdown(gotoAdjImg)
         }).pointerdown((event) => {
-            console.log('imgViewerContainer pointerdown, stopping propagation');
+            console.log('imgViewer pointerdown, stopping propagation');
             event.stopPropagation();
         });
-        imgViewerContainer.isopen = false;
+        imgViewer.isopen = false;
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
@@ -73,16 +73,16 @@ const GalleryPage = () => {
         for (let { description, file } of data) {
             let imgContainer = div({ cls: 'img-container' })
                 .append(img({ src: `main/gallery/${file}` })).pointerdown((event) => {
-                console.log('imgContainer pointerdown, isopen (before):', imgViewerContainer.isopen);
+                console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
                 event.stopPropagation();
-                if (imgViewerContainer.isopen)
+                if (imgViewer.isopen)
                     return closeImgViewer();
                 selectedFile = file;
                 imgViewerClose.toggleClass('on', true);
-                imgViewerContainer
+                imgViewer
                     .toggleClass('on', true)
                     .img.src(`main/gallery/${selectedFile}`);
-                imgViewerContainer.isopen = true;
+                imgViewer.isopen = true;
                 Body.toggleClass('theater', true);
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
@@ -93,14 +93,14 @@ const GalleryPage = () => {
             .append(...divs);
         elem({ htmlElement: document })
             .pointerdown(() => {
-            if (!imgViewerContainer.isopen)
+            if (!imgViewer.isopen)
                 return;
             console.log('document pointerdown, closeImgViewer()');
             closeImgViewer();
         })
             .keydown((event) => {
             console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
-            if (!imgViewerContainer.isopen)
+            if (!imgViewer.isopen)
                 return;
             if (event.key === "Escape")
                 return closeImgViewer();
@@ -113,9 +113,9 @@ const GalleryPage = () => {
             }
         });
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
-            .attr({ viewBox: `0 0 ${GAP / 2} ${GAP / 2}` })
+            .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
-        Home.empty().append(images, imgViewerContainer, imgViewerClose);
+        Home.empty().append(images, imgViewer, imgViewerClose);
     }
     return { init };
 };
