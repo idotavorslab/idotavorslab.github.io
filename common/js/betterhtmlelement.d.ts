@@ -586,7 +586,10 @@ declare class BetterHTMLElement {
     /**Add a `mouseenter` event listener*/
     mouseenter(fn: (event: Event) => any, options?: AddEventListenerOptions): this;
     
-    keydown(): void;
+    /**Simulate a keydown event to the element.*/
+    keydown(): this;
+    /**Add a `keydown` event listener*/
+    keydown(fn: (event: KeyboardEvent) => any, options?: AddEventListenerOptions): this;
     
     keyup(): void;
     

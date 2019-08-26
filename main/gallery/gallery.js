@@ -89,29 +89,27 @@ const GalleryPage = () => {
         }
         const images = elem({ tag: 'images' })
             .append(...divs);
-        elem({ htmlElement: document }).pointerdown(() => {
+        elem({ htmlElement: document })
+            .pointerdown(() => {
             if (!imgViewerContainer.isopen)
                 return;
             console.log('document pointerdown, closeImgViewer()');
             closeImgViewer();
-        }).on({
-            keydown: (event) => {
-                console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
-                if (imgViewerContainer.isopen) {
-                    if (event.key === "Escape") {
-                        return closeImgViewer();
-                    }
-                    else if (event.key.startsWith("Arrow")) {
-                        let selectedIndex = files.indexOf(selectedFile);
-                        if (event.key === "ArrowLeft") {
-                            switchToImg(getLeftIndex(selectedIndex));
-                        }
-                        else if (event.key === "ArrowRight") {
-                            switchToImg(getRightIndex(selectedIndex));
-                        }
-                    }
+        })
+            .keydown((event) => {
+            console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
+            if (imgViewerContainer.isopen) {
+                if (event.key === "Escape") {
+                    return closeImgViewer();
                 }
-            },
+                else if (event.key.startsWith("Arrow")) {
+                    let selectedIndex = files.indexOf(selectedFile);
+                    if (event.key === "ArrowLeft")
+                        switchToImg(getLeftIndex(selectedIndex));
+                    else if (event.key === "ArrowRight")
+                        switchToImg(getRightIndex(selectedIndex));
+                }
+            }
         });
         Home.empty().append(images, imgViewerContainer);
     }

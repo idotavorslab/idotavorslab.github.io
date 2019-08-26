@@ -456,10 +456,12 @@ class BetterHTMLElement {
 		}
 	}
 
-	keydown() {
-		// https://api.jquery.com/keydown/
-		throw new Error("NOT IMPLEMENTED");
-	}
+	keydown(fn, options) {
+        if (fn === undefined)
+            throw new Error("NOT IMPLEMENTED");
+        else
+            return this.on({ keydown: fn }, options);
+    }
 
 	keyup() {
 		// https://api.jquery.com/keyup/

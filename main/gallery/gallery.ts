@@ -107,29 +107,29 @@ const GalleryPage = () => {
             .append(...divs);
         
         // @ts-ignore
-        elem({htmlElement: document}).pointerdown(() => {
-            if (!imgViewerContainer.isopen)
-                return;
-            console.log('document pointerdown, closeImgViewer()');
-            closeImgViewer();
-        }).on({
-                keydown: (event: KeyboardEvent) => {
+        elem({htmlElement: document})
+            .pointerdown(() => {
+                if (!imgViewerContainer.isopen)
+                    return;
+                console.log('document pointerdown, closeImgViewer()');
+                closeImgViewer();
+            })
+            .keydown((event: KeyboardEvent) => {
                     console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
                     if (imgViewerContainer.isopen) {
                         if (event.key === "Escape") {
                             return closeImgViewer();
                         } else if (event.key.startsWith("Arrow")) {
                             let selectedIndex = files.indexOf(selectedFile);
-                            if (event.key === "ArrowLeft") {
+                            if (event.key === "ArrowLeft")
                                 switchToImg(getLeftIndex(selectedIndex));
-                            } else if (event.key === "ArrowRight") {
+                            else if (event.key === "ArrowRight")
                                 switchToImg(getRightIndex(selectedIndex));
-                            }
+                            
                         }
                     }
-                },
-            }
-        );
+                }
+            );
         
         Home.empty().append(images, imgViewerContainer)
     }
