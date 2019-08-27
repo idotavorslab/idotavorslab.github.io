@@ -7,9 +7,13 @@
 		style: solid
 
 div#navbar
-	$fontSize: 20px
-	$imgWidth: 80px
-	font-size: $fontSize
+	@include min-width($BP1)
+		--fontSize: 20px
+	@include max-width($BP1)
+		--fontSize: 18px
+
+	--imgWidth: 80px
+	font-size: var(--fontSize)
 	margin: auto auto 40px auto
 	display: flex
 	height: 80px
@@ -18,7 +22,7 @@ div#navbar
 		cursor: pointer
 
 	& > div, img.home
-		$marginRight: $fontSize * 2
+		$marginRight: calc(var(--fontSize) * 2)
 		margin:
 			top: 0
 			right: $marginRight
@@ -27,31 +31,31 @@ div#navbar
 
 	// doctor.svg
 	& > img.home
-		width: $imgWidth
+		width: var(--imgWidth)
 
 	// tau logo
 	& > img.tau
-		height: $imgWidth
+		height: var(--imgWidth)
 
 	div:nth-last-child(2)
 		margin-right: auto
 
 	& > div
-		$paddingTop: $imgWidth / 2 - $fontSize / 2
-		padding: $paddingTop 0 0 0
+		--paddingTop: calc(var(--imgWidth) / 2 - var(--fontSize) / 2)
+		padding: var(--paddingTop) 0 0 0
 		transition: color 200ms ease-out, border-bottom-color 200ms ease-out
 		display: block
 
 
 		&:hover
-			@include selectedMixin($paddingTop)
+			@include selectedMixin(var(--paddingTop))
 			color: var(--GREY6)
 
 
 		border-bottom-color: var(--TRANS)
 
 		&.selected
-			@include selectedMixin($paddingTop)
+			@include selectedMixin(var(--paddingTop))
 
 
 

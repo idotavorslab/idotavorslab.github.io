@@ -33,42 +33,6 @@ images
 				transition: opacity 100ms
 
 
-div#img_viewer_close
-	// **  --gap, --w, --tagWidth vars from mixins.sass
-
-	position: fixed
-	top: var(--gap)
-	right: var(--gap)
-	opacity: 0
-	transition: opacity 100ms
-
-	&.on
-		opacity: 0.8
-		cursor: pointer
-
-		&:hover
-			opacity: 1
-
-	svg
-		display: block
-		// *  DEP: gallery.ts imgViewerClose attr viewBox
-		--dim: 32px
-		width: var(--dim)
-		height: var(--dim)
-
-
-		path
-			fill: none
-			stroke-width: 4px
-			stroke: white
-
-			// *  DEP: svg --dim
-			&.upright
-				d: path("m 31 1 l -30 30")
-
-			&.downleft
-				d: path("m 1 1 l 30 30")
-
 div#img_viewer
 	// necessary for some reason
 	@include setLocalGapVar()
@@ -124,3 +88,38 @@ div#img_viewer
 	img
 		height: 600px
 
+div#img_viewer_close
+	@include setLocalGapVar()
+	// **  --gap, --w, --tagWidth vars from mixins.sass
+	position: fixed
+	top: var(--gap)
+	right: var(--gap)
+	opacity: 0
+	transition: opacity 100ms
+
+	&.on
+		opacity: 0.8
+		cursor: pointer
+
+		&:hover
+			opacity: 1
+
+	svg
+		display: block
+		// *  DEP: gallery.ts imgViewerClose attr viewBox
+		--dim: 32px
+		width: var(--dim)
+		height: var(--dim)
+
+
+		path
+			fill: none
+			stroke-width: 4px
+			stroke: white
+
+			// *  DEP: svg --dim
+			&.upright
+				d: path("m 31 1 l -30 30")
+
+			&.downleft
+				d: path("m 1 1 l 30 30")
