@@ -174,7 +174,7 @@ div#main div#home {
 
 div#intro_container {
   display: flex;
-  margin-bottom: var(--GAP0);
+  margin-bottom: var(--gap);
   position: relative;
   text-align: left;
 }
