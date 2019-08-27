@@ -40,10 +40,6 @@ div#home
 			opacity: 0.4
 			filter: blur(2px) contrast(0.8)
 
-		//&.expanded
-			// *  DEP: person_expando.expanded
-			box-shadow: 0px 2px 10px var(--GREY3)
-
 		img
 			// inherits from person, whose width is var(--tagWidth) in mixins.sass
 			width: inherit
@@ -65,10 +61,10 @@ div#home
 
 	div#person_expando
 		@include borderMixin(var(--GREY02))
-		@include flexContainerTagWidth()
 
-		// 30px
-		--expandoPadding: calc(var(--GAP0) / 2)
+		// [min-width: $BP1]:  30px
+		// [max-width: $BP1]:  20px
+		--expandoPadding: calc(var(--gap) / 2)
 		$colorTrans: color 300ms cubic-bezier(1, 0, 1, 0)
 
 
@@ -78,9 +74,12 @@ div#home
 		height: 0
 
 		// *  DEP: mixins.sass flexContainerMixin grid-row-gap
-		margin:
+		@media screen and (min-width: $BP1)
 			// -50px
-			top: calc(var(--GAP0) * -5 / 6)
+			margin-top: calc(var(--GAP0) * -5 / 6)
+		@media screen and (max-width: $BP1)
+			// -33.333
+			top: calc(var(--GAP1) * -5 / 6)
 
 		overflow: hidden
 		padding: var(--expandoPadding)
@@ -95,7 +94,8 @@ div#home
 
 		svg#svg_root
 			// 15px
-			--dim: calc(var(--GAP0) / 4)
+			//--dim: calc(var(--GAP0) / 4)
+			--dim: calc(var(--GAP1) / 4)
 			cursor: pointer
 			display: block
 			margin-left: auto
@@ -133,7 +133,8 @@ div#home
 
 				margin:
 					// 10px
-					top: calc(var(--GAP0) / 6)
+					//top: calc(var(--GAP0) / 6)
+					top: calc(var(--GAP1) / 6)
 
 			div.close
 				opacity: 1
@@ -144,7 +145,7 @@ div#home
 			color: var(--GREY7)
 			height: 270px
 			// *  DEP: mixins.sass --tagWidth == 255px
-			width: calc(255px * 2)
+			width: calc(var(--tagWidth) * 2)
 
 
 

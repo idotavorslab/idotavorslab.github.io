@@ -6,7 +6,7 @@ const PeoplePage = () => {
             ROWSIZE = 4;
         }
         else {
-            ROWSIZE = 3;
+            ROWSIZE = 4;
         }
         class Person extends BetterHTMLElement {
             constructor(image, name, role, cv, email) {
@@ -40,12 +40,12 @@ const PeoplePage = () => {
             }
             pushPeopleBelow() {
                 for (let [i, j] of this.yieldIndexesBelow()) {
-                    this.group[i * 4 + j].css({ gridRow: `${i + 2}/${i + 2}` });
+                    this.group[i * ROWSIZE + j].css({ gridRow: `${i + 2}/${i + 2}` });
                 }
             }
             pullbackPeopleBelow() {
                 for (let [i, j] of this.yieldIndexesBelow()) {
-                    this.group[i * 4 + j].uncss("gridRow");
+                    this.group[i * ROWSIZE + j].uncss("gridRow");
                 }
             }
             squeezeExpandoBelow() {
