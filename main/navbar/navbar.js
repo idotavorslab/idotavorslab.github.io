@@ -5,24 +5,31 @@ class Navbar extends BetterHTMLElement {
             _startSeparatorAnimation();
             window.location.reload();
         });
-        this._pageNameObjMap = {
-            research: ResearchPage,
-            people: PeoplePage,
-            publications: PublicationsPage,
-            gallery: GalleryPage
-        };
         for (let k of ["research", "people", "publications", "gallery", "contact"]) {
-            this[k].pointerdown(() => {
-                console.log('this[k].pointerdown, k:', k);
+            this[k]
+                .pointerdown(() => {
+                console.log(`this[k].pointerdown, k: ${k}`);
                 this._gotoPage(k);
             });
         }
     }
+    static _getPageObj(key) {
+        switch (key) {
+            case "research":
+                return ResearchPage;
+            case "people":
+                return PeoplePage;
+            case "publications":
+                return PublicationsPage;
+            case "gallery":
+                return GalleryPage;
+        }
+    }
     async _gotoPage(pageName) {
-        console.log('navbar.ts.Navbar._gotoPage');
+        console.log(`navbar.ts.Navbar._gotoPage(${pageName})`);
         DocumentElem.allOff();
         _startSeparatorAnimation();
-        const pageObj = this._pageNameObjMap[pageName];
+        const pageObj = Navbar._getPageObj(pageName);
         this._select(this[pageName]);
         await pageObj().init();
         _killSeparatorAnimation();

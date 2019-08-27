@@ -1,3 +1,5 @@
+type Page = "research" | "people" | "publications" | "gallery" | "contact";
+
 class Navbar extends BetterHTMLElement {
     home: Img;
     research: Div;
@@ -6,7 +8,6 @@ class Navbar extends BetterHTMLElement {
     gallery: Div;
     contact: Div;
     tau: Img;
-    _pageNameObjMap: TMap<() => { init: () => Promise<void> }>;
     
     constructor({query, children}) {
         super({query, children});
@@ -14,28 +15,36 @@ class Navbar extends BetterHTMLElement {
             _startSeparatorAnimation();
             window.location.reload();
         });
-        this._pageNameObjMap = {
-            research: ResearchPage,
-            people: PeoplePage,
-            publications: PublicationsPage,
-            gallery: GalleryPage
-        };
-        for (let k of ["research", "people", "publications", "gallery", "contact"]) {
-            this[k].pointerdown(() => {
-                console.log('this[k].pointerdown, k:', k);
-                // @ts-ignore
-                this._gotoPage(k);
-            });
+        
+        for (let k of <Page[]>["research", "people", "publications", "gallery", "contact"]) {
+            this[k]
+                .pointerdown(() => {
+                    console.log(`this[k].pointerdown, k: ${k}`);
+                    this._gotoPage(k);
+                })
         }
     }
     
-    private async _gotoPage(pageName: "research" | "people" | "publications" | "gallery" | "contact") {
-        // DocumentElem.off("pointerdown");
-        console.log('navbar.ts.Navbar._gotoPage');
+    private static _getPageObj(key: Page): typeof ResearchPage {
+        switch (key) {
+            case "research":
+                return ResearchPage;
+            case "people":
+                return PeoplePage;
+            case "publications":
+                return PublicationsPage;
+            case "gallery":
+                return GalleryPage;
+            
+        }
+    }
+    
+    private async _gotoPage(pageName: Page) {
+        console.log(`navbar.ts.Navbar._gotoPage(${pageName})`);
         DocumentElem.allOff();
         
         _startSeparatorAnimation();
-        const pageObj = this._pageNameObjMap[pageName];
+        const pageObj = Navbar._getPageObj(pageName);
         this._select(this[pageName]);
         await pageObj().init();
         _killSeparatorAnimation();
@@ -46,6 +55,7 @@ class Navbar extends BetterHTMLElement {
             k.toggleClass('selected', k === child);
         }
     }
+    
     
 }
 

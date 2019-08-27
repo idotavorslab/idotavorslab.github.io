@@ -55,6 +55,7 @@ Contact
 
 Navbar
     [x] Everything aligned to "0" (left of 1200px), besides last (right) one aligned right    
+
 ####
 DEV:
 ####
