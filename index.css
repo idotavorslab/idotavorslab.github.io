@@ -216,7 +216,7 @@ div#intro_container div#non_news div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 div#intro_container div#news {
   border-width: 1px;
@@ -238,7 +238,7 @@ div#intro_container div#news div.title {
   font-family: OpenSansBold;
   font-size: large;
   margin-bottom: 5px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   margin-bottom: 15px;
 }
 div#intro_container div#news div.radios {
@@ -270,7 +270,7 @@ div#research_snippets_container div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 article {
@@ -368,7 +368,7 @@ div#home div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-align: left;
 }
 div#home div#team_grid {
