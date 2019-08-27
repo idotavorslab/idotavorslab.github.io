@@ -67,19 +67,10 @@ a:hover {
 }
 
 div#main {
+  --marginVertical: 40px;
   margin: var(--marginVertical) auto;
   max-width: 100%;
   text-align: center;
-}
-@media screen and (min-width: 1340px) {
-  div#main {
-    --marginVertical: 40px;
-  }
-}
-@media screen and (max-width: 1340px) {
-  div#main {
-    --marginVertical: 40px;
-  }
 }
 @media screen and (min-width: 1340px) {
   div#main {
@@ -96,7 +87,7 @@ div#main div#navbar {
   display: flex;
   font-size: var(--fontSize);
   height: var(--imgWidth);
-  margin: auto auto 40px auto;
+  margin: auto auto var(--marginVertical) auto;
 }
 @media screen and (min-width: 1340px) {
   div#main div#navbar {
@@ -365,7 +356,7 @@ div#home div#team_grid {
   --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);
   margin-top: 0;
   margin-right: auto;
-  margin-bottom: var(--GAP0);
+  margin-bottom: var(--gap);
   margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);
@@ -411,7 +402,7 @@ div#home div#alumni_grid {
   --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);
   margin-top: 0;
   margin-right: auto;
-  margin-bottom: var(--GAP0);
+  margin-bottom: var(--gap);
   margin-left: auto;
   grid-template-columns: repeat(4, var(--tagWidth));
   grid-template-rows: repeat(2, auto);

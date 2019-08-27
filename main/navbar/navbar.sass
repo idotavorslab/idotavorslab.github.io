@@ -9,6 +9,7 @@
 		style: solid
 
 div#navbar
+	// MAYBE depends on index.sass #main --marginVertical (half)
 	--fontSize: 20px
 
 	@include min-width($BP1)
@@ -20,7 +21,8 @@ div#navbar
 	font-size: var(--fontSize)
 	height: var(--imgWidth)
 
-	margin: auto auto 40px auto
+	//  *  from index.sass #main
+	margin: auto auto var(--marginVertical) auto
 
 	& > div, img
 		cursor: pointer

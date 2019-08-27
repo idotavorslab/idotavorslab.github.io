@@ -47,10 +47,8 @@ a
 		color: var(--GREY6)
 
 div#main
-	@include min-width($BP1)
-		--marginVertical: 40px
-	@include max-width($BP1)
-		--marginVertical: 40px
+
+	--marginVertical: 40px
 
 	margin: var(--marginVertical) auto
 
@@ -65,6 +63,7 @@ div#main
 	@media screen and (min-width: $BP2) and (max-width: $BP1)
 		// 984px
 		width: var(--W1)
+
 	text-align: center
 	@import 'main/navbar/navbar.sass'
 
@@ -72,7 +71,7 @@ div#main
 		margin:
 			top: 0px
 			right: auto
-			// 1px sep height
+			// 39px (1px sep height)
 			bottom: calc(var(--marginVertical) - 1px)
 			left: 0
 		display: inline-block
