@@ -103,13 +103,15 @@ div#main div#navbar > div, div#main div#navbar img {
   cursor: pointer;
 }
 div#main div#navbar > div, div#main div#navbar img.home {
-  margin-top: 0;
+  margin-top: auto;
   margin-right: calc(var(--fontSize) * 2);
   margin-left: 0;
   margin-bottom: auto;
 }
 div#main div#navbar > img.home {
-  width: var(--imgWidth);
+  --__width: 111px;
+  width: var(--__width);
+  margin-top: calc((var(--__width) - var(--imgWidth)) / -2);
 }
 div#main div#navbar > img.tau {
   height: var(--imgWidth);
@@ -119,7 +121,6 @@ div#main div#navbar div:nth-last-child(2) {
 }
 div#main div#navbar > div {
   --paddingTop: calc(var(--imgWidth) / 2 - var(--fontSize) / 2);
-  padding: var(--paddingTop) 0 0 0;
   transition: color 200ms ease-out, border-bottom-color 200ms ease-out;
   display: block;
   border-bottom-color: var(--TRANS);
