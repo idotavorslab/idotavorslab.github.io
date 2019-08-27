@@ -34,8 +34,8 @@ images
 
 div#img_viewer_close
     position: fixed
-    top: var(--GAP)
-    right: var(--GAP)
+    top: var(--GAP0)
+    right: var(--GAP0)
     opacity: 0
     transition: opacity 100ms
 
@@ -72,12 +72,12 @@ div#img_viewer
     display: flex
     left: 50%
     // -1 x ((800 / 2) + 60) == -460px
-    margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--GAP)))
+    margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--GAP0)))
     opacity: 0
     position: fixed
     transition: opacity 200ms
     // 800 + 60 x 2 == 920px
-    width: calc(var(--containerWidth) + 2 * var(--GAP))
+    width: calc(var(--containerWidth) + 2 * var(--GAP0))
     z-index: -1
 
     &.on

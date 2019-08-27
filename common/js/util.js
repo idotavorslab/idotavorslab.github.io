@@ -3,7 +3,7 @@ const BP1 = 1340;
 const $BP2 = 1023;
 const W0 = 1200;
 const W1 = 984;
-const GAP = 60;
+const GAP0 = 60;
 const GREY5 = 'rgb(153, 153, 153)';
 const GREY7 = 'rgb(68, 68, 68)';
 function float(str) {

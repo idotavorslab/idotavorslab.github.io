@@ -113,7 +113,7 @@
 div#intro_container
     display: flex
     margin:
-        bottom: var(--GAP)
+        bottom: var(--GAP0)
     position: relative
     text-align: left
 
@@ -130,7 +130,7 @@ div#intro_container
             margin:
                 right: auto
                 left: auto
-                bottom: var(--GAP)
+                bottom: var(--GAP0)
             width: $nonNewsWidth
 
         div
@@ -145,9 +145,9 @@ div#intro_container
         display: flex
         flex-direction: column
         margin:
-            left: var(--GAP)
+            left: var(--GAP0)
         // 30px
-        padding: calc(var(--GAP) / 2)
+        padding: calc(var(--GAP0) / 2)
         position: relative
 
         div.date
@@ -170,16 +170,16 @@ div#intro_container
                 cursor: pointer
                 display: inline-block
 
-                height: calc(var(--GAP) / 4)
+                height: calc(var(--GAP0) / 4)
 
                 // 5px
                 margin:
-                    left: calc(var(--GAP) / 12)
-                    right: calc(var(--GAP) / 12)
+                    left: calc(var(--GAP0) / 12)
+                    right: calc(var(--GAP0) / 12)
                 transition: background 100ms
 
                 // 15px
-                width: calc(var(--GAP) / 4)
+                width: calc(var(--GAP0) / 4)
 
                 &[class~="selected"]
                     background-color: var(--GREY3)
