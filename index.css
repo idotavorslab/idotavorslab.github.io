@@ -67,9 +67,19 @@ a:hover {
 }
 
 div#main {
-  margin: 40px auto;
+  margin: var(--marginVertical) auto;
   max-width: 100%;
   text-align: center;
+}
+@media screen and (min-width: 1340px) {
+  div#main {
+    --marginVertical: 40px;
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#main {
+    --marginVertical: 40px;
+  }
 }
 @media screen and (min-width: 1340px) {
   div#main {
@@ -82,20 +92,20 @@ div#main {
   }
 }
 div#main div#navbar {
-  --imgWidth: 80px;
-  font-size: var(--fontSize);
-  margin: auto auto 40px auto;
+  --fontSize: 20px;
   display: flex;
-  height: 80px;
+  font-size: var(--fontSize);
+  height: var(--imgWidth);
+  margin: auto auto 40px auto;
 }
 @media screen and (min-width: 1340px) {
   div#main div#navbar {
-    --fontSize: 20px;
+    --imgWidth: 80px;
   }
 }
 @media screen and (max-width: 1340px) {
   div#main div#navbar {
-    --fontSize: 18px;
+    --imgWidth: 75px;
   }
 }
 div#main div#navbar > div, div#main div#navbar img {
@@ -139,7 +149,7 @@ div#main div#navbar > div.selected {
 div#main div#separators {
   margin-top: 0px;
   margin-right: auto;
-  margin-bottom: 39px;
+  margin-bottom: calc(var(--marginVertical) - 1px);
   margin-left: 0;
   display: inline-block;
 }

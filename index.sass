@@ -34,7 +34,7 @@ body
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
 	color: var(--GREY7)
-	
+
 	&.theater
 		background-color: var(--GREY8)
 
@@ -42,20 +42,24 @@ a
 	text-decoration: none
 	color: var(--GOOGLEBLUE)
 	transition: color 200ms ease-out
-	
+
 	&:hover
 		color: var(--GREY6)
 
 div#main
-	$marginVertical: 40px
-	margin: $marginVertical auto
-	
+	@include min-width($BP1)
+		--marginVertical: 40px
+	@include max-width($BP1)
+		--marginVertical: 40px
+
+	margin: var(--marginVertical) auto
+
 	max-width: 100%
 	// 1340 <= screen
-	@media screen and (min-width: $BP1)
+	@include min-width($BP1)
 		// 1200px
 		width: var(--W0)
-	
+
 	// *  DEP: people.ts PeoplePage().init()
 	// 1023 <= screen <= 1340
 	@media screen and (min-width: $BP2) and (max-width: $BP1)
@@ -63,35 +67,35 @@ div#main
 		width: var(--W1)
 	text-align: center
 	@import 'main/navbar/navbar.sass'
-	
+
 	div#separators
 		margin:
 			top: 0px
 			right: auto
 			// 1px sep height
-			bottom: $marginVertical - 1
+			bottom: calc(var(--marginVertical) - 1px)
 			left: 0
 		display: inline-block
-		
+
 		[class~="separator"]
 			position: absolute
 			height: 1px
 			width: 50%
 			transition: background 500ms
-		
+
 		[class~="left"]
 			left: 0
 			background:
 				image: linear-gradient(90deg, var(--TRANS) 0%, rgba(0, 0, 0, 0.1) 10%)
-		
-		
+
+
 		[class~="right"]
 			left: 50%
-			
+
 			background:
 				image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%)
-	
-	
+
+
 	div#home
 		position: relative
 		display: block

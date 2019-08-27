@@ -1,5 +1,7 @@
 @mixin selectedMixin($paddingTop)
 	$borderWidth: 1px
+	// [min-width: $BP1]:   30 - 22 - 1  =  7px
+	// [max-width: $BP1]:   27.5 - 22 - 1  =  4.5px
 	margin-bottom: $paddingTop - 22 - $borderWidth
 	border-bottom:
 		color: rgba(218, 165, 32, 1)
@@ -7,25 +9,27 @@
 		style: solid
 
 div#navbar
-	@include min-width($BP1)
-		--fontSize: 20px
-	@include max-width($BP1)
-		--fontSize: 18px
+	--fontSize: 20px
 
-	--imgWidth: 80px
-	font-size: var(--fontSize)
-	margin: auto auto 40px auto
+	@include min-width($BP1)
+		--imgWidth: 80px
+	@include max-width($BP1)
+		--imgWidth: 75px
+
 	display: flex
-	height: 80px
+	font-size: var(--fontSize)
+	height: var(--imgWidth)
+
+	margin: auto auto 40px auto
 
 	& > div, img
 		cursor: pointer
 
 	& > div, img.home
-		$marginRight: calc(var(--fontSize) * 2)
 		margin:
 			top: 0
-			right: $marginRight
+			// 40px
+			right: calc(var(--fontSize) * 2)
 			left: 0
 			bottom: auto
 
@@ -41,6 +45,8 @@ div#navbar
 		margin-right: auto
 
 	& > div
+		// [min-width: $BP1]:   (80 / 2) - (20 / 2)  =  30px
+		// [max-width: $BP1]:   (75 / 2) - (20 / 2)  =  27.5px
 		--paddingTop: calc(var(--imgWidth) / 2 - var(--fontSize) / 2)
 		padding: var(--paddingTop) 0 0 0
 		transition: color 200ms ease-out, border-bottom-color 200ms ease-out
