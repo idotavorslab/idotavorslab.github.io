@@ -70,12 +70,12 @@ div#main {
   max-width: 100%;
   text-align: center;
 }
-@media screen and (min-width: 1535px) {
+@media screen and (min-width: 1340px) {
   div#main {
     width: var(--W0);
   }
 }
-@media screen and (min-width: 1340px) and (max-width: 1535px) {
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
   div#main {
     width: var(--W1);
   }
@@ -353,17 +353,12 @@ div#home div#team_grid person {
   margin: auto;
 }
 div#home div#team_grid person:nth-of-type(4n+4) {
-  margin: 0 1px auto auto;
+  margin: 0 0px auto auto;
 }
 div#home div#team_grid person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
-@media screen and (min-width: 1535px) {
-  div#home div#team_grid person {
-    width: var(--tagWidth);
-  }
-}
-@media screen and (min-width: 1340px) and (max-width: 1535px) {
+@media screen and (min-width: 1023px) {
   div#home div#team_grid person {
     width: var(--tagWidth);
   }
@@ -387,15 +382,6 @@ div#home div#team_grid person:nth-of-type(4n+1) {
   div#home div#team_grid person:last-of-type {
     margin: auto 10px 60px auto;
   }
-  div#home div#team_grid person:nth-child(1) {
-    border-top: 1px solid var(--GREY3);
-  }
-  div#home div#team_grid person:nth-child(2) {
-    border-top: 1px solid var(--GREY3);
-  }
-  div#home div#team_grid person:nth-child(3) {
-    border-top: 1px solid var(--GREY3);
-  }
 }
 div#home div#alumni_grid {
   display: grid;
@@ -413,17 +399,12 @@ div#home div#alumni_grid person {
   margin: auto;
 }
 div#home div#alumni_grid person:nth-of-type(4n+4) {
-  margin: 0 1px auto auto;
+  margin: 0 0px auto auto;
 }
 div#home div#alumni_grid person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
-@media screen and (min-width: 1535px) {
-  div#home div#alumni_grid person {
-    width: var(--tagWidth);
-  }
-}
-@media screen and (min-width: 1340px) and (max-width: 1535px) {
+@media screen and (min-width: 1023px) {
   div#home div#alumni_grid person {
     width: var(--tagWidth);
   }
@@ -446,15 +427,6 @@ div#home div#alumni_grid person:nth-of-type(4n+1) {
   }
   div#home div#alumni_grid person:last-of-type {
     margin: auto 10px 60px auto;
-  }
-  div#home div#alumni_grid person:nth-child(1) {
-    border-top: 1px solid var(--GREY3);
-  }
-  div#home div#alumni_grid person:nth-child(2) {
-    border-top: 1px solid var(--GREY3);
-  }
-  div#home div#alumni_grid person:nth-child(3) {
-    border-top: 1px solid var(--GREY3);
   }
 }
 div#home person {
@@ -654,17 +626,12 @@ images img {
   margin: auto;
 }
 images img:nth-of-type(4n+4) {
-  margin: 0 1px auto auto;
+  margin: 0 0px auto auto;
 }
 images img:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
-@media screen and (min-width: 1535px) {
-  images img {
-    width: var(--tagWidth);
-  }
-}
-@media screen and (min-width: 1340px) and (max-width: 1535px) {
+@media screen and (min-width: 1023px) {
   images img {
     width: var(--tagWidth);
   }
@@ -676,17 +643,17 @@ images img:nth-of-type(4n+1) {
   images img {
     width: calc(26vw - 10.4px);
   }
+  images img:nth-of-type(3n+1) {
+    margin: auto auto 60px 10px;
+  }
+  images img:nth-of-type(3n+2) {
+    margin: auto auto 60px auto;
+  }
   images img:nth-of-type(3n+3) {
-    border-right: 1px solid var(--GREY3);
+    margin: auto 10px 60px auto;
   }
-  images img:nth-child(1) {
-    border-top: 1px solid var(--GREY3);
-  }
-  images img:nth-child(2) {
-    border-top: 1px solid var(--GREY3);
-  }
-  images img:nth-child(3) {
-    border-top: 1px solid var(--GREY3);
+  images img:last-of-type {
+    margin: auto 10px 60px auto;
   }
 }
 images[class=theater] {

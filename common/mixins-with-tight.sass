@@ -18,7 +18,6 @@
 		@if ($radius)
 			radius: $radius
 
-
 @mixin flexContainerMixin($childTag, $tight:false)
 	display: grid
 	@if ($tight == true)
@@ -58,30 +57,66 @@
 		margin: auto
 		// every 4th == last in row
 		&:nth-of-type(4n+4)
-			margin: 0 0px auto auto
+			margin: 0 1px auto auto
 		
 		// first in row
 		&:nth-of-type(4n+1)
 			margin: 0 auto auto 0
 		
 		
-		// 1023 <= screen
-		@media screen and (min-width: $BP2)
+		// 1535 <= screen
+		@media screen and (min-width: $BP0)
+			width: var(--tagWidth)
+		
+		// 1340 <= screen <= 1535
+		@media screen and (min-width: $BP1) and (max-width: $BP0)
 			width: var(--tagWidth)
 	
+	
+	@if ($tight == true)
+		#{$childTag}
+			margin: auto 0 0 0
+			padding: 8px
+			border:
+				bottom: 1px solid var(--GREY3)
+				left: 1px solid var(--GREY3)
+			
+			&:last-of-type
+				border-right: 1px solid var(--GREY3)
 	
 	// ***  1340 <= screen
 	// 4 items
 	@media screen and (min-width: $BP1)
 		
+		@if ($tight == true)
+			#{$childTag}
+				// every 4th == last in row
+				&:nth-of-type(4n+4)
+					border-right: 1px solid var(--GREY3)
+				
+				
+				@for $i from 1 through 4
+					&:nth-child(#{$i})
+						border-top: 1px solid var(--GREY3)
+		
 		// **  1535 <= screen
 		// 4 items across --W0
 		@media screen and (min-width: $BP0)
+			
+			
+			#{$childTag}
+				@if ($tight == true)
+					// [8][284][8] x 4 = 1192
+					width: 282px
 		
 		
 		// **  1340 <= screen <= 1535
 		// 4 tight items across --W0
 		@media screen and (max-width: $BP0)
+			#{$childTag}
+				@if ($tight == true)
+					// [8][242][8] = 258 * 4 = 1032
+					width: 242px
 	
 	
 	// ***  screen <= 1340
@@ -93,24 +128,38 @@
 		#{$childTag}
 			// [1140, 286], [1040, 260]
 			width: calc(26vw - 10.4px)
-			
-			// 1st: left 10px
-			&:nth-of-type(3n+1)
-				margin: auto auto 60px 10px
-			
-			// 2st: right, left auto
-			&:nth-of-type(3n+2)
-				margin: auto auto 60px auto
-			
-			// 3st: right 10px
-			&:nth-of-type(3n+3)
-				margin: auto 10px 60px auto
+			@if ($tight == true)
+				// every 3th == last in row
+				&:nth-of-type(3n+3)
+					border-right: 1px solid var(--GREY3)
+				
+				@for $i from 1 through 3
+					&:nth-child(#{$i})
+						border-top: 1px solid var(--GREY3)
 			
 			
-			// last: right 10px
-			&:last-of-type
-				margin: auto 10px 60px auto
-			
+			@else
+				
+				// 1st: left 10px
+				&:nth-of-type(3n+1)
+					margin: auto auto 60px 10px
+				
+				// 2st: right, left auto
+				&:nth-of-type(3n+2)
+					margin: auto auto 60px auto
+				
+				// 3st: right 10px
+				&:nth-of-type(3n+3)
+					margin: auto 10px 60px auto
+				
+				
+				// last: right 10px
+				&:last-of-type
+					margin: auto 10px 60px auto
+				
+				@for $i from 1 through 3
+					&:nth-child(#{$i})
+						border-top: 1px solid var(--GREY3)
 
 
 
