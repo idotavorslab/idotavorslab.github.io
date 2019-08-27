@@ -18,6 +18,13 @@
 		@if ($radius)
 			radius: $radius
 
+@mixin min-width($bp)
+	@media screen and (min-width: $bp)
+		@content
+
+@mixin max-width($bp)
+	@media screen and (max-width: $bp)
+		@content
 // **  --tagWidth
 @mixin setLocalTagWidthVar()
 	// *  DEP: people.sass #person_expando width
@@ -30,16 +37,18 @@
 
 // **  --gap
 @mixin setLocalGapVar()
-	@media screen and (min-width: $BP1)
+	@include min-width($BP1)
 		--gap: var(--GAP0)
-	@media screen and (max-width: $BP1)
+
+	@include max-width($BP1)
 		--gap: var(--GAP1)
+
 // **  --w
 @mixin setLocalWVar()
-	@media screen and (min-width: $BP1)
+	@include min-width($BP1)
 		// 60px
 		--w: var(--W0)
-	@media screen and (max-width: $BP1)
+	@include max-width($BP1)
 		// 40px
 		--w: var(--W1)
 
@@ -90,7 +99,7 @@
 
 
 		// 1023 <= screen
-		@media screen and (min-width: $BP2)
+		@include min-width($BP2)
 			width: var(--tagWidth)
 
 

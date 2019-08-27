@@ -72,9 +72,11 @@ div#home
 		background-color: white
 		box-shadow: 0px 1px 2px white
 		color: white
+
+		@include max-width($BP1)
+			font-size: 15px
 		height: 0
 
-		// *  DEP: mixins.sass flexContainerMixin grid-row-gap
 		// [min-width: $BP1]:  -50px
 		// [max-width: $BP1]:  -33.3333px
 		margin-top: calc(var(--gap) * -5 / 6)
@@ -84,7 +86,6 @@ div#home
 		text-align: left
 
 		transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
-		// *  DEP: mixins.sass --tagWidth
 
 		// [min-width: $BP1]:  255 - 30*2  =  195px
 		// [max-width: $BP1]:  216 - 20*2  =  176px
