@@ -30,6 +30,7 @@ div#intro_container
 			@include titleMixin
 
 	div#news
+		$dim: 15px
 		@include borderMixin(var(--GREY2))
 		background-color: var(--GREY01)
 		display: flex
@@ -43,11 +44,11 @@ div#intro_container
 
 		div.date
 			color: rgb(95, 95, 95)
-			font-size: 15px
+			font-size: $dim
 
 		div.title
 			@include titleMixin(large)
-			margin-bottom: 15px
+			margin-bottom: $dim
 
 		div.radios
 			margin: auto auto 0 auto
@@ -61,20 +62,18 @@ div#intro_container
 				cursor: pointer
 				display: inline-block
 
-				height: calc(var(--gap) / 4)
+				height: $dim
 
 				// 5px
 				margin:
-					left: calc(var(--gap) / 12)
-					right: calc(var(--gap) / 12)
+					left: $dim / 3
+					right: $dim / 3
 				transition: background 100ms
 
-				// 15px
-				width: calc(var(--gap) / 4)
+				width: $dim
 
 				&[class~="selected"]
 					background-color: var(--GREY3)
-					//background-image: linear-gradient(90deg, white -300%, var(--GREY3))
 					border-color: var(--GREY4)
 
 

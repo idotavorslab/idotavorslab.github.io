@@ -46,12 +46,12 @@ html {
 }
 
 body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: var(--GREY7);
+  font-family: "OpenSans", sans-serif;
   margin: 0;
   overflow: overlay;
-  font-family: "OpenSans", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--GREY7);
 }
 body.theater {
   background-color: var(--GREY8);
@@ -138,11 +138,11 @@ div#main div#navbar > div.selected {
   border-bottom-style: solid;
 }
 div#main div#separators {
+  display: inline-block;
   margin-top: 0px;
   margin-right: auto;
   margin-bottom: calc(var(--marginVertical) - 1px);
   margin-left: 0;
-  display: inline-block;
 }
 div#main div#separators [class~=separator] {
   position: absolute;
@@ -159,9 +159,9 @@ div#main div#separators [class~=right] {
   background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%);
 }
 div#main div#home {
-  position: relative;
   display: block;
   opacity: 1;
+  position: relative;
 }
 
 #window_stats {
@@ -252,11 +252,11 @@ div#intro_container div#news div.radios .radio {
   border-radius: 100px;
   cursor: pointer;
   display: inline-block;
-  height: calc(var(--gap) / 4);
-  margin-left: calc(var(--gap) / 12);
-  margin-right: calc(var(--gap) / 12);
+  height: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
   transition: background 100ms;
-  width: calc(var(--gap) / 4);
+  width: 15px;
 }
 div#intro_container div#news div.radios .radio[class~=selected] {
   background-color: var(--GREY3);

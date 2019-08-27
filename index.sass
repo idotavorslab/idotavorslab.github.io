@@ -28,12 +28,12 @@ html
 	min-height: 100%
 
 body
+	-moz-osx-font-smoothing: grayscale
+	-webkit-font-smoothing: antialiased
+	color: var(--GREY7)
+	font-family: "OpenSans", sans-serif
 	margin: 0
 	overflow: overlay
-	font-family: "OpenSans", sans-serif
-	-webkit-font-smoothing: antialiased
-	-moz-osx-font-smoothing: grayscale
-	color: var(--GREY7)
 
 	&.theater
 		background-color: var(--GREY8)
@@ -68,13 +68,13 @@ div#main
 	@import 'main/navbar/navbar.sass'
 
 	div#separators
+		display: inline-block
 		margin:
 			top: 0px
 			right: auto
 			// 39px (1px sep height)
 			bottom: calc(var(--marginVertical) - 1px)
 			left: 0
-		display: inline-block
 
 		[class~="separator"]
 			position: absolute
@@ -96,9 +96,9 @@ div#main
 
 
 	div#home
-		position: relative
 		display: block
 		opacity: 1
+		position: relative
 
 
 #window_stats
