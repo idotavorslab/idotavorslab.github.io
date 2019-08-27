@@ -433,7 +433,6 @@ div#home div#alumni_grid person:nth-of-type(4n+1) {
 div#home person {
   background-position: top;
   background-repeat: no-repeat;
-  box-shadow: 0px 2px 10px white;
   cursor: pointer;
   height: auto;
   overflow: hidden;
@@ -468,24 +467,15 @@ div#home div#person_expando {
   box-shadow: 0px 1px 2px white;
   color: white;
   height: 0;
+  margin-top: calc(var(--gap) * -5 / 6);
   overflow: hidden;
   padding: var(--expandoPadding);
   text-align: left;
   transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), color 300ms cubic-bezier(1, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0);
   width: calc(var(--tagWidth) - 2 * var(--expandoPadding));
 }
-@media screen and (min-width: 1340px) {
-  div#home div#person_expando {
-    margin-top: calc(var(--GAP0) * -5 / 6);
-  }
-}
-@media screen and (max-width: 1340px) {
-  div#home div#person_expando {
-    top: calc(var(--GAP1) * -5 / 6);
-  }
-}
 div#home div#person_expando svg#svg_root {
-  --dim: calc(var(--GAP1) / 4);
+  --dim: calc(var(--gap) / 4);
   cursor: pointer;
   display: block;
   margin-left: auto;
@@ -520,7 +510,7 @@ div#home div#person_expando.expanded {
   width: calc(var(--tagWidth) * 2);
 }
 div#home div#person_expando.expanded div.email {
-  margin-top: calc(var(--GAP1) / 6);
+  margin-top: calc(var(--gap) / 6);
 }
 div#home div#person_expando.expanded div.email a {
   color: var(--GOOGLEBLUE);
