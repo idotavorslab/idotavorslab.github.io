@@ -1,6 +1,7 @@
 
 div#intro_container
 	@include setLocalGapVar()
+	@include setLocalWVar()
 	display: flex
 	margin:
 		bottom: var(--gap)
@@ -10,18 +11,17 @@ div#intro_container
 
 	div#non_news
 		text-align: left
-		// 740px + #news margin-left (60px) == 800
-		// 800 == 2/3 of 1200 (W0)
-		$nonNewsWidth: 740px
-		width: $nonNewsWidth
+		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
+		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
+		width: calc((var(--w) * 2 / 3) - var(--gap))
 
 		img
 			display: block
 			margin:
 				right: auto
 				left: auto
-				bottom: var(--GAP0)
-			width: $nonNewsWidth
+				bottom: var(--gap)
+			width: inherit
 
 		div
 			position: relative
@@ -35,9 +35,10 @@ div#intro_container
 		display: flex
 		flex-direction: column
 		margin:
-			left: var(--GAP0)
-		// 30px
-		padding: calc(var(--GAP0) / 2)
+			left: var(--gap)
+		// [min-width: $BP1]:   30px
+		// [max-width: $BP1]:   20px
+		padding: calc(var(--gap) / 2)
 		position: relative
 
 		div.date
@@ -60,16 +61,16 @@ div#intro_container
 				cursor: pointer
 				display: inline-block
 
-				height: calc(var(--GAP0) / 4)
+				height: calc(var(--gap) / 4)
 
 				// 5px
 				margin:
-					left: calc(var(--GAP0) / 12)
-					right: calc(var(--GAP0) / 12)
+					left: calc(var(--gap) / 12)
+					right: calc(var(--gap) / 12)
 				transition: background 100ms
 
 				// 15px
-				width: calc(var(--GAP0) / 4)
+				width: calc(var(--gap) / 4)
 
 				&[class~="selected"]
 					background-color: var(--GREY3)
@@ -81,5 +82,5 @@ div#research_snippets_container
 	text-align: left
 
 	div.title
-		@include titleMixin
+		@include titleMixin()
 
