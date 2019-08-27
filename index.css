@@ -126,17 +126,35 @@ div#main div#navbar > div {
   border-bottom-color: var(--TRANS);
 }
 div#main div#navbar > div:hover {
-  margin-bottom: var(--paddingTop)-22-1px;
   border-bottom-color: goldenrod;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   color: var(--GREY6);
 }
+@media screen and (min-width: 1340px) {
+  div#main div#navbar > div:hover {
+    padding: 26.5px 0;
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#main div#navbar > div:hover {
+    padding: 24px 0;
+  }
+}
 div#main div#navbar > div.selected {
-  margin-bottom: var(--paddingTop)-22-1px;
   border-bottom-color: goldenrod;
   border-bottom-width: 1px;
   border-bottom-style: solid;
+}
+@media screen and (min-width: 1340px) {
+  div#main div#navbar > div.selected {
+    padding: 26.5px 0;
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#main div#navbar > div.selected {
+    padding: 24px 0;
+  }
 }
 div#main div#separators {
   display: inline-block;

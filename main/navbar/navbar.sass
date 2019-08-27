@@ -2,7 +2,13 @@
 	$borderWidth: 1px
 	// [min-width: $BP1]:   30 - 22 - 1  =  7px
 	// [max-width: $BP1]:   27.5 - 22 - 1  =  4.5px
-	margin-bottom: $paddingTop - 22 - $borderWidth
+	//margin-bottom: $paddingTop - 22 - $borderWidth
+	// TODO: why?
+	@include min-width($BP1)
+		padding: 26.5px 0
+	@include max-width($BP1)
+		padding: 24px 0
+	//padding: $paddingTop 0
 	border-bottom:
 		color: rgba(218, 165, 32, 1)
 		width: $borderWidth
