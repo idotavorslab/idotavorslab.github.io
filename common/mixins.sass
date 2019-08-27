@@ -3,7 +3,7 @@
 
 
 @mixin titleMixin($fontSize: x-large)
-	
+
 	font:
 		family: OpenSansBold
 		size: $fontSize
@@ -18,20 +18,28 @@
 		@if ($radius)
 			radius: $radius
 
+@mixin flexContainerTagWidth()
+	@media screen and (min-width: $BP1)
+		// (1200 - 4 * 255) / 3  =  (1200 - 1020) / 3  =  180 / 3  =  60  ==  --GAP
+		--tagWidth: 255px
+	@media screen and (max-width: $BP1)
+		// (984 - 4 * 216) / 3  =  (984 - 864) / 3  =  120 / 3  =  40  ==  --GAP1
+		--tagWidth: 216px
+
 
 @mixin flexContainerMixin($childTag, $tight:false)
+	// **  --tagWidth
 	display: grid
 	@if ($tight == true)
 		// (1200 - 4 * 294) / 3  =  (1200 - 1176) / 3  =  180 / 3  =  8  ==  row/column-gap
 		--tagWidth: 294px
 	@else
-		// *  must be pic size
-		//     pic size must be 255 so gap is 60;  (W0 - 4 x tagWidth) : 3
-		//     DEP: people.sass #person_expando width
-		// TODO: when in other media query, W1 (not W0) etc
-		// (1200 - 4 * 255) / 3  =  (1200 - 1020) / 3  =  180 / 3  =  60  ==  --GAP
-		--tagWidth: 255px
-	
+		// must be pic size
+		// pic size must be 255 so gap is 60;  (W0 - 4 x tagWidth) : 3
+		// DEP: people.sass #person_expando width
+		@include flexContainerTagWidth()
+
+	// **  margin
 	margin:
 		top: 0
 		right: auto
@@ -40,77 +48,83 @@
 		@else
 			bottom: var(--GAP)
 		left: auto
-	
-	grid:
-		template:
-			columns: repeat(4, var(--tagWidth))
-			rows: repeat(2, auto)
-		
-		@if ($tight == true)
+
+	// **  grid
+	grid-template:
+		columns: repeat(4, var(--tagWidth))
+		rows: repeat(2, auto)
+
+	@if ($tight == true)
+		grid:
 			row-gap: 8px
 			column-gap: 8px
-		@else
-			
-			row-gap: var(--GAP)
-			column-gap: var(--GAP)
-	
+	@else
+		@media screen and (min-width: $BP1)
+			grid:
+				row-gap: var(--GAP)
+				column-gap: var(--GAP)
+		@media screen and (max-width: $BP1)
+			grid:
+				row-gap: var(--GAP1)
+				column-gap: var(--GAP1)
+
 	#{$childTag}
 		margin: auto
 		// every 4th == last in row
 		&:nth-of-type(4n+4)
 			margin: 0 0px auto auto
-		
+
 		// first in row
 		&:nth-of-type(4n+1)
 			margin: 0 auto auto 0
-		
-		
+
+
 		// 1023 <= screen
 		@media screen and (min-width: $BP2)
 			width: var(--tagWidth)
-	
-	
+
+
 	// ***  1340 <= screen
 	// 4 items
 	@media screen and (min-width: $BP1)
-		
+
 		// **  1535 <= screen
 		// 4 items across --W0
 		@media screen and (min-width: $BP0)
-		
-		
+
+
 		// **  1340 <= screen <= 1535
 		// 4 tight items across --W0
 		@media screen and (max-width: $BP0)
-	
-	
+
+
 	// ***  screen <= 1340
 	// 3 items across 80vw
 	@media screen and (max-width: $BP1)
-		width: calc(80vw)
-		
-		
-		#{$childTag}
-			// [1140, 286], [1040, 260]
-			width: calc(26vw - 10.4px)
-			
-			// 1st: left 10px
-			&:nth-of-type(3n+1)
-				margin: auto auto 60px 10px
-			
-			// 2st: right, left auto
-			&:nth-of-type(3n+2)
-				margin: auto auto 60px auto
-			
-			// 3st: right 10px
-			&:nth-of-type(3n+3)
-				margin: auto 10px 60px auto
-			
-			
-			// last: right 10px
-			&:last-of-type
-				margin: auto 10px 60px auto
-			
+//width: calc(80vw)
+
+
+//#{$childTag}
+	// [1140, 286], [1040, 260]
+	width: calc(26vw - 10.4px)
+
+	// 1st: left 10px
+	&:nth-of-type(3n+1)
+		margin: auto auto 60px 10px
+
+	// 2st: right, left auto
+	&:nth-of-type(3n+2)
+		margin: auto auto 60px auto
+
+	// 3st: right 10px
+	&:nth-of-type(3n+3)
+		margin: auto 10px 60px auto
+
+
+	// last: right 10px
+	&:last-of-type
+		margin: auto 10px 60px auto
+
 
 
 

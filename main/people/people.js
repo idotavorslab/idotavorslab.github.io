@@ -2,12 +2,11 @@ const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
         let ROWSIZE;
-        if (window.innerWidth >= BP0) {
+        if (window.innerWidth >= BP1) {
             ROWSIZE = 4;
         }
         else {
-            console.warn('people.ts. init BP1 no code, defaulting ROWSIZE 4');
-            ROWSIZE = 4;
+            ROWSIZE = 3;
         }
         class Person extends BetterHTMLElement {
             constructor(image, name, role, cv, email) {

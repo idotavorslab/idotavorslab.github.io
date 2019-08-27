@@ -53,10 +53,13 @@ div#main
 	max-width: 100%
 	// 1340 <= screen
 	@media screen and (min-width: $BP1)
+		// 1200px
 		width: var(--W0)
 	
+	// *  DEP: people.ts PeoplePage().init()
 	// 1023 <= screen <= 1340
 	@media screen and (min-width: $BP2) and (max-width: $BP1)
+		// 984px
 		width: var(--W1)
 	text-align: center
 	@import 'main/navbar/navbar.sass'

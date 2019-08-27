@@ -1,8 +1,11 @@
 const BP0 = 1535;
 // needs to be higher than --W0
 const BP1 = 1340;
+// needs to be higher than --W1
 const $BP2 = 1023;
+// [BP1]W0[BP0]
 const W0 = 1200;
+// [BP2]W1[BP1]
 const W1 = 984;
 const GAP = 60;
 const GREY5 = 'rgb(153, 153, 153)';
