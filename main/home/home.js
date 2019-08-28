@@ -41,8 +41,10 @@ const HomePage = () => {
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, { opacity: 0 });
             await wait(25);
-            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : undefined);
-            newsElem.date.text(undefined);
+            for (let [text, link] of enumerate(selectedItem.links)) {
+                selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
+            }
+            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
             newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
@@ -73,8 +75,8 @@ const HomePage = () => {
         elem({ query: "#non_news > .text" }).text(data["our lab"]);
         const newsData = new NewsData();
         let i = 0;
-        for (let [title, { date, content }] of dict(data.news).items()) {
-            let item = { title, date, content, radio: div({ cls: 'radio' }), index: i };
+        for (let [title, { date, content, links, thumbnail }] of dict(data.news).items()) {
+            let item = { title, date, content, links, thumbnail, radio: div({ cls: 'radio' }), index: i };
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
