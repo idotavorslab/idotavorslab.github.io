@@ -51,7 +51,6 @@ body {
   color: var(--GREY7);
   font-family: "OpenSans", sans-serif;
   margin: 0;
-  overflow: overlay;
 }
 body.theater {
   background-color: var(--GREY8);
@@ -768,13 +767,16 @@ images:not([class=theater]) img:hover {
 
 div#img_viewer {
   --containerWidth: 800px;
+  height: 600px;
+  margin-top: -300px;
+  top: 50%;
   display: flex;
-  left: 50%;
-  margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--gap)));
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--w);
   opacity: 0;
   position: fixed;
   transition: opacity 200ms;
-  width: calc(var(--containerWidth) + 2 * var(--gap));
   z-index: -1;
 }
 @media screen and (min-width: 1340px) {
@@ -787,12 +789,22 @@ div#img_viewer {
     --gap: var(--GAP1);
   }
 }
+@media screen and (min-width: 1340px) {
+  div#img_viewer {
+    --w: var(--W0);
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#img_viewer {
+    --w: var(--W1);
+  }
+}
 div#img_viewer.on {
   opacity: 1;
   z-index: 5;
 }
 div#img_viewer img {
-  height: 600px;
+  max-height: 600px;
 }
 div#img_viewer div#right_chevron, div#img_viewer div#left_chevron {
   cursor: pointer;

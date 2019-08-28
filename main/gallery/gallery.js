@@ -114,7 +114,7 @@ const GalleryPage = () => {
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
         Home.empty().append(images, imgViewer, imgViewerClose);
-        window.onload = async () => {
+        function masonryImages() {
             let ROWSIZE;
             if (window.innerWidth >= BP1) {
                 ROWSIZE = 4;
@@ -134,7 +134,8 @@ const GalleryPage = () => {
                 }
                 console.groupEnd();
             }
-        };
+        }
+        window.onload = masonryImages;
     }
     return { init };
 };

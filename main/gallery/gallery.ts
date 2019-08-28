@@ -170,7 +170,8 @@ const GalleryPage = () => {
                 )
         ).pointerdown(closeImgViewer);
         Home.empty().append(images, imgViewer, imgViewerClose);
-        window.onload = async () => {
+        
+        function masonryImages() {
             let ROWSIZE;
             if (window.innerWidth >= BP1) { // 1340
                 ROWSIZE = 4;
@@ -192,8 +193,10 @@ const GalleryPage = () => {
                 console.groupEnd();
                 
             }
-        };
+        }
         
+        window.onload = masonryImages;
+        // masonryImages();
         
         /*const masonry = div({cls: 'grid'})
         // .attr({'data-masonry': '{ "itemSelector": ".grid-item", "columnWidth": 160 }'})
