@@ -90,4 +90,4 @@ const PublicationsPage = () => {
     
     return {init}
 };
-PublicationsPage().init();
+// PublicationsPage().init();

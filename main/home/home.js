@@ -69,6 +69,7 @@ const HomePage = () => {
         newsElem.mouseover(() => newsData.stopAutoSwitch());
         newsElem.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
+        elem({ query: "#non_news > .text" }).text(data["our lab"]);
         const newsData = new NewsData();
         let i = 0;
         for (let [title, { date, content }] of dict(data.news).items()) {
@@ -83,4 +84,5 @@ const HomePage = () => {
     }
     return { init };
 };
+HomePage().init();
 //# sourceMappingURL=home.js.map

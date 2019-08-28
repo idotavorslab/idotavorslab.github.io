@@ -186,7 +186,7 @@ const HomePage = () => {
         console.log(carousel);
         */
         const data = await fetchJson('main/home/home.json', "no-cache");
-        
+        elem({query: "#non_news > .text"}).text(data["our lab"]);
         
         /** Keep the data from .json in an array, plus the matching radio BetterHTMLElement */
         const newsData = new NewsData();
@@ -211,7 +211,7 @@ const HomePage = () => {
     
     return {init}
 };
-// HomePage().init();
+HomePage().init();
 
 
 
