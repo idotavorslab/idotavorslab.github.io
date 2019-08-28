@@ -8,13 +8,11 @@ const PublicationsPage = () => {
                     window.open(`main/publications/${link}`);
             }
             function _getPdfText(_link) {
-                const ext = link.split('.').reverse()[0].toLowerCase();
+                const ext = _link.split('.').reverse()[0].toLowerCase();
                 if (ext === "pdf")
                     return ext;
                 return "↗";
             }
-            let pdfText = link.split('.').reverse()[0].toUpperCase();
-            console.log({ link, pdfText });
             this.elem = elem({ tag: "paper" })
                 .cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),

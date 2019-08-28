@@ -21,6 +21,7 @@ const GalleryPage = () => {
 </svg>
 `;
         
+        //**  Functions
         function switchToImg(selectedIndex: number) {
             selectedFile = files[selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile}`);
@@ -63,6 +64,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
+        //**  imgViewer
         const imgViewer: ImgViewerContainer = <ImgViewerContainer>div({id: 'img_viewer'})
             .cacheAppend({
                 left: div({id: 'left_chevron', cls: 'left'}).html(chevronSvg).pointerdown(gotoAdjImg),
@@ -73,25 +75,20 @@ const GalleryPage = () => {
                 console.log('imgViewer pointerdown, stopping propagation');
                 event.stopPropagation();
             });
+        
         imgViewer.isopen = false;
+        
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
-        const divs: BetterHTMLElement[] = [];
+        
+        
+        //**  HTML
+        const imgs: Img[] = [];
         let selectedFile: string = null;
         for (let {description, file} of data) {
-            /*const removeExt = (s) => s.split('.').slice(0, file.split('.').length - 1).join();
-            file = removeExt(file);
-            let req1 = new Request(`main/gallery/${file}-294x220.5.jpeg`, {cache: "no-cache"});
-            let {ok} = await fetch(req1);
-            console.log(`main/gallery/${file}-294x220.5.jpeg`, ok);
-            if (ok)
-                file = `${file}-294x220.5.jpeg`;
-            else
-                file = `${file}.jpeg`;
-            */
             
-            let imgContainer = div({cls: 'img-container'})
+            /*let imgContainer = div({cls: 'img-container'})
                 .append(
                     // div({cls: 'tooltip', text: description}),
                     img({src: `main/gallery/${file}`})
@@ -112,13 +109,34 @@ const GalleryPage = () => {
                     navbar.css({opacity: 0});
                     
                 });
+            */
             
-            divs.push(imgContainer)
+            let image: Img = img({src: `main/gallery/${file}`}).pointerdown((event: Event) => {
+                // if open: clicked on other images in the bg. if closed: open imgViewer
+                console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
+                event.stopPropagation();
+                if (imgViewer.isopen)
+                    return closeImgViewer();
+                selectedFile = file;
+                imgViewerClose.toggleClass('on', true);
+                imgViewer
+                    .toggleClass('on', true)
+                    .img.src(`main/gallery/${selectedFile}`);
+                imgViewer.isopen = true;
+                Body.toggleClass('theater', true);
+                images.toggleClass('theater', true);
+                navbar.css({opacity: 0});
+                
+            });
+            
+            imgs.push(image)
         }
         
-        const images = elem({tag: 'images'})
-            .append(...divs);
-        
+        const images = elem({tag: 'images'}).append(...imgs);
+        // wait(500).then(() => {
+        //
+        //     console.log('imgs.map(i=>i.e.height)', images.children().map(i => i.e.height));
+        // })
         DocumentElem
             .pointerdown(() => {
                 if (!imgViewer.isopen)
@@ -127,23 +145,22 @@ const GalleryPage = () => {
                 closeImgViewer();
             })
             .keydown((event: KeyboardEvent) => {
-                    console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
-                    if (!imgViewer.isopen)
-                        return;
+                console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
+                if (!imgViewer.isopen)
+                    return;
+                
+                if (event.key === "Escape")
+                    return closeImgViewer();
+                
+                if (event.key.startsWith("Arrow")) {
+                    let selectedIndex = files.indexOf(selectedFile);
+                    if (event.key === "ArrowLeft")
+                        return switchToImg(getLeftIndex(selectedIndex));
+                    else if (event.key === "ArrowRight")
+                        return switchToImg(getRightIndex(selectedIndex));
                     
-                    if (event.key === "Escape")
-                        return closeImgViewer();
-                    
-                    if (event.key.startsWith("Arrow")) {
-                        let selectedIndex = files.indexOf(selectedFile);
-                        if (event.key === "ArrowLeft")
-                            return switchToImg(getLeftIndex(selectedIndex));
-                        else if (event.key === "ArrowRight")
-                            return switchToImg(getRightIndex(selectedIndex));
-                        
-                    }
                 }
-            );
+            });
         const imgViewerClose = div({id: 'img_viewer_close'}).append(
             elem({tag: 'svg'})
                 .attr({viewBox: `0 0 32 32`})
@@ -152,7 +169,46 @@ const GalleryPage = () => {
                     elem({tag: 'path', cls: 'downleft'})
                 )
         ).pointerdown(closeImgViewer);
-        Home.empty().append(images, imgViewer, imgViewerClose)
+        
+        const observer = new MutationObserver(async (mutationsList, observer) => {
+            for (let mutation of mutationsList) {
+                if (mutation.previousSibling === images.e) {
+                    console.log('done appending images!');
+                    await wait(50);
+                    masonryImages();
+                }
+            }
+        });
+        observer.observe(Home.e, {childList: true});
+        Home.empty().append(images, imgViewer, imgViewerClose);
+        
+        function masonryImages() {
+            let ROWSIZE;
+            if (window.innerWidth >= BP1) { // 1340
+                ROWSIZE = 4;
+            } else {
+                ROWSIZE = 4;
+            }
+            
+            function getBottom(_image: Img): number {
+                return _image.e.offsetTop + _image.e.height
+            }
+            
+            for (let i = 1; i < imgs.length / ROWSIZE; i++) {
+                console.group(`row ${i}`);
+                for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
+                    let image = imgs[i * ROWSIZE + j];
+                    let prevImage = imgs[(i - 1) * ROWSIZE + j];
+                    let marginTop = `-${image.e.offsetTop - getBottom(prevImage) - 8}px`;
+                    console.log(`${marginTop}`);
+                    image.css({marginTop});
+                }
+                console.groupEnd();
+                
+            }
+        }
+        
+        
     }
     
     return {init}

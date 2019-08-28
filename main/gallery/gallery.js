@@ -68,11 +68,10 @@ const GalleryPage = () => {
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
-        const divs = [];
+        const imgs = [];
         let selectedFile = null;
         for (let { description, file } of data) {
-            let imgContainer = div({ cls: 'img-container' })
-                .append(img({ src: `main/gallery/${file}` })).pointerdown((event) => {
+            let image = img({ src: `main/gallery/${file}` }).pointerdown((event) => {
                 console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
                 event.stopPropagation();
                 if (imgViewer.isopen)
@@ -87,10 +86,9 @@ const GalleryPage = () => {
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
             });
-            divs.push(imgContainer);
+            imgs.push(image);
         }
-        const images = elem({ tag: 'images' })
-            .append(...divs);
+        const images = elem({ tag: 'images' }).append(...imgs);
         DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)
@@ -115,7 +113,40 @@ const GalleryPage = () => {
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
+        const observer = new MutationObserver(async (mutationsList, observer) => {
+            for (let mutation of mutationsList) {
+                if (mutation.previousSibling === images.e) {
+                    console.log('done appending images!');
+                    await wait(50);
+                    masonryImages();
+                }
+            }
+        });
+        observer.observe(Home.e, { childList: true });
         Home.empty().append(images, imgViewer, imgViewerClose);
+        function masonryImages() {
+            let ROWSIZE;
+            if (window.innerWidth >= BP1) {
+                ROWSIZE = 4;
+            }
+            else {
+                ROWSIZE = 4;
+            }
+            function getBottom(_image) {
+                return _image.e.offsetTop + _image.e.height;
+            }
+            for (let i = 1; i < imgs.length / ROWSIZE; i++) {
+                console.group(`row ${i}`);
+                for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
+                    let image = imgs[i * ROWSIZE + j];
+                    let prevImage = imgs[(i - 1) * ROWSIZE + j];
+                    let marginTop = `-${image.e.offsetTop - getBottom(prevImage) - 8}px`;
+                    console.log(`${marginTop}`);
+                    image.css({ marginTop });
+                }
+                console.groupEnd();
+            }
+        }
     }
     return { init };
 };

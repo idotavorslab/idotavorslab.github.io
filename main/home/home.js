@@ -75,8 +75,8 @@ const HomePage = () => {
         elem({ query: "#non_news > .text" }).text(data["our lab"]);
         const newsData = new NewsData();
         let i = 0;
-        for (let [title, { date, content, links, thumbnail }] of dict(data.news).items()) {
-            let item = { title, date, content, links, thumbnail, radio: div({ cls: 'radio' }), index: i };
+        for (let [title, { date, content, links }] of dict(data.news).items()) {
+            let item = { title, date, content, links, radio: div({ cls: 'radio' }), index: i };
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
