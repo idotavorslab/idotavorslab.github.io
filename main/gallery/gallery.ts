@@ -21,6 +21,7 @@ const GalleryPage = () => {
 </svg>
 `;
         
+        //**  Functions
         function switchToImg(selectedIndex: number) {
             selectedFile = files[selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile}`);
@@ -63,6 +64,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
+        //**  imgViewer
         const imgViewer: ImgViewerContainer = <ImgViewerContainer>div({id: 'img_viewer'})
             .cacheAppend({
                 left: div({id: 'left_chevron', cls: 'left'}).html(chevronSvg).pointerdown(gotoAdjImg),
@@ -73,10 +75,15 @@ const GalleryPage = () => {
                 console.log('imgViewer pointerdown, stopping propagation');
                 event.stopPropagation();
             });
+        
         imgViewer.isopen = false;
+        
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
+        
+        
+        //**  HTML
         const divs: BetterHTMLElement[] = [];
         let selectedFile: string = null;
         for (let {description, file} of data) {
@@ -152,7 +159,83 @@ const GalleryPage = () => {
                     elem({tag: 'path', cls: 'downleft'})
                 )
         ).pointerdown(closeImgViewer);
-        Home.empty().append(images, imgViewer, imgViewerClose)
+        
+        const masonry = div({cls: 'grid'})
+            .attr({'data-masonry': '{ "itemSelector": ".grid-item", "columnWidth": 160 }'})
+            .html(`<div class="grid-item"></div>
+<div class="grid-item grid-item--width2 grid-item--height2"></div>
+<div class="grid-item grid-item--height3"></div>
+<div class="grid-item grid-item--height2"></div>
+<div class="grid-item grid-item--width3"></div>
+<div class="grid-item"></div>
+<div class="grid-item"></div>
+<div class="grid-item grid-item--height2"></div>
+<div class="grid-item grid-item--width2 grid-item--height3"></div>
+<div class="grid-item"></div>
+<div class="grid-item grid-item--height2"></div>
+<div class="grid-item"></div>
+<div class="grid-item grid-item--width2 grid-item--height2"></div>
+<div class="grid-item grid-item--width2"></div>
+<div class="grid-item"></div>
+<div class="grid-item grid-item--height2"></div>
+<div class="grid-item"></div>
+<div class="grid-item"></div>
+<div class="grid-item grid-item--height3"></div>
+<div class="grid-item grid-item--height2"></div>
+<div class="grid-item"></div>
+<div class="grid-item"></div>
+<div class="grid-item grid-item--height2"></div>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+`);
+        // Home.empty().append(images, imgViewer, imgViewerClose)
+        elem({htmlElement: document.head}).empty().append(elem({tag: 'style'}).html(
+            `* { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+/* ---- grid ---- */
+
+.grid {
+  background: #EEE;
+  max-width: 1200px;
+}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+  width: 160px;
+  height: 120px;
+  float: left;
+  background: #D26;
+  border: 2px solid #333;
+  border-color: hsla(0, 0%, 0%, 0.5);
+  border-radius: 5px;
+}
+
+.grid-item--width2 { width: 320px; }
+.grid-item--width3 { width: 480px; }
+.grid-item--width4 { width: 640px; }
+
+.grid-item--height2 { height: 200px; }
+.grid-item--height3 { height: 260px; }
+.grid-item--height4 { height: 360px; }
+`
+        ));
+        Body.empty().append(masonry);
+
+
+// element argument can be a selector string
+//   for an individual element
+        var msnry = new Masonry('.grid', {
+            // options
+        });
     }
     
     return {init}

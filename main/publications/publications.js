@@ -7,6 +7,12 @@ const PublicationsPage = () => {
                 else
                     window.open(`main/publications/${link}`);
             }
+            function _getPdfText(_link) {
+                const ext = _link.split('.').reverse()[0].toLowerCase();
+                if (ext === "pdf")
+                    return ext;
+                return "↗";
+            }
             this.elem = elem({ tag: "paper" })
                 .cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
@@ -17,7 +23,7 @@ const PublicationsPage = () => {
                     mag: div({ text: mag, cls: "mag" }),
                 }),
                 pdf: div({ cls: 'pdf-div' })
-                    .text("↗")
+                    .text(_getPdfText(link))
             }).pointerdown(_openLink);
             this.year = year;
         }
