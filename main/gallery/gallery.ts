@@ -145,23 +145,22 @@ const GalleryPage = () => {
                 closeImgViewer();
             })
             .keydown((event: KeyboardEvent) => {
-                    console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
-                    if (!imgViewer.isopen)
-                        return;
+                console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
+                if (!imgViewer.isopen)
+                    return;
+                
+                if (event.key === "Escape")
+                    return closeImgViewer();
+                
+                if (event.key.startsWith("Arrow")) {
+                    let selectedIndex = files.indexOf(selectedFile);
+                    if (event.key === "ArrowLeft")
+                        return switchToImg(getLeftIndex(selectedIndex));
+                    else if (event.key === "ArrowRight")
+                        return switchToImg(getRightIndex(selectedIndex));
                     
-                    if (event.key === "Escape")
-                        return closeImgViewer();
-                    
-                    if (event.key.startsWith("Arrow")) {
-                        let selectedIndex = files.indexOf(selectedFile);
-                        if (event.key === "ArrowLeft")
-                            return switchToImg(getLeftIndex(selectedIndex));
-                        else if (event.key === "ArrowRight")
-                            return switchToImg(getRightIndex(selectedIndex));
-                        
-                    }
                 }
-            );
+            });
         const imgViewerClose = div({id: 'img_viewer_close'}).append(
             elem({tag: 'svg'})
                 .attr({viewBox: `0 0 32 32`})
@@ -172,7 +171,23 @@ const GalleryPage = () => {
         ).pointerdown(closeImgViewer);
         Home.empty().append(images, imgViewer, imgViewerClose);
         window.onload = () => {
-            console.log('imgs.map(i=>i.e.height)', images.children().map(i => i.e.height));
+            let ROWSIZE;
+            if (window.innerWidth >= BP1) { // 1340
+                ROWSIZE = 4;
+            } else {
+                ROWSIZE = 4;
+            }
+            for (let i = 0; i < imgs.length / ROWSIZE; i++) {
+                console.group(`row ${i}`);
+                for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
+                    let image = imgs[i * ROWSIZE + j];
+                    console.log(`i:`, i, 'j:', j, 'i * ROWSIZE + j:', i * ROWSIZE + j, 'image.e.height:', image.e.height);
+                    
+                }
+                console.groupEnd();
+                
+            }
+            // console.log('imgs.map(i=>i.e.height)', imgs.map(i => (<HTMLImageElement>i.e).height));
         };
         
         

@@ -115,7 +115,21 @@ const GalleryPage = () => {
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
         Home.empty().append(images, imgViewer, imgViewerClose);
         window.onload = () => {
-            console.log('imgs.map(i=>i.e.height)', images.children().map(i => i.e.height));
+            let ROWSIZE;
+            if (window.innerWidth >= BP1) {
+                ROWSIZE = 4;
+            }
+            else {
+                ROWSIZE = 4;
+            }
+            for (let i = 0; i < imgs.length / ROWSIZE; i++) {
+                console.group(`row ${i}`);
+                for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
+                    let image = imgs[i * ROWSIZE + j];
+                    console.log(`i:`, i, 'j:', j, 'i * ROWSIZE + j:', i * ROWSIZE + j, 'image.e.height:', image.e.height);
+                }
+                console.groupEnd();
+            }
         };
     }
     return { init };
