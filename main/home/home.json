@@ -1,17 +1,12 @@
 {
 	"our lab": "We focus on exploring the connection between brain structure, function and human behavior, using magnetic resonance imaging (MRI). We investigate what underlies behavioral and functional differences between individuals, such as changes in functional and structural connectivity and differences in the brain’s microstructure. In addition, we study learning-related brain plasticity by developing behavioral tasks that induce functional and structural brain modifications. For our work, we use advanced mathematical and statistical analysis methods.",
 	"news": {
-		"Something really exciting happened!": {
-			"date": "Aug 15 2019",
-			"content": "We are very happy to announce that this thing actually happened. We've all worked very hard for it, and it was all worth it.<br>Congrats!"
-		},
-		"Something else happened a few weeks ago": {
-			"date": "Sep 7 2019",
-			"content": "This is another thing that happened, but it's not as exciting as the new one"
-		},
-		"Something happened two years ago and everybody forgot": {
-			"date": "Feb 23 2017",
-			"content": "This item made everyone happy at the time, but it's not really relevant now. Its irrelevance is further emphasized by the fact that half of the lab members were replaced by now"
+		"Follow us on Twitter!": {
+			"content": "Don’t miss our latest updates, publications and discussions on @LabTavor",
+			"links": {
+				"@LabTavor": "https://twitter.com/LabTavor"
+			},
+			"thumbnail": "twitter.png"
 		}
 	}
 }

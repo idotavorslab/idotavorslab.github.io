@@ -662,7 +662,6 @@ paper div.content-div span {
 paper div.content-div div.paper-title {
   font-family: OpenSansSemiBold;
   margin-bottom: 10px;
-  text-transform: capitalize;
 }
 paper div.content-div div.mag {
   font-family: OpenSansItalic;

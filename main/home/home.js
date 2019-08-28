@@ -41,7 +41,8 @@ const HomePage = () => {
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, { opacity: 0 });
             await wait(25);
-            newsElem.date.text(`${selectedItem.date}:`);
+            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : undefined);
+            newsElem.date.text(undefined);
             newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
