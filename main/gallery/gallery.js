@@ -122,12 +122,15 @@ const GalleryPage = () => {
             else {
                 ROWSIZE = 4;
             }
+            function getBottom(_image) {
+                return _image.e.offsetTop + _image.e.height;
+            }
             for (let i = 1; i < imgs.length / ROWSIZE; i++) {
                 console.group(`row ${i}`);
                 let highestInPrevRow = undefined;
                 for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
                     let image = imgs[(i - 1) * ROWSIZE + j];
-                    if (highestInPrevRow === undefined || image.e.height > highestInPrevRow.e.height)
+                    if (highestInPrevRow === undefined || getBottom(image) > getBottom(highestInPrevRow))
                         highestInPrevRow = image;
                 }
                 console.log('highestInPrevRow:', highestInPrevRow);
@@ -136,9 +139,8 @@ const GalleryPage = () => {
                     let prevImage = imgs[(i - 1) * ROWSIZE + j];
                     let bottomOfPrevImage = prevImage.e.offsetTop + prevImage.e.height;
                     let bottomOfHeightInPrevRow = highestInPrevRow.e.offsetTop + highestInPrevRow.e.height;
-                    console.log(`image #${i * ROWSIZE + j} marginTop will be set to:`, -1 * (bottomOfHeightInPrevRow - bottomOfPrevImage));
-                    image.css({ marginTop: `-${bottomOfHeightInPrevRow - bottomOfPrevImage}px` });
-                    await wait(100);
+                    console.log(`image #${i * ROWSIZE + j} marginTop will be set to:`, -1 * (getBottom(highestInPrevRow) - getBottom(prevImage)));
+                    image.css({ marginTop: `-${getBottom(highestInPrevRow) - getBottom(prevImage)}px` });
                 }
                 console.groupEnd();
             }
