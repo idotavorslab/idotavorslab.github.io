@@ -85,6 +85,9 @@ const GalleryPage = () => {
                 Body.toggleClass('theater', true);
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
+            }).on({
+                load: () => console.log(`load: ${file}`), loadeddata: () => console.log(`loadeddata: ${file}`),
+                loadend: () => console.log(`loadend: ${file}`), loadstart: () => console.log(`loadstart: ${file}`)
             });
             imgs.push(image);
         }

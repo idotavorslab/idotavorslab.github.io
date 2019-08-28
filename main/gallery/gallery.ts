@@ -127,16 +127,16 @@ const GalleryPage = () => {
                 images.toggleClass('theater', true);
                 navbar.css({opacity: 0});
                 
+            }).on({
+                load: () => console.log(`load: ${file}`), loadeddata: () => console.log(`loadeddata: ${file}`),
+                loadend: () => console.log(`loadend: ${file}`), loadstart: () => console.log(`loadstart: ${file}`)
             });
             
             imgs.push(image)
         }
         
         const images = elem({tag: 'images'}).append(...imgs);
-        // wait(500).then(() => {
-        //
-        //     console.log('imgs.map(i=>i.e.height)', images.children().map(i => i.e.height));
-        // })
+        
         DocumentElem
             .pointerdown(() => {
                 if (!imgViewer.isopen)
