@@ -58,11 +58,15 @@ div#img_viewer
 	// necessary for some reason
 	@include setLocalGapVar()
 	@include setLocalWVar()
-	--containerWidth: 800px
+	@include min-width($BP1)
+		--localHeight: 600px
+
+	@include max-width($BP1)
+		--localHeight: 500px
 
 
-	height: 600px
-	margin-top: -300px
+	height: var(--localHeight)
+	margin-top: calc(var(--localHeight) / -2)
 	top: 50%
 
 	display: flex
@@ -90,7 +94,7 @@ div#img_viewer
 	img
 		//height: 600px
 		//width: var(--containerWidth)
-		max-height: 600px
+		max-height: var(--localHeight)
 
 	div#right_chevron, div#left_chevron
 
