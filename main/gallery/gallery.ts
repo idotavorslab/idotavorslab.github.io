@@ -169,6 +169,17 @@ const GalleryPage = () => {
                     elem({tag: 'path', cls: 'downleft'})
                 )
         ).pointerdown(closeImgViewer);
+        
+        const observer = new MutationObserver(async (mutationsList, observer) => {
+            for (let mutation of mutationsList) {
+                if (mutation.previousSibling === images.e) {
+                    console.log('done appending images!');
+                    await wait(50);
+                    masonryImages();
+                }
+            }
+        });
+        observer.observe(Home.e, {childList: true});
         Home.empty().append(images, imgViewer, imgViewerClose);
         
         function masonryImages() {
@@ -188,51 +199,19 @@ const GalleryPage = () => {
                 for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
                     let image = imgs[i * ROWSIZE + j];
                     let prevImage = imgs[(i - 1) * ROWSIZE + j];
-                    image.css({marginTop: `-${image.e.offsetTop - getBottom(prevImage) - 8}px`});
+                    let marginTop = `-${image.e.offsetTop - getBottom(prevImage) - 8}px`;
+                    console.log(`${marginTop}`);
+                    image.css({marginTop});
                 }
                 console.groupEnd();
                 
             }
         }
         
-        window.onload = masonryImages;
-        // masonryImages();
         
-        /*const masonry = div({cls: 'grid'})
-        // .attr({'data-masonry': '{ "itemSelector": ".grid-item", "columnWidth": 160 }'})
-            .html(`
-<img src="main/gallery/00.jpeg" class="grid-item"/>
-<img src="main/gallery/01.jpeg" class="grid-item"/>
-<img src="main/gallery/02.jpeg" class="grid-item"/>
-<img src="main/gallery/03.jpeg" class="grid-item"/>
-<img src="main/gallery/04.jpeg" class="grid-item"/>
-<img src="main/gallery/05.jpeg" class="grid-item"/>
-<img src="main/gallery/06.jpeg" class="grid-item"/>
-<img src="main/gallery/07.jpeg" class="grid-item"/>
-<img src="main/gallery/08.jpeg" class="grid-item"/>
-<img src="main/gallery/09.jpeg" class="grid-item"/>
-<img src="main/gallery/10.jpeg" class="grid-item"/>
-<img src="main/gallery/11.jpeg" class="grid-item"/>
-<img src="main/gallery/12.jpeg" class="grid-item"/>
-<img src="main/gallery/13.jpeg" class="grid-item"/>
-<img src="main/gallery/14.jpeg" class="grid-item"/>
-<img src="main/gallery/15.jpeg" class="grid-item"/>
-<img src="main/gallery/16.jpeg" class="grid-item"/>
-<img src="main/gallery/17.jpeg" class="grid-item"/>
-
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
-`);
-        
-        Body.empty().append(masonry);
-
-
-        new Masonry('.grid', {
-            // options
-        });
-        */
     }
     
     return {init}
 };
 
-GalleryPage().init();
+// GalleryPage().init();

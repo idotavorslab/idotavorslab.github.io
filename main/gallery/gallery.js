@@ -113,6 +113,16 @@ const GalleryPage = () => {
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
+        const observer = new MutationObserver(async (mutationsList, observer) => {
+            for (let mutation of mutationsList) {
+                if (mutation.previousSibling === images.e) {
+                    console.log('done appending images!');
+                    await wait(50);
+                    masonryImages();
+                }
+            }
+        });
+        observer.observe(Home.e, { childList: true });
         Home.empty().append(images, imgViewer, imgViewerClose);
         function masonryImages() {
             let ROWSIZE;
@@ -130,14 +140,14 @@ const GalleryPage = () => {
                 for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
                     let image = imgs[i * ROWSIZE + j];
                     let prevImage = imgs[(i - 1) * ROWSIZE + j];
-                    image.css({ marginTop: `-${image.e.offsetTop - getBottom(prevImage) - 8}px` });
+                    let marginTop = `-${image.e.offsetTop - getBottom(prevImage) - 8}px`;
+                    console.log(`${marginTop}`);
+                    image.css({ marginTop });
                 }
                 console.groupEnd();
             }
         }
-        window.onload = masonryImages;
     }
     return { init };
 };
-GalleryPage().init();
 //# sourceMappingURL=gallery.js.map
