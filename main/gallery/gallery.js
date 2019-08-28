@@ -122,16 +122,21 @@ const GalleryPage = () => {
             else {
                 ROWSIZE = 4;
             }
-            for (let i = 0; i < imgs.length / ROWSIZE; i++) {
+            for (let i = 1; i < imgs.length / ROWSIZE; i++) {
                 console.group(`row ${i}`);
-                let heighestInRow = 0;
+                let highestInPrevRow = 0;
+                for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
+                    let image = imgs[(i - 1) * ROWSIZE + j];
+                    console.log(`i:`, i, 'i-1:', i - 1, 'j:', j, '(i - 1) * ROWSIZE + j:', (i - 1) * ROWSIZE + j, 'image.e.height:', image.e.height);
+                    if (image.e.height > highestInPrevRow)
+                        highestInPrevRow = image.e.height;
+                }
+                console.log('highestInPrevRow:', highestInPrevRow);
                 for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
                     let image = imgs[i * ROWSIZE + j];
-                    console.log(`i:`, i, 'j:', j, 'i * ROWSIZE + j:', i * ROWSIZE + j, 'image.e.height:', image.e.height);
-                    if (image.e.height > heighestInRow)
-                        heighestInRow = image.e.height;
+                    let prevImage = imgs[(i - 1) * ROWSIZE + j];
+                    image.css({ marginTop: `-${highestInPrevRow - prevImage.e.height}px` });
                 }
-                console.log('heighestInRow:', heighestInRow);
                 console.groupEnd();
             }
         };
