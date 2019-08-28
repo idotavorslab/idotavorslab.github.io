@@ -634,6 +634,7 @@ declare class BetterHTMLElement {
 
 declare class Div extends BetterHTMLElement {
     protected readonly _htmlElement: HTMLDivElement;
+    readonly e: HTMLDivElement;
     
     /**Create a Div element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
@@ -641,6 +642,7 @@ declare class Div extends BetterHTMLElement {
 
 declare class Span extends BetterHTMLElement {
     protected readonly _htmlElement: HTMLSpanElement;
+    readonly e: HTMLSpanElement;
     
     /**Create a Span element. Optionally set its id, text or cls.*/
     constructor({id, text, cls}?: TSubElemOptions);
@@ -648,12 +650,15 @@ declare class Span extends BetterHTMLElement {
 
 declare class Img extends BetterHTMLElement {
     protected readonly _htmlElement: HTMLImageElement;
+    readonly e: HTMLImageElement;
     
     /**Create an Img element. Optionally set its id, src or cls.*/
     constructor({id, src, cls}: TImgOptions);
     
     src(src: string): this;
     src(): string;
+    
+    
 }
 
 /**Create an element of `tag`. Optionally, set its `text` and / or `cls`*/

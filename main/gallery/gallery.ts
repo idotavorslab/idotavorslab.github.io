@@ -179,11 +179,15 @@ const GalleryPage = () => {
             }
             for (let i = 0; i < imgs.length / ROWSIZE; i++) {
                 console.group(`row ${i}`);
+                let heighestInRow = 0;
                 for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
                     let image = imgs[i * ROWSIZE + j];
                     console.log(`i:`, i, 'j:', j, 'i * ROWSIZE + j:', i * ROWSIZE + j, 'image.e.height:', image.e.height);
+                    if (image.e.height > heighestInRow)
+                        heighestInRow = image.e.height;
                     
                 }
+                console.log('heighestInRow:', heighestInRow);
                 console.groupEnd();
                 
             }
