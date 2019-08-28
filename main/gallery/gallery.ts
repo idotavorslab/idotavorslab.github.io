@@ -170,7 +170,7 @@ const GalleryPage = () => {
                 )
         ).pointerdown(closeImgViewer);
         Home.empty().append(images, imgViewer, imgViewerClose);
-        window.onload = () => {
+        window.onload = async () => {
             let ROWSIZE;
             if (window.innerWidth >= BP1) { // 1340
                 ROWSIZE = 4;
@@ -179,19 +179,26 @@ const GalleryPage = () => {
             }
             for (let i = 1; i < imgs.length / ROWSIZE; i++) {
                 console.group(`row ${i}`);
-                let highestInPrevRow = 0;
+                let highestInPrevRow: Img = undefined;
                 for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
                     let image = imgs[(i - 1) * ROWSIZE + j];
-                    console.log(`i:`, i, 'i-1:', i - 1, 'j:', j, '(i - 1) * ROWSIZE + j:', (i - 1) * ROWSIZE + j, 'image.e.height:', image.e.height);
-                    if (image.e.height > highestInPrevRow)
-                        highestInPrevRow = image.e.height;
+                    // console.log(`i:`, i, 'i-1:', i - 1, 'j:', j, '(i - 1) * ROWSIZE + j:', (i - 1) * ROWSIZE + j, 'image.e.height:', image.e.height);
+                    if (highestInPrevRow === undefined || image.e.height > highestInPrevRow.e.height)
+                        highestInPrevRow = image;
                     
                 }
                 console.log('highestInPrevRow:', highestInPrevRow);
                 for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
                     let image = imgs[i * ROWSIZE + j];
                     let prevImage = imgs[(i - 1) * ROWSIZE + j];
-                    image.css({marginTop: `-${highestInPrevRow - prevImage.e.height}px`})
+                    let bottomOfPrevImage = prevImage.e.offsetTop + prevImage.e.height;
+                    let bottomOfHeightInPrevRow = highestInPrevRow.e.offsetTop + highestInPrevRow.e.height;
+                    // console.log(`image #${i * ROWSIZE + j} marginTop will be set to:`, -1 * (highestInPrevRow.e.height - prevImage.e.height));
+                    console.log(`image #${i * ROWSIZE + j} marginTop will be set to:`, -1 * (bottomOfHeightInPrevRow - bottomOfPrevImage));
+                    // debugger;
+                    image.css({marginTop: `-${bottomOfHeightInPrevRow - bottomOfPrevImage}px`});
+                    // debugger;
+                    await wait(100);
                 }
                 console.groupEnd();
                 
