@@ -1,30 +1,30 @@
 {
-	"Does It Matter Whether You or Your Brain Did It? An Empirical Investigation of the Influence of the Double Subject Fallacy on Moral Responsibility Judgments.": {
-		"year": 2019,
-		"creds": "Maoz, U., Sita, K. R., van Boxtel, J. J. A., & Mudrik, L.",
-		"mag": "frontiers in psychology, 10.",
-		"thumbnail": "thumb.jpg",
-		"link": "mypdf.pdf"
+	"learning in the fast lane: new insights into neuroplasticity": {
+		"year": 2012,
+		"creds": "Sagi Y., Tavor I., Hofstetter S., Tzur-Moryosef S.,  Blumenfeld-Katzir T. & Assaf Y.",
+		"mag": "Neuron 73, 1195-203",
+		"thumbnail": "neuron.jpg",
+		"link": "https://www.sciencedirect.com/science/article/pii/S089662731200178X"
 	},
-	"Mock Paper from 2016": {
-		"year": 2016,
-		"creds": "Someone, someone else",
-		"mag": "Best magazine",
-		"thumbnail": "thumb.jpg",
-		"link": "mypdf.pdf"
+	"Micro-structural assessment of short term plasticity dynamics": {
+		"year": 2013,
+		"creds": "Tavor I., Hofstetter S. & Assaf Y.",
+		"mag": "NeuroImage 81, 1-7",
+		"link": "https://www.sciencedirect.com/science/article/pii/S1053811913005442",
+		"thumbnail": "neuroimage.png"
 	},
-	"Imaging object-scene relations processing in visible and invisible natural scenes .": {
-		"year": 2019,
-		"creds": "Faivre, N., Dubois, J., Schwartz, n., & Mudrik, L.",
-		"mag": "Scientific Reports, 9(1).",
-		"thumbnail": "thumb.jpg",
-		"link": "http://www.mudriklab.tau.ac.il/wp-content/uploads/2019/03/Faivre_et_al_2019.pdf"
+	"Short-Term Learning Induces White Matter Plasticity in the Fornix": {
+		"year": 2013,
+		"creds": "Hofstetter S., Tavor I., Tzur Moryosef S. & Assaf Y.",
+		"mag": "Journal of Neuroscience 33, 12844-50",
+		"link": "https://www.jneurosci.org/content/jneuro/33/31/12844.full.pdf",
+		"thumbnail": "jneurosci.png"
 	},
-	"Real-life” continuous flash suppression (CFS)-CFS with real-world objects using augmented reality goggles.": {
-		"year": 2018,
-		"creds": "Korisky, U., Hirschhorn, R., & Mudrik, L.",
-		"mag": "Behavior Research Methods, 1-13.",
-		"thumbnail": "thumb.jpg",
-		"link": "http://www.mudriklab.tau.ac.il/wp-content/uploads/2018/11/Korisky_et_al_2018_BRM.pdf"
+	"Separate parts of occipito-temporal white matter fibers are associated with recognition of faces and places": {
+		"year": 2014,
+		"creds": "Tavor I., Yablonski M., Mezer A., Rom S., Assaf Y. & Yovel G.",
+		"mag": "NeuroImage 86, 123-30",
+		"link": "https://www.sciencedirect.com/science/article/pii/S1053811913008574",
+		"thumbnail": "neuroimage.png"
 	}
 }

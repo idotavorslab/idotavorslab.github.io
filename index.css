@@ -631,6 +631,7 @@ paper:hover {
   box-shadow: 0px 5px 6px 0px var(--GREY4);
 }
 paper img.thumbnail {
+  width: 100px;
   border: 1px solid var(--GREY3);
   margin: auto calc(var(--GAP0) / 2) auto 0;
 }
@@ -660,6 +661,7 @@ paper div.content-div span {
 paper div.content-div div.paper-title {
   font-family: OpenSansSemiBold;
   margin-bottom: 10px;
+  text-transform: capitalize;
 }
 paper div.content-div div.mag {
   font-family: OpenSansItalic;
