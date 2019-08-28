@@ -78,7 +78,7 @@ const GalleryPage = () => {
         
         imgViewer.isopen = false;
         
-        const data = await fetchJson("main/gallery/gallery.json", "no-cache");
+        const data = await fetchJson("main/gallery/gallery.json", "default");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
         
@@ -128,8 +128,7 @@ const GalleryPage = () => {
                 navbar.css({opacity: 0});
                 
             }).on({
-                load: () => console.log(`load: ${file}`), loadeddata: () => console.log(`loadeddata: ${file}`),
-                loadend: () => console.log(`loadend: ${file}`), loadstart: () => console.log(`loadstart: ${file}`)
+                load: () => console.log(`load: ${file}`)
             });
             
             imgs.push(image)
