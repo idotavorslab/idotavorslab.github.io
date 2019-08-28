@@ -751,6 +751,9 @@ div#img_viewer.on {
   opacity: 1;
   z-index: 5;
 }
+div#img_viewer img {
+  height: 600px;
+}
 div#img_viewer div#right_chevron, div#img_viewer div#left_chevron {
   cursor: pointer;
   filter: invert(1) drop-shadow(2px 4px 6px black);
@@ -774,9 +777,6 @@ div#img_viewer div#right_chevron[class=left]:active svg, div#img_viewer div#left
 }
 div#img_viewer div#right_chevron[class=left] svg, div#img_viewer div#left_chevron[class=left] svg {
   transform: rotate(180deg);
-}
-div#img_viewer img {
-  height: 600px;
 }
 
 div#img_viewer_close {
