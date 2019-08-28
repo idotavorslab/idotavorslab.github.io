@@ -1,116 +1,119 @@
 div#papers_container
-    text-align: left
-    margin: auto
+	text-align: left
+	margin: auto
 
 
 @mixin hoverMixin($prop, $withText:false)
 
-    &:hover
-        @if ($prop == color)
-            color: var(--GREY6)
-        @else
-            @include borderMixin(var(--GREY5), null)
-            @if ($withText == true)
-                color: var(--GREY7)
+	&:hover
+		@if ($prop == color)
+			color: var(--GREY6)
+		@else
+			@include borderMixin(var(--GREY5), null)
+			@if ($withText == true)
+				color: var(--GREY7)
 
-    cursor: pointer
-    $easeOut: 200ms ease-out
-    @if ($withText == true)
-        transition: #{$prop} $easeOut, color $easeOut
-    @else
-        transition: #{$prop} $easeOut
+	cursor: pointer
+	$easeOut: 200ms ease-out
+	@if ($withText == true)
+		transition: #{$prop} $easeOut, color $easeOut
+	@else
+		transition: #{$prop} $easeOut
 
 year
-    div.title-and-minimize-flex
-        display: flex
-        color: var(--GREY3)
-        margin:
-            // 30px
-            bottom: calc(var(--GAP0) / 2)
+	div.title-and-minimize-flex
+		display: flex
+		color: var(--GREY3)
+		margin:
+			// 30px
+			bottom: calc(var(--GAP0) / 2)
 
-        span.year-title
-            letter-spacing: 1px
-            margin: auto 0
+		span.year-title
+			letter-spacing: 1px
+			margin: auto 0
 
-            font:
-                family: OpenSansLight
-                size: 25px
+			font:
+				family: OpenSansLight
+				size: 25px
 
-        div.minimize
-            @include borderMixin(var(--GREY3))
-            color: var(--GREY6)
-            font-size: 14px
-            height: 32px
-            margin: auto 0 auto auto
-            text-align: center
-            transition: box-shadow 200ms
-            width: 32px
+		div.minimize
+			@include borderMixin(var(--GREY3))
+			color: var(--GREY6)
+			font-size: 14px
+			height: 32px
+			margin: auto 0 auto auto
+			text-align: center
+			transition: box-shadow 200ms
+			width: 32px
 
-            &:hover
-                //@include hoverMixin(border, true)
-                cursor: pointer
-                box-shadow: 0px 2px 3px 0px var(--GREY2)
+			&:hover
+				//@include hoverMixin(border, true)
+				cursor: pointer
+				box-shadow: 0px 2px 3px 0px var(--GREY2)
 
-    div.papers
-        border-left: 1px solid var(--GREY2)
-        padding:
-            left: 40px
+	div.papers
+		border-left: 1px solid var(--GREY2)
+		padding:
+			left: 40px
 
 paper
-    @include borderMixin(var(--GREY2))
-    background-color: var(--GREY02)
-    display: flex
-    margin: 0 0 var(--GAP0) 0
-    // 30px
-    padding: calc(var(--GAP0) / 2)
-    position: relative
-    transition: box-shadow 200ms
+	@include borderMixin(var(--GREY2))
+	background-color: var(--GREY02)
+	display: flex
+	margin: 0 0 var(--GAP0) 0
+	// 30px
+	padding: calc(var(--GAP0) / 2)
+	position: relative
+	transition: box-shadow 200ms
 
-    &:hover
-        cursor: pointer
-        box-shadow: 0px 5px 6px 0px var(--GREY4)
+	&:hover
+		cursor: pointer
+		box-shadow: 0px 5px 6px 0px var(--GREY4)
 
-    img.thumbnail
-        border: 1px solid var(--GREY3)
-        // 30px
-        margin: auto calc(var(--GAP0) / 2) auto 0
-
-
-    div.pdf-div
-        @include borderMixin(var(--GREY3))
-        background-color: var(--GREY01)
-        color: var(--GREY6)
-        font:
-            family: OpenSansLight
-        margin:
-            top: auto
-            right: 0
-            bottom: auto
-            left: auto
-        padding: 10px
-
-    div.content-div
-        div
-            margin:
-                top: 5px
-                // 30px
-                right: calc(var(--GAP0) / 2)
-                bottom: 5px
-
-        span
-            color: var(--GREY6)
-            font-size: 14px
-
-        div.paper-title
-            font:
-                family: OpenSansSemiBold
-            margin-bottom: 10px
+	img.thumbnail
+		width: 100px
+		border: 1px solid var(--GREY3)
+		// 30px
+		margin: auto calc(var(--GAP0) / 2) auto 0
 
 
-        div.mag
-            font:
-                family: OpenSansItalic
-                size: 16px
+	div.pdf-div
+		@include borderMixin(var(--GREY3))
+		background-color: var(--GREY01)
+		color: var(--GREY6)
+		font:
+			family: OpenSansLight
+		margin:
+			top: auto
+			right: 0
+			bottom: auto
+			left: auto
+		padding: 10px
+		text-transform: uppercase
+
+	div.content-div
+		div
+			margin:
+				top: 5px
+				// 30px
+				right: calc(var(--GAP0) / 2)
+				bottom: 5px
+
+		span
+			color: var(--GREY6)
+			font-size: 14px
+
+		div.paper-title
+			font:
+				family: OpenSansSemiBold
+			margin-bottom: 10px
+			//text-transform: capitalize
+
+
+		div.mag
+			font:
+				family: OpenSansItalic
+				size: 16px
 
 
 

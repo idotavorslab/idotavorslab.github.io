@@ -1,5 +1,5 @@
 const HomePage = () => {
-    type TNewsDataItem = { title: string, date: string, content: string, radio: BetterHTMLElement, index: number };
+    type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, thumbnail: string, radio: BetterHTMLElement, index: number };
     type TNewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
     /** The single #news>date,title,content,radios html to show selected news */
     const newsElem: TNewsElem = <TNewsElem>elem({
@@ -129,14 +129,19 @@ const HomePage = () => {
             if (this._selected !== undefined)
                 this._selected.radio.toggleClass('selected');
             
-            
             TL.to(newsChildren, 0.1, {opacity: 0});
             await wait(25);
-            newsElem.date.text(`${selectedItem.date}:`);
+            
+            for (let [text, link] of enumerate(selectedItem.links)) {
+                selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`)
+            }
+            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
             newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
+            
             this._selected = selectedItem;
+            
             TL.to(newsChildren, 0.1, {opacity: 1});
             
         }
@@ -186,15 +191,15 @@ const HomePage = () => {
         console.log(carousel);
         */
         const data = await fetchJson('main/home/home.json', "no-cache");
-        
+        elem({query: "#non_news > .text"}).text(data["our lab"]);
         
         /** Keep the data from .json in an array, plus the matching radio BetterHTMLElement */
         const newsData = new NewsData();
         
         
         let i = 0;
-        for (let [title, {date, content}] of dict(data.news).items()) {
-            let item: TNewsDataItem = {title, date, content, radio: div({cls: 'radio'}), index: i};
+        for (let [title, {date, content, links, thumbnail}] of dict(data.news).items()) {
+            let item: TNewsDataItem = {title, date, content, links, thumbnail, radio: div({cls: 'radio'}), index: i};
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
@@ -211,7 +216,7 @@ const HomePage = () => {
     
     return {init}
 };
-HomePage().init();
+// HomePage().init();
 
 
 

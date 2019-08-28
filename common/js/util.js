@@ -12,6 +12,18 @@ function float(str) {
 function int(x, base) {
     return parseInt(x, base);
 }
+function bool(val) {
+    if (val === null)
+        return false;
+    const typeofval = typeof val;
+    if (typeofval !== 'object') {
+        if (typeofval === 'function')
+            return true;
+        else
+            return !!val;
+    }
+    return Object.keys(val).length !== 0;
+}
 class Dict {
     constructor(obj) {
         Object.assign(this, obj);
