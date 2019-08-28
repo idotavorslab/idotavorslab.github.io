@@ -87,7 +87,21 @@ const GalleryPage = () => {
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
             });
-            divs.push(imgContainer);
+            divs.push(img({ src: `main/gallery/${file}` }).pointerdown((event) => {
+                console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
+                event.stopPropagation();
+                if (imgViewer.isopen)
+                    return closeImgViewer();
+                selectedFile = file;
+                imgViewerClose.toggleClass('on', true);
+                imgViewer
+                    .toggleClass('on', true)
+                    .img.src(`main/gallery/${selectedFile}`);
+                imgViewer.isopen = true;
+                Body.toggleClass('theater', true);
+                images.toggleClass('theater', true);
+                navbar.css({ opacity: 0 });
+            }));
         }
         const images = elem({ tag: 'images' })
             .append(...divs);
@@ -115,73 +129,7 @@ const GalleryPage = () => {
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
-        const masonry = div({ cls: 'grid' })
-            .attr({ 'data-masonry': '{ "itemSelector": ".grid-item", "columnWidth": 160 }' })
-            .html(`<div class="grid-item"></div>
-<div class="grid-item grid-item--width2 grid-item--height2"></div>
-<div class="grid-item grid-item--height3"></div>
-<div class="grid-item grid-item--height2"></div>
-<div class="grid-item grid-item--width3"></div>
-<div class="grid-item"></div>
-<div class="grid-item"></div>
-<div class="grid-item grid-item--height2"></div>
-<div class="grid-item grid-item--width2 grid-item--height3"></div>
-<div class="grid-item"></div>
-<div class="grid-item grid-item--height2"></div>
-<div class="grid-item"></div>
-<div class="grid-item grid-item--width2 grid-item--height2"></div>
-<div class="grid-item grid-item--width2"></div>
-<div class="grid-item"></div>
-<div class="grid-item grid-item--height2"></div>
-<div class="grid-item"></div>
-<div class="grid-item"></div>
-<div class="grid-item grid-item--height3"></div>
-<div class="grid-item grid-item--height2"></div>
-<div class="grid-item"></div>
-<div class="grid-item"></div>
-<div class="grid-item grid-item--height2"></div>
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
-`);
-        elem({ htmlElement: document.head }).empty().append(elem({ tag: 'style' }).html(`* { box-sizing: border-box; }
-
-body { font-family: sans-serif; }
-
-/* ---- grid ---- */
-
-.grid {
-  background: #EEE;
-  max-width: 1200px;
-}
-
-/* clearfix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-/* ---- grid-item ---- */
-
-.grid-item {
-  width: 160px;
-  height: 120px;
-  float: left;
-  background: #D26;
-  border: 2px solid #333;
-  border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 5px;
-}
-
-.grid-item--width2 { width: 320px; }
-.grid-item--width3 { width: 480px; }
-.grid-item--width4 { width: 640px; }
-
-.grid-item--height2 { height: 200px; }
-.grid-item--height3 { height: 260px; }
-.grid-item--height4 { height: 360px; }
-`));
-        Body.empty().append(masonry);
-        var msnry = new Masonry('.grid', {});
+        Home.empty().append(images, imgViewer, imgViewerClose);
     }
     return { init };
 };

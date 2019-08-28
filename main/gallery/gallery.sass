@@ -1,30 +1,20 @@
-*
-	box-sizing: border-box
-
-
-/* ---- grid ---- */
 
 .grid
-	background: #EEE
-	max-width: 1200px
+	//background: #EEE
+	//max-width: 1200px
+	box-sizing: border-box
 
+	*
+		box-sizing: border-box
 
-/* clearfix */
-.grid:after
-	content: ''
-	display: block
-	clear: both
-
-
-/* ---- grid-item ---- */
 
 .grid-item
-	width: 160px
-	height: 120px
+	//width: 160px
+	height: unset
+	width: 294px
 	float: left
-	background: #D26
-	border: 2px solid #333
-	border-color: hsla(0, 0%, 0%, 0.5)
+	//background: #D26
+	border: 2px solid hsla(0, 0%, 0%, 0.5)
 	border-radius: 5px
 
 
@@ -55,24 +45,19 @@ images
 		filter: brightness(0.20) blur(1px) sepia(1)
 
 	&:not([class="theater"])
-		div.img-container
+		img
+			margin-top: 0
+			cursor: pointer
+			transition: opacity 100ms
+
+			&:hover
+				opacity: 0.5
+
+		//div.img-container
 
 			&:hover
 				img
 					opacity: 0.5
-
-			//div.tooltip
-				background-color: rgba(255, 255, 255, 0.3)
-				z-index: 1
-				color: #666
-				transition: opacity 500ms
-				opacity: 0
-				width: 298px
-				margin-top: 16px
-				position: absolute
-				@include fourWayTextShadow(1px, 1px, 1px, var(--GREY00))
-				font:
-					family: OpenSansSemiBold
 
 			img
 				cursor: pointer
