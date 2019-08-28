@@ -7,6 +7,14 @@ const PublicationsPage = () => {
                 else
                     window.open(`main/publications/${link}`);
             }
+            function _getPdfText(_link) {
+                const ext = link.split('.').reverse()[0].toLowerCase();
+                if (ext === "pdf")
+                    return ext;
+                return "↗";
+            }
+            let pdfText = link.split('.').reverse()[0].toUpperCase();
+            console.log({ link, pdfText });
             this.elem = elem({ tag: "paper" })
                 .cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
@@ -17,7 +25,7 @@ const PublicationsPage = () => {
                     mag: div({ text: mag, cls: "mag" }),
                 }),
                 pdf: div({ cls: 'pdf-div' })
-                    .text(link.split('.').reverse()[0].toUpperCase())
+                    .text(_getPdfText(link))
             }).pointerdown(_openLink);
             this.year = year;
         }
@@ -42,7 +50,6 @@ const PublicationsPage = () => {
         }
         const yearElems = [];
         for (let year of Object.keys(yearToPaper).reverse()) {
-            console.log(year);
             let yearElem = elem({ tag: 'year' }).append(div({ cls: 'papers' })
                 .append(div({ cls: 'title-and-minimize-flex' })
                 .append(span({ cls: 'year-title' }).text(year)), ...yearToPaper[year].map(p => p.elem)));

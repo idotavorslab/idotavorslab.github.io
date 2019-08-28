@@ -648,6 +648,7 @@ paper div.pdf-div {
   margin-bottom: auto;
   margin-left: auto;
   padding: 10px;
+  text-transform: uppercase;
 }
 paper div.content-div div {
   margin-top: 5px;

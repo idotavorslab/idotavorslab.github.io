@@ -26,5 +26,12 @@
 		"mag": "NeuroImage 86, 123-30",
 		"link": "https://www.sciencedirect.com/science/article/pii/S1053811913008574",
 		"thumbnail": "neuroimage.png"
+	},
+	"In vivo correlation between axon diameter and conduction velocity in the human brain": {
+		"year": 2015,
+		"creds": "Horowitz A., Barazany D., Tavor I., Bernstein M., Yovel G. & Assaf Y.",
+		"mag": "Brain Structure and Function 220, 1-12",
+		"link": "https://link.springer.com/article/10.1007/s00429-014-0871-0",
+		"thumbnail": "bsf.jpg"
 	}
 }
