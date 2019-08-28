@@ -71,8 +71,7 @@ const GalleryPage = () => {
         const divs = [];
         let selectedFile = null;
         for (let { description, file } of data) {
-            let imgContainer = div({ cls: 'img-container' })
-                .append(img({ src: `main/gallery/${file}` })).pointerdown((event) => {
+            let image = img({ src: `main/gallery/${file}` }).pointerdown((event) => {
                 console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
                 event.stopPropagation();
                 if (imgViewer.isopen)
@@ -87,24 +86,9 @@ const GalleryPage = () => {
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
             });
-            divs.push(img({ src: `main/gallery/${file}` }).pointerdown((event) => {
-                console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
-                event.stopPropagation();
-                if (imgViewer.isopen)
-                    return closeImgViewer();
-                selectedFile = file;
-                imgViewerClose.toggleClass('on', true);
-                imgViewer
-                    .toggleClass('on', true)
-                    .img.src(`main/gallery/${selectedFile}`);
-                imgViewer.isopen = true;
-                Body.toggleClass('theater', true);
-                images.toggleClass('theater', true);
-                navbar.css({ opacity: 0 });
-            }));
+            divs.push(image);
         }
-        const images = elem({ tag: 'images' })
-            .append(...divs);
+        const images = elem({ tag: 'images' }).append(...divs);
         DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)

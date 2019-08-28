@@ -87,18 +87,8 @@ const GalleryPage = () => {
         const divs: BetterHTMLElement[] = [];
         let selectedFile: string = null;
         for (let {description, file} of data) {
-            /*const removeExt = (s) => s.split('.').slice(0, file.split('.').length - 1).join();
-            file = removeExt(file);
-            let req1 = new Request(`main/gallery/${file}-294x220.5.jpeg`, {cache: "no-cache"});
-            let {ok} = await fetch(req1);
-            console.log(`main/gallery/${file}-294x220.5.jpeg`, ok);
-            if (ok)
-                file = `${file}-294x220.5.jpeg`;
-            else
-                file = `${file}.jpeg`;
-            */
             
-            let imgContainer = div({cls: 'img-container'})
+            /*let imgContainer = div({cls: 'img-container'})
                 .append(
                     // div({cls: 'tooltip', text: description}),
                     img({src: `main/gallery/${file}`})
@@ -119,9 +109,9 @@ const GalleryPage = () => {
                     navbar.css({opacity: 0});
                     
                 });
+            */
             
-            // divs.push(imgContainer)
-            divs.push(img({src: `main/gallery/${file}`}).pointerdown((event: Event) => {
+            let image: Img = img({src: `main/gallery/${file}`}).pointerdown((event: Event) => {
                 // if open: clicked on other images in the bg. if closed: open imgViewer
                 console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
                 event.stopPropagation();
@@ -137,11 +127,11 @@ const GalleryPage = () => {
                 images.toggleClass('theater', true);
                 navbar.css({opacity: 0});
                 
-            }))
+            });
+            divs.push(image)
         }
         
-        const images = elem({tag: 'images'})
-            .append(...divs);
+        const images = elem({tag: 'images'}).append(...divs);
         
         DocumentElem
             .pointerdown(() => {
