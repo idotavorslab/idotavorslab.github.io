@@ -68,7 +68,7 @@ const GalleryPage = () => {
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
-        const divs = [];
+        const imgs = [];
         let selectedFile = null;
         for (let { description, file } of data) {
             let image = img({ src: `main/gallery/${file}` }).pointerdown((event) => {
@@ -86,9 +86,9 @@ const GalleryPage = () => {
                 images.toggleClass('theater', true);
                 navbar.css({ opacity: 0 });
             });
-            divs.push(image);
+            imgs.push(image);
         }
-        const images = elem({ tag: 'images' }).append(...divs);
+        const images = elem({ tag: 'images' }).append(...imgs);
         DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)
@@ -114,6 +114,9 @@ const GalleryPage = () => {
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
         Home.empty().append(images, imgViewer, imgViewerClose);
+        window.onload = () => {
+            console.log('imgs.map(i=>i.e.height)', images.children().map(i => i.e.height));
+        };
     }
     return { init };
 };

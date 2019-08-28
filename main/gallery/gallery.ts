@@ -84,7 +84,7 @@ const GalleryPage = () => {
         
         
         //**  HTML
-        const divs: BetterHTMLElement[] = [];
+        const imgs: Img[] = [];
         let selectedFile: string = null;
         for (let {description, file} of data) {
             
@@ -128,11 +128,15 @@ const GalleryPage = () => {
                 navbar.css({opacity: 0});
                 
             });
-            divs.push(image)
+            
+            imgs.push(image)
         }
         
-        const images = elem({tag: 'images'}).append(...divs);
-        
+        const images = elem({tag: 'images'}).append(...imgs);
+        // wait(500).then(() => {
+        //
+        //     console.log('imgs.map(i=>i.e.height)', images.children().map(i => i.e.height));
+        // })
         DocumentElem
             .pointerdown(() => {
                 if (!imgViewer.isopen)
@@ -167,6 +171,11 @@ const GalleryPage = () => {
                 )
         ).pointerdown(closeImgViewer);
         Home.empty().append(images, imgViewer, imgViewerClose);
+        window.onload = () => {
+            console.log('imgs.map(i=>i.e.height)', images.children().map(i => i.e.height));
+        };
+        
+        
         /*const masonry = div({cls: 'grid'})
         // .attr({'data-masonry': '{ "itemSelector": ".grid-item", "columnWidth": 160 }'})
             .html(`
