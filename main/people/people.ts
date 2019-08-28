@@ -3,10 +3,9 @@ const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
         let ROWSIZE;
-        if (window.innerWidth >= BP0) {
+        if (window.innerWidth >= BP1) { // 1340
             ROWSIZE = 4;
         } else {
-            console.warn('people.ts. init BP1 no code, defaulting ROWSIZE 4');
             ROWSIZE = 4;
         }
         
@@ -61,13 +60,13 @@ const PeoplePage = () => {
             
             pushPeopleBelow() {
                 for (let [i, j] of this.yieldIndexesBelow()) {
-                    this.group[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
+                    this.group[i * ROWSIZE + j].css({gridRow: `${i + 2}/${i + 2}`});
                 }
             }
             
             pullbackPeopleBelow() {
                 for (let [i, j] of this.yieldIndexesBelow()) {
-                    this.group[i * 4 + j].uncss("gridRow");
+                    this.group[i * ROWSIZE + j].uncss("gridRow");
                 }
             }
             

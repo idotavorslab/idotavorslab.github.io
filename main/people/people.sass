@@ -1,166 +1,151 @@
-$imgHeight: 185px
 
 div#home
-    div.separator
-        background:
-            image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0) 20%)
-        height: 1px
-        margin:
-            top: 0
-            right: auto
-            bottom: 15px
-            left: 0
-        position: relative
-        width: 100%
+	div.separator
+		background:
+			image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0) 20%)
+		height: 1px
+		margin:
+			top: 0
+			right: auto
+			bottom: 15px
+			left: 0
+		position: relative
+		width: 100%
 
-    div.title
-        @include titleMixin
-        text-align: left
-
-
-    div#team_grid
-        @include flexContainerMixin(person)
-
-    div#alumni_grid
-        @include flexContainerMixin(person)
+	div.title
+		@include titleMixin()
+		text-align: left
 
 
-    person
-        background:
-            position: top
-            repeat: no-repeat
-        box-shadow: 0px 2px 10px white
-        cursor: pointer
-        height: auto
-        overflow: hidden
-        position: relative
-        transition: opacity 500ms
+	div#team_grid
+		@include flexContainerMixin(person)
 
-        &.unfocused
-            opacity: 0.4
-            filter: blur(2px) contrast(0.8)
-
-        //&.expanded
-            // *  DEP: person_expando.expanded
-            box-shadow: 0px 2px 10px var(--GREY3)
-
-        img
-            height: $imgHeight
+	div#alumni_grid
+		@include flexContainerMixin(person)
 
 
-        div.name
-            font:
-                size: large
-                family: OpenSansSemiBold
-            text-transform: capitalize
+	person
+		background:
+			position: top
+			repeat: no-repeat
+		//box-shadow: 0px 2px 10px white
+		cursor: pointer
+		height: auto
+		overflow: hidden
+		position: relative
+		transition: opacity 500ms
 
-        div.role
-            color: var(--GREY6)
-            font:
-                family: OpenSansItalic
-            padding-bottom: 5px
-            text-transform: capitalize
+		&.unfocused
+			opacity: 0.4
+			filter: blur(2px) contrast(0.8)
 
-
-    div#person_expando
-        @include borderMixin(var(--GREY02))
-
-
-        // 30px
-        --expandoPadding: calc(var(--GAP) / 2)
-        $colorTrans: color 300ms cubic-bezier(1, 0, 1, 0)
+		img
+			// inherits from person, whose width is var(--tagWidth) in mixins.sass
+			width: inherit
 
 
-        background-color: white
-        box-shadow: 0px 1px 2px white
-        color: white
-        height: 0
+		div.name
+			font:
+				size: large
+				family: OpenSansSemiBold
+			text-transform: capitalize
 
-        // *  DEP: mixins.sass flexContainerMixin grid-row-gap
-        margin:
-            // -50px
-            top: calc(var(--GAP) * -5 / 6)
-
-        overflow: hidden
-        padding: var(--expandoPadding)
-        text-align: left
-
-        //transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, padding 500ms, box-shadow 1500ms
-        transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
-
-        // *  DEP: mixins.sass --tagWidth == 255px
-        // 255 - 30*2  =  195px
-        width: calc(255px - 2 * var(--expandoPadding))
-
-        svg#svg_root
-            // 15px
-            --dim: calc(var(--GAP) / 4)
-            cursor: pointer
-            display: block
-            margin-left: auto
-            margin-right: calc(var(--dim) * -1)
-            margin-top: calc(var(--dim) * -1)
-            position: relative
-            width: var(--dim)
+		div.role
+			color: var(--GREY6)
+			font:
+				family: OpenSansItalic
+			padding-bottom: 5px
+			text-transform: capitalize
 
 
-            path
-                fill: none
-                stroke-width: 1px
-                stroke: var(--GREY6)
+	div#person_expando
+		// **  --gap, --w, --tagWidth vars from mixins.sass
+		@include borderMixin(var(--GREY02))
+
+		// [min-width: $BP1]:  30px
+		// [max-width: $BP1]:  20px
+		--expandoPadding: calc(var(--gap) / 2)
+		$colorTrans: color 300ms cubic-bezier(1, 0, 1, 0)
 
 
-                &.upright
-                    d: path("m 14 1 l -13 13")
+		background-color: white
+		box-shadow: 0px 1px 2px white
+		color: white
 
-                &.downleft
-                    d: path("m 1 1 l 13 13")
+		@include max-width($BP1)
+			font-size: 15px
+		height: 0
 
-        //div.close
-            background-color: #f3685e
-            border-radius: 100px
-            cursor: pointer
-            // 15px
-            height: calc(var(--GAP) / 4)
-            margin:
-                left: auto
-                top: -20px
-                right: -20px
-            opacity: 0
-            transition: opacity 0.5s cubic-bezier(0, -1, .6, .2), background 100ms
-            width: calc(var(--GAP) / 4)
+		// [min-width: $BP1]:  -50px
+		// [max-width: $BP1]:  -33.3333px
+		margin-top: calc(var(--gap) * -5 / 6)
 
-            &:hover
-                background-color: #DB4337
+		overflow: hidden
+		padding: var(--expandoPadding)
+		text-align: left
 
-        a
-            color: white
-            transition: $colorTrans
+		transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
 
-        &.collapsed
-            padding: 0
-
-        &.expanded
-
-            div.email
-                a
-                    color: var(--GOOGLEBLUE)
-
-                margin:
-                    // 10px
-                    top: calc(var(--GAP) / 6)
-
-            div.close
-                opacity: 1
+		// [min-width: $BP1]:  255 - 30*2  =  195px
+		// [max-width: $BP1]:  216 - 20*2  =  176px
+		width: calc(var(--tagWidth) - 2 * var(--expandoPadding))
 
 
-            //background-color: var(--GREY01)
-            border-color: white
-            box-shadow: 0px 2px 10px var(--GREY3)
-            color: var(--GREY7)
-            height: 270px
-            // *  DEP: mixins.sass --tagWidth == 255px
-            width: calc(255px * 2)
+		svg#svg_root
+			// [min-width: $BP1]:  60/4  =  15px
+			// [max-width: $BP1]:  40/4  =  10px
+			--dim: calc(var(--gap) / 4)
+			cursor: pointer
+			display: block
+			margin-left: auto
+			margin-right: calc(var(--dim) * -1)
+			margin-top: calc(var(--dim) * -1)
+			position: relative
+			width: var(--dim)
+
+
+			path
+				fill: none
+				stroke-width: 1px
+				stroke: var(--GREY6)
+
+
+				&.upright
+					d: path("m 14 1 l -13 13")
+
+				&.downleft
+					d: path("m 1 1 l 13 13")
+
+
+		a
+			color: white
+			transition: $colorTrans
+
+		&.collapsed
+			padding: 0
+
+		&.expanded
+
+			div.email
+				a
+					color: var(--GOOGLEBLUE)
+
+				margin:
+					// [min-width: $BP1]:  60/6  =  10px
+					// [max-width: $BP1]:  40/6  =  6.66666px
+					top: calc(var(--gap) / 6)
+
+			div.close
+				opacity: 1
+
+
+			border-color: white
+			box-shadow: 0px 2px 10px var(--GREY3)
+			color: var(--GREY7)
+			height: 270px
+			// [min-width: $BP1]:  255*2  =  510px
+			// [max-width: $BP1]:  216*2  =  432px
+			width: calc(var(--tagWidth) * 2)
 
 
 

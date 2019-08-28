@@ -1,206 +1,85 @@
-//#carousel
-    --carousel_height: 500px
-    @media screen and (min-width: 800px)
-        --button_side: 70px
-    @media screen and (max-width: 800px)
-        --button_side: 40px
-    position: relative
-    display: grid
-
-    @media screen and (min-width: 800px)
-        grid-template-rows: 25% 15% 20% 20% 20%
-    @media screen and (max-width: 800px)
-        grid-template-rows: 15% 25% 20% 20% 20%
-
-    @media screen and (min-width: 1600px)
-        grid-template-columns: var(--button_side) 20% auto 20% var(--button_side)
-    @media screen and (max-width: 1600px)
-        grid-template-columns: var(--button_side) 15% auto 15% var(--button_side)
-
-    height: var(--carousel_height)
-    color: var(--GREY8)
-
-
-    .image
-        position: absolute
-        width: 100%
-        height: 100%
-        z-index: -1
-        background:
-            repeat: no-repeat
-            position: center
-            size: cover
-            blend-mode: screen
-
-    headline
-        position: absolute
-        width: -webkit-fill-available
-        cursor: pointer
-        letter-spacing: 1px
-
-
-        &:hover
-            color: black
-        transition: color 200ms
-        font-family: OpenSansBold
-
-        @media screen and (min-width: 800px)
-            font-size: 40px
-            padding-top: 13px
-            padding-bottom: 12px
-        @media screen and (max-width: 800px)
-            font-size: 25px
-            padding: 20px 0
-
-    content
-
-        padding: 15px
-        border-radius: 7px
-        margin: 0 auto auto auto
-        background:
-            image: linear-gradient(90deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 1))
-            blend-mode: screen
-        @media screen and (min-width: 1600px)
-            margin-top: 20px
-        @media screen and (max-width: 1600px)
-            margin-top: 0px
-
-        grid-row: 2/5
-        @media screen and (min-width: 800px)
-            font-size: 18px
-            grid-column: 3/4
-            text-align: justify
-        @media screen and (max-width: 800px)
-            font-size: 13px
-            grid-column: 2/5
-
-    button
-        width: var(--button_side)
-        background:
-            color: rgba(0, 0, 0, 0)
-            repeat: no-repeat
-        position: absolute
-        border:
-            width: 0
-        color: black
-        cursor: pointer
-        height: -webkit-fill-available
-        @include fourWayTextShadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
-        font-family: monospace
-        @media screen and (min-width: 800px)
-            font-size: 35px
-        @media screen and (max-width: 800px)
-            font-size: 20px
-
-        align-self: center
-        grid-row: 1/1
-        margin: auto
-
-        &:focus
-            outline: unset
-
-
-        &[class~="left"]
-            grid-column: 1/1
-
-        &[class~="right"]
-            grid-column: 5/5
-
-        &[class~="animated"]
-            animation: scaleDownAndReset 50ms linear
-
 
 div#intro_container
-    display: flex
-    margin:
-        bottom: var(--GAP)
-    position: relative
-    text-align: left
+	@include setLocalGapVar()
+	@include setLocalWVar()
+	display: flex
+	margin:
+		bottom: var(--gap)
+	position: relative
+	text-align: left
 
 
-    div#non_news
-        text-align: left
-        // 740px + #news margin-left (60px) == 800
-        // 800 == 2/3 of 1200 (W0)
-        $nonNewsWidth: 740px
-        width: $nonNewsWidth
+	div#non_news
+		text-align: left
+		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
+		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
+		width: calc((var(--w) * 2 / 3) - var(--gap))
 
-        img
-            display: block
-            margin:
-                right: auto
-                left: auto
-                bottom: var(--GAP)
-            width: $nonNewsWidth
+		img
+			display: block
+			margin:
+				right: auto
+				left: auto
+				bottom: var(--gap)
+			width: inherit
 
-        div
-            position: relative
+		div
+			position: relative
 
-        div.title
-            @include titleMixin
+		div.title
+			@include titleMixin()
 
-    div#news
-        @include borderMixin(var(--GREY2))
-        background-color: var(--GREY01)
-        display: flex
-        flex-direction: column
-        margin:
-            left: var(--GAP)
-        // 30px
-        padding: calc(var(--GAP) / 2)
-        position: relative
+	div#news
+		$dim: 15px
+		@include borderMixin(var(--GREY2))
+		background-color: var(--GREY01)
+		display: flex
+		flex-direction: column
+		margin:
+			left: var(--gap)
+		// [min-width: $BP1]:   30px
+		// [max-width: $BP1]:   20px
+		padding: calc(var(--gap) / 2)
+		position: relative
 
-        div.date
-            color: rgb(95, 95, 95)
-            font-size: 15px
+		div.date
+			color: rgb(95, 95, 95)
+			font-size: $dim
 
-        div.title
-            @include titleMixin(large)
-            margin-bottom: 15px
+		div.title
+			@include titleMixin(large)
+			margin-bottom: $dim
 
-        div.radios
-            margin: auto auto 0 auto
+		div.radios
+			margin: auto auto 0 auto
 
-            .radio
-                @include borderMixin(var(--GREY3), null)
+			.radio
+				@include borderMixin(var(--GREY3), null)
 
-                background-color: white
-                border-radius: 100px
+				background-color: white
+				border-radius: 100px
 
-                cursor: pointer
-                display: inline-block
+				cursor: pointer
+				display: inline-block
 
-                height: calc(var(--GAP) / 4)
+				height: $dim
 
-                // 5px
-                margin:
-                    left: calc(var(--GAP) / 12)
-                    right: calc(var(--GAP) / 12)
-                transition: background 100ms
+				// 5px
+				margin:
+					left: $dim / 3
+					right: $dim / 3
+				transition: background 100ms
 
-                // 15px
-                width: calc(var(--GAP) / 4)
+				width: $dim
 
-                &[class~="selected"]
-                    background-color: var(--GREY3)
-                    //background-image: linear-gradient(90deg, white -300%, var(--GREY3))
-                    border-color: var(--GREY4)
+				&[class~="selected"]
+					background-color: var(--GREY3)
+					border-color: var(--GREY4)
 
 
 div#research_snippets_container
-    text-align: left
+	text-align: left
 
-    div.title
-        @include titleMixin
+	div.title
+		@include titleMixin()
 
-//@keyframes contrastDownAndReset
-    0%
-        filter: brightness(1.5)
-    100%
-        filter: contrast(1)
-
-//@keyframes scaleDownAndReset
-    0%
-        transform: scale(0.8)
-    100%
-        transform: scale(1)

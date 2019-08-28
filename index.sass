@@ -1,106 +1,112 @@
 @import "common/consts"
 @import "common/mixins"
 @font-face
-    font-family: "OpenSans"
-    src: url("common/fonts/OpenSans-Regular.ttf")
+	font-family: "OpenSans"
+	src: url("common/fonts/OpenSans-Regular.ttf")
 
 @font-face
-    font-family: "OpenSansSemiBold"
-    src: url("common/fonts/OpenSans-SemiBold.ttf")
+	font-family: "OpenSansSemiBold"
+	src: url("common/fonts/OpenSans-SemiBold.ttf")
 
 @font-face
-    font-family: "OpenSansBold"
-    src: url("common/fonts/OpenSans-Bold.ttf")
+	font-family: "OpenSansBold"
+	src: url("common/fonts/OpenSans-Bold.ttf")
 
 @font-face
-    font-family: "OpenSansLight"
-    src: url("common/fonts/OpenSans-Light.ttf")
+	font-family: "OpenSansLight"
+	src: url("common/fonts/OpenSans-Light.ttf")
 
 @font-face
-    font-family: "OpenSansLightItalic"
-    src: url("common/fonts/OpenSans-LightItalic.ttf")
+	font-family: "OpenSansLightItalic"
+	src: url("common/fonts/OpenSans-LightItalic.ttf")
 
 @font-face
-    font-family: "OpenSansItalic"
-    src: url("common/fonts/OpenSans-Italic.ttf")
+	font-family: "OpenSansItalic"
+	src: url("common/fonts/OpenSans-Italic.ttf")
 
 html
-    min-height: 100%
+	min-height: 100%
 
 body
-    margin: 0
-    overflow: overlay
-    font-family: "OpenSans", sans-serif
-    -webkit-font-smoothing: antialiased
-    -moz-osx-font-smoothing: grayscale
-    color: var(--GREY7)
+	-moz-osx-font-smoothing: grayscale
+	-webkit-font-smoothing: antialiased
+	color: var(--GREY7)
+	font-family: "OpenSans", sans-serif
+	margin: 0
+	overflow: overlay
 
-    &.theater
-        background-color: var(--GREY8)
+	&.theater
+		background-color: var(--GREY8)
 
 a
-    text-decoration: none
-    color: var(--GOOGLEBLUE)
-    transition: color 200ms ease-out
+	text-decoration: none
+	color: var(--GOOGLEBLUE)
+	transition: color 200ms ease-out
 
-    &:hover
-        color: var(--GREY6)
+	&:hover
+		color: var(--GREY6)
 
 div#main
-    $marginVertical: 40px
-    margin: $marginVertical auto
 
-    max-width: 100%
-    // 1535 <= screen
-    @media screen and (min-width: $BP0)
-        width: var(--W0)
+	--marginVertical: 40px
 
-    // 1240 <= screen <= 1535
-    @media screen and (min-width: $BP1) and (max-width: $BP0)
-        width: var(--W1)
-    text-align: center
-    @import 'main/navbar/navbar.sass'
+	margin: var(--marginVertical) auto
 
-    div#separators
-        margin:
-            top: 0px
-            right: auto
-            // 1px sep height
-            bottom: $marginVertical - 1
-            left: 0
-        display: inline-block
+	max-width: 100%
+	// 1340 <= screen
+	@include min-width($BP1)
+		// 1200px
+		width: var(--W0)
 
-        [class~="separator"]
-            position: absolute
-            height: 1px
-            width: 50%
-            transition: background 500ms
+	// *  DEP: people.ts PeoplePage().init()
+	// 1023 <= screen <= 1340
+	@media screen and (min-width: $BP2) and (max-width: $BP1)
+		// 984px
+		width: var(--W1)
 
-        [class~="left"]
-            left: 0
-            background:
-                image: linear-gradient(90deg, var(--TRANS) 0%, rgba(0, 0, 0, 0.1) 10%)
+	text-align: center
+	@import 'main/navbar/navbar.sass'
+
+	div#separators
+		display: inline-block
+		margin:
+			top: 0px
+			right: auto
+			// 39px (1px sep height)
+			bottom: calc(var(--marginVertical) - 1px)
+			left: 0
+
+		[class~="separator"]
+			position: absolute
+			height: 1px
+			width: 50%
+			transition: background 500ms
+
+		[class~="left"]
+			left: 0
+			background:
+				image: linear-gradient(90deg, var(--TRANS) 0%, rgba(0, 0, 0, 0.1) 10%)
 
 
-        [class~="right"]
-            left: 50%
+		[class~="right"]
+			left: 50%
 
-            background:
-                image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%)
+			background:
+				image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%)
 
 
-    div#home
-        position: relative
-        display: block
-        opacity: 1
+	div#home
+		display: block
+		opacity: 1
+		position: relative
 
 
 #window_stats
-    display: none
-    position: fixed
-    bottom: 0
-    background-color: rgba(0, 0, 0, 0.5)
-    color: white
+	display: none
+	position: fixed
+	bottom: 0
+	background-color: rgba(0, 0, 0, 0.5)
+	color: white
 
 @import 'main/home/home.sass'
 @import 'main/research/research.sass'
