@@ -35,6 +35,12 @@
 			"image": "naama-510.jpg",
 			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks.",
 			"email": "naamaf@mail.tau.ac.il"
+		},
+		"shachar gal": {
+			"role": "MSc student",
+			"image": "Shachar.jpg",
+			"cv": "Shachar, currently an MSc student, completed his undergraduate studies in Biology and Psychology at Tel-Aviv University's Sagol school for neuroscience in 2019. His research focuses on inter-subject as well as intra-subject variability in brain function, and its relationship with brain structure, as measured by functional connectivity.",
+			"email": "gal.shachar@gmail.com"
 		}
 	},
 	"alumni": {
