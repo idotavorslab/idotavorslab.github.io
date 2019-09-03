@@ -71,7 +71,14 @@ const GalleryPage = () => {
         const imgs = [];
         let selectedFile = null;
         for (let { description, file } of data) {
-            let image = img({ src: `main/gallery/${file}` }).pointerdown((event) => {
+            let src;
+            if (file.includes('http') || file.includes('www')) {
+                src = file;
+            }
+            else {
+                src = `main/gallery/${file}`;
+            }
+            let image = img({ src }).pointerdown((event) => {
                 console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
                 event.stopPropagation();
                 if (imgViewer.isopen)
@@ -152,4 +159,5 @@ const GalleryPage = () => {
     }
     return { init };
 };
+GalleryPage().init();
 //# sourceMappingURL=gallery.js.map

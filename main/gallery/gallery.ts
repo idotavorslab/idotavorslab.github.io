@@ -110,8 +110,13 @@ const GalleryPage = () => {
                     
                 });
             */
-            
-            let image: Img = img({src: `main/gallery/${file}`}).pointerdown((event: Event) => {
+            let src;
+            if (file.includes('http') || file.includes('www')) {
+                src = file;
+            } else {
+                src = `main/gallery/${file}`;
+            }
+            let image: Img = img({src}).pointerdown((event: Event) => {
                 // if open: clicked on other images in the bg. if closed: open imgViewer
                 console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
                 event.stopPropagation();
@@ -213,4 +218,4 @@ const GalleryPage = () => {
     return {init}
 };
 
-// GalleryPage().init();
+GalleryPage().init();

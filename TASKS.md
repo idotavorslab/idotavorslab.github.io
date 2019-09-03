@@ -41,7 +41,7 @@ Publications
     [x] morki publications structure.png
     
 Courses
-    "pretty mobile-like", not a list. image, title, text, link. http://schonberglab.tau.ac.il/funding/
+    "pretty mobile-like", not a list. image, title, text, link. 
 
 
 Funding
