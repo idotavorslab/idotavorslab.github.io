@@ -201,4 +201,5 @@ const PeoplePage = () => {
     }
     return { init };
 };
+PeoplePage().init();
 //# sourceMappingURL=people.js.map

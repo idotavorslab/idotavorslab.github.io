@@ -214,4 +214,4 @@ const GalleryPage = () => {
     return {init}
 };
 
-GalleryPage().init();
+// GalleryPage().init();

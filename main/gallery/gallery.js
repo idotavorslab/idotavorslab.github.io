@@ -135,5 +135,4 @@ const GalleryPage = () => {
     }
     return { init };
 };
-GalleryPage().init();
 //# sourceMappingURL=gallery.js.map
