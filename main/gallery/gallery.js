@@ -48,12 +48,27 @@ const GalleryPage = () => {
         }
         function closeImgViewer() {
             Body.toggleClass('theater', false);
-            images.toggleClass('theater', false);
+            imagesContainer.toggleClass('theater', false);
             navbar.css({ opacity: 1 });
             imgViewer
                 .toggleClass('on', false);
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
+        }
+        function toggleImgViewer(event, file) {
+            console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
+            event.stopPropagation();
+            if (imgViewer.isopen)
+                return closeImgViewer();
+            selectedFile = file;
+            imgViewerClose.toggleClass('on', true);
+            imgViewer
+                .toggleClass('on', true)
+                .img.src(`main/gallery/${selectedFile}`);
+            imgViewer.isopen = true;
+            Body.toggleClass('theater', true);
+            imagesContainer.toggleClass('theater', true);
+            navbar.css({ opacity: 0 });
         }
         const imgViewer = div({ id: 'img_viewer' })
             .cacheAppend({
@@ -68,9 +83,14 @@ const GalleryPage = () => {
         const data = await fetchJson("main/gallery/gallery.json", "default");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
-        const imgs = [];
+        const images = [];
         let selectedFile = null;
-        for (let { description, file } of data) {
+        const row0 = div({ id: 'row_0' });
+        const row1 = div({ id: 'row_1' });
+        const row2 = div({ id: 'row_2' });
+        const row3 = div({ id: 'row_3' });
+        for (let [i, { description, file }] of Object.entries(data)) {
+            console.log({ i, description, file });
             let src;
             if (file.includes('http') || file.includes('www')) {
                 src = file;
@@ -78,26 +98,24 @@ const GalleryPage = () => {
             else {
                 src = `main/gallery/${file}`;
             }
-            let image = img({ src }).pointerdown((event) => {
-                console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
-                event.stopPropagation();
-                if (imgViewer.isopen)
-                    return closeImgViewer();
-                selectedFile = file;
-                imgViewerClose.toggleClass('on', true);
-                imgViewer
-                    .toggleClass('on', true)
-                    .img.src(`main/gallery/${selectedFile}`);
-                imgViewer.isopen = true;
-                Body.toggleClass('theater', true);
-                images.toggleClass('theater', true);
-                navbar.css({ opacity: 0 });
-            }).on({
-                load: () => console.log(`load: ${file}`)
-            });
-            imgs.push(image);
+            let image = img({ src }).pointerdown((event) => toggleImgViewer(event, file));
+            images.push(image);
+            switch (parseInt(i) % 4) {
+                case 0:
+                    row0.append(image);
+                    break;
+                case 1:
+                    row1.append(image);
+                    break;
+                case 2:
+                    row2.append(image);
+                    break;
+                case 3:
+                    row3.append(image);
+                    break;
+            }
         }
-        const images = elem({ tag: 'images' }).append(...imgs);
+        const imagesContainer = div({ id: 'images' }).append(row0, row1, row2, row3);
         DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)
@@ -122,40 +140,7 @@ const GalleryPage = () => {
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
-        const observer = new MutationObserver(async (mutationsList, observer) => {
-            for (let mutation of mutationsList) {
-                if (mutation.previousSibling === images.e) {
-                    console.log('done appending images!');
-                    await wait(50);
-                    masonryImages();
-                }
-            }
-        });
-        observer.observe(Home.e, { childList: true });
-        Home.empty().append(images, imgViewer, imgViewerClose);
-        function masonryImages() {
-            let ROWSIZE;
-            if (window.innerWidth >= BP1) {
-                ROWSIZE = 4;
-            }
-            else {
-                ROWSIZE = 4;
-            }
-            function getBottom(_image) {
-                return _image.e.offsetTop + _image.e.height;
-            }
-            for (let i = 1; i < imgs.length / ROWSIZE; i++) {
-                console.group(`row ${i}`);
-                for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
-                    let image = imgs[i * ROWSIZE + j];
-                    let prevImage = imgs[(i - 1) * ROWSIZE + j];
-                    let marginTop = `-${image.e.offsetTop - getBottom(prevImage) - 8}px`;
-                    console.log(`${marginTop}`);
-                    image.css({ marginTop });
-                }
-                console.groupEnd();
-            }
-        }
+        Home.empty().append(imagesContainer, imgViewer, imgViewerClose);
     }
     return { init };
 };

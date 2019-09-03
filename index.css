@@ -667,46 +667,7 @@ paper div.content-div div.mag {
   font-size: 16px;
 }
 
-.grid {
-  box-sizing: border-box;
-}
-.grid * {
-  box-sizing: border-box;
-}
-
-.grid-item {
-  height: unset;
-  width: 294px;
-  float: left;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-}
-
-.grid-item--width2 {
-  width: 320px;
-}
-
-.grid-item--width3 {
-  width: 480px;
-}
-
-.grid-item--width4 {
-  width: 640px;
-}
-
-.grid-item--height2 {
-  height: 200px;
-}
-
-.grid-item--height3 {
-  height: 260px;
-}
-
-.grid-item--height4 {
-  height: 360px;
-}
-
-images {
+div#images {
   display: grid;
   --tagWidth: calc((var(--w) - (8px * 3)) / 4);
   margin-top: 0;
@@ -720,48 +681,49 @@ images {
   position: absolute;
 }
 @media screen and (min-width: 1340px) {
-  images {
+  div#images {
     --w: var(--W0);
   }
 }
 @media screen and (max-width: 1340px) {
-  images {
+  div#images {
     --w: var(--W1);
   }
 }
 @media screen and (min-width: 1340px) {
-  images {
+  div#images {
     --gap: var(--GAP0);
   }
 }
 @media screen and (max-width: 1340px) {
-  images {
+  div#images {
     --gap: var(--GAP1);
   }
 }
-images img {
+div#images img {
   margin: auto;
 }
-images img:nth-of-type(4n+4) {
+div#images img:nth-of-type(4n+4) {
   margin: 0 0px auto auto;
 }
-images img:nth-of-type(4n+1) {
+div#images img:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
 @media screen and (min-width: 1023px) {
-  images img {
+  div#images img {
     width: var(--tagWidth);
   }
 }
-images[class=theater] {
+div#images[class=theater] {
   filter: brightness(0.2) blur(1px) sepia(1);
 }
-images:not([class=theater]) img {
+div#images:not([class=theater]) img {
   margin-top: 0;
+  margin-bottom: 3px;
   cursor: pointer;
   transition: opacity 100ms;
 }
-images:not([class=theater]) img:hover {
+div#images:not([class=theater]) img:hover {
   opacity: 0.5;
 }
 
