@@ -83,23 +83,15 @@ const GalleryPage = () => {
         const data = await fetchJson("main/gallery/gallery.json", "default");
         const files = data.map(d => d.file);
         console.log('GalleryPage data', data);
-        const images = [];
         let selectedFile = null;
         const row0 = div({ id: 'row_0' });
         const row1 = div({ id: 'row_1' });
         const row2 = div({ id: 'row_2' });
         const row3 = div({ id: 'row_3' });
         for (let [i, { description, file }] of Object.entries(data)) {
-            console.log({ i, description, file });
             let src;
-            if (file.includes('http') || file.includes('www')) {
-                src = file;
-            }
-            else {
-                src = `main/gallery/${file}`;
-            }
+            src = `main/gallery/${file}`;
             let image = img({ src }).pointerdown((event) => toggleImgViewer(event, file));
-            images.push(image);
             switch (parseInt(i) % 4) {
                 case 0:
                     row0.append(image);
@@ -124,7 +116,6 @@ const GalleryPage = () => {
             closeImgViewer();
         })
             .keydown((event) => {
-            console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
             if (!imgViewer.isopen)
                 return;
             if (event.key === "Escape")

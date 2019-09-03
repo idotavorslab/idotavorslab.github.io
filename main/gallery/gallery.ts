@@ -70,6 +70,12 @@ const GalleryPage = () => {
             event.stopPropagation();
             if (imgViewer.isopen)
                 return closeImgViewer();
+            /*if (file.includes('http') || file.includes('www')) {
+                selectedFile = file;
+            } else {
+                selectedFile = `main/gallery/${file}`;
+            }
+            */
             selectedFile = file;
             imgViewerClose.toggleClass('on', true);
             imgViewer
@@ -105,7 +111,7 @@ const GalleryPage = () => {
         
         
         //**  HTML
-        const images: Img[] = [];
+        // const images: Img[] = [];
         let selectedFile: string = null;
         const row0 = div({id: 'row_0'});
         const row1 = div({id: 'row_1'});
@@ -113,7 +119,7 @@ const GalleryPage = () => {
         const row3 = div({id: 'row_3'});
         
         for (let [i, {description, file}] of Object.entries(<TMap<{ description: string, file: string }>>data)) {
-            console.log({i, description, file});
+            // console.log({i, description, file});
             /*let imgContainer = div({cls: 'img-container'})
                 .append(
                     // div({cls: 'tooltip', text: description}),
@@ -137,14 +143,16 @@ const GalleryPage = () => {
                 });
             */
             let src;
-            if (file.includes('http') || file.includes('www')) {
+            /*if (file.includes('http') || file.includes('www')) {
                 src = file;
             } else {
                 src = `main/gallery/${file}`;
             }
+            */
+            src = `main/gallery/${file}`;
             let image: Img = img({src}).pointerdown((event: Event) => toggleImgViewer(event, file));
             
-            images.push(image);
+            // images.push(image);
             switch (parseInt(i) % 4) {
                 case 0:
                     row0.append(image);
@@ -172,7 +180,7 @@ const GalleryPage = () => {
                 closeImgViewer();
             })
             .keydown((event: KeyboardEvent) => {
-                console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
+                // console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
                 if (!imgViewer.isopen)
                     return;
                 
@@ -197,46 +205,9 @@ const GalleryPage = () => {
                 )
         ).pointerdown(closeImgViewer);
         
-        /*const observer = new MutationObserver(async (mutationsList, observer) => {
-            for (let mutation of mutationsList) {
-                if (mutation.previousSibling === images.e) {
-                    console.log('done appending images!');
-                    await wait(500);
-                    masonryImages();
-                }
-            }
-        });
-        observer.observe(Home.e, {childList: true});
-        */
+        
         Home.empty().append(imagesContainer, imgViewer, imgViewerClose);
         
-        /*        function masonryImages() {
-                    let ROWSIZE;
-                    if (window.innerWidth >= BP1) { // 1340
-                        ROWSIZE = 4;
-                    } else {
-                        ROWSIZE = 4;
-                    }
-                    
-                    function getBottom(_image: Img): number {
-                        return _image.e.offsetTop + _image.e.height
-                    }
-                    
-                    for (let i = 1; i < imgs.length / ROWSIZE; i++) {
-                        console.group(`row ${i}`);
-                        for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < imgs.length; j++) {
-                            let image = imgs[i * ROWSIZE + j];
-                            let prevImage = imgs[(i - 1) * ROWSIZE + j];
-                            let marginTop = `-${image.e.offsetTop - getBottom(prevImage) - 8}px`;
-                            console.log(`${marginTop}`);
-                            image.css({marginTop});
-                        }
-                        console.groupEnd();
-                        
-                    }
-                }
-        
-        */
         
     }
     
