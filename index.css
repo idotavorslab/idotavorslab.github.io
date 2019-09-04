@@ -482,12 +482,7 @@ div#home div#alumni_grid person:nth-of-type(4n+1) {
   }
 }
 div#home person {
-  background-position: top;
-  background-repeat: no-repeat;
   cursor: pointer;
-  height: auto;
-  overflow: hidden;
-  position: relative;
   transition: opacity 500ms;
 }
 div#home person.unfocused {
