@@ -292,10 +292,9 @@ div#research_snippets_container div.title {
 }
 
 div#home div.article {
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: right;
   background-repeat: no-repeat;
-  background-blend-mode: screen;
   height: 500px;
   margin-bottom: 40px;
   width: 100%;
