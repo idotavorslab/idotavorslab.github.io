@@ -295,10 +295,20 @@ div#home div.article {
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;
-  height: 500px;
-  margin-bottom: 40px;
+  height: 440px;
+  margin-bottom: var(--gap);
   text-align: left;
   width: 100%;
+}
+@media screen and (min-width: 1340px) {
+  div#home div.article {
+    --gap: var(--GAP0);
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#home div.article {
+    --gap: var(--GAP1);
+  }
 }
 div#home div.article div.title {
   border-bottom: 1px solid rgba(34, 34, 34, 0);
@@ -306,7 +316,6 @@ div#home div.article div.title {
   font-size: xx-large;
   margin-bottom: -10px;
   padding-bottom: 10px;
-  padding-right: 10px;
   transition: border-bottom-color 1s;
   width: fit-content;
 }
@@ -316,13 +325,14 @@ div#home div.article div.title.highlighted {
   border-bottom-color: #333333;
 }
 div#home div.article div.content {
-  width: 50%;
-  transition: color 700ms ease-in-out;
-  padding: 15px 15px 15px 0;
-  border-radius: 7px;
-  margin: 40px auto auto 0;
+  --padding: 15px;
   background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.6));
   background-blend-mode: screen;
+  border-radius: 7px;
+  margin: calc(var(--gap) - var(--padding)) auto auto 0;
+  padding: var(--padding) var(--padding) var(--padding) 0;
+  transition: color 700ms ease-in-out;
+  width: 50%;
 }
 
 div#home div.separator {
