@@ -5,7 +5,7 @@
 	},
 	"Activity and Connectivity in Psychiatric Disorders": {
 		"content": "Understanding the abnormal structure and function of the human brain in different pathological states is one of the most fundamental challenges of neuroscience today. We study the relationship between brain connectivity and brain activity in individuals diagnosed with psychiatric disorders, such as schizophrenia and bipolar disorder. We investigate functional network connectivity (i.e., synchronized activity of different brain regions during rest), and how it is associated with brain function under different cognitive tasks. While studies of clinical populations usually compare ‘healthy’ and ‘patients’ as groups, we focus on the individual level and examine each brain’s unique patterns of connectivity and activity. This approach may lead to better understanding of what goes wrong in the psychiatric brain and may provide future directions for diagnosis and treatment.",
-		"image": "niv.jpg"
+		"image": "niv_copy.jpg"
 	},
 	"Personalized MRI Analysis": {
 		"content": "Neuroplasticity refers to the ability of the nervous system to reorganize and undergo modifications following internal or external stimuli. Such modifications occur during normal development, as part of rehabilitation after brain injury or as a result of learning and experience. Recently, diffusion MRI has been applied to measure learning-induced neuroplasticity, for example, changes that occur in the brain’s microstructure following spatial navigation or musical training tasks. While the vast majority of these studies have used group-level statistics to investigate the commonalities among individuals, in our lab we are interested in inter-individual differencesin neuroplasticity processes. In other words, what happens in different brains when different people learn new skills? To that aim, we develop individualized statistical approaches to measure learning-induced diffusion changes in the gray matter, in order to achieve better understanding of the brain modifications that accommodate learning in different individuals.",
@@ -13,10 +13,10 @@
 	},
 	"Diffusion and Cortical Microstructure": {
 		"content": "Diffusion MRI is based on the diffusivity of water molecules within the brain tissue. The ability of water molecules to diffuse freely can imply on the structure and geometry of the compartments in which they are found. Diffusion MRI is usually applied to map the trajectories of white matter fibers, in a technique refered to as structural connectivity, since water molecules motion is preferred along the fibers than perpendicular to them. However, advanced biophysical models allow the analysis of diffusivity properties in the cortical gray matter as well. In our lab we use such models to learn about the human cortex microstructure and compartmentalization, as well as detect microstructural changes.",
-		"image": "yael.jpg"
+		"image": "yael_copy.jpg"
 	},
 	"Relating PET and MRI Measures in Parkinson’s Disease": {
 		"content": "Positron emission tomography (PET) is widely used to diagnose and track the progression of Parkinson’s disease (PD). While effective, this imaging technique involves the injection of radioactive substance that is associated with severe health damage. In recent years there has been increasing interest in studying large-scale functional networks in PD patients using fMRI. In our lab, we study the relationship between the abnormal network connectivity in PD patients, measured by fMRI, and dopamine metabolism, measured by PET, as well as behavioral and cognitive clinical scores. We hope to offer valuable insight into the neural mechanisms underlying PD symptoms and possible interventions, as well as potential non-invasive biomarkers for early diagnosis of PD.",
-		"image": "michal_test2.jpg"
+		"image": "michal_copy.jpg"
 	}
 }
