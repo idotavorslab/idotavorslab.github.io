@@ -25,7 +25,14 @@ div#home
 
 
 	div.person
+		//border: 1px solid grey
 		cursor: pointer
+
+		// *  DEP:  .name, .role margin-top
+		display: flex
+		flex-direction: column
+
+		height: 100%
 		transition: opacity 500ms
 
 		&.unfocused
@@ -36,19 +43,27 @@ div#home
 			// inherits from div.person, whose width is var(--tagWidth) in mixins.sass
 			width: inherit
 
+		div
+			text-transform: capitalize
 
 		div.name
 			font:
 				size: large
 				family: OpenSansSemiBold
-			text-transform: capitalize
+
+			// *  DEP:  .role margin-top: 0
+			//          .person display: flex
+			margin-top: auto
 
 		div.role
 			color: var(--GREY6)
 			font:
 				family: OpenSansItalic
-			//padding-bottom: 5px
-			text-transform: capitalize
+
+
+			// *  DEP:  .name margin-top: auto
+			//          .person display: flex
+			margin-top: 0
 
 
 	div#person_expando

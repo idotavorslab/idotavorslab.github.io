@@ -483,6 +483,9 @@ div#home div#alumni_grid div.person:nth-of-type(4n+1) {
 }
 div#home div.person {
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   transition: opacity 500ms;
 }
 div#home div.person.unfocused {
@@ -492,15 +495,18 @@ div#home div.person.unfocused {
 div#home div.person img {
   width: inherit;
 }
+div#home div.person div {
+  text-transform: capitalize;
+}
 div#home div.person div.name {
   font-size: large;
   font-family: OpenSansSemiBold;
-  text-transform: capitalize;
+  margin-top: auto;
 }
 div#home div.person div.role {
   color: var(--GREY6);
   font-family: OpenSansItalic;
-  text-transform: capitalize;
+  margin-top: 0;
 }
 div#home div#person_expando {
   border-width: 1px;
