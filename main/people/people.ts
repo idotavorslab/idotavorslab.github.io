@@ -9,7 +9,7 @@ const PeoplePage = () => {
             ROWSIZE = 4;
         }
         
-        class Person extends BetterHTMLElement {
+        class Person extends Div {
             public cv: string;
             public email: string;
             public group: People;
@@ -17,7 +17,7 @@ const PeoplePage = () => {
             
             
             constructor(image: string, name: string, role: string, cv: string, email: string) {
-                super({tag: 'person'});
+                super({cls: 'person'});
                 this.cv = cv;
                 this.email = email;
                 this.append(

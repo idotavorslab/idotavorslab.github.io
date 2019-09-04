@@ -18,13 +18,13 @@ div#home
 
 
 	div#team_grid
-		@include flexContainerMixin(person)
+		@include flexContainerMixin("div.person")
 
 	div#alumni_grid
-		@include flexContainerMixin(person)
+		@include flexContainerMixin("div.person")
 
 
-	person
+	div.person
 		cursor: pointer
 		transition: opacity 500ms
 
@@ -33,7 +33,7 @@ div#home
 			filter: blur(2px) contrast(0.8)
 
 		img
-			// inherits from person, whose width is var(--tagWidth) in mixins.sass
+			// inherits from div.person, whose width is var(--tagWidth) in mixins.sass
 			width: inherit
 
 

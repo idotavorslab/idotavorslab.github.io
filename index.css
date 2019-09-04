@@ -421,17 +421,17 @@ div#home div#team_grid {
     --gap: var(--GAP1);
   }
 }
-div#home div#team_grid person {
+div#home div#team_grid div.person {
   margin: auto;
 }
-div#home div#team_grid person:nth-of-type(4n+4) {
+div#home div#team_grid div.person:nth-of-type(4n+4) {
   margin: 0 0px auto auto;
 }
-div#home div#team_grid person:nth-of-type(4n+1) {
+div#home div#team_grid div.person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
 @media screen and (min-width: 1023px) {
-  div#home div#team_grid person {
+  div#home div#team_grid div.person {
     width: var(--tagWidth);
   }
 }
@@ -467,37 +467,37 @@ div#home div#alumni_grid {
     --gap: var(--GAP1);
   }
 }
-div#home div#alumni_grid person {
+div#home div#alumni_grid div.person {
   margin: auto;
 }
-div#home div#alumni_grid person:nth-of-type(4n+4) {
+div#home div#alumni_grid div.person:nth-of-type(4n+4) {
   margin: 0 0px auto auto;
 }
-div#home div#alumni_grid person:nth-of-type(4n+1) {
+div#home div#alumni_grid div.person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
 @media screen and (min-width: 1023px) {
-  div#home div#alumni_grid person {
+  div#home div#alumni_grid div.person {
     width: var(--tagWidth);
   }
 }
-div#home person {
+div#home div.person {
   cursor: pointer;
   transition: opacity 500ms;
 }
-div#home person.unfocused {
+div#home div.person.unfocused {
   opacity: 0.4;
   filter: blur(2px) contrast(0.8);
 }
-div#home person img {
+div#home div.person img {
   width: inherit;
 }
-div#home person div.name {
+div#home div.person div.name {
   font-size: large;
   font-family: OpenSansSemiBold;
   text-transform: capitalize;
 }
-div#home person div.role {
+div#home div.person div.role {
   color: var(--GREY6);
   font-family: OpenSansItalic;
   text-transform: capitalize;

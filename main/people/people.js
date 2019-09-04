@@ -8,9 +8,9 @@ const PeoplePage = () => {
         else {
             ROWSIZE = 4;
         }
-        class Person extends BetterHTMLElement {
+        class Person extends Div {
             constructor(image, name, role, cv, email) {
-                super({ tag: 'person' });
+                super({ cls: 'person' });
                 this.cv = cv;
                 this.email = email;
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
