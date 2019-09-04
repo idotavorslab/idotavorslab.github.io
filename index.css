@@ -291,7 +291,7 @@ div#research_snippets_container div.title {
   letter-spacing: 0.5px;
 }
 
-article {
+div.article {
   width: 100%;
   margin-bottom: 40px;
   padding-top: 0px;
@@ -301,17 +301,17 @@ article {
   background-blend-mode: screen;
 }
 @media screen and (min-width: 800px) {
-  article {
+  div.article {
     height: 500px;
   }
 }
 @media screen and (max-width: 800px) {
-  article {
+  div.article {
     height: auto;
     padding-bottom: 20px;
   }
 }
-article div.title {
+div.article div.title {
   text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.1), -1px 1px 3px rgba(255, 255, 255, 0.1), 1px -1px 3px rgba(255, 255, 255, 0.1), -1px -1px 3px rgba(255, 255, 255, 0.1);
   width: fit-content;
   border-bottom-width: 1px;
@@ -322,7 +322,7 @@ article div.title {
   text-align: left;
 }
 @media screen and (min-width: 800px) {
-  article div.title {
+  div.article div.title {
     font-size: 35px;
     padding-top: 20px;
     padding-bottom: 10px;
@@ -332,7 +332,7 @@ article div.title {
   }
 }
 @media screen and (max-width: 800px) {
-  article div.title {
+  div.article div.title {
     font-size: 25px;
     padding-top: 20px;
     padding-bottom: 10px;
@@ -341,12 +341,12 @@ article div.title {
     margin-bottom: -10px;
   }
 }
-article div.title[class~=highlighted] {
+div.article div.title[class~=highlighted] {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #333333;
 }
-article div.content {
+div.article div.content {
   text-align: left;
   transition: color 700ms ease-in-out;
   padding: 15px;
@@ -356,14 +356,14 @@ article div.content {
   background-blend-mode: screen;
 }
 @media screen and (min-width: 800px) {
-  article div.content {
+  div.article div.content {
     width: 50%;
     margin-left: 60px;
     margin-top: 40px;
   }
 }
 @media screen and (max-width: 800px) {
-  article div.content {
+  div.article div.content {
     font-size: 15px;
     width: calc(95% - 20px);
     text-align: justify;
