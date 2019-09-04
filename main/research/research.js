@@ -6,7 +6,7 @@ const ResearchPage = () => {
         const articles = [];
         let emptied = false;
         for (let [title, { image, content }] of dict(data).items()) {
-            let article = elem({ tag: "article" });
+            let article = div({ cls: "article" });
             article
                 .cacheAppend({
                 title: div({ text: title, cls: "title" }),

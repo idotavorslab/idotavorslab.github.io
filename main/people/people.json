@@ -2,43 +2,43 @@
 	"team": {
 		"ido tavor": {
 			"role": "principal investigator",
-			"image": "ido-255.jpg",
+			"image": "ido-4to3.jpg",
 			"cv": "Dr. Tavor started his academic career in Tel Aviv University’s undergraduate program in Biology and Psychology with emphasis on Neuroscience. He completed his Ph.D. in Neurobiology under the guidance of Prof. Yaniv Assaf studying rapid learning-related structural plasticity in the living human brain. He then proceeded to a postdoctoral fellowship at the Oxford Centre for Functional MRI of the Brain (FMRIB) at the University of Oxford. There, working with Prof. Saad Jbabdi he studied individual variability in brain function and connectivity. In 2017, Ido joined Tel Aviv University as a senior lecturer at the Sackler Faculty of Medicine and the Sagol School of Neuroscience.",
 			"email": "idotavor@tauex.tau.ac.il"
 		},
 		"michal bernstein-eliav": {
 			"role": "postdoctoral fellow",
-			"image": "michal_new.jpg",
-			"cv": "Dr. Bernstein-Eliav completed her BSc in Biology and Psychology with emphasis on Neuroscience at Tel Aviv University. She then proceeded to master’s degree and PhD under the guidance of Prof. Galit Yovel studying the representation of dynamic faces in the human brain. During that time, Michal worked as a visitor scientist at the MRC Cognition and Brain Sciences Unit at the University of Cambridge. She is now a post-doctoral fellow at Dr. Tavor’s lab, focusing on the relationship between functional connectivity and metabolism in the healthy and pathological brain.",			
+			"image": "michal_new_4to3_small.jpg",
+			"cv": "Dr. Bernstein-Eliav completed her BSc in Biology and Psychology with emphasis on Neuroscience at Tel Aviv University. She then proceeded to master’s degree and PhD under the guidance of Prof. Galit Yovel studying the representation of dynamic faces in the human brain. During that time, Michal worked as a visitor scientist at the MRC Cognition and Brain Sciences Unit at the University of Cambridge. She is now a post-doctoral fellow at Dr. Tavor’s lab, focusing on the relationship between functional connectivity and metabolism in the healthy and pathological brain.",
 			"email": "bernste2@mail.tau.ac.il"
 		},
 		"niv tik": {
 			"role": "PhD student",
-			"image": "niv-510.jpg",
+			"image": "niv-4to3-small.jpg",
 			"cv": "Niv completed his undergraduate studies in biology and psychology at Ben - Gurion University in 2015. Between 2015 and 2017 he worked as a research assistant in the Functional Neuroimaging lab in Sheba Medical Center. Niv is currently a PhD student. His Research focuses mainly on individual variability in brain connectivity and its relationship to brain activity, both in healthy volunteers and individuals suffering from psychiatric conditions.",
 			"email": "nivtik@mail.tau.ac.il"
 		},
 		"yael shavit": {
 			"role": "PhD Student",
-			"image": "yael-255.jpg",
+			"image": "yael-4to3.jpg",
 			"cv": "Yael received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is now a PhD student in the lab, currently focusing on microstructural charactarization of the human cortex using diffusion MRI.",
 			"email": "yael.shvt5@gmail.com"
 		},
 		"dana gefen doron": {
 			"role": "PhD Student",
-			"image": "dana-510.jpg",
+			"image": "dana-4to3-small.jpg",
 			"cv": "Dana is a physical medicine and rehabilitation specialist working mainly with people who suffered acquired brain injuries. She received her MD in 2010 from the Sackler School of Medicine, Tel Aviv university, and finished her residency in PM&R at Sheba Rehab Hospital in 2017. Dana completed her MSc in neurobiology in Tel Aviv University in 2017 under the guidance of Prof. Yaniv Assaf, studying rapid learning related structural plasticity in the elderly and in epileptic patients. Dana is currently a PhD student focusing on learning capacity, brain connectivity and structural plasticity in healthy aging.",
 			"email": "dorondana@gmail.com"
 		},
 		"naama friedman": {
 			"role": "MSc student",
-			"image": "naama-510.jpg",
+			"image": "naama-4to3-small.jpg",
 			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks.",
 			"email": "naamaf@mail.tau.ac.il"
 		},
 		"shachar gal": {
 			"role": "MSc student",
-			"image": "Shachar.jpg",
+			"image": "Shachar-4to3-small.jpg",
 			"cv": "Shachar, currently an MSc student, completed his undergraduate studies in Biology and Psychology at Tel-Aviv University's Sagol school for neuroscience in 2019. His research focuses on inter-subject as well as intra-subject variability in brain function, and its relationship with brain structure, as measured by functional connectivity.",
 			"email": "gal.shachar@gmail.com"
 		}
@@ -46,19 +46,19 @@
 	"alumni": {
 		"niv tik": {
 			"role": "PhD student",
-			"image": "niv-510.jpg",
+			"image": "niv-4to3-small.jpg",
 			"cv": "Niv completed his undergraduate studies in biology and psychology at Ben - Gurion University in 2015. Between 2015 and 2017 he worked as a research assistant in the Functional Neuroimaging lab in Sheba Medical Center. Niv is currently a PhD student. His Research focuses mainly on individual variability in brain connectivity and its relationship to brain activity, both in healthy volunteers and individuals suffering from psychiatric conditions.",
 			"email": "nivtik@mail.tau.ac.il"
 		},
 		"yael shavit": {
 			"role": "PhD Student",
-			"image": "yael-255.jpg",
+			"image": "yael-4to3.jpg",
 			"cv": "Yael received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is now a PhD student in the lab, currently focusing on microstructural charactarization of the human cortex using diffusion MRI.",
 			"email": "yael.shvt5@gmail.com"
 		},
 		"naama friedman": {
 			"role": "MSc student",
-			"image": "naama-510.jpg",
+			"image": "naama-4to3-small.jpg",
 			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks",
 			"email": "naamaf@mail.tau.ac.il"
 		}

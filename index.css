@@ -291,85 +291,48 @@ div#research_snippets_container div.title {
   letter-spacing: 0.5px;
 }
 
-article {
-  width: 100%;
-  margin-bottom: 40px;
-  padding-top: 0px;
-  background-size: cover;
-  background-position: center;
+div#home div.article {
+  background-size: contain;
+  background-position: right;
   background-repeat: no-repeat;
-  background-blend-mode: screen;
-}
-@media screen and (min-width: 800px) {
-  article {
-    height: 500px;
-  }
-}
-@media screen and (max-width: 800px) {
-  article {
-    height: auto;
-    padding-bottom: 20px;
-  }
-}
-article div.title {
-  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.1), -1px 1px 3px rgba(255, 255, 255, 0.1), 1px -1px 3px rgba(255, 255, 255, 0.1), -1px -1px 3px rgba(255, 255, 255, 0.1);
-  width: fit-content;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: rgba(34, 34, 34, 0);
-  transition: border-bottom-color 1s;
-  font-family: OpenSansBold;
+  height: 440px;
+  margin-bottom: var(--gap);
   text-align: left;
+  width: 100%;
 }
-@media screen and (min-width: 800px) {
-  article div.title {
-    font-size: 35px;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    margin-left: 60px;
-    margin-bottom: -10px;
+@media screen and (min-width: 1340px) {
+  div#home div.article {
+    --gap: var(--GAP0);
   }
 }
-@media screen and (max-width: 800px) {
-  article div.title {
-    font-size: 25px;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    margin-left: 20px;
-    margin-bottom: -10px;
+@media screen and (max-width: 1340px) {
+  div#home div.article {
+    --gap: var(--GAP1);
   }
 }
-article div.title[class~=highlighted] {
+div#home div.article div.title {
+  border-bottom: 1px solid rgba(34, 34, 34, 0);
+  font-family: OpenSansBold;
+  font-size: xx-large;
+  margin-bottom: -10px;
+  padding-bottom: 10px;
+  transition: border-bottom-color 1s;
+  width: fit-content;
+}
+div#home div.article div.title.highlighted {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #333333;
 }
-article div.content {
-  text-align: left;
-  transition: color 700ms ease-in-out;
-  padding: 15px;
-  border-radius: 7px;
-  margin: 0 auto auto auto;
+div#home div.article div.content {
+  --padding: 15px;
   background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.6));
   background-blend-mode: screen;
-}
-@media screen and (min-width: 800px) {
-  article div.content {
-    width: 50%;
-    margin-left: 60px;
-    margin-top: 40px;
-  }
-}
-@media screen and (max-width: 800px) {
-  article div.content {
-    font-size: 15px;
-    width: calc(95% - 20px);
-    text-align: justify;
-    margin-left: 20px;
-    margin-top: 25px;
-  }
+  border-radius: 7px;
+  margin: calc(var(--gap) - var(--padding)) auto auto 0;
+  padding: var(--padding) var(--padding) var(--padding) 0;
+  transition: color 700ms ease-in-out;
+  width: 50%;
 }
 
 div#home div.separator {
@@ -421,17 +384,17 @@ div#home div#team_grid {
     --gap: var(--GAP1);
   }
 }
-div#home div#team_grid person {
+div#home div#team_grid div.person {
   margin: auto;
 }
-div#home div#team_grid person:nth-of-type(4n+4) {
+div#home div#team_grid div.person:nth-of-type(4n+4) {
   margin: 0 0px auto auto;
 }
-div#home div#team_grid person:nth-of-type(4n+1) {
+div#home div#team_grid div.person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
 @media screen and (min-width: 1023px) {
-  div#home div#team_grid person {
+  div#home div#team_grid div.person {
     width: var(--tagWidth);
   }
 }
@@ -467,46 +430,43 @@ div#home div#alumni_grid {
     --gap: var(--GAP1);
   }
 }
-div#home div#alumni_grid person {
+div#home div#alumni_grid div.person {
   margin: auto;
 }
-div#home div#alumni_grid person:nth-of-type(4n+4) {
+div#home div#alumni_grid div.person:nth-of-type(4n+4) {
   margin: 0 0px auto auto;
 }
-div#home div#alumni_grid person:nth-of-type(4n+1) {
+div#home div#alumni_grid div.person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
 @media screen and (min-width: 1023px) {
-  div#home div#alumni_grid person {
+  div#home div#alumni_grid div.person {
     width: var(--tagWidth);
   }
 }
-div#home person {
-  background-position: top;
-  background-repeat: no-repeat;
+div#home div.person {
   cursor: pointer;
-  height: auto;
-  overflow: hidden;
-  position: relative;
+  height: 100%;
   transition: opacity 500ms;
 }
-div#home person.unfocused {
+div#home div.person.unfocused {
   opacity: 0.4;
   filter: blur(2px) contrast(0.8);
 }
-div#home person img {
+div#home div.person img {
   width: inherit;
+  height: calc(var(--tagWidth) / (4 / 3));
 }
-div#home person div.name {
+div#home div.person div {
+  text-transform: capitalize;
+}
+div#home div.person div.name {
   font-size: large;
   font-family: OpenSansSemiBold;
-  text-transform: capitalize;
 }
-div#home person div.role {
+div#home div.person div.role {
   color: var(--GREY6);
   font-family: OpenSansItalic;
-  padding-bottom: 5px;
-  text-transform: capitalize;
 }
 div#home div#person_expando {
   border-width: 1px;

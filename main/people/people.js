@@ -8,9 +8,9 @@ const PeoplePage = () => {
         else {
             ROWSIZE = 4;
         }
-        class Person extends BetterHTMLElement {
+        class Person extends Div {
             constructor(image, name, role, cv, email) {
-                super({ tag: 'person' });
+                super({ cls: 'person' });
                 this.cv = cv;
                 this.email = email;
                 this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
@@ -179,7 +179,7 @@ const PeoplePage = () => {
         const { team: teamData, alumni: alumniData } = data;
         const team = new People();
         const alumni = new People();
-        function gridFactory(gridData, gridId, people) {
+        function gridFactory({ gridData, gridId, people }) {
             let index = 0;
             for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
                 let person = new Person(image, name, role, cv, email);
@@ -189,8 +189,8 @@ const PeoplePage = () => {
             const grid = div({ id: gridId }).append(...people);
             return grid;
         }
-        const teamGrid = gridFactory(teamData, 'team_grid', team);
-        const alumniGrid = gridFactory(alumniData, 'alumni_grid', alumni);
+        const teamGrid = gridFactory({ gridData: teamData, gridId: 'team_grid', people: team });
+        const alumniGrid = gridFactory({ gridData: alumniData, gridId: 'alumni_grid', people: alumni });
         Home.empty().append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
         DocumentElem
             .pointerdown(() => {

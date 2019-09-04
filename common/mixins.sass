@@ -25,6 +25,7 @@
 @mixin max-width($bp)
 	@media screen and (max-width: $bp)
 		@content
+
 // **  --tagWidth
 @mixin setLocalTagWidthVar($tight:false)
 	// *  DEP:  people.sass     #person_expando width
@@ -50,10 +51,10 @@
 // **  --w
 @mixin setLocalWVar()
 	@include min-width($BP1)
-		// 60px
+		// 1200px
 		--w: var(--W0)
 	@include max-width($BP1)
-		// 40px
+		// 984px
 		--w: var(--W1)
 
 @mixin flexContainerMixin($childTag, $tight:false)
@@ -61,11 +62,6 @@
 	@include setLocalWVar()
 	@include setLocalGapVar()
 	@include setLocalTagWidthVar($tight)
-	//@if ($tight == true)
-		// (1200 - 4 * 294) / 3  =  (1200 - 1176) / 3  =  180 / 3  =  8  ==  row/column-gap
-		--tagWidth: 294px
-	//@else
-		@include setLocalTagWidthVar()
 
 
 	// **  margin

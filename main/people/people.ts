@@ -9,7 +9,7 @@ const PeoplePage = () => {
             ROWSIZE = 4;
         }
         
-        class Person extends BetterHTMLElement {
+        class Person extends Div {
             public cv: string;
             public email: string;
             public group: People;
@@ -17,7 +17,7 @@ const PeoplePage = () => {
             
             
             constructor(image: string, name: string, role: string, cv: string, email: string) {
-                super({tag: 'person'});
+                super({cls: 'person'});
                 this.cv = cv;
                 this.email = email;
                 this.append(
@@ -268,7 +268,7 @@ const PeoplePage = () => {
         const team: People = new People();
         const alumni: People = new People();
         
-        function gridFactory(gridData, gridId: string, people: People): Div {
+        function gridFactory({gridData, gridId, people}): Div {
             
             let index = 0;
             for (let [name, {image, role, cv, email}] of dict(gridData).items()) {
@@ -283,8 +283,8 @@ const PeoplePage = () => {
         }
         
         // **  Grids
-        const teamGrid = gridFactory(teamData, 'team_grid', team);
-        const alumniGrid = gridFactory(alumniData, 'alumni_grid', alumni);
+        const teamGrid = gridFactory({gridData: teamData, gridId: 'team_grid', people: team});
+        const alumniGrid = gridFactory({gridData: alumniData, gridId: 'alumni_grid', people: alumni});
         
         
         Home.empty().append(
