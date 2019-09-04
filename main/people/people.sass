@@ -29,10 +29,11 @@ div#home
 		cursor: pointer
 
 		// *  DEP:  .name, .role margin-top
-		display: flex
-		flex-direction: column
+		//display: flex
+		//flex-direction: column
 
 		height: 100%
+		//overflow: hidden
 		transition: opacity 500ms
 
 		&.unfocused
@@ -42,6 +43,7 @@ div#home
 		img
 			// inherits from div.person, whose width is var(--tagWidth) in mixins.sass
 			width: inherit
+			height: calc(var(--tagWidth) / (4 / 3))
 
 		div
 			text-transform: capitalize
@@ -53,7 +55,7 @@ div#home
 
 			// *  DEP:  .role margin-top: 0
 			//          .person display: flex
-			margin-top: auto
+			//margin-top: auto
 
 		div.role
 			color: var(--GREY6)
@@ -63,7 +65,7 @@ div#home
 
 			// *  DEP:  .name margin-top: auto
 			//          .person display: flex
-			margin-top: 0
+			//margin-top: 0
 
 
 	div#person_expando
