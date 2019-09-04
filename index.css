@@ -500,7 +500,6 @@ div#home person div.name {
 div#home person div.role {
   color: var(--GREY6);
   font-family: OpenSansItalic;
-  padding-bottom: 5px;
   text-transform: capitalize;
 }
 div#home div#person_expando {
