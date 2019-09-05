@@ -83,3 +83,23 @@ div#research_snippets_container
 	div.title
 		@include titleMixin()
 
+	div#research_snippets
+		display: grid
+		// TODO: vars
+		grid-template-columns: 360px
+		grid-column-gap: 60px
+
+		img
+			margin: 0 auto
+			width: 360px
+
+			&:nth-of-type(3n+1)
+				grid-column: 1/1
+
+			&:nth-of-type(3n+2)
+				grid-column: 2/2
+
+			&:nth-of-type(3n+3)
+				grid-column: 3/3
+
+
