@@ -1,20 +1,14 @@
 const HomePage = () => {
-    type THeader = Div & { thumbnail: Div, date: Div, title: Div };
-    type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number, thumbnail: string };
-    type TNewsElem = BetterHTMLElement & { header: THeader, content: Div, radios: Div };
+    type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number };
+    type TNewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
     /** The single #news>date,title,content,radios html to show selected news */
     const newsElem: TNewsElem = <TNewsElem>elem({
         query: '#news', children: {
-            header: '.header',
+            date: '.date',
+            title: '.title',
             content: '.content',
             radios: '.radios'
         }
-    });
-    
-    newsElem.header.cacheChildren({
-        thumbnail: '.thumbnail',
-        date: '.date',
-        title: '.title'
     });
     const newsChildren: HTMLElement[] = newsElem.children().map(c => c.e);
     
@@ -67,9 +61,8 @@ const HomePage = () => {
             for (let [text, link] of enumerate(selectedItem.links)) {
                 selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`)
             }
-            newsElem.header.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
-            newsElem.header.title.text(selectedItem.title);
-            newsElem.header.thumbnail.attr({src: `main/home/${selectedItem.thumbnail}`}); // because cacheChildren can't return Img
+            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
+            newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
             
@@ -131,8 +124,8 @@ const HomePage = () => {
         
         
         let i = 0;
-        for (let [title, {date, content, links, thumbnail}] of dict(data.news).items()) {
-            let item: TNewsDataItem = {title, date, content, links, radio: div({cls: 'radio'}), index: i, thumbnail};
+        for (let [title, {date, content, links}] of dict(data.news).items()) {
+            let item: TNewsDataItem = {title, date, content, links, radio: div({cls: 'radio'}), index: i};
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);

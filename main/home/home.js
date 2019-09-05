@@ -1,15 +1,11 @@
 const HomePage = () => {
     const newsElem = elem({
         query: '#news', children: {
-            header: '.header',
+            date: '.date',
+            title: '.title',
             content: '.content',
             radios: '.radios'
         }
-    });
-    newsElem.header.cacheChildren({
-        thumbnail: '.thumbnail',
-        date: '.date',
-        title: '.title'
     });
     const newsChildren = newsElem.children().map(c => c.e);
     class NewsData {
@@ -48,9 +44,8 @@ const HomePage = () => {
             for (let [text, link] of enumerate(selectedItem.links)) {
                 selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
             }
-            newsElem.header.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
-            newsElem.header.title.text(selectedItem.title);
-            newsElem.header.thumbnail.attr({ src: `main/home/${selectedItem.thumbnail}` });
+            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
+            newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
@@ -80,8 +75,8 @@ const HomePage = () => {
         elem({ query: "#non_news > .text" }).text(data["our lab"]);
         const newsData = new NewsData();
         let i = 0;
-        for (let [title, { date, content, links, thumbnail }] of dict(data.news).items()) {
-            let item = { title, date, content, links, radio: div({ cls: 'radio' }), index: i, thumbnail };
+        for (let [title, { date, content, links }] of dict(data.news).items()) {
+            let item = { title, date, content, links, radio: div({ cls: 'radio' }), index: i };
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
