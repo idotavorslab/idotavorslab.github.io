@@ -86,15 +86,49 @@ const HomePage = () => {
         }
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({ query: "#research_snippets" });
-        if (researchData.length > 6) {
-        }
-        else {
-            researchSnippets.cacheAppend({ row0: div({ cls: `row row-${researchData.length}` }) });
-            for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {
-                i = int(i);
-                console.log(i);
-                researchSnippets.row0.append(img({ src: `main/research/${thumbnail}` }));
+        function foo(len) {
+            if (len >= 17)
+                debugger;
+            const arr = [];
+            while (len > 5) {
+                let mod3 = len % 3;
+                let mod4 = len % 4;
+                let mod5 = len % 5;
+                let mods = { 3: mod3, 4: mod4, 5: mod5 };
+                let subtractor = -1;
+                let modsEntries = Object.entries(mods).map(([k, v]) => [parseInt(k), v]);
+                if (Object.values(mods).includes(0)) {
+                    for (let [k, v] of modsEntries) {
+                        if (v !== 0)
+                            continue;
+                        if (k > subtractor)
+                            subtractor = k;
+                    }
+                    for (let [k, v] of modsEntries) {
+                        if (v > subtractor)
+                            subtractor = k;
+                    }
+                }
+                else {
+                    let max = 0;
+                    for (let [k, v] of modsEntries) {
+                        if (v > max) {
+                            subtractor = k;
+                            max = v;
+                        }
+                    }
+                    let filtered = modsEntries.filter(([k, v]) => v === max);
+                    if (filtered.length > 1) {
+                    }
+                }
+                arr.push(subtractor);
+                len -= subtractor;
             }
+            arr.push(len);
+            return arr;
+        }
+        for (let i = 3; i < 22; i++) {
+            console.log(`foo(${i}):`, foo(i));
         }
     }
     return { init };

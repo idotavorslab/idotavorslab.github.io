@@ -121,22 +121,106 @@ const HomePage = () => {
         // ***  Research
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
-        // @ts-ignore
-        if (researchData.length > 6) {
         
-        } else {
-            researchSnippets.cacheAppend(
-                {row0: div({cls: `row row-${researchData.length}`})}
-            );
-            for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
-                i = int(i);
-                console.log(i);
-                researchSnippets.row0.append(
-                    img({src: `main/research/${thumbnail}`})
-                    // .css({gridColumn: `${i + 1}/${i + 1}`})
-                )
+        function foo(len) {
+            if (len >= 17)debugger;
+            const arr = [];
+            while (len > 5) {
+                let mod3 = len % 3;
+                let mod4 = len % 4;
+                let mod5 = len % 5;
+                let mods = {3: mod3, 4: mod4, 5: mod5};
+                let subtractor = -1;
+                let modsEntries = Object.entries(mods).map(([k, v]) => [parseInt(k), v]);
+                if (Object.values(mods).includes(0)) {
+                    // take the largest key with value:0
+                    // this also accounts for edge cases with more than one modolu 0, eg 12, where 3:0, 4:0, 5:2 | 4,4,4
+                    for (let [k, v] of modsEntries) {
+                        if (v !== 0)
+                            continue;
+                        if (k > subtractor)
+                            subtractor = k;
+                    }
+                    // unless a value is bigger than the largest key, then take that value's key
+                    // for eg 9, where 3:0, 4:1, 5:4 | 5,4
+                    for (let [k, v] of modsEntries) {
+                        if (v > subtractor)
+                            subtractor = k;
+                    }
+                    
+                    
+                } else {
+                    // TODO: what about 17? 3:2, 4:1, 5:2
+                    let max = 0;
+                    for (let [k, v] of modsEntries) {
+                        if (v > max) {
+                            subtractor = k;
+                            max = v;
+                        }
+                    }
+                    // for eg 17, where 3:2, 4:1, 5:2 | 5,4,4,4
+                    let filtered = modsEntries.filter(([k, v]) => v === max);
+                    if (filtered.length > 1) {
+                    
+                    }
+                }
+                arr.push(subtractor);
+                len -= subtractor;
+                
+                
             }
+            arr.push(len);
+            return arr;
         }
+        
+        for (let i = 3; i < 22; i++) {
+            
+            console.log(`foo(${i}):`, foo(i));
+        }
+        /*const arr = [];
+        let len = researchData.length;
+        while (len > 5) {
+            let mod3 = len % 3;
+            let mod4 = len % 4;
+            let mod5 = len % 5;
+            let mods = {3: mod3, 4: mod4, 5: mod5};
+            let subtractor = -1;
+            if (Object.values(mods).includes(0)) {
+                // this also accounts for edge cases with more than one modolu 0, eg 12, where 3:0, 4:0, 5:2
+                for (let [k, v] of Object.entries(mods).map(([k, v]) => [parseInt(k), v])) {
+                    if (v !== 0) continue;
+                    if (k > subtractor) subtractor = k;
+                }
+                
+                
+            } else {
+                let max = 0;
+                for (let [k, v] of Object.entries(mods).map(([k, v]) => [parseInt(k), v])) {
+                    if (v > max) {
+                        subtractor = k;
+                        max = v;
+                    }
+                }
+            }
+            arr.push(subtractor);
+            len -= subtractor;
+            
+            
+        }
+        arr.push(len);
+        */
+        /*researchSnippets.cacheAppend(
+            {row0: div({cls: `row row-${researchData.length}`})}
+        );
+        for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
+            i = int(i);
+            console.log(i);
+            researchSnippets.row0.append(
+                img({src: `main/research/${thumbnail}`})
+                // .css({gridColumn: `${i + 1}/${i + 1}`})
+            )
+        }
+        */
         
         
     }

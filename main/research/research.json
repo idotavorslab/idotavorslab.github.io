@@ -28,5 +28,10 @@
 		"content": "Understanding the abnormal structure and function of the human brain in different pathological states is one of the most fundamental challenges of neuroscience today. We study the relationship between brain connectivity and brain activity in individuals diagnosed with psychiatric disorders, such as schizophrenia and bipolar disorder. We investigate functional network connectivity (i.e., synchronized activity of different brain regions during rest), and how it is associated with brain function under different cognitive tasks. While studies of clinical populations usually compare ‘healthy’ and ‘patients’ as groups, we focus on the individual level and examine each brain’s unique patterns of connectivity and activity. This approach may lead to better understanding of what goes wrong in the psychiatric brain and may provide future directions for diagnosis and treatment.",
 		"image": "niv.jpg",
 		"thumbnail": "niv.jpg"
+	},
+	"Personalized MRI Analysis2": {
+		"content": "Neuroplasticity refers to the ability of the nervous system to reorganize and undergo modifications following internal or external stimuli. Such modifications occur during normal development, as part of rehabilitation after brain injury or as a result of learning and experience. Recently, diffusion MRI has been applied to measure learning-induced neuroplasticity, for example, changes that occur in the brain’s microstructure following spatial navigation or musical training tasks. While the vast majority of these studies have used group-level statistics to investigate the commonalities among individuals, in our lab we are interested in inter-individual differencesin neuroplasticity processes. In other words, what happens in different brains when different people learn new skills? To that aim, we develop individualized statistical approaches to measure learning-induced diffusion changes in the gray matter, in order to achieve better understanding of the brain modifications that accommodate learning in different individuals.",
+		"image": "naama-cropped.jpg",
+		"thumbnail": "naama-cropped.jpg"
 	}
 }
