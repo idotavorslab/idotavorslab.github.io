@@ -89,7 +89,7 @@ const HomePage = () => {
         if (researchData.length > 6) {
         }
         else {
-            researchSnippets.cacheAppend({ row0: div({ cls: 'row' }) });
+            researchSnippets.cacheAppend({ row0: div({ cls: `row row-${researchData.length}` }) });
             for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {
                 i = int(i);
                 console.log(i);

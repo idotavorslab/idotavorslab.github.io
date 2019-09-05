@@ -86,20 +86,28 @@ div#research_snippets_container
 
 	& > div#research_snippets
 
+
 		& > div.row
 			display: flex
 
+
 			& > img
 				margin: auto
-				--dim: 160px
-				width: var(--dim)
-				height: var(--dim)
 
 			& > img:first-of-type
 				margin-left: 0
 
 			& > img:last-of-type
 				margin-right: 0
+
+			@include setLocalWVar()
+
+			&.row-6
+				--dim: calc(var(--w) / 6)
+
+				& > img
+					width: var(--dim)
+					height: var(--dim)
 
 	//display: grid
 	//// TODO: vars

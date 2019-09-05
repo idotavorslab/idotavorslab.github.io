@@ -126,7 +126,7 @@ const HomePage = () => {
         
         } else {
             researchSnippets.cacheAppend(
-                {row0: div({cls: 'row'})}
+                {row0: div({cls: `row row-${researchData.length}`})}
             );
             for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
                 i = int(i);
