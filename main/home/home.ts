@@ -1,91 +1,23 @@
 const HomePage = () => {
-    type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number };
-    type TNewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
+    type THeader = Div & { thumbnail: Div, date: Div, title: Div };
+    type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number, thumbnail: string };
+    type TNewsElem = BetterHTMLElement & { header: THeader, content: Div, radios: Div };
     /** The single #news>date,title,content,radios html to show selected news */
     const newsElem: TNewsElem = <TNewsElem>elem({
         query: '#news', children: {
-            date: '.date',
-            title: '.title',
+            header: '.header',
             content: '.content',
             radios: '.radios'
         }
     });
+    
+    newsElem.header.cacheChildren({
+        thumbnail: '.thumbnail',
+        date: '.date',
+        title: '.title'
+    });
     const newsChildren: HTMLElement[] = newsElem.children().map(c => c.e);
     
-    /*class CarouselItem {
-        title: string;
-        image: string;
-        content: string;
-        
-        constructor(title: string, image: string, content: string) {
-            this.title = title;
-            this.image = image;
-            this.content = content;
-        }
-    }
-    
-    class Carousel extends BetterHTMLElement {
-        left: BetterHTMLElement;
-        right: BetterHTMLElement;
-        headline: BetterHTMLElement;
-        content: BetterHTMLElement;
-        items: CarouselItem[];
-        image: BetterHTMLElement;
-        currentIndex: number;
-        
-        constructor(elemOptions: ElemOptions, items: CarouselItem[]) {
-            super(elemOptions);
-            this.items = items;
-            this.currentIndex = 0;
-            this._switch();
-            this.headline.on({
-                pointerdown: () => {
-                    console.log('headline pointerdown');
-                    ResearchPage().init(this.currentIndex);
-                },
-                
-            });
-            
-            this.left.pointerdown(() => {
-                this._switch("left");
-                
-                
-            });
-            this.right.pointerdown(() => {
-                this._switch("right");
-            });
-        }
-        
-        private _switch(to?: 'right' | 'left') {
-            TL.to([this.content.e, this.headline.e], 0.1, {opacity: 0});
-            TL.fromTo(this.e, 0.2, {opacity: 1}, {
-                opacity: 0.5,
-                ease: Power2.easeIn,
-                onComplete: () => {
-                    if (to === "right")
-                        this.currentIndex++;
-                    else if (to === "left")
-                        this.currentIndex--;
-                    else if (to !== undefined)
-                        throw new TypeError(`_switch illegal 'to' param, got: ${to}`);
-                    if (this.currentIndex == -1)
-                        this.currentIndex = this.items.length - 1;
-                    else if (this.currentIndex == this.items.length)
-                        this.currentIndex = 0;
-                    this.content.text(this.items[this.currentIndex].content);
-                    this.headline.text(this.items[this.currentIndex].title);
-                    this.image.css({backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 40%, rgba(255,255,255,0)), url("main/research/${this.items[this.currentIndex].image}")`});
-                    TL.to([this.content.e, this.headline.e], 0.3, {opacity: 1});
-                    TL.to(this.e, 1, {opacity: 1})
-                }
-            });
-            
-            
-        }
-        
-        
-    }
-    */
     class NewsData {
         readonly data: TNewsDataItem[];
         private _selected: TNewsDataItem;
@@ -135,8 +67,9 @@ const HomePage = () => {
             for (let [text, link] of enumerate(selectedItem.links)) {
                 selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`)
             }
-            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
-            newsElem.title.text(selectedItem.title);
+            newsElem.header.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
+            newsElem.header.title.text(selectedItem.title);
+            newsElem.header.thumbnail.attr({src: `main/home/${selectedItem.thumbnail}`}); // because cacheChildren can't return Img
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
             
@@ -198,8 +131,8 @@ const HomePage = () => {
         
         
         let i = 0;
-        for (let [title, {date, content, links}] of dict(data.news).items()) {
-            let item: TNewsDataItem = {title, date, content, links, radio: div({cls: 'radio'}), index: i};
+        for (let [title, {date, content, links, thumbnail}] of dict(data.news).items()) {
+            let item: TNewsDataItem = {title, date, content, links, radio: div({cls: 'radio'}), index: i, thumbnail};
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
