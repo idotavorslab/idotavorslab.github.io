@@ -94,6 +94,7 @@ const HomePage = () => {
     }
     
     async function init() {
+        // ***  News
         newsElem.mouseover(() => newsData.stopAutoSwitch());
         newsElem.mouseout(() => newsData.startAutoSwitch());
         
@@ -116,6 +117,25 @@ const HomePage = () => {
             newsElem.radios.append(newsData[i].radio);
             i++;
             
+        }
+        // ***  Research
+        const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
+        const researchSnippets = elem({query: "#research_snippets"});
+        // @ts-ignore
+        if (researchData.length > 6) {
+        
+        } else {
+            researchSnippets.cacheAppend(
+                {row0: div({cls: 'row'})}
+            );
+            for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
+                i = int(i);
+                console.log(i);
+                researchSnippets.row0.append(
+                    img({src: `main/research/${thumbnail}`})
+                    // .css({gridColumn: `${i + 1}/${i + 1}`})
+                )
+            }
         }
         
         

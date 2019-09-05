@@ -291,24 +291,20 @@ div#research_snippets_container > div.title {
   letter-spacing: 0.5px;
   margin-bottom: 15px;
 }
-div#research_snippets_container > div#research_snippets {
-  display: grid;
-  grid-template-columns: 360px;
-  grid-column-gap: 60px;
-  margin-bottom: 10px;
+div#research_snippets_container > div#research_snippets > div.row {
+  display: flex;
 }
-div#research_snippets_container > div#research_snippets > img {
-  margin: 0 auto;
-  width: 360px;
+div#research_snippets_container > div#research_snippets > div.row > img {
+  margin: auto;
+  --dim: 160px;
+  width: var(--dim);
+  height: var(--dim);
 }
-div#research_snippets_container > div#research_snippets > img:nth-of-type(3n+1) {
-  grid-column: 1/1;
+div#research_snippets_container > div#research_snippets > div.row > img:first-of-type {
+  margin-left: 0;
 }
-div#research_snippets_container > div#research_snippets > img:nth-of-type(3n+2) {
-  grid-column: 2/2;
-}
-div#research_snippets_container > div#research_snippets > img:nth-of-type(3n+3) {
-  grid-column: 3/3;
+div#research_snippets_container > div#research_snippets > div.row > img:last-of-type {
+  margin-right: 0;
 }
 
 div#home div.article {
