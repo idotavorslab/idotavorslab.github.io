@@ -11,10 +11,10 @@ const ResearchPage = () => {
                 .cacheAppend({
                 title: div({ text: title, cls: "title" }),
                 contentContainer: div({ cls: 'content-container' })
-                    .append(div({ text: content, cls: "content" })).css({
-                    backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 50%, rgba(255,255,255,0)),
+                    .append(div({ text: content, cls: "content" }), div({ cls: "background" }).css({
+                    backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),
                                         url("main/research/${image}")`
-                })
+                }))
             });
             articles.push(article);
             if (!emptied) {

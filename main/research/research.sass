@@ -40,13 +40,18 @@ div#home
 					color: rgb(51, 51, 51)
 
 		div.content-container
-			background:
+			display: flex
+			flex-wrap: wrap
+			//background:
 				size: contain
 				position: right
 				repeat: no-repeat
+			//height: 100%
+			//width: 100%
+			margin: var(--gap) 0 0 0
 
 			div.content
-				--padding: 15px
+				//--padding: 15px
 				//background:
 					image: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.6))
 					blend-mode: screen
@@ -56,10 +61,19 @@ div#home
 				//margin: calc(var(--gap) - var(--padding)) auto auto 0
 
 				// 60px
-				margin: var(--gap) auto auto 0
+				//margin: var(--gap) auto auto 0
+				//margin: 0 auto 0 0
 
-				padding: 0
+				//padding: 0
 				transition: color 700ms ease-in-out
+				width: 50%
+
+			div.background
+				background:
+					repeat: no-repeat
+					size: contain
+					position: top right
+				//margin: 0 0 0 auto
 				width: 50%
 
 

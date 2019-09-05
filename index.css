@@ -322,16 +322,19 @@ div#home div.article div.title.highlighted {
   border-bottom-color: #333333;
 }
 div#home div.article div.content-container {
-  background-size: contain;
-  background-position: right;
-  background-repeat: no-repeat;
+  display: flex;
+  flex-wrap: wrap;
+  margin: var(--gap) 0 0 0;
 }
 div#home div.article div.content-container div.content {
-  --padding: 15px;
   border-radius: 7px;
-  margin: var(--gap) auto auto 0;
-  padding: 0;
   transition: color 700ms ease-in-out;
+  width: 50%;
+}
+div#home div.article div.content-container div.background {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top right;
   width: 50%;
 }
 
