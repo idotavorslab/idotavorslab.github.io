@@ -97,25 +97,7 @@ const HomePage = () => {
         newsElem.mouseover(() => newsData.stopAutoSwitch());
         newsElem.mouseout(() => newsData.startAutoSwitch());
         
-        /*
-        console.log('data', data);
         
-        const carouselItems = [];
-        for (let [title, {image, content}] of dict(data).items()) {
-            let item = new CarouselItem(title, image, content);
-            carouselItems.push(item);
-        }
-        const carousel = new Carousel({
-            query: "#carousel", children: {
-                left: '.left',
-                right: '.right',
-                content: 'content',
-                headline: 'headline',
-                image: '.image'
-            }
-        }, carouselItems);
-        console.log(carousel);
-        */
         const data = await fetchJson('main/home/home.json', "no-cache");
         elem({query: "#non_news > .text"}).text(data["our lab"]);
         
