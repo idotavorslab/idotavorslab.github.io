@@ -216,27 +216,27 @@ div#intro_container {
     --w: var(--W1);
   }
 }
-div#intro_container div#non_news {
+div#intro_container > div#non_news {
   text-align: left;
   width: calc((var(--w) * 2 / 3) - var(--gap));
 }
-div#intro_container div#non_news img {
+div#intro_container > div#non_news img {
   display: block;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: var(--gap);
   width: inherit;
 }
-div#intro_container div#non_news div {
+div#intro_container > div#non_news div {
   position: relative;
 }
-div#intro_container div#non_news div.title {
+div#intro_container > div#non_news div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
 }
-div#intro_container div#news {
+div#intro_container > div#news {
   border-width: 1px;
   border-color: var(--GREY2);
   border-style: solid;
@@ -248,21 +248,21 @@ div#intro_container div#news {
   padding: calc(var(--gap) / 2);
   position: relative;
 }
-div#intro_container div#news div.date {
+div#intro_container > div#news > div.date {
   color: #5f5f5f;
   font-size: 15px;
 }
-div#intro_container div#news div.title {
+div#intro_container > div#news > div.title {
   font-family: OpenSansBold;
   font-size: large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
   margin-bottom: 15px;
 }
-div#intro_container div#news div.radios {
+div#intro_container > div#news > div.radios {
   margin: auto auto 0 auto;
 }
-div#intro_container div#news div.radios .radio {
+div#intro_container > div#news > div.radios > .radio {
   border-width: 1px;
   border-color: var(--GREY3);
   border-style: solid;
@@ -276,7 +276,7 @@ div#intro_container div#news div.radios .radio {
   transition: background 100ms;
   width: 15px;
 }
-div#intro_container div#news div.radios .radio[class~=selected] {
+div#intro_container > div#news > div.radios > .radio[class~=selected] {
   background-color: var(--GREY3);
   border-color: var(--GREY4);
 }
@@ -284,28 +284,30 @@ div#intro_container div#news div.radios .radio[class~=selected] {
 div#research_snippets_container {
   text-align: left;
 }
-div#research_snippets_container div.title {
+div#research_snippets_container > div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
+  margin-bottom: 15px;
 }
-div#research_snippets_container div#research_snippets {
+div#research_snippets_container > div#research_snippets {
   display: grid;
   grid-template-columns: 360px;
   grid-column-gap: 60px;
+  margin-bottom: 10px;
 }
-div#research_snippets_container div#research_snippets img {
+div#research_snippets_container > div#research_snippets > img {
   margin: 0 auto;
   width: 360px;
 }
-div#research_snippets_container div#research_snippets img:nth-of-type(3n+1) {
+div#research_snippets_container > div#research_snippets > img:nth-of-type(3n+1) {
   grid-column: 1/1;
 }
-div#research_snippets_container div#research_snippets img:nth-of-type(3n+2) {
+div#research_snippets_container > div#research_snippets > img:nth-of-type(3n+2) {
   grid-column: 2/2;
 }
-div#research_snippets_container div#research_snippets img:nth-of-type(3n+3) {
+div#research_snippets_container > div#research_snippets > img:nth-of-type(3n+3) {
   grid-column: 3/3;
 }
 
@@ -366,7 +368,7 @@ div#home div.separator {
   position: relative;
   width: 100%;
 }
-div#home div.title {
+div#home > div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;

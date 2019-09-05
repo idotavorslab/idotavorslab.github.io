@@ -9,7 +9,7 @@ div#intro_container
 	text-align: left
 
 
-	div#non_news
+	& > div#non_news
 		text-align: left
 		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
 		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
@@ -29,7 +29,7 @@ div#intro_container
 		div.title
 			@include titleMixin()
 
-	div#news
+	& > div#news
 		$dim: 15px
 		@include borderMixin(var(--GREY2))
 		background-color: var(--GREY01)
@@ -42,18 +42,18 @@ div#intro_container
 		padding: calc(var(--gap) / 2)
 		position: relative
 
-		div.date
+		& > div.date
 			color: rgb(95, 95, 95)
 			font-size: $dim
 
-		div.title
+		& > div.title
 			@include titleMixin(large)
 			margin-bottom: $dim
 
-		div.radios
+		& > div.radios
 			margin: auto auto 0 auto
 
-			.radio
+			& > .radio
 				@include borderMixin(var(--GREY3), null)
 
 				background-color: white
@@ -80,16 +80,18 @@ div#intro_container
 div#research_snippets_container
 	text-align: left
 
-	div.title
+	& > div.title
 		@include titleMixin()
+		margin-bottom: 15px
 
-	div#research_snippets
+	& > div#research_snippets
 		display: grid
 		// TODO: vars
 		grid-template-columns: 360px
 		grid-column-gap: 60px
+		margin-bottom: 10px
 
-		img
+		& > img
 			margin: 0 auto
 			width: 360px
 

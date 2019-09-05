@@ -12,7 +12,7 @@ div#home
 		position: relative
 		width: 100%
 
-	div.title
+	& > div.title
 		@include titleMixin()
 		text-align: left
 
@@ -53,9 +53,9 @@ div#home
 				size: large
 				family: OpenSansSemiBold
 
-			// *  DEP:  .role margin-top: 0
-			//          .person display: flex
-			//margin-top: auto
+		// *  DEP:  .role margin-top: 0
+		//          .person display: flex
+		//margin-top: auto
 
 		div.role
 			color: var(--GREY6)
@@ -63,9 +63,9 @@ div#home
 				family: OpenSansItalic
 
 
-			// *  DEP:  .name margin-top: auto
-			//          .person display: flex
-			//margin-top: 0
+	// *  DEP:  .name margin-top: auto
+	//          .person display: flex
+	//margin-top: 0
 
 
 	div#person_expando
