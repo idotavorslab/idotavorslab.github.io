@@ -1,11 +1,9 @@
 div#home
 	div.article
-		background:
-			size: contain
-			position: right
-			repeat: no-repeat
-		// blend-mode: multiply
-		//blend-mode: screen
+		//background:
+		//	size: contain
+		//	position: right
+		//	repeat: no-repeat
 		height: 440px
 
 		@include setLocalGapVar()
@@ -41,20 +39,27 @@ div#home
 					style: solid
 					color: rgb(51, 51, 51)
 
-
-		div.content
-			--padding: 15px
+		div.content-container
 			background:
-				image: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.6))
-				blend-mode: screen
-			border-radius: 7px
+				size: contain
+				position: right
+				repeat: no-repeat
 
-			// 45px
-			margin: calc(var(--gap) - var(--padding)) auto auto 0
+			div.content
+				--padding: 15px
+				//background:
+					image: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.6))
+					blend-mode: screen
+				border-radius: 7px
 
-			// 15px 15px 15px 0
-			padding: var(--padding) var(--padding) var(--padding) 0
-			transition: color 700ms ease-in-out
-			width: 50%
+				// 45px
+				//margin: calc(var(--gap) - var(--padding)) auto auto 0
+
+				// 60px
+				margin: var(--gap) auto auto 0
+
+				padding: 0
+				transition: color 700ms ease-in-out
+				width: 50%
 
 

@@ -1,7 +1,7 @@
 const ResearchPage = () => {
     interface Article extends Div {
         title: Div;
-        content: Div;
+        contentContainer: Div;
     }
     
     async function init(selectedIndex?: number) {
@@ -17,11 +17,13 @@ const ResearchPage = () => {
             article
                 .cacheAppend({
                     title: div({text: title, cls: "title"}),
-                    content: div({text: content, cls: "content"}),
-                })
-                .css({
-                    backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 40%, rgba(255,255,255,0)),
+                    contentContainer: div({cls: 'content-container'})
+                        .append(
+                            div({text: content, cls: "content"})).css({
+                            backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 50%, rgba(255,255,255,0)),
                                         url("main/research/${image}")`
+                        })
+                    
                 });
             articles.push(article as Article);
             if (!emptied) {
@@ -50,4 +52,4 @@ const ResearchPage = () => {
     
     return {init}
 };
-// ResearchPage().init();
+ResearchPage().init();
