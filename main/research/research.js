@@ -10,11 +10,11 @@ const ResearchPage = () => {
             article
                 .cacheAppend({
                 title: div({ text: title, cls: "title" }),
-                content: div({ text: content, cls: "content" }),
-            })
-                .css({
-                backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 40%, rgba(255,255,255,0)),
+                contentContainer: div({ cls: 'content-container' })
+                    .append(div({ text: content, cls: "content" }), div({ cls: "background" }).css({
+                    backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),
                                         url("main/research/${image}")`
+                }))
             });
             articles.push(article);
             if (!emptied) {
@@ -36,4 +36,5 @@ const ResearchPage = () => {
     }
     return { init };
 };
+ResearchPage().init();
 //# sourceMappingURL=research.js.map
