@@ -122,13 +122,13 @@ const HomePage = () => {
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
         
-        function foo(len) {
-            if (len >= 17)debugger;
+        function getResearchSnippetsGridDims(snippetsNum: number): number[] {
+            // if (len >= 17)debugger;
             const arr = [];
-            while (len > 5) {
-                let mod3 = len % 3;
-                let mod4 = len % 4;
-                let mod5 = len % 5;
+            while (snippetsNum > 5) {
+                let mod3 = snippetsNum % 3;
+                let mod4 = snippetsNum % 4;
+                let mod5 = snippetsNum % 5;
                 let mods = {3: mod3, 4: mod4, 5: mod5};
                 let subtractor = -1;
                 let modsEntries = Object.entries(mods).map(([k, v]) => [parseInt(k), v]);
@@ -150,7 +150,7 @@ const HomePage = () => {
                     
                     
                 } else {
-                    // TODO: what about 17? 3:2, 4:1, 5:2
+                    // TODO: what about 17? lowest number that has two maxes and no 0. 3:2, 4:1, 5:2
                     let max = 0;
                     for (let [k, v] of modsEntries) {
                         if (v > max) {
@@ -161,67 +161,56 @@ const HomePage = () => {
                     // for eg 17, where 3:2, 4:1, 5:2 | 5,4,4,4
                     let filtered = modsEntries.filter(([k, v]) => v === max);
                     if (filtered.length > 1) {
-                    
+                        subtractor = Math.max(...filtered.map(([k, v]) => k));
                     }
                 }
                 arr.push(subtractor);
-                len -= subtractor;
+                snippetsNum -= subtractor;
                 
                 
             }
-            arr.push(len);
+            arr.push(snippetsNum);
             return arr;
         }
         
-        for (let i = 3; i < 22; i++) {
-            
-            console.log(`foo(${i}):`, foo(i));
-        }
-        /*const arr = [];
-        let len = researchData.length;
-        while (len > 5) {
-            let mod3 = len % 3;
-            let mod4 = len % 4;
-            let mod5 = len % 5;
-            let mods = {3: mod3, 4: mod4, 5: mod5};
-            let subtractor = -1;
-            if (Object.values(mods).includes(0)) {
-                // this also accounts for edge cases with more than one modolu 0, eg 12, where 3:0, 4:0, 5:2
-                for (let [k, v] of Object.entries(mods).map(([k, v]) => [parseInt(k), v])) {
-                    if (v !== 0) continue;
-                    if (k > subtractor) subtractor = k;
-                }
-                
-                
-            } else {
-                let max = 0;
-                for (let [k, v] of Object.entries(mods).map(([k, v]) => [parseInt(k), v])) {
-                    if (v > max) {
-                        subtractor = k;
-                        max = v;
-                    }
-                }
+        console.log('researchData: ', researchData);
+        const dims = getResearchSnippetsGridDims(researchData.length);
+        for (let [i, j] of Object.entries(dims)) {
+            i = int(i) as number;
+            console.group(JSON.parse(JSON.stringify({i, j})));
+            let row = div({cls: `row row-${i}`});
+            let k = i == 0 ? 0 : i - 1;
+            for (k; k < j; k++) {
+                let [title, {thumbnail}] = researchData[k];
+                let css = {
+                    gridRow: `${i}/${i}`,
+                    gridColumn: `${k}/${k}`
+                };
+                console.log(JSON.parse(JSON.stringify({k, title, thumbnail, ...css})));
+                let image = img({src: `main/research/${thumbnail}`}).css(css);
+                row.append(image)
             }
-            arr.push(subtractor);
-            len -= subtractor;
-            
-            
+            /*for (let [k, [title, {thumbnail}]] of Object.entries(researchData)) {
+                let image = img({src: `main/research/${thumbnail}`}).css({
+                    gridRow: `${i}/${i}`,
+                    gridColumn: `${i + 1}/${i + 1}`
+                });
+                row.append(image)
+            }
+            */
+            console.groupEnd();
+            researchSnippets.append(row);
+            /*researchSnippets.cacheAppend({row0: div({cls: `row row-${researchData.length}`})});
+            for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
+                i = int(i);
+                console.log(i);
+                researchSnippets.row0.append(
+                    img({src: `main/research/${thumbnail}`})
+                    // .css({gridColumn: `${i + 1}/${i + 1}`})
+                )
+            }
+            */
         }
-        arr.push(len);
-        */
-        /*researchSnippets.cacheAppend(
-            {row0: div({cls: `row row-${researchData.length}`})}
-        );
-        for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
-            i = int(i);
-            console.log(i);
-            researchSnippets.row0.append(
-                img({src: `main/research/${thumbnail}`})
-                // .css({gridColumn: `${i + 1}/${i + 1}`})
-            )
-        }
-        */
-        
         
     }
     
