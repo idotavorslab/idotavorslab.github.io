@@ -119,11 +119,11 @@ const HomePage = () => {
             
         }
         // ***  Research
-        const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
+        type TResearchData = [string, { content: string, thumbnail: string, image: string }][];
+        const researchData: TResearchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
         
         function getResearchSnippetsGridDims(snippetsNum: number): number[] {
-            // if (len >= 17)debugger;
             const arr = [];
             while (snippetsNum > 5) {
                 let mod3 = snippetsNum % 3;
@@ -176,8 +176,8 @@ const HomePage = () => {
         
         const dims = getResearchSnippetsGridDims(researchData.length);
         console.log(JSON.parstr({dims, researchData}));
-        for (let [i, j] of Object.entries(dims)) {
-            i = int(i) as number;
+        for (let [i, j] of <[number, any]>Object.entries(dims)) {
+            i = int(i);
             
             let row = div({cls: `row row-${i}`});
             let sumSoFar;
@@ -201,26 +201,10 @@ const HomePage = () => {
                 let image = img({src: `main/research/${thumbnail}`}).css(css);
                 row.append(image)
             }
-            /*for (let [k, [title, {thumbnail}]] of Object.entries(researchData)) {
-                let image = img({src: `main/research/${thumbnail}`}).css({
-                    gridRow: `${i}/${i}`,
-                    gridColumn: `${i + 1}/${i + 1}`
-                });
-                row.append(image)
-            }
-            */
+            
             console.groupEnd();
             researchSnippets.append(row);
-            /*researchSnippets.cacheAppend({row0: div({cls: `row row-${researchData.length}`})});
-            for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
-                i = int(i);
-                console.log(i);
-                researchSnippets.row0.append(
-                    img({src: `main/research/${thumbnail}`})
-                    // .css({gridColumn: `${i + 1}/${i + 1}`})
-                )
-            }
-            */
+            
         }
         
     }
