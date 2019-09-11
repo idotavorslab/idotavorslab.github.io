@@ -9,7 +9,7 @@ div#intro_container
 	text-align: left
 
 
-	div#non_news
+	& > div#non_news
 		text-align: left
 		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
 		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
@@ -29,7 +29,7 @@ div#intro_container
 		div.title
 			@include titleMixin()
 
-	div#news
+	& > div#news
 		$dim: 15px
 		@include borderMixin(var(--GREY2))
 		background-color: var(--GREY01)
@@ -42,18 +42,18 @@ div#intro_container
 		padding: calc(var(--gap) / 2)
 		position: relative
 
-		div.date
+		& > div.date
 			color: rgb(95, 95, 95)
 			font-size: $dim
 
-		div.title
+		& > div.title
 			@include titleMixin(large)
 			margin-bottom: $dim
 
-		div.radios
+		& > div.radios
 			margin: auto auto 0 auto
 
-			.radio
+			& > .radio
 				@include borderMixin(var(--GREY3), null)
 
 				background-color: white
@@ -78,8 +78,83 @@ div#intro_container
 
 
 div#research_snippets_container
-	text-align: left
+	@mixin rowMixin($n)
+		&.row-#{$n}
+			// [min-width: $BP1]:
+			//              [$n: 3]: 120
+			//              [$n: 4]: 40
+			//              [$n: 5]: 0
 
-	div.title
+			// [max-width: $BP1]:
+			//              [$n: 3]: 98.4
+			//              [$n: 4]: 32.8
+			//              [$n: 5]: 0
+
+			// ((1200 * (5-4)) / 5) / (2 * (4-1))  =  (1200 / 5) / (2 * 3)  =  240 / 6  =  40
+
+			// *  DEP: .thumbnail-container > img --dim
+			--marginHoriz: calc(((var(--w) * (5 - #{$n})) / 5) / (2 * (#{$n} - 1)))
+
+			& > div.thumbnail-container > img
+				margin: 0 var(--marginHoriz)
+
+	@include setLocalWVar()
+	text-align: left
+	margin-bottom: var(--marginVertical)
+
+	& > div.title
 		@include titleMixin()
+		margin-bottom: 15px
+
+	& > div#research_snippets
+
+
+		& > div.row
+			display: flex
+			margin-bottom: 8px
+
+			& > div.thumbnail-container
+				//text-align: center
+				//background-color: var(--GREY01)
+				//margin: 0 4px
+
+				& > img
+					// [min-width: $BP1]:   240px
+					// [max-width: $BP1]:   196.8
+
+					// *  DEP: rowMixin uses 5 a lot
+					--dim: calc(var(--w) / 5)
+					width: var(--dim)
+					height: var(--dim)
+
+
+			@include rowMixin(3)
+			@include rowMixin(4)
+			@include rowMixin(5)
+
+			& > div.thumbnail-container:first-of-type
+				margin-left: 0
+
+				& > img
+					margin-left: 0
+
+			& > div.thumbnail-container:last-of-type
+				margin-right: 0
+
+				& > img
+					margin-right: 0
+
+
+div#logos
+	//margin: calc(var(--GAP0) / 2) auto
+
+	& > img
+		cursor: pointer
+		// med-logo.png is height 72px
+		height: 72px
+		margin: 0 calc(var(--GAP0) / 2)
+	//width: 120px
+
+
+
 

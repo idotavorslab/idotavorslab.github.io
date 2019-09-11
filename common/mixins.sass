@@ -10,6 +10,7 @@
 	margin-bottom: 5px
 	letter-spacing: 0.5px
 
+
 @mixin borderMixin($color, $radius:2px)
 	border:
 		width: 1px
@@ -57,7 +58,7 @@
 		// 984px
 		--w: var(--W1)
 
-@mixin flexContainerMixin($childTag, $tight:false)
+@mixin gridContainerMixin($childTag, $tight:false)
 	display: grid
 	@include setLocalWVar()
 	@include setLocalGapVar()

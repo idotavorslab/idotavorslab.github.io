@@ -311,3 +311,12 @@ function log(bold: boolean = false) {
 }
 
 
+JSON.parstr = (value: any) => JSON.parse(JSON.stringify(value));
+
+
+interface JSON {
+    
+    parstr:
+    /**JSON.parse(JSON.stringify(value))*/
+        (value: any) => any,
+}

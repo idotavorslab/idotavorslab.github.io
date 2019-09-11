@@ -155,24 +155,24 @@ div#main div#navbar > div.selected {
     padding: 24px 0;
   }
 }
-div#main div#separators {
+div#main div.separators {
   display: inline-block;
   margin-top: 0px;
   margin-right: auto;
   margin-bottom: calc(var(--marginVertical) - 1px);
   margin-left: 0;
 }
-div#main div#separators [class~=separator] {
+div#main div.separators [class~=separator] {
   position: absolute;
   height: 1px;
   width: 50%;
   transition: background 500ms;
 }
-div#main div#separators [class~=left] {
+div#main div.separators [class~=left] {
   left: 0;
   background-image: linear-gradient(90deg, var(--TRANS) 0%, rgba(0, 0, 0, 0.1) 10%);
 }
-div#main div#separators [class~=right] {
+div#main div.separators [class~=right] {
   left: 50%;
   background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%);
 }
@@ -216,27 +216,27 @@ div#intro_container {
     --w: var(--W1);
   }
 }
-div#intro_container div#non_news {
+div#intro_container > div#non_news {
   text-align: left;
   width: calc((var(--w) * 2 / 3) - var(--gap));
 }
-div#intro_container div#non_news img {
+div#intro_container > div#non_news img {
   display: block;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: var(--gap);
   width: inherit;
 }
-div#intro_container div#non_news div {
+div#intro_container > div#non_news div {
   position: relative;
 }
-div#intro_container div#non_news div.title {
+div#intro_container > div#non_news div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
 }
-div#intro_container div#news {
+div#intro_container > div#news {
   border-width: 1px;
   border-color: var(--GREY2);
   border-style: solid;
@@ -248,21 +248,21 @@ div#intro_container div#news {
   padding: calc(var(--gap) / 2);
   position: relative;
 }
-div#intro_container div#news div.date {
+div#intro_container > div#news > div.date {
   color: #5f5f5f;
   font-size: 15px;
 }
-div#intro_container div#news div.title {
+div#intro_container > div#news > div.title {
   font-family: OpenSansBold;
   font-size: large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
   margin-bottom: 15px;
 }
-div#intro_container div#news div.radios {
+div#intro_container > div#news > div.radios {
   margin: auto auto 0 auto;
 }
-div#intro_container div#news div.radios .radio {
+div#intro_container > div#news > div.radios > .radio {
   border-width: 1px;
   border-color: var(--GREY3);
   border-style: solid;
@@ -276,19 +276,76 @@ div#intro_container div#news div.radios .radio {
   transition: background 100ms;
   width: 15px;
 }
-div#intro_container div#news div.radios .radio[class~=selected] {
+div#intro_container > div#news > div.radios > .radio[class~=selected] {
   background-color: var(--GREY3);
   border-color: var(--GREY4);
 }
 
 div#research_snippets_container {
   text-align: left;
+  margin-bottom: var(--marginVertical);
 }
-div#research_snippets_container div.title {
+@media screen and (min-width: 1340px) {
+  div#research_snippets_container {
+    --w: var(--W0);
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#research_snippets_container {
+    --w: var(--W1);
+  }
+}
+div#research_snippets_container > div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
+  margin-bottom: 15px;
+}
+div#research_snippets_container > div#research_snippets > div.row {
+  display: flex;
+  margin-bottom: 8px;
+}
+div#research_snippets_container > div#research_snippets > div.row > div.thumbnail-container > img {
+  --dim: calc(var(--w) / 5);
+  width: var(--dim);
+  height: var(--dim);
+}
+div#research_snippets_container > div#research_snippets > div.row.row-3 {
+  --marginHoriz: calc(((var(--w) * (5 - 3)) / 5) / (2 * (3 - 1)));
+}
+div#research_snippets_container > div#research_snippets > div.row.row-3 > div.thumbnail-container > img {
+  margin: 0 var(--marginHoriz);
+}
+div#research_snippets_container > div#research_snippets > div.row.row-4 {
+  --marginHoriz: calc(((var(--w) * (5 - 4)) / 5) / (2 * (4 - 1)));
+}
+div#research_snippets_container > div#research_snippets > div.row.row-4 > div.thumbnail-container > img {
+  margin: 0 var(--marginHoriz);
+}
+div#research_snippets_container > div#research_snippets > div.row.row-5 {
+  --marginHoriz: calc(((var(--w) * (5 - 5)) / 5) / (2 * (5 - 1)));
+}
+div#research_snippets_container > div#research_snippets > div.row.row-5 > div.thumbnail-container > img {
+  margin: 0 var(--marginHoriz);
+}
+div#research_snippets_container > div#research_snippets > div.row > div.thumbnail-container:first-of-type {
+  margin-left: 0;
+}
+div#research_snippets_container > div#research_snippets > div.row > div.thumbnail-container:first-of-type > img {
+  margin-left: 0;
+}
+div#research_snippets_container > div#research_snippets > div.row > div.thumbnail-container:last-of-type {
+  margin-right: 0;
+}
+div#research_snippets_container > div#research_snippets > div.row > div.thumbnail-container:last-of-type > img {
+  margin-right: 0;
+}
+
+div#logos > img {
+  cursor: pointer;
+  height: 72px;
+  margin: 0 calc(var(--GAP0) / 2);
 }
 
 div#home div.article {
@@ -348,7 +405,7 @@ div#home div.separator {
   position: relative;
   width: 100%;
 }
-div#home div.title {
+div#home > div.title {
   font-family: OpenSansBold;
   font-size: x-large;
   margin-bottom: 5px;
