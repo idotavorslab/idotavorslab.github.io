@@ -29,9 +29,9 @@
 		"image": "yael-cropped.jpg",
 		"thumbnail": "yael-thumbnail.png"
 	},
-	"The Musical Brain2": {
-		"content": "The brains of professional musicians are structurally and functionally different from “musically naïve” brains. One of these intriguing differences is the fact that while passively listening to music, musicians’ brains show vast motor and pre-motor activity, in contrast to the mainly auditory activation in “musically naïve” brains. Interestingly, this recruitment of motor-related regions during passive listening, is also observed in naïve participants after only a brief period of musical training. In our lab we use this phenomenon, alongside many other features of the musical brain, as a model for studying human brain plasticity. We design musical training paradigms and scan participants before and after training to examine structural and functional learning-induced alterations, as well as the association between brain activity and connectivity before and after training.",
-		"image": "music-756x500.jpg",
-		"thumbnail": "music-thumbnail.png"
+	"Relating PET and MRI Measures in Parkinson’s Disease": {
+		"content": "Positron emission tomography (PET) is widely used to diagnose and track the progression of Parkinson’s disease (PD). While effective, this imaging technique involves the injection of radioactive substance that is associated with severe health damage. In recent years there has been increasing interest in studying large-scale functional networks in PD patients using fMRI. In our lab, we study the relationship between the abnormal network connectivity in PD patients, measured by fMRI, and dopamine metabolism, measured by PET, as well as behavioral and cognitive clinical scores. We hope to offer valuable insight into the neural mechanisms underlying PD symptoms and possible interventions, as well as potential non-invasive biomarkers for early diagnosis of PD.",
+		"image": "michal.jpg",
+		"thumbnail": "michal-thumbnail.png"
 	}
 }
