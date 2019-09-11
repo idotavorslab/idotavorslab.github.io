@@ -80,11 +80,24 @@ div#intro_container
 div#research_snippets_container
 	@mixin rowMixin($n)
 		&.row-#{$n}
+			//--dim: calc((var(--w) / #{$n}) - ((#{$n} - 1) * 4px))
 			--dim: calc(var(--w) / #{$n})
 
-			& > img
+			& > img, div
 				width: var(--dim)
-				height: var(--dim)
+				height: 246px
+
+			& > div:nth-of-type(#{$n}n+1)
+				background-color: #D36447
+
+			& > div:nth-of-type(#{$n}n+2)
+				background-color: #D3A747
+
+			& > div:nth-of-type(#{$n}n+3)
+				background-color: #316A85
+
+			& > div:nth-of-type(#{$n}n+4)
+				background-color: #33965E
 
 	text-align: left
 
@@ -99,13 +112,14 @@ div#research_snippets_container
 			display: flex
 
 
-			& > img
-				margin: auto
+			& > img, div
+				margin: 0
+				color: white
 
-			& > img:first-of-type
+			& > img:first-of-type, div
 				margin-left: 0
 
-			& > img:last-of-type
+			& > img:last-of-type, div
 				margin-right: 0
 
 			@include setLocalWVar()

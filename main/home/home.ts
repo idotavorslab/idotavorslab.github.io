@@ -199,7 +199,14 @@ const HomePage = () => {
                 };
                 console.log(JSON.parstr({k, title, thumbnail, ...css}));
                 let image = img({src: `main/research/${thumbnail}`}).css(css);
+                const colorThief = new ColorThief();
+                image.e.addEventListener('load', function () {
+                    const color = colorThief.getColor(image.e);
+                    console.log(JSON.parstr({color, k, title, thumbnail}));
+                });
                 row.append(image)
+                // */
+                // row.append(div({text: title}))
             }
             
             console.groupEnd();
