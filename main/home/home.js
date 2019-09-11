@@ -149,10 +149,10 @@ const HomePage = () => {
                 let image = img({ src: `main/research/${thumbnail}` }).css(css);
                 const colorThief = new ColorThief();
                 image.e.addEventListener('load', function () {
-                    const color = colorThief.getColor(image.e);
-                    console.log(JSON.parstr({ color, k, title, thumbnail }));
+                    const palette = colorThief.getPalette(image.e);
+                    console.log(JSON.parstr({ palette, k, title, thumbnail }));
                 });
-                row.append(image);
+                row.append(div().append(image));
             }
             console.groupEnd();
             researchSnippets.append(row);

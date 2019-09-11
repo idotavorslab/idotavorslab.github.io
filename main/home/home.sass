@@ -91,8 +91,10 @@ div#research_snippets_container
 			//              [$n: 5]: 0
 			--marginHoriz: calc(((var(--w) * (5 - #{$n})) / 5) / (2 * (#{$n} - 1)))
 
-			& > img
-				margin: 0 var(--marginHoriz)
+			& > div
+
+				& > img
+					margin: 0 var(--marginHoriz)
 
 	@include setLocalWVar()
 	text-align: left
@@ -108,7 +110,7 @@ div#research_snippets_container
 			display: flex
 
 
-			& > img
+			& > div > img
 				// [min-width: $BP1]:   1200px
 				// [max-width: $BP1]:   984px
 				--dim: calc(var(--w) / 5)
@@ -119,11 +121,13 @@ div#research_snippets_container
 			@include rowMixin(4)
 			@include rowMixin(5)
 
-			& > img:first-of-type
-				margin-left: 0
+			& > div:first-of-type
+				& > img
+					margin-left: 0
 
-			& > img:last-of-type
-				margin-right: 0
+			& > div:last-of-type
+				& > img
+					margin-right: 0
 
 
 
