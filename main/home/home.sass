@@ -80,25 +80,21 @@ div#intro_container
 div#research_snippets_container
 	@mixin rowMixin($n)
 		&.row-#{$n}
-			//--dim: calc((var(--w) / #{$n}) - ((#{$n} - 1) * 4px))
-			--dim: calc(var(--w) / #{$n})
+			// [min-width: $BP1]:
+			//              [$n: 3]: 120
+			//              [$n: 4]: 40
+			//              [$n: 5]: 0
 
-			& > img, div
-				width: var(--dim)
-				height: 246px
+			// [max-width: $BP1]:
+			//              [$n: 3]: 98.4
+			//              [$n: 4]: 32.8
+			//              [$n: 5]: 0
+			--marginHoriz: calc(((var(--w) * (5 - #{$n})) / 5) / (2 * (#{$n} - 1)))
 
-			& > div:nth-of-type(#{$n}n+1)
-				background-color: #D36447
+			& > img
+				margin: 0 var(--marginHoriz)
 
-			& > div:nth-of-type(#{$n}n+2)
-				background-color: #D3A747
-
-			& > div:nth-of-type(#{$n}n+3)
-				background-color: #316A85
-
-			& > div:nth-of-type(#{$n}n+4)
-				background-color: #33965E
-
+	@include setLocalWVar()
 	text-align: left
 
 	& > div.title
@@ -112,19 +108,25 @@ div#research_snippets_container
 			display: flex
 
 
-			& > img, div
-				margin: 0
-				color: white
+			& > img
+				// [min-width: $BP1]:   1200px
+				// [max-width: $BP1]:   984px
+				--dim: calc(var(--w) / 5)
+				width: var(--dim)
+				height: var(--dim)
 
-			& > img:first-of-type, div
-				margin-left: 0
-
-			& > img:last-of-type, div
-				margin-right: 0
-
-			@include setLocalWVar()
 			@include rowMixin(3)
 			@include rowMixin(4)
+			@include rowMixin(5)
+
+			& > img:first-of-type
+				margin-left: 0
+
+			& > img:last-of-type
+				margin-right: 0
+
+
+
 
 
 

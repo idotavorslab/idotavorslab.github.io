@@ -284,6 +284,16 @@ div#intro_container > div#news > div.radios > .radio[class~=selected] {
 div#research_snippets_container {
   text-align: left;
 }
+@media screen and (min-width: 1340px) {
+  div#research_snippets_container {
+    --w: var(--W0);
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#research_snippets_container {
+    --w: var(--W1);
+  }
+}
 div#research_snippets_container > div.title {
   font-family: OpenSansBold;
   font-size: x-large;
@@ -294,63 +304,34 @@ div#research_snippets_container > div.title {
 div#research_snippets_container > div#research_snippets > div.row {
   display: flex;
 }
-div#research_snippets_container > div#research_snippets > div.row > img, div#research_snippets_container > div#research_snippets > div.row div {
-  margin: 0;
-  color: white;
-}
-div#research_snippets_container > div#research_snippets > div.row > img:first-of-type, div#research_snippets_container > div#research_snippets > div.row div {
-  margin-left: 0;
-}
-div#research_snippets_container > div#research_snippets > div.row > img:last-of-type, div#research_snippets_container > div#research_snippets > div.row div {
-  margin-right: 0;
-}
-@media screen and (min-width: 1340px) {
-  div#research_snippets_container > div#research_snippets > div.row {
-    --w: var(--W0);
-  }
-}
-@media screen and (max-width: 1340px) {
-  div#research_snippets_container > div#research_snippets > div.row {
-    --w: var(--W1);
-  }
+div#research_snippets_container > div#research_snippets > div.row > img {
+  --dim: calc(var(--w) / 5);
+  width: var(--dim);
+  height: var(--dim);
 }
 div#research_snippets_container > div#research_snippets > div.row.row-3 {
-  --dim: calc(var(--w) / 3);
+  --marginHoriz: calc(((var(--w) * (5 - 3)) / 5) / (2 * (3 - 1)));
 }
-div#research_snippets_container > div#research_snippets > div.row.row-3 > img, div#research_snippets_container > div#research_snippets > div.row.row-3 div {
-  width: var(--dim);
-  height: 246px;
-}
-div#research_snippets_container > div#research_snippets > div.row.row-3 > div:nth-of-type(3n+1) {
-  background-color: #D36447;
-}
-div#research_snippets_container > div#research_snippets > div.row.row-3 > div:nth-of-type(3n+2) {
-  background-color: #D3A747;
-}
-div#research_snippets_container > div#research_snippets > div.row.row-3 > div:nth-of-type(3n+3) {
-  background-color: #316A85;
-}
-div#research_snippets_container > div#research_snippets > div.row.row-3 > div:nth-of-type(3n+4) {
-  background-color: #33965E;
+div#research_snippets_container > div#research_snippets > div.row.row-3 > img {
+  margin: 0 var(--marginHoriz);
 }
 div#research_snippets_container > div#research_snippets > div.row.row-4 {
-  --dim: calc(var(--w) / 4);
+  --marginHoriz: calc(((var(--w) * (5 - 4)) / 5) / (2 * (4 - 1)));
 }
-div#research_snippets_container > div#research_snippets > div.row.row-4 > img, div#research_snippets_container > div#research_snippets > div.row.row-4 div {
-  width: var(--dim);
-  height: 246px;
+div#research_snippets_container > div#research_snippets > div.row.row-4 > img {
+  margin: 0 var(--marginHoriz);
 }
-div#research_snippets_container > div#research_snippets > div.row.row-4 > div:nth-of-type(4n+1) {
-  background-color: #D36447;
+div#research_snippets_container > div#research_snippets > div.row.row-5 {
+  --marginHoriz: calc(((var(--w) * (5 - 5)) / 5) / (2 * (5 - 1)));
 }
-div#research_snippets_container > div#research_snippets > div.row.row-4 > div:nth-of-type(4n+2) {
-  background-color: #D3A747;
+div#research_snippets_container > div#research_snippets > div.row.row-5 > img {
+  margin: 0 var(--marginHoriz);
 }
-div#research_snippets_container > div#research_snippets > div.row.row-4 > div:nth-of-type(4n+3) {
-  background-color: #316A85;
+div#research_snippets_container > div#research_snippets > div.row > img:first-of-type {
+  margin-left: 0;
 }
-div#research_snippets_container > div#research_snippets > div.row.row-4 > div:nth-of-type(4n+4) {
-  background-color: #33965E;
+div#research_snippets_container > div#research_snippets > div.row > img:last-of-type {
+  margin-right: 0;
 }
 
 div#home div.article {
