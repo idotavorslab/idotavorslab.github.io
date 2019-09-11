@@ -126,20 +126,29 @@ const HomePage = () => {
             arr.push(snippetsNum);
             return arr;
         }
-        console.log('researchData: ', researchData);
         const dims = getResearchSnippetsGridDims(researchData.length);
+        console.log(JSON.parstr({ dims, researchData }));
         for (let [i, j] of Object.entries(dims)) {
             i = int(i);
-            console.group(JSON.parse(JSON.stringify({ i, j })));
             let row = div({ cls: `row row-${i}` });
-            let k = i == 0 ? 0 : i - 1;
-            for (k; k < j; k++) {
+            let sumSoFar;
+            if (i == 0) {
+                sumSoFar = 0;
+            }
+            else {
+                sumSoFar = dims
+                    .slice(0, i)
+                    .reduce((a, b) => a + b);
+            }
+            let k = i == 0 ? 0 : dims[i - 1];
+            console.group(JSON.parstr({ i, j, sumSoFar, k, 'sumSoFar + j': sumSoFar + j }));
+            for (k; k < sumSoFar + j; k++) {
                 let [title, { thumbnail }] = researchData[k];
                 let css = {
                     gridRow: `${i}/${i}`,
                     gridColumn: `${k}/${k}`
                 };
-                console.log(JSON.parse(JSON.stringify(Object.assign({ k, title, thumbnail }, css))));
+                console.log(JSON.parstr(Object.assign({ k, title, thumbnail }, css)));
                 let image = img({ src: `main/research/${thumbnail}` }).css(css);
                 row.append(image);
             }

@@ -187,4 +187,5 @@ function log(bold = false) {
         };
     };
 }
+JSON.parstr = (value) => JSON.parse(JSON.stringify(value));
 //# sourceMappingURL=util.js.map

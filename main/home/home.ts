@@ -133,24 +133,24 @@ const HomePage = () => {
                 let subtractor = -1;
                 let modsEntries = Object.entries(mods).map(([k, v]) => [parseInt(k), v]);
                 if (Object.values(mods).includes(0)) {
-                    // take the largest key with value:0
-                    // this also accounts for edge cases with more than one modolu 0, eg 12, where 3:0, 4:0, 5:2 | 4,4,4
+                    // take the largest key with value == 0
+                    // this also accounts for edge cases with multiple zeroes, like 12, where 3:0, 4:0, 5:2 => 4,4,4
                     for (let [k, v] of modsEntries) {
                         if (v !== 0)
                             continue;
                         if (k > subtractor)
                             subtractor = k;
                     }
-                    // unless a value is bigger than the largest key, then take that value's key
-                    // for eg 9, where 3:0, 4:1, 5:4 | 5,4
+                    // unless a value is bigger than the largest key, in which case take *that* value's key
+                    // for eg 9, where 3:0, 4:1, 5:4 => 5,4
                     for (let [k, v] of modsEntries) {
                         if (v > subtractor)
                             subtractor = k;
                     }
                     
                     
-                } else {
-                    // TODO: what about 17? lowest number that has two maxes and no 0. 3:2, 4:1, 5:2
+                } else { // no zero
+                    // take the key with the maximum value
                     let max = 0;
                     for (let [k, v] of modsEntries) {
                         if (v > max) {
@@ -158,7 +158,8 @@ const HomePage = () => {
                             max = v;
                         }
                     }
-                    // for eg 17, where 3:2, 4:1, 5:2 | 5,4,4,4
+                    // in case more than one value is max: take the biggest key whose value is max.
+                    // for eg 17, where 3:2, 4:1, 5:2 => 5,4,4,4
                     let filtered = modsEntries.filter(([k, v]) => v === max);
                     if (filtered.length > 1) {
                         subtractor = Math.max(...filtered.map(([k, v]) => k));
@@ -173,20 +174,30 @@ const HomePage = () => {
             return arr;
         }
         
-        console.log('researchData: ', researchData);
         const dims = getResearchSnippetsGridDims(researchData.length);
+        console.log(JSON.parstr({dims, researchData}));
         for (let [i, j] of Object.entries(dims)) {
             i = int(i) as number;
-            console.group(JSON.parse(JSON.stringify({i, j})));
+            
             let row = div({cls: `row row-${i}`});
-            let k = i == 0 ? 0 : i - 1;
-            for (k; k < j; k++) {
+            let sumSoFar;
+            if (i == 0) {
+                sumSoFar = 0;
+            } else {
+                sumSoFar = dims
+                    .slice(0, i)
+                    .reduce((a, b) => a + b)
+            }
+            
+            let k = i == 0 ? 0 : dims[i - 1];
+            console.group(JSON.parstr({i, j, sumSoFar, k, 'sumSoFar + j': sumSoFar + j}));
+            for (k; k < sumSoFar + j; k++) {
                 let [title, {thumbnail}] = researchData[k];
                 let css = {
                     gridRow: `${i}/${i}`,
                     gridColumn: `${k}/${k}`
                 };
-                console.log(JSON.parse(JSON.stringify({k, title, thumbnail, ...css})));
+                console.log(JSON.parstr({k, title, thumbnail, ...css}));
                 let image = img({src: `main/research/${thumbnail}`}).css(css);
                 row.append(image)
             }
