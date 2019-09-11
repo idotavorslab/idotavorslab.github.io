@@ -179,7 +179,7 @@ const HomePage = () => {
         for (let [i, j] of <[number, any]>Object.entries(dims)) {
             i = int(i);
             
-            let row = div({cls: `row row-${i}`});
+            let row = div({cls: `row row-${j}`});
             let sumSoFar;
             if (i == 0) {
                 sumSoFar = 0;
@@ -194,8 +194,8 @@ const HomePage = () => {
             for (k; k < sumSoFar + j; k++) {
                 let [title, {thumbnail}] = researchData[k];
                 let css = {
-                    gridRow: `${i}/${i}`,
-                    gridColumn: `${k}/${k}`
+                    // gridRow: `${i}/${i}`,
+                    // gridColumn: `${k}/${k}`
                 };
                 console.log(JSON.parstr({k, title, thumbnail, ...css}));
                 let image = img({src: `main/research/${thumbnail}`}).css(css);

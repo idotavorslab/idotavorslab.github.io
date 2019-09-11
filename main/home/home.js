@@ -130,7 +130,7 @@ const HomePage = () => {
         console.log(JSON.parstr({ dims, researchData }));
         for (let [i, j] of Object.entries(dims)) {
             i = int(i);
-            let row = div({ cls: `row row-${i}` });
+            let row = div({ cls: `row row-${j}` });
             let sumSoFar;
             if (i == 0) {
                 sumSoFar = 0;
@@ -144,10 +144,7 @@ const HomePage = () => {
             console.group(JSON.parstr({ i, j, sumSoFar, k, 'sumSoFar + j': sumSoFar + j }));
             for (k; k < sumSoFar + j; k++) {
                 let [title, { thumbnail }] = researchData[k];
-                let css = {
-                    gridRow: `${i}/${i}`,
-                    gridColumn: `${k}/${k}`
-                };
+                let css = {};
                 console.log(JSON.parstr(Object.assign({ k, title, thumbnail }, css)));
                 let image = img({ src: `main/research/${thumbnail}` }).css(css);
                 row.append(image);

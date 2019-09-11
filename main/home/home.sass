@@ -78,6 +78,14 @@ div#intro_container
 
 
 div#research_snippets_container
+	@mixin rowMixin($n)
+		&.row-#{$n}
+			--dim: calc(var(--w) / #{$n})
+
+			& > img
+				width: var(--dim)
+				height: var(--dim)
+
 	text-align: left
 
 	& > div.title
@@ -101,23 +109,8 @@ div#research_snippets_container
 				margin-right: 0
 
 			@include setLocalWVar()
-
-			&.row-5
-				--dim: calc(var(--w) / 5)
-
-				& > img
-					width: var(--dim)
-					height: var(--dim)
-
-	//display: grid
-	//// TODO: vars
-	//grid-template-columns: 360px
-	//grid-column-gap: 60px
-	//margin-bottom: 10px
-	//
-	//& > img
-	//	margin: 0 auto
-	//	width: 360px
+			@include rowMixin(3)
+			@include rowMixin(4)
 
 
 

@@ -313,10 +313,17 @@ div#research_snippets_container > div#research_snippets > div.row > img:last-of-
     --w: var(--W1);
   }
 }
-div#research_snippets_container > div#research_snippets > div.row.row-5 {
-  --dim: calc(var(--w) / 5);
+div#research_snippets_container > div#research_snippets > div.row.row-3 {
+  --dim: calc(var(--w) / 3);
 }
-div#research_snippets_container > div#research_snippets > div.row.row-5 > img {
+div#research_snippets_container > div#research_snippets > div.row.row-3 > img {
+  width: var(--dim);
+  height: var(--dim);
+}
+div#research_snippets_container > div#research_snippets > div.row.row-4 {
+  --dim: calc(var(--w) / 4);
+}
+div#research_snippets_container > div#research_snippets > div.row.row-4 > img {
   width: var(--dim);
   height: var(--dim);
 }
