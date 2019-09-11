@@ -343,6 +343,7 @@ div#research_snippets_container > div#research_snippets > div.row > div.thumbnai
 }
 
 div#logos > img {
+  cursor: pointer;
   height: 72px;
   margin: 0 calc(var(--GAP0) / 2);
 }

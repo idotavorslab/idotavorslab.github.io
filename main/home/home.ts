@@ -219,6 +219,16 @@ const HomePage = () => {
             
         }
         
+        // ***  Logos
+        const logos = elem({
+            query: "div#logos",
+            children: {tau: ":nth-child(1)", med: ":nth-child(2)", sagol: ":nth-child(3)"}
+        });
+        logos["tau"].pointerdown(() => window.open("https://www.tau.ac.il"));
+        logos["med"].pointerdown(() => window.open("https://en-med.tau.ac.il/"));
+        logos["sagol"].pointerdown(() => window.open("https://www.sagol.tau.ac.il/"));
+        
+        
     }
     
     
