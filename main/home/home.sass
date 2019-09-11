@@ -92,11 +92,15 @@ div#research_snippets_container
 
 			// ((1200 * (5-4)) / 5) / (2 * (4-1))  =  (1200 / 5) / (2 * 3)  =  240 / 6  =  40
 
-			// *  DEP: .thumbnail-container > img --dim
+			// *  DEP: .snippet-container > img --dim
 			--marginHoriz: calc(((var(--w) * (5 - #{$n})) / 5) / (2 * (#{$n} - 1)))
 
-			& > div.thumbnail-container > img
-				margin: 0 var(--marginHoriz)
+			& > div.snippet-container
+				img, div.snippet-title
+					margin:
+						right: var(--marginHoriz)
+						left: var(--marginHoriz)
+
 
 	@include setLocalWVar()
 	text-align: left
@@ -111,9 +115,9 @@ div#research_snippets_container
 
 		& > div.row
 			display: flex
-			margin-bottom: 8px
+			margin-bottom: calc(var(--GAP0) / 2)
 
-			& > div.thumbnail-container
+			& > div.snippet-container
 				//text-align: center
 				//background-color: var(--GREY01)
 				//margin: 0 4px
@@ -126,22 +130,27 @@ div#research_snippets_container
 					--dim: calc(var(--w) / 5)
 					width: var(--dim)
 					height: var(--dim)
+					border-radius: 15px
+
+				& > div.snippet-title
+					margin-top: 8px
+					font-size: 14px
 
 
 			@include rowMixin(3)
 			@include rowMixin(4)
 			@include rowMixin(5)
 
-			& > div.thumbnail-container:first-of-type
+			& > div.snippet-container:first-of-type
 				margin-left: 0
 
-				& > img
+				& > img, div.snippet-title
 					margin-left: 0
 
-			& > div.thumbnail-container:last-of-type
+			& > div.snippet-container:last-of-type
 				margin-right: 0
 
-				& > img
+				& > img, div.snippet-title
 					margin-right: 0
 
 
@@ -153,7 +162,7 @@ div#logos
 		// med-logo.png is height 72px
 		height: 72px
 		margin: 0 calc(var(--GAP0) / 2)
-	//width: 120px
+//width: 120px
 
 
 

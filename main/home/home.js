@@ -147,7 +147,8 @@ const HomePage = () => {
                 let css = {};
                 console.log(JSON.parstr(Object.assign({ k, title, thumbnail }, css)));
                 let image = img({ src: `main/research/${thumbnail}` }).css(css);
-                let snippet = div({ cls: 'thumbnail-container' }).append(image);
+                let snippet = div({ cls: 'snippet-container' })
+                    .append(image, div({ cls: 'snippet-title', text: title }));
                 row.append(snippet);
             }
             console.groupEnd();

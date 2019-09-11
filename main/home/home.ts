@@ -199,8 +199,12 @@ const HomePage = () => {
                 };
                 console.log(JSON.parstr({k, title, thumbnail, ...css}));
                 let image = img({src: `main/research/${thumbnail}`}).css(css);
-                // let snippet = div({text: title, cls: 'thumbnail-container'}).append(image);
-                let snippet = div({cls: 'thumbnail-container'}).append(image);
+                let snippet = div({cls: 'snippet-container'})
+                    .append(
+                        image,
+                        div({cls: 'snippet-title', text: title})
+                    );
+                // let snippet = div({cls: 'snippet-container'}).append(image);
                 /*
                 const colorThief = new ColorThief();
                 image.e.addEventListener('load', function () {
