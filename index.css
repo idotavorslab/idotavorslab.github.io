@@ -316,18 +316,21 @@ div#research_snippets_container > div#research_snippets > div.row.row-3 {
 }
 div#research_snippets_container > div#research_snippets > div.row.row-3 > div.thumbnail-container > img {
   margin: 0 var(--marginHoriz);
+  border-radius: 15px;
 }
 div#research_snippets_container > div#research_snippets > div.row.row-4 {
   --marginHoriz: calc(((var(--w) * (5 - 4)) / 5) / (2 * (4 - 1)));
 }
 div#research_snippets_container > div#research_snippets > div.row.row-4 > div.thumbnail-container > img {
   margin: 0 var(--marginHoriz);
+  border-radius: 15px;
 }
 div#research_snippets_container > div#research_snippets > div.row.row-5 {
   --marginHoriz: calc(((var(--w) * (5 - 5)) / 5) / (2 * (5 - 1)));
 }
 div#research_snippets_container > div#research_snippets > div.row.row-5 > div.thumbnail-container > img {
   margin: 0 var(--marginHoriz);
+  border-radius: 15px;
 }
 div#research_snippets_container > div#research_snippets > div.row > div.thumbnail-container:first-of-type {
   margin-left: 0;
