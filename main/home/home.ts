@@ -199,12 +199,17 @@ const HomePage = () => {
                 };
                 console.log(JSON.parstr({k, title, thumbnail, ...css}));
                 let image = img({src: `main/research/${thumbnail}`}).css(css);
+                // let snippet = div({text: title, cls: 'thumbnail-container'}).append(image);
+                let snippet = div({cls: 'thumbnail-container'}).append(image);
+                /*
                 const colorThief = new ColorThief();
                 image.e.addEventListener('load', function () {
                     const palette = colorThief.getPalette(image.e);
+                    snippet.css({backgroundColor: `rgb(${palette[10]})`});
                     console.log(JSON.parstr({palette, k, title, thumbnail}));
                 });
-                row.append(div().append(image))
+                */
+                row.append(snippet)
                 // */
                 // row.append(div({text: title}))
             }

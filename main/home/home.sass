@@ -89,12 +89,14 @@ div#research_snippets_container
 			//              [$n: 3]: 98.4
 			//              [$n: 4]: 32.8
 			//              [$n: 5]: 0
+
+			// ((1200 * (5-4)) / 5) / (2 * (4-1))  =  (1200 / 5) / (2 * 3)  =  240 / 6  =  40
+
+			// *  DEP: .thumbnail-container > img --dim
 			--marginHoriz: calc(((var(--w) * (5 - #{$n})) / 5) / (2 * (#{$n} - 1)))
 
-			& > div
-
-				& > img
-					margin: 0 var(--marginHoriz)
+			& > div.thumbnail-container > img
+				margin: 0 var(--marginHoriz)
 
 	@include setLocalWVar()
 	text-align: left
@@ -108,24 +110,36 @@ div#research_snippets_container
 
 		& > div.row
 			display: flex
+			margin-bottom: 8px
 
+			& > div.thumbnail-container
+				//text-align: center
+				//background-color: var(--GREY01)
+				//margin: 0 4px
 
-			& > div > img
-				// [min-width: $BP1]:   1200px
-				// [max-width: $BP1]:   984px
-				--dim: calc(var(--w) / 5)
-				width: var(--dim)
-				height: var(--dim)
+				& > img
+					// [min-width: $BP1]:   240px
+					// [max-width: $BP1]:   196.8
+
+					// *  DEP: rowMixin uses 5 a lot
+					--dim: calc(var(--w) / 5)
+					width: var(--dim)
+					height: var(--dim)
+
 
 			@include rowMixin(3)
 			@include rowMixin(4)
 			@include rowMixin(5)
 
-			& > div:first-of-type
+			& > div.thumbnail-container:first-of-type
+				margin-left: 0
+
 				& > img
 					margin-left: 0
 
-			& > div:last-of-type
+			& > div.thumbnail-container:last-of-type
+				margin-right: 0
+
 				& > img
 					margin-right: 0
 

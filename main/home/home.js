@@ -147,12 +147,8 @@ const HomePage = () => {
                 let css = {};
                 console.log(JSON.parstr(Object.assign({ k, title, thumbnail }, css)));
                 let image = img({ src: `main/research/${thumbnail}` }).css(css);
-                const colorThief = new ColorThief();
-                image.e.addEventListener('load', function () {
-                    const palette = colorThief.getPalette(image.e);
-                    console.log(JSON.parstr({ palette, k, title, thumbnail }));
-                });
-                row.append(div().append(image));
+                let snippet = div({ cls: 'thumbnail-container' }).append(image);
+                row.append(snippet);
             }
             console.groupEnd();
             researchSnippets.append(row);
