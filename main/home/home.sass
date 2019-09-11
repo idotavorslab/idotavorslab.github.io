@@ -100,6 +100,7 @@ div#research_snippets_container
 
 	@include setLocalWVar()
 	text-align: left
+	margin-bottom: var(--marginVertical)
 
 	& > div.title
 		@include titleMixin()
@@ -144,7 +145,14 @@ div#research_snippets_container
 					margin-right: 0
 
 
+div#logos
+	//margin: calc(var(--GAP0) / 2) auto
 
+	& > img
+		// med-logo.png is height 72px
+		height: 72px
+		margin: 0 calc(var(--GAP0) / 2)
+	//width: 120px
 
 
 

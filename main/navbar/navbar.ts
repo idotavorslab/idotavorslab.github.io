@@ -78,7 +78,7 @@ interface Separators extends BetterHTMLElement {
     left: BetterHTMLElement,
 }
 
-const _separators = <Separators>elem({query: 'div#separators', children: {left: '.left', right: '.right'}});
+const _separators = <Separators>elem({query: 'div.separators', children: {left: '.left', right: '.right'}});
 
 
 function _linearGradient(opac_stop_1: [number, string], opac_stop_2: [number, string]) {
