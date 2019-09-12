@@ -43,7 +43,7 @@ const PublicationsPage = () => {
         console.log('PublicationsPage data:', JSON.parstr({selectedData, publicationsData}));
         const publications: Publication[] = [];
         const selected: Publication[] = [];
-        
+        // ***  vars from json
         // **  Populate selected: Publication[] from selectedData
         for (let title of selectedData) {
             let {year, creds, mag, thumbnail, link} = publicationsData[title];
@@ -66,6 +66,7 @@ const PublicationsPage = () => {
             }
             
         }
+        // ***  HTML from vars
         const years: BetterHTMLElement[] = [];
         const selectedPublicationsElem = div({cls: 'publications'}).append(
             div({cls: 'title-and-minimize-flex'}).append(
