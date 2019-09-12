@@ -556,22 +556,22 @@ div#publications_container {
   text-align: left;
   margin: auto;
 }
-div#publications_container > year > div.publications {
+div#publications_container > div.year {
   border-left: 1px solid var(--GREY2);
   padding-left: 40px;
 }
-div#publications_container > year > div.publications > div.title-and-minimize-flex {
+div#publications_container > div.year > div.title-and-minimize-flex {
   display: flex;
   color: var(--GREY3);
   margin-bottom: calc(var(--GAP0) / 2);
 }
-div#publications_container > year > div.publications > div.title-and-minimize-flex > span.year-title {
+div#publications_container > div.year > div.title-and-minimize-flex > span.year-title {
   letter-spacing: 1px;
   margin: auto 0;
   font-family: OpenSansLight;
   font-size: 25px;
 }
-div#publications_container > year > div.publications > div.title-and-minimize-flex > div.minimize {
+div#publications_container > div.year > div.title-and-minimize-flex > div.minimize {
   border-width: 1px;
   border-color: var(--GREY3);
   border-style: solid;
@@ -584,11 +584,11 @@ div#publications_container > year > div.publications > div.title-and-minimize-fl
   transition: box-shadow 200ms;
   width: 32px;
 }
-div#publications_container > year > div.publications > div.title-and-minimize-flex > div.minimize:hover {
+div#publications_container > div.year > div.title-and-minimize-flex > div.minimize:hover {
   cursor: pointer;
   box-shadow: 0px 2px 3px 0px var(--GREY2);
 }
-div#publications_container > year > div.publications > publication {
+div#publications_container > div.year > publication {
   border-width: 1px;
   border-color: var(--GREY2);
   border-style: solid;
@@ -601,16 +601,16 @@ div#publications_container > year > div.publications > publication {
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
-div#publications_container > year > div.publications > publication:hover {
+div#publications_container > div.year > publication:hover {
   transform: translateY(-4px);
   box-shadow: 0px 5px 6px 0px var(--GREY4);
 }
-div#publications_container > year > div.publications > publication > img.thumbnail {
+div#publications_container > div.year > publication > img.thumbnail {
   width: 100px;
   border: 1px solid var(--GREY3);
   margin: auto calc(var(--GAP0) / 2) auto 0;
 }
-div#publications_container > year > div.publications > publication > div.pdf-div {
+div#publications_container > div.year > publication > div.pdf-div {
   border-width: 1px;
   border-color: var(--GREY3);
   border-style: solid;
@@ -625,20 +625,20 @@ div#publications_container > year > div.publications > publication > div.pdf-div
   padding: 10px;
   text-transform: uppercase;
 }
-div#publications_container > year > div.publications > publication > div.content-div > div {
+div#publications_container > div.year > publication > div.content-div > div {
   margin-top: 5px;
   margin-right: calc(var(--GAP0) / 2);
   margin-bottom: 5px;
 }
-div#publications_container > year > div.publications > publication > div.content-div > span {
+div#publications_container > div.year > publication > div.content-div > span {
   color: var(--GREY6);
   font-size: 14px;
 }
-div#publications_container > year > div.publications > publication > div.content-div > div.publication-title {
+div#publications_container > div.year > publication > div.content-div > div.publication-title {
   font-family: OpenSansSemiBold;
   margin-bottom: 10px;
 }
-div#publications_container > year > div.publications > publication > div.content-div > div.mag {
+div#publications_container > div.year > publication > div.content-div > div.mag {
   font-family: OpenSansItalic;
   font-size: 16px;
 }

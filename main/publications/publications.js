@@ -51,13 +51,8 @@ const PublicationsPage = () => {
             }
         }
         const years = [];
-        const selectedPublicationsElem = div({ cls: 'publications' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text('Selected Publications')));
-        for (let publication of selected) {
-            selectedPublicationsElem.append(publication.elem);
-        }
-        years.push(elem({ tag: 'year' }).append(selectedPublicationsElem));
         for (let year of Object.keys(yearToPublication).reverse()) {
-            years.push(elem({ tag: 'year' }).append(div({ cls: 'publications' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year].map(p => p.elem))));
+            years.push(div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year].map(p => p.elem)));
         }
         const publicationsContainer = div({ id: "publications_container" }).append(...years);
         Home.empty().append(publicationsContainer);
