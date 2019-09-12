@@ -7,7 +7,7 @@ div#images
 		filter: brightness(0.20) blur(1px) sepia(1)
 
 	&:not([class="theater"])
-		img
+		& > div[id^="row"] > img
 			margin-top: 0
 			margin-bottom: 3px
 			cursor: pointer
@@ -52,12 +52,12 @@ div#img_viewer
 		opacity: 1
 		z-index: 5
 
-	img
+	& > img
 		//height: 600px
 		//width: var(--containerWidth)
 		max-height: var(--localHeight)
 
-	div#right_chevron, div#left_chevron
+	& > div#right_chevron, & > div#left_chevron
 
 		cursor: pointer
 		filter: invert(1) drop-shadow(2px 4px 6px black)
@@ -75,15 +75,15 @@ div#img_viewer
 			margin: auto
 
 			&:active
-				svg
+				& > svg
 					transform: translateX(4px)
 
 		&[class="left"]
 			&:active
-				svg
+				& > svg
 					transform: rotate(180deg) translateX(4px)
 
-			svg
+			& > svg
 				transform: rotate(180deg)
 
 
@@ -102,7 +102,7 @@ div#img_viewer_close
 		&:hover
 			opacity: 1
 
-	svg
+	& > svg
 		display: block
 		// *  DEP: gallery.ts imgViewerClose attr viewBox
 		--dim: 32px
@@ -110,7 +110,7 @@ div#img_viewer_close
 		height: var(--dim)
 
 
-		path
+		& > path
 			fill: none
 			stroke-width: 4px
 			stroke: white

@@ -672,13 +672,13 @@ div#images img:nth-of-type(4n+1) {
 div#images[class=theater] {
   filter: brightness(0.2) blur(1px) sepia(1);
 }
-div#images:not([class=theater]) img {
+div#images:not([class=theater]) > div[id^=row] > img {
   margin-top: 0;
   margin-bottom: 3px;
   cursor: pointer;
   transition: opacity 100ms;
 }
-div#images:not([class=theater]) img:hover {
+div#images:not([class=theater]) > div[id^=row] > img:hover {
   opacity: 0.5;
 }
 
@@ -709,10 +709,10 @@ div#img_viewer.on {
   opacity: 1;
   z-index: 5;
 }
-div#img_viewer img {
+div#img_viewer > img {
   max-height: var(--localHeight);
 }
-div#img_viewer div#right_chevron, div#img_viewer div#left_chevron {
+div#img_viewer > div#right_chevron, div#img_viewer > div#left_chevron {
   cursor: pointer;
   filter: invert(1) drop-shadow(2px 4px 6px black);
   margin: auto;
@@ -721,19 +721,19 @@ div#img_viewer div#right_chevron, div#img_viewer div#left_chevron {
   width: 44px;
   z-index: 5;
 }
-div#img_viewer div#right_chevron:hover, div#img_viewer div#left_chevron:hover {
+div#img_viewer > div#right_chevron:hover, div#img_viewer > div#left_chevron:hover {
   opacity: 1;
 }
-div#img_viewer div#right_chevron[class=right], div#img_viewer div#left_chevron[class=right] {
+div#img_viewer > div#right_chevron[class=right], div#img_viewer > div#left_chevron[class=right] {
   margin: auto;
 }
-div#img_viewer div#right_chevron[class=right]:active svg, div#img_viewer div#left_chevron[class=right]:active svg {
+div#img_viewer > div#right_chevron[class=right]:active > svg, div#img_viewer > div#left_chevron[class=right]:active > svg {
   transform: translateX(4px);
 }
-div#img_viewer div#right_chevron[class=left]:active svg, div#img_viewer div#left_chevron[class=left]:active svg {
+div#img_viewer > div#right_chevron[class=left]:active > svg, div#img_viewer > div#left_chevron[class=left]:active > svg {
   transform: rotate(180deg) translateX(4px);
 }
-div#img_viewer div#right_chevron[class=left] svg, div#img_viewer div#left_chevron[class=left] svg {
+div#img_viewer > div#right_chevron[class=left] > svg, div#img_viewer > div#left_chevron[class=left] > svg {
   transform: rotate(180deg);
 }
 
@@ -751,21 +751,21 @@ div#img_viewer_close.on {
 div#img_viewer_close.on:hover {
   opacity: 1;
 }
-div#img_viewer_close svg {
+div#img_viewer_close > svg {
   display: block;
   --dim: 32px;
   width: var(--dim);
   height: var(--dim);
 }
-div#img_viewer_close svg path {
+div#img_viewer_close > svg > path {
   fill: none;
   stroke-width: 4px;
   stroke: white;
 }
-div#img_viewer_close svg path.upright {
+div#img_viewer_close > svg > path.upright {
   d: path("m 31 1 l -30 30");
 }
-div#img_viewer_close svg path.downleft {
+div#img_viewer_close > svg > path.downleft {
   d: path("m 1 1 l 30 30");
 }
 
