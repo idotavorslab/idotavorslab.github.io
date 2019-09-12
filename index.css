@@ -347,7 +347,7 @@ div#home > div.article {
   width: 100%;
 }
 div#home > div.article > div.title {
-  border-bottom: 1px solid rgba(34, 34, 34, 0);
+  border-bottom: 1px solid var(--TRANS);
   font-family: OpenSansBold;
   font-size: 32px;
   letter-spacing: 0.5px;
@@ -355,12 +355,13 @@ div#home > div.article > div.title {
   margin-bottom: -10px;
   padding-bottom: 10px;
   transition: border-bottom-color 1s;
+  white-space: nowrap;
   width: fit-content;
 }
 div#home > div.article > div.title.highlighted {
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #333333;
+  border-bottom-color: var(--GREY7);
 }
 div#home > div.article > div.content-container {
   height: inherit;

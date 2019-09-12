@@ -12,11 +12,7 @@ div#home
 
 
 		& > div.title
-			// @include fourWayTextShadow(1px, 1px, 3px, rgba(0, 0, 0, 0.1))
-			//@include fourWayTextShadow(1px, 1px, 3px, rgba(255, 255, 255, 0.1))
-			border-bottom: 1px solid rgba(34, 34, 34, 0)
-
-
+			border-bottom: 1px solid var(--TRANS)
 			font-family: OpenSansBold
 
 			font-size: 32px
@@ -29,7 +25,8 @@ div#home
 				bottom: 10px
 
 			transition: border-bottom-color 1s
-			//transition: text-shadow 700ms ease-in-out
+			white-space: nowrap
+
 			width: fit-content
 
 
@@ -37,7 +34,7 @@ div#home
 				border-bottom:
 					width: 1px
 					style: solid
-					color: rgb(51, 51, 51)
+					color: var(--GREY7)
 
 		& > div.content-container
 			//display: flex
