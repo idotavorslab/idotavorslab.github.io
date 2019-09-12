@@ -123,13 +123,17 @@ const HomePage = () => {
         const researchData: TResearchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
         
-        for (let [title, {thumbnail}] of researchData) {
+        for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
             console.log(JSON.parstr({title, thumbnail}));
             researchSnippets.append(
-                div({cls: 'snippet'}).append(
-                    img({src: `main/research/${thumbnail}`}),
-                    div({cls: 'snippet-title', text: title})
-                )
+                div({cls: 'snippet'})
+                    .append(
+                        img({src: `main/research/${thumbnail}`}),
+                        div({cls: 'snippet-title', text: title})
+                    )
+                    .pointerdown((event) => {
+                        ResearchPage().init(i);
+                    })
             )
         }
         

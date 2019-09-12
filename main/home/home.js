@@ -86,9 +86,13 @@ const HomePage = () => {
         }
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({ query: "#research_snippets" });
-        for (let [title, { thumbnail }] of researchData) {
+        for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {
             console.log(JSON.parstr({ title, thumbnail }));
-            researchSnippets.append(div({ cls: 'snippet' }).append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title })));
+            researchSnippets.append(div({ cls: 'snippet' })
+                .append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title }))
+                .pointerdown((event) => {
+                ResearchPage().init(i);
+            }));
         }
         elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));
         elem({ query: "#logos > :nth-child(2)" }).pointerdown(() => window.open("https://en-med.tau.ac.il/"));
