@@ -322,8 +322,14 @@ div#research_snippets_container > div#research_snippets {
 }
 div#research_snippets_container > div#research_snippets > div.snippet {
   width: var(--snippetWidth);
+  cursor: pointer;
+}
+div#research_snippets_container > div#research_snippets > div.snippet:hover > img {
+  margin-top: -4px;
+  box-shadow: 0px 5px 6px 0px var(--GREY4);
 }
 div#research_snippets_container > div#research_snippets > div.snippet > img {
+  transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   width: inherit;
   border-radius: 15px;
 }
@@ -643,10 +649,11 @@ paper {
   margin: 0 0 var(--GAP0) 0;
   padding: calc(var(--GAP0) / 2);
   position: relative;
-  transition: box-shadow 200ms;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 paper:hover {
-  cursor: pointer;
+  transform: translateY(-4px);
   box-shadow: 0px 5px 6px 0px var(--GREY4);
 }
 paper img.thumbnail {

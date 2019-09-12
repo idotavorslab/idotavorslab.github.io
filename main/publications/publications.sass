@@ -64,10 +64,12 @@ paper
 	// 30px
 	padding: calc(var(--GAP0) / 2)
 	position: relative
-	transition: box-shadow 200ms
+	//transition: box-shadow 200ms
+	cursor: pointer
+	transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out
 
 	&:hover
-		cursor: pointer
+		transform: translateY(-4px)
 		box-shadow: 0px 5px 6px 0px var(--GREY4)
 
 	img.thumbnail
@@ -107,7 +109,7 @@ paper
 			font:
 				family: OpenSansSemiBold
 			margin-bottom: 10px
-			//text-transform: capitalize
+		//text-transform: capitalize
 
 
 		div.mag

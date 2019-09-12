@@ -132,10 +132,9 @@ const HomePage = () => {
                 )
             )
         }
-        return;
         
         
-        function getResearchSnippetsGridDims(snippetsNum: number): number[] {
+        /*function getResearchSnippetsGridDims(snippetsNum: number): number[] {
             const arr = [];
             while (snippetsNum > 5) {
                 let mod3 = snippetsNum % 3;
@@ -231,6 +230,7 @@ const HomePage = () => {
             researchSnippets.append(row);
             
         }
+        */
         
         // ***  Logos
         elem({query: "#logos > :nth-child(1)"}).pointerdown(() => window.open("https://www.tau.ac.il"));
