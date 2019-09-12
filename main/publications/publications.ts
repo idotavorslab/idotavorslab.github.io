@@ -73,7 +73,7 @@ const PublicationsPage = () => {
         const selectedPublicationsElem = div({cls: 'year'}).append(
             div({cls: 'title-and-minimize-flex'}).append(
                 span({cls: 'year-title'}).text('Selected Publications'),
-                // div({cls: 'minimize'}).text('_')
+                // img({src: 'main/publications/minimize-grey.png'})
             ),
         );
         

@@ -233,10 +233,10 @@ div#intro_container > div#non_news div {
 }
 div#intro_container > div#non_news div.title {
   font-family: OpenSansBold;
-  font-size: x-large;
-  margin-bottom: 5px;
+  font-size: 24px;
+  margin-bottom: 20px;
   letter-spacing: 0.5px;
-  line-height: calc($fontSize * 1.5);
+  line-height: calc(24px * 1.5);
 }
 div#intro_container > div#news {
   border-width: 1px;
@@ -256,10 +256,10 @@ div#intro_container > div#news > div.date {
 }
 div#intro_container > div#news > div.title {
   font-family: OpenSansBold;
-  font-size: large;
-  margin-bottom: 5px;
+  font-size: 18px;
+  margin-bottom: 20px;
   letter-spacing: 0.5px;
-  line-height: calc($fontSize * 1.5);
+  line-height: calc(18px * 1.5);
   margin-bottom: 15px;
 }
 div#intro_container > div#news > div.radios {
@@ -290,18 +290,17 @@ div#research_snippets_container {
 }
 div#research_snippets_container > div.title {
   font-family: OpenSansBold;
-  font-size: x-large;
-  margin-bottom: 5px;
+  font-size: 24px;
+  margin-bottom: 20px;
   letter-spacing: 0.5px;
-  line-height: calc($fontSize * 1.5);
-  margin-bottom: 15px;
+  line-height: calc(24px * 1.5);
 }
 div#research_snippets_container > div#research_snippets {
-  --snippetWidth: calc((var(--w) - 3 * var(--gap)) / 4);
+  --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
   display: grid;
   grid-template-columns: repeat(4, var(--snippetWidth));
-  grid-column-gap: var(--gap);
-  grid-row-gap: var(--gap);
+  grid-column-gap: var(--GAP1);
+  grid-row-gap: var(--GAP1);
 }
 div#research_snippets_container > div#research_snippets > div.snippet {
   width: var(--snippetWidth);
@@ -319,11 +318,6 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
   margin-top: 8px;
-}
-@media screen and (min-width: 1340px) {
-  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
-    font-size: 15px;
-  }
 }
 @media screen and (max-width: 1340px) {
   div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
@@ -403,10 +397,10 @@ div#home div.separator {
 }
 div#home > div.title {
   font-family: OpenSansBold;
-  font-size: x-large;
-  margin-bottom: 5px;
+  font-size: 24px;
+  margin-bottom: 20px;
   letter-spacing: 0.5px;
-  line-height: calc($fontSize * 1.5);
+  line-height: calc(24px * 1.5);
   text-align: left;
 }
 div#home div#team_grid {
@@ -570,6 +564,11 @@ div#publications_container > div.year > div.title-and-minimize-flex > span.year-
   margin: auto 0;
   font-family: OpenSansLight;
   font-size: 25px;
+  line-height: 25px;
+}
+div#publications_container > div.year > div.title-and-minimize-flex > img {
+  height: 25px;
+  margin: auto 0 auto auto;
 }
 div#publications_container > div.year > div.title-and-minimize-flex > div.minimize {
   border-width: 1px;
