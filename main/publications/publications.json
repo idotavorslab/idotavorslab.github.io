@@ -3,7 +3,7 @@
 		"year": 2012,
 		"creds": "Sagi Y., Tavor I., Hofstetter S., Tzur-Moryosef S.,  Blumenfeld-Katzir T. & Assaf Y.",
 		"mag": "Neuron 73, 1195-203",
-		"thumbnail": "neuron.jpg",
+		"thumbnail": "neuron.png",
 		"link": "https://www.sciencedirect.com/science/article/pii/S089662731200178X"
 	},
 	"Micro-structural assessment of short term plasticity dynamics": {
@@ -11,76 +11,76 @@
 		"creds": "Tavor I., Hofstetter S. & Assaf Y.",
 		"mag": "NeuroImage 81, 1-7",
 		"link": "https://www.sciencedirect.com/science/article/pii/S1053811913005442",
-		"thumbnail": "neuroimage.jpg"
+		"thumbnail": "neuroimage.png"
 	},
 	"Short-Term Learning Induces White Matter Plasticity in the Fornix": {
 		"year": 2013,
 		"creds": "Hofstetter S., Tavor I., Tzur Moryosef S. & Assaf Y.",
 		"mag": "Journal of Neuroscience 33, 12844-50",
 		"link": "https://www.jneurosci.org/content/jneuro/33/31/12844.full.pdf",
-		"thumbnail": "jneurosci.jpg"
+		"thumbnail": "jneurosci.png"
 	},
 	"Separate parts of occipito-temporal white matter fibers are associated with recognition of faces and places": {
 		"year": 2014,
 		"creds": "Tavor I., Yablonski M., Mezer A., Rom S., Assaf Y. & Yovel G.",
 		"mag": "NeuroImage 86, 123-30",
 		"link": "https://www.sciencedirect.com/science/article/pii/S1053811913008574",
-		"thumbnail": "neuroimage.jpg"
+		"thumbnail": "neuroimage.png"
 	},
 	"In vivo correlation between axon diameter and conduction velocity in the human brain": {
 		"year": 2015,
 		"creds": "Horowitz A., Barazany D., Tavor I., Bernstein M., Yovel G. & Assaf Y.",
 		"mag": "Brain Structure and Function 220, 1-12",
 		"link": "https://link.springer.com/article/10.1007/s00429-014-0871-0",
-		"thumbnail": "bsf.jpg"
+		"thumbnail": "bsf.png"
 	},
 	"Response to comments on the paper by Horowitz et al.": {
 		"year": 2015,
 		"creds": "Horowitz A., Barazany D., Tavor I., Yovel G. & Assaf Y.",
 		"mag": "Brain Structure and Function 220, 1791",
 		"link": "https://link.springer.com/article/10.1007/s00429-015-1031-x",
-		"thumbnail": "bsf.jpg"
+		"thumbnail": "bsf.png"
 	},
 	"Sex beyond the genitalia: The human brain mosaic": {
 		"year": 2015,
 		"creds": "Joel D., Berman Z., Tavor I., Wexler N., Gaber O., Stein Y., Shefi N., Pool J., Urchs S., Margulies D.S., Liem F., Hänggi J., Jäncke L. & Assaf Y.",
 		"mag": "Proc. Natl. Acad. Sci., 15468-73",
 		"link": "https://www.pnas.org/content/pnas/112/50/15468.full.pdf",
-		"thumbnail": "pnas.jpg"
+		"thumbnail": "pnas.png"
 	},
 	"Task-free MRI predicts individual differences in brain activity during task performance": {
 		"year": 2016,
 		"creds": "Tavor I., Parker Jones O., Mars R.B., Smith S.M., Behrens T.E. & Jbabdi S.",
 		"mag": "Science 352, 216-220",
 		"link": "https://science.sciencemag.org/content/352/6282/216",
-		"thumbnail": "science.jpg"
+		"thumbnail": "science.png"
 	},
 	"The Diffusion Tensor Imaging Properties of the Normal Testicles at 3 Tesla Magnetic Resonance Imaging": {
 		"year": 2018,
 		"creds": "Nissan N., Anaby D., Tavor I., Kleinbaum Y., Dotan Z., Konen E. & Portnoy O.",
 		"mag": "Academic Radiology",
 		"link": "https://www.clinicalkey.com/#!/content/playContent/1-s2.0-S1076633218304422?returnurl=https:%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS1076633218304422%3Fshowall%3Dtrue&referrer=https:%2F%2Fwww.ncbi.nlm.nih.gov%2F",
-		"thumbnail": "ar.jpg"
+		"thumbnail": "ar.png"
 	},
 	"Selective atrophy of the connected deepest cortical layers following small subcortical infarct": {
 		"year": 2019,
 		"creds": "Lotan E., Tavor I., Barazany D., Ben-Amitay S., Hoffmann C., Tsarfaty G., Assaf Y. & Tanne D.",
 		"mag": "Neurology 92 (6), 567-575",
 		"link": "https://n.neurology.org/content/92/6/e567",
-		"thumbnail": "neurology.jpg"
+		"thumbnail": "aan.png"
 	},
 	"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion MRI": {
 		"year": 2019,
 		"creds": "Tavor I., Botvinik-Nezer R., Bernstein-Eliav M., Tsarfaty G. & Assaf Y.",
 		"mag": "bioRxiv, p.553628",
 		"link": "https://www.biorxiv.org/content/10.1101/553628v1",
-		"thumbnail": "biorxive.jpg"
+		"thumbnail": "biorxiv.png"
 	},
 	"Brain structure changes induced by attention bias modification training": {
 		"year": 2019,
 		"creds": "Abend R., Rosenfelder A., Shamai D., Pine D.S., Tavor I., Assaf Y. & Bar-Haim Y.",
 		"mag": "Biological Psychology 146, 107736",
 		"link": "https://www.sciencedirect.com/science/article/pii/S030105111830677X",
-		"thumbnail": "biopsych.jpg"
+		"thumbnail": "biopsych.png"
 	}
 }
