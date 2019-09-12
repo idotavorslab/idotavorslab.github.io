@@ -66,11 +66,23 @@ const PublicationsPage = () => {
             }
             
         }
-        const yearElems: BetterHTMLElement[] = [];
+        const years: BetterHTMLElement[] = [];
+        const selectedPublicationsElem = div({cls: 'publications'}).append(
+            div({cls: 'title-and-minimize-flex'}).append(
+                span({cls: 'year-title'}).text('Selected Publications'),
+                // div({cls: 'minimize'}).text('_')
+            ),
+        );
         
+        // **  Create <year>s from selected
+        for (let publication of selected) {
+            selectedPublicationsElem.append(publication.elem)
+        }
+        years.push(elem({tag: 'year'}).append(selectedPublicationsElem));
         
+        // **  Create <year>s from publications
         for (let year of Object.keys(yearToPublication).reverse()) { // 2019, 2018, 2016
-            let yearElem = elem({tag: 'year'}).append(
+            years.push(elem({tag: 'year'}).append(
                 div({cls: 'publications'}).append(
                     div({cls: 'title-and-minimize-flex'}).append(
                         span({cls: 'year-title'}).text(year),
@@ -78,12 +90,11 @@ const PublicationsPage = () => {
                     ),
                     ...yearToPublication[year].map(p => p.elem),
                 )
-            );
-            yearElems.push(yearElem)
+            ))
         }
         
         const publicationsContainer = div({id: "publications_container"}).append(
-            ...yearElems,
+            ...years,
         );
         Home.empty().append(publicationsContainer);
         

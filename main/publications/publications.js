@@ -50,12 +50,16 @@ const PublicationsPage = () => {
                 yearToPublication[publication.year] = [publication];
             }
         }
-        const yearElems = [];
-        for (let year of Object.keys(yearToPublication).reverse()) {
-            let yearElem = elem({ tag: 'year' }).append(div({ cls: 'publications' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year].map(p => p.elem)));
-            yearElems.push(yearElem);
+        const years = [];
+        const selectedPublicationsElem = div({ cls: 'publications' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text('Selected Publications')));
+        for (let publication of selected) {
+            selectedPublicationsElem.append(publication.elem);
         }
-        const publicationsContainer = div({ id: "publications_container" }).append(...yearElems);
+        years.push(elem({ tag: 'year' }).append(selectedPublicationsElem));
+        for (let year of Object.keys(yearToPublication).reverse()) {
+            years.push(elem({ tag: 'year' }).append(div({ cls: 'publications' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year].map(p => p.elem))));
+        }
+        const publicationsContainer = div({ id: "publications_container" }).append(...years);
         Home.empty().append(publicationsContainer);
     }
     return { init };
