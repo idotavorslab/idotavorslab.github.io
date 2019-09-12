@@ -51,6 +51,7 @@ body {
   color: var(--GREY7);
   font-family: "OpenSans", sans-serif;
   margin: 0;
+  line-height: 24px;
 }
 body.theater {
   background-color: var(--GREY8);
@@ -304,7 +305,7 @@ div#research_snippets_container > div.title {
 }
 div#research_snippets_container > div#research_snippets > div.row {
   display: flex;
-  margin-bottom: calc(var(--GAP0) / 2);
+  margin-bottom: calc(var(--GAP0) * 0.75);
 }
 div#research_snippets_container > div#research_snippets > div.row > div.snippet-container > img {
   --dim: calc(var(--w) / 5);
@@ -313,8 +314,9 @@ div#research_snippets_container > div#research_snippets > div.row > div.snippet-
   border-radius: 15px;
 }
 div#research_snippets_container > div#research_snippets > div.row > div.snippet-container > div.snippet-title {
+  font-family: OpenSansSemiBold;
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 15px;
 }
 div#research_snippets_container > div#research_snippets > div.row.row-3 {
   --marginHoriz: calc(((var(--w) * (5 - 3)) / 5) / (2 * (3 - 1)));

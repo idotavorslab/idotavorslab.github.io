@@ -115,7 +115,7 @@ div#research_snippets_container
 
 		& > div.row
 			display: flex
-			margin-bottom: calc(var(--GAP0) / 2)
+			margin-bottom: calc(var(--GAP0) * 0.75)
 
 			& > div.snippet-container
 				//text-align: center
@@ -133,8 +133,9 @@ div#research_snippets_container
 					border-radius: 15px
 
 				& > div.snippet-title
+					font-family: OpenSansSemiBold
 					margin-top: 8px
-					font-size: 14px
+					font-size: 15px
 
 
 			@include rowMixin(3)
