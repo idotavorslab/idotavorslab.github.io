@@ -42,8 +42,12 @@ class Navbar extends BetterHTMLElement {
     private async _gotoPage(pageName: Page) {
         console.log(`navbar.ts.Navbar._gotoPage(${pageName})`);
         DocumentElem.allOff();
-        document.querySelectorAll(".separators")[1].remove();
-        elem({query: '#logos'}).remove();
+        const bottomSeparators = document.querySelectorAll(".separators")[1];
+        if (bottomSeparators)
+            bottomSeparators.remove();
+        const logos = document.getElementById('logos');
+        if (logos)
+            logos.remove();
         _startSeparatorAnimation();
         const pageObj = Navbar._getPageObj(pageName);
         this._select(this[pageName]);
