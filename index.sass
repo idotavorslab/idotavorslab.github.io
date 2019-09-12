@@ -28,6 +28,8 @@ html
 	min-height: 100%
 
 body
+	@include setLocalWVar()
+	@include setLocalGapVar()
 	-moz-osx-font-smoothing: grayscale
 	-webkit-font-smoothing: antialiased
 	color: var(--GREY7)

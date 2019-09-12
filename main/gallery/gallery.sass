@@ -18,9 +18,7 @@ div#images
 
 
 div#img_viewer
-	// necessary for some reason
-	@include setLocalGapVar()
-	@include setLocalWVar()
+
 	@include min-width($BP1)
 		--localHeight: 600px
 
@@ -90,7 +88,6 @@ div#img_viewer
 
 
 div#img_viewer_close
-	@include setLocalGapVar()
 	// **  --gap, --w, --tagWidth vars from mixins.sass
 	position: fixed
 	top: var(--gap)

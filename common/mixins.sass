@@ -60,8 +60,6 @@
 
 @mixin gridContainerMixin($childTag, $tight:false)
 	display: grid
-	@include setLocalWVar()
-	@include setLocalGapVar()
 	@include setLocalTagWidthVar($tight)
 
 
