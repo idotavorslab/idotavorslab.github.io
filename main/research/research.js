@@ -36,4 +36,5 @@ const ResearchPage = () => {
     }
     return { init };
 };
+ResearchPage().init();
 //# sourceMappingURL=research.js.map

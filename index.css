@@ -236,6 +236,7 @@ div#intro_container > div#non_news div.title {
   font-size: x-large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
+  line-height: calc($fontSize * 1.5);
 }
 div#intro_container > div#news {
   border-width: 1px;
@@ -258,6 +259,7 @@ div#intro_container > div#news > div.title {
   font-size: large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
+  line-height: calc($fontSize * 1.5);
   margin-bottom: 15px;
 }
 div#intro_container > div#news > div.radios {
@@ -291,6 +293,7 @@ div#research_snippets_container > div.title {
   font-size: x-large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
+  line-height: calc($fontSize * 1.5);
   margin-bottom: 15px;
 }
 div#research_snippets_container > div#research_snippets {
@@ -328,10 +331,13 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
   }
 }
 
+div#logos {
+  display: inline-block;
+}
 div#logos > img {
   cursor: pointer;
   height: 72px;
-  margin: 0 calc(var(--GAP0) / 2);
+  margin: 0 calc(var(--gap) / 2);
 }
 
 div#home > div.article {
@@ -343,7 +349,9 @@ div#home > div.article {
 div#home > div.article > div.title {
   border-bottom: 1px solid rgba(34, 34, 34, 0);
   font-family: OpenSansBold;
-  font-size: xx-large;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+  line-height: 32px;
   margin-bottom: -10px;
   padding-bottom: 10px;
   transition: border-bottom-color 1s;
@@ -355,20 +363,31 @@ div#home > div.article > div.title.highlighted {
   border-bottom-color: #333333;
 }
 div#home > div.article > div.content-container {
-  display: flex;
-  flex-wrap: wrap;
+  height: inherit;
   margin: var(--gap) 0 0 0;
 }
 div#home > div.article > div.content-container > div.content {
   border-radius: 7px;
   transition: color 700ms ease-in-out;
-  width: 50%;
+  position: absolute;
+}
+@media screen and (min-width: 1340px) {
+  div#home > div.article > div.content-container > div.content {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 1340px) {
+  div#home > div.article > div.content-container > div.content {
+    width: 60%;
+  }
 }
 div#home > div.article > div.content-container > div.background {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top right;
+  height: inherit;
   width: 50%;
+  float: right;
 }
 
 div#home div.separator {
@@ -386,6 +405,7 @@ div#home > div.title {
   font-size: x-large;
   margin-bottom: 5px;
   letter-spacing: 0.5px;
+  line-height: calc($fontSize * 1.5);
   text-align: left;
 }
 div#home div#team_grid {
