@@ -123,6 +123,18 @@ const HomePage = () => {
         const researchData: TResearchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
         
+        for (let [title, {thumbnail}] of researchData) {
+            console.log(JSON.parstr({title, thumbnail}));
+            researchSnippets.append(
+                div({cls: 'snippet'}).append(
+                    img({src: `main/research/${thumbnail}`}),
+                    div({cls: 'snippet-title', text: title})
+                )
+            )
+        }
+        return;
+        
+        
         function getResearchSnippetsGridDims(snippetsNum: number): number[] {
             const arr = [];
             while (snippetsNum > 5) {
@@ -204,18 +216,15 @@ const HomePage = () => {
                         image,
                         div({cls: 'snippet-title', text: title})
                     );
-                // let snippet = div({cls: 'snippet-container'}).append(image);
-                /*
+                
                 const colorThief = new ColorThief();
                 image.e.addEventListener('load', function () {
                     const palette = colorThief.getPalette(image.e);
                     snippet.css({backgroundColor: `rgb(${palette[10]})`});
                     console.log(JSON.parstr({palette, k, title, thumbnail}));
                 });
-                */
+                
                 row.append(snippet)
-                // */
-                // row.append(div({text: title}))
             }
             
             console.groupEnd();
