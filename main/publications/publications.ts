@@ -39,16 +39,13 @@ const PublicationsPage = () => {
     async function init() {
         
         console.log('PublicationsPage init');
-        let req = new Request('main/publications/publications.json', {cache: "no-cache"});
-        const data = await (await fetch(req)).json();
-        console.log('PublicationsPage data:', data);
+        const {selected, publications} = await fetchJson('main/publications/publications.json', "no-cache");
+        console.log('PublicationsPage data:', JSON.parstr({selected, publications}));
         const papers: Paper[] = [];
         
-        for (let [title, {year, creds, mag, thumbnail, link}] of dict(data).items()) {
+        for (let [title, {year, creds, mag, thumbnail, link}] of dict(publications).items()) {
             papers.push(new Paper(title, year, creds, mag, thumbnail, link));
         }
-        
-        // papers.sort((a, b) => b.year - a.year);
         
         
         const yearToPaper: TMap<[Paper]> = {};
@@ -63,23 +60,20 @@ const PublicationsPage = () => {
         const yearElems: BetterHTMLElement[] = [];
         for (let year of Object.keys(yearToPaper).reverse()) { // 2019, 2018, 2016
             let yearElem = elem({tag: 'year'}).append(
-                div({cls: 'papers'})
-                    .append(
-                        div({cls: 'title-and-minimize-flex'})
-                            .append(
-                                span({cls: 'year-title'}).text(year),
-                                // div({cls: 'minimize'}).text('_')
-                            ),
-                        ...yearToPaper[year].map(p => p.elem),
-                    )
+                div({cls: 'papers'}).append(
+                    div({cls: 'title-and-minimize-flex'}).append(
+                        span({cls: 'year-title'}).text(year),
+                        // div({cls: 'minimize'}).text('_')
+                    ),
+                    ...yearToPaper[year].map(p => p.elem),
+                )
             );
             yearElems.push(yearElem)
         }
         
-        // const papersContainer = div({id: "papers_container"})
-        //     .append(...papers.map(p => p.elem));
-        const papersContainer = div({id: "papers_container"})
-            .append(...yearElems);
+        const papersContainer = div({id: "papers_container"}).append(
+            ...yearElems,
+        );
         Home.empty().append(papersContainer);
         
         
