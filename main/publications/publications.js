@@ -51,6 +51,11 @@ const PublicationsPage = () => {
             }
         }
         const years = [];
+        const selectedPublicationsElem = div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text('Selected Publications')));
+        for (let publication of selected) {
+            selectedPublicationsElem.append(publication.elem);
+        }
+        years.push(selectedPublicationsElem);
         for (let year of Object.keys(yearToPublication).reverse()) {
             years.push(div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year].map(p => p.elem)));
         }

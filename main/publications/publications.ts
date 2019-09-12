@@ -68,7 +68,7 @@ const PublicationsPage = () => {
         }
         // ***  HTML from vars
         const years: BetterHTMLElement[] = [];
-        /*const selectedPublicationsElem = div({cls: 'publications'}).append(
+        const selectedPublicationsElem = div({cls: 'year'}).append(
             div({cls: 'title-and-minimize-flex'}).append(
                 span({cls: 'year-title'}).text('Selected Publications'),
                 // div({cls: 'minimize'}).text('_')
@@ -79,8 +79,8 @@ const PublicationsPage = () => {
         for (let publication of selected) {
             selectedPublicationsElem.append(publication.elem)
         }
-        years.push(elem({tag: 'year'}).append(selectedPublicationsElem));
-        */
+        years.push(selectedPublicationsElem);
+        
         
         // **  Create <year>s from publications
         for (let year of Object.keys(yearToPublication).reverse()) { // 2019, 2018, 2016
