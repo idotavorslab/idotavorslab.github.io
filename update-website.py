@@ -31,8 +31,22 @@ find -iname "*.md" -type f -exec rm '{}' ';'
 find -iname "*.zip" -type f -exec rm '{}' ';'
 exit
 """
-print '\nPushing to GitHub...\n'
+print '''
+    -----------------------------
+    |   Pushing to GitHub...    |
+    -----------------------------
+'''
 os.system('git add . && git commit -a -m "' + change + '" && git push')
-print '\nSuccess pushing to GitHub.\nYou will now be asked to enter your tau account password. Afterwards, run the following command (you can copy-paste it):\n'
-print '"sh /a/home/cc/tree/taucc/students/lifesci/idotavor/public_html/clone-and-replace.sh"\n'
+print '''
+    ---------------------------------------------------------------------
+    |   Success pushing to GitHub.                                      |
+    |   You will now be asked to enter your tau account password.       |
+    |   Afterwards, run the following command (you can copy-paste it).  |
+    |   It will clone the changes from GitHub to the remote session.    |
+    ---------------------------------------------------------------------
+    
+    "sh /a/home/cc/tree/taucc/students/lifesci/idotavor/public_html/clone-and-replace.sh"
+    
+    
+    '''
 os.system('ssh idotavor@gp.tau.ac.il')
