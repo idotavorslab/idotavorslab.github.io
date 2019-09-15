@@ -31,8 +31,8 @@ find -iname "*.md" -type f -exec rm '{}' ';'
 find -iname "*.zip" -type f -exec rm '{}' ';'
 exit
 """
-print '\ntput setaf 7 Pushing to GitHub... tput sgr0\n'
+print '\nPushing to GitHub...\n'
 os.system('git add . && git commit -a -m "' + change + '" && git push')
-print '\nSuccess pushing to GitHub, now copying files through SSH...\n'
-print 'sh /a/home/cc/tree/taucc/students/lifesci/idotavor/public_html/clone-and-replace.sh'
+print '\nSuccess pushing to GitHub.\nYou will now be asked to enter your tau account password. Afterwards, run the following command (you can copy-paste it):\n'
+print '"sh /a/home/cc/tree/taucc/students/lifesci/idotavor/public_html/clone-and-replace.sh"'
 os.system('ssh idotavor@gp.tau.ac.il')
