@@ -3,7 +3,8 @@ change = raw_input('What was changed? (no quotes)\t')
 trynum = 1
 
 while not change or not re.findall(r'\w',change):
-    change = raw_input('Bad input, what was changed? (trynum: %d)\t' % trynum)
+    print "! user input was empty or had no letter, try again (try number: %d)" % trynum
+    change = raw_input('Bad input, what was changed?')
     trynum += 1
 import os
 
