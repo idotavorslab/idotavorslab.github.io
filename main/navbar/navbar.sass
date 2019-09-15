@@ -25,15 +25,17 @@ div#navbar
 
 	display: flex
 	font-size: var(--fontSize)
-	height: var(--imgWidth)
+	//height: var(--imgWidth)
+	height: 70px
 
 	//  *  from index.sass #main
-	margin: auto auto var(--marginVertical) auto
+	//margin: auto auto var(--marginVertical) auto
+	margin: auto auto 0 auto
 
-	& > div, img
+	& > div, & > img
 		cursor: pointer
 
-	& > div, img.home
+	& > div, & > img.home
 		margin:
 			//top: 0
 			top: auto
@@ -46,14 +48,18 @@ div#navbar
 	& > img.home
 		// img size is 444x444
 		--__width: 111px
-		width: var(--__width)
+		//width: var(--__width)
+		width: 60px
 		// [min-width: $BP1]:   (111 - 80)/-2  =  -15.5px
 		// [max-width: $BP1]:   (111 - 75)/-2  =  -18px
-		margin-top: calc((var(--__width) - var(--imgWidth)) / -2)
+		//margin-top: calc((var(--__width) - var(--imgWidth)) / -2)
+		margin: auto auto auto 0
 
 	// tau logo
 	& > img.tau
-		height: var(--imgWidth)
+		//height: var(--imgWidth)
+		height: 40px
+		margin: auto 0
 
 	div:nth-last-child(2)
 		margin-right: auto

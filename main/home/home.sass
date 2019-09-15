@@ -40,6 +40,7 @@ div#intro_container
 		// [max-width: $BP1]:   20px
 		padding: calc(var(--gap) / 2)
 		position: relative
+		border-radius: 20px
 
 		& > div.date
 			color: rgb(95, 95, 95)
@@ -82,7 +83,7 @@ div#research_snippets_container
 
 	& > div.title
 		@include titleMixin()
-		//margin-bottom: 15px
+	//margin-bottom: 15px
 
 	& > div#research_snippets
 		// (1200 - 3*40) / 4  =  1080 / 4  =  270
@@ -109,7 +110,7 @@ div#research_snippets_container
 				transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out
 				//transition: margin-top 0.2s, box-shadow 0.2s
 				width: inherit
-				border-radius: 15px
+				border-radius: 20px
 
 			& > div.snippet-title
 				font-family: OpenSansSemiBold
