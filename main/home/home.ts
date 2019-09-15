@@ -107,7 +107,6 @@ const HomePage = () => {
                 cls = 'subtitle';
             introText.append(elem({tag: 'p', text: p, cls}))
         }
-        // .html(data["intro-text"].map(p => elem({tag: 'p', text: p})));
         
         /** Keep the data from .json in an array, plus the matching radio BetterHTMLElement */
         const newsData = new NewsData();
