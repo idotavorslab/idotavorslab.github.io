@@ -88,7 +88,7 @@ a:hover {
 
 div#main {
   --marginVertical: 40px;
-  margin: var(--marginVertical) auto;
+  margin: 0 auto;
   max-width: 100%;
   text-align: center;
 }
@@ -106,8 +106,8 @@ div#main div#navbar {
   --fontSize: 20px;
   display: flex;
   font-size: var(--fontSize);
-  height: var(--imgWidth);
-  margin: auto auto var(--marginVertical) auto;
+  height: 70px;
+  margin: auto auto 0 auto;
 }
 @media screen and (min-width: 1340px) {
   div#main div#navbar {
@@ -119,31 +119,33 @@ div#main div#navbar {
     --imgWidth: 75px;
   }
 }
-div#main div#navbar > div, div#main div#navbar img {
+div#main div#navbar > div, div#main div#navbar > img {
   cursor: pointer;
 }
-div#main div#navbar > div, div#main div#navbar img.home {
+div#main div#navbar > div, div#main div#navbar > img.home {
   margin-top: auto;
   margin-right: calc(var(--fontSize) * 2);
   margin-left: 0;
   margin-bottom: auto;
 }
 div#main div#navbar > img.home {
-  --__width: 111px;
-  width: var(--__width);
-  margin-top: calc((var(--__width) - var(--imgWidth)) / -2);
+  width: 60px;
+  margin: auto auto auto 0;
 }
 div#main div#navbar > img.tau {
-  height: var(--imgWidth);
+  height: 40px;
+  margin: auto 0;
 }
-div#main div#navbar div:nth-last-child(2) {
+div#main div#navbar > div:nth-last-child(2) {
   margin-right: auto;
 }
 div#main div#navbar > div {
-  --paddingTop: calc(var(--imgWidth) / 2 - var(--fontSize) / 2);
-  transition: color 200ms ease-out, border-bottom-color 200ms ease-out;
-  display: block;
   border-bottom-color: var(--TRANS);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  display: block;
+  padding: 10px 0;
+  transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out;
 }
 div#main div#navbar > div:hover {
   border-bottom-color: goldenrod;
@@ -151,30 +153,10 @@ div#main div#navbar > div:hover {
   border-bottom-style: solid;
   color: var(--GREY6);
 }
-@media screen and (min-width: 1340px) {
-  div#main div#navbar > div:hover {
-    padding: 26.5px 0;
-  }
-}
-@media screen and (max-width: 1340px) {
-  div#main div#navbar > div:hover {
-    padding: 24px 0;
-  }
-}
 div#main div#navbar > div.selected {
   border-bottom-color: goldenrod;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-}
-@media screen and (min-width: 1340px) {
-  div#main div#navbar > div.selected {
-    padding: 26.5px 0;
-  }
-}
-@media screen and (max-width: 1340px) {
-  div#main div#navbar > div.selected {
-    padding: 24px 0;
-  }
 }
 div#main div.separators {
   display: inline-block;
@@ -221,22 +203,29 @@ div#intro_container > div#non_news {
   text-align: left;
   width: calc((var(--w) * 2 / 3) - var(--gap));
 }
-div#intro_container > div#non_news img {
+div#intro_container > div#non_news > img {
   display: block;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: var(--gap);
   width: inherit;
 }
-div#intro_container > div#non_news div {
+div#intro_container > div#non_news > div {
   position: relative;
 }
-div#intro_container > div#non_news div.title {
+div#intro_container > div#non_news > div.title {
   font-family: OpenSansBold;
-  font-size: 24px;
+  font-size: 36px;
   margin-bottom: 20px;
-  letter-spacing: 0.5px;
-  line-height: calc(24px * 1.5);
+  line-height: calc(36px * 1.5);
+  letter-spacing: -0.5px;
+}
+div#intro_container > div#non_news > div.intro-text {
+  font-size: 20px;
+  line-height: 32px;
+}
+div#intro_container > div#non_news > div.intro-text > p.subtitle {
+  font-family: OpenSansBold;
 }
 div#intro_container > div#news {
   border-width: 1px;
@@ -249,6 +238,7 @@ div#intro_container > div#news {
   margin-left: var(--gap);
   padding: calc(var(--gap) / 2);
   position: relative;
+  border-radius: 20px;
 }
 div#intro_container > div#news > div.date {
   color: #5f5f5f;
@@ -258,7 +248,6 @@ div#intro_container > div#news > div.title {
   font-family: OpenSansBold;
   font-size: 18px;
   margin-bottom: 20px;
-  letter-spacing: 0.5px;
   line-height: calc(18px * 1.5);
   margin-bottom: 15px;
 }
@@ -290,10 +279,10 @@ div#research_snippets_container {
 }
 div#research_snippets_container > div.title {
   font-family: OpenSansBold;
-  font-size: 24px;
+  font-size: 36px;
   margin-bottom: 20px;
-  letter-spacing: 0.5px;
-  line-height: calc(24px * 1.5);
+  line-height: calc(36px * 1.5);
+  letter-spacing: -0.5px;
 }
 div#research_snippets_container > div#research_snippets {
   --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
@@ -313,7 +302,7 @@ div#research_snippets_container > div#research_snippets > div.snippet:hover > im
 div#research_snippets_container > div#research_snippets > div.snippet > img {
   transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   width: inherit;
-  border-radius: 15px;
+  border-radius: 20px;
 }
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
@@ -396,7 +385,6 @@ div#home > div.title {
   font-family: OpenSansBold;
   font-size: 24px;
   margin-bottom: 20px;
-  letter-spacing: 0.5px;
   line-height: calc(24px * 1.5);
   text-align: left;
 }

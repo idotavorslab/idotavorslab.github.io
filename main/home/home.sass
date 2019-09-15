@@ -14,7 +14,7 @@ div#intro_container
 		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
 		width: calc((var(--w) * 2 / 3) - var(--gap))
 
-		img
+		& > img
 			display: block
 			margin:
 				right: auto
@@ -22,11 +22,19 @@ div#intro_container
 				bottom: var(--gap)
 			width: inherit
 
-		div
+		& > div
 			position: relative
 
-		div.title
-			@include titleMixin()
+		& > div.title
+			@include titleMixin(36px)
+			letter-spacing: -0.5px
+
+		& > div.intro-text
+			font-size: 20px
+			line-height: 32px
+
+			& > p.subtitle
+				font-family: OpenSansBold
 
 	& > div#news
 		$dim: 15px
@@ -40,6 +48,8 @@ div#intro_container
 		// [max-width: $BP1]:   20px
 		padding: calc(var(--gap) / 2)
 		position: relative
+		// same as snippets radius
+		border-radius: 20px
 
 		& > div.date
 			color: rgb(95, 95, 95)
@@ -81,8 +91,8 @@ div#research_snippets_container
 	margin-bottom: var(--marginVertical)
 
 	& > div.title
-		@include titleMixin()
-		//margin-bottom: 15px
+		@include titleMixin(36px)
+		letter-spacing: -0.5px
 
 	& > div#research_snippets
 		// (1200 - 3*40) / 4  =  1080 / 4  =  270
@@ -109,7 +119,8 @@ div#research_snippets_container
 				transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out
 				//transition: margin-top 0.2s, box-shadow 0.2s
 				width: inherit
-				border-radius: 15px
+				// same as news radius
+				border-radius: 20px
 
 			& > div.snippet-title
 				font-family: OpenSansSemiBold

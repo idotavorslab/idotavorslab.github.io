@@ -1,17 +1,7 @@
-@mixin selectedMixin($paddingTop)
-	$borderWidth: 1px
-	// [min-width: $BP1]:   30 - 22 - 1  =  7px
-	// [max-width: $BP1]:   27.5 - 22 - 1  =  4.5px
-	//margin-bottom: $paddingTop - 22 - $borderWidth
-	// TODO: why?
-	@include min-width($BP1)
-		padding: 26.5px 0
-	@include max-width($BP1)
-		padding: 24px 0
-	//padding: $paddingTop 0
+@mixin selectedMixin()
 	border-bottom:
 		color: rgba(218, 165, 32, 1)
-		width: $borderWidth
+		width: 1px
 		style: solid
 
 div#navbar
@@ -25,15 +15,14 @@ div#navbar
 
 	display: flex
 	font-size: var(--fontSize)
-	height: var(--imgWidth)
+	height: 70px
 
-	//  *  from index.sass #main
-	margin: auto auto var(--marginVertical) auto
+	margin: auto auto 0 auto
 
-	& > div, img
+	& > div, & > img
 		cursor: pointer
 
-	& > div, img.home
+	& > div, & > img.home
 		margin:
 			//top: 0
 			top: auto
@@ -42,40 +31,41 @@ div#navbar
 			left: 0
 			bottom: auto
 
-	// doctor.svg
+	// logo
 	& > img.home
-		// img size is 444x444
-		--__width: 111px
-		width: var(--__width)
-		// [min-width: $BP1]:   (111 - 80)/-2  =  -15.5px
-		// [max-width: $BP1]:   (111 - 75)/-2  =  -18px
-		margin-top: calc((var(--__width) - var(--imgWidth)) / -2)
+		width: 60px
+		margin: auto auto auto 0
 
 	// tau logo
 	& > img.tau
-		height: var(--imgWidth)
+		//height: var(--imgWidth)
+		height: 40px
+		margin: auto 0
 
-	div:nth-last-child(2)
+	& > div:nth-last-child(2)
 		margin-right: auto
 
 	& > div
-		// [min-width: $BP1]:   (80 / 2) - (20 / 2)  =  30px
-		// [max-width: $BP1]:   (75 / 2) - (20 / 2)  =  27.5px
-		--paddingTop: calc(var(--imgWidth) / 2 - var(--fontSize) / 2)
-		//padding: var(--paddingTop) 0 0 0
-		transition: color 200ms ease-out, border-bottom-color 200ms ease-out
-		display: block
 
+		// for onhover border
+		border-bottom:
+			color: var(--TRANS)
+			width: 1px
+			style: solid
+		display: block
+		// for onhover border
+		padding: 10px 0
+		transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out
 
 		&:hover
-			@include selectedMixin(var(--paddingTop))
+			@include selectedMixin()
 			color: var(--GREY6)
 
 
-		border-bottom-color: var(--TRANS)
+		//border-bottom-color: var(--TRANS)
 
 		&.selected
-			@include selectedMixin(var(--paddingTop))
+			@include selectedMixin()
 
 
 
