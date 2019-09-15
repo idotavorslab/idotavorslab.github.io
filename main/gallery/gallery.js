@@ -55,7 +55,7 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
-        function toggleImgViewer(event, file) {
+        function toggleImgViewer(event, file, description) {
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             event.stopPropagation();
             if (imgViewer.isopen)
@@ -66,6 +66,7 @@ const GalleryPage = () => {
                 .toggleClass('on', true)
                 .img.src(`main/gallery/${selectedFile}`);
             imgViewer.isopen = true;
+            imgViewer.caption.text(description);
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             navbar.css({ opacity: 0 });
@@ -74,7 +75,8 @@ const GalleryPage = () => {
             .cacheAppend({
             left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).pointerdown(gotoAdjImg),
             img: img({}),
-            right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).pointerdown(gotoAdjImg)
+            right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).pointerdown(gotoAdjImg),
+            caption: div({ id: 'caption' })
         }).pointerdown((event) => {
             console.log('imgViewer pointerdown, stopping propagation');
             event.stopPropagation();
@@ -91,7 +93,7 @@ const GalleryPage = () => {
         for (let [i, { description, file }] of Object.entries(data)) {
             let src;
             src = `main/gallery/${file}`;
-            let image = img({ src }).pointerdown((event) => toggleImgViewer(event, file));
+            let image = img({ src }).pointerdown((event) => toggleImgViewer(event, file, description));
             switch (parseInt(i) % 4) {
                 case 0:
                     row0.append(image);
@@ -135,5 +137,4 @@ const GalleryPage = () => {
     }
     return { init };
 };
-GalleryPage().init();
 //# sourceMappingURL=gallery.js.map

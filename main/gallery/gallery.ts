@@ -1,5 +1,5 @@
 const GalleryPage = () => {
-    type ImgViewerContainer = Div & { left: Div, img: Img, right: Div, isopen: boolean };
+    type ImgViewer = Div & { left: Div, img: Img, right: Div, caption: Div, isopen: boolean };
     
     async function init() {
         console.log('GalleryPage init');
@@ -25,6 +25,7 @@ const GalleryPage = () => {
         function switchToImg(selectedIndex: number) {
             selectedFile = files[selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile}`);
+            // imgViewer.caption.text(selectedCaption);
         }
         
         function getRightIndex(selectedIndex: number) {
@@ -64,7 +65,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
-        function toggleImgViewer(event: Event, file) {
+        function toggleImgViewer(event: Event, file, description: string) {
             // if open: clicked on other images in the bg. if closed: open imgViewer
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             event.stopPropagation();
@@ -77,11 +78,13 @@ const GalleryPage = () => {
             }
             */
             selectedFile = file;
+            // selectedCaption = description;
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
                 .img.src(`main/gallery/${selectedFile}`);
             imgViewer.isopen = true;
+            imgViewer.caption.text(description);
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             navbar.css({opacity: 0});
@@ -92,11 +95,12 @@ const GalleryPage = () => {
         }
         
         //**  imgViewer
-        const imgViewer: ImgViewerContainer = <ImgViewerContainer>div({id: 'img_viewer'})
+        const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
                 left: div({id: 'left_chevron', cls: 'left'}).html(chevronSvg).pointerdown(gotoAdjImg),
                 img: img({}),
-                right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).pointerdown(gotoAdjImg)
+                right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).pointerdown(gotoAdjImg),
+                caption: div({id: 'caption'})
             }).pointerdown((event: Event) => {
                 // clicked on img, not chevrons
                 console.log('imgViewer pointerdown, stopping propagation');
@@ -150,7 +154,7 @@ const GalleryPage = () => {
             }
             */
             src = `main/gallery/${file}`;
-            let image: Img = img({src}).pointerdown((event: Event) => toggleImgViewer(event, file));
+            let image: Img = img({src}).pointerdown((event: Event) => toggleImgViewer(event, file, description));
             
             // images.push(image);
             switch (parseInt(i) % 4) {
@@ -214,4 +218,4 @@ const GalleryPage = () => {
     return {init}
 };
 
-GalleryPage().init();
+// GalleryPage().init();

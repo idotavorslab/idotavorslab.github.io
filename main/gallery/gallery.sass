@@ -26,22 +26,26 @@ div#img_viewer
 		--localHeight: 500px
 
 
-	height: var(--localHeight)
-	margin-top: calc(var(--localHeight) / -2)
-	top: 50%
-
 	display: flex
-	//left: 50%
 
+
+	height: var(--localHeight)
 	// [min-width: $BP1]: -1 x ((800 / 2) + 60)  ==  -460px
 	// [max-width: $BP1]: -1 x ((600 / 2) + 40)  ==  -340px
 	//margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--gap)))
-	margin-left: auto
-	margin-right: auto
-	width: var(--w)
+	margin:
+		left: auto
+		right: auto
+		top: calc(var(--localHeight) / -2)
+	//margin-left: auto
+	//margin-right: auto
+	//margin-top: calc(var(--localHeight) / -2)
 	opacity: 0
 	position: fixed
+	top: 50%
+
 	transition: opacity 200ms
+	width: var(--w)
 
 	// [min-width: $BP1]: 800 + 60 x 2  ==  920px
 	// [max-width: $BP1]: 800 + 40 x 2  ==  880px
@@ -56,6 +60,14 @@ div#img_viewer
 		//height: 600px
 		//width: var(--containerWidth)
 		max-height: var(--localHeight)
+
+	& > div#caption
+		position: fixed
+		font-size: 24px
+		color: white
+		top: 51%
+		margin-top: calc(var(--localHeight) / 2)
+		width: inherit
 
 	& > div#right_chevron, & > div#left_chevron
 
