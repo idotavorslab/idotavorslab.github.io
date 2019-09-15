@@ -1,5 +1,5 @@
 const PublicationsPage = () => {
-    class Paper {
+    class Publication {
         constructor(title, year, creds, mag, thumbnail, link) {
             function _openLink() {
                 if (link.includes('http') || link.includes('www'))
@@ -13,11 +13,11 @@ const PublicationsPage = () => {
                     return ext;
                 return "↗";
             }
-            this.elem = elem({ tag: "paper" })
+            this.elem = elem({ tag: "publication" })
                 .cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
                 content: div({ cls: "content-div" }).cacheAppend({
-                    title: div({ text: title, cls: "paper-title" }),
+                    title: div({ text: title, cls: "publication-title" }),
                     creds: span({ text: creds, cls: "creds" }),
                     year: span({ text: ` (${year})`, cls: "year" }),
                     mag: div({ text: mag, cls: "mag" }),
@@ -30,32 +30,37 @@ const PublicationsPage = () => {
     }
     async function init() {
         console.log('PublicationsPage init');
-        let req = new Request('main/publications/publications.json', { cache: "no-cache" });
-        const data = await (await fetch(req)).json();
-        console.log('PublicationsPage data:', data);
-        const papers = [];
-        for (let [title, { year, creds, mag, thumbnail, link }] of dict(data).items()) {
-            papers.push(new Paper(title, year, creds, mag, thumbnail, link));
+        const { selected: selectedData, publications: publicationsData } = await fetchJson('main/publications/publications.json', "no-cache");
+        console.log('PublicationsPage data:', JSON.parstr({ selectedData, publicationsData }));
+        const publications = [];
+        const selected = [];
+        for (let title of selectedData) {
+            let { year, creds, mag, thumbnail, link } = publicationsData[title];
+            selected.push(new Publication(title, year, creds, mag, thumbnail, link));
         }
-        const yearToPaper = {};
-        for (let paper of papers) {
-            if (paper.year in yearToPaper) {
-                yearToPaper[paper.year].push(paper);
+        for (let [title, { year, creds, mag, thumbnail, link }] of dict(publicationsData).items()) {
+            publications.push(new Publication(title, year, creds, mag, thumbnail, link));
+        }
+        const yearToPublication = {};
+        for (let publication of publications) {
+            if (publication.year in yearToPublication) {
+                yearToPublication[publication.year].push(publication);
             }
             else {
-                yearToPaper[paper.year] = [paper];
+                yearToPublication[publication.year] = [publication];
             }
         }
-        const yearElems = [];
-        for (let year of Object.keys(yearToPaper).reverse()) {
-            let yearElem = elem({ tag: 'year' }).append(div({ cls: 'papers' })
-                .append(div({ cls: 'title-and-minimize-flex' })
-                .append(span({ cls: 'year-title' }).text(year)), ...yearToPaper[year].map(p => p.elem)));
-            yearElems.push(yearElem);
+        const years = [];
+        const selectedPublicationsElem = div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text('Selected Publications')));
+        for (let publication of selected) {
+            selectedPublicationsElem.append(publication.elem);
         }
-        const papersContainer = div({ id: "papers_container" })
-            .append(...yearElems);
-        Home.empty().append(papersContainer);
+        years.push(selectedPublicationsElem);
+        for (let year of Object.keys(yearToPublication).reverse()) {
+            years.push(div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year].map(p => p.elem)));
+        }
+        const publicationsContainer = div({ id: "publications_container" }).append(...years);
+        Home.empty().append(publicationsContainer);
     }
     return { init };
 };

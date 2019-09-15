@@ -123,7 +123,22 @@ const HomePage = () => {
         const researchData: TResearchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
         
-        function getResearchSnippetsGridDims(snippetsNum: number): number[] {
+        for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
+            console.log(JSON.parstr({title, thumbnail}));
+            researchSnippets.append(
+                div({cls: 'snippet'})
+                    .append(
+                        img({src: `main/research/${thumbnail}`}),
+                        div({cls: 'snippet-title', text: title})
+                    )
+                    .pointerdown((event) => {
+                        ResearchPage().init(i);
+                    })
+            )
+        }
+        
+        
+        /*function getResearchSnippetsGridDims(snippetsNum: number): number[] {
             const arr = [];
             while (snippetsNum > 5) {
                 let mod3 = snippetsNum % 3;
@@ -199,25 +214,27 @@ const HomePage = () => {
                 };
                 console.log(JSON.parstr({k, title, thumbnail, ...css}));
                 let image = img({src: `main/research/${thumbnail}`}).css(css);
-                // let snippet = div({text: title, cls: 'thumbnail-container'}).append(image);
-                let snippet = div({cls: 'thumbnail-container'}).append(image);
-                /*
+                let snippet = div({cls: 'snippet-container'})
+                    .append(
+                        image,
+                        div({cls: 'snippet-title', text: title})
+                    );
+                
                 const colorThief = new ColorThief();
                 image.e.addEventListener('load', function () {
                     const palette = colorThief.getPalette(image.e);
                     snippet.css({backgroundColor: `rgb(${palette[10]})`});
                     console.log(JSON.parstr({palette, k, title, thumbnail}));
                 });
-                */
+                
                 row.append(snippet)
-                // */
-                // row.append(div({text: title}))
             }
             
             console.groupEnd();
             researchSnippets.append(row);
             
         }
+        */
         
         // ***  Logos
         elem({query: "#logos > :nth-child(1)"}).pointerdown(() => window.open("https://www.tau.ac.il"));
@@ -231,7 +248,6 @@ const HomePage = () => {
     return {init}
 };
 HomePage().init();
-
 
 
 

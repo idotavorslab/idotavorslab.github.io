@@ -1,7 +1,6 @@
 
 div#intro_container
-	@include setLocalGapVar()
-	@include setLocalWVar()
+
 	display: flex
 	margin:
 		bottom: var(--gap)
@@ -47,7 +46,7 @@ div#intro_container
 			font-size: $dim
 
 		& > div.title
-			@include titleMixin(large)
+			@include titleMixin(18px)
 			margin-bottom: $dim
 
 		& > div.radios
@@ -78,82 +77,56 @@ div#intro_container
 
 
 div#research_snippets_container
-	@mixin rowMixin($n)
-		&.row-#{$n}
-			// [min-width: $BP1]:
-			//              [$n: 3]: 120
-			//              [$n: 4]: 40
-			//              [$n: 5]: 0
-
-			// [max-width: $BP1]:
-			//              [$n: 3]: 98.4
-			//              [$n: 4]: 32.8
-			//              [$n: 5]: 0
-
-			// ((1200 * (5-4)) / 5) / (2 * (4-1))  =  (1200 / 5) / (2 * 3)  =  240 / 6  =  40
-
-			// *  DEP: .thumbnail-container > img --dim
-			--marginHoriz: calc(((var(--w) * (5 - #{$n})) / 5) / (2 * (#{$n} - 1)))
-
-			& > div.thumbnail-container > img
-				margin: 0 var(--marginHoriz)
-				border-radius: 15px
-
-	@include setLocalWVar()
 	text-align: left
 	margin-bottom: var(--marginVertical)
 
 	& > div.title
 		@include titleMixin()
-		margin-bottom: 15px
+		//margin-bottom: 15px
 
 	& > div#research_snippets
+		// (1200 - 3*40) / 4  =  1080 / 4  =  270
+		// *  DEP: repeat(4
+		// *  DEP: [column|row]-gap: var(--GAP1)
+		--snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4)
+		display: grid
+		// *  DEP: --snippetWidth
+		grid:
+			template-columns: repeat(4, var(--snippetWidth))
+			column-gap: var(--GAP1)
+			row-gap: var(--GAP1)
 
+		& > div.snippet
+			width: var(--snippetWidth)
+			cursor: pointer
 
-		& > div.row
-			display: flex
-			margin-bottom: 8px
-
-			& > div.thumbnail-container
-				//text-align: center
-				//background-color: var(--GREY01)
-				//margin: 0 4px
-
+			&:hover
 				& > img
-					// [min-width: $BP1]:   240px
-					// [max-width: $BP1]:   196.8
+					margin-top: -4px
+					box-shadow: 0px 5px 6px 0px var(--GREY4)
 
-					// *  DEP: rowMixin uses 5 a lot
-					--dim: calc(var(--w) / 5)
-					width: var(--dim)
-					height: var(--dim)
+			& > img
+				transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out
+				//transition: margin-top 0.2s, box-shadow 0.2s
+				width: inherit
+				border-radius: 15px
 
-
-			@include rowMixin(3)
-			@include rowMixin(4)
-			@include rowMixin(5)
-
-			& > div.thumbnail-container:first-of-type
-				margin-left: 0
-
-				& > img
-					margin-left: 0
-
-			& > div.thumbnail-container:last-of-type
-				margin-right: 0
-
-				& > img
-					margin-right: 0
+			& > div.snippet-title
+				font-family: OpenSansSemiBold
+				margin-top: 8px
+				@include max-width($BP1)
+					font-size: 14px
 
 
 div#logos
 	//margin: calc(var(--GAP0) / 2) auto
+	//display: inline-block
 
 	& > img
 		cursor: pointer
 		// med-logo.png is height 72px
 		height: 72px
-		margin: 0 calc(var(--GAP0) / 2)
+		margin: 0 calc(var(--gap) / 2)
 //width: 120px
 
 

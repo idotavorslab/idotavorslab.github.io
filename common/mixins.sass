@@ -2,13 +2,15 @@
 	text-shadow: $x $y $blur $color, $x * -1 $y $blur $color, $x $y * -1 $blur $color, $x * -1 $y * -1 $blur $color
 
 
-@mixin titleMixin($fontSize: x-large)
+@mixin titleMixin($fontSize: 24px)
 
 	font:
 		family: OpenSansBold
 		size: $fontSize
-	margin-bottom: 5px
+	//margin-bottom: 5px
+	margin-bottom: 20px
 	letter-spacing: 0.5px
+	line-height: calc(#{$fontSize} * 1.5)
 
 
 @mixin borderMixin($color, $radius:2px)
@@ -60,8 +62,6 @@
 
 @mixin gridContainerMixin($childTag, $tight:false)
 	display: grid
-	@include setLocalWVar()
-	@include setLocalGapVar()
 	@include setLocalTagWidthVar($tight)
 
 

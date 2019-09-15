@@ -1,5 +1,5 @@
 const PublicationsPage = () => {
-    class Paper {
+    class Publication {
         elem: BetterHTMLElement;
         year: number;
         
@@ -19,11 +19,11 @@ const PublicationsPage = () => {
                 
             }
             
-            this.elem = elem({tag: "paper"})
+            this.elem = elem({tag: "publication"})
                 .cacheAppend({
                     thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}),
                     content: div({cls: "content-div"}).cacheAppend({
-                        title: div({text: title, cls: "paper-title"}),
+                        title: div({text: title, cls: "publication-title"}),
                         creds: span({text: creds, cls: "creds"}),
                         year: span({text: ` (${year})`, cls: "year"}),
                         mag: div({text: mag, cls: "mag"}),
@@ -39,48 +39,65 @@ const PublicationsPage = () => {
     async function init() {
         
         console.log('PublicationsPage init');
-        let req = new Request('main/publications/publications.json', {cache: "no-cache"});
-        const data = await (await fetch(req)).json();
-        console.log('PublicationsPage data:', data);
-        const papers: Paper[] = [];
-        
-        for (let [title, {year, creds, mag, thumbnail, link}] of dict(data).items()) {
-            papers.push(new Paper(title, year, creds, mag, thumbnail, link));
+        const {selected: selectedData, publications: publicationsData} = await fetchJson('main/publications/publications.json', "no-cache");
+        console.log('PublicationsPage data:', JSON.parstr({selectedData, publicationsData}));
+        const publications: Publication[] = [];
+        const selected: Publication[] = [];
+        // ***  vars from json
+        // **  Populate selected: Publication[] from selectedData
+        for (let title of selectedData) {
+            let {year, creds, mag, thumbnail, link} = publicationsData[title];
+            selected.push(new Publication(title, year, creds, mag, thumbnail, link));
         }
         
-        // papers.sort((a, b) => b.year - a.year);
+        // **  Populate publications: Publication[] from publicationsData
+        for (let [title, {year, creds, mag, thumbnail, link}] of dict(publicationsData).items()) {
+            publications.push(new Publication(title, year, creds, mag, thumbnail, link));
+        }
         
         
-        const yearToPaper: TMap<[Paper]> = {};
-        for (let paper of papers) {
-            if (paper.year in yearToPaper) {
-                yearToPaper[paper.year].push(paper);
+        // **  Group publications by year
+        const yearToPublication: TMap<[Publication]> = {};
+        for (let publication of publications) {
+            if (publication.year in yearToPublication) {
+                yearToPublication[publication.year].push(publication);
             } else {
-                yearToPaper[paper.year] = [paper];
+                yearToPublication[publication.year] = [publication];
             }
             
         }
-        const yearElems: BetterHTMLElement[] = [];
-        for (let year of Object.keys(yearToPaper).reverse()) { // 2019, 2018, 2016
-            let yearElem = elem({tag: 'year'}).append(
-                div({cls: 'papers'})
-                    .append(
-                        div({cls: 'title-and-minimize-flex'})
-                            .append(
-                                span({cls: 'year-title'}).text(year),
-                                // div({cls: 'minimize'}).text('_')
-                            ),
-                        ...yearToPaper[year].map(p => p.elem),
-                    )
-            );
-            yearElems.push(yearElem)
+        // ***  HTML from vars
+        const years: BetterHTMLElement[] = [];
+        
+        // **  Create div.year from selected
+        const selectedPublicationsElem = div({cls: 'year'}).append(
+            div({cls: 'title-and-minimize-flex'}).append(
+                span({cls: 'year-title'}).text('Selected Publications'),
+                // img({src: 'main/publications/minimize-grey.png'})
+            ),
+        );
+        
+        for (let publication of selected) {
+            selectedPublicationsElem.append(publication.elem)
+        }
+        years.push(selectedPublicationsElem);
+        
+        
+        // **  Create div.year's from publications
+        for (let year of Object.keys(yearToPublication).reverse()) { // 2019, 2018, 2016
+            years.push(div({cls: 'year'}).append(
+                div({cls: 'title-and-minimize-flex'}).append(
+                    span({cls: 'year-title'}).text(year),
+                    // div({cls: 'minimize'}).text('_')
+                ),
+                ...yearToPublication[year].map(p => p.elem),
+            ))
         }
         
-        // const papersContainer = div({id: "papers_container"})
-        //     .append(...papers.map(p => p.elem));
-        const papersContainer = div({id: "papers_container"})
-            .append(...yearElems);
-        Home.empty().append(papersContainer);
+        const publicationsContainer = div({id: "publications_container"}).append(
+            ...years,
+        );
+        Home.empty().append(publicationsContainer);
         
         
     }
