@@ -31,7 +31,7 @@ find -iname "*.md" -type f -exec rm '{}' ';'
 find -iname "*.zip" -type f -exec rm '{}' ';'
 exit
 """
-print '\nPushing to GitHub...\n'
+print '\ntput setaf 7 Pushing to GitHub... tput sgr0\n'
 os.system('git add . && git commit -a -m "' + change + '" && git push')
 print '\nSuccess pushing to GitHub, now copying files through SSH...\n'
 print 'sh /a/home/cc/tree/taucc/students/lifesci/idotavor/public_html/clone-and-replace.sh'
