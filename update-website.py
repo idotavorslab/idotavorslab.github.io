@@ -38,12 +38,12 @@ print '''
 '''
 os.system('git add . && git commit -a -m "' + change + '" && git push')
 print '''
-    ---------------------------------------------------------------------
-    |   Success pushing to GitHub.                                      |
-    |   You will now be asked to enter your tau account password.       |
-    |   Afterwards, run the following command (you can copy-paste it).  |
-    |   It will clone the changes from GitHub to the remote session.    |
-    ---------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    |   Success pushing to GitHub.                                                 |
+    |   You will now be asked to enter your tau account password to enter SSH.     |
+    |   Afterwards, run the following command (you can copy-paste it, no quotes).  |
+    |   It will clone the changes from GitHub to the remote session.               |
+    --------------------------------------------------------------------------------
     
     "sh /a/home/cc/tree/taucc/students/lifesci/idotavor/public_html/clone-and-replace.sh"
     
