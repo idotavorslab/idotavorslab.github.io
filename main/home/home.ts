@@ -77,7 +77,12 @@ const HomePage = () => {
                 }
             }
             
-            rightWidget.news.date.text(bool(selectedItem.date) ? selectedItem.date : '');
+            // HACK: add margin-bottom to date only if not visible
+            if (bool(selectedItem.date))
+                rightWidget.news.date.text(selectedItem.date).toggleClass('mb', false);
+            else
+                rightWidget.news.date.text('').toggleClass('mb', true);
+            
             rightWidget.news.title.text(selectedItem.title);
             rightWidget.news.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');

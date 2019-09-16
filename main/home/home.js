@@ -51,7 +51,10 @@ const HomePage = () => {
                     selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
                 }
             }
-            rightWidget.news.date.text(bool(selectedItem.date) ? selectedItem.date : '');
+            if (bool(selectedItem.date))
+                rightWidget.news.date.text(selectedItem.date).toggleClass('mb', false);
+            else
+                rightWidget.news.date.text('').toggleClass('mb', true);
             rightWidget.news.title.text(selectedItem.title);
             rightWidget.news.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');

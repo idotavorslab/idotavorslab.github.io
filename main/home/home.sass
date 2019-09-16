@@ -140,14 +140,17 @@ div#research_snippets_container
 			cursor: pointer
 
 			&:hover
+				& > img, & > div
+					transform: translateY(-4px)
+
 				& > img
-					margin-top: -4px
 					box-shadow: 0 2px 10px 2px var(--GREY4)
-			//box-shadow: 0 5px 6px 0px var(--GREY4)
+
+
+			& > img, & > div
+				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
 
 			& > img
-				transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out
-				//transition: margin-top 0.2s, box-shadow 0.2s
 				width: inherit
 				// same as news radius
 				border-radius: 20px
@@ -155,8 +158,6 @@ div#research_snippets_container
 			& > div.snippet-title
 				font-family: OpenSansSemiBold
 				margin-top: 8px
-				@include max-width($BP1)
-					font-size: 14px
 
 // ***  logos
 div#logos
