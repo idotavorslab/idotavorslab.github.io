@@ -62,12 +62,9 @@ const HomePage = () => {
             TL.to(newsChildren, 0.1, { opacity: 1 });
         }
         startAutoSwitch() {
-            console.log('\tstartAutoSwitch');
             if (this._userPressed) {
-                console.log('\t\t_userPressed, returning');
                 return;
             }
-            console.log('\t\tNOT _userPressed, starting interval');
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -79,17 +76,14 @@ const HomePage = () => {
             }, 10000);
         }
         stopAutoSwitch() {
-            console.log('\tstopAutoSwitch');
             clearInterval(this._interval);
         }
     }
     async function init() {
         rightWidget.mouseover(() => {
-            console.log('mouseOVER');
             return newsData.stopAutoSwitch();
         });
         rightWidget.mouseout(() => {
-            console.log('mouseOUT');
             return newsData.startAutoSwitch();
         });
         const data = await fetchJson('main/home/home.json', "no-cache");

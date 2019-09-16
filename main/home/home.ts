@@ -94,12 +94,9 @@ const HomePage = () => {
         }
         
         startAutoSwitch() {
-            console.log('\tstartAutoSwitch');
             if (this._userPressed) {
-                console.log('\t\t_userPressed, returning');
                 return;
             }
-            console.log('\t\tNOT _userPressed, starting interval');
             
             
             this._interval = setInterval(() => {
@@ -114,7 +111,6 @@ const HomePage = () => {
         }
         
         stopAutoSwitch() {
-            console.log('\tstopAutoSwitch');
             clearInterval(this._interval);
         }
     }
@@ -122,11 +118,9 @@ const HomePage = () => {
     async function init() {
         
         rightWidget.mouseover(() => {
-            console.log('mouseOVER');
             return newsData.stopAutoSwitch();
         });
         rightWidget.mouseout(() => {
-            console.log('mouseOUT');
             return newsData.startAutoSwitch();
         });
         

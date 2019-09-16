@@ -3,8 +3,9 @@ declare class BadArgumentsAmountError extends Error {
 }
 
 declare type TEvent = keyof HTMLElementEventMap;
-declare type TEventFunctionMap<K> = {
-    [P in Extract<K, string>]?: (evt: Event) => void;
+declare type TEventFunctionMap<K extends keyof HTMLElementEventMap> = {
+    // [P in Extract<K, string>]?: (event: HTMLElementEventMap[P]) => void;
+    [P in K]?: (event: HTMLElementEventMap[P]) => void;
 };
 declare type HTMLTag = keyof HTMLElementTagNameMap;
 declare type QuerySelector = HTMLTag | string;
