@@ -84,7 +84,6 @@ const GalleryPage = () => {
         imgViewer.isopen = false;
         const data = await fetchJson("main/gallery/gallery.json", "default");
         const files = data.map(d => d.file);
-        console.log('GalleryPage data', data);
         let selectedFile = null;
         const row0 = div({ id: 'row_0' });
         const row1 = div({ id: 'row_1' });

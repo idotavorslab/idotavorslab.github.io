@@ -109,7 +109,6 @@ const HomePage = () => {
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({ query: "#research_snippets" });
         for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {
-            console.log(JSON.parstr({ title, thumbnail }));
             researchSnippets.append(div({ cls: 'snippet' })
                 .append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title }))
                 .pointerdown((event) => {
@@ -122,5 +121,4 @@ const HomePage = () => {
     }
     return { init };
 };
-HomePage().init();
 //# sourceMappingURL=home.js.map

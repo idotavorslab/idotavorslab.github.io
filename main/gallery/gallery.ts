@@ -111,7 +111,7 @@ const GalleryPage = () => {
         
         const data = await fetchJson("main/gallery/gallery.json", "default");
         const files = data.map(d => d.file);
-        console.log('GalleryPage data', data);
+        // console.log('GalleryPage data', data);
         
         
         //**  HTML

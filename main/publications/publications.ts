@@ -40,7 +40,7 @@ const PublicationsPage = () => {
         
         console.log('PublicationsPage init');
         const {selected: selectedData, publications: publicationsData} = await fetchJson('main/publications/publications.json', "no-cache");
-        console.log('PublicationsPage data:', JSON.parstr({selectedData, publicationsData}));
+        // console.log('PublicationsPage data:', JSON.parstr({selectedData, publicationsData}));
         const publications: Publication[] = [];
         const selected: Publication[] = [];
         // ***  vars from json

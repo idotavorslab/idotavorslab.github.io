@@ -261,7 +261,7 @@ const PeoplePage = () => {
         
         
         const data = await fetchJson('main/people/people.json', "no-cache");
-        console.log('people data', data);
+        // console.log('people data', data);
         const expando = new Expando();
         const {team: teamData, alumni: alumniData} = data;
         

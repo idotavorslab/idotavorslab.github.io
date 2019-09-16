@@ -2,7 +2,6 @@ const ResearchPage = () => {
     async function init(selectedIndex) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
         const data = await fetchJson('main/research/research.json', "no-cache");
-        console.log('ResearchPage data', data);
         const articles = [];
         let emptied = false;
         for (let [title, { image, content }] of dict(data).items()) {
@@ -23,7 +22,6 @@ const ResearchPage = () => {
             }
             Home.append(article);
         }
-        console.log('ResearchPage done for loop');
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
             const howFar = selectedIndex / articles.length;

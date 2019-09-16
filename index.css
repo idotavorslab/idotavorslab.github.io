@@ -340,7 +340,11 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
   margin-top: 8px;
 }
 
-div#logos > img {
+div#footer {
+  box-shadow: 0 -1px 0 var(--GREY2);
+  padding-top: 30px;
+}
+div#footer > div#logos > img {
   cursor: pointer;
   height: 72px;
   margin: 0 calc(var(--gap) / 2);
