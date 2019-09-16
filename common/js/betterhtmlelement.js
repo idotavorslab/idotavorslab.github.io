@@ -279,12 +279,21 @@ class BetterHTMLElement {
 		return new BetterHTMLElement({ htmlElement: this.e.cloneNode(deep) });
 	}
 
-	/**For each `[key, selector]` pair, get `this.child(selector)`, and store it in `this[key]`. Useful for eg `navbar.home.toggleClass("selected")`
-	 * @see this.child*/
+
 	cacheChildren(keySelectorObj) {
-		for (let [key, selector] of enumerate(keySelectorObj))
-			this[key] = this.child(selector);
+		for (let [key, selector] of enumerate(keySelectorObj)) {
+			if (typeof selector === 'object') {
+
+				// only first because multiple selectors for single key aren't supported (ie can't do {right: {.right: {...}, .right2: {...}})
+				let [subselector, subkeyselectorsObj] = Object.entries(selector)[0];
+				this[key] = this.child(subselector);
+				this[key].cacheChildren(subkeyselectorsObj);
+			} else {
+				this[key] = this.child(selector);
+			}
+		}
 		return this;
+
 	}
 
 	/**Remove all children from DOM*/

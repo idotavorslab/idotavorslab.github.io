@@ -1,12 +1,18 @@
 const HomePage = () => {
-    const newsElem = elem({
-        query: '#news', children: {
-            date: '.date',
-            title: '.title',
-            content: '.content',
+    const rightWidget = elem({
+        query: '#right_widget', children: {
+            mainImageContainer: '#main_image_container',
+            news: {
+                '#news': {
+                    title: '.title',
+                    date: '.date',
+                    content: '.content'
+                }
+            },
+            radios: '#radios',
         }
     });
-    const newsChildren = newsElem.children().map(c => c.e);
+    const newsChildren = rightWidget.children().map(c => c.e);
     class NewsData {
         constructor() {
             this._userPressed = false;
@@ -40,23 +46,25 @@ const HomePage = () => {
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, { opacity: 0 });
             await wait(25);
-            console.log('selectedItem.content before:', selectedItem.content);
             if (!selectedItem.content.includes('<a href')) {
                 for (let [text, link] of enumerate(selectedItem.links)) {
                     selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
                 }
             }
-            console.log('selectedItem.content after:', selectedItem.content);
-            newsElem.date.text(bool(selectedItem.date) ? selectedItem.date : '');
-            newsElem.title.text(selectedItem.title);
-            newsElem.content.html(selectedItem.content);
+            rightWidget.news.date.text(bool(selectedItem.date) ? selectedItem.date : '');
+            rightWidget.news.title.text(selectedItem.title);
+            rightWidget.news.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
         }
         startAutoSwitch() {
-            if (this._userPressed)
+            console.log('\tstartAutoSwitch');
+            if (this._userPressed) {
+                console.log('\t\t_userPressed, returning');
                 return;
+            }
+            console.log('\t\tNOT _userPressed, starting interval');
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -68,12 +76,19 @@ const HomePage = () => {
             }, 10000);
         }
         stopAutoSwitch() {
+            console.log('\tstopAutoSwitch');
             clearInterval(this._interval);
         }
     }
     async function init() {
-        newsElem.mouseover(() => newsData.stopAutoSwitch());
-        newsElem.mouseout(() => newsData.startAutoSwitch());
+        rightWidget.mouseover(() => {
+            console.log('mouseOVER');
+            return newsData.stopAutoSwitch();
+        });
+        rightWidget.mouseout(() => {
+            console.log('mouseOUT');
+            return newsData.startAutoSwitch();
+        });
         const data = await fetchJson('main/home/home.json', "no-cache");
         const aboutText = elem({ query: "#about > .about-text" });
         for (let [i, p] of Object.entries(data["about-text"])) {
