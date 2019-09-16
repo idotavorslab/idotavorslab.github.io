@@ -1,4 +1,4 @@
-type Page = "research" | "people" | "publications" | "gallery" | "contact";
+type Page = "home" | "research" | "people" | "publications" | "gallery" | "contact";
 
 class Navbar extends BetterHTMLElement {
     home: Img;
@@ -11,50 +11,41 @@ class Navbar extends BetterHTMLElement {
     
     constructor({query, children}) {
         super({query, children});
-        this.home.pointerdown(() => {
-            // _startSeparatorAnimation();
-            // @ts-ignore
-            window.location = window.location.origin;
-        });
+        // this.home.pointerdown(() => {
+        //     // _startSeparatorAnimation();
+        //     // @ts-ignore
+        //     window.location = window.location.origin;
+        // });
         
-        for (let k of <Page[]>["research", "people", "publications", "gallery", "contact"]) {
+        for (let k of <Page[]>["home", "research", "people", "publications", "gallery", "contact"]) {
             this[k].pointerdown(() => {
-                console.log(`this[k].pointerdown, k: ${k}`);
-                this._gotoPage(k);
+                let href = k === "home" ? '' : `#${k}`;
+                console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
+                elem({tag: 'a'}).attr({href}).click();
             })
         }
     }
     
-    private static _getPageObj(key: Page): typeof ResearchPage {
-        switch (key) {
-            case "research":
-                return ResearchPage;
-            case "people":
-                return PeoplePage;
-            case "publications":
-                return PublicationsPage;
-            case "gallery":
-                return GalleryPage;
-            
-        }
-    }
     
-    private async _gotoPage(pageName: Page) {
-        console.log(`navbar.ts.Navbar._gotoPage(${pageName})`);
+    /*async gotoPageOLD(pageName: Page) {
+        console.log(`navbar.ts.Navbar.gotoPage(${pageName})`);
         DocumentElem.allOff();
-        const bottomSeparators = document.querySelectorAll(".separators")[1];
-        if (bottomSeparators)
-            bottomSeparators.remove();
+        // const bottomSeparators = document.querySelectorAll(".separators")[1];
+        // if (bottomSeparators)
+        //     bottomSeparators.remove();
+        
         const logos = elem({id: 'logos'});
-        if (logos)
+        if (logos.e)
             logos.remove();
         // _startSeparatorAnimation();
-        const pageObj = Navbar._getPageObj(pageName);
+        const pageObj = Navbar.getPageObj(pageName);
         this._select(this[pageName]);
-        elem({tag: 'a'}).attr({href: `#${pageName}`}).click();
+        history.pushState(null, null, `#${pageName}`);
+        // history.replaceState()
         await pageObj().init();
         // _killSeparatorAnimation();
     }
+    */
     
     private _select(child: Div) {
         for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
@@ -77,7 +68,38 @@ const navbar = new Navbar({
         tau: '.tau',
     }
 });
-_Window.on({
+
+function getPageObj(key: Page): typeof ResearchPage {
+    switch (key) {
+        case "research":
+            return ResearchPage;
+        case "people":
+            return PeoplePage;
+        case "publications":
+            return PublicationsPage;
+        case "gallery":
+            return GalleryPage;
+        
+    }
+}
+
+function route(url: Page) {
+    console.log(`route("${url}")`);
+    if (bool(url)) {
+        if (["research", "people", "publications", "gallery", "contact"].includes(url)) {
+            console.log('\tvalid url, calling pageObj().init()');
+            const pageObj = getPageObj(url);
+            pageObj().init();
+        } else { // bad url, reload to homepage
+            elem({tag: 'a'}).attr({href: ``}).click();
+        }
+    } else {
+        console.log('\tempty url, calling HomePage().init()');
+        HomePage().init();
+    }
+}
+
+WindowElem.on({
     scroll: (event: Event) => {
         if (window.scrollY > 0) {
             navbar.removeClass('box-shadow')
@@ -86,8 +108,24 @@ _Window.on({
             
         }
         
+    },
+    hashchange: (event: HashChangeEvent) => {
+        // called on navbar click, backbutton click
+        const newURL = event.newURL.replace(window.location.origin, "").slice(1).replace('#', '');
+        console.log('hash change', event, '\nnewURL:', newURL);
+        if (!bool(newURL)) {
+            // this prevents the user pressing back to homepage, then route calls HomePage().init() instead of reloading
+            elem({tag: 'a'}).attr({href: ``}).click()
+        } else {
+            route(newURL);
+        }
+        
+        
     }
 });
+let lastPage = window.location.hash.slice(1);
+console.log(`document root, calling route("${lastPage}")`);
+route(lastPage);
 
 /*interface Separators extends BetterHTMLElement {
     right: BetterHTMLElement,
@@ -120,3 +158,4 @@ function _killSeparatorAnimation() {
 
 
 */
+

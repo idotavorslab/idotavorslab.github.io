@@ -157,7 +157,6 @@ const HomePage = () => {
         const researchSnippets = elem({query: "#research_snippets"});
         
         for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
-            console.log(JSON.parstr({title, thumbnail}));
             researchSnippets.append(
                 div({cls: 'snippet'})
                     .append(
@@ -281,7 +280,7 @@ const HomePage = () => {
     
     return {init}
 };
-HomePage().init();
+// HomePage().init();
 
 
 
