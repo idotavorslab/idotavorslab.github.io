@@ -2,12 +2,10 @@ class Navbar extends BetterHTMLElement {
     constructor({ query, children }) {
         super({ query, children });
         this.home.pointerdown(() => {
-            _startSeparatorAnimation();
-            window.location.reload();
+            window.location = window.location.origin;
         });
         for (let k of ["research", "people", "publications", "gallery", "contact"]) {
-            this[k]
-                .pointerdown(() => {
+            this[k].pointerdown(() => {
                 console.log(`this[k].pointerdown, k: ${k}`);
                 this._gotoPage(k);
             });
@@ -31,14 +29,13 @@ class Navbar extends BetterHTMLElement {
         const bottomSeparators = document.querySelectorAll(".separators")[1];
         if (bottomSeparators)
             bottomSeparators.remove();
-        const logos = document.getElementById('logos');
+        const logos = elem({ id: 'logos' });
         if (logos)
             logos.remove();
-        _startSeparatorAnimation();
         const pageObj = Navbar._getPageObj(pageName);
         this._select(this[pageName]);
+        elem({ tag: 'a' }).attr({ href: `#${pageName}` }).click();
         await pageObj().init();
-        _killSeparatorAnimation();
     }
     _select(child) {
         for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
@@ -68,21 +65,4 @@ _Window.on({
         }
     }
 });
-const _separators = elem({ query: 'div.separators', children: { left: '.left', right: '.right' } });
-function _linearGradient(opac_stop_1, opac_stop_2) {
-    return `linear-gradient(90deg, rgba(0, 0, 0, ${opac_stop_1[0]}) ${opac_stop_1[1]}, rgba(0, 0, 0, ${opac_stop_2[0]}) ${opac_stop_2[1]})`;
-}
-function _startSeparatorAnimation() {
-    TL.fromTo(_separators.left.e, 0.5, { backgroundImage: _linearGradient([0, '0%'], [0.15, '150%']) }, {
-        backgroundImage: _linearGradient([0, '0%'], [0.75, '10%']),
-    });
-    TL.fromTo(_separators.right.e, 0.5, { backgroundImage: _linearGradient([0.15, '-50%'], [0, '100%']) }, {
-        backgroundImage: _linearGradient([0.75, '90%'], [0, '100%']),
-    });
-}
-function _killSeparatorAnimation() {
-    TL.killTweensOf([_separators.left.e, _separators.right.e]);
-    _separators.left.css({ backgroundImage: _linearGradient([0, '0%'], [0.1, '10%']) });
-    _separators.right.css({ backgroundImage: _linearGradient([0.1, '90%'], [0, '100%']) });
-}
 //# sourceMappingURL=navbar.js.map

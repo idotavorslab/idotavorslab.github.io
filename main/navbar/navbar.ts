@@ -12,16 +12,16 @@ class Navbar extends BetterHTMLElement {
     constructor({query, children}) {
         super({query, children});
         this.home.pointerdown(() => {
-            _startSeparatorAnimation();
-            window.location.reload();
+            // _startSeparatorAnimation();
+            // @ts-ignore
+            window.location = window.location.origin;
         });
         
         for (let k of <Page[]>["research", "people", "publications", "gallery", "contact"]) {
-            this[k]
-                .pointerdown(() => {
-                    console.log(`this[k].pointerdown, k: ${k}`);
-                    this._gotoPage(k);
-                })
+            this[k].pointerdown(() => {
+                console.log(`this[k].pointerdown, k: ${k}`);
+                this._gotoPage(k);
+            })
         }
     }
     
@@ -45,14 +45,15 @@ class Navbar extends BetterHTMLElement {
         const bottomSeparators = document.querySelectorAll(".separators")[1];
         if (bottomSeparators)
             bottomSeparators.remove();
-        const logos = document.getElementById('logos');
+        const logos = elem({id: 'logos'});
         if (logos)
             logos.remove();
-        _startSeparatorAnimation();
+        // _startSeparatorAnimation();
         const pageObj = Navbar._getPageObj(pageName);
         this._select(this[pageName]);
+        elem({tag: 'a'}).attr({href: `#${pageName}`}).click();
         await pageObj().init();
-        _killSeparatorAnimation();
+        // _killSeparatorAnimation();
     }
     
     private _select(child: Div) {
@@ -88,7 +89,7 @@ _Window.on({
     }
 });
 
-interface Separators extends BetterHTMLElement {
+/*interface Separators extends BetterHTMLElement {
     right: BetterHTMLElement,
     left: BetterHTMLElement,
 }
@@ -117,3 +118,5 @@ function _killSeparatorAnimation() {
     _separators.right.css({backgroundImage: _linearGradient([0.1, '90%'], [0, '100%'])});
 }
 
+
+*/
