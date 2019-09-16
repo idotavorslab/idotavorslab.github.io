@@ -196,6 +196,26 @@ const PeoplePage = () => {
             console.log('DocumentElem pointerdown');
             if (expando.owner !== null)
                 expando.close();
+        })
+            .keydown((event) => {
+            if (event.key === "Escape" && expando.owner !== null)
+                return expando.close();
+            if (event.key.startsWith("Arrow") && expando.owner !== null) {
+                if (event.key === "ArrowRight") {
+                    let nextPerson = expando.owner.group[expando.owner.index + 1];
+                    if (nextPerson === undefined)
+                        expando.toggle(expando.owner.group[0]);
+                    else
+                        expando.toggle(nextPerson);
+                }
+                if (event.key === "ArrowLeft") {
+                    let prevPerson = expando.owner.group[expando.owner.index - 1];
+                    if (prevPerson === undefined)
+                        expando.toggle(expando.owner.group[expando.owner.group.length - 1]);
+                    else
+                        expando.toggle(prevPerson);
+                }
+            }
         });
     }
     return { init };
