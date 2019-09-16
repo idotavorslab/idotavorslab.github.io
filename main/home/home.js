@@ -40,9 +40,13 @@ const HomePage = () => {
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, { opacity: 0 });
             await wait(25);
-            for (let [text, link] of enumerate(selectedItem.links)) {
-                selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
+            console.log('selectedItem.content before:', selectedItem.content);
+            if (!selectedItem.content.includes('<a href')) {
+                for (let [text, link] of enumerate(selectedItem.links)) {
+                    selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
+                }
             }
+            console.log('selectedItem.content after:', selectedItem.content);
             newsElem.date.text(bool(selectedItem.date) ? selectedItem.date : '');
             newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
@@ -80,13 +84,14 @@ const HomePage = () => {
         }
         const newsData = new NewsData();
         let i = 0;
+        const radios = elem({ id: 'radios' });
         for (let [title, { date, content, links }] of dict(data.news).items()) {
             let item = { title, date, content, links, radio: div({ cls: 'radio' }), index: i };
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
             }
-            elem({ id: 'radios' }).append(newsData[i].radio);
+            radios.append(newsData[i].radio);
             i++;
         }
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));

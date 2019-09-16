@@ -61,27 +61,30 @@ div#intro
 
 		& > div#news
 
-			font-size: 20px
+
 			display: flex
 			flex-direction: column
-			// [min-width: $BP1]:   30px
-			// [max-width: $BP1]:   20px
-			//padding: calc(var(--gap) / 2)
 			padding: $padding
 			line-height: 32px
 			position: relative
 
 
 			& > div.title
-				@include titleMixin(20px)
+				font-size: 20px
+				font-family: OpenSansBold
 				line-height: 20px
 				color: var(--GREY8)
 				margin-bottom: unset
 
 			& > div.date
-				color: rgb(95, 95, 95)
-				font-size: 16px
-				margin-bottom: $dim
+				color: var(--GREY5)
+
+				&.mb
+					margin-bottom: $dim
+
+
+			& > div.content
+				font-size: 20px
 
 
 		& > div#radios
