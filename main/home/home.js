@@ -71,12 +71,12 @@ const HomePage = () => {
         newsElem.mouseover(() => newsData.stopAutoSwitch());
         newsElem.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
-        const introText = elem({ query: "#non_news > .intro-text" });
-        for (let [i, p] of Object.entries(data["intro-text"])) {
+        const aboutText = elem({ query: "#about > .about-text" });
+        for (let [i, p] of Object.entries(data["about-text"])) {
             let cls = undefined;
             if (i == 0)
                 cls = 'subtitle';
-            introText.append(elem({ tag: 'p', text: p, cls }));
+            aboutText.append(elem({ tag: 'p', text: p, cls }));
         }
         const newsData = new NewsData();
         let i = 0;

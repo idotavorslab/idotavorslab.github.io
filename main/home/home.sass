@@ -1,5 +1,5 @@
-
-div#intro_container
+// ***  intro
+div#intro
 
 	display: flex
 	margin:
@@ -7,8 +7,8 @@ div#intro_container
 	position: relative
 	text-align: left
 
-
-	& > div#non_news
+	// **  about
+	& > div#about
 		text-align: left
 		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
 		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
@@ -30,27 +30,29 @@ div#intro_container
 			color: var(--GREY8)
 			letter-spacing: -0.5px
 
-		& > div.intro-text
+		& > div.about-text
 			font-size: 20px
 			line-height: 32px
 
 			& > p.subtitle
 				font-family: OpenSansBold
 
+	// **  right_widget
 	& > div#right_widget
 		width: 550px
+		height: 600px
 		$borderRadius: 20px
 		$dim: 15px
 		$padding: 24px 32px
 		border-radius: $borderRadius
-		box-shadow: 0 2px 10px 2px var(--GREY2)
+		box-shadow: 0 2px 10px 2px var(--GREY02)
 		display: flex
 		flex-direction: column
 		margin:
 			left: var(--gap)
 
 		& > div#main_image_container
-			background-color: var(--GREY2)
+			background-color: var(--GREY02)
 			padding: $padding
 			border-radius: $borderRadius $borderRadius 0 0
 
@@ -109,6 +111,7 @@ div#intro_container
 					border-color: var(--GREY4)
 
 
+// ***  research_snippets_container
 div#research_snippets_container
 	text-align: left
 	margin-bottom: var(--marginVertical)
@@ -137,7 +140,7 @@ div#research_snippets_container
 				& > img
 					margin-top: -4px
 					box-shadow: 0 2px 10px 2px var(--GREY4)
-					//box-shadow: 0 5px 6px 0px var(--GREY4)
+			//box-shadow: 0 5px 6px 0px var(--GREY4)
 
 			& > img
 				transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out
@@ -152,7 +155,7 @@ div#research_snippets_container
 				@include max-width($BP1)
 					font-size: 14px
 
-
+// ***  logos
 div#logos
 	//margin: calc(var(--GAP0) / 2) auto
 	//display: inline-block

@@ -103,12 +103,12 @@ const HomePage = () => {
         
         
         const data = await fetchJson('main/home/home.json', "no-cache");
-        const introText = elem({query: "#non_news > .intro-text"});
-        for (let [i, p] of <[number, string][]><unknown>Object.entries(data["intro-text"])) {
+        const aboutText = elem({query: "#about > .about-text"});
+        for (let [i, p] of <[number, string][]><unknown>Object.entries(data["about-text"])) {
             let cls = undefined;
             if (i == 0)
                 cls = 'subtitle';
-            introText.append(elem({tag: 'p', text: p, cls}))
+            aboutText.append(elem({tag: 'p', text: p, cls}))
         }
         
         /** Keep the data from .json in an array, plus the matching radio BetterHTMLElement */
