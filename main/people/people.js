@@ -185,7 +185,7 @@ const PeoplePage = () => {
                 people.push(person);
                 index++;
             }
-            const grid = div({ id: gridId }).append(...people);
+            const grid = div({ id: gridId, cls: 'grid' }).append(...people);
             return grid;
         }
         const teamGrid = gridFactory({ gridData: teamData, gridId: 'team_grid', people: team });

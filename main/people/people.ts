@@ -268,7 +268,7 @@ const PeoplePage = () => {
         const team: People = new People();
         const alumni: People = new People();
         
-        function gridFactory({gridData, gridId, people}): Div {
+        function gridFactory({gridData, gridId, people}: { gridData: TMap<any>, gridId: string, people: People }): Div {
             
             let index = 0;
             for (let [name, {image, role, cv, email}] of dict(gridData).items()) {
@@ -276,7 +276,7 @@ const PeoplePage = () => {
                 people.push(person);
                 index++;
             }
-            const grid = div({id: gridId}).append(...people);
+            const grid = div({id: gridId, cls: 'grid'}).append(...people);
             
             
             return grid;
