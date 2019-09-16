@@ -418,7 +418,7 @@ div#home > div.title {
   line-height: calc(24px * 1.5);
   text-align: left;
 }
-div#home > div#team_grid {
+div#home > div.grid {
   display: grid;
   --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);
   margin-top: 0;
@@ -430,43 +430,17 @@ div#home > div#team_grid {
   grid-row-gap: var(--gap);
   grid-column-gap: var(--gap);
 }
-div#home > div#team_grid div.person {
+div#home > div.grid div.person {
   margin: auto;
 }
-div#home > div#team_grid div.person:nth-of-type(4n+4) {
+div#home > div.grid div.person:nth-of-type(4n+4) {
   margin: 0 0px auto auto;
 }
-div#home > div#team_grid div.person:nth-of-type(4n+1) {
+div#home > div.grid div.person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
 @media screen and (min-width: 1023px) {
-  div#home > div#team_grid div.person {
-    width: var(--tagWidth);
-  }
-}
-div#home > div#alumni_grid {
-  display: grid;
-  --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: var(--gap);
-  margin-left: auto;
-  grid-template-columns: repeat(4, var(--tagWidth));
-  grid-template-rows: repeat(2, auto);
-  grid-row-gap: var(--gap);
-  grid-column-gap: var(--gap);
-}
-div#home > div#alumni_grid div.person {
-  margin: auto;
-}
-div#home > div#alumni_grid div.person:nth-of-type(4n+4) {
-  margin: 0 0px auto auto;
-}
-div#home > div#alumni_grid div.person:nth-of-type(4n+1) {
-  margin: 0 auto auto 0;
-}
-@media screen and (min-width: 1023px) {
-  div#home > div#alumni_grid div.person {
+  div#home > div.grid div.person {
     width: var(--tagWidth);
   }
 }

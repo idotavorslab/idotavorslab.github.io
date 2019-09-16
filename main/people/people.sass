@@ -17,13 +17,15 @@ div#home
 		text-align: left
 
 
-	& > div#team_grid
+	//& > div#team_grid
 		@include gridContainerMixin("div.person")
 
-	& > div#alumni_grid
+	//& > div#alumni_grid
 		@include gridContainerMixin("div.person")
 
 	& > div.grid
+		@include gridContainerMixin("div.person")
+
 		& > div.person
 			//border: 1px solid grey
 			cursor: pointer

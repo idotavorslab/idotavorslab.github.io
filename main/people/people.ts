@@ -268,7 +268,7 @@ const PeoplePage = () => {
         const team: People = new People();
         const alumni: People = new People();
         
-        function gridFactory({gridData, gridId, people}: { gridData: TMap<any>, gridId: string, people: People }): Div {
+        function gridFactory({gridData, people}: { gridData: TMap<any>, people: People }): Div {
             
             let index = 0;
             for (let [name, {image, role, cv, email}] of dict(gridData).items()) {
@@ -276,15 +276,15 @@ const PeoplePage = () => {
                 people.push(person);
                 index++;
             }
-            const grid = div({id: gridId, cls: 'grid'}).append(...people);
+            const grid = div({cls: 'grid'}).append(...people);
             
             
             return grid;
         }
         
         // **  Grids
-        const teamGrid = gridFactory({gridData: teamData, gridId: 'team_grid', people: team});
-        const alumniGrid = gridFactory({gridData: alumniData, gridId: 'alumni_grid', people: alumni});
+        const teamGrid = gridFactory({gridData: teamData, people: team});
+        const alumniGrid = gridFactory({gridData: alumniData, people: alumni});
         
         
         Home.empty().append(
