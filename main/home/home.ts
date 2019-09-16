@@ -23,7 +23,7 @@ const HomePage = () => {
             radios: '#radios',
         }
     });
-    const newsChildren: HTMLElement[] = rightWidget.children().map(c => c.e);
+    const newsChildren: HTMLElement[] = rightWidget.news.children().map(c => c.e);
     
     class NewsData {
         readonly data: TNewsDataItem[];

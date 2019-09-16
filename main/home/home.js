@@ -12,7 +12,7 @@ const HomePage = () => {
             radios: '#radios',
         }
     });
-    const newsChildren = rightWidget.children().map(c => c.e);
+    const newsChildren = rightWidget.news.children().map(c => c.e);
     class NewsData {
         constructor() {
             this._userPressed = false;
