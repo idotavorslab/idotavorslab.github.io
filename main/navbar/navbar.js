@@ -58,6 +58,16 @@ const navbar = new Navbar({
         tau: '.tau',
     }
 });
+_Window.on({
+    scroll: (event) => {
+        if (window.scrollY > 0) {
+            navbar.removeClass('box-shadow');
+        }
+        else {
+            navbar.addClass('box-shadow');
+        }
+    }
+});
 const _separators = elem({ query: 'div.separators', children: { left: '.left', right: '.right' } });
 function _linearGradient(opac_stop_1, opac_stop_2) {
     return `linear-gradient(90deg, rgba(0, 0, 0, ${opac_stop_1[0]}) ${opac_stop_1[1]}, rgba(0, 0, 0, ${opac_stop_2[0]}) ${opac_stop_2[1]})`;

@@ -6,7 +6,7 @@
   --GOOGLEBLUE: #3b82f0;
   --GREY00: rgb(255, 255, 255);
   --GREY01: rgb(250, 250, 250);
-  --GREY02: rgb(245, 245, 245);
+  --GREY02: rgb(242, 242, 242);
   --GREY2: rgb(221, 221, 221);
   --GREY3: rgb(204, 204, 204);
   --GREY4: rgb(187, 187, 187);
@@ -104,6 +104,11 @@ div#main {
 }
 div#main div#navbar {
   --fontSize: 20px;
+  position: fixed;
+  width: inherit;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.92);
+  transition: box-shadow 0.2s ease-in-out;
   display: flex;
   font-size: var(--fontSize);
   height: 70px;
@@ -118,6 +123,9 @@ div#main div#navbar {
   div#main div#navbar {
     --imgWidth: 75px;
   }
+}
+div#main div#navbar.box-shadow {
+  box-shadow: inset 0 -1px 0 0 var(--GREY2);
 }
 div#main div#navbar > div, div#main div#navbar > img {
   cursor: pointer;
@@ -159,14 +167,15 @@ div#main div#navbar > div.selected {
   border-bottom-style: solid;
 }
 div#main div.separators {
+  z-index: 5;
   display: inline-block;
-  margin-top: 0px;
+  margin-top: 70px;
   margin-right: auto;
   margin-bottom: calc(var(--marginVertical) - 1px);
   margin-left: 0;
 }
 div#main div.separators [class~=separator] {
-  position: absolute;
+  position: fixed;
   height: 1px;
   width: 50%;
   transition: background 500ms;
@@ -183,6 +192,7 @@ div#main div#home {
   display: block;
   opacity: 1;
   position: relative;
+  padding-top: 110px;
 }
 
 #window_stats {
@@ -193,64 +203,85 @@ div#main div#home {
   color: white;
 }
 
-div#intro_container {
+div#intro {
   display: flex;
   margin-bottom: var(--gap);
   position: relative;
   text-align: left;
 }
-div#intro_container > div#non_news {
+div#intro > div#about {
   text-align: left;
   width: calc((var(--w) * 2 / 3) - var(--gap));
 }
-div#intro_container > div#non_news > img {
+div#intro > div#about > img {
   display: block;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: var(--gap);
   width: inherit;
 }
-div#intro_container > div#non_news > div {
+div#intro > div#about > div {
   position: relative;
 }
-div#intro_container > div#non_news > div.title {
+div#intro > div#about > div.title {
   font-family: OpenSansBold;
   font-size: 36px;
   margin-bottom: 20px;
   line-height: calc(36px * 1.5);
+  color: var(--GREY8);
   letter-spacing: -0.5px;
 }
-div#intro_container > div#non_news > div.intro-text {
+div#intro > div#about > div.about-text {
   font-size: 20px;
   line-height: 32px;
 }
-div#intro_container > div#non_news > div.intro-text > p.subtitle {
+div#intro > div#about > div.about-text > p.subtitle {
   font-family: OpenSansBold;
 }
-div#intro_container > div#news {
-  box-shadow: 0 2px 10px 2px var(--GREY2);
+div#intro > div#right_widget {
+  width: 550px;
+  height: 600px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px 2px var(--GREY02);
   display: flex;
   flex-direction: column;
   margin-left: var(--gap);
-  padding: calc(var(--gap) / 2);
+}
+div#intro > div#right_widget > div#main_image_container {
+  background-color: var(--GREY02);
+  padding: 24px 32px;
+  border-radius: 20px 20px 0 0;
+}
+div#intro > div#right_widget > div#main_image_container > img {
+  width: 478px;
+}
+div#intro > div#right_widget > div#news {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 32px;
+  line-height: 32px;
   position: relative;
-  border-radius: 20px;
 }
-div#intro_container > div#news > div.date {
-  color: #5f5f5f;
-  font-size: 15px;
-}
-div#intro_container > div#news > div.title {
+div#intro > div#right_widget > div#news > div.title {
+  font-size: 20px;
   font-family: OpenSansBold;
-  font-size: 18px;
-  margin-bottom: 20px;
-  line-height: calc(18px * 1.5);
+  line-height: 20px;
+  color: var(--GREY8);
+  margin-bottom: unset;
+}
+div#intro > div#right_widget > div#news > div.date {
+  color: var(--GREY5);
+}
+div#intro > div#right_widget > div#news > div.date.mb {
   margin-bottom: 15px;
 }
-div#intro_container > div#news > div.radios {
-  margin: auto auto 0 auto;
+div#intro > div#right_widget > div#news > div.content {
+  font-size: 20px;
 }
-div#intro_container > div#news > div.radios > .radio {
+div#intro > div#right_widget > div#radios {
+  margin: auto auto 32px auto;
+}
+div#intro > div#right_widget > div#radios > .radio {
   border-width: 1px;
   border-color: var(--GREY3);
   border-style: solid;
@@ -264,7 +295,7 @@ div#intro_container > div#news > div.radios > .radio {
   transition: background 100ms;
   width: 15px;
 }
-div#intro_container > div#news > div.radios > .radio[class~=selected] {
+div#intro > div#right_widget > div#radios > .radio[class~=selected] {
   background-color: var(--GREY3);
   border-color: var(--GREY4);
 }
@@ -291,23 +322,22 @@ div#research_snippets_container > div#research_snippets > div.snippet {
   width: var(--snippetWidth);
   cursor: pointer;
 }
+div#research_snippets_container > div#research_snippets > div.snippet:hover > img, div#research_snippets_container > div#research_snippets > div.snippet:hover > div {
+  transform: translateY(-4px);
+}
 div#research_snippets_container > div#research_snippets > div.snippet:hover > img {
-  margin-top: -4px;
-  box-shadow: 0px 5px 6px 0px var(--GREY4);
+  box-shadow: 0 2px 10px 2px var(--GREY4);
+}
+div#research_snippets_container > div#research_snippets > div.snippet > img, div#research_snippets_container > div#research_snippets > div.snippet > div {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 div#research_snippets_container > div#research_snippets > div.snippet > img {
-  transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   width: inherit;
   border-radius: 20px;
 }
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
   margin-top: 8px;
-}
-@media screen and (max-width: 1340px) {
-  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
-    font-size: 14px;
-  }
 }
 
 div#logos > img {

@@ -1,13 +1,18 @@
 const HomePage = () => {
-    const newsElem = elem({
-        query: '#news', children: {
-            date: '.date',
-            title: '.title',
-            content: '.content',
-            radios: '.radios'
+    const rightWidget = elem({
+        query: '#right_widget', children: {
+            mainImageContainer: '#main_image_container',
+            news: {
+                '#news': {
+                    title: '.title',
+                    date: '.date',
+                    content: '.content'
+                }
+            },
+            radios: '#radios',
         }
     });
-    const newsChildren = newsElem.children().map(c => c.e);
+    const newsChildren = rightWidget.news.children().map(c => c.e);
     class NewsData {
         constructor() {
             this._userPressed = false;
@@ -41,19 +46,25 @@ const HomePage = () => {
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, { opacity: 0 });
             await wait(25);
-            for (let [text, link] of enumerate(selectedItem.links)) {
-                selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
+            if (!selectedItem.content.includes('<a href')) {
+                for (let [text, link] of enumerate(selectedItem.links)) {
+                    selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
+                }
             }
-            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
-            newsElem.title.text(selectedItem.title);
-            newsElem.content.html(selectedItem.content);
+            if (bool(selectedItem.date))
+                rightWidget.news.date.text(selectedItem.date).toggleClass('mb', false);
+            else
+                rightWidget.news.date.text('').toggleClass('mb', true);
+            rightWidget.news.title.text(selectedItem.title);
+            rightWidget.news.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
         }
         startAutoSwitch() {
-            if (this._userPressed)
+            if (this._userPressed) {
                 return;
+            }
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -69,25 +80,30 @@ const HomePage = () => {
         }
     }
     async function init() {
-        newsElem.mouseover(() => newsData.stopAutoSwitch());
-        newsElem.mouseout(() => newsData.startAutoSwitch());
+        rightWidget.mouseover(() => {
+            return newsData.stopAutoSwitch();
+        });
+        rightWidget.mouseout(() => {
+            return newsData.startAutoSwitch();
+        });
         const data = await fetchJson('main/home/home.json', "no-cache");
-        const introText = elem({ query: "#non_news > .intro-text" });
-        for (let [i, p] of Object.entries(data["intro-text"])) {
+        const aboutText = elem({ query: "#about > .about-text" });
+        for (let [i, p] of Object.entries(data["about-text"])) {
             let cls = undefined;
             if (i == 0)
                 cls = 'subtitle';
-            introText.append(elem({ tag: 'p', text: p, cls }));
+            aboutText.append(elem({ tag: 'p', text: p, cls }));
         }
         const newsData = new NewsData();
         let i = 0;
+        const radios = elem({ id: 'radios' });
         for (let [title, { date, content, links }] of dict(data.news).items()) {
             let item = { title, date, content, links, radio: div({ cls: 'radio' }), index: i };
             newsData.push(item);
             if (i === 0) {
                 newsData.switchTo(item);
             }
-            newsElem.radios.append(newsData[i].radio);
+            radios.append(newsData[i].radio);
             i++;
         }
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));

@@ -76,7 +76,17 @@ const navbar = new Navbar({
         tau: '.tau',
     }
 });
-
+_Window.on({
+    scroll: (event: Event) => {
+        if (window.scrollY > 0) {
+            navbar.removeClass('box-shadow')
+        } else {
+            navbar.addClass('box-shadow')
+            
+        }
+        
+    }
+});
 
 interface Separators extends BetterHTMLElement {
     right: BetterHTMLElement,

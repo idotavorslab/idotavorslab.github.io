@@ -1,5 +1,5 @@
-
-div#intro_container
+// ***  intro
+div#intro
 
 	display: flex
 	margin:
@@ -7,8 +7,8 @@ div#intro_container
 	position: relative
 	text-align: left
 
-
-	& > div#non_news
+	// **  about
+	& > div#about
 		text-align: left
 		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
 		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
@@ -27,41 +27,68 @@ div#intro_container
 
 		& > div.title
 			@include titleMixin(36px)
+			color: var(--GREY8)
 			letter-spacing: -0.5px
 
-		& > div.intro-text
+		& > div.about-text
 			font-size: 20px
 			line-height: 32px
 
 			& > p.subtitle
 				font-family: OpenSansBold
 
-	& > div#news
+	// **  right_widget
+	& > div#right_widget
+		width: 550px
+		height: 600px
+		$borderRadius: 20px
 		$dim: 15px
-		//@include borderMixin(var(--GREY2))
-		box-shadow: 0 2px 10px 2px var(--GREY2)
-		//background-color: var(--GREY01)
+		$padding: 24px 32px
+		border-radius: $borderRadius
+		box-shadow: 0 2px 10px 2px var(--GREY02)
 		display: flex
 		flex-direction: column
 		margin:
 			left: var(--gap)
-		// [min-width: $BP1]:   30px
-		// [max-width: $BP1]:   20px
-		padding: calc(var(--gap) / 2)
-		position: relative
-		// same as snippets radius
-		border-radius: 20px
 
-		& > div.date
-			color: rgb(95, 95, 95)
-			font-size: $dim
+		& > div#main_image_container
+			background-color: var(--GREY02)
+			padding: $padding
+			border-radius: $borderRadius $borderRadius 0 0
 
-		& > div.title
-			@include titleMixin(18px)
-			margin-bottom: $dim
+			& > img
+				width: 478px
 
-		& > div.radios
-			margin: auto auto 0 auto
+		& > div#news
+
+
+			display: flex
+			flex-direction: column
+			padding: $padding
+			line-height: 32px
+			position: relative
+
+
+			& > div.title
+				font-size: 20px
+				font-family: OpenSansBold
+				line-height: 20px
+				color: var(--GREY8)
+				margin-bottom: unset
+
+			& > div.date
+				color: var(--GREY5)
+
+				&.mb
+					margin-bottom: $dim
+
+
+			& > div.content
+				font-size: 20px
+
+
+		& > div#radios
+			margin: auto auto 32px auto
 
 			& > .radio
 				@include borderMixin(var(--GREY3), null)
@@ -87,6 +114,7 @@ div#intro_container
 					border-color: var(--GREY4)
 
 
+// ***  research_snippets_container
 div#research_snippets_container
 	text-align: left
 	margin-bottom: var(--marginVertical)
@@ -112,13 +140,17 @@ div#research_snippets_container
 			cursor: pointer
 
 			&:hover
+				& > img, & > div
+					transform: translateY(-4px)
+
 				& > img
-					margin-top: -4px
-					box-shadow: 0px 5px 6px 0px var(--GREY4)
+					box-shadow: 0 2px 10px 2px var(--GREY4)
+
+
+			& > img, & > div
+				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
 
 			& > img
-				transition: margin-top 0.2s ease-in-out, box-shadow 0.2s ease-in-out
-				//transition: margin-top 0.2s, box-shadow 0.2s
 				width: inherit
 				// same as news radius
 				border-radius: 20px
@@ -126,10 +158,8 @@ div#research_snippets_container
 			& > div.snippet-title
 				font-family: OpenSansSemiBold
 				margin-top: 8px
-				@include max-width($BP1)
-					font-size: 14px
 
-
+// ***  logos
 div#logos
 	//margin: calc(var(--GAP0) / 2) auto
 	//display: inline-block
