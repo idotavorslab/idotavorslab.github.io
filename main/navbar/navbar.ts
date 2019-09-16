@@ -22,6 +22,8 @@ class Navbar extends BetterHTMLElement {
                 let href = k === "home" ? '' : `#${k}`;
                 console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
                 elem({tag: 'a'}).attr({href}).click();
+                
+                // routeNew(k);
             })
         }
     }
@@ -83,6 +85,19 @@ function getPageObj(key: Page): typeof ResearchPage {
     }
 }
 
+/*function routeNew(url: string) {
+    const split = url.split(window.location.href);
+    console.log('split:', split);
+    if (split[0].includes('home')) {
+        elem({tag: 'a'}).attr({href: ``}).click();
+    } else if (split[0] === "") {
+        HomePage().init();
+    } else {
+        elem({tag: 'a'}).attr({href: `#${split}`}).click();
+    }
+}
+*/
+
 function route(url: Page) {
     console.log(`route("${url}")`);
     if (bool(url)) {
@@ -111,10 +126,11 @@ WindowElem.on({
     },
     hashchange: (event: HashChangeEvent) => {
         // called on navbar click, backbutton click
+        // routeNew(event.newURL);
         const newURL = event.newURL.replace(window.location.origin, "").slice(1).replace('#', '');
-        console.log('hash change', event, '\nnewURL:', newURL);
+        console.log('hash change, event.newURL:', event.newURL, '\nnewURL:', newURL);
         if (!bool(newURL)) {
-            // this prevents the user pressing back to homepage, then route calls HomePage().init() instead of reloading
+            // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
             elem({tag: 'a'}).attr({href: ``}).click()
         } else {
             route(newURL);
@@ -124,8 +140,9 @@ WindowElem.on({
     }
 });
 let lastPage = window.location.hash.slice(1);
-console.log(`document root, calling route("${lastPage}")`);
+console.log(`document root, window.location: ${window.location}\ncalling route("${lastPage}")`);
 route(lastPage);
+// routeNew(`${window.location}`);
 
 /*interface Separators extends BetterHTMLElement {
     right: BetterHTMLElement,

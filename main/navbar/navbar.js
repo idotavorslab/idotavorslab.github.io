@@ -67,7 +67,7 @@ WindowElem.on({
     },
     hashchange: (event) => {
         const newURL = event.newURL.replace(window.location.origin, "").slice(1).replace('#', '');
-        console.log('hash change', event, '\nnewURL:', newURL);
+        console.log('hash change, event.newURL:', event.newURL, '\nnewURL:', newURL);
         if (!bool(newURL)) {
             elem({ tag: 'a' }).attr({ href: `` }).click();
         }
@@ -77,6 +77,6 @@ WindowElem.on({
     }
 });
 let lastPage = window.location.hash.slice(1);
-console.log(`document root, calling route("${lastPage}")`);
+console.log(`document root, window.location: ${window.location}\ncalling route("${lastPage}")`);
 route(lastPage);
 //# sourceMappingURL=navbar.js.map
