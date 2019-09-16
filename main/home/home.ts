@@ -1,13 +1,16 @@
 const HomePage = () => {
     type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number };
-    type TNewsElem = BetterHTMLElement & { date: Div, title: Div, content: Div, radios: Div };
+    type TNewsElem = BetterHTMLElement & {
+        date: Div, title: Div, content: Div,
+        // radios: Div
+    };
     /** The single #news>date,title,content,radios html to show selected news */
     const newsElem: TNewsElem = <TNewsElem>elem({
         query: '#news', children: {
             date: '.date',
             title: '.title',
             content: '.content',
-            radios: '.radios'
+            // radios: '.radios'
         }
     });
     const newsChildren: HTMLElement[] = newsElem.children().map(c => c.e);
@@ -61,7 +64,7 @@ const HomePage = () => {
             for (let [text, link] of enumerate(selectedItem.links)) {
                 selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`)
             }
-            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
+            newsElem.date.text(bool(selectedItem.date) ? selectedItem.date : '');
             newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
@@ -101,7 +104,7 @@ const HomePage = () => {
         
         const data = await fetchJson('main/home/home.json', "no-cache");
         const introText = elem({query: "#non_news > .intro-text"});
-        for (let [i, p] of Object.entries(data["intro-text"])) {
+        for (let [i, p] of <[number, string][]><unknown>Object.entries(data["intro-text"])) {
             let cls = undefined;
             if (i == 0)
                 cls = 'subtitle';
@@ -120,7 +123,8 @@ const HomePage = () => {
                 newsData.switchTo(item);
             }
             
-            newsElem.radios.append(newsData[i].radio);
+            // newsElem.radios.append(newsData[i].radio);
+            elem({id: 'radios'}).append(newsData[i].radio);
             i++;
             
         }
@@ -138,6 +142,7 @@ const HomePage = () => {
                         div({cls: 'snippet-title', text: title})
                     )
                     .pointerdown((event) => {
+                        // @ts-ignore
                         ResearchPage().init(i);
                     })
             )

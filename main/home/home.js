@@ -4,7 +4,6 @@ const HomePage = () => {
             date: '.date',
             title: '.title',
             content: '.content',
-            radios: '.radios'
         }
     });
     const newsChildren = newsElem.children().map(c => c.e);
@@ -44,7 +43,7 @@ const HomePage = () => {
             for (let [text, link] of enumerate(selectedItem.links)) {
                 selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`);
             }
-            newsElem.date.text(bool(selectedItem.date) ? `${selectedItem.date}:` : '');
+            newsElem.date.text(bool(selectedItem.date) ? selectedItem.date : '');
             newsElem.title.text(selectedItem.title);
             newsElem.content.html(selectedItem.content);
             selectedItem.radio.toggleClass('selected');
@@ -87,7 +86,7 @@ const HomePage = () => {
             if (i === 0) {
                 newsData.switchTo(item);
             }
-            newsElem.radios.append(newsData[i].radio);
+            elem({ id: 'radios' }).append(newsData[i].radio);
             i++;
         }
         const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
