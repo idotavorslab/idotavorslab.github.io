@@ -686,6 +686,7 @@ div#img_viewer > img {
   max-height: var(--localHeight);
 }
 div#img_viewer > div#caption {
+  text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
   position: fixed;
   font-size: 24px;
   color: white;
