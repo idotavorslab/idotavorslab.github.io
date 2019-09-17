@@ -33,6 +33,7 @@ const PeoplePage = () => {
                 
             }
             
+            // @ts-ignore
             focus(): Person {
                 return this.removeClass('unfocused');
             }
@@ -323,14 +324,8 @@ const PeoplePage = () => {
                             expando.toggle(expando.owner.group[expando.owner.group.length - 1]);
                         else
                             expando.toggle(prevPerson);
-                        // expando.toggle(prevPerson);
                     }
-                    /*let selectedIndex = files.indexOf(selectedFile);
-                    if (event.key === "ArrowLeft")
-                        return switchToImg(getLeftIndex(selectedIndex));
-                    else if (event.key === "ArrowRight")
-                        return switchToImg(getRightIndex(selectedIndex));
-                    */
+                    
                     
                 }
             });
@@ -341,4 +336,3 @@ const PeoplePage = () => {
     
     return {init}
 };
-// PeoplePage().init();

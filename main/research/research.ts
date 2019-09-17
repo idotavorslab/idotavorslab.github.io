@@ -52,4 +52,3 @@ const ResearchPage = () => {
     
     return {init}
 };
-// ResearchPage().init();

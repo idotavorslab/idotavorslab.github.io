@@ -58,7 +58,7 @@ const GalleryPage = () => {
         function closeImgViewer() {
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
-            navbar.css({opacity: 1});
+            Navbar.css({opacity: 1});
             imgViewer
                 .toggleClass('on', false);
             imgViewerClose.toggleClass('on', false);
@@ -87,7 +87,7 @@ const GalleryPage = () => {
             imgViewer.caption.text(description);
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
-            navbar.css({opacity: 0});
+            Navbar.css({opacity: 0});
             
             /*}).on({
                 load: () => console.log(`load: ${file}`)
@@ -209,7 +209,7 @@ const GalleryPage = () => {
                 )
         ).pointerdown(closeImgViewer);
         
-        
+        Footer.remove();
         Home.empty().append(imagesContainer, imgViewer, imgViewerClose);
         
         
@@ -218,4 +218,3 @@ const GalleryPage = () => {
     return {init}
 };
 
-// GalleryPage().init();

@@ -280,7 +280,6 @@ const HomePage = () => {
     
     return {init}
 };
-// HomePage().init();
 
 
 
