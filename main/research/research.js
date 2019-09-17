@@ -5,12 +5,11 @@ const ResearchPage = () => {
         const articles = [];
         let emptied = false;
         for (let [title, { image, text }] of dict(data).items()) {
-            let article = div({ cls: "article" });
-            article
+            let article = div({ cls: "article" })
                 .cacheAppend({
                 title: elem({ tag: "h1", text: title }),
-                contentFlex: div({ cls: 'content-flex' })
-                    .append(paragraph({ text, cls: "text" }), img({ src: `main/research/${image}` }))
+                text: paragraph({ text, cls: "text" }),
+                img: img({ src: `main/research/${image}` })
             });
             articles.push(article);
             if (!emptied) {

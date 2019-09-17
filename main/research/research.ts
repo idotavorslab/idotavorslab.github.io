@@ -1,7 +1,6 @@
 const ResearchPage = () => {
     interface Article extends Div {
         title: Div;
-        contentFlex: Div;
     }
     
     async function init(selectedIndex?: number) {
@@ -11,20 +10,11 @@ const ResearchPage = () => {
         const articles: Article[] = [];
         let emptied = false;
         for (let [title, {image, text}] of dict(data).items()) {
-            let article = div({cls: "article"});
-            article
+            let article = div({cls: "article"})
                 .cacheAppend({
-                    // title: div({text: title, cls: "title"}),
                     title: elem({tag: "h1", text: title}),
-                    contentFlex: div({cls: 'content-flex'})
-                        .append(
-                            paragraph({text, cls: "text"}),
-                            img({src: `main/research/${image}`})
-                            // div({cls: "background"}).css({
-                            //     backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),
-                            //             url("main/research/${image}")`
-                            // })
-                        )
+                    text: paragraph({text, cls: "text"}),
+                    img: img({src: `main/research/${image}`})
                     
                 });
             articles.push(article as Article);
