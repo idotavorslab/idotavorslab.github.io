@@ -366,7 +366,7 @@ div#home > div.article > img {
   grid-row: 2/2;
 }
 div#home > div.article > img.circle {
-  --dim: 400px;
+  --dim: 440px;
   border-radius: 50%;
   object-fit: cover;
   width: var(--dim);
