@@ -35,11 +35,14 @@
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
-		"file": "08.jpeg"
+		"file": "08.jpeg",
+		"brightness": 1.2
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
-		"file": "09.jpeg"
+		"file": "09.jpeg",
+		"contrast": 1.1,
+		"brightness": 1.2
 	},
 	{
 		"caption": "Keyboards cleaning day",
@@ -51,7 +54,9 @@
 	},
 	{
 		"caption": "Happy birthday to Inbar!",
-		"file": "12.jpeg"
+		"file": "12.jpeg",
+		"contrast": 1.05,
+		"brightness": 1.1
 	},
 	{
 		"caption": "MRIing :)",
@@ -95,7 +100,8 @@
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "23.jpg"
+		"file": "23.jpg",
+		"brightness": 1.15
 	},
 	{
 		"caption": "OHBM 2019 Rome",

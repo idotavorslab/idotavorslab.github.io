@@ -3,14 +3,18 @@ const GalleryPage = () => {
         class File {
             constructor() {
                 this._path = null;
-                this.caption = null;
                 this._index = null;
+                this.caption = null;
+                this.contrast = 1;
+                this.brightness = 1;
             }
             set path(_path) {
                 this._path = _path;
                 this._index = files.indexOf(this.path);
-                this.caption = data[this._index].caption;
-                this.contrast = data[this._index].contrast;
+                const { contrast, brightness, caption } = data[this._index];
+                this.caption = caption;
+                this.contrast = contrast || 1;
+                this.brightness = brightness || 1;
             }
             get path() {
                 return this._path;
@@ -48,7 +52,9 @@ const GalleryPage = () => {
 `;
         function switchToImg(_selectedIndex) {
             selectedFile.path = files[_selectedIndex];
-            imgViewer.img.src(`main/gallery/${selectedFile.path}`);
+            imgViewer.img
+                .src(`main/gallery/${selectedFile.path}`)
+                .css({ filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})` });
             imgViewer.caption.text(selectedFile.caption);
         }
         async function gotoAdjImg(event) {
@@ -81,8 +87,8 @@ const GalleryPage = () => {
                 .img
                 .src(`main/gallery/${selectedFile.path}`)
                 .css({ filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})` });
-            imgViewer.isopen = true;
             imgViewer.caption.text(selectedFile.caption);
+            imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             Navbar.css({ opacity: 0 });
@@ -114,7 +120,7 @@ const GalleryPage = () => {
                 selectedFile.path = file;
                 return toggleImgViewer(selectedFile);
             })
-                .css({ filter: `contrast(${contrast}) brightness(${brightness})` });
+                .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             switch (parseInt(i) % 4) {
                 case 0:
                     row0.append(image);

@@ -5,8 +5,10 @@ const GalleryPage = () => {
     async function init() {
         class File {
             private _path: string = null;
-            caption: string = null;
             private _index: number = null;
+            caption: string = null;
+            contrast: number = 1;
+            brightness: number = 1;
             
             constructor() {
             }
@@ -14,8 +16,11 @@ const GalleryPage = () => {
             set path(_path: string) {
                 this._path = _path;
                 this._index = files.indexOf(this.path);
-                this.caption = data[this._index].caption;
-                this.contrast = data[this._index].contrast;
+                
+                const {contrast, brightness, caption} = data[this._index];
+                this.caption = caption;
+                this.contrast = contrast || 1;
+                this.brightness = brightness || 1;
             }
             
             get path(): string {
@@ -60,7 +65,10 @@ const GalleryPage = () => {
         //**  Functions
         function switchToImg(_selectedIndex: number) {
             selectedFile.path = files[_selectedIndex];
-            imgViewer.img.src(`main/gallery/${selectedFile.path}`);
+            imgViewer.img
+                .src(`main/gallery/${selectedFile.path}`)
+                .css({filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})`});
+            
             imgViewer.caption.text(selectedFile.caption);
         }
         
@@ -106,8 +114,8 @@ const GalleryPage = () => {
                 .img
                 .src(`main/gallery/${selectedFile.path}`)
                 .css({filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})`});
-            imgViewer.isopen = true;
             imgViewer.caption.text(selectedFile.caption);
+            imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             Navbar.css({opacity: 0});
@@ -130,8 +138,8 @@ const GalleryPage = () => {
         
         imgViewer.isopen = false;
         
-        const data = await fetchJson("main/gallery/gallery.json", "default");
-        const files: string[] = data.map(d => d.file);
+        const data: { file: string, contrast: number, brightness: number, caption: string }[] = await fetchJson("main/gallery/gallery.json", "default");
+        const files = data.map(d => d.file);
         
         
         //**  HTML
@@ -142,7 +150,7 @@ const GalleryPage = () => {
         const row2 = div({id: 'row_2'});
         const row3 = div({id: 'row_3'});
         
-        for (let [i, {file, contrast, brightness}] of Object.entries(<TMap<{ file: string, contrast: number, brightness: number }>>data)) {
+        for (let [i, {file, contrast, brightness}] of Object.entries(data)) {
             let src;
             /*if (file.includes('http') || file.includes('www')) {
                 src = file;
@@ -158,7 +166,8 @@ const GalleryPage = () => {
                     // selectedFile.caption = caption;
                     return toggleImgViewer(selectedFile);
                 })
-                .css({filter: `contrast(${contrast}) brightness(${brightness})`});
+                // .css({filter: `contrast(${contrast === undefined ? 1 : contrast}) brightness(${brightness === undefined ? 1 : brightness})`});
+                .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             
             switch (parseInt(i) % 4) {
                 case 0:
