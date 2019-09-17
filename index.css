@@ -401,7 +401,7 @@ div#home > div.article > div.content-container > div.background {
   float: right;
 }
 
-div#home div.separator {
+div#home > div.separator {
   background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0) 20%);
   height: 1px;
   margin-top: 0;
@@ -418,7 +418,7 @@ div#home > div.title {
   line-height: calc(24px * 1.5);
   text-align: left;
 }
-div#home div#team_grid {
+div#home > div.grid {
   display: grid;
   --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);
   margin-top: 0;
@@ -430,71 +430,45 @@ div#home div#team_grid {
   grid-row-gap: var(--gap);
   grid-column-gap: var(--gap);
 }
-div#home div#team_grid div.person {
+div#home > div.grid div.person {
   margin: auto;
 }
-div#home div#team_grid div.person:nth-of-type(4n+4) {
+div#home > div.grid div.person:nth-of-type(4n+4) {
   margin: 0 0px auto auto;
 }
-div#home div#team_grid div.person:nth-of-type(4n+1) {
+div#home > div.grid div.person:nth-of-type(4n+1) {
   margin: 0 auto auto 0;
 }
 @media screen and (min-width: 1023px) {
-  div#home div#team_grid div.person {
+  div#home > div.grid div.person {
     width: var(--tagWidth);
   }
 }
-div#home div#alumni_grid {
-  display: grid;
-  --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: var(--gap);
-  margin-left: auto;
-  grid-template-columns: repeat(4, var(--tagWidth));
-  grid-template-rows: repeat(2, auto);
-  grid-row-gap: var(--gap);
-  grid-column-gap: var(--gap);
-}
-div#home div#alumni_grid div.person {
-  margin: auto;
-}
-div#home div#alumni_grid div.person:nth-of-type(4n+4) {
-  margin: 0 0px auto auto;
-}
-div#home div#alumni_grid div.person:nth-of-type(4n+1) {
-  margin: 0 auto auto 0;
-}
-@media screen and (min-width: 1023px) {
-  div#home div#alumni_grid div.person {
-    width: var(--tagWidth);
-  }
-}
-div#home div.person {
+div#home > div.grid > div.person {
   cursor: pointer;
   height: 100%;
   transition: opacity 500ms;
 }
-div#home div.person.unfocused {
+div#home > div.grid > div.person.unfocused {
   opacity: 0.4;
   filter: blur(2px) contrast(0.8);
 }
-div#home div.person img {
+div#home > div.grid > div.person > img {
   width: inherit;
   height: calc(var(--tagWidth) / (4 / 3));
 }
-div#home div.person div {
+div#home > div.grid > div.person > div {
   text-transform: capitalize;
 }
-div#home div.person div.name {
+div#home > div.grid > div.person > div.name {
   font-size: large;
   font-family: OpenSansSemiBold;
 }
-div#home div.person div.role {
+div#home > div.grid > div.person > div.role {
   color: var(--GREY6);
   font-family: OpenSansItalic;
 }
-div#home div#person_expando {
+div#home > div.grid > div#person_expando {
   border-width: 1px;
   border-color: var(--GREY02);
   border-style: solid;
@@ -512,11 +486,11 @@ div#home div#person_expando {
   width: calc(var(--tagWidth) - 2 * var(--expandoPadding));
 }
 @media screen and (max-width: 1340px) {
-  div#home div#person_expando {
+  div#home > div.grid > div#person_expando {
     font-size: 15px;
   }
 }
-div#home div#person_expando svg#svg_root {
+div#home > div.grid > div#person_expando > svg#svg_root {
   --dim: calc(var(--gap) / 4);
   cursor: pointer;
   display: block;
@@ -526,38 +500,38 @@ div#home div#person_expando svg#svg_root {
   position: relative;
   width: var(--dim);
 }
-div#home div#person_expando svg#svg_root path {
+div#home > div.grid > div#person_expando > svg#svg_root > path {
   fill: none;
   stroke-width: 1px;
   stroke: var(--GREY6);
 }
-div#home div#person_expando svg#svg_root path.upright {
+div#home > div.grid > div#person_expando > svg#svg_root > path.upright {
   d: path("m 14 1 l -13 13");
 }
-div#home div#person_expando svg#svg_root path.downleft {
+div#home > div.grid > div#person_expando > svg#svg_root > path.downleft {
   d: path("m 1 1 l 13 13");
 }
-div#home div#person_expando a {
+div#home > div.grid > div#person_expando > a {
   color: white;
   transition: color 300ms cubic-bezier(1, 0, 1, 0);
 }
-div#home div#person_expando.collapsed {
+div#home > div.grid > div#person_expando.collapsed {
   padding: 0;
 }
-div#home div#person_expando.expanded {
+div#home > div.grid > div#person_expando.expanded {
   border-color: white;
   box-shadow: 0px 2px 10px var(--GREY3);
   color: var(--GREY7);
-  height: 270px;
+  height: 300px;
   width: calc(var(--tagWidth) * 2);
 }
-div#home div#person_expando.expanded div.email {
+div#home > div.grid > div#person_expando.expanded > div.email {
   margin-top: calc(var(--gap) / 6);
 }
-div#home div#person_expando.expanded div.email a {
+div#home > div.grid > div#person_expando.expanded > div.email > a {
   color: var(--GOOGLEBLUE);
 }
-div#home div#person_expando.expanded div.close {
+div#home > div.grid > div#person_expando.expanded > div.close {
   opacity: 1;
 }
 

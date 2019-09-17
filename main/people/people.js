@@ -178,24 +178,44 @@ const PeoplePage = () => {
         const { team: teamData, alumni: alumniData } = data;
         const team = new People();
         const alumni = new People();
-        function gridFactory({ gridData, gridId, people }) {
+        function gridFactory({ gridData, people }) {
             let index = 0;
             for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
                 let person = new Person(image, name, role, cv, email);
                 people.push(person);
                 index++;
             }
-            const grid = div({ id: gridId }).append(...people);
+            const grid = div({ cls: 'grid' }).append(...people);
             return grid;
         }
-        const teamGrid = gridFactory({ gridData: teamData, gridId: 'team_grid', people: team });
-        const alumniGrid = gridFactory({ gridData: alumniData, gridId: 'alumni_grid', people: alumni });
+        const teamGrid = gridFactory({ gridData: teamData, people: team });
+        const alumniGrid = gridFactory({ gridData: alumniData, people: alumni });
         Home.empty().append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
         DocumentElem
             .pointerdown(() => {
             console.log('DocumentElem pointerdown');
             if (expando.owner !== null)
                 expando.close();
+        })
+            .keydown((event) => {
+            if (event.key === "Escape" && expando.owner !== null)
+                return expando.close();
+            if (event.key.startsWith("Arrow") && expando.owner !== null) {
+                if (event.key === "ArrowRight") {
+                    let nextPerson = expando.owner.group[expando.owner.index + 1];
+                    if (nextPerson === undefined)
+                        expando.toggle(expando.owner.group[0]);
+                    else
+                        expando.toggle(nextPerson);
+                }
+                if (event.key === "ArrowLeft") {
+                    let prevPerson = expando.owner.group[expando.owner.index - 1];
+                    if (prevPerson === undefined)
+                        expando.toggle(expando.owner.group[expando.owner.group.length - 1]);
+                    else
+                        expando.toggle(prevPerson);
+                }
+            }
         });
     }
     return { init };

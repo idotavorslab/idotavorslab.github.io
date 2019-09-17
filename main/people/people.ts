@@ -268,7 +268,7 @@ const PeoplePage = () => {
         const team: People = new People();
         const alumni: People = new People();
         
-        function gridFactory({gridData, gridId, people}): Div {
+        function gridFactory({gridData, people}: { gridData: TMap<any>, people: People }): Div {
             
             let index = 0;
             for (let [name, {image, role, cv, email}] of dict(gridData).items()) {
@@ -276,15 +276,15 @@ const PeoplePage = () => {
                 people.push(person);
                 index++;
             }
-            const grid = div({id: gridId}).append(...people);
+            const grid = div({cls: 'grid'}).append(...people);
             
             
             return grid;
         }
         
         // **  Grids
-        const teamGrid = gridFactory({gridData: teamData, gridId: 'team_grid', people: team});
-        const alumniGrid = gridFactory({gridData: alumniData, gridId: 'alumni_grid', people: alumni});
+        const teamGrid = gridFactory({gridData: teamData, people: team});
+        const alumniGrid = gridFactory({gridData: alumniData, people: alumni});
         
         
         Home.empty().append(
@@ -302,6 +302,37 @@ const PeoplePage = () => {
                 console.log('DocumentElem pointerdown');
                 if (expando.owner !== null)
                     expando.close()
+            })
+            .keydown((event: KeyboardEvent) => {
+                
+                
+                if (event.key === "Escape" && expando.owner !== null)
+                    return expando.close();
+                
+                if (event.key.startsWith("Arrow") && expando.owner !== null) {
+                    if (event.key === "ArrowRight") {
+                        let nextPerson = expando.owner.group[expando.owner.index + 1];
+                        if (nextPerson === undefined)
+                            expando.toggle(expando.owner.group[0]);
+                        else
+                            expando.toggle(nextPerson);
+                    }
+                    if (event.key === "ArrowLeft") {
+                        let prevPerson = expando.owner.group[expando.owner.index - 1];
+                        if (prevPerson === undefined)
+                            expando.toggle(expando.owner.group[expando.owner.group.length - 1]);
+                        else
+                            expando.toggle(prevPerson);
+                        // expando.toggle(prevPerson);
+                    }
+                    /*let selectedIndex = files.indexOf(selectedFile);
+                    if (event.key === "ArrowLeft")
+                        return switchToImg(getLeftIndex(selectedIndex));
+                    else if (event.key === "ArrowRight")
+                        return switchToImg(getRightIndex(selectedIndex));
+                    */
+                    
+                }
             });
         
         
