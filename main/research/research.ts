@@ -14,7 +14,8 @@ const ResearchPage = () => {
             let article = div({cls: "article"});
             article
                 .cacheAppend({
-                    title: div({text: title, cls: "title"}),
+                    // title: div({text: title, cls: "title"}),
+                    title: elem({tag: "h1", text: title}),
                     contentContainer: div({cls: 'content-container'})
                         .append(
                             div({text: content, cls: "content"}),

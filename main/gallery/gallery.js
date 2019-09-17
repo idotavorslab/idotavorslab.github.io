@@ -18,6 +18,12 @@ const GalleryPage = () => {
 
 </svg>
 `;
+        class File {
+            constructor() {
+                this.path = null;
+                this.caption = null;
+            }
+        }
         function switchToImg(selectedIndex) {
             selectedFile = files[selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile}`);
@@ -55,7 +61,7 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
-        function toggleImgViewer(event, file, description) {
+        function toggleImgViewer(event, file, caption) {
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             event.stopPropagation();
             if (imgViewer.isopen)
@@ -66,7 +72,7 @@ const GalleryPage = () => {
                 .toggleClass('on', true)
                 .img.src(`main/gallery/${selectedFile}`);
             imgViewer.isopen = true;
-            imgViewer.caption.text(description);
+            imgViewer.caption.text(caption);
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             Navbar.css({ opacity: 0 });
@@ -84,15 +90,15 @@ const GalleryPage = () => {
         imgViewer.isopen = false;
         const data = await fetchJson("main/gallery/gallery.json", "default");
         const files = data.map(d => d.file);
-        let selectedFile = null;
+        let selectedFile = new File();
         const row0 = div({ id: 'row_0' });
         const row1 = div({ id: 'row_1' });
         const row2 = div({ id: 'row_2' });
         const row3 = div({ id: 'row_3' });
-        for (let [i, { description, file }] of Object.entries(data)) {
+        for (let [i, { caption, file }] of Object.entries(data)) {
             let src;
             src = `main/gallery/${file}`;
-            let image = img({ src }).pointerdown((event) => toggleImgViewer(event, file, description));
+            let image = img({ src }).pointerdown((event) => toggleImgViewer(event, file, caption));
             switch (parseInt(i) % 4) {
                 case 0:
                     row0.append(image);

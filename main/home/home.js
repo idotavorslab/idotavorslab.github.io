@@ -80,12 +80,8 @@ const HomePage = () => {
         }
     }
     async function init() {
-        rightWidget.mouseover(() => {
-            return newsData.stopAutoSwitch();
-        });
-        rightWidget.mouseout(() => {
-            return newsData.startAutoSwitch();
-        });
+        rightWidget.mouseover(() => newsData.stopAutoSwitch());
+        rightWidget.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
         const aboutText = elem({ query: "#about > .about-text" });
         for (let [i, p] of Object.entries(data["about-text"])) {

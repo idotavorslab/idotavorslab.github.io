@@ -117,12 +117,8 @@ const HomePage = () => {
     
     async function init() {
         
-        rightWidget.mouseover(() => {
-            return newsData.stopAutoSwitch();
-        });
-        rightWidget.mouseout(() => {
-            return newsData.startAutoSwitch();
-        });
+        rightWidget.mouseover(() => newsData.stopAutoSwitch());
+        rightWidget.mouseout(() => newsData.startAutoSwitch());
         
         // ***  About
         const data = await fetchJson('main/home/home.json', "no-cache");

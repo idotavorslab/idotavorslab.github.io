@@ -77,6 +77,17 @@ body.theater {
   background-color: var(--GREY8);
 }
 
+h1 {
+  text-align: left;
+  margin: unset;
+  font-family: OpenSansBold;
+  font-size: 36px;
+  margin-bottom: 20px;
+  line-height: calc(36px * 1.5);
+  color: var(--GREY8);
+  letter-spacing: -0.5px;
+}
+
 a {
   text-decoration: none;
   color: var(--GOOGLEBLUE);
@@ -222,14 +233,6 @@ div#intro > div#about > img {
 }
 div#intro > div#about > div {
   position: relative;
-}
-div#intro > div#about > div.title {
-  font-family: OpenSansBold;
-  font-size: 36px;
-  margin-bottom: 20px;
-  line-height: calc(36px * 1.5);
-  color: var(--GREY8);
-  letter-spacing: -0.5px;
 }
 div#intro > div#about > div.about-text {
   font-size: 20px;

@@ -8,7 +8,7 @@ const ResearchPage = () => {
             let article = div({ cls: "article" });
             article
                 .cacheAppend({
-                title: div({ text: title, cls: "title" }),
+                title: elem({ tag: "h1", text: title }),
                 contentContainer: div({ cls: 'content-container' })
                     .append(div({ text: content, cls: "content" }), div({ cls: "background" }).css({
                     backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),

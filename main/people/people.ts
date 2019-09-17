@@ -289,11 +289,13 @@ const PeoplePage = () => {
         
         
         Home.empty().append(
-            div({cls: 'title', text: 'Team'}),
-            div({cls: 'separator'}),
+            // div({cls: 'title', text: 'Team'}),
+            // div({cls: 'separator'}),
+            elem({tag: 'h1', text: 'Team'}),
             teamGrid,
-            div({cls: 'title', text: 'Alumni'}),
-            div({cls: 'separator'}),
+            // div({cls: 'title', text: 'Alumni'}),
+            // div({cls: 'separator'}),
+            elem({tag: 'h1', text: 'Alumni'}),
             alumniGrid
         );
         

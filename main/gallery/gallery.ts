@@ -21,6 +21,14 @@ const GalleryPage = () => {
 </svg>
 `;
         
+        class File {
+            path: string = null;
+            caption: string = null;
+            
+            constructor() {
+            }
+        }
+        
         //**  Functions
         function switchToImg(selectedIndex: number) {
             selectedFile = files[selectedIndex];
@@ -65,7 +73,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
-        function toggleImgViewer(event: Event, file, description: string) {
+        function toggleImgViewer(event: Event, file, caption: string) {
             // if open: clicked on other images in the bg. if closed: open imgViewer
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             event.stopPropagation();
@@ -78,13 +86,13 @@ const GalleryPage = () => {
             }
             */
             selectedFile = file;
-            // selectedCaption = description;
+            // selectedCaption = caption;
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
                 .img.src(`main/gallery/${selectedFile}`);
             imgViewer.isopen = true;
-            imgViewer.caption.text(description);
+            imgViewer.caption.text(caption);
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             Navbar.css({opacity: 0});
@@ -111,22 +119,22 @@ const GalleryPage = () => {
         
         const data = await fetchJson("main/gallery/gallery.json", "default");
         const files = data.map(d => d.file);
-        // console.log('GalleryPage data', data);
         
         
         //**  HTML
         // const images: Img[] = [];
-        let selectedFile: string = null;
+        // let selectedFile: string = null;
+        let selectedFile = new File();
         const row0 = div({id: 'row_0'});
         const row1 = div({id: 'row_1'});
         const row2 = div({id: 'row_2'});
         const row3 = div({id: 'row_3'});
         
-        for (let [i, {description, file}] of Object.entries(<TMap<{ description: string, file: string }>>data)) {
-            // console.log({i, description, file});
+        for (let [i, {caption, file}] of Object.entries(<TMap<{ caption: string, file: string }>>data)) {
+            // console.log({i, caption, file});
             /*let imgContainer = div({cls: 'img-container'})
                 .append(
-                    // div({cls: 'tooltip', text: description}),
+                    // div({cls: 'tooltip', text: caption}),
                     img({src: `main/gallery/${file}`})
                 ).pointerdown((event: Event) => {
                     // if open: clicked on other images in the bg. if closed: open imgViewer
@@ -154,7 +162,7 @@ const GalleryPage = () => {
             }
             */
             src = `main/gallery/${file}`;
-            let image: Img = img({src}).pointerdown((event: Event) => toggleImgViewer(event, file, description));
+            let image: Img = img({src}).pointerdown((event: Event) => toggleImgViewer(event, file, caption));
             
             // images.push(image);
             switch (parseInt(i) % 4) {
@@ -184,7 +192,6 @@ const GalleryPage = () => {
                 closeImgViewer();
             })
             .keydown((event: KeyboardEvent) => {
-                // console.log(`keydown, event.code: ${event.code}, event.key: ${event.key}`);
                 if (!imgViewer.isopen)
                     return;
                 

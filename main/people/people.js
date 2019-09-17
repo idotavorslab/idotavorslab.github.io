@@ -190,7 +190,7 @@ const PeoplePage = () => {
         }
         const teamGrid = gridFactory({ gridData: teamData, people: team });
         const alumniGrid = gridFactory({ gridData: alumniData, people: alumni });
-        Home.empty().append(div({ cls: 'title', text: 'Team' }), div({ cls: 'separator' }), teamGrid, div({ cls: 'title', text: 'Alumni' }), div({ cls: 'separator' }), alumniGrid);
+        Home.empty().append(elem({ tag: 'h1', text: 'Team' }), teamGrid, elem({ tag: 'h1', text: 'Alumni' }), alumniGrid);
         DocumentElem
             .pointerdown(() => {
             console.log('DocumentElem pointerdown');
