@@ -102,7 +102,7 @@ const GalleryPage = () => {
         const row1 = div({ id: 'row_1' });
         const row2 = div({ id: 'row_2' });
         const row3 = div({ id: 'row_3' });
-        for (let [i, { caption, file }] of Object.entries(data)) {
+        for (let [i, { file }] of Object.entries(data)) {
             let src;
             src = `main/gallery/${file}`;
             let image = img({ src }).pointerdown((event) => {

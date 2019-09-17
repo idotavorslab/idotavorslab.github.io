@@ -139,7 +139,7 @@ const GalleryPage = () => {
         const row2 = div({id: 'row_2'});
         const row3 = div({id: 'row_3'});
         
-        for (let [i, {caption, file}] of Object.entries(<TMap<{ caption: string, file: string }>>data)) {
+        for (let [i, {file}] of Object.entries(<TMap<{ file: string }>>data)) {
             let src;
             /*if (file.includes('http') || file.includes('www')) {
                 src = file;

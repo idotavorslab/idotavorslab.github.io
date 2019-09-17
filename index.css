@@ -689,7 +689,7 @@ div#img_viewer > div#caption {
   position: fixed;
   font-size: 24px;
   color: white;
-  top: 51%;
+  top: 52%;
   margin-top: calc(var(--localHeight) / 2);
   width: inherit;
 }
@@ -705,16 +705,16 @@ div#img_viewer > div#right_chevron, div#img_viewer > div#left_chevron {
 div#img_viewer > div#right_chevron:hover, div#img_viewer > div#left_chevron:hover {
   opacity: 1;
 }
-div#img_viewer > div#right_chevron[class=right], div#img_viewer > div#left_chevron[class=right] {
+div#img_viewer > div#right_chevron.right, div#img_viewer > div#left_chevron.right {
   margin: auto;
 }
-div#img_viewer > div#right_chevron[class=right]:active > svg, div#img_viewer > div#left_chevron[class=right]:active > svg {
+div#img_viewer > div#right_chevron.right:active > svg, div#img_viewer > div#left_chevron.right:active > svg {
   transform: translateX(4px);
 }
-div#img_viewer > div#right_chevron[class=left]:active > svg, div#img_viewer > div#left_chevron[class=left]:active > svg {
+div#img_viewer > div#right_chevron.left:active > svg, div#img_viewer > div#left_chevron.left:active > svg {
   transform: rotate(180deg) translateX(4px);
 }
-div#img_viewer > div#right_chevron[class=left] > svg, div#img_viewer > div#left_chevron[class=left] > svg {
+div#img_viewer > div#right_chevron.left > svg, div#img_viewer > div#left_chevron.left > svg {
   transform: rotate(180deg);
 }
 
