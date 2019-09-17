@@ -11,10 +11,13 @@ const Routing = (() => {
                 return GalleryPage;
         }
     }
+    function pageStrings() {
+        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
+    }
     function route(url) {
         console.log(`route("${url}")`);
         if (bool(url)) {
-            if (["research", "people", "publications", "gallery", "contact"].includes(url)) {
+            if (pageStrings().includes(url)) {
                 console.log('\tvalid url, calling pageObj().init()');
                 if (url === "gallery")
                     Footer.attr({ hidden: '' });
@@ -36,6 +39,6 @@ const Routing = (() => {
     let lastPage = window.location.hash.slice(1);
     console.log(`document root, window.location: ${window.location}\ncalling route("${lastPage}")`);
     route(lastPage);
-    return { route };
+    return { route, pageStrings };
 })();
 //# sourceMappingURL=routing.js.map

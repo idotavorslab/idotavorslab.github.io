@@ -29,6 +29,21 @@ const WindowElem = elem({htmlElement: window})
             }
             
             
+        },
+        load: () => {
+            Navbar = new NavbarElem({
+                query: 'div#navbar',
+                children: {
+                    home: '.home',
+                    research: '.research',
+                    people: '.people',
+                    publications: '.publications',
+                    gallery: '.gallery',
+                    neuroanatomy: '.neuroanatomy',
+                    contact: '.contact',
+                    tau: '.tau',
+                }
+            });
         }
     });
 const Footer = elem({id: 'footer'});
@@ -40,6 +55,7 @@ class NavbarElem extends BetterHTMLElement {
     people: Div;
     publications: Div;
     gallery: Div;
+    neuroanatomy: Div;
     contact: Div;
     tau: Img;
     
@@ -51,7 +67,7 @@ class NavbarElem extends BetterHTMLElement {
         //     window.location = window.location.origin;
         // });
         
-        for (let k of <Routing.Page[]>["home", "research", "people", "publications", "gallery", "contact"]) {
+        for (let k of Routing.pageStrings()) {
             this[k].pointerdown(() => {
                 let href = k === "home" ? '' : `#${k}`;
                 console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
@@ -60,6 +76,7 @@ class NavbarElem extends BetterHTMLElement {
                 // routeNew(k);
             })
         }
+        
     }
     
     
@@ -92,7 +109,9 @@ class NavbarElem extends BetterHTMLElement {
     
 }
 
-const Navbar = new NavbarElem({
+let Navbar; // WindowElem.load =>
+
+/*const Navbar = new NavbarElem({
     query: 'div#navbar',
     children: {
         home: '.home',
@@ -104,3 +123,5 @@ const Navbar = new NavbarElem({
         tau: '.tau',
     }
 });
+
+*/
