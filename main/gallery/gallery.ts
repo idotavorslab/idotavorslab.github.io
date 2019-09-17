@@ -1,6 +1,14 @@
 const GalleryPage = () => {
     type ImgViewer = Div & { left: Div, img: Img, right: Div, caption: Div, isopen: boolean };
     
+    class File {
+        path: string = null;
+        caption: string = null;
+        
+        constructor() {
+        }
+    }
+    
     async function init() {
         console.log('GalleryPage init');
         const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -21,18 +29,11 @@ const GalleryPage = () => {
 </svg>
 `;
         
-        class File {
-            path: string = null;
-            caption: string = null;
-            
-            constructor() {
-            }
-        }
         
         //**  Functions
         function switchToImg(selectedIndex: number) {
-            selectedFile = files[selectedIndex];
-            imgViewer.img.src(`main/gallery/${selectedFile}`);
+            selectedFile.path = files[selectedIndex];
+            imgViewer.img.src(`main/gallery/${selectedFile.path}`);
             // imgViewer.caption.text(selectedCaption);
         }
         
@@ -52,7 +53,7 @@ const GalleryPage = () => {
         
         async function gotoAdjImg(event: PointerEvent) {
             event.stopPropagation();
-            let selectedIndex = files.indexOf(selectedFile);
+            let selectedIndex = files.indexOf(selectedFile.path);
             // @ts-ignore
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
@@ -73,7 +74,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
-        function toggleImgViewer(event: Event, file, caption: string) {
+        function toggleImgViewer(event: Event, file: string, caption: string) {
             // if open: clicked on other images in the bg. if closed: open imgViewer
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             event.stopPropagation();
@@ -85,12 +86,12 @@ const GalleryPage = () => {
                 selectedFile = `main/gallery/${file}`;
             }
             */
-            selectedFile = file;
+            selectedFile.path = file;
             // selectedCaption = caption;
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
-                .img.src(`main/gallery/${selectedFile}`);
+                .img.src(`main/gallery/${selectedFile.path}`);
             imgViewer.isopen = true;
             imgViewer.caption.text(caption);
             Body.toggleClass('theater', true);
@@ -118,13 +119,13 @@ const GalleryPage = () => {
         imgViewer.isopen = false;
         
         const data = await fetchJson("main/gallery/gallery.json", "default");
-        const files = data.map(d => d.file);
+        const files: string[] = data.map(d => d.file);
         
         
         //**  HTML
         // const images: Img[] = [];
         // let selectedFile: string = null;
-        let selectedFile = new File();
+        let selectedFile: File = new File();
         const row0 = div({id: 'row_0'});
         const row1 = div({id: 'row_1'});
         const row2 = div({id: 'row_2'});
@@ -199,7 +200,7 @@ const GalleryPage = () => {
                     return closeImgViewer();
                 
                 if (event.key.startsWith("Arrow")) {
-                    let selectedIndex = files.indexOf(selectedFile);
+                    let selectedIndex = files.indexOf(selectedFile.path);
                     if (event.key === "ArrowLeft")
                         return switchToImg(getLeftIndex(selectedIndex));
                     else if (event.key === "ArrowRight")

@@ -1,7 +1,9 @@
 [
 	{
 		"caption": "Before there was lab, there was Seinfeld :)",
-		"file": "00.jpeg"
+		"file": "00.jpeg",
+		"contrast": 1.1,
+		"brightness": 1.25
 	},
 	{
 		"caption": "Another day at the office",

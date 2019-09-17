@@ -1,4 +1,10 @@
 const GalleryPage = () => {
+    class File {
+        constructor() {
+            this.path = null;
+            this.caption = null;
+        }
+    }
     async function init() {
         console.log('GalleryPage init');
         const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -18,15 +24,9 @@ const GalleryPage = () => {
 
 </svg>
 `;
-        class File {
-            constructor() {
-                this.path = null;
-                this.caption = null;
-            }
-        }
         function switchToImg(selectedIndex) {
-            selectedFile = files[selectedIndex];
-            imgViewer.img.src(`main/gallery/${selectedFile}`);
+            selectedFile.path = files[selectedIndex];
+            imgViewer.img.src(`main/gallery/${selectedFile.path}`);
         }
         function getRightIndex(selectedIndex) {
             if (selectedIndex === files.length - 1)
@@ -42,7 +42,7 @@ const GalleryPage = () => {
         }
         async function gotoAdjImg(event) {
             event.stopPropagation();
-            let selectedIndex = files.indexOf(selectedFile);
+            let selectedIndex = files.indexOf(selectedFile.path);
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
                 switchToImg(getLeftIndex(selectedIndex));
@@ -66,11 +66,11 @@ const GalleryPage = () => {
             event.stopPropagation();
             if (imgViewer.isopen)
                 return closeImgViewer();
-            selectedFile = file;
+            selectedFile.path = file;
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
-                .img.src(`main/gallery/${selectedFile}`);
+                .img.src(`main/gallery/${selectedFile.path}`);
             imgViewer.isopen = true;
             imgViewer.caption.text(caption);
             Body.toggleClass('theater', true);
@@ -128,7 +128,7 @@ const GalleryPage = () => {
             if (event.key === "Escape")
                 return closeImgViewer();
             if (event.key.startsWith("Arrow")) {
-                let selectedIndex = files.indexOf(selectedFile);
+                let selectedIndex = files.indexOf(selectedFile.path);
                 if (event.key === "ArrowLeft")
                     return switchToImg(getLeftIndex(selectedIndex));
                 else if (event.key === "ArrowRight")
