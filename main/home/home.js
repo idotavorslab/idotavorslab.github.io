@@ -113,6 +113,7 @@ const HomePage = () => {
                 .append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title }))
                 .pointerdown((event) => {
                 ResearchPage().init(i);
+                history.pushState(null, null, '#research');
             }));
         }
         elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));

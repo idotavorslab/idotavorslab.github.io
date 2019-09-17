@@ -16,6 +16,10 @@ const Routing = (() => {
         if (bool(url)) {
             if (["research", "people", "publications", "gallery", "contact"].includes(url)) {
                 console.log('\tvalid url, calling pageObj().init()');
+                if (url === "gallery")
+                    Footer.attr({ hidden: '' });
+                else
+                    Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
             }
@@ -31,6 +35,6 @@ const Routing = (() => {
     let lastPage = window.location.hash.slice(1);
     console.log(`document root, window.location: ${window.location}\ncalling route("${lastPage}")`);
     route(lastPage);
-    return { getPageObj, route };
+    return { route };
 })();
 //# sourceMappingURL=routing.js.map

@@ -209,7 +209,7 @@ const GalleryPage = () => {
                 )
         ).pointerdown(closeImgViewer);
         
-        Footer.remove();
+        
         Home.empty().append(imagesContainer, imgViewer, imgViewerClose);
         
         

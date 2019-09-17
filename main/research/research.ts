@@ -36,7 +36,7 @@ const ResearchPage = () => {
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
             const howFar = selectedIndex / articles.length;
-            selectedArticle.e.scrollIntoView({behavior: "smooth"});
+            selectedArticle.e.scrollIntoView({behavior: "smooth", block: "center"});
             await wait(howFar * 1000);
             
             selectedArticle.title.addClass('highlighted');

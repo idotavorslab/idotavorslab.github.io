@@ -166,6 +166,7 @@ const HomePage = () => {
                     .pointerdown((event) => {
                         // @ts-ignore
                         ResearchPage().init(i);
+                        history.pushState(null, null, '#research')
                     })
             )
         }

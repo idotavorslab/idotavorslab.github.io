@@ -132,7 +132,6 @@ const GalleryPage = () => {
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
-        Footer.remove();
         Home.empty().append(imagesContainer, imgViewer, imgViewerClose);
     }
     return { init };
