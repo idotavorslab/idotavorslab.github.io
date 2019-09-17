@@ -28,6 +28,7 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
+                Navbar.select(Navbar[url])
             } else { // bad url, reload to homepage
                 elem({tag: 'a'}).attr({href: ``}).click();
             }

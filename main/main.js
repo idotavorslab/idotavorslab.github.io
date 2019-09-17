@@ -35,7 +35,7 @@ class NavbarElem extends BetterHTMLElement {
             });
         }
     }
-    _select(child) {
+    select(child) {
         for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
             k.toggleClass('selected', k === child);
         }

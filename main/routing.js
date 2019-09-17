@@ -22,6 +22,7 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
+                Navbar.select(Navbar[url]);
             }
             else {
                 elem({ tag: 'a' }).attr({ href: `` }).click();

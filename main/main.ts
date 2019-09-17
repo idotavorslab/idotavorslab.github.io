@@ -56,7 +56,7 @@ class NavbarElem extends BetterHTMLElement {
                 let href = k === "home" ? '' : `#${k}`;
                 console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
                 elem({tag: 'a'}).attr({href}).click();
-                
+                // this.select(this[k])
                 // routeNew(k);
             })
         }
@@ -83,7 +83,7 @@ class NavbarElem extends BetterHTMLElement {
     }
     */
     
-    private _select(child: Div) {
+    select(child: Div) {
         for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
             k.toggleClass('selected', k === child);
         }
