@@ -77,6 +77,27 @@ body.theater {
   background-color: var(--GREY8);
 }
 
+h1 {
+  text-align: left;
+  margin: unset;
+  font-family: OpenSansBold;
+  font-size: 36px;
+  margin-bottom: 20px;
+  line-height: calc(36px * 1.5);
+  color: var(--GREY8);
+  letter-spacing: -0.5px;
+}
+
+p {
+  font-size: 20px;
+  line-height: 32px;
+  text-align: left;
+}
+
+p.bold, div.bold, span.bold {
+  font-family: OpenSansBold;
+}
+
 a {
   text-decoration: none;
   color: var(--GOOGLEBLUE);
@@ -87,7 +108,6 @@ a:hover {
 }
 
 div#main {
-  --marginVertical: 40px;
   margin: 0 auto;
   max-width: 100%;
   text-align: center;
@@ -166,28 +186,6 @@ div#main div#navbar > div.selected {
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }
-div#main div.separators {
-  z-index: 5;
-  display: inline-block;
-  margin-top: 70px;
-  margin-right: auto;
-  margin-bottom: calc(var(--marginVertical) - 1px);
-  margin-left: 0;
-}
-div#main div.separators [class~=separator] {
-  position: fixed;
-  height: 1px;
-  width: 50%;
-  transition: background 500ms;
-}
-div#main div.separators [class~=left] {
-  left: 0;
-  background-image: linear-gradient(90deg, var(--TRANS) 0%, rgba(0, 0, 0, 0.1) 10%);
-}
-div#main div.separators [class~=right] {
-  left: 50%;
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%);
-}
 div#main div#home {
   display: block;
   opacity: 1;
@@ -223,23 +221,8 @@ div#intro > div#about > img {
 div#intro > div#about > div {
   position: relative;
 }
-div#intro > div#about > div.title {
-  font-family: OpenSansBold;
-  font-size: 36px;
-  margin-bottom: 20px;
-  line-height: calc(36px * 1.5);
-  color: var(--GREY8);
-  letter-spacing: -0.5px;
-}
-div#intro > div#about > div.about-text {
-  font-size: 20px;
-  line-height: 32px;
-}
-div#intro > div#about > div.about-text > p.subtitle {
-  font-family: OpenSansBold;
-}
 div#intro > div#right_widget {
-  width: 550px;
+  width: 542px;
   height: 600px;
   border-radius: 20px;
   box-shadow: 0 2px 10px 2px var(--GREY02);
@@ -302,7 +285,7 @@ div#intro > div#right_widget > div#radios > .radio[class~=selected] {
 
 div#research_snippets_container {
   text-align: left;
-  margin-bottom: var(--marginVertical);
+  margin-bottom: 40px;
 }
 div#research_snippets_container > div.title {
   font-family: OpenSansBold;
@@ -351,54 +334,53 @@ div#footer > div#logos > img {
 }
 
 div#home > div.article {
-  height: 440px;
-  margin-bottom: var(--gap);
+  display: grid;
+  grid-column-gap: var(--gap);
+  height: auto;
+  margin-bottom: calc(var(--gap) * 2);
   text-align: left;
-  width: 100%;
 }
-div#home > div.article > div.title {
+div#home > div.article > h1 {
   border-bottom: 1px solid var(--TRANS);
-  font-family: OpenSansBold;
-  font-size: 32px;
-  letter-spacing: 0.5px;
-  line-height: 32px;
-  margin-bottom: -10px;
-  padding-bottom: 10px;
-  transition: border-bottom-color 1s;
-  white-space: nowrap;
+  margin-bottom: 18px;
+  padding-bottom: 2px;
+  transition: color 0.6s ease-in-out;
   width: fit-content;
+  grid-column: 1/1;
 }
-div#home > div.article > div.title.highlighted {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: var(--GREY7);
+div#home > div.article > h1.highlighted {
+  color: var(--GOOGLEBLUE);
 }
-div#home > div.article > div.content-container {
-  height: inherit;
-  margin: var(--gap) 0 0 0;
+div#home > div.article[class~=reverse] > h1 {
+  grid-column: 2/2;
 }
-div#home > div.article > div.content-container > div.content {
-  border-radius: 7px;
-  transition: color 700ms ease-in-out;
-  position: absolute;
+div#home > div.article > p.text {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  grid-column: 1/1;
 }
-@media screen and (min-width: 1340px) {
-  div#home > div.article > div.content-container > div.content {
-    width: 50%;
-  }
+div#home > div.article[class~=reverse] > p.text {
+  grid-column: 2/2;
+  grid-row: 2/2;
 }
-@media screen and (max-width: 1340px) {
-  div#home > div.article > div.content-container > div.content {
-    width: 60%;
-  }
+div#home > div.article > img {
+  width: 542px;
+  object-fit: contain;
+  margin: auto;
+  border-radius: 15px;
+  grid-column: 2/2;
+  grid-row: 2/2;
 }
-div#home > div.article > div.content-container > div.background {
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: top right;
-  height: inherit;
-  width: 50%;
-  float: right;
+div#home > div.article > img.circle {
+  --dim: 440px;
+  border-radius: 50%;
+  object-fit: cover;
+  width: var(--dim);
+  height: var(--dim);
+  margin-left: calc(542px - var(--dim));
+}
+div#home > div.article[class~=reverse] > img {
+  grid-column: 1/1;
 }
 
 div#home > div.separator {
@@ -702,10 +684,11 @@ div#img_viewer > img {
   max-height: var(--localHeight);
 }
 div#img_viewer > div#caption {
+  text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
   position: fixed;
   font-size: 24px;
   color: white;
-  top: 51%;
+  top: 52%;
   margin-top: calc(var(--localHeight) / 2);
   width: inherit;
 }
@@ -721,16 +704,16 @@ div#img_viewer > div#right_chevron, div#img_viewer > div#left_chevron {
 div#img_viewer > div#right_chevron:hover, div#img_viewer > div#left_chevron:hover {
   opacity: 1;
 }
-div#img_viewer > div#right_chevron[class=right], div#img_viewer > div#left_chevron[class=right] {
+div#img_viewer > div#right_chevron.right, div#img_viewer > div#left_chevron.right {
   margin: auto;
 }
-div#img_viewer > div#right_chevron[class=right]:active > svg, div#img_viewer > div#left_chevron[class=right]:active > svg {
+div#img_viewer > div#right_chevron.right:active > svg, div#img_viewer > div#left_chevron.right:active > svg {
   transform: translateX(4px);
 }
-div#img_viewer > div#right_chevron[class=left]:active > svg, div#img_viewer > div#left_chevron[class=left]:active > svg {
+div#img_viewer > div#right_chevron.left:active > svg, div#img_viewer > div#left_chevron.left:active > svg {
   transform: rotate(180deg) translateX(4px);
 }
-div#img_viewer > div#right_chevron[class=left] > svg, div#img_viewer > div#left_chevron[class=left] > svg {
+div#img_viewer > div#right_chevron.left > svg, div#img_viewer > div#left_chevron.left > svg {
   transform: rotate(180deg);
 }
 

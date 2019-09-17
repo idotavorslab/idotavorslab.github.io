@@ -4,16 +4,14 @@ const ResearchPage = () => {
         const data = await fetchJson('main/research/research.json', "no-cache");
         const articles = [];
         let emptied = false;
-        for (let [title, { image, content }] of dict(data).items()) {
-            let article = div({ cls: "article" });
-            article
+        for (let [i, [title, { image, text, circle }]] of Object.entries(Object.entries(data))) {
+            let articleCls = i % 2 == 0 ? '' : 'reverse';
+            let imgCls = circle !== undefined ? 'circle' : '';
+            let article = div({ cls: `article ${articleCls}` })
                 .cacheAppend({
-                title: div({ text: title, cls: "title" }),
-                contentContainer: div({ cls: 'content-container' })
-                    .append(div({ text: content, cls: "content" }), div({ cls: "background" }).css({
-                    backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),
-                                        url("main/research/${image}")`
-                }))
+                title: elem({ tag: "h1", text: title }),
+                text: paragraph({ cls: "text" }).html(text),
+                img: img({ src: `main/research/${image}`, cls: imgCls })
             });
             articles.push(article);
             if (!emptied) {
@@ -25,10 +23,10 @@ const ResearchPage = () => {
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];
             const howFar = selectedIndex / articles.length;
-            selectedArticle.e.scrollIntoView({ behavior: "smooth" });
+            selectedArticle.e.scrollIntoView({ behavior: "smooth", block: "center" });
             await wait(howFar * 1000);
             selectedArticle.title.addClass('highlighted');
-            await wait(1500);
+            await wait(600);
             selectedArticle.title.removeClass('highlighted');
         }
     }

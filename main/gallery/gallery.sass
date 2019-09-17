@@ -62,10 +62,11 @@ div#img_viewer
 		max-height: var(--localHeight)
 
 	& > div#caption
+		@include fourWayTextShadow(1px, 1px, 0, black)
 		position: fixed
 		font-size: 24px
 		color: white
-		top: 51%
+		top: 52%
 		margin-top: calc(var(--localHeight) / 2)
 		width: inherit
 
@@ -83,14 +84,14 @@ div#img_viewer
 			opacity: 1
 
 
-		&[class="right"]
+		&.right
 			margin: auto
 
 			&:active
 				& > svg
 					transform: translateX(4px)
 
-		&[class="left"]
+		&.left
 			&:active
 				& > svg
 					transform: rotate(180deg) translateX(4px)

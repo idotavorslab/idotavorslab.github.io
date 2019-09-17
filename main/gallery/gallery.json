@@ -1,110 +1,118 @@
 [
 	{
-		"description": "Before there was lab, there was Seinfeld :)",
-		"file": "00.jpeg"
+		"caption": "Before there was lab, there was Seinfeld :)",
+		"file": "00.jpeg",
+		"contrast": 1.1,
+		"brightness": 1.25
 	},
 	{
-		"description": "Another day at the office",
+		"caption": "Another day at the office",
 		"file": "01.jpeg"
 	},
 	{
-		"description": "Niv presenting at the Sagol School of Neuroscience Retreat 2019",
+		"caption": "Niv presenting at the Sagol School of Neuroscience Retreat 2019",
 		"file": "02.jpeg"
 	},
 	{
-		"description": "Sagol School of Neuroscience Retreat 2019",
+		"caption": "Sagol School of Neuroscience Retreat 2019",
 		"file": "03.jpeg"
 	},
 	{
-		"description": "Sagol School of Neuroscience Retreat 2019",
+		"caption": "Sagol School of Neuroscience Retreat 2019",
 		"file": "04.jpeg"
 	},
 	{
-		"description": "Another day at the office",
+		"caption": "Another day at the office",
 		"file": "05.jpeg"
 	},
 	{
-		"description": "Sagol School of Neuroscience Retreat 2019",
+		"caption": "Sagol School of Neuroscience Retreat 2019",
 		"file": "06.jpeg"
 	},
 	{
-		"description": "Sagol School of Neuroscience Retreat 2019",
+		"caption": "Sagol School of Neuroscience Retreat 2019",
 		"file": "07.jpeg"
 	},
 	{
-		"description": "Sagol School of Neuroscience Retreat 2019",
-		"file": "08.jpeg"
+		"caption": "Sagol School of Neuroscience Retreat 2019",
+		"file": "08.jpeg",
+		"brightness": 1.2
 	},
 	{
-		"description": "Sagol School of Neuroscience Retreat 2019",
-		"file": "09.jpeg"
+		"caption": "Sagol School of Neuroscience Retreat 2019",
+		"file": "09.jpeg",
+		"contrast": 1.1,
+		"brightness": 1.2
 	},
 	{
-		"description": "Keyboards cleaning day",
+		"caption": "Keyboards cleaning day",
 		"file": "10.jpeg"
 	},
 	{
-		"description": "Happy birthday to Shachar!",
+		"caption": "Happy birthday to Shachar!",
 		"file": "11.jpeg"
 	},
 	{
-		"description": "Happy birthday to Inbar!",
-		"file": "12.jpeg"
+		"caption": "Happy birthday to Inbar!",
+		"file": "12.jpeg",
+		"contrast": 1.05,
+		"brightness": 1.1
 	},
 	{
-		"description": "MRIing :)",
+		"caption": "MRIing :)",
 		"file": "13.jpeg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "14.jpeg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "15.jpeg"
 	},
 	{
-		"description": "Happy birthday to Michal!",
+		"caption": "Happy birthday to Michal!",
 		"file": "16.jpeg"
 	},
 	{
-		"description": "Happy birthday to Michal!",
+		"caption": "Happy birthday to Michal!",
 		"file": "17.jpeg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "18.jpeg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "19.jpg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "20.jpg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "21.jpg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "22.jpg"
 	},
 	{
-		"description": "OHBM 2019 Rome",
-		"file": "23.jpg"
+		"caption": "OHBM 2019 Rome",
+		"file": "23.jpg",
+		"brightness": 1.15
 	},
 	{
-		"description": "OHBM 2019 Rome",
+		"caption": "OHBM 2019 Rome",
 		"file": "24.jpg"
 	},
 	{
-		"description": "Families day",
+		"caption": "Families day",
 		"file": "25.jpg"
 	},
 	{
-		"description": "Girl Power!",
+		"caption": "Girl Power!",
 		"file": "26.jpg"
 	}
 ]

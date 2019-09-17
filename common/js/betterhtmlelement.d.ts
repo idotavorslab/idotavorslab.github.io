@@ -4,7 +4,6 @@ declare class BadArgumentsAmountError extends Error {
 
 declare type TEvent = keyof HTMLElementEventMap;
 declare type TEventFunctionMap<K extends keyof HTMLElementEventMap> = {
-    // [P in Extract<K, string>]?: (event: HTMLElementEventMap[P]) => void;
     [P in K]?: (event: HTMLElementEventMap[P]) => void;
 };
 declare type HTMLTag = keyof HTMLElementTagNameMap;
@@ -683,6 +682,14 @@ declare class Div extends BetterHTMLElement {
     constructor({id, text, cls}?: TSubElemOptions);
 }
 
+declare class Paragraph extends BetterHTMLElement {
+    protected readonly _htmlElement: HTMLParagraphElement;
+    readonly e: HTMLParagraphElement;
+    
+    /**Create a Paragraph element. Optionally set its id, text or cls.*/
+    constructor({id, text, cls}?: TSubElemOptions);
+}
+
 declare class Span extends BetterHTMLElement {
     protected readonly _htmlElement: HTMLSpanElement;
     readonly e: HTMLSpanElement;
@@ -739,6 +746,9 @@ declare function div({id, text, cls}?: TSubElemOptions): Div;
 
 /**Create an Img element. Optionally set its id, src or cls.*/
 declare function img({id, src, cls}?: TImgOptions): Img;
+
+/**Create an Paragraph element. Optionally set its id, text or cls.*/
+declare function paragraph({id, text, cls}?: TSubElemOptions): Paragraph;
 
 interface TMap<T> {
     [s: string]: T;

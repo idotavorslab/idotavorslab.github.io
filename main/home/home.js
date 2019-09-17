@@ -80,19 +80,15 @@ const HomePage = () => {
         }
     }
     async function init() {
-        rightWidget.mouseover(() => {
-            return newsData.stopAutoSwitch();
-        });
-        rightWidget.mouseout(() => {
-            return newsData.startAutoSwitch();
-        });
+        rightWidget.mouseover(() => newsData.stopAutoSwitch());
+        rightWidget.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
         const aboutText = elem({ query: "#about > .about-text" });
         for (let [i, p] of Object.entries(data["about-text"])) {
             let cls = undefined;
-            if (i == 0)
-                cls = 'subtitle';
-            aboutText.append(elem({ tag: 'p', text: p, cls }));
+            if (i == "0")
+                cls = 'bold';
+            aboutText.append(paragraph({ text: p, cls }));
         }
         const newsData = new NewsData();
         let i = 0;
@@ -113,6 +109,7 @@ const HomePage = () => {
                 .append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title }))
                 .pointerdown((event) => {
                 ResearchPage().init(i);
+                history.pushState(null, null, '#research');
             }));
         }
         elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));

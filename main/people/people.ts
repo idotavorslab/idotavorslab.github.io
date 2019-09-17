@@ -33,6 +33,7 @@ const PeoplePage = () => {
                 
             }
             
+            // @ts-ignore
             focus(): Person {
                 return this.removeClass('unfocused');
             }
@@ -288,11 +289,13 @@ const PeoplePage = () => {
         
         
         Home.empty().append(
-            div({cls: 'title', text: 'Team'}),
-            div({cls: 'separator'}),
+            // div({cls: 'title', text: 'Team'}),
+            // div({cls: 'separator'}),
+            elem({tag: 'h1', text: 'Team'}),
             teamGrid,
-            div({cls: 'title', text: 'Alumni'}),
-            div({cls: 'separator'}),
+            // div({cls: 'title', text: 'Alumni'}),
+            // div({cls: 'separator'}),
+            elem({tag: 'h1', text: 'Alumni'}),
             alumniGrid
         );
         
@@ -323,14 +326,8 @@ const PeoplePage = () => {
                             expando.toggle(expando.owner.group[expando.owner.group.length - 1]);
                         else
                             expando.toggle(prevPerson);
-                        // expando.toggle(prevPerson);
                     }
-                    /*let selectedIndex = files.indexOf(selectedFile);
-                    if (event.key === "ArrowLeft")
-                        return switchToImg(getLeftIndex(selectedIndex));
-                    else if (event.key === "ArrowRight")
-                        return switchToImg(getRightIndex(selectedIndex));
-                    */
+                    
                     
                 }
             });
@@ -341,4 +338,3 @@ const PeoplePage = () => {
     
     return {init}
 };
-// PeoplePage().init();

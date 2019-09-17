@@ -25,21 +25,22 @@ div#intro
 		& > div
 			position: relative
 
-		& > div.title
-			@include titleMixin(36px)
-			color: var(--GREY8)
-			letter-spacing: -0.5px
+	//& > div.title
+		//@include titleMixin(36px)
+		//color: var(--GREY8)
+		//letter-spacing: -0.5px
 
-		& > div.about-text
-			font-size: 20px
-			line-height: 32px
+	//& > div.about-text
+		font-size: 20px
+		line-height: 32px
 
-			& > p.subtitle
-				font-family: OpenSansBold
+		& > p.subtitle
+			font-family: OpenSansBold
 
 	// **  right_widget
 	& > div#right_widget
-		width: 550px
+		// *  DEP: research.sass article>..>img width
+		width: 542px
 		height: 600px
 		$borderRadius: 20px
 		$dim: 15px
@@ -117,7 +118,7 @@ div#intro
 // ***  research_snippets_container
 div#research_snippets_container
 	text-align: left
-	margin-bottom: var(--marginVertical)
+	margin-bottom: 40px
 
 	& > div.title
 		@include titleMixin(36px)

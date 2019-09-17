@@ -117,21 +117,17 @@ const HomePage = () => {
     
     async function init() {
         
-        rightWidget.mouseover(() => {
-            return newsData.stopAutoSwitch();
-        });
-        rightWidget.mouseout(() => {
-            return newsData.startAutoSwitch();
-        });
+        rightWidget.mouseover(() => newsData.stopAutoSwitch());
+        rightWidget.mouseout(() => newsData.startAutoSwitch());
         
         // ***  About
         const data = await fetchJson('main/home/home.json', "no-cache");
         const aboutText = elem({query: "#about > .about-text"});
-        for (let [i, p] of <[number, string][]><unknown>Object.entries(data["about-text"])) {
+        for (let [i, p] of Object.entries(<string[]>data["about-text"])) {
             let cls = undefined;
-            if (i == 0)
-                cls = 'subtitle';
-            aboutText.append(elem({tag: 'p', text: p, cls}))
+            if (i == "0")
+                cls = 'bold';
+            aboutText.append(paragraph({text: p, cls}))
         }
         // ***  News
         /** Holds the data from .json in an array, plus the matching radio BetterHTMLElement */
@@ -152,11 +148,11 @@ const HomePage = () => {
             
         }
         // ***  Research Snippets
-        type TResearchData = [string, { content: string, thumbnail: string, image: string }][];
-        const researchData: TResearchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
+        // type TResearchData = [string, { text: string, thumbnail: string, image: string }][];
+        const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
         
-        for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
+        for (let [i, [title, {thumbnail}]] of Object.entries(<[string, { thumbnail: string }][]>researchData)) {
             researchSnippets.append(
                 div({cls: 'snippet'})
                     .append(
@@ -166,6 +162,7 @@ const HomePage = () => {
                     .pointerdown((event) => {
                         // @ts-ignore
                         ResearchPage().init(i);
+                        history.pushState(null, null, '#research')
                     })
             )
         }
@@ -280,7 +277,6 @@ const HomePage = () => {
     
     return {init}
 };
-// HomePage().init();
 
 
 
