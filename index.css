@@ -88,6 +88,15 @@ h1 {
   letter-spacing: -0.5px;
 }
 
+p {
+  font-size: 20px;
+  line-height: 32px;
+  text-align: left;
+}
+p.bold {
+  font-family: OpenSansBold;
+}
+
 a {
   text-decoration: none;
   color: var(--GOOGLEBLUE);
@@ -233,13 +242,6 @@ div#intro > div#about > img {
 }
 div#intro > div#about > div {
   position: relative;
-}
-div#intro > div#about > div.about-text {
-  font-size: 20px;
-  line-height: 32px;
-}
-div#intro > div#about > div.about-text > p.subtitle {
-  font-family: OpenSansBold;
 }
 div#intro > div#right_widget {
   width: 550px;

@@ -87,7 +87,7 @@ const HomePage = () => {
         for (let [i, p] of Object.entries(data["about-text"])) {
             let cls = undefined;
             if (i == 0)
-                cls = 'subtitle';
+                cls = 'bold';
             aboutText.append(elem({ tag: 'p', text: p, cls }));
         }
         const newsData = new NewsData();
