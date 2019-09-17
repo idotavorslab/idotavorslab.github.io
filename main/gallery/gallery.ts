@@ -1,15 +1,41 @@
 const GalleryPage = () => {
     type ImgViewer = Div & { left: Div, img: Img, right: Div, caption: Div, isopen: boolean };
     
-    class File {
-        path: string = null;
-        caption: string = null;
-        
-        constructor() {
-        }
-    }
     
     async function init() {
+        class File {
+            private _path: string = null;
+            caption: string = null;
+            private _index: number = null;
+            
+            constructor() {
+            }
+            
+            set path(_path: string) {
+                this._path = _path;
+                this._index = files.indexOf(this.path);
+                this.caption = data[this._index].caption;
+            }
+            
+            get path(): string {
+                return this._path;
+            }
+            
+            indexOfLeftFile(): number {
+                if (this._index === 0)
+                    return files.length - 1;
+                else
+                    return this._index - 1;
+            }
+            
+            indexOfRightFile(): number {
+                if (this._index === files.length - 1)
+                    return 0;
+                else
+                    return this._index + 1;
+            }
+        }
+        
         console.log('GalleryPage init');
         const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 185.343 185.343">
@@ -34,33 +60,20 @@ const GalleryPage = () => {
         function switchToImg(_selectedIndex: number) {
             selectedFile.path = files[_selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile.path}`);
-            // imgViewer.caption.text(selectedCaption);
+            imgViewer.caption.text(selectedFile.caption);
         }
         
-        function getRightIndex(_selectedIndex: number) {
-            if (_selectedIndex === files.length - 1)
-                return 0;
-            else
-                return _selectedIndex + 1;
-        }
-        
-        function getLeftIndex(_selectedIndex: number) {
-            if (_selectedIndex === 0)
-                return files.length - 1;
-            else
-                return _selectedIndex - 1;
-        }
         
         async function gotoAdjImg(event: PointerEvent) {
+            // *  Clicked chevron or Arrow key
             event.stopPropagation();
-            let selectedIndex = files.indexOf(selectedFile.path);
             // @ts-ignore
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
-                switchToImg(getLeftIndex(selectedIndex));
+                switchToImg(selectedFile.indexOfLeftFile());
             } else { // right
                 console.log('right chevron pointerdown');
-                switchToImg(getRightIndex(selectedIndex));
+                switchToImg(selectedFile.indexOfRightFile());
             }
         }
         
@@ -120,7 +133,6 @@ const GalleryPage = () => {
         
         //**  HTML
         // const images: Img[] = [];
-        // let selectedFile: string = null;
         let selectedFile: File = new File();
         const row0 = div({id: 'row_0'});
         const row1 = div({id: 'row_1'});
@@ -128,29 +140,6 @@ const GalleryPage = () => {
         const row3 = div({id: 'row_3'});
         
         for (let [i, {caption, file}] of Object.entries(<TMap<{ caption: string, file: string }>>data)) {
-            // console.log({i, caption, file});
-            /*let imgContainer = div({cls: 'img-container'})
-                .append(
-                    // div({cls: 'tooltip', text: caption}),
-                    img({src: `main/gallery/${file}`})
-                ).pointerdown((event: Event) => {
-                    // if open: clicked on other images in the bg. if closed: open imgViewer
-                    console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
-                    event.stopPropagation();
-                    if (imgViewer.isopen)
-                        return closeImgViewer();
-                    selectedFile = file;
-                    imgViewerClose.toggleClass('on', true);
-                    imgViewer
-                        .toggleClass('on', true)
-                        .img.src(`main/gallery/${selectedFile}`);
-                    imgViewer.isopen = true;
-                    Body.toggleClass('theater', true);
-                    images.toggleClass('theater', true);
-                    navbar.css({opacity: 0});
-                    
-                });
-            */
             let src;
             /*if (file.includes('http') || file.includes('www')) {
                 src = file;
@@ -162,11 +151,10 @@ const GalleryPage = () => {
             let image: Img = img({src}).pointerdown((event: Event) => {
                 event.stopPropagation();
                 selectedFile.path = file;
-                selectedFile.caption = caption;
+                // selectedFile.caption = caption;
                 return toggleImgViewer(selectedFile);
             });
             
-            // images.push(image);
             switch (parseInt(i) % 4) {
                 case 0:
                     row0.append(image);
@@ -201,11 +189,13 @@ const GalleryPage = () => {
                     return closeImgViewer();
                 
                 if (event.key.startsWith("Arrow")) {
-                    let selectedIndex = files.indexOf(selectedFile.path);
+                    // let selectedIndex = files.indexOf(selectedFile.path);
                     if (event.key === "ArrowLeft")
-                        return switchToImg(getLeftIndex(selectedIndex));
+                    // return switchToImg(getLeftIndex(selectedIndex));
+                        return switchToImg(selectedFile.indexOfLeftFile());
                     else if (event.key === "ArrowRight")
-                        return switchToImg(getRightIndex(selectedIndex));
+                    // return switchToImg(getRightIndex(selectedIndex));
+                        return switchToImg(selectedFile.indexOfRightFile());
                     
                 }
             });

@@ -1,11 +1,32 @@
 const GalleryPage = () => {
-    class File {
-        constructor() {
-            this.path = null;
-            this.caption = null;
-        }
-    }
     async function init() {
+        class File {
+            constructor() {
+                this._path = null;
+                this.caption = null;
+                this._index = null;
+            }
+            set path(_path) {
+                this._path = _path;
+                this._index = files.indexOf(this.path);
+                this.caption = data[this._index].caption;
+            }
+            get path() {
+                return this._path;
+            }
+            indexOfLeftFile() {
+                if (this._index === 0)
+                    return files.length - 1;
+                else
+                    return this._index - 1;
+            }
+            indexOfRightFile() {
+                if (this._index === files.length - 1)
+                    return 0;
+                else
+                    return this._index + 1;
+            }
+        }
         console.log('GalleryPage init');
         const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 185.343 185.343">
@@ -27,29 +48,17 @@ const GalleryPage = () => {
         function switchToImg(_selectedIndex) {
             selectedFile.path = files[_selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile.path}`);
-        }
-        function getRightIndex(_selectedIndex) {
-            if (_selectedIndex === files.length - 1)
-                return 0;
-            else
-                return _selectedIndex + 1;
-        }
-        function getLeftIndex(_selectedIndex) {
-            if (_selectedIndex === 0)
-                return files.length - 1;
-            else
-                return _selectedIndex - 1;
+            imgViewer.caption.text(selectedFile.caption);
         }
         async function gotoAdjImg(event) {
             event.stopPropagation();
-            let selectedIndex = files.indexOf(selectedFile.path);
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
-                switchToImg(getLeftIndex(selectedIndex));
+                switchToImg(selectedFile.indexOfLeftFile());
             }
             else {
                 console.log('right chevron pointerdown');
-                switchToImg(getRightIndex(selectedIndex));
+                switchToImg(selectedFile.indexOfRightFile());
             }
         }
         function closeImgViewer() {
@@ -99,7 +108,6 @@ const GalleryPage = () => {
             let image = img({ src }).pointerdown((event) => {
                 event.stopPropagation();
                 selectedFile.path = file;
-                selectedFile.caption = caption;
                 return toggleImgViewer(selectedFile);
             });
             switch (parseInt(i) % 4) {
@@ -131,11 +139,10 @@ const GalleryPage = () => {
             if (event.key === "Escape")
                 return closeImgViewer();
             if (event.key.startsWith("Arrow")) {
-                let selectedIndex = files.indexOf(selectedFile.path);
                 if (event.key === "ArrowLeft")
-                    return switchToImg(getLeftIndex(selectedIndex));
+                    return switchToImg(selectedFile.indexOfLeftFile());
                 else if (event.key === "ArrowRight")
-                    return switchToImg(getRightIndex(selectedIndex));
+                    return switchToImg(selectedFile.indexOfRightFile());
             }
         });
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
