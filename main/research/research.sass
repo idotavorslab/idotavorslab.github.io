@@ -1,11 +1,11 @@
 div#home
 	& > div.article
-		height: auto
-		margin-bottom: var(--gap)
-		text-align: left
-		width: 100%
 		display: grid
 		grid-column-gap: var(--gap)
+		height: auto
+		margin-bottom: calc(var(--gap) * 2)
+		text-align: left
+		//width: 100%
 
 		& > h1
 			border-bottom: 1px solid var(--TRANS)
@@ -19,8 +19,9 @@ div#home
 			//white-space: nowrap
 
 			//width: fit-content
-			width: max-content
+			//width: max-content
 
+			grid-column: 1/3
 
 			&.highlighted
 				border-bottom:
@@ -28,10 +29,19 @@ div#home
 					style: solid
 					color: var(--GREY7)
 
+		&[class~="reverse"] > h1
+			text-align: right
+
+
 		& > p.text
 			margin-block-start: 0
 			margin-block-end: 0
 			grid-column: 1/1
+
+		&[class~="reverse"] > p.text
+			grid:
+				column: 2/2
+				row: 2/2
 
 		& > img
 			// *  DEP: home.sass > .right-widget width
@@ -51,6 +61,9 @@ div#home
 				height: var(--dim)
 				margin-left: calc(542px - var(--dim))
 
+		&[class~="reverse"] > img
+			grid:
+				column: 1/1
 
 		//& > div.title
 			border-bottom: 1px solid var(--TRANS)

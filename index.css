@@ -333,29 +333,35 @@ div#footer > div#logos > img {
 }
 
 div#home > div.article {
-  height: auto;
-  margin-bottom: var(--gap);
-  text-align: left;
-  width: 100%;
   display: grid;
   grid-column-gap: var(--gap);
+  height: auto;
+  margin-bottom: calc(var(--gap) * 2);
+  text-align: left;
 }
 div#home > div.article > h1 {
   border-bottom: 1px solid var(--TRANS);
   margin-bottom: 18px;
   padding-bottom: 2px;
   transition: border-bottom-color 1s;
-  width: max-content;
+  grid-column: 1/3;
 }
 div#home > div.article > h1.highlighted {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: var(--GREY7);
 }
+div#home > div.article[class~=reverse] > h1 {
+  text-align: right;
+}
 div#home > div.article > p.text {
   margin-block-start: 0;
   margin-block-end: 0;
   grid-column: 1/1;
+}
+div#home > div.article[class~=reverse] > p.text {
+  grid-column: 2/2;
+  grid-row: 2/2;
 }
 div#home > div.article > img {
   width: 542px;
@@ -372,6 +378,9 @@ div#home > div.article > img.circle {
   width: var(--dim);
   height: var(--dim);
   margin-left: calc(542px - var(--dim));
+}
+div#home > div.article[class~=reverse] > img {
+  grid-column: 1/1;
 }
 
 div#home > div.separator {

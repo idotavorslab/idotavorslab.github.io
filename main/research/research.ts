@@ -9,9 +9,11 @@ const ResearchPage = () => {
         // console.log('ResearchPage data', data);
         const articles: Article[] = [];
         let emptied = false;
-        for (let [title, {image, text, circle}] of Object.entries(<{ image: string, text: string, circle?: boolean }[]>data)) {
+        type TResearchData = { image: string, text: string, circle?: boolean }[];
+        for (let [i, [title, {image, text, circle}]] of Object.entries(Object.entries(<TResearchData>data))) {
+            let articleCls = i % 2 == 0 ? '' : 'reverse';
             let imgCls = circle !== undefined ? 'circle' : '';
-            let article = div({cls: "article"})
+            let article = div({cls: `article ${articleCls}`})
                 .cacheAppend({
                     title: elem({tag: "h1", text: title}),
                     text: paragraph({text, cls: "text"}),
