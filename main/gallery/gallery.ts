@@ -31,24 +31,24 @@ const GalleryPage = () => {
         
         
         //**  Functions
-        function switchToImg(selectedIndex: number) {
-            selectedFile.path = files[selectedIndex];
+        function switchToImg(_selectedIndex: number) {
+            selectedFile.path = files[_selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile.path}`);
             // imgViewer.caption.text(selectedCaption);
         }
         
-        function getRightIndex(selectedIndex: number) {
-            if (selectedIndex === files.length - 1)
+        function getRightIndex(_selectedIndex: number) {
+            if (_selectedIndex === files.length - 1)
                 return 0;
             else
-                return selectedIndex + 1;
+                return _selectedIndex + 1;
         }
         
-        function getLeftIndex(selectedIndex: number) {
-            if (selectedIndex === 0)
+        function getLeftIndex(_selectedIndex: number) {
+            if (_selectedIndex === 0)
                 return files.length - 1;
             else
-                return selectedIndex - 1;
+                return _selectedIndex - 1;
         }
         
         async function gotoAdjImg(event: PointerEvent) {
@@ -65,6 +65,7 @@ const GalleryPage = () => {
         }
         
         function closeImgViewer() {
+            // *  Clicked X, click outside viewer, Escape,
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
             Navbar.css({opacity: 1});
@@ -75,9 +76,8 @@ const GalleryPage = () => {
         }
         
         function toggleImgViewer(selectedFile: File) {
-            // if open: clicked on other images in the bg. if closed: open imgViewer
+            // *  If open: clicked on other images in the bg. if closed: open imgViewer
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
-            // event.stopPropagation();
             if (imgViewer.isopen)
                 return closeImgViewer();
             /*if (file.includes('http') || file.includes('www')) {
@@ -86,8 +86,6 @@ const GalleryPage = () => {
                 selectedFile = `main/gallery/${file}`;
             }
             */
-            // selectedFile.path = file;
-            // selectedCaption = caption;
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
@@ -98,9 +96,7 @@ const GalleryPage = () => {
             imagesContainer.toggleClass('theater', true);
             Navbar.css({opacity: 0});
             
-            /*}).on({
-                load: () => console.log(`load: ${file}`)
-            */
+            
         }
         
         //**  imgViewer
@@ -111,7 +107,7 @@ const GalleryPage = () => {
                 right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).pointerdown(gotoAdjImg),
                 caption: div({id: 'caption'})
             }).pointerdown((event: Event) => {
-                // clicked on img, not chevrons
+                // *  Clicked on img, not chevrons. do nothing
                 console.log('imgViewer pointerdown, stopping propagation');
                 event.stopPropagation();
             });

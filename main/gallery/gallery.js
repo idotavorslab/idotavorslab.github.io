@@ -24,21 +24,21 @@ const GalleryPage = () => {
 
 </svg>
 `;
-        function switchToImg(selectedIndex) {
-            selectedFile.path = files[selectedIndex];
+        function switchToImg(_selectedIndex) {
+            selectedFile.path = files[_selectedIndex];
             imgViewer.img.src(`main/gallery/${selectedFile.path}`);
         }
-        function getRightIndex(selectedIndex) {
-            if (selectedIndex === files.length - 1)
+        function getRightIndex(_selectedIndex) {
+            if (_selectedIndex === files.length - 1)
                 return 0;
             else
-                return selectedIndex + 1;
+                return _selectedIndex + 1;
         }
-        function getLeftIndex(selectedIndex) {
-            if (selectedIndex === 0)
+        function getLeftIndex(_selectedIndex) {
+            if (_selectedIndex === 0)
                 return files.length - 1;
             else
-                return selectedIndex - 1;
+                return _selectedIndex - 1;
         }
         async function gotoAdjImg(event) {
             event.stopPropagation();
