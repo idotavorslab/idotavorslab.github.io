@@ -74,10 +74,10 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
-        function toggleImgViewer(event: Event, file: string, caption: string) {
+        function toggleImgViewer(selectedFile: File) {
             // if open: clicked on other images in the bg. if closed: open imgViewer
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
-            event.stopPropagation();
+            // event.stopPropagation();
             if (imgViewer.isopen)
                 return closeImgViewer();
             /*if (file.includes('http') || file.includes('www')) {
@@ -86,14 +86,14 @@ const GalleryPage = () => {
                 selectedFile = `main/gallery/${file}`;
             }
             */
-            selectedFile.path = file;
+            // selectedFile.path = file;
             // selectedCaption = caption;
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
                 .img.src(`main/gallery/${selectedFile.path}`);
             imgViewer.isopen = true;
-            imgViewer.caption.text(caption);
+            imgViewer.caption.text(selectedFile.caption);
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             Navbar.css({opacity: 0});
@@ -163,7 +163,12 @@ const GalleryPage = () => {
             }
             */
             src = `main/gallery/${file}`;
-            let image: Img = img({src}).pointerdown((event: Event) => toggleImgViewer(event, file, caption));
+            let image: Img = img({src}).pointerdown((event: Event) => {
+                event.stopPropagation();
+                selectedFile.path = file;
+                selectedFile.caption = caption;
+                return toggleImgViewer(selectedFile);
+            });
             
             // images.push(image);
             switch (parseInt(i) % 4) {
