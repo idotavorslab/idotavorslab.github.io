@@ -344,6 +344,7 @@ div#home > div.article > h1 {
   margin-bottom: 18px;
   padding-bottom: 2px;
   transition: border-bottom-color 1s;
+  width: fit-content;
   grid-column: 1/3;
 }
 div#home > div.article > h1.highlighted {
@@ -353,6 +354,7 @@ div#home > div.article > h1.highlighted {
 }
 div#home > div.article[class~=reverse] > h1 {
   text-align: right;
+  margin-left: auto;
 }
 div#home > div.article > p.text {
   margin-block-start: 0;
