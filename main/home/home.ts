@@ -148,11 +148,11 @@ const HomePage = () => {
             
         }
         // ***  Research Snippets
-        type TResearchData = [string, { content: string, thumbnail: string, image: string }][];
-        const researchData: TResearchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
+        // type TResearchData = [string, { text: string, thumbnail: string, image: string }][];
+        const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
         const researchSnippets = elem({query: "#research_snippets"});
         
-        for (let [i, [title, {thumbnail}]] of Object.entries(researchData)) {
+        for (let [i, [title, {thumbnail}]] of Object.entries(<[string, { thumbnail: string }][]>researchData)) {
             researchSnippets.append(
                 div({cls: 'snippet'})
                     .append(

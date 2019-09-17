@@ -38,9 +38,19 @@ div#home
 			width: 542px
 			object-fit: contain
 			margin: auto
+			border-radius: 15px
 			grid:
 				column: 2/2
 				row: 2/2
+
+			&.circle
+				//height: 542px
+				--dim: 400px
+				border-radius: 50%
+				object-fit: cover
+				width: var(--dim)
+				height: var(--dim)
+				margin-left: calc(542px - var(--dim))
 
 
 		//& > div.title

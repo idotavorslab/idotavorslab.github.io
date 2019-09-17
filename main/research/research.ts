@@ -9,12 +9,13 @@ const ResearchPage = () => {
         // console.log('ResearchPage data', data);
         const articles: Article[] = [];
         let emptied = false;
-        for (let [title, {image, text}] of dict(data).items()) {
+        for (let [title, {image, text, circle}] of Object.entries(<{ image: string, text: string, circle?: boolean }[]>data)) {
+            let imgCls = circle !== undefined ? 'circle' : '';
             let article = div({cls: "article"})
                 .cacheAppend({
                     title: elem({tag: "h1", text: title}),
                     text: paragraph({text, cls: "text"}),
-                    img: img({src: `main/research/${image}`})
+                    img: img({src: `main/research/${image}`, cls: imgCls})
                     
                 });
             articles.push(article as Article);
