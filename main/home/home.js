@@ -86,9 +86,9 @@ const HomePage = () => {
         const aboutText = elem({ query: "#about > .about-text" });
         for (let [i, p] of Object.entries(data["about-text"])) {
             let cls = undefined;
-            if (i == 0)
+            if (i == "0")
                 cls = 'bold';
-            aboutText.append(elem({ tag: 'p', text: p, cls }));
+            aboutText.append(paragraph({ text: p, cls }));
         }
         const newsData = new NewsData();
         let i = 0;

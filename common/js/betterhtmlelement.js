@@ -279,11 +279,9 @@ class BetterHTMLElement {
 		return new BetterHTMLElement({ htmlElement: this.e.cloneNode(deep) });
 	}
 
-
 	cacheChildren(keySelectorObj) {
 		for (let [key, selector] of enumerate(keySelectorObj)) {
 			if (typeof selector === 'object') {
-
 				// only first because multiple selectors for single key aren't supported (ie can't do {right: {.right: {...}, .right2: {...}})
 				let [subselector, subkeyselectorsObj] = Object.entries(selector)[0];
 				this[key] = this.child(subselector);
@@ -293,7 +291,6 @@ class BetterHTMLElement {
 			}
 		}
 		return this;
-
 	}
 
 	/**Remove all children from DOM*/
@@ -687,6 +684,15 @@ class Div extends BetterHTMLElement {
 	}
 }
 
+class Paragraph extends BetterHTMLElement {
+	/**Create a Paragraph element. Optionally set its id, text or cls.*/
+	constructor({ id, text, cls } = {}) {
+		super({ tag: "p", text, cls });
+		if (id)
+			this.id(id);
+	}
+}
+
 class Span extends BetterHTMLElement {
 	/**Create a Span element. Optionally set its id, text or cls.*/
 	constructor({ id, text, cls } = {}) {
@@ -699,8 +705,6 @@ class Span extends BetterHTMLElement {
 class Img extends BetterHTMLElement {
 	/**Create an Img element. Optionally set its id, src or cls.*/
 	constructor({ id, src, cls }) {
-		// if (!src)
-		//     throw new Error(`Img constructor didn't receive src`);
 		super({ tag: 'img', cls });
 		if (id)
 			this.id(id);
@@ -735,4 +739,9 @@ function div({ id, text, cls } = {}) {
 /**Create an Img element. Optionally set its id, src or cls.*/
 function img({ id, src, cls } = {}) {
 	return new Img({ id, src, cls });
+}
+
+/**Create an Paragraph element. Optionally set its id, text or cls.*/
+function paragraph({ id, text, cls } = {}) {
+	return new Paragraph({ id, text, cls });
 }

@@ -18,7 +18,7 @@ const ResearchPage = () => {
                     title: elem({tag: "h1", text: title}),
                     contentContainer: div({cls: 'content-container'})
                         .append(
-                            div({text: content, cls: "content"}),
+                            paragraph({text: content, cls: "content"}),
                             div({cls: "background"}).css({
                                 backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),
                                         url("main/research/${image}")`
