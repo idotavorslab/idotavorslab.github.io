@@ -13,6 +13,8 @@ const Routing = (() => {
                 return PublicationsPage;
             case "gallery":
                 return GalleryPage;
+            case "neuroanatomy":
+                return NeuroanatomyPage
             
         }
     }
