@@ -343,14 +343,12 @@ div#home > div.article > h1 {
   border-bottom: 1px solid var(--TRANS);
   margin-bottom: 18px;
   padding-bottom: 2px;
-  transition: border-bottom-color 1s;
+  transition: color 0.6s ease-in-out;
   width: fit-content;
   grid-column: 1/3;
 }
 div#home > div.article > h1.highlighted {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: var(--GREY7);
+  color: var(--GOOGLEBLUE);
 }
 div#home > div.article[class~=reverse] > h1 {
   text-align: right;

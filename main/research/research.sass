@@ -12,7 +12,8 @@ div#home
 			margin-bottom: 18px
 			padding-bottom: 2px
 
-			transition: border-bottom-color 1s
+			//transition: border-bottom-color 1s
+			transition: color 0.6s ease-in-out
 			//white-space: nowrap
 
 			width: fit-content
@@ -21,10 +22,11 @@ div#home
 			grid-column: 1/3
 
 			&.highlighted
-				border-bottom:
-					width: 1px
-					style: solid
-					color: var(--GREY7)
+				color: var(--GOOGLEBLUE)
+			//border-bottom:
+				width: 1px
+				style: solid
+				color: var(--GREY7)
 
 
 		&[class~="reverse"] > h1

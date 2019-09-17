@@ -15,6 +15,7 @@ const GalleryPage = () => {
                 this._path = _path;
                 this._index = files.indexOf(this.path);
                 this.caption = data[this._index].caption;
+                this.contrast = data[this._index].contrast;
             }
             
             get path(): string {
@@ -102,7 +103,9 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
-                .img.src(`main/gallery/${selectedFile.path}`);
+                .img
+                .src(`main/gallery/${selectedFile.path}`)
+                .css({filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})`});
             imgViewer.isopen = true;
             imgViewer.caption.text(selectedFile.caption);
             Body.toggleClass('theater', true);
@@ -139,7 +142,7 @@ const GalleryPage = () => {
         const row2 = div({id: 'row_2'});
         const row3 = div({id: 'row_3'});
         
-        for (let [i, {file}] of Object.entries(<TMap<{ file: string }>>data)) {
+        for (let [i, {file, contrast, brightness}] of Object.entries(<TMap<{ file: string, contrast: number, brightness: number }>>data)) {
             let src;
             /*if (file.includes('http') || file.includes('www')) {
                 src = file;
@@ -148,12 +151,14 @@ const GalleryPage = () => {
             }
             */
             src = `main/gallery/${file}`;
-            let image: Img = img({src}).pointerdown((event: Event) => {
-                event.stopPropagation();
-                selectedFile.path = file;
-                // selectedFile.caption = caption;
-                return toggleImgViewer(selectedFile);
-            });
+            let image: Img = img({src})
+                .pointerdown((event: PointerEvent) => {
+                    event.stopPropagation();
+                    selectedFile.path = file;
+                    // selectedFile.caption = caption;
+                    return toggleImgViewer(selectedFile);
+                })
+                .css({filter: `contrast(${contrast}) brightness(${brightness})`});
             
             switch (parseInt(i) % 4) {
                 case 0:

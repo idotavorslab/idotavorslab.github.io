@@ -10,7 +10,7 @@ const ResearchPage = () => {
             let article = div({ cls: `article ${articleCls}` })
                 .cacheAppend({
                 title: elem({ tag: "h1", text: title }),
-                text: paragraph({ text, cls: "text" }),
+                text: paragraph({ cls: "text" }).html(text),
                 img: img({ src: `main/research/${image}`, cls: imgCls })
             });
             articles.push(article);
@@ -26,7 +26,7 @@ const ResearchPage = () => {
             selectedArticle.e.scrollIntoView({ behavior: "smooth", block: "center" });
             await wait(howFar * 1000);
             selectedArticle.title.addClass('highlighted');
-            await wait(1500);
+            await wait(600);
             selectedArticle.title.removeClass('highlighted');
         }
     }

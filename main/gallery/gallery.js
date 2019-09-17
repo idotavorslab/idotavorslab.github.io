@@ -10,6 +10,7 @@ const GalleryPage = () => {
                 this._path = _path;
                 this._index = files.indexOf(this.path);
                 this.caption = data[this._index].caption;
+                this.contrast = data[this._index].contrast;
             }
             get path() {
                 return this._path;
@@ -77,7 +78,9 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
-                .img.src(`main/gallery/${selectedFile.path}`);
+                .img
+                .src(`main/gallery/${selectedFile.path}`)
+                .css({ filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})` });
             imgViewer.isopen = true;
             imgViewer.caption.text(selectedFile.caption);
             Body.toggleClass('theater', true);
@@ -102,14 +105,16 @@ const GalleryPage = () => {
         const row1 = div({ id: 'row_1' });
         const row2 = div({ id: 'row_2' });
         const row3 = div({ id: 'row_3' });
-        for (let [i, { file }] of Object.entries(data)) {
+        for (let [i, { file, contrast, brightness }] of Object.entries(data)) {
             let src;
             src = `main/gallery/${file}`;
-            let image = img({ src }).pointerdown((event) => {
+            let image = img({ src })
+                .pointerdown((event) => {
                 event.stopPropagation();
                 selectedFile.path = file;
                 return toggleImgViewer(selectedFile);
-            });
+            })
+                .css({ filter: `contrast(${contrast}) brightness(${brightness})` });
             switch (parseInt(i) % 4) {
                 case 0:
                     row0.append(image);
