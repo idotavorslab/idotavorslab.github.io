@@ -333,7 +333,7 @@ div#footer > div#logos > img {
 }
 
 div#home > div.article {
-  height: 440px;
+  height: auto;
   margin-bottom: var(--gap);
   text-align: left;
   width: 100%;
@@ -355,32 +355,18 @@ div#home > div.article > div.title.highlighted {
   border-bottom-style: solid;
   border-bottom-color: var(--GREY7);
 }
-div#home > div.article > div.content-container {
+div#home > div.article > div.content-flex {
+  display: flex;
   height: inherit;
-  margin: var(--gap) 0 0 0;
 }
-div#home > div.article > div.content-container > p {
-  border-radius: 7px;
-  transition: color 700ms ease-in-out;
-  position: absolute;
+div#home > div.article > div.content-flex > p {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
-@media screen and (min-width: 1340px) {
-  div#home > div.article > div.content-container > p {
-    width: 50%;
-  }
-}
-@media screen and (max-width: 1340px) {
-  div#home > div.article > div.content-container > p {
-    width: 60%;
-  }
-}
-div#home > div.article > div.content-container > div.background {
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: top right;
-  height: inherit;
-  width: 50%;
-  float: right;
+div#home > div.article > div.content-flex > img {
+  width: 550px;
+  object-fit: contain;
+  margin-left: var(--gap);
 }
 
 div#home > div.separator {

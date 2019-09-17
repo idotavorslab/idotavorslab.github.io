@@ -1,7 +1,7 @@
 const ResearchPage = () => {
     interface Article extends Div {
         title: Div;
-        contentContainer: Div;
+        contentFlex: Div;
     }
     
     async function init(selectedIndex?: number) {
@@ -10,19 +10,20 @@ const ResearchPage = () => {
         // console.log('ResearchPage data', data);
         const articles: Article[] = [];
         let emptied = false;
-        for (let [title, {image, content}] of dict(data).items()) {
+        for (let [title, {image, text}] of dict(data).items()) {
             let article = div({cls: "article"});
             article
                 .cacheAppend({
                     // title: div({text: title, cls: "title"}),
                     title: elem({tag: "h1", text: title}),
-                    contentContainer: div({cls: 'content-container'})
+                    contentFlex: div({cls: 'content-flex'})
                         .append(
-                            paragraph({text: content, cls: "content"}),
-                            div({cls: "background"}).css({
-                                backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),
-                                        url("main/research/${image}")`
-                            })
+                            paragraph({text, cls: "text"}),
+                            img({src: `main/research/${image}`})
+                            // div({cls: "background"}).css({
+                            //     backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255,1) 2%, rgba(255,255,255,0)),
+                            //             url("main/research/${image}")`
+                            // })
                         )
                     
                 });

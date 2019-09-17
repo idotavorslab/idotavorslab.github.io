@@ -1,11 +1,6 @@
 div#home
 	& > div.article
-		//background:
-		//	size: contain
-		//	position: right
-		//	repeat: no-repeat
-		height: 440px
-
+		height: auto
 		margin-bottom: var(--gap)
 		text-align: left
 		width: 100%
@@ -36,30 +31,29 @@ div#home
 					style: solid
 					color: var(--GREY7)
 
-		& > div.content-container
-			//display: flex
+		& > div.content-flex
+			display: flex
 			//flex-wrap: wrap
 			height: inherit
-			margin: var(--gap) 0 0 0
+			//margin: var(--gap) 0 0 0
 
 			& > p
+				margin-block-start: 0
+				margin-block-end: 0
 
-				border-radius: 7px
-				transition: color 700ms ease-in-out
-				position: absolute
-				@include min-width($BP1)
-					width: 50%
-				@include max-width($BP1)
-					width: 60%
+			& > img
+				width: 550px
+				object-fit: contain
+				margin-left: var(--gap)
 
-			& > div.background
-				background:
-					repeat: no-repeat
-					size: contain
-					position: top right
-				height: inherit
-				width: 50%
-				float: right
+		//& > div.background
+			background:
+				repeat: no-repeat
+				size: contain
+				position: top right
+			height: inherit
+			width: 50%
+			float: right
 
 
 
