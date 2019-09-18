@@ -84,7 +84,8 @@ const HomePage = () => {
         rightWidget.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
         const aboutText = elem({ query: "#about > .about-text" });
-        for (let [i, p] of Object.entries(data["about-text"])) {
+        const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
+        for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
             if (i == "0")
                 cls = 'bold';
@@ -111,6 +112,11 @@ const HomePage = () => {
                 ResearchPage().init(i);
                 history.pushState(null, null, '#research');
             }));
+        }
+        const fundingData = data.funding;
+        const sponsorsGrid = elem({ query: "#sponsors" });
+        for (let [title, { image, text }] of Object.entries(fundingData)) {
+            sponsorsGrid.append(div({ cls: 'sponsor' }).append(img({ src: `main/home/${image}` }), div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
         }
         elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));
         elem({ query: "#logos > :nth-child(2)" }).pointerdown(() => window.open("https://en-med.tau.ac.il/"));

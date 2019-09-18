@@ -9,12 +9,17 @@ const Routing = (() => {
                 return PublicationsPage;
             case "gallery":
                 return GalleryPage;
+            case "neuroanatomy":
+                return NeuroanatomyPage;
         }
+    }
+    function pageStrings() {
+        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
     }
     function route(url) {
         console.log(`route("${url}")`);
         if (bool(url)) {
-            if (["research", "people", "publications", "gallery", "contact"].includes(url)) {
+            if (pageStrings().includes(url)) {
                 console.log('\tvalid url, calling pageObj().init()');
                 if (url === "gallery")
                     Footer.attr({ hidden: '' });
@@ -22,6 +27,12 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
+                if (Navbar === undefined) {
+                    window.onload = () => Navbar.select(Navbar[url]);
+                }
+                else {
+                    Navbar.select(Navbar[url]);
+                }
             }
             else {
                 elem({ tag: 'a' }).attr({ href: `` }).click();
@@ -35,6 +46,6 @@ const Routing = (() => {
     let lastPage = window.location.hash.slice(1);
     console.log(`document root, window.location: ${window.location}\ncalling route("${lastPage}")`);
     route(lastPage);
-    return { route };
+    return { route, pageStrings };
 })();
 //# sourceMappingURL=routing.js.map

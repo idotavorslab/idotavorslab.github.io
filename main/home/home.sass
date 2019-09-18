@@ -1,6 +1,5 @@
 // ***  intro
 div#intro
-
 	display: flex
 	margin:
 		bottom: var(--gap)
@@ -25,17 +24,6 @@ div#intro
 		& > div
 			position: relative
 
-	//& > div.title
-		//@include titleMixin(36px)
-		//color: var(--GREY8)
-		//letter-spacing: -0.5px
-
-	//& > div.about-text
-		font-size: 20px
-		line-height: 32px
-
-		& > p.subtitle
-			font-family: OpenSansBold
 
 	// **  right_widget
 	& > div#right_widget
@@ -118,9 +106,8 @@ div#intro
 // ***  research_snippets_container
 div#research_snippets_container
 	text-align: left
-	margin-bottom: 40px
 
-	& > div.title
+	//& > div.title
 		@include titleMixin(36px)
 		letter-spacing: -0.5px
 
@@ -159,6 +146,57 @@ div#research_snippets_container
 			& > div.snippet-title
 				font-family: OpenSansSemiBold
 				margin-top: 8px
+
+// ***  funding
+div#funding
+	text-align: left
+	margin:
+		top: var(--gap)
+		bottom: var(--gap)
+
+	& > div#sponsors
+		--rowLength: 3
+		--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+		display: grid
+		margin-top: 40px
+		grid:
+			template-columns: repeat(var(--rowLength), var(--sponsorWidth))
+			column-gap: var(--GAP1)
+			row-gap: var(--GAP1)
+
+		& > div.sponsor
+
+			cursor: pointer
+			display: flex
+			flex-direction: column
+
+			//&:hover
+				& > img, & > div
+					transform: translateY(-4px)
+
+				& > img
+					box-shadow: 0 2px 10px 2px var(--GREY4)
+
+
+			//& > img, & > div
+				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
+
+			& > img
+				width: 160px
+				height: 160px
+				margin: 0 auto calc(var(--gap) / 2) 0
+				object-fit: contain
+
+			& > div.sponsor-title
+				font-family: OpenSansBold
+				margin:
+					top: 0
+					bottom: 8px
+
+
+			& > div.sponsor-text
+
+//margin-top: auto
 
 // ***  footer
 div#footer

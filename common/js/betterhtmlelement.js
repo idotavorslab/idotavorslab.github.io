@@ -452,6 +452,8 @@ class BetterHTMLElement {
 	}
 
 	mouseenter(fn, options) {
+		// mouseover: also child elements
+		// mouseenter: only bound element
 		if (fn === undefined) {
 			const mouseenter = new MouseEvent('mouseenter', {
 				'view': window,
@@ -496,6 +498,10 @@ class BetterHTMLElement {
 
 	mouseleave() {
 		// https://api.jquery.com/keypress/
+		//mouseleave and mouseout are similar but differ in that mouseleave does not bubble and mouseout does.
+		// This means that mouseleave is fired when the pointer has exited the element and all of its descendants,
+		// whereas mouseout is fired when the pointer leaves the element or leaves one of the element's descendants
+		// (even if the pointer is still within the element).
 		throw new Error("NOT IMPLEMENTED");
 	}
 
@@ -505,6 +511,10 @@ class BetterHTMLElement {
 	}
 
 	mouseout(fn, options) {
+		//mouseleave and mouseout are similar but differ in that mouseleave does not bubble and mouseout does.
+		// This means that mouseleave is fired when the pointer has exited the element and all of its descendants,
+		// whereas mouseout is fired when the pointer leaves the element or leaves one of the element's descendants
+		// (even if the pointer is still within the element).
 		if (fn === undefined)
 			throw new Error("NOT IMPLEMENTED");
 		else
@@ -512,6 +522,8 @@ class BetterHTMLElement {
 	}
 
 	mouseover(fn, options) {
+		// mouseover: also child elements
+		// mouseenter: only bound element
 		if (fn === undefined)
 			throw new Error("NOT IMPLEMENTED");
 		else

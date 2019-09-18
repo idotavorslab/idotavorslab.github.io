@@ -29,6 +29,21 @@ const WindowElem = elem({htmlElement: window})
             }
             
             
+        },
+        load: () => {
+            Navbar = new NavbarElem({
+                query: 'div#navbar',
+                children: {
+                    home: '.home',
+                    research: '.research',
+                    people: '.people',
+                    publications: '.publications',
+                    gallery: '.gallery',
+                    neuroanatomy: '.neuroanatomy',
+                    contact: '.contact',
+                    tau: '.tau',
+                }
+            });
         }
     });
 const Footer = elem({id: 'footer'});
@@ -40,6 +55,7 @@ class NavbarElem extends BetterHTMLElement {
     people: Div;
     publications: Div;
     gallery: Div;
+    neuroanatomy: Div;
     contact: Div;
     tau: Img;
     
@@ -51,15 +67,17 @@ class NavbarElem extends BetterHTMLElement {
         //     window.location = window.location.origin;
         // });
         
-        for (let k of <Routing.Page[]>["home", "research", "people", "publications", "gallery", "contact"]) {
-            this[k].pointerdown(() => {
-                let href = k === "home" ? '' : `#${k}`;
-                console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
-                elem({tag: 'a'}).attr({href}).click();
-                
-                // routeNew(k);
-            })
+        for (let k of Routing.pageStrings()) {
+            this[k]
+                .pointerdown(() => {
+                    let href = k === "home" ? '' : `#${k}`;
+                    console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
+                    elem({tag: 'a'}).attr({href}).click(); // no need to select because Routing.route does this
+                })
+                .mouseover(() => this.emphasize(<Div>this[k]))
+                .mouseout(() => this.resetPales());
         }
+        
     }
     
     
@@ -83,16 +101,33 @@ class NavbarElem extends BetterHTMLElement {
     }
     */
     
-    private _select(child: Div) {
-        for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
-            k.toggleClass('selected', k === child);
+    select(child: Div): void {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.toggleClass('selected', pageElem === child);
+        }
+    }
+    
+    emphasize(child: Div): void {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.toggleClass('pale', pageElem !== child);
+        }
+    }
+    
+    resetPales(): void {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.removeClass('pale');
         }
     }
     
     
 }
 
-const Navbar = new NavbarElem({
+let Navbar; // WindowElem.load =>
+
+/*const Navbar = new NavbarElem({
     query: 'div#navbar',
     children: {
         home: '.home',
@@ -104,3 +139,5 @@ const Navbar = new NavbarElem({
         tau: '.tau',
     }
 });
+
+*/

@@ -1,5 +1,5 @@
 declare namespace Routing {
-    type Page = "home" | "research" | "people" | "publications" | "gallery" | "contact";
+    type Page = "home" | "research" | "people" | "publications" | "gallery" | "neuroanatomy" | "contact";
 }
 const Routing = (() => {
     
@@ -13,14 +13,20 @@ const Routing = (() => {
                 return PublicationsPage;
             case "gallery":
                 return GalleryPage;
+            case "neuroanatomy":
+                return NeuroanatomyPage;
             
         }
+    }
+    
+    function pageStrings(): Routing.Page[] {
+        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"]
     }
     
     function route(url: Routing.Page) {
         console.log(`route("${url}")`);
         if (bool(url)) {
-            if (["research", "people", "publications", "gallery", "contact"].includes(url)) {
+            if (pageStrings().includes(url)) {
                 console.log('\tvalid url, calling pageObj().init()');
                 if (url === "gallery")
                     Footer.attr({hidden: ''});
@@ -28,6 +34,13 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
+                if (Navbar === undefined) {
+                    window.onload = () => Navbar.select(Navbar[url])
+                } else {
+                    // todo: does this ever happen?
+                    Navbar.select(Navbar[url])
+                }
+                
             } else { // bad url, reload to homepage
                 elem({tag: 'a'}).attr({href: ``}).click();
             }
@@ -40,7 +53,7 @@ const Routing = (() => {
     let lastPage = window.location.hash.slice(1);
     console.log(`document root, window.location: ${window.location}\ncalling route("${lastPage}")`);
     route(<Routing.Page>lastPage);
-    return {route}
+    return {route, pageStrings}
 })();
 
 

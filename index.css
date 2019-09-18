@@ -3,7 +3,7 @@
   --W1: 984px;
   --GAP0: 60px;
   --GAP1: 40px;
-  --GOOGLEBLUE: #3b82f0;
+  --GOOGLEBLUE: rgb(59, 130, 240);
   --GREY00: rgb(255, 255, 255);
   --GREY01: rgb(250, 250, 250);
   --GREY02: rgb(242, 242, 242);
@@ -168,23 +168,18 @@ div#main div#navbar > div:nth-last-child(2) {
   margin-right: auto;
 }
 div#main div#navbar > div {
-  border-bottom-color: var(--TRANS);
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
   display: block;
   padding: 10px 0;
   transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out;
 }
 div#main div#navbar > div:hover {
-  border-bottom-color: goldenrod;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  color: var(--GREY6);
+  color: black;
 }
 div#main div#navbar > div.selected {
-  border-bottom-color: goldenrod;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
+  color: black;
+}
+div#main div#navbar > div.pale {
+  color: var(--GREY6);
 }
 div#main div#home {
   display: block;
@@ -285,14 +280,6 @@ div#intro > div#right_widget > div#radios > .radio[class~=selected] {
 
 div#research_snippets_container {
   text-align: left;
-  margin-bottom: 40px;
-}
-div#research_snippets_container > div.title {
-  font-family: OpenSansBold;
-  font-size: 36px;
-  margin-bottom: 20px;
-  line-height: calc(36px * 1.5);
-  letter-spacing: -0.5px;
 }
 div#research_snippets_container > div#research_snippets {
   --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
@@ -323,6 +310,36 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
   margin-top: 8px;
 }
 
+div#funding {
+  text-align: left;
+  margin-top: var(--gap);
+  margin-bottom: var(--gap);
+}
+div#funding > div#sponsors {
+  --rowLength: 3;
+  --sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
+  display: grid;
+  margin-top: 40px;
+  grid-template-columns: repeat(var(--rowLength), var(--sponsorWidth));
+  grid-column-gap: var(--GAP1);
+  grid-row-gap: var(--GAP1);
+}
+div#funding > div#sponsors > div.sponsor {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+div#funding > div#sponsors > div.sponsor > img {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto calc(var(--gap) / 2) 0;
+  object-fit: contain;
+}
+div#funding > div#sponsors > div.sponsor > div.sponsor-title {
+  font-family: OpenSansBold;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
 div#footer {
   box-shadow: 0 -1px 0 var(--GREY2);
   padding-top: 30px;
