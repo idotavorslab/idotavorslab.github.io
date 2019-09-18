@@ -11,10 +11,12 @@ const Routing = (() => {
                 return GalleryPage;
             case "neuroanatomy":
                 return NeuroanatomyPage;
+            case "funding":
+                return FundingPage;
         }
     }
     function pageStrings() {
-        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
+        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "funding", "contact"];
     }
     function route(url) {
         console.log(`route("${url}")`);
@@ -27,7 +29,12 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                Navbar.select(Navbar[url]);
+                if (Navbar === undefined) {
+                    window.onload = () => Navbar.select(Navbar[url]);
+                }
+                else {
+                    Navbar.select(Navbar[url]);
+                }
             }
             else {
                 elem({ tag: 'a' }).attr({ href: `` }).click();

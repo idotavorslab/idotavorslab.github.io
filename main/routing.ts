@@ -1,5 +1,5 @@
 declare namespace Routing {
-    type Page = "home" | "research" | "people" | "publications" | "gallery" | "neuroanatomy" | "contact";
+    type Page = "home" | "research" | "people" | "publications" | "gallery" | "neuroanatomy" | "funding" | "contact";
 }
 const Routing = (() => {
     
@@ -14,13 +14,15 @@ const Routing = (() => {
             case "gallery":
                 return GalleryPage;
             case "neuroanatomy":
-                return NeuroanatomyPage
+                return NeuroanatomyPage;
+            case "funding":
+                return FundingPage
             
         }
     }
     
     function pageStrings(): Routing.Page[] {
-        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"]
+        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "funding", "contact"]
     }
     
     function route(url: Routing.Page) {
@@ -34,7 +36,13 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                Navbar.select(Navbar[url])
+                if (Navbar === undefined) {
+                    window.onload = () => Navbar.select(Navbar[url])
+                } else {
+                    // todo: does this ever happen?
+                    Navbar.select(Navbar[url])
+                }
+                
             } else { // bad url, reload to homepage
                 elem({tag: 'a'}).attr({href: ``}).click();
             }

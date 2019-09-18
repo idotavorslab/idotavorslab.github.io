@@ -40,6 +40,7 @@ const WindowElem = elem({htmlElement: window})
                     publications: '.publications',
                     gallery: '.gallery',
                     neuroanatomy: '.neuroanatomy',
+                    funding: '.funding',
                     contact: '.contact',
                     tau: '.tau',
                 }
@@ -56,6 +57,7 @@ class NavbarElem extends BetterHTMLElement {
     publications: Div;
     gallery: Div;
     neuroanatomy: Div;
+    funding: Div;
     contact: Div;
     tau: Img;
     
@@ -68,13 +70,18 @@ class NavbarElem extends BetterHTMLElement {
         // });
         
         for (let k of Routing.pageStrings()) {
-            this[k].pointerdown(() => {
-                let href = k === "home" ? '' : `#${k}`;
-                console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
-                elem({tag: 'a'}).attr({href}).click();
-                // this.select(this[k])
-                // routeNew(k);
-            })
+            this[k]
+                .pointerdown(() => {
+                    let href = k === "home" ? '' : `#${k}`;
+                    console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
+                    elem({tag: 'a'}).attr({href}).click(); // no need to select because Routing.route does this
+                })
+                .mouseover(() => {
+                    this.emphasize(this[k])
+                })
+                .mouseout(() => {
+                    this.resetPales()
+                });
         }
         
     }
@@ -100,9 +107,24 @@ class NavbarElem extends BetterHTMLElement {
     }
     */
     
-    select(child: Div) {
-        for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
-            k.toggleClass('selected', k === child);
+    select(child: Div): void {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.toggleClass('selected', pageElem === child);
+        }
+    }
+    
+    emphasize(child: Div): void {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.toggleClass('pale', pageElem !== child);
+        }
+    }
+    
+    resetPales(): void {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.removeClass('pale');
         }
     }
     

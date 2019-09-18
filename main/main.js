@@ -32,6 +32,7 @@ const WindowElem = elem({ htmlElement: window })
                 publications: '.publications',
                 gallery: '.gallery',
                 neuroanatomy: '.neuroanatomy',
+                funding: '.funding',
                 contact: '.contact',
                 tau: '.tau',
             }
@@ -43,16 +44,36 @@ class NavbarElem extends BetterHTMLElement {
     constructor({ query, children }) {
         super({ query, children });
         for (let k of Routing.pageStrings()) {
-            this[k].pointerdown(() => {
+            this[k]
+                .pointerdown(() => {
                 let href = k === "home" ? '' : `#${k}`;
                 console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
                 elem({ tag: 'a' }).attr({ href }).click();
+            })
+                .mouseover(() => {
+                this.emphasize(this[k]);
+            })
+                .mouseout(() => {
+                this.resetPales();
             });
         }
     }
     select(child) {
-        for (let k of [this.research, this.people, this.publications, this.gallery, this.contact]) {
-            k.toggleClass('selected', k === child);
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.toggleClass('selected', pageElem === child);
+        }
+    }
+    emphasize(child) {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.toggleClass('pale', pageElem !== child);
+        }
+    }
+    resetPales() {
+        for (let pageString of Routing.pageStrings()) {
+            let pageElem = this[pageString];
+            pageElem.removeClass('pale');
         }
     }
 }

@@ -168,9 +168,6 @@ div#main div#navbar > div:nth-last-child(2) {
   margin-right: auto;
 }
 div#main div#navbar > div {
-  border-bottom-color: var(--TRANS);
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
   display: block;
   padding: 10px 0;
   transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out;
@@ -180,6 +177,9 @@ div#main div#navbar > div:hover {
 }
 div#main div#navbar > div.selected {
   color: black;
+}
+div#main div#navbar > div.pale {
+  color: var(--GREY6);
 }
 div#main div#home {
   display: block;

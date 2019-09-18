@@ -60,7 +60,7 @@ div#navbar
 	& > div
 
 		// for onhover border
-		border-bottom:
+		//border-bottom:
 			color: var(--TRANS)
 			width: 1px
 			style: solid
@@ -70,14 +70,16 @@ div#navbar
 		transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out
 
 		&:hover
-			@include selectedMixin()
-			//color: var(--GREY6)
+			color: black
+		//color: var(--GREY6)
 
 
 		//border-bottom-color: var(--TRANS)
-
 		&.selected
-			@include selectedMixin()
+			color: black
+
+		&.pale
+			color: var(--GREY6)
 
 
 
