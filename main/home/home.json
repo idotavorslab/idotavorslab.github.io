@@ -17,6 +17,13 @@
 			"links": {
 				"Israel Society for Neuroscience 28th annual meeting": "https://www.isfn.org.il/"
 			}
+		},
+		"Symposium on Functional & Structural Brain Connectoms - Sep 25": {
+			"date": "Sep 18, 2019",
+			"content": "<p>Join us at Tel Aviv University for an exciting conference on brain connectivity.</p> <p>Featuring international speakers including Olaf Sporns, Alexander Leemans, Martijn Van Den Heuvel and more...</p> <p> For more information and registration visit here</p>",				
+			"links": {
+				"here": "https://docs.google.com/forms/d/e/1FAIpQLSdlT-fgaSiL_cGC3P4tMlxL7_SN9r_B8qSTN4Ak23rqyh4NTw/viewform"
+			}
 		}
 	}
 }
