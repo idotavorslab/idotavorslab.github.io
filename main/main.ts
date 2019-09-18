@@ -40,7 +40,6 @@ const WindowElem = elem({htmlElement: window})
                     publications: '.publications',
                     gallery: '.gallery',
                     neuroanatomy: '.neuroanatomy',
-                    funding: '.funding',
                     contact: '.contact',
                     tau: '.tau',
                 }
@@ -57,7 +56,6 @@ class NavbarElem extends BetterHTMLElement {
     publications: Div;
     gallery: Div;
     neuroanatomy: Div;
-    funding: Div;
     contact: Div;
     tau: Img;
     
@@ -76,12 +74,8 @@ class NavbarElem extends BetterHTMLElement {
                     console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
                     elem({tag: 'a'}).attr({href}).click(); // no need to select because Routing.route does this
                 })
-                .mouseover(() => {
-                    this.emphasize(this[k])
-                })
-                .mouseout(() => {
-                    this.resetPales()
-                });
+                .mouseover(() => this.emphasize(<Div>this[k]))
+                .mouseout(() => this.resetPales());
         }
         
     }

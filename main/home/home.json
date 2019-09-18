@@ -21,5 +21,11 @@
 				"here": "https://docs.google.com/forms/d/e/1FAIpQLSdlT-fgaSiL_cGC3P4tMlxL7_SN9r_B8qSTN4Ak23rqyh4NTw/viewform"
 			}
 		}
+	},
+	"funding": {
+		"The Israel Science Foundation": {
+			"image": "isf-logo.png",
+			"text": "Supports excellence in basic research across all fields of knowledge"
+		}
 	}
 }

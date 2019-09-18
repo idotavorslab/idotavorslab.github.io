@@ -32,7 +32,6 @@ const WindowElem = elem({ htmlElement: window })
                 publications: '.publications',
                 gallery: '.gallery',
                 neuroanatomy: '.neuroanatomy',
-                funding: '.funding',
                 contact: '.contact',
                 tau: '.tau',
             }
@@ -50,12 +49,8 @@ class NavbarElem extends BetterHTMLElement {
                 console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
                 elem({ tag: 'a' }).attr({ href }).click();
             })
-                .mouseover(() => {
-                this.emphasize(this[k]);
-            })
-                .mouseout(() => {
-                this.resetPales();
-            });
+                .mouseover(() => this.emphasize(this[k]))
+                .mouseout(() => this.resetPales());
         }
     }
     select(child) {

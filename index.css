@@ -280,14 +280,6 @@ div#intro > div#right_widget > div#radios > .radio[class~=selected] {
 
 div#research_snippets_container {
   text-align: left;
-  margin-bottom: 40px;
-}
-div#research_snippets_container > div.title {
-  font-family: OpenSansBold;
-  font-size: 36px;
-  margin-bottom: 20px;
-  line-height: calc(36px * 1.5);
-  letter-spacing: -0.5px;
 }
 div#research_snippets_container > div#research_snippets {
   --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
@@ -315,6 +307,29 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
 }
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
+  margin-top: 8px;
+}
+
+div#funding {
+  margin-top: var(--gap);
+  margin-bottom: var(--gap);
+}
+div#funding > div#sponsors {
+  --sponsorWidth: calc((var(--w) - 2 * var(--GAP1)) / 3);
+}
+div#funding > div#sponsors > div.sponsor {
+  width: var(--sponsorWidth);
+  cursor: pointer;
+}
+div#funding > div#sponsors > div.sponsor > img {
+  width: inherit;
+}
+div#funding > div#sponsors > div.sponsor > div.sponsor-title {
+  font-family: OpenSansSemiBold;
+  margin-top: 8px;
+}
+div#funding > div#sponsors > div.sponsor > div.sponsor-text {
+  text-align: left;
   margin-top: 8px;
 }
 

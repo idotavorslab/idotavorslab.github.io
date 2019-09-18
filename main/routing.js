@@ -11,12 +11,10 @@ const Routing = (() => {
                 return GalleryPage;
             case "neuroanatomy":
                 return NeuroanatomyPage;
-            case "funding":
-                return FundingPage;
         }
     }
     function pageStrings() {
-        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "funding", "contact"];
+        return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
     }
     function route(url) {
         console.log(`route("${url}")`);
