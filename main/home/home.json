@@ -1,9 +1,5 @@
 {
-	"about-text": [
-		"We focus on exploring the connection between brain structure, function and human behavior, using magnetic resonance imaging (MRI).",
-		"We investigate what underlies behavioral and functional differences between individuals, such as changes in functional and structural connectivity and differences in the brain’s microstructure.",
-		"In addition, we study learning-related brain plasticity by developing behavioral tasks that induce functional and structural brain modifications. For our work, we use advanced mathematical and statistical analysis methods."
-	],
+	"about-text": "<p>We focus on exploring the connection between brain structure, function and human behavior, using magnetic resonance imaging (MRI).</p> <p>We investigate what underlies behavioral and functional differences between individuals, such as changes in functional and structural connectivity and differences in the brain’s microstructure.</p> <p>In addition, we study learning-related brain plasticity by developing behavioral tasks that induce functional and structural brain modifications. For our work, we use advanced mathematical and statistical analysis methods.</p>",
 	"news": {
 		"Follow us on Twitter!": {
 			"content": "Don’t miss our latest updates, publications and discussions on @LabTavor",
@@ -20,7 +16,7 @@
 		},
 		"Symposium on Functional & Structural Brain Connectoms - Sep 25": {
 			"date": "Sep 18, 2019",
-			"content": "<p>Join us at Tel Aviv University for an exciting conference on brain connectivity.</p> <p>Featuring international speakers including Olaf Sporns, Alexander Leemans, Martijn Van Den Heuvel and more...</p> <p> For more information and registration visit here</p>",				
+			"content": "<p>Join us at Tel Aviv University for an exciting conference on brain connectivity.</p> <p>Featuring international speakers including Olaf Sporns, Alexander Leemans, Martijn Van Den Heuvel and more...</p> <p> For more information and registration visit here</p>",
 			"links": {
 				"here": "https://docs.google.com/forms/d/e/1FAIpQLSdlT-fgaSiL_cGC3P4tMlxL7_SN9r_B8qSTN4Ak23rqyh4NTw/viewform"
 			}

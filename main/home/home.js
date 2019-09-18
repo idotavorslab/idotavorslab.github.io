@@ -84,7 +84,8 @@ const HomePage = () => {
         rightWidget.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
         const aboutText = elem({ query: "#about > .about-text" });
-        for (let [i, p] of Object.entries(data["about-text"])) {
+        const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
+        for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
             if (i == "0")
                 cls = 'bold';
