@@ -149,21 +149,26 @@ div#research_snippets_container
 
 // ***  funding
 div#funding
+	text-align: left
 	margin:
 		top: var(--gap)
 		bottom: var(--gap)
 
 	& > div#sponsors
-		--sponsorWidth: calc((var(--w) - 2 * var(--GAP1)) / 3)
-		//display: grid
-		//grid:
-			template-columns: repeat(4, var(--sponsorWidth))
+		--rowLength: 3
+		--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+		display: grid
+		margin-top: 40px
+		grid:
+			template-columns: repeat(var(--rowLength), var(--sponsorWidth))
 			column-gap: var(--GAP1)
 			row-gap: var(--GAP1)
 
 		& > div.sponsor
-			width: var(--sponsorWidth)
+
 			cursor: pointer
+			display: flex
+			flex-direction: column
 
 			//&:hover
 				& > img, & > div
@@ -177,15 +182,21 @@ div#funding
 				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
 
 			& > img
-				width: inherit
+				width: 160px
+				height: 160px
+				margin: 0 auto calc(var(--gap) / 2) 0
+				object-fit: contain
 
 			& > div.sponsor-title
-				font-family: OpenSansSemiBold
-				margin-top: 8px
+				font-family: OpenSansBold
+				margin:
+					top: 0
+					bottom: 8px
+
 
 			& > div.sponsor-text
-				text-align: left
-				margin-top: 8px
+
+//margin-top: auto
 
 // ***  footer
 div#footer

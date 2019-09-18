@@ -26,6 +26,14 @@
 		"The Israel Science Foundation": {
 			"image": "isf-logo.png",
 			"text": "Supports excellence in basic research across all fields of knowledge"
+		},
+		"Mind & Language": {
+			"image": "mila-logo-192x192.png",
+			"text": "By Sagol School of Neuroscience"
+		},
+		"Aufzien Center": {
+			"image": "med-logo.png",
+			"text": "The Aufzien Center for the Prevention and Treatment of Parkinson's Disease"
 		}
 	}
 }

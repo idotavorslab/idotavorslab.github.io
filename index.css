@@ -311,28 +311,35 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
 }
 
 div#funding {
+  text-align: left;
   margin-top: var(--gap);
   margin-bottom: var(--gap);
 }
 div#funding > div#sponsors {
-  --sponsorWidth: calc((var(--w) - 2 * var(--GAP1)) / 3);
+  --rowLength: 3;
+  --sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
+  display: grid;
+  margin-top: 40px;
+  grid-template-columns: repeat(var(--rowLength), var(--sponsorWidth));
+  grid-column-gap: var(--GAP1);
+  grid-row-gap: var(--GAP1);
 }
 div#funding > div#sponsors > div.sponsor {
-  width: var(--sponsorWidth);
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 div#funding > div#sponsors > div.sponsor > img {
-  width: inherit;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto calc(var(--gap) / 2) 0;
+  object-fit: contain;
 }
 div#funding > div#sponsors > div.sponsor > div.sponsor-title {
-  font-family: OpenSansSemiBold;
-  margin-top: 8px;
+  font-family: OpenSansBold;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
-div#funding > div#sponsors > div.sponsor > div.sponsor-text {
-  text-align: left;
-  margin-top: 8px;
-}
-
 div#footer {
   box-shadow: 0 -1px 0 var(--GREY2);
   padding-top: 30px;
