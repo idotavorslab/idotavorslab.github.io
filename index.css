@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --W0: 1200px;
   --W1: 984px;
@@ -101,10 +102,23 @@ p.bold, div.bold, span.bold {
 a {
   text-decoration: none;
   color: var(--GOOGLEBLUE);
-  transition: color 200ms ease-out;
+  transition: color 200ms ease-in-out;
+}
+a:after {
+  transition: opacity 200ms ease-in-out;
+  content: "";
+  opacity: 0;
 }
 a:hover {
   color: var(--GREY6);
+}
+a.arrow:after {
+  opacity: 1;
+  content: " ↗";
+}
+a.arrow-trans:after {
+  opacity: 0;
+  content: " ↗";
 }
 
 div#main {
@@ -311,7 +325,7 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
 }
 
 div#funding {
-  text-align: left;
+  text-align: center;
   margin-top: var(--gap);
   margin-bottom: var(--gap);
 }
@@ -319,7 +333,6 @@ div#funding > div#sponsors {
   --rowLength: 3;
   --sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
   display: grid;
-  margin-top: 40px;
   grid-template-columns: repeat(var(--rowLength), var(--sponsorWidth));
   grid-column-gap: var(--GAP1);
   grid-row-gap: var(--GAP1);
@@ -332,7 +345,7 @@ div#funding > div#sponsors > div.sponsor {
 div#funding > div#sponsors > div.sponsor > img {
   width: 160px;
   height: 160px;
-  margin: 0 auto calc(var(--gap) / 2) 0;
+  margin: 0 auto calc(var(--gap) / 2) auto;
   object-fit: contain;
 }
 div#funding > div#sponsors > div.sponsor > div.sponsor-title {
@@ -764,6 +777,13 @@ div#img_viewer_close > svg > path.upright {
 }
 div#img_viewer_close > svg > path.downleft {
   d: path("m 1 1 l 30 30");
+}
+
+div.brain {
+  margin-bottom: var(--gap);
+}
+div.brain > h1 {
+  text-align: center;
 }
 
 /*# sourceMappingURL=index.css.map */

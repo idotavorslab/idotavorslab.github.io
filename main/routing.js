@@ -20,7 +20,7 @@ const Routing = (() => {
         console.log(`route("${url}")`);
         if (bool(url)) {
             if (pageStrings().includes(url)) {
-                console.log('\tvalid url, calling pageObj().init()');
+                console.log(`\tvalid url ("${url}"), calling pageObj().init()`);
                 if (url === "gallery")
                     Footer.attr({ hidden: '' });
                 else

@@ -149,7 +149,7 @@ div#research_snippets_container
 
 // ***  funding
 div#funding
-	text-align: left
+	text-align: center
 	margin:
 		top: var(--gap)
 		bottom: var(--gap)
@@ -158,7 +158,7 @@ div#funding
 		--rowLength: 3
 		--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
 		display: grid
-		margin-top: 40px
+		//margin-top: 40px
 		grid:
 			template-columns: repeat(var(--rowLength), var(--sponsorWidth))
 			column-gap: var(--GAP1)
@@ -184,7 +184,7 @@ div#funding
 			& > img
 				width: 160px
 				height: 160px
-				margin: 0 auto calc(var(--gap) / 2) 0
+				margin: 0 auto calc(var(--gap) / 2) auto
 				object-fit: contain
 
 			& > div.sponsor-title

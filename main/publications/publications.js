@@ -13,7 +13,7 @@ const PublicationsPage = () => {
                     return ext;
                 return "↗";
             }
-            this.elem = elem({ tag: "publication" })
+            this.elem = elem({ tag: 'publication' })
                 .cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
                 content: div({ cls: "content-div" }).cacheAppend({

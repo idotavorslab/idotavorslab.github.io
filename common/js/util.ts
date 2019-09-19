@@ -225,7 +225,7 @@ iPhone: ${isIphone}
 // window.onresize = setWindowStatsInnerText;
 
 function copyToClipboard(val) {
-    const copyText = elem({tag: "input"});
+    const copyText = elem({tag: 'input'});
     // @ts-ignore
     copyText.e.value = val;
     elem({htmlElement: document.body}).append(copyText);
@@ -313,6 +313,18 @@ function log(bold: boolean = false) {
 
 JSON.parstr = (value: any) => JSON.parse(JSON.stringify(value));
 
+function showArrowOnHover(anchors: BetterHTMLElement[]) {
+    anchors.forEach((anch: BetterHTMLElement) => {
+        anch
+            .mouseover(() => anch.addClass('arrow'))
+            .mouseout(async () => {
+                anch.replaceClass('arrow', 'arrow-trans');
+                // *  DEP: index.sass a:after transition
+                await wait(200);
+                anch.removeClass('arrow-trans');
+            })
+    });
+}
 
 interface JSON {
     

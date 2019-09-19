@@ -13,7 +13,7 @@ const WindowElem = elem({ htmlElement: window })
         }
     },
     hashchange: (event) => {
-        const newURL = event.newURL.replace(window.location.origin, "").slice(1).replace('#', '');
+        const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
         console.log('hash change, event.newURL:', event.newURL, '\nnewURL:', newURL);
         if (!bool(newURL)) {
             elem({ tag: 'a' }).attr({ href: `` }).click();

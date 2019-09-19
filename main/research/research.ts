@@ -11,12 +11,13 @@ const ResearchPage = () => {
         let emptied = false;
         type TResearchData = { image: string, text: string, circle?: boolean }[];
         for (let [i, [title, {image, text, circle}]] of Object.entries(Object.entries(<TResearchData>data))) {
+            // @ts-ignore
             let articleCls = i % 2 == 0 ? '' : 'reverse';
             let imgCls = circle !== undefined ? 'circle' : '';
             // let pHtml = `<span class="bold">${text.slice(0, text.indexOf('.') + 1)}</span>${text.slice(text.indexOf('.') + 1)}`;
             let article = div({cls: `article ${articleCls}`})
                 .cacheAppend({
-                    title: elem({tag: "h1", text: title}),
+                    title: elem({tag: 'h1', text: title}),
                     text: paragraph({cls: "text"}).html(text),
                     img: img({src: `main/research/${image}`, cls: imgCls})
                     

@@ -170,7 +170,8 @@ const PeoplePage = () => {
             }
             setHtml() {
                 this.cv.html(this.owner.cv);
-                this.email.html(`Email: <a href="mailto:${this.owner.email}">${this.owner.email}</a>`);
+                this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
+                showArrowOnHover(this.email.children('a'));
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");

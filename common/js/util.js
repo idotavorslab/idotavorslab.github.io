@@ -144,7 +144,7 @@ iPhone: ${isIphone}
 `;
 }
 function copyToClipboard(val) {
-    const copyText = elem({ tag: "input" });
+    const copyText = elem({ tag: 'input' });
     copyText.e.value = val;
     elem({ htmlElement: document.body }).append(copyText);
     copyText.e.select();
@@ -188,4 +188,15 @@ function log(bold = false) {
     };
 }
 JSON.parstr = (value) => JSON.parse(JSON.stringify(value));
+function showArrowOnHover(anchors) {
+    anchors.forEach((anch) => {
+        anch
+            .mouseover(() => anch.addClass('arrow'))
+            .mouseout(async () => {
+            anch.replaceClass('arrow', 'arrow-trans');
+            await wait(200);
+            anch.removeClass('arrow-trans');
+        });
+    });
+}
 //# sourceMappingURL=util.js.map
