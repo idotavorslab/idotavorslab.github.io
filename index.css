@@ -779,4 +779,11 @@ div#img_viewer_close > svg > path.downleft {
   d: path("m 1 1 l 30 30");
 }
 
+div.brain {
+  margin-bottom: var(--gap);
+}
+div.brain > h1 {
+  text-align: center;
+}
+
 /*# sourceMappingURL=index.css.map */
