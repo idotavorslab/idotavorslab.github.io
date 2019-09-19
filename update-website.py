@@ -82,8 +82,8 @@ if not onlygit:
     os.system('rsync -avrth --delete-excluded %s ./ idotavor@gp.tau.ac.il:public_html' % excludestr)
 
     print ('''
-       --------------------------------------------------------------------------------
-       |   Success copying files to idotavor@gp.tau.ac.il:public_html.                |
-       |   You can now see the changes at tau.ac.il/~idotavor                         |
-       --------------------------------------------------------------------------------
+       ----------------------------------------------------------------------------------
+       |   Success copying files to idotavor@gp.tau.ac.il:public_html.                  |
+       |   In a few minutes, you will be able to see the changes at tau.ac.il/~idotavor |
+       ----------------------------------------------------------------------------------
        ''')

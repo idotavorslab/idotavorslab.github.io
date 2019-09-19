@@ -17,7 +17,7 @@ const ResearchPage = () => {
             // let pHtml = `<span class="bold">${text.slice(0, text.indexOf('.') + 1)}</span>${text.slice(text.indexOf('.') + 1)}`;
             let article = div({cls: `article ${articleCls}`})
                 .cacheAppend({
-                    title: elem({tag: "h1", text: title}),
+                    title: elem({tag: 'h1', text: title}),
                     text: paragraph({cls: "text"}).html(text),
                     img: img({src: `main/research/${image}`, cls: imgCls})
                     

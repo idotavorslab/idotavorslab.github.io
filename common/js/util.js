@@ -144,7 +144,7 @@ iPhone: ${isIphone}
 `;
 }
 function copyToClipboard(val) {
-    const copyText = elem({ tag: "input" });
+    const copyText = elem({ tag: 'input' });
     copyText.e.value = val;
     elem({ htmlElement: document.body }).append(copyText);
     copyText.e.select();

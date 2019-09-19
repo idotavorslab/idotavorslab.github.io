@@ -9,7 +9,7 @@ const ResearchPage = () => {
             let imgCls = circle !== undefined ? 'circle' : '';
             let article = div({ cls: `article ${articleCls}` })
                 .cacheAppend({
-                title: elem({ tag: "h1", text: title }),
+                title: elem({ tag: 'h1', text: title }),
                 text: paragraph({ cls: "text" }).html(text),
                 img: img({ src: `main/research/${image}`, cls: imgCls })
             });

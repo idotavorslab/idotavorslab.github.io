@@ -690,7 +690,7 @@ customElements.define('better-html-element', BetterHTMLElement);
 class Div extends BetterHTMLElement {
 	/**Create a Div element. Optionally set its id, text or cls.*/
 	constructor({ id, text, cls } = {}) {
-		super({ tag: "div", text, cls });
+		super({ tag: 'div', text, cls });
 		if (id)
 			this.id(id);
 	}
@@ -699,7 +699,7 @@ class Div extends BetterHTMLElement {
 class Paragraph extends BetterHTMLElement {
 	/**Create a Paragraph element. Optionally set its id, text or cls.*/
 	constructor({ id, text, cls } = {}) {
-		super({ tag: "p", text, cls });
+		super({ tag: 'p', text, cls });
 		if (id)
 			this.id(id);
 	}

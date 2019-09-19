@@ -73,7 +73,7 @@ const HomePage = () => {
             
             if (!selectedItem.content.includes('<a href')) {
                 for (let [text, link] of enumerate(selectedItem.links)) {
-                    selectedItem.content = selectedItem.content.replace(text, `<a href="${link}">${text}</a>`)
+                    selectedItem.content = selectedItem.content.replace(text, `<a target="_blank" href="${link}">${text}</a>`)
                 }
             }
             

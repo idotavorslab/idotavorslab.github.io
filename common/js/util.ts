@@ -225,7 +225,7 @@ iPhone: ${isIphone}
 // window.onresize = setWindowStatsInnerText;
 
 function copyToClipboard(val) {
-    const copyText = elem({tag: "input"});
+    const copyText = elem({tag: 'input'});
     // @ts-ignore
     copyText.e.value = val;
     elem({htmlElement: document.body}).append(copyText);
