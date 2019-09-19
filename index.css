@@ -311,7 +311,7 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
 }
 
 div#funding {
-  text-align: left;
+  text-align: center;
   margin-top: var(--gap);
   margin-bottom: var(--gap);
 }
@@ -319,7 +319,6 @@ div#funding > div#sponsors {
   --rowLength: 3;
   --sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
   display: grid;
-  margin-top: 40px;
   grid-template-columns: repeat(var(--rowLength), var(--sponsorWidth));
   grid-column-gap: var(--GAP1);
   grid-row-gap: var(--GAP1);
@@ -332,7 +331,7 @@ div#funding > div#sponsors > div.sponsor {
 div#funding > div#sponsors > div.sponsor > img {
   width: 160px;
   height: 160px;
-  margin: 0 auto calc(var(--gap) / 2) 0;
+  margin: 0 auto calc(var(--gap) / 2) auto;
   object-fit: contain;
 }
 div#funding > div#sponsors > div.sponsor > div.sponsor-title {

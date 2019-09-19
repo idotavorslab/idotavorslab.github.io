@@ -512,6 +512,10 @@ declare class BetterHTMLElement {
     
     /**Return a `BetterHTMLElement` list of all children */
     children(): BetterHTMLElement[];
+    /**Return a `BetterHTMLElement` list of all children selected by `selector` */
+    children<K extends HTMLTag>(selector: K): BetterHTMLElement[];
+    /**Return a `BetterHTMLElement` list of all children selected by `selector` */
+    children(selector: string | HTMLTag): BetterHTMLElement[];
     
     clone(deep?: boolean): BetterHTMLElement;
     

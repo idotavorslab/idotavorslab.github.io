@@ -46,7 +46,7 @@ const HomePage = () => {
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, { opacity: 0 });
             await wait(25);
-            if (!selectedItem.content.includes('<a href')) {
+            if (!selectedItem.content.includes('<a')) {
                 for (let [text, link] of enumerate(selectedItem.links)) {
                     selectedItem.content = selectedItem.content.replace(text, `<a target="_blank" href="${link}">${text}</a>`);
                 }
@@ -57,6 +57,22 @@ const HomePage = () => {
                 rightWidget.news.date.text('').toggleClass('mb', true);
             rightWidget.news.title.text(selectedItem.title);
             rightWidget.news.content.html(selectedItem.content);
+            console.log('children: ', rightWidget.news.content.children());
+            rightWidget.news.content
+                .children()
+                .forEach((child) => {
+                if (child.e.tagName.toLowerCase() === 'a') {
+                    child
+                        .mouseover(() => {
+                        child.text(child.text() + ' ↗');
+                        console.log('mouseover');
+                    })
+                        .mouseout(() => {
+                        child.text(child.text().replace(" ↗", ""));
+                        console.log('mouseout');
+                    });
+                }
+            });
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
