@@ -81,8 +81,7 @@ if not onlygit:
                ]
     excludestr = ' '.join(['--exclude=%s' % ex for ex in exclude])
 
-    # the slash after the dot is crucial!
-    os.system('rsync -avth --delete %s ./ idotavor@gp.tau.ac.il:public_html' % excludestr)
+    os.system('rsync -avrth --delete-excluded %s ./ idotavor@gp.tau.ac.il:public_html' % excludestr)
 
     print '''
        --------------------------------------------------------------------------------
