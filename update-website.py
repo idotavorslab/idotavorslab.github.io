@@ -56,7 +56,6 @@ if not onlyscp:
     print '''
        --------------------------------------------------------------------------------
        |   Success pushing to GitHub.                                                 |
-       |   Starting secure copy to idotavor@gp.tau.ac.il:public_html...               |
        --------------------------------------------------------------------------------
        '''
 
