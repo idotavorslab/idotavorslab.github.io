@@ -84,22 +84,18 @@ const HomePage = () => {
                 rightWidget.news.date.text('').toggleClass('mb', true);
             
             rightWidget.news.title.text(selectedItem.title);
-            rightWidget.news.content.html(selectedItem.content);
-            console.log('children: ', rightWidget.news.content.children());
             rightWidget.news.content
-                .children()
+                .html(selectedItem.content)
+                .children('a')
                 .forEach((child: BetterHTMLElement) => {
-                    if (child.e.tagName.toLowerCase() === 'a') {
-                        child
-                            .mouseover(() => {
-                                child.text(child.text() + ' ↗');
-                                console.log('mouseover');
-                            })
-                            .mouseout(() => {
-                                child.text(child.text().replace(" ↗", ""));
-                                console.log('mouseout');
-                            })
-                    }
+                    child
+                        .mouseover(() => child.addClass('arrow'))
+                        .mouseout(async () => {
+                            child.replaceClass('arrow', 'arrow-trans');
+                            // *  DEP: index.sass a:after transition
+                            await wait(200);
+                            child.removeClass('arrow-trans');
+                        })
                 });
             selectedItem.radio.toggleClass('selected');
             

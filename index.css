@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --W0: 1200px;
   --W1: 984px;
@@ -101,10 +102,23 @@ p.bold, div.bold, span.bold {
 a {
   text-decoration: none;
   color: var(--GOOGLEBLUE);
-  transition: color 200ms ease-out;
+  transition: color 200ms ease-in-out;
+}
+a:after {
+  transition: opacity 200ms ease-in-out;
+  content: "";
+  opacity: 0;
 }
 a:hover {
   color: var(--GREY6);
+}
+a.arrow:after {
+  opacity: 1;
+  content: " ↗";
+}
+a.arrow-trans:after {
+  opacity: 0;
+  content: " ↗";
 }
 
 div#main {

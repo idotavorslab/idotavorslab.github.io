@@ -60,10 +60,26 @@ p, div, span
 a
 	text-decoration: none
 	color: var(--GOOGLEBLUE)
-	transition: color 200ms ease-out
+	transition: color 200ms ease-in-out
+
+	&:after
+		// *  DEP: home.ts NewsData.switchTo() content children('a') onmouseout wait(200)
+		transition: opacity 200ms ease-in-out
+		content: ""
+		opacity: 0
 
 	&:hover
 		color: var(--GREY6)
+
+	&.arrow
+		&:after
+			opacity: 1
+			content: " ↗"
+
+	&.arrow-trans
+		&:after
+			opacity: 0
+			content: " ↗"
 
 div#main
 
