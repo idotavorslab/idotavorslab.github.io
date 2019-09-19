@@ -56,18 +56,8 @@ const HomePage = () => {
             else
                 rightWidget.news.date.text('').toggleClass('mb', true);
             rightWidget.news.title.text(selectedItem.title);
-            rightWidget.news.content
-                .html(selectedItem.content)
-                .children('a')
-                .forEach((child) => {
-                child
-                    .mouseover(() => child.addClass('arrow'))
-                    .mouseout(async () => {
-                    child.replaceClass('arrow', 'arrow-trans');
-                    await wait(200);
-                    child.removeClass('arrow-trans');
-                });
-            });
+            rightWidget.news.content.html(selectedItem.content);
+            showArrowOnHover(rightWidget.news.content.children('a'));
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
