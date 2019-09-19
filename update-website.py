@@ -2,7 +2,7 @@ import re
 import os
 import sys
 
-print'''
+print '''
        -----------------------------------------------------------------------------------------------------------------
        |   USAGE:                                                                                                      |
        |   python update-website.py         Pushes changes to GitHub, then copies idotavor@gp.tau.ac.il:public_html    |
@@ -46,8 +46,7 @@ if not onlyscp:
         change = inputfn('Bad input, what was changed?')
         trynum += 1
 
-    print
-    '''
+    print '''
        -----------------------------
        |   Pushing to GitHub...    |
        -----------------------------
@@ -60,8 +59,7 @@ if not onlyscp:
        '''
 
 if not onlygit:
-    print
-    '''
+    print '''
        ----------------------------------------------------------------------
        |   (secure)Copying files to idotavor@gp.tau.ac.il:public_html...    |
        ----------------------------------------------------------------------
