@@ -37,29 +37,47 @@ const WindowElem = elem({ htmlElement: window })
             }
         });
         console.log('window loaded');
-        if (window.location.hash.includes('gallery'))
-            return;
-        const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
-        for (let [i, file] of Object.entries(galleryFiles)) {
+        function cache(file, page) {
             let src;
             if (file.includes('http') || file.includes('www')) {
                 src = file;
             }
             else {
-                src = `main/gallery/${file}`;
+                src = `main/${page}/${file}`;
             }
-            let image = elem({ htmlElement: new Image() })
-                .attr({
-                src,
-                hidden: ""
-            })
+            let imgElem = elem({ htmlElement: new Image() })
+                .attr({ src, hidden: "" })
                 .on({
                 load: () => {
-                    console.log(`loaded: ${file}`);
-                    CacheDiv.cacheAppend([[file, image]]);
+                    console.log(`${page} | loaded: ${file}`);
+                    CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
                 }
             });
         }
+        async function cachePeople() {
+            const peopleData = await fetchJson('main/people/people.json', "no-cache");
+            const { team: teamData, alumni: alumniData } = peopleData;
+            for (let [name, { image }] of dict(teamData).items())
+                cache(image, "people");
+            for (let [name, { image }] of dict(alumniData).items())
+                cache(image, "people");
+        }
+        async function cacheGallery() {
+            const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
+            for (let file of galleryFiles)
+                cache(file, "gallery");
+        }
+        async function cacheResearch() {
+            const researchData = await fetchJson('main/research/research.json', "no-cache");
+            for (let [title, { image }] of dict(researchData).items())
+                cache(image, "research");
+        }
+        if (!window.location.hash.includes('gallery'))
+            cacheGallery();
+        if (!window.location.hash.includes('people'))
+            cachePeople();
+        if (!window.location.hash.includes('research'))
+            cacheResearch();
     }
 });
 const Footer = elem({ id: 'footer' });

@@ -7,11 +7,29 @@ const ResearchPage = () => {
         for (let [i, [title, { image, text, circle }]] of Object.entries(Object.entries(data))) {
             let articleCls = i % 2 == 0 ? '' : 'reverse';
             let imgCls = circle !== undefined ? 'circle' : '';
+            let imgElem;
+            let cachedImage = CacheDiv[`research.${image}`];
+            if (cachedImage !== undefined) {
+                imgElem = cachedImage.removeAttr('hidden');
+                console.log('research | cachedImage isnt undefined:', cachedImage);
+            }
+            else {
+                console.log('research | cachedImage IS undefined:', cachedImage);
+                let src;
+                if (image.includes('http') || image.includes('www')) {
+                    src = image;
+                }
+                else {
+                    src = `main/gallery/${image}`;
+                }
+                imgElem = img({ src });
+            }
+            imgElem.class(imgCls);
             let article = div({ cls: `article ${articleCls}` })
                 .cacheAppend({
                 title: elem({ tag: 'h1', text: title }),
                 text: paragraph({ cls: "text" }).html(text),
-                img: img({ src: `main/research/${image}`, cls: imgCls })
+                img: imgElem
             });
             articles.push(article);
             if (!emptied) {

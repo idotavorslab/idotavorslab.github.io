@@ -20,8 +20,17 @@ const PeoplePage = () => {
                 super({cls: 'person'});
                 this.cv = cv;
                 this.email = email;
+                let imgElem;
+                let cachedImage = CacheDiv[`people.${image}`];
+                if (cachedImage !== undefined) {
+                    imgElem = cachedImage.removeAttr('hidden');
+                    console.log('people | cachedImage isnt undefined:', cachedImage);
+                } else {
+                    console.log('people | cachedImage IS undefined');
+                    imgElem = img({src: `main/people/${image}`});
+                }
                 this.append(
-                    img({src: `main/people/${image}`}),
+                    imgElem,
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
                 ).pointerdown((event) => {
@@ -263,9 +272,8 @@ const PeoplePage = () => {
         
         
         const data = await fetchJson('main/people/people.json', "no-cache");
-        // console.log('people data', data);
-        const expando = new Expando();
         const {team: teamData, alumni: alumniData} = data;
+        const expando = new Expando();
         
         const team: People = new People();
         const alumni: People = new People();
