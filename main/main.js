@@ -37,19 +37,29 @@ const WindowElem = elem({ htmlElement: window })
             }
         });
         console.log('window loaded');
-        let image = elem({ htmlElement: new Image() })
-            .attr({
-            src: "https://upload.wikimedia.org/wikipedia/commons/6/64/Dubrovnik_as_seen_from_Sr%C4%91_-_September_2017.jpg",
-            hidden: ""
-        })
-            .on({
-            load: () => {
-                console.log('loaded: https://upload.wikimedia.org/wikipedia/commons/6/64/Dubrovnik_as_seen_from_Sr%C4%91_-_September_2017.jpg');
-                CacheDiv.cacheAppend({
-                    "https://upload.wikimedia.org/wikipedia/commons/6/64/Dubrovnik_as_seen_from_Sr%C4%91_-_September_2017.jpg": image
-                });
+        if (window.location.hash.includes('gallery'))
+            return;
+        const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
+        for (let [i, file] of Object.entries(galleryFiles)) {
+            let src;
+            if (file.includes('http') || file.includes('www')) {
+                src = file;
             }
-        });
+            else {
+                src = `main/gallery/${file}`;
+            }
+            let image = elem({ htmlElement: new Image() })
+                .attr({
+                src,
+                hidden: ""
+            })
+                .on({
+                load: () => {
+                    console.log(`loaded: ${file}`);
+                    CacheDiv.cacheAppend([[file, image]]);
+                }
+            });
+        }
     }
 });
 const Footer = elem({ id: 'footer' });

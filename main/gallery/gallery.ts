@@ -138,7 +138,7 @@ const GalleryPage = () => {
         
         imgViewer.isopen = false;
         type TGalleryData = { file: string, contrast: number, brightness: number, caption: string }[];
-        const data: TGalleryData = await fetchJson("main/gallery/gallery.json", "default");
+        const data: TGalleryData = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         
         

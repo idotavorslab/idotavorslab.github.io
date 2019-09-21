@@ -104,7 +104,7 @@ const GalleryPage = () => {
             event.stopPropagation();
         });
         imgViewer.isopen = false;
-        const data = await fetchJson("main/gallery/gallery.json", "default");
+        const data = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
         let selectedFile = new File();
         const row0 = div({ id: 'row_0' });
