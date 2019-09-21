@@ -68,9 +68,9 @@ const WindowElem = elem({htmlElement: window})
             async function cachePeople() {
                 const peopleData = await fetchJson('main/people/people.json', "no-cache");
                 const {team: teamData, alumni: alumniData} = peopleData;
-                for (let [name, {image}] of dict(teamData).items())
+                for (let [_, {image}] of dict(teamData).items())
                     cache(image, "people");
-                for (let [name, {image}] of dict(alumniData).items())
+                for (let [_, {image}] of dict(alumniData).items())
                     cache(image, "people")
             }
             
@@ -82,10 +82,13 @@ const WindowElem = elem({htmlElement: window})
             
             async function cacheResearch() {
                 const researchData = await fetchJson('main/research/research.json', "no-cache");
-                for (let [title, {image}] of dict(researchData).items())
+                for (let [_, {image}] of dict(researchData).items())
                     cache(image, "research")
             }
             
+            console.log('waiting 1000...');
+            await wait(1000);
+            console.log('done waiting');
             if (!window.location.hash.includes('gallery'))
                 cacheGallery();
             if (!window.location.hash.includes('people'))
