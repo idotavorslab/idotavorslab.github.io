@@ -6,7 +6,6 @@ const ResearchPage = () => {
     async function init(selectedIndex?: number) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
         const data = await fetchJson('main/research/research.json', "no-cache");
-        // console.log('ResearchPage data', data);
         const articles: Article[] = [];
         let emptied = false;
         type TResearchData = { image: string, text: string, circle?: boolean }[];
@@ -14,12 +13,27 @@ const ResearchPage = () => {
             // @ts-ignore
             let articleCls = i % 2 == 0 ? '' : 'reverse';
             let imgCls = circle !== undefined ? 'circle' : '';
-            // let pHtml = `<span class="bold">${text.slice(0, text.indexOf('.') + 1)}</span>${text.slice(text.indexOf('.') + 1)}`;
+            let imgElem: BetterHTMLElement;
+            let cachedImage = CacheDiv[`research.${image}`];
+            if (cachedImage !== undefined) {
+                imgElem = cachedImage.removeAttr('hidden');
+                console.log('research | cachedImage isnt undefined:', cachedImage);
+            } else {
+                console.log('research | cachedImage IS undefined:', cachedImage);
+                let src;
+                if (image.includes('http') || image.includes('www')) {
+                    src = image;
+                } else {
+                    src = `main/gallery/${image}`;
+                }
+                imgElem = img({src});
+            }
+            imgElem.class(imgCls);
             let article = div({cls: `article ${articleCls}`})
                 .cacheAppend({
                     title: elem({tag: 'h1', text: title}),
                     text: paragraph({cls: "text"}).html(text),
-                    img: img({src: `main/research/${image}`, cls: imgCls})
+                    img: imgElem
                     
                 });
             articles.push(article as Article);

@@ -67,10 +67,17 @@ const WindowElem = elem({ htmlElement: window })
             for (let file of galleryFiles)
                 cache(file, "gallery");
         }
+        async function cacheResearch() {
+            const researchData = await fetchJson('main/research/research.json', "no-cache");
+            for (let [title, { image }] of dict(researchData).items())
+                cache(image, "research");
+        }
         if (!window.location.hash.includes('gallery'))
             cacheGallery();
         if (!window.location.hash.includes('people'))
             cachePeople();
+        if (!window.location.hash.includes('research'))
+            cacheResearch();
     }
 });
 const Footer = elem({ id: 'footer' });
