@@ -112,10 +112,10 @@ const GalleryPage = () => {
         const row2 = div({ id: 'row_2' });
         const row3 = div({ id: 'row_3' });
         for (let [i, { file, contrast, brightness }] of Object.entries(data)) {
+            let imageElem;
             let cachedImage = CacheDiv[`gallery.${file}`];
-            let image;
             if (cachedImage !== undefined) {
-                image = cachedImage.removeAttr('hidden');
+                imageElem = cachedImage.removeAttr('hidden');
                 console.log('gallery | cachedImage isnt undefined:', cachedImage);
             }
             else {
@@ -127,26 +127,27 @@ const GalleryPage = () => {
                 else {
                     src = `main/gallery/${file}`;
                 }
-                image = img({ src })
-                    .pointerdown((event) => {
-                    event.stopPropagation();
-                    selectedFile.path = file;
-                    return toggleImgViewer(selectedFile);
-                })
-                    .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
+                imageElem = img({ src });
             }
+            imageElem
+                .pointerdown((event) => {
+                event.stopPropagation();
+                selectedFile.path = file;
+                return toggleImgViewer(selectedFile);
+            })
+                .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             switch (parseInt(i) % 4) {
                 case 0:
-                    row0.append(image);
+                    row0.append(imageElem);
                     break;
                 case 1:
-                    row1.append(image);
+                    row1.append(imageElem);
                     break;
                 case 2:
-                    row2.append(image);
+                    row2.append(imageElem);
                     break;
                 case 3:
-                    row3.append(image);
+                    row3.append(imageElem);
                     break;
             }
         }

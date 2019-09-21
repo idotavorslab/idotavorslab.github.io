@@ -13,8 +13,8 @@ const PeoplePage = () => {
                 super({ cls: 'person' });
                 this.cv = cv;
                 this.email = email;
-                let cachedImage = CacheDiv[`people.${image}`];
                 let imgElem;
+                let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
                     imgElem = cachedImage.removeAttr('hidden');
                     console.log('people | cachedImage isnt undefined:', cachedImage);

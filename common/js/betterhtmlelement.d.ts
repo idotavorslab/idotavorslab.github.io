@@ -167,7 +167,7 @@ declare class BetterHTMLElement {
     id(): string;
     
     /**For each `[styleAttr, styleVal]` pair, set the `style[styleAttr]` to `styleVal`.*/
-    css(css: CssOptions): this;
+    css(css: Partial<CssOptions>): this;
     
     /**Remove the value of the passed style properties*/
     uncss(...removeProps: (keyof CssOptions)[]): this;
