@@ -158,7 +158,11 @@ const HomePage = () => {
             researchSnippets.append(
                 div({cls: 'snippet'})
                     .append(
-                        img({src: `main/research/${thumbnail}`}),
+                        img({src: `main/research/${thumbnail}`}).on({
+                            load: () => {
+                                console.log(`%cloaded: ${thumbnail}`, `color: #ffc66d`);
+                            }
+                        }),
                         div({cls: 'snippet-title', text: title})
                     )
                     .pointerdown((event) => {
@@ -174,7 +178,11 @@ const HomePage = () => {
         for (let [title, {image, text}] of Object.entries(fundingData)) {
             sponsorsGrid.append(
                 div({cls: 'sponsor'}).append(
-                    img({src: `main/home/${image}`}),
+                    img({src: `main/home/${image}`}).on({
+                        load: () => {
+                            console.log(`%cloaded: ${image}`, `color: #ffc66d`);
+                        }
+                    }),
                     div({cls: 'sponsor-title', text: title}),
                     div({cls: 'sponsor-text', text})
                 )

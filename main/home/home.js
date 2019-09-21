@@ -108,7 +108,11 @@ const HomePage = () => {
         const researchSnippets = elem({ query: "#research_snippets" });
         for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {
             researchSnippets.append(div({ cls: 'snippet' })
-                .append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title }))
+                .append(img({ src: `main/research/${thumbnail}` }).on({
+                load: () => {
+                    console.log(`%cloaded: ${thumbnail}`, `color: #ffc66d`);
+                }
+            }), div({ cls: 'snippet-title', text: title }))
                 .pointerdown((event) => {
                 ResearchPage().init(i);
                 history.pushState(null, null, '#research');
@@ -117,7 +121,11 @@ const HomePage = () => {
         const fundingData = data.funding;
         const sponsorsGrid = elem({ query: "#sponsors" });
         for (let [title, { image, text }] of Object.entries(fundingData)) {
-            sponsorsGrid.append(div({ cls: 'sponsor' }).append(img({ src: `main/home/${image}` }), div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
+            sponsorsGrid.append(div({ cls: 'sponsor' }).append(img({ src: `main/home/${image}` }).on({
+                load: () => {
+                    console.log(`%cloaded: ${image}`, `color: #ffc66d`);
+                }
+            }), div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
         }
         elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));
         elem({ query: "#logos > :nth-child(2)" }).pointerdown(() => window.open("https://en-med.tau.ac.il/"));
