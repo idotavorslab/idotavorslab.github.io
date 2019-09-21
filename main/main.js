@@ -2,6 +2,7 @@ const isIphone = window.clientInformation.userAgent.includes('iPhone');
 const DocumentElem = elem({ htmlElement: document });
 const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
+const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window })
     .on({
     scroll: (event) => {
@@ -22,7 +23,7 @@ const WindowElem = elem({ htmlElement: window })
             Routing.route(newURL);
         }
     },
-    load: () => {
+    load: async () => {
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -33,9 +34,32 @@ const WindowElem = elem({ htmlElement: window })
                 gallery: '.gallery',
                 neuroanatomy: '.neuroanatomy',
                 contact: '.contact',
-                tau: '.tau',
             }
         });
+        console.log('window loaded');
+        if (window.location.hash.includes('gallery'))
+            return;
+        const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
+        for (let [i, file] of Object.entries(galleryFiles)) {
+            let src;
+            if (file.includes('http') || file.includes('www')) {
+                src = file;
+            }
+            else {
+                src = `main/gallery/${file}`;
+            }
+            let image = elem({ htmlElement: new Image() })
+                .attr({
+                src,
+                hidden: ""
+            })
+                .on({
+                load: () => {
+                    console.log(`loaded: ${file}`);
+                    CacheDiv.cacheAppend([[file, image]]);
+                }
+            });
+        }
     }
 });
 const Footer = elem({ id: 'footer' });

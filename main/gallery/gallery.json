@@ -1,7 +1,7 @@
 [
 	{
 		"caption": "Before there was lab, there was Seinfeld :)",
-		"file": "00.jpeg",
+		"file": "https://upload.wikimedia.org/wikipedia/commons/6/64/Dubrovnik_as_seen_from_Sr%C4%91_-_September_2017.jpg",
 		"contrast": 1.1,
 		"brightness": 1.25
 	},
@@ -23,7 +23,9 @@
 	},
 	{
 		"caption": "Another day at the office",
-		"file": "05.jpeg"
+		"file": "05.jpeg",
+		"contrast": 1.05,
+		"brightness": 1.2
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
@@ -56,7 +58,7 @@
 		"caption": "Happy birthday to Inbar!",
 		"file": "12.jpeg",
 		"contrast": 1.05,
-		"brightness": 1.1
+		"brightness": 1.2
 	},
 	{
 		"caption": "MRIing :)",
@@ -64,7 +66,9 @@
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "14.jpeg"
+		"file": "14.jpeg",
+		"contrast": 1.05,
+		"brightness": 1.15
 	},
 	{
 		"caption": "OHBM 2019 Rome",
@@ -84,11 +88,15 @@
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "19.jpg"
+		"file": "19.jpg",
+		"contrast": 1.1,
+		"brightness": 1.1
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "20.jpg"
+		"file": "20.jpg",
+		"contrast": 1.1,
+		"brightness": 1.05
 	},
 	{
 		"caption": "OHBM 2019 Rome",

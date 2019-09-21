@@ -4,7 +4,9 @@ const isIphone = window.clientInformation.userAgent.includes('iPhone');
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
-let Navbar; // WindowElem.load =>
+
+
+const CacheDiv = elem({id: 'cache'});
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
@@ -31,7 +33,7 @@ const WindowElem = elem({htmlElement: window})
             
             
         },
-        load: () => {
+        load: async () => {
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {
@@ -44,6 +46,30 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
+            console.log('window loaded');
+            if (window.location.hash.includes('gallery'))
+                return;
+            const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
+            for (let [i, file] of Object.entries(<string[]>galleryFiles)) {
+                let src;
+                if (file.includes('http') || file.includes('www')) {
+                    src = file;
+                } else {
+                    src = `main/gallery/${file}`;
+                }
+                let image = elem({htmlElement: new Image()})
+                    .attr({
+                        src,
+                        hidden: ""
+                    })
+                    .on({
+                        load: () => {
+                            console.log(`loaded: ${file}`);
+                            CacheDiv.cacheAppend([[file, image]]);
+                        }
+                    });
+            }
+            
         }
     });
 const Footer = elem({id: 'footer'});
@@ -125,5 +151,4 @@ class NavbarElem extends BetterHTMLElement {
 }
 
 
-
-
+let Navbar; // WindowElem.load =>
