@@ -175,8 +175,8 @@ const PeoplePage = () => {
             }
         }
         const data = await fetchJson('main/people/people.json', "no-cache");
-        const expando = new Expando();
         const { team: teamData, alumni: alumniData } = data;
+        const expando = new Expando();
         const team = new People();
         const alumni = new People();
         function gridFactory({ gridData, people }) {

@@ -47,29 +47,59 @@ const WindowElem = elem({htmlElement: window})
                 }
             });
             console.log('window loaded');
-            if (window.location.hash.includes('gallery'))
-                return;
-            const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
-            for (let [i, file] of Object.entries(<string[]>galleryFiles)) {
-                let src;
-                if (file.includes('http') || file.includes('www')) {
-                    src = file;
-                } else {
-                    src = `main/gallery/${file}`;
+            
+            async function cachePeople() {
+                const peopleData = await fetchJson('main/people/people.json', "no-cache");
+                const {team: teamData, alumni: alumniData} = peopleData;
+                for (let [name, {image}] of dict(teamData).items()) {
+                    let src;
+                    if (image.includes('http') || image.includes('www')) {
+                        src = image;
+                    } else {
+                        src = `main/people/${image}`;
+                    }
+                    let imageElem = elem({htmlElement: new Image()})
+                        .attr({
+                            src,
+                            hidden: ""
+                        })
+                        .on({
+                            load: () => {
+                                console.log(`cachePeople() | loaded: ${image}`);
+                                CacheDiv.cacheAppend([[`people.${image}`, imageElem]]);
+                            }
+                        });
                 }
-                let image = elem({htmlElement: new Image()})
-                    .attr({
-                        src,
-                        hidden: ""
-                    })
-                    .on({
-                        load: () => {
-                            console.log(`loaded: ${file}`);
-                            CacheDiv.cacheAppend([[file, image]]);
-                        }
-                    });
             }
             
+            async function cacheGallery() {
+                const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
+                for (let file of galleryFiles) {
+                    let src;
+                    if (file.includes('http') || file.includes('www')) {
+                        src = file;
+                    } else {
+                        src = `main/gallery/${file}`;
+                    }
+                    let imageElem = elem({htmlElement: new Image()})
+                        .attr({
+                            src,
+                            hidden: ""
+                        })
+                        .on({
+                            load: () => {
+                                console.log(`cacheGallery() | loaded: ${file}`);
+                                CacheDiv.cacheAppend([[`gallery.${file}`, imageElem]]);
+                            }
+                        });
+                }
+                
+            }
+            
+            if (!window.location.hash.includes('gallery'))
+                await cacheGallery();
+            if (!window.location.hash.includes('people'))
+                await cachePeople();
         }
     });
 const Footer = elem({id: 'footer'});

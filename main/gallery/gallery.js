@@ -112,7 +112,7 @@ const GalleryPage = () => {
         const row2 = div({ id: 'row_2' });
         const row3 = div({ id: 'row_3' });
         for (let [i, { file, contrast, brightness }] of Object.entries(data)) {
-            let cachedImage = CacheDiv[file];
+            let cachedImage = CacheDiv[`people.${file}`];
             let image;
             if (cachedImage !== undefined) {
                 image = cachedImage.removeAttr('hidden');
