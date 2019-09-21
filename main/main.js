@@ -2,6 +2,7 @@ const isIphone = window.clientInformation.userAgent.includes('iPhone');
 const DocumentElem = elem({ htmlElement: document });
 const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
+const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window })
     .on({
     scroll: (event) => {
@@ -22,7 +23,7 @@ const WindowElem = elem({ htmlElement: window })
             Routing.route(newURL);
         }
     },
-    load: () => {
+    load: async () => {
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -33,6 +34,20 @@ const WindowElem = elem({ htmlElement: window })
                 gallery: '.gallery',
                 neuroanatomy: '.neuroanatomy',
                 contact: '.contact',
+            }
+        });
+        console.log('window loaded');
+        let image = elem({ htmlElement: new Image() })
+            .attr({
+            src: "https://upload.wikimedia.org/wikipedia/commons/6/64/Dubrovnik_as_seen_from_Sr%C4%91_-_September_2017.jpg",
+            hidden: ""
+        })
+            .on({
+            load: () => {
+                console.log('loaded: https://upload.wikimedia.org/wikipedia/commons/6/64/Dubrovnik_as_seen_from_Sr%C4%91_-_September_2017.jpg');
+                CacheDiv.cacheAppend({
+                    "https://upload.wikimedia.org/wikipedia/commons/6/64/Dubrovnik_as_seen_from_Sr%C4%91_-_September_2017.jpg": image
+                });
             }
         });
     }
