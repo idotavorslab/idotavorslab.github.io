@@ -4,7 +4,7 @@ const isIphone = window.clientInformation.userAgent.includes('iPhone');
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
-let Navbar; // WindowElem.load =>
+
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
@@ -125,5 +125,4 @@ class NavbarElem extends BetterHTMLElement {
 }
 
 
-
-
+let Navbar; // WindowElem.load =>

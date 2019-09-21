@@ -33,7 +33,6 @@ const WindowElem = elem({ htmlElement: window })
                 gallery: '.gallery',
                 neuroanatomy: '.neuroanatomy',
                 contact: '.contact',
-                tau: '.tau',
             }
         });
     }
