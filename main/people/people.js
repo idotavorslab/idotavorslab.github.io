@@ -13,7 +13,17 @@ const PeoplePage = () => {
                 super({ cls: 'person' });
                 this.cv = cv;
                 this.email = email;
-                this.append(img({ src: `main/people/${image}` }), div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
+                let cachedImage = CacheDiv[`people.${image}`];
+                let imgElem;
+                if (cachedImage !== undefined) {
+                    imgElem = cachedImage.removeAttr('hidden');
+                    console.log('people | cachedImage isnt undefined:', cachedImage);
+                }
+                else {
+                    console.log('people | cachedImage IS undefined');
+                    imgElem = img({ src: `main/people/${image}` });
+                }
+                this.append(imgElem, div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
                     console.log('person pointerdown, stopping prop and toggling expando');
                     event.stopPropagation();
                     expando.toggle(this);

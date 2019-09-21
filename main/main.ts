@@ -48,58 +48,45 @@ const WindowElem = elem({htmlElement: window})
             });
             console.log('window loaded');
             
+            function cache(file: string, page: Routing.Page) {
+                let src;
+                if (file.includes('http') || file.includes('www')) {
+                    src = file;
+                } else {
+                    src = `main/${page}/${file}`;
+                }
+                let imgElem = elem({htmlElement: new Image()})
+                    .attr({
+                        src,
+                        hidden: ""
+                    })
+                    .on({
+                        load: () => {
+                            console.log(`cache${page}() | loaded: ${file}`);
+                            CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
+                        }
+                    });
+            }
+            
             async function cachePeople() {
                 const peopleData = await fetchJson('main/people/people.json', "no-cache");
                 const {team: teamData, alumni: alumniData} = peopleData;
-                for (let [name, {image}] of dict(teamData).items()) {
-                    let src;
-                    if (image.includes('http') || image.includes('www')) {
-                        src = image;
-                    } else {
-                        src = `main/people/${image}`;
-                    }
-                    let imageElem = elem({htmlElement: new Image()})
-                        .attr({
-                            src,
-                            hidden: ""
-                        })
-                        .on({
-                            load: () => {
-                                console.log(`cachePeople() | loaded: ${image}`);
-                                CacheDiv.cacheAppend([[`people.${image}`, imageElem]]);
-                            }
-                        });
-                }
+                for (let [name, {image}] of dict(teamData).items())
+                    cache(image, "people");
+                for (let [name, {image}] of dict(alumniData).items())
+                    cache(image, "people")
             }
             
             async function cacheGallery() {
                 const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
-                for (let file of galleryFiles) {
-                    let src;
-                    if (file.includes('http') || file.includes('www')) {
-                        src = file;
-                    } else {
-                        src = `main/gallery/${file}`;
-                    }
-                    let imageElem = elem({htmlElement: new Image()})
-                        .attr({
-                            src,
-                            hidden: ""
-                        })
-                        .on({
-                            load: () => {
-                                console.log(`cacheGallery() | loaded: ${file}`);
-                                CacheDiv.cacheAppend([[`gallery.${file}`, imageElem]]);
-                            }
-                        });
-                }
-                
+                for (let file of galleryFiles)
+                    cache(file, "gallery")
             }
             
             if (!window.location.hash.includes('gallery'))
-                await cacheGallery();
+                cacheGallery();
             if (!window.location.hash.includes('people'))
-                await cachePeople();
+                cachePeople();
         }
     });
 const Footer = elem({id: 'footer'});

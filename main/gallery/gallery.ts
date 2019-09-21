@@ -152,12 +152,13 @@ const GalleryPage = () => {
         
         for (let [i, {file, contrast, brightness}] of Object.entries(data)) {
             
-            let cachedImage = CacheDiv[`people.${file}`];
+            let cachedImage = CacheDiv[`gallery.${file}`];
             let image;
             if (cachedImage !== undefined) {
                 image = cachedImage.removeAttr('hidden');
-                console.log('cachedImage isnt undefined:', cachedImage);
+                console.log('gallery | cachedImage isnt undefined:', cachedImage);
             } else {
+                console.log('gallery | cachedImage IS undefined');
                 let src;
                 if (file.includes('http') || file.includes('www')) {
                     src = file;

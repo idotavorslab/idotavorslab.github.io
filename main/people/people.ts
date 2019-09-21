@@ -20,8 +20,17 @@ const PeoplePage = () => {
                 super({cls: 'person'});
                 this.cv = cv;
                 this.email = email;
+                let cachedImage = CacheDiv[`people.${image}`];
+                let imgElem;
+                if (cachedImage !== undefined) {
+                    imgElem = cachedImage.removeAttr('hidden');
+                    console.log('people | cachedImage isnt undefined:', cachedImage);
+                } else {
+                    console.log('people | cachedImage IS undefined');
+                    imgElem = img({src: `main/people/${image}`});
+                }
                 this.append(
-                    img({src: `main/people/${image}`}),
+                    imgElem,
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
                 ).pointerdown((event) => {
