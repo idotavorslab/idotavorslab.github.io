@@ -4,6 +4,7 @@ const isIphone = window.clientInformation.userAgent.includes('iPhone');
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
+let Navbar; // WindowElem.load =>
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
@@ -41,7 +42,6 @@ const WindowElem = elem({htmlElement: window})
                     gallery: '.gallery',
                     neuroanatomy: '.neuroanatomy',
                     contact: '.contact',
-                    tau: '.tau',
                 }
             });
         }
@@ -57,7 +57,6 @@ class NavbarElem extends BetterHTMLElement {
     gallery: Div;
     neuroanatomy: Div;
     contact: Div;
-    tau: Img;
     
     constructor({query, children}) {
         super({query, children});
@@ -125,19 +124,6 @@ class NavbarElem extends BetterHTMLElement {
     
 }
 
-let Navbar; // WindowElem.load =>
 
-/*const Navbar = new NavbarElem({
-    query: 'div#navbar',
-    children: {
-        home: '.home',
-        research: '.research',
-        people: '.people',
-        publications: '.publications',
-        gallery: '.gallery',
-        contact: '.contact',
-        tau: '.tau',
-    }
-});
 
-*/
+
