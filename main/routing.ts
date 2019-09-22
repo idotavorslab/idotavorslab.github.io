@@ -24,7 +24,7 @@ const Routing = (() => {
     }
     
     function route(url: Routing.Page) {
-        console.log(`route("${url}")`);
+        console.log(`%croute(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().includes(url)) {
                 console.log(`\tvalid url ("${url}"), calling pageObj().init()`);

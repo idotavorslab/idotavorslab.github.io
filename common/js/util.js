@@ -6,6 +6,7 @@ const W1 = 984;
 const GAP0 = 60;
 const GREY5 = 'rgb(153, 153, 153)';
 const GREY7 = 'rgb(68, 68, 68)';
+const GOOGLEBLUE = '#3b82f0';
 function float(str) {
     return parseFloat(str);
 }
