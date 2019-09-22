@@ -23,7 +23,7 @@ const WindowElem = elem({ htmlElement: window })
             Routing.route(newURL);
         }
     },
-    load: async () => {
+    load: () => {
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -73,14 +73,15 @@ const WindowElem = elem({ htmlElement: window })
                 cache(image, "research");
         }
         console.log('waiting 1000...');
-        await wait(1000);
-        console.log('done waiting');
-        if (!window.location.hash.includes('research'))
-            cacheResearch();
-        if (!window.location.hash.includes('people'))
-            cachePeople();
-        if (!window.location.hash.includes('gallery'))
-            cacheGallery();
+        wait(1000).then(() => {
+            console.log('done waiting');
+            if (!window.location.hash.includes('research'))
+                cacheResearch();
+            if (!window.location.hash.includes('people'))
+                cachePeople();
+            if (!window.location.hash.includes('gallery'))
+                cacheGallery();
+        });
     }
 });
 const Footer = elem({ id: 'footer' });

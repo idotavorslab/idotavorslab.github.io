@@ -35,9 +35,10 @@ const Routing = (() => {
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 if (Navbar === undefined) {
+                    // happens when refreshing to a #page
                     window.onload = () => Navbar.select(Navbar[url])
                 } else {
-                    // todo: does this ever happen?
+                    // happens when navigating through navbar
                     Navbar.select(Navbar[url])
                 }
                 
