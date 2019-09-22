@@ -1,7 +1,7 @@
 const HomePage = () => {
     type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number };
     type TRightWidget = BetterHTMLElement & {
-        mainImageContainer: Div,
+        newsCoverImageContainer: Div,
         news: Div & {
             title: Div,
             date: Div,
@@ -12,7 +12,7 @@ const HomePage = () => {
     /** The single #news>date,title,content,radios html to show selected news */
     const rightWidget: TRightWidget = <TRightWidget>elem({
         query: '#right_widget', children: {
-            mainImageContainer: '#main_image_container',
+            newsCoverImageContainer: '#news_cover_image_container',
             news: {
                 '#news': {
                     title: '.title',
@@ -123,7 +123,11 @@ const HomePage = () => {
         
         // ***  About
         const data = await fetchJson('main/home/home.json', "no-cache");
+        rightWidget.newsCoverImageContainer
+            .append(img({src: `main/home/${data["news-cover-image"]}`}));
+        
         const aboutText = elem({query: "#about > .about-text"});
+        
         const splitParagraphs = (val: string): string[] => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {
             let cls = undefined;

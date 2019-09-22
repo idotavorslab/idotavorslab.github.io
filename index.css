@@ -239,12 +239,12 @@ div#intro > div#right_widget {
   flex-direction: column;
   margin-left: var(--gap);
 }
-div#intro > div#right_widget > div#main_image_container {
+div#intro > div#right_widget > div#news_cover_image_container {
   background-color: var(--GREY02);
   padding: 24px 32px;
   border-radius: 20px 20px 0 0;
 }
-div#intro > div#right_widget > div#main_image_container > img {
+div#intro > div#right_widget > div#news_cover_image_container > img {
   width: 478px;
 }
 div#intro > div#right_widget > div#news {

@@ -1,7 +1,7 @@
 const HomePage = () => {
     const rightWidget = elem({
         query: '#right_widget', children: {
-            mainImageContainer: '#main_image_container',
+            newsCoverImageContainer: '#news_cover_image_container',
             news: {
                 '#news': {
                     title: '.title',
@@ -84,6 +84,8 @@ const HomePage = () => {
         rightWidget.mouseover(() => newsData.stopAutoSwitch());
         rightWidget.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json', "no-cache");
+        rightWidget.newsCoverImageContainer
+            .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {
