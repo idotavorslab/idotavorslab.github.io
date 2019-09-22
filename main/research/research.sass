@@ -11,26 +11,17 @@ div#home
 			margin-bottom: 18px
 			padding-bottom: 2px
 
-			//transition: border-bottom-color 1s
 			transition: color 0.6s ease-in-out
-			//white-space: nowrap
 
 			width: fit-content
-			//width: max-content
 
 			grid-column: 1/1
 
 			&.highlighted
 				color: var(--GOOGLEBLUE)
-		//border-bottom:
-			width: 1px
-			style: solid
-			color: var(--GREY7)
 
 
 		&[class~="reverse"] > h1
-			//text-align: right
-			//margin-left: auto
 			grid-column: 2/2
 
 
@@ -69,60 +60,7 @@ div#home
 			grid:
 				column: 1/1
 
-//& > div.title
-	border-bottom: 1px solid var(--TRANS)
-	font-family: OpenSansBold
 
-	font-size: 32px
-	letter-spacing: 0.5px
-	line-height: 32px
-	margin:
-		bottom: -10px
-
-	padding:
-		bottom: 10px
-
-	transition: border-bottom-color 1s
-	white-space: nowrap
-
-	width: fit-content
-
-
-	&.highlighted
-		border-bottom:
-			width: 1px
-			style: solid
-			color: var(--GREY7)
-
-//& > div.grid
-	display: grid
-	height: inherit
-	grid-column-gap: var(--gap)
-	//margin: var(--gap) 0 0 0
-
-	& > p.text
-		margin-block-start: 0
-		margin-block-end: 0
-		grid-column: 1/1
-
-	& > img
-		// *  DEP: home.sass > .right-widget width
-		width: 542px
-		object-fit: contain
-		margin: auto
-		grid:
-			column: 2/2
-			row: 2/2
-		//margin-left: var(--gap)
-
-//& > div.background
-	background:
-		repeat: no-repeat
-		size: contain
-		position: top right
-	height: inherit
-	width: 50%
-	float: right
 
 
 

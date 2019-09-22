@@ -2,9 +2,11 @@ const NeuroanatomyPage = () => {
     
     
     async function init() {
-        const data: { title: string, text: string, link: string }[] = await fetchJson('main/neuroanatomy/neuroanatomy.json', "no-cache");
+        // const data: { "intro-text": string, brains: TMap<{ title: string, text: string, link: string }> } = await fetchJson('main/neuroanatomy/neuroanatomy.json', "no-cache");
+        const data: { brains: { title: { text: string, link: string } }, "intro-text": string } = await fetchJson('main/neuroanatomy/neuroanatomy.json', "no-cache");
+        const {brains: brainsData, "intro-text": introText} = data;
         const brains = [];
-        for (let {title, text, link} of data) {
+        for (let [title, {text, link}] of Object.entries(brainsData)) {
             console.log(JSON.parstr({title, text, link}));
             let brain = div({cls: 'brain'}).append(
                 elem({tag: 'h1'}).text(title),
@@ -13,7 +15,10 @@ const NeuroanatomyPage = () => {
             );
             brains.push(brain);
         }
-        Home.empty().append(...brains)
+        Home.empty().append(
+            div({id: 'neuroanatomy_intro'}).html(introText),
+            ...brains
+        )
     }
     
     function wrapSketch(title: string, link: string): string {
