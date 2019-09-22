@@ -415,16 +415,6 @@ div#home > div.article[class~=reverse] > img {
   grid-column: 1/1;
 }
 
-div#home > div.separator {
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0) 20%);
-  height: 1px;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 15px;
-  margin-left: 0;
-  position: relative;
-  width: 100%;
-}
 div#home > div.title {
   font-family: OpenSansBold;
   font-size: 24px;
@@ -443,6 +433,7 @@ div#home > div.grid {
   grid-template-rows: repeat(2, auto);
   grid-row-gap: var(--gap);
   grid-column-gap: var(--gap);
+  text-align: center;
 }
 div#home > div.grid div.person {
   margin: auto;
@@ -717,6 +708,7 @@ div#img_viewer > img {
 }
 div#img_viewer > div#caption {
   text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
+  text-align: center;
   position: fixed;
   font-size: 24px;
   color: white;
