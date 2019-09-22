@@ -40,34 +40,43 @@ def separate_duplicates():
 
 def interlace_pngs():
     for png_path in pngs:
-        if '23-no-il' not in png_path.stem:
+        if '23-interlaced-PIL' != png_path.stem:
             continue
-        png_img: Image.Image = Image.open(png_path)
+        # png_img: Image.Image = Image.open(png_path)
         # interlaced = bool(png_img.info.get('interlace'))
         reader: png.Reader = png.Reader(bytes=png_path.read_bytes())
         reader.read()
+        # chunks = list(reader.chunks())
+        write_path = opt_path / (png_path.stem + '-PIL' + png_path.suffix)
+        print('interlaced, pypng:', reader.interlace,
+              '\nPIL:', bool(png_img.info.get('interlace')),
+              '\nwrite_path:', write_path)
         if reader.interlace:
-            reduce_filesize(reader)
+            reduce_filesize(png_img, write_path)
         else:
-            write_path = opt_path / png_path.name
+            return
+
             with open(write_path, 'w+b') as f:
-                writer = png.Writer(width=reader.width,
-                                    height=reader.height,
-                                    bitdepth=reader.bitdepth,
-                                    compression=reader.compression,
-                                    greyscale=False,
-                                    interlace=True
-                                    )
+                png_img.save(f, optimize=True)
+                """writer = png.Writer(
+                    width=reader.width,
+                    height=reader.height,
+                    # planes=2,
+                    # bitdepth=8,
+                    compression=1,
+                    greyscale=False,
+                    interlace=True
+                    )
                 direct = list(reader.asDirect()[2])
-                writer.write(f, direct)
+                writer.write(f, direct)"""
 
 
-def reduce_filesize(png_reader: png.Reader):
-    pass
+def reduce_filesize(png_img: Image.Image, write_path: Path):
+    with open(write_path, 'w+b') as f:
+        png_img.save(f)
 
 
 separate_duplicates()
-print(duplicates)
 populate_jpgs_pngs()
 
 
