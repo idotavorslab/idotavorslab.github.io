@@ -27,11 +27,12 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
+                const selectNavbarItem = () => Navbar.select(Navbar[url]);
                 if (Navbar === undefined) {
-                    window.onload = () => Navbar.select(Navbar[url]);
+                    window.onload = selectNavbarItem;
                 }
                 else {
-                    Navbar.select(Navbar[url]);
+                    selectNavbarItem();
                 }
             }
             else {

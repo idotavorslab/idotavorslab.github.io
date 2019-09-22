@@ -239,12 +239,12 @@ div#intro > div#right_widget {
   flex-direction: column;
   margin-left: var(--gap);
 }
-div#intro > div#right_widget > div#main_image_container {
+div#intro > div#right_widget > div#news_cover_image_container {
   background-color: var(--GREY02);
   padding: 24px 32px;
   border-radius: 20px 20px 0 0;
 }
-div#intro > div#right_widget > div#main_image_container > img {
+div#intro > div#right_widget > div#news_cover_image_container > img {
   width: 478px;
 }
 div#intro > div#right_widget > div#news {
@@ -779,11 +779,33 @@ div#img_viewer_close > svg > path.downleft {
   d: path("m 1 1 l 30 30");
 }
 
-div.brain {
-  margin-bottom: var(--gap);
+div#home {
+  text-align: left;
 }
-div.brain > h1 {
-  text-align: center;
+div#home > div#neuroanatomy_intro {
+  margin-bottom: calc(var(--gap));
+  width: calc(var(--w) * 0.6);
+}
+div#home > div#neuroanatomy_intro > p {
+  margin-block-start: 0;
+}
+div#home > div#neuroanatomy_intro > p:first-of-type {
+  font-family: OpenSansBold;
+}
+div#home > div.brain {
+  margin-bottom: calc(var(--gap) * 2);
+}
+div#home > div.brain > p.text {
+  margin-block-start: 0;
+  width: calc(var(--w) * 0.6);
+}
+div#home > div.brain > p.text > p {
+  margin-block-start: 0;
+}
+div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
+  width: var(--w);
+  height: 600px;
+  border-radius: 15px;
 }
 
 /*# sourceMappingURL=index.css.map */
