@@ -86,6 +86,7 @@ const HomePage = () => {
         const data = await fetchJson('main/home/home.json', "no-cache");
         rightWidget.newsCoverImageContainer
             .append(img({ src: `main/home/${data["news-cover-image"]}` }));
+        elem({ query: '#navbar > img.home' }).attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {

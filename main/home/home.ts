@@ -126,6 +126,9 @@ const HomePage = () => {
         rightWidget.newsCoverImageContainer
             .append(img({src: `main/home/${data["news-cover-image"]}`}));
         
+        // don't use Navbar because might not have constructed yet
+        elem({query: '#navbar > img.home'}).attr({src: `main/home/${data.logo}`});
+        
         const aboutText = elem({query: "#about > .about-text"});
         
         const splitParagraphs = (val: string): string[] => val.split("</p>").join("").split("<p>").slice(1);

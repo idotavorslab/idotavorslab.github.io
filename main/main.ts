@@ -105,7 +105,7 @@ const Footer = elem({id: 'footer'});
 
 
 class NavbarElem extends BetterHTMLElement {
-    home: Img;
+    home: Div;
     research: Div;
     people: Div;
     publications: Div;

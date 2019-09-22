@@ -34,12 +34,13 @@ const Routing = (() => {
                     Footer.removeAttr('hidden');
                 const pageObj = getPageObj(url);
                 pageObj().init();
+                const selectNavbarItem = () => Navbar.select(Navbar[url]);
                 if (Navbar === undefined) {
                     // happens when refreshing to a #page
-                    window.onload = () => Navbar.select(Navbar[url])
+                    window.onload = selectNavbarItem
                 } else {
                     // happens when navigating through navbar
-                    Navbar.select(Navbar[url])
+                    selectNavbarItem()
                 }
                 
             } else { // bad url, reload to homepage
