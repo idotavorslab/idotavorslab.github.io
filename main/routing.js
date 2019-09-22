@@ -17,7 +17,7 @@ const Routing = (() => {
         return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
     }
     function route(url) {
-        console.log(`route("${url}")`);
+        console.log(`%croute(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().includes(url)) {
                 console.log(`\tvalid url ("${url}"), calling pageObj().init()`);

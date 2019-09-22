@@ -23,11 +23,11 @@ const WindowElem = elem({htmlElement: window})
             // called on navbar click, backbutton click
             // routeNew(event.newURL);
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
-            console.log('hash change, event.newURL:', event.newURL, '\nnewURL:', newURL);
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
                 elem({tag: 'a'}).attr({href: ``}).click()
             } else {
+                console.log(`hash change, event.newURL: "${event.newURL}"\nnewURL: "${newURL}"`);
                 Routing.route(<Routing.Page>newURL);
             }
             
@@ -89,12 +89,12 @@ const WindowElem = elem({htmlElement: window})
             console.log('waiting 1000...');
             await wait(1000);
             console.log('done waiting');
-            if (!window.location.hash.includes('gallery'))
-                cacheGallery();
-            if (!window.location.hash.includes('people'))
-                cachePeople();
             if (!window.location.hash.includes('research'))
                 cacheResearch();
+            if (!window.location.hash.includes('people'))
+                cachePeople();
+            if (!window.location.hash.includes('gallery'))
+                cacheGallery();
         }
     });
 const Footer = elem({id: 'footer'});
@@ -117,15 +117,15 @@ class NavbarElem extends BetterHTMLElement {
         //     window.location = window.location.origin;
         // });
         
-        for (let k of Routing.pageStrings()) {
-            this[k]
+        for (let pageString of Routing.pageStrings()) {
+            this[pageString]
                 .pointerdown(() => {
-                    let href = k === "home" ? '' : `#${k}`;
-                    console.log(`navbar ${k} pointerdown, clicking fake <a href="${href}">`);
+                    let href = pageString === "home" ? '' : `#${pageString}`;
+                    console.log(`navbar ${pageString} pointerdown, clicking fake <a href="${href}">`);
                     elem({tag: 'a'}).attr({href}).click(); // no need to select because Routing.route does this
                 })
-                .mouseover(() => this.emphasize(<Div>this[k]))
-                .mouseout(() => this.resetPales());
+                .mouseover(() => this._emphasize(<Div>this[pageString]))
+                .mouseout(() => this._resetPales());
         }
         
     }
@@ -158,14 +158,14 @@ class NavbarElem extends BetterHTMLElement {
         }
     }
     
-    emphasize(child: Div): void {
+    private _emphasize(child: Div): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.toggleClass('pale', pageElem !== child);
         }
     }
     
-    resetPales(): void {
+    private _resetPales(): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.removeClass('pale');

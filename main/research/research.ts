@@ -24,7 +24,7 @@ const ResearchPage = () => {
                 if (image.includes('http') || image.includes('www')) {
                     src = image;
                 } else {
-                    src = `main/gallery/${image}`;
+                    src = `main/research/${image}`;
                 }
                 imgElem = img({src});
             }

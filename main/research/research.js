@@ -20,7 +20,7 @@ const ResearchPage = () => {
                     src = image;
                 }
                 else {
-                    src = `main/gallery/${image}`;
+                    src = `main/research/${image}`;
                 }
                 imgElem = img({ src });
             }
