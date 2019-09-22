@@ -6,7 +6,7 @@ const ResearchPage = () => {
         let emptied = false;
         for (let [i, [title, { image, text, circle }]] of Object.entries(Object.entries(data))) {
             let articleCls = i % 2 == 0 ? '' : 'reverse';
-            let imgCls = circle !== undefined ? 'circle' : '';
+            let imgCls = circle === true ? 'circle' : '';
             let imgElem;
             let cachedImage = CacheDiv[`research.${image}`];
             if (cachedImage !== undefined) {
