@@ -386,8 +386,10 @@ div#home > div.article[class~=reverse] > h1 {
 }
 div#home > div.article > p.text {
   margin-block-start: 0;
-  margin-block-end: 0;
   grid-column: 1/1;
+}
+div#home > div.article > p.text > p {
+  margin-block-start: 0;
 }
 div#home > div.article[class~=reverse] > p.text {
   grid-column: 2/2;
@@ -780,10 +782,50 @@ div#img_viewer_close > svg > path.downleft {
 }
 
 div.brain {
-  margin-bottom: var(--gap);
+  display: grid;
+  grid-column-gap: var(--gap);
+  height: auto;
+  margin-bottom: calc(var(--gap) * 2);
+  text-align: left;
 }
 div.brain > h1 {
-  text-align: center;
+  grid-column: 1/1;
+}
+div.brain[class~=reverse] > h1 {
+  grid-column: 2/2;
+}
+div.brain > p.text {
+  margin-block-start: 0;
+  grid-column: 1/1;
+}
+div.brain > p.text > p {
+  margin-block-start: 0;
+}
+div.brain[class~=reverse] > p.text {
+  grid-column: 2/2;
+  grid-row: 2/2;
+}
+div.brain > div.sketchfab-embed-wrapper {
+  object-fit: contain;
+  margin: auto;
+  grid-column: 2/2;
+  grid-row: 2/2;
+}
+div.brain > div.sketchfab-embed-wrapper > iframe {
+  width: 542px;
+  height: 480px;
+  border-radius: 15px;
+}
+div.brain > div.sketchfab-embed-wrapper.circle {
+  --dim: 440px;
+  border-radius: 50%;
+  object-fit: cover;
+  width: var(--dim);
+  height: var(--dim);
+  margin-left: calc(542px - var(--dim));
+}
+div.brain[class~=reverse] > div.sketchfab-embed-wrapper {
+  grid-column: 1/1;
 }
 
 /*# sourceMappingURL=index.css.map */
