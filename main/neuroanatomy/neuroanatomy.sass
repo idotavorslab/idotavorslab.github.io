@@ -1,51 +1,22 @@
 div.brain
-	display: grid
-	grid-column-gap: var(--gap)
-	height: auto
 	margin-bottom: calc(var(--gap) * 2)
 	text-align: left
 
-	& > h1
-		grid-column: 1/1
-
-	&[class~="reverse"] > h1
-		grid-column: 2/2
 
 	& > p.text
 		margin-block-start: 0
-		grid-column: 1/1
+		width: calc(var(--w) * 0.6)
 
 		// string in json is <p>bla</p> => nested paragraphs
 		& > p
 			margin-block-start: 0
 
-	&[class~="reverse"] > p.text
-		grid:
-			column: 2/2
-			row: 2/2
 
 	& > div.sketchfab-embed-wrapper
 		// *  DEP: home.sass > .right-widget width
 		& > iframe
-			width: 542px
-			height: 480px
+			width: var(--w)
+			height: 600px
 			border-radius: 15px
 
-		object-fit: contain
-		margin: auto
-		grid:
-			column: 2/2
-			row: 2/2
-
-		&.circle
-			--dim: 440px
-			border-radius: 50%
-			object-fit: cover
-			width: var(--dim)
-			height: var(--dim)
-			margin-left: calc(542px - var(--dim))
-
-	&[class~="reverse"] > div.sketchfab-embed-wrapper
-		grid:
-			column: 1/1
 
