@@ -781,18 +781,30 @@ div#img_viewer_close > svg > path.downleft {
   d: path("m 1 1 l 30 30");
 }
 
-div.brain {
-  margin-bottom: calc(var(--gap) * 2);
+div#home {
   text-align: left;
 }
-div.brain > p.text {
+div#home > div#neuroanatomy_intro {
+  margin-bottom: calc(var(--gap));
+  width: calc(var(--w) * 0.6);
+}
+div#home > div#neuroanatomy_intro > p {
+  margin-block-start: 0;
+}
+div#home > div#neuroanatomy_intro > p:first-of-type {
+  font-family: OpenSansBold;
+}
+div#home > div.brain {
+  margin-bottom: calc(var(--gap) * 2);
+}
+div#home > div.brain > p.text {
   margin-block-start: 0;
   width: calc(var(--w) * 0.6);
 }
-div.brain > p.text > p {
+div#home > div.brain > p.text > p {
   margin-block-start: 0;
 }
-div.brain > div.sketchfab-embed-wrapper > iframe {
+div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
   width: var(--w);
   height: 600px;
   border-radius: 15px;

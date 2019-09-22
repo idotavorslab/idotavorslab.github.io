@@ -1,21 +1,37 @@
-div.brain
-	margin-bottom: calc(var(--gap) * 2)
+div#home
 	text-align: left
 
-
-	& > p.text
-		margin-block-start: 0
+	& > div#neuroanatomy_intro
+		margin-bottom: calc(var(--gap))
+		//font-size: 20px
+		//line-height: 32px
 		width: calc(var(--w) * 0.6)
 
-		// string in json is <p>bla</p> => nested paragraphs
 		& > p
 			margin-block-start: 0
 
+			&:first-of-type
+				font-family: OpenSansBold
+		//& > span.bold:after
+			content: " "
 
-	& > div.sketchfab-embed-wrapper
-		& > iframe
-			width: var(--w)
-			height: 600px
-			border-radius: 15px
+	& > div.brain
+		margin-bottom: calc(var(--gap) * 2)
+
+
+		& > p.text
+			margin-block-start: 0
+			width: calc(var(--w) * 0.6)
+
+			// string in json is <p>bla</p> => nested paragraphs
+			& > p
+				margin-block-start: 0
+
+
+		& > div.sketchfab-embed-wrapper
+			& > iframe
+				width: var(--w)
+				height: 600px
+				border-radius: 15px
 
 
