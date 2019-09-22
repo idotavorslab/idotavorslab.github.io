@@ -53,7 +53,7 @@ const Routing = (() => {
     }
     
     let lastPage = window.location.hash.slice(1);
-    console.log(`document root, window.location: ${window.location}\ncalling route("${lastPage}")`);
+    console.log(`Routing() root, window.location: ${window.location}\ncalling route("${lastPage}")`);
     route(<Routing.Page>lastPage);
     return {route, pageStrings}
 })();

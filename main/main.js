@@ -36,7 +36,9 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
-        console.log('window loaded');
+        console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
+        if (window.location.hash !== "")
+            fetchJson('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
         function cache(file, page) {
             let src;
             if (file.includes('http') || file.includes('www')) {
@@ -73,7 +75,7 @@ const WindowElem = elem({ htmlElement: window })
         }
         console.log('waiting 1000...');
         wait(1000).then(() => {
-            console.log('done waiting');
+            console.log('done waiting, starting caching');
             if (!window.location.hash.includes('research'))
                 cacheResearch();
             if (!window.location.hash.includes('people'))
