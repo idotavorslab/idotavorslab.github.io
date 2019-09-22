@@ -12,7 +12,7 @@ const ResearchPage = () => {
         for (let [i, [title, {image, text, circle}]] of Object.entries(Object.entries(<TResearchData>data))) {
             // @ts-ignore
             let articleCls = i % 2 == 0 ? '' : 'reverse';
-            let imgCls = circle !== undefined ? 'circle' : '';
+            let imgCls = circle === true ? 'circle' : '';
             let imgElem: BetterHTMLElement;
             let cachedImage = CacheDiv[`research.${image}`];
             if (cachedImage !== undefined) {
