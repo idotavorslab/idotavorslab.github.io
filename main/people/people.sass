@@ -1,6 +1,6 @@
 
 div#home
-	& > div.separator
+	//& > div.separator
 		background:
 			image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0) 20%)
 		height: 1px
@@ -25,6 +25,7 @@ div#home
 
 	& > div.grid
 		@include gridContainerMixin("div.person")
+		text-align: center
 
 		& > div.person
 			//border: 1px solid grey
