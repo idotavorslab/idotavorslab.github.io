@@ -796,6 +796,12 @@ div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
   border-radius: 15px;
 }
 
+iframe#contact_iframe {
+  width: var(--w);
+  height: 600px;
+  border-radius: 15px;
+}
+
 div#contact_grid {
   margin-bottom: var(--gap);
   --rowLength: 3;
@@ -819,8 +825,10 @@ div#contact_grid > div > p.subtitle {
   color: var(--GREY5);
   grid-row: 2/2;
 }
-div#contact_grid > div > p.text {
+div#contact_grid > div > a {
   grid-row: 3/3;
+  font-size: 20px;
+  line-height: 32px;
 }
 
 /*# sourceMappingURL=index.css.map */

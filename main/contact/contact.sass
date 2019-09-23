@@ -1,4 +1,21 @@
+iframe#contact_iframe
+	@include iframeMixin()
+	//border-radius: 15px
+	//width: 180px
+	//height: 180px
+
 div#contact_grid
+	margin:
+		bottom: var(--gap)
+
+	--rowLength: 3
+	--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+	display: grid
+	grid:
+		template-columns: repeat(var(--rowLength), var(--itemWidth))
+		column-gap: var(--GAP1)
+		row-gap: var(--GAP1)
+
 	& > div > *
 		text-align: center
 
@@ -13,38 +30,12 @@ div#contact_grid
 			color: var(--GREY5)
 			grid-row: 2/2
 
-		& > p.text
+		& > a
 			grid-row: 3/3
-
-	margin:
-		bottom: var(--gap)
-
-	--rowLength: 3
-	--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
-	display: grid
-	grid:
-		template-columns: repeat(var(--rowLength), var(--itemWidth))
-		column-gap: var(--GAP1)
-		row-gap: var(--GAP1)
+			font-size: 20px
+			line-height: 32px
 
 
-	& > div.visit
-		& > h1
 
-		& > div.subtitle
 
-		& > div.text
 
-	& > div.call
-		& > h1
-
-		& > div.subtitle
-
-		& > div.text
-
-	& > div.email
-		& > h1
-
-		& > div.subtitle
-
-		& > div.text

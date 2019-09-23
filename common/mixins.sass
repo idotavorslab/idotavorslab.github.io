@@ -59,7 +59,10 @@
 	@include max-width($BP1)
 		// 984px
 		--w: var(--W1)
-
+@mixin iframeMixin()
+	width: var(--w)
+	height: 600px
+	border-radius: 15px
 @mixin gridContainerMixin($childTag, $tight:false)
 	display: grid
 	@include setLocalTagWidthVar($tight)
