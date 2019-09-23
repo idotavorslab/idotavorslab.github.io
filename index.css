@@ -540,42 +540,6 @@ div#home > div.grid > div#person_expando.expanded > div.email > a {
 div#home > div.grid > div#person_expando.expanded > div.close {
   opacity: 1;
 }
-div#home > div.grid > div#person_expando.expanded.height-1 {
-  height: 320px;
-}
-div#home > div.grid > div#person_expando.expanded.height-2 {
-  height: 340px;
-}
-div#home > div.grid > div#person_expando.expanded.height-3 {
-  height: 360px;
-}
-div#home > div.grid > div#person_expando.expanded.height-4 {
-  height: 380px;
-}
-div#home > div.grid > div#person_expando.expanded.height-5 {
-  height: 400px;
-}
-div#home > div.grid > div#person_expando.expanded.height-6 {
-  height: 420px;
-}
-div#home > div.grid > div#person_expando.expanded.height-7 {
-  height: 440px;
-}
-div#home > div.grid > div#person_expando.expanded.height-8 {
-  height: 460px;
-}
-div#home > div.grid > div#person_expando.expanded.height-9 {
-  height: 480px;
-}
-div#home > div.grid > div#person_expando.expanded.height-10 {
-  height: 500px;
-}
-div#home > div.grid > div#person_expando.expanded.height-11 {
-  height: 520px;
-}
-div#home > div.grid > div#person_expando.expanded.height-12 {
-  height: 540px;
-}
 
 div#publications_container {
   text-align: left;

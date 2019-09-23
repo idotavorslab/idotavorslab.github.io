@@ -68,6 +68,7 @@ const PeoplePage = () => {
                 }
             }
             
+            /**Sets everyone below's gridRow*/
             pushPeopleBelow() {
                 for (let [i, j] of this.yieldIndexesBelow()) {
                     this.group[i * ROWSIZE + j].css({gridRow: `${i + 2}/${i + 2}`});
@@ -237,10 +238,44 @@ const PeoplePage = () => {
             }
             
             // toggle => ownPopulateAndPosition => setHtml
+            @log()
             setHtml() {
+                
+                // const expandoHeight = Math.floor((this.owner.cv.length - 640) / 55);
+                // console.log({'this.owner.cv.length': this.owner.cv.length, expandoHeight});
+                // this.removeClass((s) => s.startsWith('height'));
+                // if (expandoHeight > 0 && expandoHeight <= 14) {
+                //     this.addClass(`height-${expandoHeight}`);
+                // }
+                
+                
+                /*this.on({
+                    
+                    transitionend: (event: TransitionEvent) => {
+                        if (event.propertyName === "width") {
+                            let textLength = this.owner.cv.length + this.owner.email.length + 8;
+                            let computedHeight = parseInt(getComputedStyle(this.e).height);
+                            // this.css({marginBottom: `${absExpandoHeight - computedHeight}px`});
+                            console.log('transitionend', event,
+                                '\nname:', this.owner.email,
+                                '\nexpando height:', `${computedHeight}px`,
+                                '\ntext length:', textLength,
+                                '\ntextLength / computedHeight:', textLength / computedHeight,
+                                '\nabsExpandoHeight - computedHeight:', absExpandoHeight - computedHeight
+                            );
+                        }
+                    }
+                }, {once: true});
+                wait(0).then(() => {
+                    
+                    let computedHeight = parseInt(getComputedStyle(this.e).height);
+                    console.log({'stam computedHeight': computedHeight});
+                });
+                */
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
                 showArrowOnHover(this.email.children('a'));
+                
             }
             
             
@@ -262,19 +297,22 @@ const PeoplePage = () => {
         
         
         type TeamType = TMap<{ role: string, image: string, cv: string, email: string }>
-        
-        
         const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson('main/people/people.json', "no-cache");
-        const longestCv = Math.max(
+        // const absExpandoHeight = (teamData["ido tavor"].cv.length + teamData["ido tavor"].email.length + 8) / 2
+        const expando: Expando = new Expando();
+        /*const longestCv = Math.max(
             ...Object
                 .values({...alumniData, ...teamData})
                 .map(({cv}) => cv.length)
         );
-        const expando: Expando = new Expando();
-        const expandoHeight = Math.round((longestCv - 680) / 55);
-        console.log({longestCv, expandoHeight});
-        if (expandoHeight > 0 && expandoHeight <= 12)
-            expando.class(`height-${expandoHeight}`);
+        
+        
+                const expandoHeight = Math.round((longestCv - 680) / 55);
+              console.log({longestCv, expandoHeight});
+                if (expandoHeight > 0 && expandoHeight <= 12)
+                    expando.class(`height-${expandoHeight}`);
+        */
+        
         const team: People = new People();
         const alumni: People = new People();
         

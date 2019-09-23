@@ -114,6 +114,9 @@ interface AnimateOptions {
 }
 
 declare type TChildrenObj = TMap<QuerySelector> | TRecMap<QuerySelector>;
+declare type TFunction = (s: string) => boolean;
+
+declare function isFunction(fn: TFunction): fn is TFunction;
 
 declare class BetterHTMLElement {
     protected readonly _htmlElement: HTMLElement;
@@ -177,18 +180,26 @@ declare class BetterHTMLElement {
     
     /**`.className = cls`*/
     class(cls: string): this;
+    /**Return the first class that matches `cls` predicate.*/
+    class(cls: Function): string;
     /**Return a string array of the element's classes (not a classList)*/
     class(): string[];
     
     addClass(cls: string, ...clses: string[]): this;
     
-    removeClass(cls: string, ...clses: string[]): this;
+    removeClass(cls: TFunction, ...clses: TFunction[]): this;
+    removeClass(cls: string, clses?: string[]): this;
     
+    replaceClass(oldToken: TFunction, newToken: string): this;
     replaceClass(oldToken: string, newToken: string): this;
     
+    toggleClass(cls: TFunction, force?: boolean): this;
     toggleClass(cls: string, force?: boolean): this;
     
+    /**Returns `this.e.classList.contains(cls)` */
     hasClass(cls: string): boolean;
+    /**Returns whether `this` has a class that matches passed function */
+    hasClass(cls: TFunction): boolean;
     
     /**Insert one or several `BetterHTMLElement`s or vanilla `Node`s just after `this`.*/
     after(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
@@ -211,7 +222,7 @@ declare class BetterHTMLElement {
     /**For each `[key, child]` pair, `append(child)` and store it in `this[key]`. */
     cacheAppend(keyChildPairs: TMap<BetterHTMLElement>): this;
     /**For each `[key, child]` tuple, `append(child)` and store it in `this[key]`. */
-    cacheAppend(keyChildPairs: Array<[string, BetterHTMLElement]>): this;
+    cacheAppend(keyChildPairs: [string, BetterHTMLElement][]): this;
     
     /**Get a child with `querySelector` and return a `BetterHTMLElement` of it*/
     child<K extends HTMLTag>(selector: K): BetterHTMLElement;
