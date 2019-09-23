@@ -1,5 +1,6 @@
 
 div#home
+
 	& > div.title
 		@include titleMixin()
 		text-align: left
@@ -113,6 +114,11 @@ div#home
 				padding: 0
 
 			&.expanded
+				@mixin expandoHeightMixin()
+					// *  DEP: people.ts (longestCv - 680) / 55
+					@for $i from 1 through 12
+						&.height-#{$i}
+							height: 300px + 20px * $i
 
 				& > div.email
 					& > a
@@ -131,32 +137,8 @@ div#home
 				box-shadow: 0px 2px 10px var(--GREY3)
 				color: var(--GREY7)
 				height: 300px
-				// 680(0) ch    300px   --
-				// 1360(680) ch 540px   height-12
-				&.height-1
-					height: 320px
 
-				&.height-2
-					height: 340px
-
-				&.height-3
-					height: 360px
-
-				&.height-4
-					height: 380px
-
-				&.height-5
-					height: 400px
-
-				&.height-10
-					height: 500px
-
-				&.height-11
-					height: 520px
-
-				&.height-12
-					height: 540px
-
+				@include expandoHeightMixin()
 
 				// [min-width: $BP1]:  255*2  =  510px
 				// [max-width: $BP1]:  216*2  =  432px

@@ -1,6 +1,8 @@
 const ContactPage = () => {
     async function init() {
-        Home.empty()
+        Home.empty().append(
+            elem({tag: 'h1', text: 'Contact Us'})
+        )
     }
     
     return {init}
