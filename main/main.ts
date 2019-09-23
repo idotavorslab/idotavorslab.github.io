@@ -136,26 +136,6 @@ class NavbarElem extends BetterHTMLElement {
     }
     
     
-    /*async gotoPageOLD(pageName: Page) {
-        console.log(`navbar.ts.Navbar.gotoPage(${pageName})`);
-        DocumentElem.allOff();
-        // const bottomSeparators = document.querySelectorAll(".separators")[1];
-        // if (bottomSeparators)
-        //     bottomSeparators.remove();
-        
-        const logos = elem({id: 'logos'});
-        if (logos.e)
-            logos.remove();
-        // _startSeparatorAnimation();
-        const pageObj = Navbar.getPageObj(pageName);
-        this._select(this[pageName]);
-        history.pushState(null, null, `#${pageName}`);
-        // history.replaceState()
-        await pageObj().init();
-        // _killSeparatorAnimation();
-    }
-    */
-    
     select(child: Div): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];

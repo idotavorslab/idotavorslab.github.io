@@ -8,16 +8,24 @@ declare type TEventFunctionMap<K extends keyof HTMLElementEventMap> = {
 };
 declare type HTMLTag = keyof HTMLElementTagNameMap;
 declare type QuerySelector = HTMLTag | string;
-declare type TSubElemOptions = {
+
+interface BaseElemConstructor {
     id?: string;
+    cls?: string;
+}
+
+interface SubElemConstructor extends BaseElemConstructor {
     text?: string;
-    cls?: string;
-};
-declare type TImgOptions = {
-    id?: string;
+}
+
+interface ImgConstructor extends BaseElemConstructor {
     src?: string;
-    cls?: string;
-};
+}
+
+interface AnchorConstructor extends SubElemConstructor {
+    href?: string;
+}
+
 declare type OmittedCssProps =
     "animationDirection"
     | "animationFillMode"
@@ -114,6 +122,9 @@ interface AnimateOptions {
 }
 
 declare type TChildrenObj = TMap<QuerySelector> | TRecMap<QuerySelector>;
+declare type TFunction = (s: string) => boolean;
+
+declare function isFunction(fn: TFunction): fn is TFunction;
 
 declare class BetterHTMLElement {
     protected readonly _htmlElement: HTMLElement;
@@ -177,18 +188,26 @@ declare class BetterHTMLElement {
     
     /**`.className = cls`*/
     class(cls: string): this;
+    /**Return the first class that matches `cls` predicate.*/
+    class(cls: Function): string;
     /**Return a string array of the element's classes (not a classList)*/
     class(): string[];
     
     addClass(cls: string, ...clses: string[]): this;
     
-    removeClass(cls: string, ...clses: string[]): this;
+    removeClass(cls: TFunction, ...clses: TFunction[]): this;
+    removeClass(cls: string, clses?: string[]): this;
     
+    replaceClass(oldToken: TFunction, newToken: string): this;
     replaceClass(oldToken: string, newToken: string): this;
     
+    toggleClass(cls: TFunction, force?: boolean): this;
     toggleClass(cls: string, force?: boolean): this;
     
+    /**Returns `this.e.classList.contains(cls)` */
     hasClass(cls: string): boolean;
+    /**Returns whether `this` has a class that matches passed function */
+    hasClass(cls: TFunction): boolean;
     
     /**Insert one or several `BetterHTMLElement`s or vanilla `Node`s just after `this`.*/
     after(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
@@ -211,7 +230,7 @@ declare class BetterHTMLElement {
     /**For each `[key, child]` pair, `append(child)` and store it in `this[key]`. */
     cacheAppend(keyChildPairs: TMap<BetterHTMLElement>): this;
     /**For each `[key, child]` tuple, `append(child)` and store it in `this[key]`. */
-    cacheAppend(keyChildPairs: Array<[string, BetterHTMLElement]>): this;
+    cacheAppend(keyChildPairs: [string, BetterHTMLElement][]): this;
     
     /**Get a child with `querySelector` and return a `BetterHTMLElement` of it*/
     child<K extends HTMLTag>(selector: K): BetterHTMLElement;
@@ -409,7 +428,7 @@ declare class Div extends BetterHTMLElement {
     readonly e: HTMLDivElement;
     
     /**Create a Div element. Optionally set its id, text or cls.*/
-    constructor({id, text, cls}?: TSubElemOptions);
+    constructor({id, text, cls}?: SubElemConstructor);
 }
 
 declare class Paragraph extends BetterHTMLElement {
@@ -417,7 +436,7 @@ declare class Paragraph extends BetterHTMLElement {
     readonly e: HTMLParagraphElement;
     
     /**Create a Paragraph element. Optionally set its id, text or cls.*/
-    constructor({id, text, cls}?: TSubElemOptions);
+    constructor({id, text, cls}?: SubElemConstructor);
 }
 
 declare class Span extends BetterHTMLElement {
@@ -425,19 +444,33 @@ declare class Span extends BetterHTMLElement {
     readonly e: HTMLSpanElement;
     
     /**Create a Span element. Optionally set its id, text or cls.*/
-    constructor({id, text, cls}?: TSubElemOptions);
+    constructor({id, text, cls}?: SubElemConstructor);
 }
 
 declare class Img extends BetterHTMLElement {
     protected readonly _htmlElement: HTMLImageElement;
     
     /**Create an Img element. Optionally set its id, src or cls.*/
-    constructor({id, src, cls}: TImgOptions);
+    constructor({id, src, cls}: ImgConstructor);
     
     src(src: string): this;
     src(): string;
     
     readonly e: HTMLImageElement;
+}
+
+declare class Anchor extends BetterHTMLElement {
+    protected readonly _htmlElement: HTMLAnchorElement;
+    readonly e: HTMLAnchorElement;
+    
+    /**Create an Anchor element. Optionally set its id, text, href or cls.*/
+    constructor({id, text, cls, href}?: AnchorConstructor);
+    
+    href(): string;
+    href(val: string): this;
+    
+    target(): string;
+    target(val: string): this;
 }
 
 /**Create an element of `tag`. Optionally, set its `text` and / or `cls`*/
@@ -469,16 +502,19 @@ declare function elem({htmlElement, text, cls, children}: {
 }): BetterHTMLElement;
 
 /**Create an Span element. Optionally set its id, text or cls.*/
-declare function span({id, text, cls}?: TSubElemOptions): Span;
+declare function span({id, text, cls}?: SubElemConstructor): Span;
 
 /**Create an Div element. Optionally set its id, text or cls.*/
-declare function div({id, text, cls}?: TSubElemOptions): Div;
+declare function div({id, text, cls}?: SubElemConstructor): Div;
 
 /**Create an Img element. Optionally set its id, src or cls.*/
-declare function img({id, src, cls}?: TImgOptions): Img;
+declare function img({id, src, cls}?: ImgConstructor): Img;
 
-/**Create an Paragraph element. Optionally set its id, text or cls.*/
-declare function paragraph({id, text, cls}?: TSubElemOptions): Paragraph;
+/**Create a Paragraph element. Optionally set its id, text or cls.*/
+declare function paragraph({id, text, cls}?: SubElemConstructor): Paragraph;
+
+/**Create an Anchor element. Optionally set its id, text, href or cls.*/
+declare function anchor({id, text, cls, href}?: AnchorConstructor): Anchor;
 
 interface TMap<T> {
     [s: string]: T;

@@ -10,6 +10,7 @@
 	//margin-bottom: 5px
 	margin-bottom: 20px
 
+	// *  DEP: contact.sass img width
 	line-height: calc(#{$fontSize} * 1.5)
 
 
@@ -59,7 +60,10 @@
 	@include max-width($BP1)
 		// 984px
 		--w: var(--W1)
-
+@mixin iframeMixin()
+	width: var(--w)
+	height: 600px
+	border-radius: 15px
 @mixin gridContainerMixin($childTag, $tight:false)
 	display: grid
 	@include setLocalTagWidthVar($tight)

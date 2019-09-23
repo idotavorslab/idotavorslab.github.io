@@ -93,6 +93,7 @@ p {
   font-size: 20px;
   line-height: 32px;
   text-align: left;
+  margin-block-start: 0;
 }
 
 p.bold, div.bold, span.bold {
@@ -232,7 +233,7 @@ div#intro > div#about > div {
 }
 div#intro > div#right_widget {
   width: 542px;
-  height: 600px;
+  height: 640px;
   border-radius: 20px;
   box-shadow: 0 2px 10px 2px var(--GREY02);
   display: flex;
@@ -385,11 +386,7 @@ div#home > div.article[class~=reverse] > h1 {
   grid-column: 2/2;
 }
 div#home > div.article > p.text {
-  margin-block-start: 0;
   grid-column: 1/1;
-}
-div#home > div.article > p.text > p {
-  margin-block-start: 0;
 }
 div#home > div.article[class~=reverse] > p.text {
   grid-column: 2/2;
@@ -494,6 +491,10 @@ div#home > div.grid > div#person_expando {
   div#home > div.grid > div#person_expando {
     font-size: 15px;
   }
+}
+div#home > div.grid > div#person_expando > div.cv > p {
+  font-size: unset;
+  line-height: unset;
 }
 div#home > div.grid > div#person_expando > svg#svg_root {
   --dim: calc(var(--gap) / 4);
@@ -780,9 +781,6 @@ div#home > div#neuroanatomy_intro {
   margin-bottom: calc(var(--gap));
   width: calc(var(--w) * 0.6);
 }
-div#home > div#neuroanatomy_intro > p {
-  margin-block-start: 0;
-}
 div#home > div#neuroanatomy_intro > p:first-of-type {
   font-family: OpenSansBold;
 }
@@ -790,16 +788,57 @@ div#home > div.brain {
   margin-bottom: calc(var(--gap) * 2);
 }
 div#home > div.brain > p.text {
-  margin-block-start: 0;
   width: calc(var(--w) * 0.6);
-}
-div#home > div.brain > p.text > p {
-  margin-block-start: 0;
 }
 div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
   width: var(--w);
   height: 600px;
   border-radius: 15px;
+}
+
+iframe#contact_iframe {
+  width: var(--w);
+  height: 600px;
+  border-radius: 15px;
+}
+
+div#contact_grid {
+  margin-bottom: calc(var(--gap) * 2);
+  --rowLength: 3;
+  --itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
+  display: grid;
+  grid-template-columns: repeat(var(--rowLength), var(--itemWidth));
+  grid-column-gap: var(--GAP1);
+  grid-row-gap: var(--GAP1);
+}
+div#contact_grid > div > * {
+  text-align: center;
+}
+div#contact_grid > div {
+  display: grid;
+  grid-template-rows: 80px 40px auto;
+  grid-template-columns: repeat(2, calc(var(--itemWidth) / 2));
+}
+div#contact_grid > div > h1 {
+  grid-row: 1/1;
+  grid-column: 1/1;
+}
+div#contact_grid > div > img {
+  grid-row: 1/1;
+  grid-column: 2/2;
+  width: calc(32px * 1.5);
+  margin: 0 auto;
+}
+div#contact_grid > div > p.subtitle {
+  color: var(--GREY5);
+  grid-row: 2/2;
+  grid-column: span 2;
+}
+div#contact_grid > div > a {
+  grid-row: 3/3;
+  font-size: 20px;
+  line-height: 32px;
+  grid-column: span 2;
 }
 
 /*# sourceMappingURL=index.css.map */

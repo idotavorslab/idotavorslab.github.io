@@ -270,9 +270,6 @@ function calcAbsValue(cssStr: string, width: number): string {
     
 }
 
-function _(s: string): string {
-    return s.split('. ').join('\n')
-}
 
 function log(bold: boolean = false) {
     return function _log(target, name, descriptor, ...outargs) {

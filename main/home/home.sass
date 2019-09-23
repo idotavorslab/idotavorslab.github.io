@@ -29,7 +29,7 @@ div#intro
 	& > div#right_widget
 		// *  DEP: research.sass article>..>img width
 		width: 542px
-		height: 600px
+		height: 640px
 		$borderRadius: 20px
 		$dim: 15px
 		$padding: 24px 32px
@@ -149,6 +149,7 @@ div#research_snippets_container
 
 // ***  funding
 div#funding
+	// *  DEP: contact.sass contact_grid
 	text-align: center
 	margin:
 		top: var(--gap)
@@ -158,7 +159,6 @@ div#funding
 		--rowLength: 3
 		--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
 		display: grid
-		//margin-top: 40px
 		grid:
 			template-columns: repeat(var(--rowLength), var(--sponsorWidth))
 			column-gap: var(--GAP1)
@@ -170,16 +170,6 @@ div#funding
 			display: flex
 			flex-direction: column
 
-			//&:hover
-				& > img, & > div
-					transform: translateY(-4px)
-
-				& > img
-					box-shadow: 0 2px 10px 2px var(--GREY4)
-
-
-			//& > img, & > div
-				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
 
 			& > img
 				width: 160px
@@ -196,7 +186,6 @@ div#funding
 
 			& > div.sponsor-text
 
-//margin-top: auto
 
 // ***  footer
 div#footer

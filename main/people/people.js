@@ -1,3 +1,9 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
@@ -184,11 +190,9 @@ const PeoplePage = () => {
                 showArrowOnHover(this.email.children('a'));
             }
         }
-        const data = await fetchJson('main/people/people.json', "no-cache");
-        const { team: teamData, alumni: alumniData } = data;
-        const expando = new Expando();
-        const team = new People();
-        const alumni = new People();
+        __decorate([
+            log()
+        ], Expando.prototype, "setHtml", null);
         function gridFactory({ gridData, people }) {
             let index = 0;
             for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
@@ -199,6 +203,10 @@ const PeoplePage = () => {
             const grid = div({ cls: 'grid' }).append(...people);
             return grid;
         }
+        const { alumni: alumniData, team: teamData } = await fetchJson('main/people/people.json', "no-cache");
+        const expando = new Expando();
+        const team = new People();
+        const alumni = new People();
         const teamGrid = gridFactory({ gridData: teamData, people: team });
         const alumniGrid = gridFactory({ gridData: alumniData, people: alumni });
         Home.empty().append(elem({ tag: 'h1', text: 'Team' }), teamGrid, elem({ tag: 'h1', text: 'Alumni' }), alumniGrid);
@@ -208,7 +216,8 @@ const PeoplePage = () => {
             if (expando.owner !== null)
                 expando.close();
         })
-            .keydown((event) => {
+            .keydown(keyboardNavigation);
+        function keyboardNavigation(event) {
             if (event.key === "Escape" && expando.owner !== null)
                 return expando.close();
             if (event.key.startsWith("Arrow") && expando.owner !== null) {
@@ -227,7 +236,7 @@ const PeoplePage = () => {
                         expando.toggle(prevPerson);
                 }
             }
-        });
+        }
     }
     return { init };
 };
