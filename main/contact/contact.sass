@@ -3,10 +3,18 @@ div#contact_grid
 		text-align: center
 
 	& > div
+		display: grid
+		grid-template-rows: repeat(3, 80px)
+
 		& > h1
+			grid-row: 1/1
 
 		& > p.subtitle
 			color: var(--GREY5)
+			grid-row: 2/2
+
+		& > p.text
+			grid-row: 3/3
 
 	margin:
 		bottom: var(--gap)

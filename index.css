@@ -808,8 +808,19 @@ div#contact_grid {
 div#contact_grid > div > * {
   text-align: center;
 }
+div#contact_grid > div {
+  display: grid;
+  grid-template-rows: repeat(3, 80px);
+}
+div#contact_grid > div > h1 {
+  grid-row: 1/1;
+}
 div#contact_grid > div > p.subtitle {
   color: var(--GREY5);
+  grid-row: 2/2;
+}
+div#contact_grid > div > p.text {
+  grid-row: 3/3;
 }
 
 /*# sourceMappingURL=index.css.map */
