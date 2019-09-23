@@ -6,18 +6,21 @@ const ContactPage = () => {
                 div({cls: 'visit'})
                     .append(
                         elem({tag: 'h1', text: 'Visit'}),
+                        img({src: 'main/contact/Home_font_awesome.svg'}),
                         paragraph({cls: 'subtitle', text: 'Address'}),
                         anchor({href: `https://goo.gl/maps/wmR4cYfhDRwgM1m59`, text: address}).target("_blank")
                     ),
                 div({cls: 'call'})
                     .append(
                         elem({tag: 'h1', text: 'Call'}),
+                        img({src: 'main/contact/Phone_font_awesome.svg'}),
                         paragraph({cls: 'subtitle', text: "9am - 17pm Su - Th"}),
                         anchor({text: '(+972)3-6406980', href: `tel:(+972)3-6406980`}).target("_blank")
                     ),
                 div({cls: 'email'})
                     .append(
                         elem({tag: 'h1', text: 'Email'}),
+                        img({src: 'main/contact/Envelope_alt_font_awesome.svg'}),
                         anchor({
                             text: 'idotavor@tauex.tau.ac.il',
                             href: `mailto:idotavor@tauex.tau.ac.il`

@@ -1,13 +1,10 @@
 iframe#contact_iframe
 	@include iframeMixin()
-	//border-radius: 15px
-	//width: 180px
-	//height: 180px
 
 div#contact_grid
 	margin:
-		bottom: var(--gap)
-
+		bottom: calc(var(--gap) * 2)
+	// *  DEP: home.sass funding grid
 	--rowLength: 3
 	--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
 	display: grid
@@ -21,19 +18,30 @@ div#contact_grid
 
 	& > div
 		display: grid
-		grid-template-rows: repeat(3, 80px)
+		grid-template-rows: 80px 40px auto
+		grid-template-columns: repeat(2, calc(var(--itemWidth) / 2))
 
 		& > h1
 			grid-row: 1/1
+			grid-column: 1/1
+
+		& > img
+			grid-row: 1/1
+			grid-column: 2/2
+			// *  DEP: h1 line-height
+			width: calc(32px * 1.5)
+			margin: 0 auto
 
 		& > p.subtitle
 			color: var(--GREY5)
 			grid-row: 2/2
+			grid-column: span 2
 
 		& > a
 			grid-row: 3/3
 			font-size: 20px
 			line-height: 32px
+			grid-column: span 2
 
 
 
