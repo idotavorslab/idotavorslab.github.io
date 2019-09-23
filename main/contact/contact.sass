@@ -1,0 +1,42 @@
+div#contact_grid
+	& > div > *
+		text-align: center
+
+	& > div
+		& > h1
+
+		& > p.subtitle
+			color: var(--GREY5)
+
+	margin:
+		bottom: var(--gap)
+
+	--rowLength: 3
+	--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+	display: grid
+	grid:
+		template-columns: repeat(var(--rowLength), var(--itemWidth))
+		column-gap: var(--GAP1)
+		row-gap: var(--GAP1)
+
+
+	& > div.visit
+		& > h1
+
+		& > div.subtitle
+
+		& > div.text
+
+	& > div.call
+		& > h1
+
+		& > div.subtitle
+
+		& > div.text
+
+	& > div.email
+		& > h1
+
+		& > div.subtitle
+
+		& > div.text

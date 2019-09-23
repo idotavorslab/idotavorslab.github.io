@@ -796,4 +796,20 @@ div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
   border-radius: 15px;
 }
 
+div#contact_grid {
+  margin-bottom: var(--gap);
+  --rowLength: 3;
+  --itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
+  display: grid;
+  grid-template-columns: repeat(var(--rowLength), var(--itemWidth));
+  grid-column-gap: var(--GAP1);
+  grid-row-gap: var(--GAP1);
+}
+div#contact_grid > div > * {
+  text-align: center;
+}
+div#contact_grid > div > p.subtitle {
+  color: var(--GREY5);
+}
+
 /*# sourceMappingURL=index.css.map */
