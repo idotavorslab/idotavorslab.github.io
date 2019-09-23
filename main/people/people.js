@@ -184,11 +184,6 @@ const PeoplePage = () => {
                 showArrowOnHover(this.email.children('a'));
             }
         }
-        const data = await fetchJson('main/people/people.json', "no-cache");
-        const { team: teamData, alumni: alumniData } = data;
-        const expando = new Expando();
-        const team = new People();
-        const alumni = new People();
         function gridFactory({ gridData, people }) {
             let index = 0;
             for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
@@ -199,6 +194,17 @@ const PeoplePage = () => {
             const grid = div({ cls: 'grid' }).append(...people);
             return grid;
         }
+        const { alumni: alumniData, team: teamData } = await fetchJson('main/people/people.json', "no-cache");
+        const longestCv = Math.max(...Object
+            .values(Object.assign({}, alumniData, teamData))
+            .map(({ cv }) => cv.length));
+        const expando = new Expando();
+        const expandoHeight = Math.round((longestCv - 680) / 55);
+        console.log({ longestCv, expandoHeight });
+        if (expandoHeight > 0 && expandoHeight <= 12)
+            expando.class(`height-${expandoHeight}`);
+        const team = new People();
+        const alumni = new People();
         const teamGrid = gridFactory({ gridData: teamData, people: team });
         const alumniGrid = gridFactory({ gridData: alumniData, people: alumni });
         Home.empty().append(elem({ tag: 'h1', text: 'Team' }), teamGrid, elem({ tag: 'h1', text: 'Alumni' }), alumniGrid);
@@ -208,7 +214,8 @@ const PeoplePage = () => {
             if (expando.owner !== null)
                 expando.close();
         })
-            .keydown((event) => {
+            .keydown(keyboardNavigation);
+        function keyboardNavigation(event) {
             if (event.key === "Escape" && expando.owner !== null)
                 return expando.close();
             if (event.key.startsWith("Arrow") && expando.owner !== null) {
@@ -227,7 +234,7 @@ const PeoplePage = () => {
                         expando.toggle(prevPerson);
                 }
             }
-        });
+        }
     }
     return { init };
 };

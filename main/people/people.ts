@@ -121,33 +121,6 @@ const PeoplePage = () => {
             }
             
             
-            /*
-            * yieldIndexesBelow(person: Person): IterableIterator<[number, number]> {
-                for (let i = person.row() + 1; i <= this.length / ROWSIZE; i++) {
-                    for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.length; j++) {
-                        yield [i, j];
-                    }
-                }
-            }
-            
-            pushPeopleBelow(person: Person): void {
-                for (let [i, j] of this.yieldIndexesBelow(person)) {
-                    this[i * 4 + j].css({gridRow: `${i + 2}/${i + 2}`});
-                }
-            }
-            
-            pullbackPeopleBelow(person: Person): void {
-                for (let [i, j] of this.yieldIndexesBelow(person)) {
-                    this[i * 4 + j].uncss("gridRow");
-                }
-            }
-            
-            squeezeExpandoBelow(person: Person): void {
-                let rightmostPersonIndex = Math.min((ROWSIZE - 1) + person.row() * ROWSIZE, this.length - 1);
-                this[rightmostPersonIndex].after(expando);
-            }
-            */
-            
         }
         
         class Expando extends Div {
@@ -215,6 +188,7 @@ const PeoplePage = () => {
                 
             }
             
+            // toggle => ownPopulateAndPosition
             async pushAfterAndExpand(pressed: Person) {
                 pressed.pushPeopleBelow();
                 pressed.squeezeExpandoBelow();
@@ -222,6 +196,7 @@ const PeoplePage = () => {
                 this.expand();
             }
             
+            // toggle => ownPopulateAndPosition
             ownPopulateAndPosition(pressed: Person) {
                 this.owner = pressed;
                 this.setHtml();
@@ -243,7 +218,7 @@ const PeoplePage = () => {
                 this.owner = null;
             }
             
-            
+            // toggle => ownPopulateAndPosition => setGridColumn
             setGridColumn() {
                 let gridColumn;
                 switch (this.owner.indexInRow()) {
@@ -261,6 +236,7 @@ const PeoplePage = () => {
                 this.css({gridColumn})
             }
             
+            // toggle => ownPopulateAndPosition => setHtml
             setHtml() {
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
@@ -270,15 +246,7 @@ const PeoplePage = () => {
             
         }
         
-        
-        const data = await fetchJson('main/people/people.json', "no-cache");
-        const {team: teamData, alumni: alumniData} = data;
-        const expando = new Expando();
-        
-        const team: People = new People();
-        const alumni: People = new People();
-        
-        function gridFactory({gridData, people}: { gridData: TMap<any>, people: People }): Div {
+        function gridFactory({gridData, people}: { gridData: TeamType, people: People }): Div {
             
             let index = 0;
             for (let [name, {image, role, cv, email}] of dict(gridData).items()) {
@@ -291,6 +259,25 @@ const PeoplePage = () => {
             
             return grid;
         }
+        
+        
+        type TeamType = TMap<{ role: string, image: string, cv: string, email: string }>
+        
+        
+        const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson('main/people/people.json', "no-cache");
+        const longestCv = Math.max(
+            ...Object
+                .values({...alumniData, ...teamData})
+                .map(({cv}) => cv.length)
+        );
+        const expando: Expando = new Expando();
+        const expandoHeight = Math.round((longestCv - 680) / 55);
+        console.log({longestCv, expandoHeight});
+        if (expandoHeight > 0 && expandoHeight <= 12)
+            expando.class(`height-${expandoHeight}`);
+        const team: People = new People();
+        const alumni: People = new People();
+        
         
         // **  Grids
         const teamGrid = gridFactory({gridData: teamData, people: team});
@@ -315,31 +302,33 @@ const PeoplePage = () => {
                 if (expando.owner !== null)
                     expando.close()
             })
-            .keydown((event: KeyboardEvent) => {
-                
-                
-                if (event.key === "Escape" && expando.owner !== null)
-                    return expando.close();
-                
-                if (event.key.startsWith("Arrow") && expando.owner !== null) {
-                    if (event.key === "ArrowRight") {
-                        let nextPerson = expando.owner.group[expando.owner.index + 1];
-                        if (nextPerson === undefined)
-                            expando.toggle(expando.owner.group[0]);
-                        else
-                            expando.toggle(nextPerson);
-                    }
-                    if (event.key === "ArrowLeft") {
-                        let prevPerson = expando.owner.group[expando.owner.index - 1];
-                        if (prevPerson === undefined)
-                            expando.toggle(expando.owner.group[expando.owner.group.length - 1]);
-                        else
-                            expando.toggle(prevPerson);
-                    }
-                    
-                    
+            .keydown(keyboardNavigation);
+        
+        function keyboardNavigation(event: KeyboardEvent) {
+            
+            
+            if (event.key === "Escape" && expando.owner !== null)
+                return expando.close();
+            
+            if (event.key.startsWith("Arrow") && expando.owner !== null) {
+                if (event.key === "ArrowRight") {
+                    let nextPerson = expando.owner.group[expando.owner.index + 1];
+                    if (nextPerson === undefined)
+                        expando.toggle(expando.owner.group[0]);
+                    else
+                        expando.toggle(nextPerson);
                 }
-            });
+                if (event.key === "ArrowLeft") {
+                    let prevPerson = expando.owner.group[expando.owner.index - 1];
+                    if (prevPerson === undefined)
+                        expando.toggle(expando.owner.group[expando.owner.group.length - 1]);
+                    else
+                        expando.toggle(prevPerson);
+                }
+                
+                
+            }
+        }
         
         
     }

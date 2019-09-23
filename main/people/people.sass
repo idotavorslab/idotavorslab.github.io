@@ -1,27 +1,9 @@
 
 div#home
-	//& > div.separator
-		background:
-			image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 10%, rgba(0, 0, 0, 0) 20%)
-		height: 1px
-		margin:
-			top: 0
-			right: auto
-			bottom: 15px
-			left: 0
-		position: relative
-		width: 100%
-
 	& > div.title
 		@include titleMixin()
 		text-align: left
 
-
-	//& > div#team_grid
-		@include gridContainerMixin("div.person")
-
-	//& > div#alumni_grid
-		@include gridContainerMixin("div.person")
 
 	& > div.grid
 		@include gridContainerMixin("div.person")
@@ -31,9 +13,6 @@ div#home
 			//border: 1px solid grey
 			cursor: pointer
 
-			// *  DEP:  .name, .role margin-top
-			//display: flex
-			//flex-direction: column
 
 			height: 100%
 			//overflow: hidden
@@ -56,19 +35,11 @@ div#home
 					size: large
 					family: OpenSansSemiBold
 
-			// *  DEP:  .role margin-top: 0
-			//          .person display: flex
-			//margin-top: auto
 
 			& > div.role
 				color: var(--GREY6)
 				font:
 					family: OpenSansItalic
-
-
-		// *  DEP:  .name margin-top: auto
-		//          .person display: flex
-		//margin-top: 0
 
 
 		& > div#person_expando
@@ -103,6 +74,10 @@ div#home
 			// [max-width: $BP1]:  216 - 20*2  =  176px
 			width: calc(var(--tagWidth) - 2 * var(--expandoPadding))
 
+			& > div.cv
+				& > p
+					font-size: unset
+					line-height: unset
 
 			& > svg#svg_root
 				// [min-width: $BP1]:  60/4  =  15px
@@ -156,6 +131,33 @@ div#home
 				box-shadow: 0px 2px 10px var(--GREY3)
 				color: var(--GREY7)
 				height: 300px
+				// 680(0) ch    300px   --
+				// 1360(680) ch 540px   height-12
+				&.height-1
+					height: 320px
+
+				&.height-2
+					height: 340px
+
+				&.height-3
+					height: 360px
+
+				&.height-4
+					height: 380px
+
+				&.height-5
+					height: 400px
+
+				&.height-10
+					height: 500px
+
+				&.height-11
+					height: 520px
+
+				&.height-12
+					height: 540px
+
+
 				// [min-width: $BP1]:  255*2  =  510px
 				// [max-width: $BP1]:  216*2  =  432px
 				width: calc(var(--tagWidth) * 2)
