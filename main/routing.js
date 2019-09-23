@@ -11,6 +11,8 @@ const Routing = (() => {
                 return GalleryPage;
             case "neuroanatomy":
                 return NeuroanatomyPage;
+            case "contact":
+                return ContactPage;
         }
     }
     function pageStrings() {
