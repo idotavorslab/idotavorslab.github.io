@@ -33,7 +33,14 @@ const GalleryPage = () => {
                 if (brightness !== undefined)
                     this.brightness = brightness;
                 if (year !== undefined)
-                    this.year = year
+                    this.year = year;
+                
+                this
+                    .pointerdown((event: PointerEvent) => {
+                        event.stopPropagation();
+                        return toggleImgViewer(this);
+                    })
+                    .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             }
             
             getLeftImage(): GalleryImg {
@@ -204,23 +211,24 @@ const GalleryPage = () => {
                 galleryImg.src(src);
             }
             // TODO: probably move to GalleryImg constructor
-            galleryImg
+            /*galleryImg
                 .pointerdown((event: PointerEvent) => {
                     event.stopPropagation();
                     return toggleImgViewer(galleryImg);
                 })
                 .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
+            */
             
             galleryImgs.push(galleryImg);
         }
-        // **  Sort galleryImgs by year
+        // **  Sort galleryImgs by year and index
         // Needs to be sorted, order doesn't matter (asc / desc). Order resets with keys of yearToYearDiv
         galleryImgs
             .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
         
         console.log(JSON.parstr({"galleryImgs after sort and index": galleryImgs}));
-        // **  Group images by year
+        // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
         console.group('for (let galleryImg of galleryImgs)');
