@@ -149,7 +149,7 @@ const GalleryPage = () => {
         console.log(JSON.parstr({ "galleryImgs after sort": galleryImgs }));
         const yearToYearDiv = {};
         let count = 0;
-        console.group('for (let [i, galleryImg] of Object.entries(galleryImgs))');
+        console.group('for (let galleryImg of galleryImgs)');
         function appendToRow(yearDiv, galleryImg, count) {
             switch (count % 4) {
                 case 0:
@@ -195,8 +195,8 @@ const GalleryPage = () => {
             appendToRow(yearDiv, galleryImg, count);
         }
         console.groupEnd();
-        console.log({ yearToYearDiv });
-        const imagesContainer = div({ id: 'images_container' }).append(...Object.values(yearToYearDiv));
+        console.log(JSON.parstr({ yearToYearDiv }));
+        const imagesContainer = div({ id: 'images_container' }).append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)

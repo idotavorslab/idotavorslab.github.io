@@ -195,15 +195,15 @@ const GalleryPage = () => {
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year
+        // Needs to be sorted, order doesn't matter (asc / desc). Order resets with keys of yearToYearDiv
         galleryImgs.sort(({year: yearA}, {year: yearB}) => yearB - yearA);
-        // galleryImgs.sort(({year: yearA}, {year: yearB}) => yearA - yearB);
         console.log(JSON.parstr({"galleryImgs after sort": galleryImgs}));
         // **  Group images by year
         // const yearDivs: YearDiv[] = [];
         // const yearToImg: TMap<[GalleryImg]> = {};
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
-        console.group('for (let [i, galleryImg] of Object.entries(galleryImgs))');
+        console.group('for (let galleryImg of galleryImgs)');
         
         function appendToRow(yearDiv: YearDiv, galleryImg: GalleryImg, count: number) {
             switch (count % 4) {
@@ -255,8 +255,7 @@ const GalleryPage = () => {
             
         }
         console.groupEnd();
-        console.log({yearToYearDiv});
-        
+        console.log(JSON.parstr({yearToYearDiv}));
         // ***  HTML from vars
         
         /*// **  Create div.year's from images
@@ -294,7 +293,7 @@ const GalleryPage = () => {
             }
         }
         */
-        const imagesContainer = div({id: 'images_container'}).append(...Object.values(yearToYearDiv));
+        const imagesContainer = div({id: 'images_container'}).append(...Object.values(yearToYearDiv).reverse());
         
         DocumentElem
             .pointerdown(() => {
