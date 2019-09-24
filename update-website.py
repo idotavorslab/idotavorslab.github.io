@@ -68,6 +68,7 @@ if not onlygit:
                '.gitignore',
                'tsconfig.json',
                'shutterstock-conversation',
+               'tmp',
                '.idea',
                '*.py',
                '*.sass',

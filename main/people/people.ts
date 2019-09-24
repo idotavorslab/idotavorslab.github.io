@@ -300,6 +300,7 @@ const PeoplePage = () => {
         const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson('main/people/people.json', "no-cache");
         // const absExpandoHeight = (teamData["ido tavor"].cv.length + teamData["ido tavor"].email.length + 8) / 2
         const expando: Expando = new Expando();
+        
         /*const longestCv = Math.max(
             ...Object
                 .values({...alumniData, ...teamData})
