@@ -98,20 +98,20 @@ const GalleryPage = () => {
         //**  Functions
         // DocumentElem.keydown Arrow  =>  switchToImg
         // Chevron click  =>  gotoAdjImg  =>  switchToImg
+        // galleryImg.pointerdown  =>  toggleImgViewer  =>  switchToImg
         function switchToImg(_selectedImg: GalleryImg) {
             // *  Clicked Arrow key or clicked Chevron
-            console.log('switchToImg(_selectedImg:', _selectedImg);
             selectedImg = _selectedImg;
             // TODO: load img from cache
             imgViewer.img
-                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .src(`main/gallery/${selectedImg.path}`)
                 .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
             
             imgViewer.caption.text(selectedImg.caption);
         }
         
         
-        // DocumentElem.keydown Arrow  =>  switchToImg
+        /*// DocumentElem.keydown Arrow  =>  switchToImg
         // Chevron click  =>  gotoAdjImg  =>  switchToImg
         function switchToImgOLD(_selectedIndex: number) {
             // *  Clicked Arrow key or clicked Chevron
@@ -119,11 +119,12 @@ const GalleryPage = () => {
             selectedImg = galleryImgs[_selectedIndex];
             // TODO: load img from cache, or just selectedImg = galleryImg
             imgViewer.img
-                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .src(selectedImg.path.includes('http') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
                 .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
             
             imgViewer.caption.text(selectedImg.caption);
         }
+        */
         
         // Chevron click  =>  gotoAdjImg
         async function gotoAdjImg(event: PointerEvent) {
@@ -155,18 +156,15 @@ const GalleryPage = () => {
         }
         
         // galleryImg.pointerdown  =>  toggleImgViewer
-        function toggleImgViewer(selectedImg: GalleryImg) {
+        function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
-            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, {selectedImg});
+            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, {_selectedImg});
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
-            imgViewer
-                .toggleClass('on', true)
-                .img
-                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
-                .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
-            imgViewer.caption.text(selectedImg.caption);
+            imgViewer.toggleClass('on', true);
+            
+            switchToImg(_selectedImg);
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
@@ -184,6 +182,7 @@ const GalleryPage = () => {
                 caption: div({id: 'caption'})
             }).pointerdown((event: Event) => {
                 // *  Clicked on img, not chevrons. do nothing
+                // TODO: listen to .left, img, .right clicks for better resolution
                 console.log('imgViewer pointerdown, stopping propagation');
                 event.stopPropagation();
             });
@@ -191,7 +190,6 @@ const GalleryPage = () => {
         imgViewer.isopen = false;
         type TGalleryData = { file: string, contrast: number, brightness: number, caption: string, year: number }[];
         const data: TGalleryData = await fetchJson("main/gallery/gallery.json", "no-cache");
-        // const files = data.map(d => d.file);
         const galleryImgs: GalleryImg[] = [];
         // **  Populate galleryImgs: GalleryImg[] from data
         for (let {brightness, contrast, file, year, caption} of data) {
@@ -209,9 +207,7 @@ const GalleryPage = () => {
             galleryImg
                 .pointerdown((event: PointerEvent) => {
                     event.stopPropagation();
-                    // selectedImg.path = file;
-                    selectedImg = galleryImg;
-                    return toggleImgViewer(selectedImg);
+                    return toggleImgViewer(galleryImg);
                 })
                 .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             
@@ -233,19 +229,15 @@ const GalleryPage = () => {
             switch (count % 4) {
                 case 0:
                     yearDiv.grid.row0.append(galleryImg);
-                    console.log('row0');
                     break;
                 case 1:
                     yearDiv.grid.row1.append(galleryImg);
-                    console.log('row1');
                     break;
                 case 2:
                     yearDiv.grid.row2.append(galleryImg);
-                    console.log('row2');
                     break;
                 case 3:
                     yearDiv.grid.row3.append(galleryImg);
-                    console.log('row3');
                     break;
                 
             }
@@ -258,7 +250,7 @@ const GalleryPage = () => {
             if (galleryImg.year in yearToYearDiv) {
                 count++;
                 yearDiv = yearToYearDiv[galleryImg.year];
-                console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
+                // console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
                 
             } else {
                 count = 0;
@@ -273,7 +265,7 @@ const GalleryPage = () => {
                         })
                     });
                 
-                console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
+                // console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
             appendToRow(yearDiv, galleryImg, count);

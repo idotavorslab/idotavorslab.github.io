@@ -55,18 +55,9 @@ const GalleryPage = () => {
 </svg>
 `;
         function switchToImg(_selectedImg) {
-            console.log('switchToImg(_selectedImg:', _selectedImg);
             selectedImg = _selectedImg;
             imgViewer.img
-                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
-                .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
-            imgViewer.caption.text(selectedImg.caption);
-        }
-        function switchToImgOLD(_selectedIndex) {
-            console.log('switchToImg(_selectedIndex:', _selectedIndex);
-            selectedImg = galleryImgs[_selectedIndex];
-            imgViewer.img
-                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .src(`main/gallery/${selectedImg.path}`)
                 .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
             imgViewer.caption.text(selectedImg.caption);
         }
@@ -90,17 +81,13 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
-        function toggleImgViewer(selectedImg) {
-            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, { selectedImg });
+        function toggleImgViewer(_selectedImg) {
+            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, { _selectedImg });
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
-            imgViewer
-                .toggleClass('on', true)
-                .img
-                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
-                .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
-            imgViewer.caption.text(selectedImg.caption);
+            imgViewer.toggleClass('on', true);
+            switchToImg(_selectedImg);
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
@@ -134,8 +121,7 @@ const GalleryPage = () => {
             galleryImg
                 .pointerdown((event) => {
                 event.stopPropagation();
-                selectedImg = galleryImg;
-                return toggleImgViewer(selectedImg);
+                return toggleImgViewer(galleryImg);
             })
                 .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             galleryImgs.push(galleryImg);
@@ -151,19 +137,15 @@ const GalleryPage = () => {
             switch (count % 4) {
                 case 0:
                     yearDiv.grid.row0.append(galleryImg);
-                    console.log('row0');
                     break;
                 case 1:
                     yearDiv.grid.row1.append(galleryImg);
-                    console.log('row1');
                     break;
                 case 2:
                     yearDiv.grid.row2.append(galleryImg);
-                    console.log('row2');
                     break;
                 case 3:
                     yearDiv.grid.row3.append(galleryImg);
-                    console.log('row3');
                     break;
             }
         }
@@ -172,7 +154,6 @@ const GalleryPage = () => {
             if (galleryImg.year in yearToYearDiv) {
                 count++;
                 yearDiv = yearToYearDiv[galleryImg.year];
-                console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
             }
             else {
                 count = 0;
@@ -186,7 +167,6 @@ const GalleryPage = () => {
                         row3: div({ cls: 'row' }),
                     })
                 });
-                console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
             appendToRow(yearDiv, galleryImg, count);
