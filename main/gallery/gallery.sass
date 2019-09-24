@@ -5,7 +5,7 @@ div#home.gallery-page
 			filter: brightness(0.20) blur(1px) sepia(1)
 
 		&:not([class="theater"])
-			& > div.year > div[class^="row"] > img
+			& > div.year > div.grid > div[class^="row"] > img
 				margin-top: 0
 				margin-bottom: 3px
 				cursor: pointer
@@ -15,7 +15,7 @@ div#home.gallery-page
 					opacity: 0.5
 
 		& > div.year
-			@include gridContainerMixin(img, true)
+
 			border-left: 1px solid var(--GREY2)
 			padding:
 				left: 40px
@@ -30,21 +30,24 @@ div#home.gallery-page
 					family: OpenSansLight
 					size: 25px
 				line-height: 25px
-			//& > div.title-and-minimize-flex
-				display: flex
-				color: var(--GREY3)
-				margin:
-					// 30px
-					bottom: calc(var(--GAP0) / 2)
 
-				& > span.year-title
-					letter-spacing: 1px
-					margin: auto 0
+			& > div.grid
+				@include gridContainerMixin(img, true)
+		//& > div.title-and-minimize-flex
+			display: flex
+			color: var(--GREY3)
+			margin:
+				// 30px
+				bottom: calc(var(--GAP0) / 2)
 
-					font:
-						family: OpenSansLight
-						size: 25px
-					line-height: 25px
+			& > span.year-title
+				letter-spacing: 1px
+				margin: auto 0
+
+				font:
+					family: OpenSansLight
+					size: 25px
+				line-height: 25px
 
 
 	div#img_viewer

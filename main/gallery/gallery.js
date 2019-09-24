@@ -159,48 +159,51 @@ const GalleryPage = () => {
                 console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
                 switch (count % 4) {
                     case 0:
-                        yearDiv.row0.append(galleryImg);
+                        yearDiv.grid.row0.append(galleryImg);
                         console.log('row0');
                         break;
                     case 1:
-                        yearDiv.row1.append(galleryImg);
+                        yearDiv.grid.row1.append(galleryImg);
                         console.log('row1');
                         break;
                     case 2:
-                        yearDiv.row2.append(galleryImg);
+                        yearDiv.grid.row2.append(galleryImg);
                         console.log('row2');
                         break;
                     case 3:
-                        yearDiv.row3.append(galleryImg);
+                        yearDiv.grid.row3.append(galleryImg);
                         console.log('row3');
                         break;
                 }
             }
             else {
                 count = 0;
-                let yearDiv = div({ cls: 'year' });
-                console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
-                yearDiv.cacheAppend({
-                    row0: div({ cls: 'row_0' }),
-                    row1: div({ cls: 'row_1' }),
-                    row2: div({ cls: 'row_2' }),
-                    row3: div({ cls: 'row_3' }),
+                let yearDiv = div({ cls: 'year' })
+                    .cacheAppend({
+                    title: span({ cls: 'year-title' }).text(galleryImg.year),
+                    grid: div({ cls: 'grid' }).cacheAppend({
+                        row0: div({ cls: 'row_0' }),
+                        row1: div({ cls: 'row_1' }),
+                        row2: div({ cls: 'row_2' }),
+                        row3: div({ cls: 'row_3' }),
+                    })
                 });
+                console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
                 switch (count % 4) {
                     case 0:
-                        yearDiv.row0.append(galleryImg);
+                        yearDiv.grid.row0.append(galleryImg);
                         console.log('row0');
                         break;
                     case 1:
-                        yearDiv.row1.append(galleryImg);
+                        yearDiv.grid.row1.append(galleryImg);
                         console.log('row1');
                         break;
                     case 2:
-                        yearDiv.row2.append(galleryImg);
+                        yearDiv.grid.row2.append(galleryImg);
                         console.log('row2');
                         break;
                     case 3:
-                        yearDiv.row3.append(galleryImg);
+                        yearDiv.grid.row3.append(galleryImg);
                         console.log('row3');
                         break;
                 }

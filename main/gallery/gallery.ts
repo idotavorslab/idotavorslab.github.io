@@ -1,11 +1,20 @@
 const GalleryPage = () => {
     type ImgViewer = Div & { left: Div, img: Img, right: Div, caption: Div, isopen: boolean };
     
-    interface YearDiv extends Div {
+    interface GridDiv extends Div {
         row0: Div;
         row1: Div;
         row2: Div;
         row3: Div
+    }
+    
+    interface YearDiv extends Div {
+        title: Span;
+        grid: GridDiv;
+        // row0: Div;
+        // row1: Div;
+        // row2: Div;
+        // row3: Div
     }
     
     async function init() {
@@ -202,19 +211,19 @@ const GalleryPage = () => {
                 console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
                 switch (count % 4) {
                     case 0:
-                        yearDiv.row0.append(galleryImg);
+                        yearDiv.grid.row0.append(galleryImg);
                         console.log('row0');
                         break;
                     case 1:
-                        yearDiv.row1.append(galleryImg);
+                        yearDiv.grid.row1.append(galleryImg);
                         console.log('row1');
                         break;
                     case 2:
-                        yearDiv.row2.append(galleryImg);
+                        yearDiv.grid.row2.append(galleryImg);
                         console.log('row2');
                         break;
                     case 3:
-                        yearDiv.row3.append(galleryImg);
+                        yearDiv.grid.row3.append(galleryImg);
                         console.log('row3');
                         break;
                     
@@ -222,32 +231,39 @@ const GalleryPage = () => {
                 
             } else {
                 count = 0;
-                let yearDiv = <YearDiv>div({cls: 'year'});
+                let yearDiv = <YearDiv>div({cls: 'year'})
+                    .cacheAppend({
+                        title: span({cls: 'year-title'}).text(galleryImg.year),
+                        grid: div({cls: 'grid'}).cacheAppend({
+                            row0: div({cls: 'row_0'}),
+                            row1: div({cls: 'row_1'}),
+                            row2: div({cls: 'row_2'}),
+                            row3: div({cls: 'row_3'}),
+                        })
+                    });
+                
                 console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
-                // .append(
-                //     span({cls: 'year-title'}).text(galleryImg.year)
-                // );
-                yearDiv.cacheAppend({
-                    row0: div({cls: 'row_0'}),
-                    row1: div({cls: 'row_1'}),
-                    row2: div({cls: 'row_2'}),
-                    row3: div({cls: 'row_3'}),
-                });
+                // yearDiv.cacheAppend({
+                //     row0: div({cls: 'row_0'}),
+                //     row1: div({cls: 'row_1'}),
+                //     row2: div({cls: 'row_2'}),
+                //     row3: div({cls: 'row_3'}),
+                // });
                 switch (count % 4) {
                     case 0:
-                        yearDiv.row0.append(galleryImg);
+                        yearDiv.grid.row0.append(galleryImg);
                         console.log('row0');
                         break;
                     case 1:
-                        yearDiv.row1.append(galleryImg);
+                        yearDiv.grid.row1.append(galleryImg);
                         console.log('row1');
                         break;
                     case 2:
-                        yearDiv.row2.append(galleryImg);
+                        yearDiv.grid.row2.append(galleryImg);
                         console.log('row2');
                         break;
                     case 3:
-                        yearDiv.row3.append(galleryImg);
+                        yearDiv.grid.row3.append(galleryImg);
                         console.log('row3');
                         break;
                     
