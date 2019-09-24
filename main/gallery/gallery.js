@@ -18,12 +18,6 @@ const GalleryPage = () => {
                     this.brightness = brightness;
                 if (year !== undefined)
                     this.year = year;
-                this
-                    .pointerdown((event) => {
-                    event.stopPropagation();
-                    return toggleImgViewer(this);
-                })
-                    .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             }
             getLeftImage() {
                 let i;
@@ -124,6 +118,12 @@ const GalleryPage = () => {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
+            galleryImg
+                .pointerdown((event) => {
+                event.stopPropagation();
+                return toggleImgViewer(galleryImg);
+            })
+                .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             galleryImgs.push(galleryImg);
         }
         galleryImgs

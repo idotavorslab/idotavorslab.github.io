@@ -42,12 +42,14 @@ const GalleryPage = () => {
                 if (year !== undefined)
                     this.year = year;
                 
-                this
+                /*this
                     .pointerdown((event: PointerEvent) => {
+                        console.log('this pointerdown:', this);
                         event.stopPropagation();
                         return toggleImgViewer(this);
                     })
                     .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
+                */
             }
             
             getLeftImage(): GalleryImg {
@@ -181,7 +183,12 @@ const GalleryPage = () => {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            
+            galleryImg
+                .pointerdown((event: PointerEvent) => {
+                    event.stopPropagation();
+                    return toggleImgViewer(galleryImg);
+                })
+                .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year and index

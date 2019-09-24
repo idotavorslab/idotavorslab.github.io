@@ -109,6 +109,8 @@ class BetterHTMLElement {
 				});
 			}
 			//    TODO: _listeners
+			this.on(newHtmlElement._listeners);
+
 		} else {
 			this._htmlElement = newHtmlElement;
 		}
