@@ -58,17 +58,31 @@ const GalleryPage = () => {
             }
             
             indexOfLeftFile(): number {
+                let leftFileIndex;
                 if (this._index === 0)
-                    return files.length - 1;
+                    leftFileIndex = files.length - 1;
                 else
-                    return this._index - 1;
+                    leftFileIndex = this._index - 1;
+                console.log(JSON.parstr({
+                    'files[leftFileIndex]': files[leftFileIndex],
+                    'galleryImgs[leftFileIndex]': galleryImgs[leftFileIndex]
+                }));
+                debugger;
+                return leftFileIndex;
             }
             
             indexOfRightFile(): number {
+                let rightFileIndex;
                 if (this._index === files.length - 1)
-                    return 0;
+                    rightFileIndex = 0;
                 else
-                    return this._index + 1;
+                    rightFileIndex = this._index + 1;
+                console.log(JSON.parstr({
+                    'files[rightFileIndex]': files[rightFileIndex],
+                    'galleryImgs[rightFileIndex]': galleryImgs[rightFileIndex]
+                }));
+                debugger;
+                return rightFileIndex;
             }
         }
         
@@ -97,6 +111,7 @@ const GalleryPage = () => {
         // Chevron click  =>  gotoAdjImg  =>  switchToImg
         function switchToImg(_selectedIndex: number) {
             // *  Clicked Arrow key or clicked Chevron
+            console.log('switchToImg(_selectedIndex:', _selectedIndex);
             selectedImg.path = files[_selectedIndex];
             // TODO: load img from cache, or just selectedImg = galleryImg
             imgViewer.img
@@ -138,7 +153,7 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer
         function toggleImgViewer(selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
-            console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
+            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, {selectedImg});
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);

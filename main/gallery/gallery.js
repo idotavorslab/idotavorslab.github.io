@@ -37,16 +37,30 @@ const GalleryPage = () => {
                 return this._path;
             }
             indexOfLeftFile() {
+                let leftFileIndex;
                 if (this._index === 0)
-                    return files.length - 1;
+                    leftFileIndex = files.length - 1;
                 else
-                    return this._index - 1;
+                    leftFileIndex = this._index - 1;
+                console.log(JSON.parstr({
+                    'files[leftFileIndex]': files[leftFileIndex],
+                    'galleryImgs[leftFileIndex]': galleryImgs[leftFileIndex]
+                }));
+                debugger;
+                return leftFileIndex;
             }
             indexOfRightFile() {
+                let rightFileIndex;
                 if (this._index === files.length - 1)
-                    return 0;
+                    rightFileIndex = 0;
                 else
-                    return this._index + 1;
+                    rightFileIndex = this._index + 1;
+                console.log(JSON.parstr({
+                    'files[rightFileIndex]': files[rightFileIndex],
+                    'galleryImgs[rightFileIndex]': galleryImgs[rightFileIndex]
+                }));
+                debugger;
+                return rightFileIndex;
             }
         }
         console.log('GalleryPage init');
@@ -68,6 +82,7 @@ const GalleryPage = () => {
 </svg>
 `;
         function switchToImg(_selectedIndex) {
+            console.log('switchToImg(_selectedIndex:', _selectedIndex);
             selectedImg.path = files[_selectedIndex];
             imgViewer.img
                 .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
@@ -95,7 +110,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         function toggleImgViewer(selectedImg) {
-            console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
+            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, { selectedImg });
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
