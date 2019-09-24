@@ -1,137 +1,170 @@
+div#home.gallery-page
+	div#images_container
 
-div#images
-	@include gridContainerMixin(img, true)
-	position: absolute
+		&[class="theater"]
+			filter: brightness(0.20) blur(1px) sepia(1)
 
-	&[class="theater"]
-		filter: brightness(0.20) blur(1px) sepia(1)
+		&:not([class="theater"])
+			& > div.year > div.grid > div.row > img
+				margin-top: 0
+				margin-bottom: 3px
+				cursor: pointer
+				transition: opacity 100ms
 
-	&:not([class="theater"])
-		& > div[id^="row"] > img
-			margin-top: 0
-			margin-bottom: 3px
+				&:hover
+					opacity: 0.5
+
+		& > div.year
+
+			border-left: 1px solid var(--GREY2)
+			padding:
+				left: 40px
+			margin-bottom: var(--gap)
+
+			& > div.year-title
+				color: var(--GREY3)
+				letter-spacing: 1px
+				margin-bottom: calc(var(--gap) / 2)
+
+				font:
+					family: OpenSansLight
+					size: 25px
+				line-height: 25px
+
+			& > div.grid
+				@include gridContainerMixin(img, true)
+		//& > div.title-and-minimize-flex
+			display: flex
+			color: var(--GREY3)
+			margin:
+				// 30px
+				bottom: calc(var(--GAP0) / 2)
+
+			& > span.year-title
+				letter-spacing: 1px
+				margin: auto 0
+
+				font:
+					family: OpenSansLight
+					size: 25px
+				line-height: 25px
+
+
+	div#img_viewer
+
+		@include min-width($BP1)
+			--localHeight: 600px
+
+		@include max-width($BP1)
+			--localHeight: 500px
+
+
+		display: flex
+
+
+		height: var(--localHeight)
+		// [min-width: $BP1]: -1 x ((800 / 2) + 60)  ==  -460px
+		// [max-width: $BP1]: -1 x ((600 / 2) + 40)  ==  -340px
+		//margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--gap)))
+		margin:
+			left: auto
+			right: auto
+			top: calc(var(--localHeight) / -2)
+		//margin-left: auto
+		//margin-right: auto
+		//margin-top: calc(var(--localHeight) / -2)
+		opacity: 0
+		position: fixed
+		top: 50%
+
+		transition: opacity 200ms
+		width: var(--w)
+
+		// [min-width: $BP1]: 800 + 60 x 2  ==  920px
+		// [max-width: $BP1]: 800 + 40 x 2  ==  880px
+		//width: calc(var(--containerWidth) + 2 * var(--gap))
+		z-index: -1
+
+		&.on
+			opacity: 1
+			z-index: 5
+
+		& > img
+			//height: 600px
+			//width: var(--containerWidth)
+			max-height: var(--localHeight)
+
+		& > div#caption
+			@include fourWayTextShadow(1px, 1px, 0, black)
+			text-align: center
+			position: fixed
+			font-size: 24px
+			color: white
+			top: 52%
+			margin-top: calc(var(--localHeight) / 2)
+			width: inherit
+
+		& > div#right_chevron, & > div#left_chevron
+
 			cursor: pointer
-			transition: opacity 100ms
+			filter: invert(1) drop-shadow(2px 4px 6px black)
+			margin: auto
+			opacity: 0.8
+			transition: opacity 100ms, transform 50ms
+			width: 44px
+			z-index: 5
 
 			&:hover
-				opacity: 0.5
+				opacity: 1
 
 
-div#img_viewer
+			&.right
+				margin: auto
 
-	@include min-width($BP1)
-		--localHeight: 600px
+				&:active
+					& > svg
+						transform: translateX(4px)
 
-	@include max-width($BP1)
-		--localHeight: 500px
+			&.left
+				&:active
+					& > svg
+						transform: rotate(180deg) translateX(4px)
+
+				& > svg
+					transform: rotate(180deg)
 
 
-	display: flex
-
-
-	height: var(--localHeight)
-	// [min-width: $BP1]: -1 x ((800 / 2) + 60)  ==  -460px
-	// [max-width: $BP1]: -1 x ((600 / 2) + 40)  ==  -340px
-	//margin-left: calc(-1 * (var(--containerWidth) / 2 + var(--gap)))
-	margin:
-		left: auto
-		right: auto
-		top: calc(var(--localHeight) / -2)
-	//margin-left: auto
-	//margin-right: auto
-	//margin-top: calc(var(--localHeight) / -2)
-	opacity: 0
-	position: fixed
-	top: 50%
-
-	transition: opacity 200ms
-	width: var(--w)
-
-	// [min-width: $BP1]: 800 + 60 x 2  ==  920px
-	// [max-width: $BP1]: 800 + 40 x 2  ==  880px
-	//width: calc(var(--containerWidth) + 2 * var(--gap))
-	z-index: -1
-
-	&.on
-		opacity: 1
-		z-index: 5
-
-	& > img
-		//height: 600px
-		//width: var(--containerWidth)
-		max-height: var(--localHeight)
-
-	& > div#caption
-		@include fourWayTextShadow(1px, 1px, 0, black)
-		text-align: center
+	div#img_viewer_close
+		// **  --gap, --w, --tagWidth vars from mixins.sass
 		position: fixed
-		font-size: 24px
-		color: white
-		top: 52%
-		margin-top: calc(var(--localHeight) / 2)
-		width: inherit
+		top: var(--gap)
+		right: var(--gap)
+		opacity: 0
+		transition: opacity 100ms
 
-	& > div#right_chevron, & > div#left_chevron
+		&.on
+			opacity: 0.8
+			cursor: pointer
 
-		cursor: pointer
-		filter: invert(1) drop-shadow(2px 4px 6px black)
-		margin: auto
-		opacity: 0.8
-		transition: opacity 100ms, transform 50ms
-		width: 44px
-		z-index: 5
+			&:hover
+				opacity: 1
 
-		&:hover
-			opacity: 1
-
-
-		&.right
-			margin: auto
-
-			&:active
-				& > svg
-					transform: translateX(4px)
-
-		&.left
-			&:active
-				& > svg
-					transform: rotate(180deg) translateX(4px)
-
-			& > svg
-				transform: rotate(180deg)
+		& > svg
+			display: block
+			// *  DEP: gallery.ts imgViewerClose attr viewBox
+			--dim: 32px
+			width: var(--dim)
+			height: var(--dim)
 
 
-div#img_viewer_close
-	// **  --gap, --w, --tagWidth vars from mixins.sass
-	position: fixed
-	top: var(--gap)
-	right: var(--gap)
-	opacity: 0
-	transition: opacity 100ms
+			& > path
+				fill: none
+				stroke-width: 4px
+				stroke: white
 
-	&.on
-		opacity: 0.8
-		cursor: pointer
+				// *  DEP: svg --dim
+				&.upright
+					d: path("m 31 1 l -30 30")
 
-		&:hover
-			opacity: 1
-
-	& > svg
-		display: block
-		// *  DEP: gallery.ts imgViewerClose attr viewBox
-		--dim: 32px
-		width: var(--dim)
-		height: var(--dim)
-
-
-		& > path
-			fill: none
-			stroke-width: 4px
-			stroke: white
-
-			// *  DEP: svg --dim
-			&.upright
-				d: path("m 31 1 l -30 30")
-
-			&.downleft
-				d: path("m 1 1 l 30 30")
+				&.downleft
+					d: path("m 1 1 l 30 30")

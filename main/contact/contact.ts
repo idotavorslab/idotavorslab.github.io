@@ -15,7 +15,7 @@ const ContactPage = () => {
                         elem({tag: 'h1', text: 'Call'}),
                         img({src: 'main/contact/Phone_font_awesome.svg'}),
                         paragraph({cls: 'subtitle', text: "9am - 17pm Su - Th"}),
-                        anchor({text: '(+972)3-6406980', href: `tel:(+972)3-6406980`}).target("_blank")
+                        anchor({text: '0733804420', href: `tel:0733804420`}).target("_blank")
                     ),
                 div({cls: 'email'})
                     .append(
@@ -27,7 +27,7 @@ const ContactPage = () => {
                         }).target("_blank")
                     )
             );
-        Home.empty().append(
+        Home.empty().class('contact-page').append(
             grid,
             elem({tag: 'iframe'})
                 .id('contact_iframe')

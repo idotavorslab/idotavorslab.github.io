@@ -36,7 +36,7 @@ const ResearchPage = () => {
                 Home.empty();
                 emptied = true;
             }
-            Home.append(article);
+            Home.class('research-page').append(article);
         }
         if (selectedIndex !== undefined) {
             const selectedArticle = articles[selectedIndex];

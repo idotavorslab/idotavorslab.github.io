@@ -15,7 +15,7 @@ const NeuroanatomyPage = () => {
             );
             brains.push(brain);
         }
-        Home.empty().append(
+        Home.empty().class('neuroanatomy-page').append(
             elem({tag: 'h1'}).text('Introduction'),
             div({id: 'neuroanatomy_intro'}).html(introText),
             ...brains

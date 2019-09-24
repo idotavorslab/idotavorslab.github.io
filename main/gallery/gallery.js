@@ -1,35 +1,45 @@
 const GalleryPage = () => {
     async function init() {
-        class File {
-            constructor() {
-                this._path = null;
-                this._index = null;
+        class GalleryImg extends Img {
+            constructor(brightness, contrast, file, year, caption) {
+                super({});
+                this.path = null;
+                this.index = null;
                 this.caption = null;
                 this.contrast = 1;
                 this.brightness = 1;
+                if (file !== undefined)
+                    this.path = file;
+                if (caption !== undefined)
+                    this.caption = caption;
+                if (contrast !== undefined)
+                    this.contrast = contrast;
+                if (brightness !== undefined)
+                    this.brightness = brightness;
+                if (year !== undefined)
+                    this.year = year;
+                this
+                    .pointerdown((event) => {
+                    event.stopPropagation();
+                    return toggleImgViewer(this);
+                })
+                    .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             }
-            set path(_path) {
-                this._path = _path;
-                this._index = files.indexOf(this.path);
-                const { contrast, brightness, caption } = data[this._index];
-                this.caption = caption;
-                this.contrast = contrast || 1;
-                this.brightness = brightness || 1;
-            }
-            get path() {
-                return this._path;
-            }
-            indexOfLeftFile() {
-                if (this._index === 0)
-                    return files.length - 1;
+            getLeftImage() {
+                let i;
+                if (this.index === 0)
+                    i = galleryImgs.length - 1;
                 else
-                    return this._index - 1;
+                    i = this.index - 1;
+                return galleryImgs[i];
             }
-            indexOfRightFile() {
-                if (this._index === files.length - 1)
-                    return 0;
+            getRightImage() {
+                let i;
+                if (this.index === galleryImgs.length - 1)
+                    i = 0;
                 else
-                    return this._index + 1;
+                    i = this.index + 1;
+                return galleryImgs[i];
             }
         }
         console.log('GalleryPage init');
@@ -50,22 +60,22 @@ const GalleryPage = () => {
 
 </svg>
 `;
-        function switchToImg(_selectedIndex) {
-            selectedFile.path = files[_selectedIndex];
+        function switchToImg(_selectedImg) {
+            selectedImg = _selectedImg;
             imgViewer.img
-                .src(selectedFile.path.includes('https') ? selectedFile.path : `main/gallery/${selectedFile.path}`)
-                .css({ filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})` });
-            imgViewer.caption.text(selectedFile.caption);
+                .src(`main/gallery/${selectedImg.path}`)
+                .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
+            imgViewer.caption.text(selectedImg.caption);
         }
         async function gotoAdjImg(event) {
             event.stopPropagation();
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
-                switchToImg(selectedFile.indexOfLeftFile());
+                switchToImg(selectedImg.getLeftImage());
             }
             else {
                 console.log('right chevron pointerdown');
-                switchToImg(selectedFile.indexOfRightFile());
+                switchToImg(selectedImg.getRightImage());
             }
         }
         function closeImgViewer() {
@@ -77,17 +87,13 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
-        function toggleImgViewer(selectedFile) {
-            console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
+        function toggleImgViewer(_selectedImg) {
+            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, { _selectedImg });
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
-            imgViewer
-                .toggleClass('on', true)
-                .img
-                .src(selectedFile.path.includes('https') ? selectedFile.path : `main/gallery/${selectedFile.path}`)
-                .css({ filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})` });
-            imgViewer.caption.text(selectedFile.caption);
+            imgViewer.toggleClass('on', true);
+            switchToImg(_selectedImg);
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
@@ -105,53 +111,71 @@ const GalleryPage = () => {
         });
         imgViewer.isopen = false;
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
-        const files = data.map(d => d.file);
-        let selectedFile = new File();
-        const row0 = div({ id: 'row_0' });
-        const row1 = div({ id: 'row_1' });
-        const row2 = div({ id: 'row_2' });
-        const row3 = div({ id: 'row_3' });
-        for (let [i, { file, contrast, brightness }] of Object.entries(data)) {
-            let imageElem;
+        const galleryImgs = [];
+        for (let { brightness, contrast, file, year, caption } of data) {
+            let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
             let cachedImage = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
-                imageElem = cachedImage.removeAttr('hidden');
+                galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
                 console.log('gallery | cachedImage isnt undefined:', cachedImage);
             }
             else {
                 console.log('gallery | cachedImage IS undefined');
-                let src;
-                if (file.includes('http') || file.includes('www')) {
-                    src = file;
-                }
-                else {
-                    src = `main/gallery/${file}`;
-                }
-                imageElem = img({ src });
+                let src = `main/gallery/${file}`;
+                galleryImg.src(src);
             }
-            imageElem
-                .pointerdown((event) => {
-                event.stopPropagation();
-                selectedFile.path = file;
-                return toggleImgViewer(selectedFile);
-            })
-                .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
-            switch (parseInt(i) % 4) {
+            galleryImgs.push(galleryImg);
+        }
+        galleryImgs
+            .sort(({ year: yearA }, { year: yearB }) => yearB - yearA)
+            .forEach((image, i) => image.index = i);
+        console.log(JSON.parstr({ "galleryImgs after sort and index": galleryImgs }));
+        const yearToYearDiv = {};
+        let count = 0;
+        console.group('for (let galleryImg of galleryImgs)');
+        function appendToRow(yearDiv, galleryImg, count) {
+            switch (count % 4) {
                 case 0:
-                    row0.append(imageElem);
+                    yearDiv.grid.row0.append(galleryImg);
                     break;
                 case 1:
-                    row1.append(imageElem);
+                    yearDiv.grid.row1.append(galleryImg);
                     break;
                 case 2:
-                    row2.append(imageElem);
+                    yearDiv.grid.row2.append(galleryImg);
                     break;
                 case 3:
-                    row3.append(imageElem);
+                    yearDiv.grid.row3.append(galleryImg);
                     break;
             }
         }
-        const imagesContainer = div({ id: 'images' }).append(row0, row1, row2, row3);
+        for (let galleryImg of galleryImgs) {
+            let yearDiv;
+            if (galleryImg.year in yearToYearDiv) {
+                count++;
+                yearDiv = yearToYearDiv[galleryImg.year];
+            }
+            else {
+                count = 0;
+                yearDiv = div({ cls: 'year' })
+                    .cacheAppend({
+                    title: div({ cls: 'year-title' }).text(galleryImg.year),
+                    grid: div({ cls: 'grid' }).cacheAppend({
+                        row0: div({ cls: 'row' }),
+                        row1: div({ cls: 'row' }),
+                        row2: div({ cls: 'row' }),
+                        row3: div({ cls: 'row' }),
+                    })
+                });
+                yearToYearDiv[galleryImg.year] = yearDiv;
+            }
+            appendToRow(yearDiv, galleryImg, count);
+        }
+        console.groupEnd();
+        console.log(JSON.parstr({ yearToYearDiv }));
+        let selectedImg = new GalleryImg();
+        const imagesContainer = div({ id: 'images_container' })
+            .append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)
@@ -166,15 +190,15 @@ const GalleryPage = () => {
                 return closeImgViewer();
             if (event.key.startsWith("Arrow")) {
                 if (event.key === "ArrowLeft")
-                    return switchToImg(selectedFile.indexOfLeftFile());
+                    return switchToImg(selectedImg.getLeftImage());
                 else if (event.key === "ArrowRight")
-                    return switchToImg(selectedFile.indexOfRightFile());
+                    return switchToImg(selectedImg.getRightImage());
             }
         });
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
             .attr({ viewBox: `0 0 32 32` })
             .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
-        Home.empty().append(imagesContainer, imgViewer, imgViewerClose);
+        Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
     }
     return { init };
 };

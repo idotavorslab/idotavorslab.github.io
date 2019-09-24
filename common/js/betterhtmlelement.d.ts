@@ -127,9 +127,10 @@ declare type TFunction = (s: string) => boolean;
 declare function isFunction(fn: TFunction): fn is TFunction;
 
 declare class BetterHTMLElement {
-    protected readonly _htmlElement: HTMLElement;
+    protected _htmlElement: HTMLElement;
     private readonly _isSvg;
     private readonly _listeners;
+    private readonly _cachedChildren;
     
     /**Create an element of `tag`. Optionally, set its `text` and / or `cls`*/
     constructor({tag, text, cls}: {
@@ -162,13 +163,16 @@ declare class BetterHTMLElement {
     /**Return the wrapped HTMLElement*/
     readonly e: HTMLElement;
     
+    wrapSomethingElse(newHtmlElement: BetterHTMLElement): this;
+    wrapSomethingElse(newHtmlElement: HTMLElement): this;
+    
     /**Set the element's innerHTML*/
     html(html: string): this;
     /**Get the element's innerHTML*/
     html(): string;
     
     /**Set the element's innerText*/
-    text(txt: string): this;
+    text(txt: string | number): this;
     /**Get the element's innerText*/
     text(): string;
     
@@ -227,6 +231,11 @@ declare class BetterHTMLElement {
     /**Insert `this` just before a `BetterHTMLElement` or vanilla `Node`s.*/
     insertBefore(node: BetterHTMLElement | (string | Node)): this;
     
+    replaceChild(newChild: Node, oldChild: Node): this;
+    replaceChild(newChild: BetterHTMLElement, oldChild: BetterHTMLElement): this;
+    
+    private _cache;
+    
     /**For each `[key, child]` pair, `append(child)` and store it in `this[key]`. */
     cacheAppend(keyChildPairs: TMap<BetterHTMLElement>): this;
     /**For each `[key, child]` tuple, `append(child)` and store it in `this[key]`. */
@@ -236,9 +245,6 @@ declare class BetterHTMLElement {
     child<K extends HTMLTag>(selector: K): BetterHTMLElement;
     /**Get a child with `querySelector` and return a `BetterHTMLElement` of it*/
     child(selector: string): BetterHTMLElement;
-    
-    replaceChild(newChild: Node, oldChild: Node): this;
-    replaceChild(newChild: BetterHTMLElement, oldChild: BetterHTMLElement): this;
     
     /**Return a `BetterHTMLElement` list of all children */
     children(): BetterHTMLElement[];
@@ -518,8 +524,12 @@ declare function anchor({id, text, cls, href}?: AnchorConstructor): Anchor;
 
 interface TMap<T> {
     [s: string]: T;
+    
+    [s: number]: T;
 }
 
 interface TRecMap<T> {
     [s: string]: T | TRecMap<T>;
+    
+    [s: number]: T | TRecMap<T>;
 }

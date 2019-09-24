@@ -8,7 +8,7 @@ const NeuroanatomyPage = () => {
             let brain = div({ cls: 'brain' }).append(elem({ tag: 'h1' }).text(title), paragraph({ cls: 'text' }).html(text), div({ cls: 'sketchfab-embed-wrapper' }).html(wrapSketch(title, link)));
             brains.push(brain);
         }
-        Home.empty().append(elem({ tag: 'h1' }).text('Introduction'), div({ id: 'neuroanatomy_intro' }).html(introText), ...brains);
+        Home.empty().class('neuroanatomy-page').append(elem({ tag: 'h1' }).text('Introduction'), div({ id: 'neuroanatomy_intro' }).html(introText), ...brains);
     }
     function wrapSketch(title, link) {
         if (link.match(/sketchfab\.com/) === null) {

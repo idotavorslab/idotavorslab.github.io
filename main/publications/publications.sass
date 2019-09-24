@@ -16,10 +16,6 @@
 		transition: #{$prop} $easeOut
 
 div#publications_container
-	text-align: left
-	margin: auto
-
-
 	& > div.year
 		border-left: 1px solid var(--GREY2)
 		padding:
@@ -30,7 +26,7 @@ div#publications_container
 			color: var(--GREY3)
 			margin:
 				// 30px
-				bottom: calc(var(--GAP0) / 2)
+				bottom: calc(var(--gap) / 2)
 
 			& > span.year-title
 				letter-spacing: 1px
@@ -61,13 +57,13 @@ div#publications_container
 					box-shadow: 0px 2px 3px 0px var(--GREY2)
 
 
-		& > publication
+		& > div.publication
 			@include borderMixin(var(--GREY2))
 			background-color: var(--GREY02)
 			display: flex
-			margin: 0 0 var(--GAP0) 0
+			margin: 0 0 var(--gap) 0
 			// 30px
-			padding: calc(var(--GAP0) / 2)
+			padding: calc(var(--gap) / 2)
 			position: relative
 			//transition: box-shadow 200ms
 			cursor: pointer
@@ -81,7 +77,7 @@ div#publications_container
 				width: 100px
 				border: 1px solid var(--GREY3)
 				// 30px
-				margin: auto calc(var(--GAP0) / 2) auto 0
+				margin: auto calc(var(--gap) / 2) auto 0
 
 
 			& > div.pdf-div
@@ -103,7 +99,7 @@ div#publications_container
 					margin:
 						top: 5px
 						// 30px
-						right: calc(var(--GAP0) / 2)
+						right: calc(var(--gap) / 2)
 						bottom: 5px
 
 				& > span

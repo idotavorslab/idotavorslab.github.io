@@ -11,7 +11,8 @@ const HomePage = () => {
     };
     /** The single #news>date,title,content,radios html to show selected news */
     const rightWidget: TRightWidget = <TRightWidget>elem({
-        query: '#right_widget', children: {
+        query: '#right_widget',
+        children: {
             newsCoverImageContainer: '#news_cover_image_container',
             news: {
                 '#news': {
