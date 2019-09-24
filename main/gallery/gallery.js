@@ -68,21 +68,21 @@ const GalleryPage = () => {
 </svg>
 `;
         function switchToImg(_selectedIndex) {
-            selectedFile.path = files[_selectedIndex];
+            selectedImg.path = files[_selectedIndex];
             imgViewer.img
-                .src(selectedFile.path.includes('https') ? selectedFile.path : `main/gallery/${selectedFile.path}`)
-                .css({ filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})` });
-            imgViewer.caption.text(selectedFile.caption);
+                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
+            imgViewer.caption.text(selectedImg.caption);
         }
         async function gotoAdjImg(event) {
             event.stopPropagation();
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
-                switchToImg(selectedFile.indexOfLeftFile());
+                switchToImg(selectedImg.indexOfLeftFile());
             }
             else {
                 console.log('right chevron pointerdown');
-                switchToImg(selectedFile.indexOfRightFile());
+                switchToImg(selectedImg.indexOfRightFile());
             }
         }
         function closeImgViewer() {
@@ -94,7 +94,7 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
-        function toggleImgViewer(selectedFile) {
+        function toggleImgViewer(selectedImg) {
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             if (imgViewer.isopen)
                 return closeImgViewer();
@@ -102,9 +102,9 @@ const GalleryPage = () => {
             imgViewer
                 .toggleClass('on', true)
                 .img
-                .src(selectedFile.path.includes('https') ? selectedFile.path : `main/gallery/${selectedFile.path}`)
-                .css({ filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})` });
-            imgViewer.caption.text(selectedFile.caption);
+                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
+            imgViewer.caption.text(selectedImg.caption);
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
@@ -139,8 +139,8 @@ const GalleryPage = () => {
             galleryImg
                 .pointerdown((event) => {
                 event.stopPropagation();
-                selectedFile.path = file;
-                return toggleImgViewer(selectedFile);
+                selectedImg.path = file;
+                return toggleImgViewer(selectedImg);
             })
                 .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             galleryImgs.push(galleryImg);
@@ -183,10 +183,10 @@ const GalleryPage = () => {
                     .cacheAppend({
                     title: div({ cls: 'year-title' }).text(galleryImg.year),
                     grid: div({ cls: 'grid' }).cacheAppend({
-                        row0: div({ cls: 'row_0' }),
-                        row1: div({ cls: 'row_1' }),
-                        row2: div({ cls: 'row_2' }),
-                        row3: div({ cls: 'row_3' }),
+                        row0: div({ cls: 'row' }),
+                        row1: div({ cls: 'row' }),
+                        row2: div({ cls: 'row' }),
+                        row3: div({ cls: 'row' }),
                     })
                 });
                 console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
@@ -196,7 +196,7 @@ const GalleryPage = () => {
         }
         console.groupEnd();
         console.log(JSON.parstr({ yearToYearDiv }));
-        let selectedFile = new GalleryImg();
+        let selectedImg = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' }).append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
             .pointerdown(() => {
@@ -212,9 +212,9 @@ const GalleryPage = () => {
                 return closeImgViewer();
             if (event.key.startsWith("Arrow")) {
                 if (event.key === "ArrowLeft")
-                    return switchToImg(selectedFile.indexOfLeftFile());
+                    return switchToImg(selectedImg.indexOfLeftFile());
                 else if (event.key === "ArrowRight")
-                    return switchToImg(selectedFile.indexOfRightFile());
+                    return switchToImg(selectedImg.indexOfRightFile());
             }
         });
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })

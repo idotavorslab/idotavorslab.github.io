@@ -9,7 +9,7 @@ const GalleryPage = () => {
     }
     
     interface YearDiv extends Div {
-        title: Span;
+        title: Div;
         grid: GridDiv;
     }
     
@@ -93,30 +93,37 @@ const GalleryPage = () => {
         
         
         //**  Functions
+        // DocumentElem.keydown Arrow  =>  switchToImg
+        // Chevron click  =>  gotoAdjImg  =>  switchToImg
         function switchToImg(_selectedIndex: number) {
-            selectedFile.path = files[_selectedIndex];
-            // TODO: load img from cache, or just selectedFile = galleryImg
+            // *  Clicked Arrow key or clicked Chevron
+            selectedImg.path = files[_selectedIndex];
+            // TODO: load img from cache, or just selectedImg = galleryImg
             imgViewer.img
-                .src(selectedFile.path.includes('https') ? selectedFile.path : `main/gallery/${selectedFile.path}`)
-                .css({filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})`});
+                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
             
-            imgViewer.caption.text(selectedFile.caption);
+            imgViewer.caption.text(selectedImg.caption);
         }
         
-        
+        // Chevron click  =>  gotoAdjImg
         async function gotoAdjImg(event: PointerEvent) {
-            // *  Clicked chevron or Arrow key
+            // *  Clicked chevron
             event.stopPropagation();
             // @ts-ignore
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
-                switchToImg(selectedFile.indexOfLeftFile());
+                switchToImg(selectedImg.indexOfLeftFile());
             } else { // right
                 console.log('right chevron pointerdown');
-                switchToImg(selectedFile.indexOfRightFile());
+                switchToImg(selectedImg.indexOfRightFile());
             }
         }
         
+        // galleryImg.pointerdown  =>  closeImgViewer
+        // DocumentElem.pointerdown  =>  closeImgViewer
+        // DocumentElem.keydown Arrow  =>  closeImgViewer
+        // X.pointerdown  =>  closeImgViewer
         function closeImgViewer() {
             // *  Clicked X, click outside viewer, Escape,
             Body.toggleClass('theater', false);
@@ -128,7 +135,8 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
-        function toggleImgViewer(selectedFile: GalleryImg) {
+        // galleryImg.pointerdown  =>  toggleImgViewer
+        function toggleImgViewer(selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             if (imgViewer.isopen)
@@ -137,9 +145,9 @@ const GalleryPage = () => {
             imgViewer
                 .toggleClass('on', true)
                 .img
-                .src(selectedFile.path.includes('https') ? selectedFile.path : `main/gallery/${selectedFile.path}`)
-                .css({filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})`});
-            imgViewer.caption.text(selectedFile.caption);
+                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
+            imgViewer.caption.text(selectedImg.caption);
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
@@ -182,9 +190,9 @@ const GalleryPage = () => {
             galleryImg
                 .pointerdown((event: PointerEvent) => {
                     event.stopPropagation();
-                    // TODO: maybe selectedFile = galleryImg
-                    selectedFile.path = file;
-                    return toggleImgViewer(selectedFile);
+                    // TODO: maybe selectedImg = galleryImg
+                    selectedImg.path = file;
+                    return toggleImgViewer(selectedImg);
                 })
                 .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             
@@ -195,8 +203,6 @@ const GalleryPage = () => {
         galleryImgs.sort(({year: yearA}, {year: yearB}) => yearB - yearA);
         console.log(JSON.parstr({"galleryImgs after sort": galleryImgs}));
         // **  Group images by year
-        // const yearDivs: YearDiv[] = [];
-        // const yearToImg: TMap<[GalleryImg]> = {};
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
         console.group('for (let galleryImg of galleryImgs)');
@@ -223,8 +229,10 @@ const GalleryPage = () => {
             }
         }
         
+        // ***  HTML from vars
         for (let galleryImg of galleryImgs) {
             let yearDiv: YearDiv;
+            
             if (galleryImg.year in yearToYearDiv) {
                 count++;
                 yearDiv = yearToYearDiv[galleryImg.year];
@@ -236,10 +244,10 @@ const GalleryPage = () => {
                     .cacheAppend({
                         title: div({cls: 'year-title'}).text(galleryImg.year),
                         grid: div({cls: 'grid'}).cacheAppend({
-                            row0: div({cls: 'row_0'}),
-                            row1: div({cls: 'row_1'}),
-                            row2: div({cls: 'row_2'}),
-                            row3: div({cls: 'row_3'}),
+                            row0: div({cls: 'row'}),
+                            row1: div({cls: 'row'}),
+                            row2: div({cls: 'row'}),
+                            row3: div({cls: 'row'}),
                         })
                     });
                 
@@ -252,44 +260,8 @@ const GalleryPage = () => {
         }
         console.groupEnd();
         console.log(JSON.parstr({yearToYearDiv}));
-        let selectedFile: GalleryImg = new GalleryImg();
-        // ***  HTML from vars
+        let selectedImg: GalleryImg = new GalleryImg();
         
-        /*// **  Create div.year's from images
-        for (let year of Object.keys(yearToImage).reverse()) { // 2019, 2018, 2016
-            years.push(div({cls: 'year'})
-                .append(
-                    div({cls: 'title-and-minimize-flex'})
-                        .append(
-                            span({cls: 'year-title'}).text(year)
-                        ),
-                    ...yearToImage[year],
-                ))
-        }
-        */
-        /*//**  HTML
-        
-        for (let yearNum of Object.keys(yearToImg).reverse()) { // 2019, 2018, 2016
-            let currentYearGalleryImgs = yearToImg[yearNum];
-            for (let [i, galleryImg] of Object.entries(currentYearGalleryImgs)) {
-                switch (parseInt(i) % 4) {
-                    case 0:
-                        row0.append(imageElem);
-                        break;
-                    case 1:
-                        row1.append(imageElem);
-                        break;
-                    case 2:
-                        row2.append(imageElem);
-                        break;
-                    case 3:
-                        row3.append(imageElem);
-                        break;
-                    
-                }
-            }
-        }
-        */
         const imagesContainer = div({id: 'images_container'}).append(...Object.values(yearToYearDiv).reverse());
         
         DocumentElem
@@ -307,13 +279,10 @@ const GalleryPage = () => {
                     return closeImgViewer();
                 
                 if (event.key.startsWith("Arrow")) {
-                    // let selectedIndex = files.indexOf(selectedFile.path);
                     if (event.key === "ArrowLeft")
-                    // return switchToImg(getLeftIndex(selectedIndex));
-                        return switchToImg(selectedFile.indexOfLeftFile());
+                        return switchToImg(selectedImg.indexOfLeftFile());
                     else if (event.key === "ArrowRight")
-                    // return switchToImg(getRightIndex(selectedIndex));
-                        return switchToImg(selectedFile.indexOfRightFile());
+                        return switchToImg(selectedImg.indexOfRightFile());
                     
                 }
             });

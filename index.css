@@ -633,13 +633,13 @@ div#publications_container > div.year > div.publication > div.content-div > div.
 div#home.gallery-page div#images_container[class=theater] {
   filter: brightness(0.2) blur(1px) sepia(1);
 }
-div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div[class^=row] > img {
+div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img {
   margin-top: 0;
   margin-bottom: 3px;
   cursor: pointer;
   transition: opacity 100ms;
 }
-div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div[class^=row] > img:hover {
+div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img:hover {
   opacity: 0.5;
 }
 div#home.gallery-page div#images_container > div.year {
