@@ -187,50 +187,68 @@ const GalleryPage = () => {
         }
         // **  Sort galleryImgs by year
         galleryImgs.sort(({year: yearA}, {year: yearB}) => yearB - yearA);
+        // galleryImgs.sort(({year: yearA}, {year: yearB}) => yearA - yearB);
+        console.log(JSON.parstr({"galleryImgs after sort": galleryImgs}));
         // **  Group images by year
         const yearDivs: YearDiv[] = [];
         const yearToImg: TMap<[GalleryImg]> = {};
         const yearToYearDiv: TMap<YearDiv> = {};
-        for (let [i, galleryImg] of Object.entries(galleryImgs)) {
+        let count = 0; // assume sorted galleryImgs
+        console.group('for (let [i, galleryImg] of Object.entries(galleryImgs))');
+        for (let galleryImg of galleryImgs) {
             if (galleryImg.year in yearToYearDiv) {
-                switch (parseInt(i) % 4) {
+                count++;
+                let yearDiv = yearToYearDiv[galleryImg.year];
+                console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
+                switch (count % 4) {
                     case 0:
-                        yearToYearDiv[galleryImg.year].row0.append(galleryImg);
+                        yearDiv.row0.append(galleryImg);
+                        console.log('row0');
                         break;
                     case 1:
-                        yearToYearDiv[galleryImg.year].row1.append(galleryImg);
+                        yearDiv.row1.append(galleryImg);
+                        console.log('row1');
                         break;
                     case 2:
-                        yearToYearDiv[galleryImg.year].row2.append(galleryImg);
+                        yearDiv.row2.append(galleryImg);
+                        console.log('row2');
                         break;
                     case 3:
-                        yearToYearDiv[galleryImg.year].row3.append(galleryImg);
+                        yearDiv.row3.append(galleryImg);
+                        console.log('row3');
                         break;
                     
                 }
+                
             } else {
-                let yearDiv = <YearDiv>div({cls: 'year'})
-                    .append(
-                        span({cls: 'year-title'}).text(galleryImg.year)
-                    );
+                count = 0;
+                let yearDiv = <YearDiv>div({cls: 'year'});
+                console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
+                // .append(
+                //     span({cls: 'year-title'}).text(galleryImg.year)
+                // );
                 yearDiv.cacheAppend({
                     row0: div({cls: 'row_0'}),
                     row1: div({cls: 'row_1'}),
                     row2: div({cls: 'row_2'}),
                     row3: div({cls: 'row_3'}),
                 });
-                switch (parseInt(i) % 4) {
+                switch (count % 4) {
                     case 0:
                         yearDiv.row0.append(galleryImg);
+                        console.log('row0');
                         break;
                     case 1:
                         yearDiv.row1.append(galleryImg);
+                        console.log('row1');
                         break;
                     case 2:
                         yearDiv.row2.append(galleryImg);
+                        console.log('row2');
                         break;
                     case 3:
                         yearDiv.row3.append(galleryImg);
+                        console.log('row3');
                         break;
                     
                 }
@@ -273,7 +291,8 @@ const GalleryPage = () => {
                 yearDivs.push(yearDiv)
             }*/
         }
-        
+        console.groupEnd();
+        console.log({yearToYearDiv});
         
         // ***  HTML from vars
         
