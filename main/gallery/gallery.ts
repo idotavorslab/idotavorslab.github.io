@@ -230,7 +230,7 @@ const GalleryPage = () => {
         ).pointerdown(closeImgViewer);
         
         
-        Home.empty().append(imagesContainer, imgViewer, imgViewerClose);
+        Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
         
         
     }

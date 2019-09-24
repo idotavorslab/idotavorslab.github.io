@@ -2,126 +2,153 @@
 	{
 		"caption": "Before there was lab, there was Seinfeld :)",
 		"file": "00.jpeg",
+		"year": 2012,
 		"contrast": 1.1,
 		"brightness": 1.25
 	},
 	{
 		"caption": "Another day at the office",
-		"file": "01.jpeg"
+		"file": "01.jpeg",
+		"year": 2019
 	},
 	{
 		"caption": "Niv presenting at the Sagol School of Neuroscience Retreat 2019",
-		"file": "02.jpeg"
+		"file": "02.jpeg",
+		"year": 2013
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
-		"file": "03.jpeg"
+		"file": "03.jpeg",
+		"year": 2015
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
-		"file": "04.jpeg"
+		"file": "04.jpeg",
+		"year": 2018
 	},
 	{
 		"caption": "Another day at the office",
 		"file": "05.jpeg",
+		"year": 2017,
 		"contrast": 1.05,
 		"brightness": 1.2
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
-		"file": "06.jpeg"
+		"file": "06.jpeg",
+		"year": 2016
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
-		"file": "07.jpeg"
+		"file": "07.jpeg",
+		"year": 2011
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
 		"file": "08.jpeg",
+		"year": 2010,
 		"brightness": 1.2
 	},
 	{
 		"caption": "Sagol School of Neuroscience Retreat 2019",
 		"file": "09.jpeg",
+		"year": 2014,
 		"contrast": 1.1,
 		"brightness": 1.2
 	},
 	{
 		"caption": "Keyboards cleaning day",
-		"file": "10.jpeg"
+		"file": "10.jpeg",
+		"year": 2010
 	},
 	{
 		"caption": "Happy birthday to Shachar!",
-		"file": "11.jpeg"
+		"file": "11.jpeg",
+		"year": 2018
 	},
 	{
 		"caption": "Happy birthday to Inbar!",
 		"file": "12.jpeg",
+		"year": 2014,
 		"contrast": 1.05,
 		"brightness": 1.2
 	},
 	{
 		"caption": "MRIing :)",
-		"file": "13.jpeg"
+		"file": "13.jpeg",
+		"year": 2019
 	},
 	{
 		"caption": "OHBM 2019 Rome",
 		"file": "14.jpeg",
+		"year": 2012,
 		"contrast": 1.05,
 		"brightness": 1.15
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "15.jpeg"
+		"file": "15.jpeg",
+		"year": 2017
 	},
 	{
 		"caption": "Happy birthday to Michal!",
-		"file": "16.jpeg"
+		"file": "16.jpeg",
+		"year": 2016
 	},
 	{
 		"caption": "Happy birthday to Michal!",
-		"file": "17.jpeg"
+		"file": "17.jpeg",
+		"year": 2015
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "18.jpeg"
+		"file": "18.jpeg",
+		"year": 2011
 	},
 	{
 		"caption": "OHBM 2019 Rome",
 		"file": "19.jpg",
+		"year": 2013,
 		"contrast": 1.1,
 		"brightness": 1.1
 	},
 	{
 		"caption": "OHBM 2019 Rome",
 		"file": "20.jpg",
+		"year": 2015,
 		"contrast": 1.1,
 		"brightness": 1.05
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "21.jpg"
+		"file": "21.jpg",
+		"year": 2017
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "22.jpg"
+		"file": "22.jpg",
+		"year": 2010
 	},
 	{
 		"caption": "OHBM 2019 Rome",
 		"file": "23.jpg",
+		"year": 2011,
 		"brightness": 1.15
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "24.jpg"
+		"file": "24.jpg",
+		"year": 2019
 	},
 	{
 		"caption": "Families day",
-		"file": "25.jpg"
+		"file": "25.jpg",
+		"year": 2013
 	},
 	{
 		"caption": "Girl Power!",
-		"file": "26.jpg"
+		"file": "26.jpg",
+		"year": 2018
 	}
 ]
 

@@ -59,7 +59,7 @@ const PublicationsPage = () => {
             years.push(div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year]));
         }
         const publicationsContainer = div({ id: "publications_container" }).append(...years);
-        Home.empty().append(publicationsContainer);
+        Home.empty().class('publications-page').append(publicationsContainer);
     }
     return { init };
 };

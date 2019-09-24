@@ -323,7 +323,7 @@ const PeoplePage = () => {
         const alumniGrid = gridFactory({gridData: alumniData, people: alumni});
         
         
-        Home.empty().append(
+        Home.empty().class('people-page').append(
             // div({cls: 'title', text: 'Team'}),
             // div({cls: 'separator'}),
             elem({tag: 'h1', text: 'Team'}),

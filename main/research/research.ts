@@ -41,7 +41,7 @@ const ResearchPage = () => {
                 Home.empty();
                 emptied = true;
             }
-            Home.append(article);
+            Home.class('research-page').append(article);
         }
         // console.log('ResearchPage done for loop');
         if (selectedIndex !== undefined) {

@@ -1,5 +1,5 @@
 
-div#home
+div#home.people-page
 
 	& > div.title
 		@include titleMixin()
@@ -11,12 +11,10 @@ div#home
 		text-align: center
 
 		& > div.person
-			//border: 1px solid grey
 			cursor: pointer
 
 
 			height: 100%
-			//overflow: hidden
 			transition: opacity 500ms
 
 			&.unfocused
@@ -44,7 +42,6 @@ div#home
 
 
 		& > div#person_expando
-			// **  --gap, --w, --tagWidth vars from mixins.sass
 			@include borderMixin(var(--GREY02))
 
 			// [min-width: $BP1]:  30px

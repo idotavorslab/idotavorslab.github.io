@@ -9,7 +9,7 @@ const ContactPage = () => {
             text: 'idotavor@tauex.tau.ac.il',
             href: `mailto:idotavor@tauex.tau.ac.il`
         }).target("_blank")));
-        Home.empty().append(grid, elem({ tag: 'iframe' })
+        Home.empty().class('contact-page').append(grid, elem({ tag: 'iframe' })
             .id('contact_iframe')
             .attr({
             frameborder: "0",

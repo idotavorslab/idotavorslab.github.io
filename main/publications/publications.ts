@@ -100,7 +100,7 @@ const PublicationsPage = () => {
         const publicationsContainer = div({id: "publications_container"}).append(
             ...years,
         );
-        Home.empty().append(publicationsContainer);
+        Home.empty().class('publications-page').append(publicationsContainer);
         
         
     }

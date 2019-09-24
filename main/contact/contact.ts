@@ -27,7 +27,7 @@ const ContactPage = () => {
                         }).target("_blank")
                     )
             );
-        Home.empty().append(
+        Home.empty().class('contact-page').append(
             grid,
             elem({tag: 'iframe'})
                 .id('contact_iframe')
