@@ -1,7 +1,6 @@
 div#home.gallery-page
 	div#images_container
 
-
 		&[class="theater"]
 			filter: brightness(0.20) blur(1px) sepia(1)
 
@@ -17,6 +16,34 @@ div#home.gallery-page
 
 		& > div.year
 			@include gridContainerMixin(img, true)
+			border-left: 1px solid var(--GREY2)
+			padding:
+				left: 40px
+
+			& > span.year-title
+				color: var(--GREY3)
+				letter-spacing: 1px
+				margin: 0
+
+				font:
+					family: OpenSansLight
+					size: 25px
+				line-height: 25px
+			//& > div.title-and-minimize-flex
+				display: flex
+				color: var(--GREY3)
+				margin:
+					// 30px
+					bottom: calc(var(--GAP0) / 2)
+
+				& > span.year-title
+					letter-spacing: 1px
+					margin: auto 0
+
+					font:
+						family: OpenSansLight
+						size: 25px
+					line-height: 25px
 
 
 	div#img_viewer

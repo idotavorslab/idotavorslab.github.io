@@ -186,14 +186,59 @@ const GalleryPage = () => {
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year
-        debugger;
         galleryImgs.sort(({year: yearA}, {year: yearB}) => yearB - yearA);
         // **  Group images by year
         const yearDivs: YearDiv[] = [];
         const yearToImg: TMap<[GalleryImg]> = {};
-        const yearToYearDiv: TMap<[YearDiv]> = {};
+        const yearToYearDiv: TMap<YearDiv> = {};
         for (let [i, galleryImg] of Object.entries(galleryImgs)) {
-            if (galleryImg.year in yearToImg) {
+            if (galleryImg.year in yearToYearDiv) {
+                switch (parseInt(i) % 4) {
+                    case 0:
+                        yearToYearDiv[galleryImg.year].row0.append(galleryImg);
+                        break;
+                    case 1:
+                        yearToYearDiv[galleryImg.year].row1.append(galleryImg);
+                        break;
+                    case 2:
+                        yearToYearDiv[galleryImg.year].row2.append(galleryImg);
+                        break;
+                    case 3:
+                        yearToYearDiv[galleryImg.year].row3.append(galleryImg);
+                        break;
+                    
+                }
+            } else {
+                let yearDiv = <YearDiv>div({cls: 'year'})
+                    .append(
+                        span({cls: 'year-title'}).text(galleryImg.year)
+                    );
+                yearDiv.cacheAppend({
+                    row0: div({cls: 'row_0'}),
+                    row1: div({cls: 'row_1'}),
+                    row2: div({cls: 'row_2'}),
+                    row3: div({cls: 'row_3'}),
+                });
+                switch (parseInt(i) % 4) {
+                    case 0:
+                        yearDiv.row0.append(galleryImg);
+                        break;
+                    case 1:
+                        yearDiv.row1.append(galleryImg);
+                        break;
+                    case 2:
+                        yearDiv.row2.append(galleryImg);
+                        break;
+                    case 3:
+                        yearDiv.row3.append(galleryImg);
+                        break;
+                    
+                }
+                yearToYearDiv[galleryImg.year] = yearDiv;
+            }
+            
+            
+            /*if (galleryImg.year in yearToImg) {
                 yearToImg[galleryImg.year].push(galleryImg);
             } else {
                 yearToImg[galleryImg.year] = [galleryImg];
@@ -226,7 +271,7 @@ const GalleryPage = () => {
                     
                 }
                 yearDivs.push(yearDiv)
-            }
+            }*/
         }
         
         
@@ -268,7 +313,8 @@ const GalleryPage = () => {
         }
         */
         // const imagesContainer = div({id: 'images_container'}).append(row0, row1, row2, row3);
-        const imagesContainer = div({id: 'images_container'}).append(...yearDivs);
+        // const imagesContainer = div({id: 'images_container'}).append(...yearDivs);
+        const imagesContainer = div({id: 'images_container'}).append(...Object.values(yearToYearDiv));
         
         DocumentElem
             .pointerdown(() => {

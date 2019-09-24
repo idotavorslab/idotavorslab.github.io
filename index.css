@@ -650,6 +650,8 @@ div#home.gallery-page div#images_container > div.year {
   grid-template-rows: repeat(2, auto);
   grid-row-gap: 8px;
   grid-column-gap: 8px;
+  border-left: 1px solid var(--GREY2);
+  padding-left: 40px;
 }
 div#home.gallery-page div#images_container > div.year img {
   margin: auto;
@@ -664,6 +666,14 @@ div#home.gallery-page div#images_container > div.year img:nth-of-type(4n+1) {
   div#home.gallery-page div#images_container > div.year img {
     width: var(--tagWidth);
   }
+}
+div#home.gallery-page div#images_container > div.year > span.year-title {
+  color: var(--GREY3);
+  letter-spacing: 1px;
+  margin: 0;
+  font-family: OpenSansLight;
+  font-size: 25px;
+  line-height: 25px;
 }
 div#home.gallery-page div#img_viewer {
   display: flex;

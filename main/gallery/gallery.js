@@ -145,20 +145,30 @@ const GalleryPage = () => {
                 .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             galleryImgs.push(galleryImg);
         }
-        debugger;
         galleryImgs.sort(({ year: yearA }, { year: yearB }) => yearB - yearA);
         const yearDivs = [];
         const yearToImg = {};
         const yearToYearDiv = {};
         for (let [i, galleryImg] of Object.entries(galleryImgs)) {
-            if (galleryImg.year in yearToImg) {
-                yearToImg[galleryImg.year].push(galleryImg);
+            if (galleryImg.year in yearToYearDiv) {
+                switch (parseInt(i) % 4) {
+                    case 0:
+                        yearToYearDiv[galleryImg.year].row0.append(galleryImg);
+                        break;
+                    case 1:
+                        yearToYearDiv[galleryImg.year].row1.append(galleryImg);
+                        break;
+                    case 2:
+                        yearToYearDiv[galleryImg.year].row2.append(galleryImg);
+                        break;
+                    case 3:
+                        yearToYearDiv[galleryImg.year].row3.append(galleryImg);
+                        break;
+                }
             }
             else {
-                yearToImg[galleryImg.year] = [galleryImg];
                 let yearDiv = div({ cls: 'year' })
-                    .append(div({ cls: 'title-and-minimize-flex' })
-                    .append(span({ cls: 'year-title' }).text(galleryImg.year)));
+                    .append(span({ cls: 'year-title' }).text(galleryImg.year));
                 yearDiv.cacheAppend({
                     row0: div({ cls: 'row_0' }),
                     row1: div({ cls: 'row_1' }),
@@ -179,10 +189,10 @@ const GalleryPage = () => {
                         yearDiv.row3.append(galleryImg);
                         break;
                 }
-                yearDivs.push(yearDiv);
+                yearToYearDiv[galleryImg.year] = yearDiv;
             }
         }
-        const imagesContainer = div({ id: 'images_container' }).append(...yearDivs);
+        const imagesContainer = div({ id: 'images_container' }).append(...Object.values(yearToYearDiv));
         DocumentElem
             .pointerdown(() => {
             if (!imgViewer.isopen)
