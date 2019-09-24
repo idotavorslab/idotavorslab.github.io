@@ -1,5 +1,12 @@
 const GalleryPage = () => {
-    type ImgViewer = Div & { left: Div, img: Img, right: Div, caption: Div, isopen: boolean };
+    
+    interface ImgViewer extends Div {
+        left: Div;
+        img: Img;
+        right: Div;
+        caption: Div;
+        isopen: boolean
+    }
     
     interface GridDiv extends Div {
         row0: Div;
@@ -62,24 +69,6 @@ const GalleryPage = () => {
             }
             
             
-            /*indexOfLeftFile(): number {
-                let leftFileIndex;
-                if (this.index === 0)
-                    leftFileIndex = galleryImgs.length - 1;
-                else
-                    leftFileIndex = this.index - 1;
-                return leftFileIndex;
-            }
-            
-            indexOfRightFile(): number {
-                let rightFileIndex;
-                if (this.index === galleryImgs.length - 1)
-                    rightFileIndex = 0;
-                else
-                    rightFileIndex = this.index + 1;
-                return rightFileIndex;
-            }
-            */
         }
         
         console.log('GalleryPage init');
@@ -109,29 +98,12 @@ const GalleryPage = () => {
         function switchToImg(_selectedImg: GalleryImg) {
             // *  Clicked Arrow key or clicked Chevron
             selectedImg = _selectedImg;
-            // TODO: load img from cache
             imgViewer.img
                 .src(`main/gallery/${selectedImg.path}`)
                 .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
-            
             imgViewer.caption.text(selectedImg.caption);
         }
         
-        
-        /*// DocumentElem.keydown Arrow  =>  switchToImg
-        // Chevron click  =>  gotoAdjImg  =>  switchToImg
-        function switchToImgOLD(_selectedIndex: number) {
-            // *  Clicked Arrow key or clicked Chevron
-            console.log('switchToImg(_selectedIndex:', _selectedIndex);
-            selectedImg = galleryImgs[_selectedIndex];
-            // TODO: load img from cache, or just selectedImg = galleryImg
-            imgViewer.img
-                .src(selectedImg.path.includes('http') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
-                .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
-            
-            imgViewer.caption.text(selectedImg.caption);
-        }
-        */
         
         // Chevron click  =>  gotoAdjImg
         async function gotoAdjImg(event: PointerEvent) {
@@ -177,7 +149,6 @@ const GalleryPage = () => {
             imagesContainer.toggleClass('theater', true);
             Navbar.css({opacity: 0});
             
-            
         }
         
         //**  imgViewer
@@ -210,14 +181,6 @@ const GalleryPage = () => {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            // TODO: probably move to GalleryImg constructor
-            /*galleryImg
-                .pointerdown((event: PointerEvent) => {
-                    event.stopPropagation();
-                    return toggleImgViewer(galleryImg);
-                })
-                .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
-            */
             
             galleryImgs.push(galleryImg);
         }
@@ -284,7 +247,8 @@ const GalleryPage = () => {
         console.log(JSON.parstr({yearToYearDiv}));
         let selectedImg: GalleryImg = new GalleryImg();
         
-        const imagesContainer = div({id: 'images_container'}).append(...Object.values(yearToYearDiv).reverse());
+        const imagesContainer = div({id: 'images_container'})
+            .append(...Object.values(yearToYearDiv).reverse());
         
         DocumentElem
             .pointerdown(() => {
