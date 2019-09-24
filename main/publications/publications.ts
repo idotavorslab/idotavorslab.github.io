@@ -1,9 +1,11 @@
 const PublicationsPage = () => {
-    class Publication {
-        elem: BetterHTMLElement;
+    class Publication extends Div {
+        // elem: BetterHTMLElement;
         year: number;
         
         constructor(title: string, year: number, creds: string, mag: string, thumbnail: string, link: string) {
+            super({cls: 'publication'});
+            
             function _openLink(): void {
                 if (link.includes('http') || link.includes('www'))
                     window.open(link);
@@ -19,20 +21,21 @@ const PublicationsPage = () => {
                 
             }
             
-            this.elem = elem({tag: 'publication'})
-                .cacheAppend({
-                    thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}),
-                    content: div({cls: "content-div"}).cacheAppend({
-                        title: div({text: title, cls: "publication-title"}),
-                        creds: span({text: creds, cls: "creds"}),
-                        year: span({text: ` (${year})`, cls: "year"}),
-                        mag: div({text: mag, cls: "mag"}),
-                    }),
-                    pdf: div({cls: 'pdf-div'})
-                        .text(_getPdfText(link)) // ext
-                    
-                }).pointerdown(_openLink);
+            
             this.year = year;
+            this.cacheAppend({
+                thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}),
+                content: div({cls: "content-div"}).cacheAppend({
+                    title: div({text: title, cls: "publication-title"}),
+                    creds: span({text: creds, cls: "creds"}),
+                    year: span({text: ` (${year})`, cls: "year"}),
+                    mag: div({text: mag, cls: "mag"}),
+                }),
+                pdf: div({cls: 'pdf-div'})
+                    .text(_getPdfText(link)) // ext
+                
+            }).pointerdown(_openLink);
+            
         }
     }
     
@@ -78,7 +81,7 @@ const PublicationsPage = () => {
         );
         
         for (let publication of selected) {
-            selectedPublicationsElem.append(publication.elem)
+            selectedPublicationsElem.append(publication)
         }
         years.push(selectedPublicationsElem);
         
@@ -90,7 +93,7 @@ const PublicationsPage = () => {
                     span({cls: 'year-title'}).text(year),
                     // div({cls: 'minimize'}).text('_')
                 ),
-                ...yearToPublication[year].map(p => p.elem),
+                ...yearToPublication[year],
             ))
         }
         
@@ -105,4 +108,3 @@ const PublicationsPage = () => {
     
     return {init}
 };
-// PublicationsPage().init();

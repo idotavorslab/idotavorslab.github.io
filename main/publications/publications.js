@@ -1,6 +1,7 @@
 const PublicationsPage = () => {
-    class Publication {
+    class Publication extends Div {
         constructor(title, year, creds, mag, thumbnail, link) {
+            super({ cls: 'publication' });
             function _openLink() {
                 if (link.includes('http') || link.includes('www'))
                     window.open(link);
@@ -13,8 +14,8 @@ const PublicationsPage = () => {
                     return ext;
                 return "↗";
             }
-            this.elem = elem({ tag: 'publication' })
-                .cacheAppend({
+            this.year = year;
+            this.cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
                 content: div({ cls: "content-div" }).cacheAppend({
                     title: div({ text: title, cls: "publication-title" }),
@@ -25,7 +26,6 @@ const PublicationsPage = () => {
                 pdf: div({ cls: 'pdf-div' })
                     .text(_getPdfText(link))
             }).pointerdown(_openLink);
-            this.year = year;
         }
     }
     async function init() {
@@ -52,11 +52,11 @@ const PublicationsPage = () => {
         const years = [];
         const selectedPublicationsElem = div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text('Selected Publications')));
         for (let publication of selected) {
-            selectedPublicationsElem.append(publication.elem);
+            selectedPublicationsElem.append(publication);
         }
         years.push(selectedPublicationsElem);
         for (let year of Object.keys(yearToPublication).reverse()) {
-            years.push(div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year].map(p => p.elem)));
+            years.push(div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year]));
         }
         const publicationsContainer = div({ id: "publications_container" }).append(...years);
         Home.empty().append(publicationsContainer);
