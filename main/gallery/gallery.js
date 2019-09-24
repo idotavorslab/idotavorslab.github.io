@@ -196,6 +196,7 @@ const GalleryPage = () => {
         }
         console.groupEnd();
         console.log(JSON.parstr({ yearToYearDiv }));
+        let selectedFile = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' }).append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
             .pointerdown(() => {

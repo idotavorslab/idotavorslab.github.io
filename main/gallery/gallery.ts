@@ -11,10 +11,6 @@ const GalleryPage = () => {
     interface YearDiv extends Div {
         title: Span;
         grid: GridDiv;
-        // row0: Div;
-        // row1: Div;
-        // row2: Div;
-        // row3: Div
     }
     
     async function init() {
@@ -256,6 +252,7 @@ const GalleryPage = () => {
         }
         console.groupEnd();
         console.log(JSON.parstr({yearToYearDiv}));
+        let selectedFile: GalleryImg = new GalleryImg();
         // ***  HTML from vars
         
         /*// **  Create div.year's from images
@@ -271,7 +268,7 @@ const GalleryPage = () => {
         }
         */
         /*//**  HTML
-        let selectedFile: GalleryImg = new GalleryImg();
+        
         for (let yearNum of Object.keys(yearToImg).reverse()) { // 2019, 2018, 2016
             let currentYearGalleryImgs = yearToImg[yearNum];
             for (let [i, galleryImg] of Object.entries(currentYearGalleryImgs)) {
