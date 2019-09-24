@@ -147,40 +147,41 @@ const GalleryPage = () => {
         }
         galleryImgs.sort(({ year: yearA }, { year: yearB }) => yearB - yearA);
         console.log(JSON.parstr({ "galleryImgs after sort": galleryImgs }));
-        const yearDivs = [];
-        const yearToImg = {};
         const yearToYearDiv = {};
         let count = 0;
         console.group('for (let [i, galleryImg] of Object.entries(galleryImgs))');
+        function appendToRow(yearDiv, galleryImg, count) {
+            switch (count % 4) {
+                case 0:
+                    yearDiv.grid.row0.append(galleryImg);
+                    console.log('row0');
+                    break;
+                case 1:
+                    yearDiv.grid.row1.append(galleryImg);
+                    console.log('row1');
+                    break;
+                case 2:
+                    yearDiv.grid.row2.append(galleryImg);
+                    console.log('row2');
+                    break;
+                case 3:
+                    yearDiv.grid.row3.append(galleryImg);
+                    console.log('row3');
+                    break;
+            }
+        }
         for (let galleryImg of galleryImgs) {
+            let yearDiv;
             if (galleryImg.year in yearToYearDiv) {
                 count++;
-                let yearDiv = yearToYearDiv[galleryImg.year];
+                yearDiv = yearToYearDiv[galleryImg.year];
                 console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
-                switch (count % 4) {
-                    case 0:
-                        yearDiv.grid.row0.append(galleryImg);
-                        console.log('row0');
-                        break;
-                    case 1:
-                        yearDiv.grid.row1.append(galleryImg);
-                        console.log('row1');
-                        break;
-                    case 2:
-                        yearDiv.grid.row2.append(galleryImg);
-                        console.log('row2');
-                        break;
-                    case 3:
-                        yearDiv.grid.row3.append(galleryImg);
-                        console.log('row3');
-                        break;
-                }
             }
             else {
                 count = 0;
-                let yearDiv = div({ cls: 'year' })
+                yearDiv = div({ cls: 'year' })
                     .cacheAppend({
-                    title: span({ cls: 'year-title' }).text(galleryImg.year),
+                    title: div({ cls: 'year-title' }).text(galleryImg.year),
                     grid: div({ cls: 'grid' }).cacheAppend({
                         row0: div({ cls: 'row_0' }),
                         row1: div({ cls: 'row_1' }),
@@ -189,26 +190,9 @@ const GalleryPage = () => {
                     })
                 });
                 console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({ count, galleryImg, yearDiv }));
-                switch (count % 4) {
-                    case 0:
-                        yearDiv.grid.row0.append(galleryImg);
-                        console.log('row0');
-                        break;
-                    case 1:
-                        yearDiv.grid.row1.append(galleryImg);
-                        console.log('row1');
-                        break;
-                    case 2:
-                        yearDiv.grid.row2.append(galleryImg);
-                        console.log('row2');
-                        break;
-                    case 3:
-                        yearDiv.grid.row3.append(galleryImg);
-                        console.log('row3');
-                        break;
-                }
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
+            appendToRow(yearDiv, galleryImg, count);
         }
         console.groupEnd();
         console.log({ yearToYearDiv });

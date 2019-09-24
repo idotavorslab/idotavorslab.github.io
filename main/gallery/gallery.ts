@@ -199,41 +199,46 @@ const GalleryPage = () => {
         // galleryImgs.sort(({year: yearA}, {year: yearB}) => yearA - yearB);
         console.log(JSON.parstr({"galleryImgs after sort": galleryImgs}));
         // **  Group images by year
-        const yearDivs: YearDiv[] = [];
-        const yearToImg: TMap<[GalleryImg]> = {};
+        // const yearDivs: YearDiv[] = [];
+        // const yearToImg: TMap<[GalleryImg]> = {};
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
         console.group('for (let [i, galleryImg] of Object.entries(galleryImgs))');
+        
+        function appendToRow(yearDiv: YearDiv, galleryImg: GalleryImg, count: number) {
+            switch (count % 4) {
+                case 0:
+                    yearDiv.grid.row0.append(galleryImg);
+                    console.log('row0');
+                    break;
+                case 1:
+                    yearDiv.grid.row1.append(galleryImg);
+                    console.log('row1');
+                    break;
+                case 2:
+                    yearDiv.grid.row2.append(galleryImg);
+                    console.log('row2');
+                    break;
+                case 3:
+                    yearDiv.grid.row3.append(galleryImg);
+                    console.log('row3');
+                    break;
+                
+            }
+        }
+        
         for (let galleryImg of galleryImgs) {
+            let yearDiv: YearDiv;
             if (galleryImg.year in yearToYearDiv) {
                 count++;
-                let yearDiv = yearToYearDiv[galleryImg.year];
+                yearDiv = yearToYearDiv[galleryImg.year];
                 console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
-                switch (count % 4) {
-                    case 0:
-                        yearDiv.grid.row0.append(galleryImg);
-                        console.log('row0');
-                        break;
-                    case 1:
-                        yearDiv.grid.row1.append(galleryImg);
-                        console.log('row1');
-                        break;
-                    case 2:
-                        yearDiv.grid.row2.append(galleryImg);
-                        console.log('row2');
-                        break;
-                    case 3:
-                        yearDiv.grid.row3.append(galleryImg);
-                        console.log('row3');
-                        break;
-                    
-                }
                 
             } else {
                 count = 0;
-                let yearDiv = <YearDiv>div({cls: 'year'})
+                yearDiv = <YearDiv>div({cls: 'year'})
                     .cacheAppend({
-                        title: span({cls: 'year-title'}).text(galleryImg.year),
+                        title: div({cls: 'year-title'}).text(galleryImg.year),
                         grid: div({cls: 'grid'}).cacheAppend({
                             row0: div({cls: 'row_0'}),
                             row1: div({cls: 'row_1'}),
@@ -243,69 +248,11 @@ const GalleryPage = () => {
                     });
                 
                 console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
-                // yearDiv.cacheAppend({
-                //     row0: div({cls: 'row_0'}),
-                //     row1: div({cls: 'row_1'}),
-                //     row2: div({cls: 'row_2'}),
-                //     row3: div({cls: 'row_3'}),
-                // });
-                switch (count % 4) {
-                    case 0:
-                        yearDiv.grid.row0.append(galleryImg);
-                        console.log('row0');
-                        break;
-                    case 1:
-                        yearDiv.grid.row1.append(galleryImg);
-                        console.log('row1');
-                        break;
-                    case 2:
-                        yearDiv.grid.row2.append(galleryImg);
-                        console.log('row2');
-                        break;
-                    case 3:
-                        yearDiv.grid.row3.append(galleryImg);
-                        console.log('row3');
-                        break;
-                    
-                }
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
+            appendToRow(yearDiv, galleryImg, count);
             
             
-            /*if (galleryImg.year in yearToImg) {
-                yearToImg[galleryImg.year].push(galleryImg);
-            } else {
-                yearToImg[galleryImg.year] = [galleryImg];
-                let yearDiv = <YearDiv>div({cls: 'year'})
-                    .append(
-                        div({cls: 'title-and-minimize-flex'})
-                            .append(
-                                span({cls: 'year-title'}).text(galleryImg.year)
-                            )
-                    );
-                yearDiv.cacheAppend({
-                    row0: div({cls: 'row_0'}),
-                    row1: div({cls: 'row_1'}),
-                    row2: div({cls: 'row_2'}),
-                    row3: div({cls: 'row_3'}),
-                });
-                switch (parseInt(i) % 4) {
-                    case 0:
-                        yearDiv.row0.append(galleryImg);
-                        break;
-                    case 1:
-                        yearDiv.row1.append(galleryImg);
-                        break;
-                    case 2:
-                        yearDiv.row2.append(galleryImg);
-                        break;
-                    case 3:
-                        yearDiv.row3.append(galleryImg);
-                        break;
-                    
-                }
-                yearDivs.push(yearDiv)
-            }*/
         }
         console.groupEnd();
         console.log({yearToYearDiv});
@@ -347,8 +294,6 @@ const GalleryPage = () => {
             }
         }
         */
-        // const imagesContainer = div({id: 'images_container'}).append(row0, row1, row2, row3);
-        // const imagesContainer = div({id: 'images_container'}).append(...yearDivs);
         const imagesContainer = div({id: 'images_container'}).append(...Object.values(yearToYearDiv));
         
         DocumentElem

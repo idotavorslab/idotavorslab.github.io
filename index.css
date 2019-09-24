@@ -545,7 +545,7 @@ div#publications_container > div.year {
 div#publications_container > div.year > div.title-and-minimize-flex {
   display: flex;
   color: var(--GREY3);
-  margin-bottom: calc(var(--GAP0) / 2);
+  margin-bottom: calc(var(--gap) / 2);
 }
 div#publications_container > div.year > div.title-and-minimize-flex > span.year-title {
   letter-spacing: 1px;
@@ -582,8 +582,8 @@ div#publications_container > div.year > div.publication {
   border-radius: 2px;
   background-color: var(--GREY02);
   display: flex;
-  margin: 0 0 var(--GAP0) 0;
-  padding: calc(var(--GAP0) / 2);
+  margin: 0 0 var(--gap) 0;
+  padding: calc(var(--gap) / 2);
   position: relative;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
@@ -595,7 +595,7 @@ div#publications_container > div.year > div.publication:hover {
 div#publications_container > div.year > div.publication > img.thumbnail {
   width: 100px;
   border: 1px solid var(--GREY3);
-  margin: auto calc(var(--GAP0) / 2) auto 0;
+  margin: auto calc(var(--gap) / 2) auto 0;
 }
 div#publications_container > div.year > div.publication > div.pdf-div {
   border-width: 1px;
@@ -614,7 +614,7 @@ div#publications_container > div.year > div.publication > div.pdf-div {
 }
 div#publications_container > div.year > div.publication > div.content-div > div {
   margin-top: 5px;
-  margin-right: calc(var(--GAP0) / 2);
+  margin-right: calc(var(--gap) / 2);
   margin-bottom: 5px;
 }
 div#publications_container > div.year > div.publication > div.content-div > span {
@@ -647,10 +647,10 @@ div#home.gallery-page div#images_container > div.year {
   padding-left: 40px;
   margin-bottom: 120px;
 }
-div#home.gallery-page div#images_container > div.year > span.year-title {
+div#home.gallery-page div#images_container > div.year > div.year-title {
   color: var(--GREY3);
   letter-spacing: 1px;
-  margin: 0;
+  margin-bottom: calc(var(--gap) / 2);
   font-family: OpenSansLight;
   font-size: 25px;
   line-height: 25px;
