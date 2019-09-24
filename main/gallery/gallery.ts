@@ -36,8 +36,26 @@ const GalleryPage = () => {
                     this.year = year
             }
             
+            getLeftImage(): GalleryImg {
+                let i;
+                if (this.index === 0)
+                    i = galleryImgs.length - 1;
+                else
+                    i = this.index - 1;
+                return galleryImgs[i];
+            }
             
-            indexOfLeftFile(): number {
+            getRightImage(): GalleryImg {
+                let i;
+                if (this.index === galleryImgs.length - 1)
+                    i = 0;
+                else
+                    i = this.index + 1;
+                return galleryImgs[i];
+            }
+            
+            
+            /*indexOfLeftFile(): number {
                 let leftFileIndex;
                 if (this.index === 0)
                     leftFileIndex = galleryImgs.length - 1;
@@ -54,6 +72,7 @@ const GalleryPage = () => {
                     rightFileIndex = this.index + 1;
                 return rightFileIndex;
             }
+            */
         }
         
         console.log('GalleryPage init');
@@ -79,10 +98,24 @@ const GalleryPage = () => {
         //**  Functions
         // DocumentElem.keydown Arrow  =>  switchToImg
         // Chevron click  =>  gotoAdjImg  =>  switchToImg
-        function switchToImg(_selectedIndex: number) {
+        function switchToImg(_selectedImg: GalleryImg) {
+            // *  Clicked Arrow key or clicked Chevron
+            console.log('switchToImg(_selectedImg:', _selectedImg);
+            selectedImg = _selectedImg;
+            // TODO: load img from cache
+            imgViewer.img
+                .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
+                .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
+            
+            imgViewer.caption.text(selectedImg.caption);
+        }
+        
+        
+        // DocumentElem.keydown Arrow  =>  switchToImg
+        // Chevron click  =>  gotoAdjImg  =>  switchToImg
+        function switchToImgOLD(_selectedIndex: number) {
             // *  Clicked Arrow key or clicked Chevron
             console.log('switchToImg(_selectedIndex:', _selectedIndex);
-            // selectedImg.path = files[_selectedIndex];
             selectedImg = galleryImgs[_selectedIndex];
             // TODO: load img from cache, or just selectedImg = galleryImg
             imgViewer.img
@@ -99,10 +132,10 @@ const GalleryPage = () => {
             // @ts-ignore
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron pointerdown');
-                switchToImg(selectedImg.indexOfLeftFile());
+                switchToImg(selectedImg.getLeftImage());
             } else { // right
                 console.log('right chevron pointerdown');
-                switchToImg(selectedImg.indexOfRightFile());
+                switchToImg(selectedImg.getRightImage());
             }
         }
         
@@ -269,9 +302,9 @@ const GalleryPage = () => {
                 
                 if (event.key.startsWith("Arrow")) {
                     if (event.key === "ArrowLeft")
-                        return switchToImg(selectedImg.indexOfLeftFile());
+                        return switchToImg(selectedImg.getLeftImage());
                     else if (event.key === "ArrowRight")
-                        return switchToImg(selectedImg.indexOfRightFile());
+                        return switchToImg(selectedImg.getRightImage());
                     
                 }
             });
