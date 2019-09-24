@@ -1,6 +1,7 @@
 const HomePage = () => {
     const rightWidget = elem({
-        query: '#right_widget', children: {
+        query: '#right_widget',
+        children: {
             newsCoverImageContainer: '#news_cover_image_container',
             news: {
                 '#news': {

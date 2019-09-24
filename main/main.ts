@@ -98,6 +98,7 @@ const WindowElem = elem({htmlElement: window})
                     cachePeople();
                 if (!window.location.hash.includes('gallery'))
                     cacheGallery();
+                console.log('done caching');
             });
             
         }

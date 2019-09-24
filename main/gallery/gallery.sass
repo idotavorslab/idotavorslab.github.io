@@ -1,12 +1,12 @@
 div#home.gallery-page
-	div#images
-		@include gridContainerMixin(img, true)
+	div#images_container
+
 
 		&[class="theater"]
 			filter: brightness(0.20) blur(1px) sepia(1)
 
 		&:not([class="theater"])
-			& > div[id^="row"] > img
+			& > div.year > div[class^="row"] > img
 				margin-top: 0
 				margin-bottom: 3px
 				cursor: pointer
@@ -14,6 +14,9 @@ div#home.gallery-page
 
 				&:hover
 					opacity: 0.5
+
+		& > div.year
+			@include gridContainerMixin(img, true)
 
 
 	div#img_viewer

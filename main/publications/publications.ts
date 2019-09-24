@@ -1,6 +1,5 @@
 const PublicationsPage = () => {
     class Publication extends Div {
-        // elem: BetterHTMLElement;
         year: number;
         
         constructor(title: string, year: number, creds: string, mag: string, thumbnail: string, link: string) {
@@ -67,7 +66,6 @@ const PublicationsPage = () => {
             } else {
                 yearToPublication[publication.year] = [publication];
             }
-            
         }
         // ***  HTML from vars
         const years: BetterHTMLElement[] = [];
@@ -76,7 +74,6 @@ const PublicationsPage = () => {
         const selectedPublicationsElem = div({cls: 'year'}).append(
             div({cls: 'title-and-minimize-flex'}).append(
                 span({cls: 'year-title'}).text('Selected Publications'),
-                // img({src: 'main/publications/minimize-grey.png'})
             ),
         );
         
@@ -91,7 +88,6 @@ const PublicationsPage = () => {
             years.push(div({cls: 'year'}).append(
                 div({cls: 'title-and-minimize-flex'}).append(
                     span({cls: 'year-title'}).text(year),
-                    // div({cls: 'minimize'}).text('_')
                 ),
                 ...yearToPublication[year],
             ))

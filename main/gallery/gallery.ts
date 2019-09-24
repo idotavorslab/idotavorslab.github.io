@@ -1,26 +1,51 @@
 const GalleryPage = () => {
     type ImgViewer = Div & { left: Div, img: Img, right: Div, caption: Div, isopen: boolean };
     
+    interface YearDiv extends Div {
+        row0: Div;
+        row1: Div;
+        row2: Div;
+        row3: Div
+    }
     
     async function init() {
-        class File {
+        class GalleryImg extends Img {
             private _path: string = null;
             private _index: number = null;
             caption: string = null;
             contrast: number = 1;
             brightness: number = 1;
+            year: number;
             
-            constructor() {
+            constructor(brightness?: number, contrast?: number, file?: string, year?: number, caption?: string) {
+                super({});
+                if (file === undefined) {
+                    this.simplyPath = file;
+                    this._index = files.indexOf(file);
+                }
+                if (caption !== undefined)
+                    this.caption = caption;
+                if (contrast !== undefined)
+                    this.contrast = contrast;
+                if (brightness !== undefined)
+                    this.brightness = brightness;
+                if (year !== undefined)
+                    this.year = year
+            }
+            
+            set simplyPath(_path: string) {
+                this._path = _path;
             }
             
             set path(_path: string) {
                 this._path = _path;
                 this._index = files.indexOf(this.path);
                 
-                const {contrast, brightness, caption} = data[this._index];
+                const {contrast, brightness, caption, year} = data[this._index];
                 this.caption = caption;
                 this.contrast = contrast || 1;
                 this.brightness = brightness || 1;
+                this.year = year;
             }
             
             get path(): string {
@@ -65,6 +90,7 @@ const GalleryPage = () => {
         //**  Functions
         function switchToImg(_selectedIndex: number) {
             selectedFile.path = files[_selectedIndex];
+            // TODO: load img from cache, or just selectedFile = galleryImg
             imgViewer.img
                 .src(selectedFile.path.includes('https') ? selectedFile.path : `main/gallery/${selectedFile.path}`)
                 .css({filter: `contrast(${selectedFile.contrast}) brightness(${selectedFile.brightness})`});
@@ -97,17 +123,11 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
-        function toggleImgViewer(selectedFile: File) {
+        function toggleImgViewer(selectedFile: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
             console.log('imgContainer pointerdown, isopen (before):', imgViewer.isopen);
             if (imgViewer.isopen)
                 return closeImgViewer();
-            /*if (file.includes('http') || file.includes('www')) {
-                selectedFile = file;
-            } else {
-                selectedFile = `main/gallery/${file}`;
-            }
-            */
             imgViewerClose.toggleClass('on', true);
             imgViewer
                 .toggleClass('on', true)
@@ -137,63 +157,118 @@ const GalleryPage = () => {
             });
         
         imgViewer.isopen = false;
-        type TGalleryData = { file: string, contrast: number, brightness: number, caption: string }[];
+        type TGalleryData = { file: string, contrast: number, brightness: number, caption: string, year: number }[];
         const data: TGalleryData = await fetchJson("main/gallery/gallery.json", "no-cache");
         const files = data.map(d => d.file);
-        
-        
-        //**  HTML
-        // const images: Img[] = [];
-        let selectedFile: File = new File();
-        const row0 = div({id: 'row_0'});
-        const row1 = div({id: 'row_1'});
-        const row2 = div({id: 'row_2'});
-        const row3 = div({id: 'row_3'});
-        
-        for (let [i, {file, contrast, brightness}] of Object.entries(data)) {
-            
-            let imageElem;
-            let cachedImage = CacheDiv[`gallery.${file}`];
+        const galleryImgs: GalleryImg[] = [];
+        // **  Populate galleryImgs: GalleryImg[] from data
+        for (let {brightness, contrast, file, year, caption} of data) {
+            let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
+            let cachedImage: Img = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
-                imageElem = cachedImage.removeAttr('hidden');
+                galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
                 console.log('gallery | cachedImage isnt undefined:', cachedImage);
             } else {
                 console.log('gallery | cachedImage IS undefined');
-                let src;
-                if (file.includes('http') || file.includes('www')) {
-                    src = file;
-                } else {
-                    src = `main/gallery/${file}`;
-                }
-                imageElem = img({src});
+                let src = `main/gallery/${file}`;
+                galleryImg.src(src);
             }
-            imageElem
+            // TODO: probably move to GalleryImg constructor
+            galleryImg
                 .pointerdown((event: PointerEvent) => {
                     event.stopPropagation();
+                    // TODO: maybe selectedFile = galleryImg
                     selectedFile.path = file;
                     return toggleImgViewer(selectedFile);
                 })
                 .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             
-            
-            switch (parseInt(i) % 4) {
-                case 0:
-                    row0.append(imageElem);
-                    break;
-                case 1:
-                    row1.append(imageElem);
-                    break;
-                case 2:
-                    row2.append(imageElem);
-                    break;
-                case 3:
-                    row3.append(imageElem);
-                    break;
-                
+            galleryImgs.push(galleryImg);
+        }
+        // **  Sort galleryImgs by year
+        debugger;
+        galleryImgs.sort(({year: yearA}, {year: yearB}) => yearB - yearA);
+        // **  Group images by year
+        const yearDivs: YearDiv[] = [];
+        const yearToImg: TMap<[GalleryImg]> = {};
+        const yearToYearDiv: TMap<[YearDiv]> = {};
+        for (let [i, galleryImg] of Object.entries(galleryImgs)) {
+            if (galleryImg.year in yearToImg) {
+                yearToImg[galleryImg.year].push(galleryImg);
+            } else {
+                yearToImg[galleryImg.year] = [galleryImg];
+                let yearDiv = <YearDiv>div({cls: 'year'})
+                    .append(
+                        div({cls: 'title-and-minimize-flex'})
+                            .append(
+                                span({cls: 'year-title'}).text(galleryImg.year)
+                            )
+                    );
+                yearDiv.cacheAppend({
+                    row0: div({cls: 'row_0'}),
+                    row1: div({cls: 'row_1'}),
+                    row2: div({cls: 'row_2'}),
+                    row3: div({cls: 'row_3'}),
+                });
+                switch (parseInt(i) % 4) {
+                    case 0:
+                        yearDiv.row0.append(galleryImg);
+                        break;
+                    case 1:
+                        yearDiv.row1.append(galleryImg);
+                        break;
+                    case 2:
+                        yearDiv.row2.append(galleryImg);
+                        break;
+                    case 3:
+                        yearDiv.row3.append(galleryImg);
+                        break;
+                    
+                }
+                yearDivs.push(yearDiv)
             }
         }
         
-        const imagesContainer = div({id: 'images'}).append(row0, row1, row2, row3);
+        
+        // ***  HTML from vars
+        
+        /*// **  Create div.year's from images
+        for (let year of Object.keys(yearToImage).reverse()) { // 2019, 2018, 2016
+            years.push(div({cls: 'year'})
+                .append(
+                    div({cls: 'title-and-minimize-flex'})
+                        .append(
+                            span({cls: 'year-title'}).text(year)
+                        ),
+                    ...yearToImage[year],
+                ))
+        }
+        */
+        /*//**  HTML
+        let selectedFile: GalleryImg = new GalleryImg();
+        for (let yearNum of Object.keys(yearToImg).reverse()) { // 2019, 2018, 2016
+            let currentYearGalleryImgs = yearToImg[yearNum];
+            for (let [i, galleryImg] of Object.entries(currentYearGalleryImgs)) {
+                switch (parseInt(i) % 4) {
+                    case 0:
+                        row0.append(imageElem);
+                        break;
+                    case 1:
+                        row1.append(imageElem);
+                        break;
+                    case 2:
+                        row2.append(imageElem);
+                        break;
+                    case 3:
+                        row3.append(imageElem);
+                        break;
+                    
+                }
+            }
+        }
+        */
+        // const imagesContainer = div({id: 'images_container'}).append(row0, row1, row2, row3);
+        const imagesContainer = div({id: 'images_container'}).append(...yearDivs);
         
         DocumentElem
             .pointerdown(() => {
