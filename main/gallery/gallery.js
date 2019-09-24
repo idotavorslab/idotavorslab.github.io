@@ -3,15 +3,13 @@ const GalleryPage = () => {
         class GalleryImg extends Img {
             constructor(brightness, contrast, file, year, caption) {
                 super({});
-                this._path = null;
-                this._index = null;
+                this.path = null;
+                this.index = null;
                 this.caption = null;
                 this.contrast = 1;
                 this.brightness = 1;
-                if (file === undefined) {
-                    this.simplyPath = file;
-                    this._index = files.indexOf(file);
-                }
+                if (file !== undefined)
+                    this.path = file;
                 if (caption !== undefined)
                     this.caption = caption;
                 if (contrast !== undefined)
@@ -21,45 +19,20 @@ const GalleryPage = () => {
                 if (year !== undefined)
                     this.year = year;
             }
-            set simplyPath(_path) {
-                this._path = _path;
-            }
-            set path(_path) {
-                this._path = _path;
-                this._index = files.indexOf(this.path);
-                const { contrast, brightness, caption, year } = data[this._index];
-                this.caption = caption;
-                this.contrast = contrast || 1;
-                this.brightness = brightness || 1;
-                this.year = year;
-            }
-            get path() {
-                return this._path;
-            }
             indexOfLeftFile() {
                 let leftFileIndex;
-                if (this._index === 0)
-                    leftFileIndex = files.length - 1;
+                if (this.index === 0)
+                    leftFileIndex = galleryImgs.length - 1;
                 else
-                    leftFileIndex = this._index - 1;
-                console.log(JSON.parstr({
-                    'files[leftFileIndex]': files[leftFileIndex],
-                    'galleryImgs[leftFileIndex]': galleryImgs[leftFileIndex]
-                }));
-                debugger;
+                    leftFileIndex = this.index - 1;
                 return leftFileIndex;
             }
             indexOfRightFile() {
                 let rightFileIndex;
-                if (this._index === files.length - 1)
+                if (this.index === galleryImgs.length - 1)
                     rightFileIndex = 0;
                 else
-                    rightFileIndex = this._index + 1;
-                console.log(JSON.parstr({
-                    'files[rightFileIndex]': files[rightFileIndex],
-                    'galleryImgs[rightFileIndex]': galleryImgs[rightFileIndex]
-                }));
-                debugger;
+                    rightFileIndex = this.index + 1;
                 return rightFileIndex;
             }
         }
@@ -83,7 +56,7 @@ const GalleryPage = () => {
 `;
         function switchToImg(_selectedIndex) {
             console.log('switchToImg(_selectedIndex:', _selectedIndex);
-            selectedImg.path = files[_selectedIndex];
+            selectedImg = galleryImgs[_selectedIndex];
             imgViewer.img
                 .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
                 .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
@@ -137,7 +110,6 @@ const GalleryPage = () => {
         });
         imgViewer.isopen = false;
         const data = await fetchJson("main/gallery/gallery.json", "no-cache");
-        const files = data.map(d => d.file);
         const galleryImgs = [];
         for (let { brightness, contrast, file, year, caption } of data) {
             let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
@@ -154,14 +126,16 @@ const GalleryPage = () => {
             galleryImg
                 .pointerdown((event) => {
                 event.stopPropagation();
-                selectedImg.path = file;
+                selectedImg = galleryImg;
                 return toggleImgViewer(selectedImg);
             })
                 .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             galleryImgs.push(galleryImg);
         }
-        galleryImgs.sort(({ year: yearA }, { year: yearB }) => yearB - yearA);
-        console.log(JSON.parstr({ "galleryImgs after sort": galleryImgs }));
+        galleryImgs
+            .sort(({ year: yearA }, { year: yearB }) => yearB - yearA)
+            .forEach((image, i) => image.index = i);
+        console.log(JSON.parstr({ "galleryImgs after sort and index": galleryImgs }));
         const yearToYearDiv = {};
         let count = 0;
         console.group('for (let galleryImg of galleryImgs)');

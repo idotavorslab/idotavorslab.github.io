@@ -15,8 +15,8 @@ const GalleryPage = () => {
     
     async function init() {
         class GalleryImg extends Img {
-            private _path: string = null;
-            private _index: number = null;
+            path: string = null;
+            index: number = null;
             caption: string = null;
             contrast: number = 1;
             brightness: number = 1;
@@ -24,10 +24,8 @@ const GalleryPage = () => {
             
             constructor(brightness?: number, contrast?: number, file?: string, year?: number, caption?: string) {
                 super({});
-                if (file === undefined) {
-                    this.simplyPath = file;
-                    this._index = files.indexOf(file);
-                }
+                if (file !== undefined)
+                    this.path = file;
                 if (caption !== undefined)
                     this.caption = caption;
                 if (contrast !== undefined)
@@ -38,50 +36,22 @@ const GalleryPage = () => {
                     this.year = year
             }
             
-            set simplyPath(_path: string) {
-                this._path = _path;
-            }
-            
-            set path(_path: string) {
-                this._path = _path;
-                this._index = files.indexOf(this.path);
-                
-                const {contrast, brightness, caption, year} = data[this._index];
-                this.caption = caption;
-                this.contrast = contrast || 1;
-                this.brightness = brightness || 1;
-                this.year = year;
-            }
-            
-            get path(): string {
-                return this._path;
-            }
             
             indexOfLeftFile(): number {
                 let leftFileIndex;
-                if (this._index === 0)
-                    leftFileIndex = files.length - 1;
+                if (this.index === 0)
+                    leftFileIndex = galleryImgs.length - 1;
                 else
-                    leftFileIndex = this._index - 1;
-                console.log(JSON.parstr({
-                    'files[leftFileIndex]': files[leftFileIndex],
-                    'galleryImgs[leftFileIndex]': galleryImgs[leftFileIndex]
-                }));
-                debugger;
+                    leftFileIndex = this.index - 1;
                 return leftFileIndex;
             }
             
             indexOfRightFile(): number {
                 let rightFileIndex;
-                if (this._index === files.length - 1)
+                if (this.index === galleryImgs.length - 1)
                     rightFileIndex = 0;
                 else
-                    rightFileIndex = this._index + 1;
-                console.log(JSON.parstr({
-                    'files[rightFileIndex]': files[rightFileIndex],
-                    'galleryImgs[rightFileIndex]': galleryImgs[rightFileIndex]
-                }));
-                debugger;
+                    rightFileIndex = this.index + 1;
                 return rightFileIndex;
             }
         }
@@ -112,7 +82,8 @@ const GalleryPage = () => {
         function switchToImg(_selectedIndex: number) {
             // *  Clicked Arrow key or clicked Chevron
             console.log('switchToImg(_selectedIndex:', _selectedIndex);
-            selectedImg.path = files[_selectedIndex];
+            // selectedImg.path = files[_selectedIndex];
+            selectedImg = galleryImgs[_selectedIndex];
             // TODO: load img from cache, or just selectedImg = galleryImg
             imgViewer.img
                 .src(selectedImg.path.includes('https') ? selectedImg.path : `main/gallery/${selectedImg.path}`)
@@ -187,7 +158,7 @@ const GalleryPage = () => {
         imgViewer.isopen = false;
         type TGalleryData = { file: string, contrast: number, brightness: number, caption: string, year: number }[];
         const data: TGalleryData = await fetchJson("main/gallery/gallery.json", "no-cache");
-        const files = data.map(d => d.file);
+        // const files = data.map(d => d.file);
         const galleryImgs: GalleryImg[] = [];
         // **  Populate galleryImgs: GalleryImg[] from data
         for (let {brightness, contrast, file, year, caption} of data) {
@@ -205,8 +176,8 @@ const GalleryPage = () => {
             galleryImg
                 .pointerdown((event: PointerEvent) => {
                     event.stopPropagation();
-                    // TODO: maybe selectedImg = galleryImg
-                    selectedImg.path = file;
+                    // selectedImg.path = file;
+                    selectedImg = galleryImg;
                     return toggleImgViewer(selectedImg);
                 })
                 .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
@@ -215,8 +186,11 @@ const GalleryPage = () => {
         }
         // **  Sort galleryImgs by year
         // Needs to be sorted, order doesn't matter (asc / desc). Order resets with keys of yearToYearDiv
-        galleryImgs.sort(({year: yearA}, {year: yearB}) => yearB - yearA);
-        console.log(JSON.parstr({"galleryImgs after sort": galleryImgs}));
+        galleryImgs
+            .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
+            .forEach((image, i) => image.index = i);
+        
+        console.log(JSON.parstr({"galleryImgs after sort and index": galleryImgs}));
         // **  Group images by year
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
