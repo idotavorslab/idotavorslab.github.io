@@ -99,11 +99,15 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer  =>  switchToImg
         function switchToImg(_selectedImg: GalleryImg) {
             // *  Clicked Arrow key or clicked Chevron
+            console.log(`galleryImg.switchToImg(`, {_selectedImg});
             selectedImg = _selectedImg;
-            imgViewer.img
-                .src(`main/gallery/${selectedImg.path}`)
-                .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
             imgViewer.caption.text(selectedImg.caption);
+            let clone = _selectedImg.e.cloneNode();
+            imgViewer.img.wrapSomethingElse(clone);
+            // imgViewer.img.e.replaceWith(_selectedImg.e.cloneNode())
+            // imgViewer.img
+            //     .src(`main/gallery/${selectedImg.path}`)
+            //     .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
         }
         
         
@@ -139,13 +143,13 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
-            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, {_selectedImg});
+            console.log('galleryImg.toggleImgViewer(', {_selectedImg});
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
             imgViewer.toggleClass('on', true);
-            
             switchToImg(_selectedImg);
+            
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);

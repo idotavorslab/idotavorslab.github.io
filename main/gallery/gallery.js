@@ -62,11 +62,11 @@ const GalleryPage = () => {
 </svg>
 `;
         function switchToImg(_selectedImg) {
+            console.log(`galleryImg.switchToImg(`, { _selectedImg });
             selectedImg = _selectedImg;
-            imgViewer.img
-                .src(`main/gallery/${selectedImg.path}`)
-                .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
             imgViewer.caption.text(selectedImg.caption);
+            let clone = _selectedImg.e.cloneNode();
+            imgViewer.img.wrapSomethingElse(clone);
         }
         async function gotoAdjImg(event) {
             event.stopPropagation();
@@ -89,7 +89,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         function toggleImgViewer(_selectedImg) {
-            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, { _selectedImg });
+            console.log('galleryImg.toggleImgViewer(', { _selectedImg });
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
