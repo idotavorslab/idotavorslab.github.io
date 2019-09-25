@@ -181,16 +181,19 @@ const HomePage = () => {
             )
         }
         // ***  Funding
-        const fundingData: { title: { image: string, text: string } } = data.funding;
+        const fundingData: { title: { image: string, text: string, large?: boolean } } = data.funding;
         const sponsorsGrid = elem({query: "#sponsors"});
-        for (let [title, {image, text}] of Object.entries(fundingData)) {
+        for (let [title, {image, text, large}] of Object.entries(fundingData)) {
+            let sponsorImage = img({src: `main/home/${image}`})
+                .on({
+                    load: () => {
+                        console.log(`%cloaded: ${image}`, `color: #ffc66d`);
+                    }
+                });
+            if (large === true) sponsorImage.css({width: '260px'});
             sponsorsGrid.append(
                 div({cls: 'sponsor'}).append(
-                    img({src: `main/home/${image}`}).on({
-                        load: () => {
-                            console.log(`%cloaded: ${image}`, `color: #ffc66d`);
-                        }
-                    }),
+                    sponsorImage,
                     div({cls: 'sponsor-title', text: title}),
                     div({cls: 'sponsor-text', text})
                 )

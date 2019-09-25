@@ -124,12 +124,16 @@ const HomePage = () => {
         }
         const fundingData = data.funding;
         const sponsorsGrid = elem({ query: "#sponsors" });
-        for (let [title, { image, text }] of Object.entries(fundingData)) {
-            sponsorsGrid.append(div({ cls: 'sponsor' }).append(img({ src: `main/home/${image}` }).on({
+        for (let [title, { image, text, large }] of Object.entries(fundingData)) {
+            let sponsorImage = img({ src: `main/home/${image}` })
+                .on({
                 load: () => {
                     console.log(`%cloaded: ${image}`, `color: #ffc66d`);
                 }
-            }), div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
+            });
+            if (large === true)
+                sponsorImage.css({ width: '260px' });
+            sponsorsGrid.append(div({ cls: 'sponsor' }).append(sponsorImage, div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
         }
         elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));
         elem({ query: "#logos > :nth-child(2)" }).pointerdown(() => window.open("https://en-med.tau.ac.il/"));
