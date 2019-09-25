@@ -1,9 +1,13 @@
+/**Thrown when either too much or not enough arguments were passed. Prints what was expected and what was actually passed.*/
 declare class BadArgumentsAmountError extends Error {
-    constructor(expectedArgsNum: number | number[], passedArgs: any, details?: string);
+    /**@param expectedArgsNum - Being a number and not array, it implies function requires an exact number of args*/
+    constructor(expectedArgsNum: number, passedArgs: object, details?: string);
+    /**@param expectedArgsNum - Being a 2-tuple and not a number, implies function requires between this and that number of args*/
+    constructor(expectedArgsNum: [number, number], passedArgs: object, details?: string);
 }
 
 declare type TEvent = keyof HTMLElementEventMap;
-declare type TEventFunctionMap<K extends keyof HTMLElementEventMap> = {
+declare type TEventFunctionMap<K extends TEvent> = {
     [P in K]?: (event: HTMLElementEventMap[P]) => void;
 };
 declare type HTMLTag = keyof HTMLElementTagNameMap;
@@ -130,7 +134,7 @@ declare class BetterHTMLElement {
     protected _htmlElement: HTMLElement;
     private readonly _isSvg;
     private readonly _listeners;
-    private readonly _cachedChildren;
+    private _cachedChildren;
     
     /**Create an element of `tag`. Optionally, set its `text` and / or `cls`*/
     constructor({tag, text, cls}: {
@@ -163,7 +167,13 @@ declare class BetterHTMLElement {
     /**Return the wrapped HTMLElement*/
     readonly e: HTMLElement;
     
+    /**Sets `this._htmlElement` to `newHtmlElement._htmlElement`.
+     * Resets `this._cachedChildren` and caches `newHtmlElement._cachedChildren`.
+     * Adds event listeners from `newHtmlElement._listeners`, while keeping `this._listeners`.*/
     wrapSomethingElse(newHtmlElement: BetterHTMLElement): this;
+    /**Sets `this._htmlElement` to `newHtmlElement`.
+     * Keeps `this._listeners`.
+     * NOTE: this reinitializes `this._cachedChildren` and all event listeners belonging to `newHtmlElement` are lost. Pass a `BetterHTMLElement` to keep them.*/
     wrapSomethingElse(newHtmlElement: HTMLElement): this;
     
     /**Set the element's innerHTML*/

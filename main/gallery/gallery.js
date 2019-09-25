@@ -18,6 +18,13 @@ const GalleryPage = () => {
                     this.brightness = brightness;
                 if (year !== undefined)
                     this.year = year;
+                this
+                    .pointerdown((event) => {
+                    console.log('this pointerdown:', this);
+                    event.stopPropagation();
+                    return toggleImgViewer(this);
+                })
+                    .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             }
             getLeftImage() {
                 let i;
@@ -55,11 +62,11 @@ const GalleryPage = () => {
 </svg>
 `;
         function switchToImg(_selectedImg) {
+            console.log(`galleryImg.switchToImg(`, { _selectedImg });
             selectedImg = _selectedImg;
-            imgViewer.img
-                .src(`main/gallery/${selectedImg.path}`)
-                .css({ filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})` });
             imgViewer.caption.text(selectedImg.caption);
+            let clone = _selectedImg.e.cloneNode();
+            imgViewer.img.wrapSomethingElse(clone);
         }
         async function gotoAdjImg(event) {
             event.stopPropagation();
@@ -82,7 +89,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         function toggleImgViewer(_selectedImg) {
-            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, { _selectedImg });
+            console.log('galleryImg.toggleImgViewer(', { _selectedImg });
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
@@ -111,19 +118,13 @@ const GalleryPage = () => {
             let cachedImage = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log('gallery | cachedImage isnt undefined:', cachedImage);
+                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             }
             else {
-                console.log('gallery | cachedImage IS undefined');
+                console.log(...less(`gallery | "gallery.${file}" not in cache`));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            galleryImg
-                .pointerdown((event) => {
-                event.stopPropagation();
-                return toggleImgViewer(galleryImg);
-            })
-                .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             galleryImgs.push(galleryImg);
         }
         galleryImgs
@@ -132,7 +133,6 @@ const GalleryPage = () => {
         console.log(JSON.parstr({ "galleryImgs after sort and index": galleryImgs }));
         const yearToYearDiv = {};
         let count = 0;
-        console.group('for (let galleryImg of galleryImgs)');
         function appendToRow(yearDiv, galleryImg, count) {
             switch (count % 4) {
                 case 0:
@@ -171,7 +171,6 @@ const GalleryPage = () => {
             }
             appendToRow(yearDiv, galleryImg, count);
         }
-        console.groupEnd();
         console.log(JSON.parstr({ yearToYearDiv }));
         let selectedImg = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' })

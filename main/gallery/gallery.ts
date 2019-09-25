@@ -42,14 +42,14 @@ const GalleryPage = () => {
                 if (year !== undefined)
                     this.year = year;
                 
-                /*this
+                this
                     .pointerdown((event: PointerEvent) => {
                         console.log('this pointerdown:', this);
                         event.stopPropagation();
                         return toggleImgViewer(this);
                     })
                     .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
-                */
+                
             }
             
             getLeftImage(): GalleryImg {
@@ -99,11 +99,15 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer  =>  switchToImg
         function switchToImg(_selectedImg: GalleryImg) {
             // *  Clicked Arrow key or clicked Chevron
+            console.log(`galleryImg.switchToImg(`, {_selectedImg});
             selectedImg = _selectedImg;
-            imgViewer.img
-                .src(`main/gallery/${selectedImg.path}`)
-                .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
             imgViewer.caption.text(selectedImg.caption);
+            let clone = _selectedImg.e.cloneNode();
+            imgViewer.img.wrapSomethingElse(clone);
+            // imgViewer.img.e.replaceWith(_selectedImg.e.cloneNode())
+            // imgViewer.img
+            //     .src(`main/gallery/${selectedImg.path}`)
+            //     .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
         }
         
         
@@ -139,13 +143,13 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
-            console.log('galleryImg.pointerdown, isopen (before):', imgViewer.isopen, {_selectedImg});
+            console.log('galleryImg.toggleImgViewer(', {_selectedImg});
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
             imgViewer.toggleClass('on', true);
-            
             switchToImg(_selectedImg);
+            
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
@@ -177,18 +181,12 @@ const GalleryPage = () => {
             let cachedImage: Img = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log('gallery | cachedImage isnt undefined:', cachedImage);
+                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             } else {
-                console.log('gallery | cachedImage IS undefined');
+                console.log(...less(`gallery | "gallery.${file}" not in cache`));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            galleryImg
-                .pointerdown((event: PointerEvent) => {
-                    event.stopPropagation();
-                    return toggleImgViewer(galleryImg);
-                })
-                .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year and index
@@ -201,7 +199,6 @@ const GalleryPage = () => {
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
-        console.group('for (let galleryImg of galleryImgs)');
         
         function appendToRow(yearDiv: YearDiv, galleryImg: GalleryImg, count: number) {
             switch (count % 4) {
@@ -250,7 +247,6 @@ const GalleryPage = () => {
             
             
         }
-        console.groupEnd();
         console.log(JSON.parstr({yearToYearDiv}));
         let selectedImg: GalleryImg = new GalleryImg();
         
