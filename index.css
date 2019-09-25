@@ -840,5 +840,8 @@ div#contact_grid > div > a {
   line-height: 32px;
   grid-column: span 2;
 }
+div#contact_grid > div.visit > a {
+  text-transform: capitalize;
+}
 
 /*# sourceMappingURL=index.css.map */

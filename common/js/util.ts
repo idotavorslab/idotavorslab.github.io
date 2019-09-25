@@ -198,7 +198,7 @@ function round(n: number, d: number = 0) {
     return int(n * fr) / fr;
 }
 
-async function fetchJson(path: string, cache: RequestCache = "no-cache") {
+async function fetchJson(path: string, cache: RequestCache = "default") {
     let req = new Request(path, {cache});
     return (await fetch(req)).json();
 }

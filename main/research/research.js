@@ -1,7 +1,7 @@
 const ResearchPage = () => {
     async function init(selectedIndex) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        const data = await fetchJson('main/research/research.json', "no-cache");
+        const data = await fetchJson('main/research/research.json');
         const articles = [];
         let emptied = false;
         for (let [i, [title, { image, text, circle }]] of Object.entries(Object.entries(data))) {

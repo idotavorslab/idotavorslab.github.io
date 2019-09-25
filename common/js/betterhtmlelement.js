@@ -121,11 +121,8 @@ class BetterHTMLElement {
 		} else {
 			// No way to get newHtmlElement event listeners besides hacking Element.prototype
 			this.on(this._listeners);
-			console.log({ "this._htmlElement before replaceWith": this._htmlElement });
 			this._htmlElement.replaceWith(newHtmlElement);
-			console.log({ "this._htmlElement after replaceWith": this._htmlElement });
 			this._htmlElement = newHtmlElement;
-			console.log({ "this._htmlElement after direct assignment": this._htmlElement });
 		}
 		return this;
 	}
