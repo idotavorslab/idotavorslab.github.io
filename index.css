@@ -796,7 +796,14 @@ div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
   border-radius: 15px;
 }
 
-iframe#contact_iframe {
+iframe#contact_form {
+  width: var(--w);
+  height: 600px;
+  border-radius: 15px;
+  margin-bottom: calc(var(--gap) * 2);
+}
+
+iframe#contact_map {
   width: var(--w);
   height: 600px;
   border-radius: 15px;
