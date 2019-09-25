@@ -1,14 +1,15 @@
 iframe#contact_form
 	@include iframeMixin()
 	margin-bottom: calc(var(--gap) * 2)
+	// no scrollbar
+	height: 815px
 
 iframe#contact_map
 	@include iframeMixin()
 
 
 div#contact_grid
-	margin:
-		bottom: calc(var(--gap) * 2)
+	margin-bottom: calc(var(--gap))
 	// *  DEP: home.sass funding grid
 	--rowLength: 3
 	--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))

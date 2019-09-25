@@ -11,11 +11,13 @@ const CacheDiv = elem({id: 'cache'});
 const WindowElem = elem({htmlElement: window})
     .on({
         scroll: (event: Event) => {
-            if (window.scrollY > 0) {
-                Navbar.removeClass('box-shadow')
-            } else {
-                Navbar.addClass('box-shadow')
-                
+            if (Navbar !== undefined) {
+                if (window.scrollY > 0) {
+                    Navbar.removeClass('box-shadow')
+                } else {
+                    Navbar.addClass('box-shadow')
+                    
+                }
             }
             
         },

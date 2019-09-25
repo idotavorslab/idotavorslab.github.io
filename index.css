@@ -801,6 +801,7 @@ iframe#contact_form {
   height: 600px;
   border-radius: 15px;
   margin-bottom: calc(var(--gap) * 2);
+  height: 815px;
 }
 
 iframe#contact_map {
@@ -810,7 +811,7 @@ iframe#contact_map {
 }
 
 div#contact_grid {
-  margin-bottom: calc(var(--gap) * 2);
+  margin-bottom: calc(var(--gap));
   --rowLength: 3;
   --itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
   display: grid;
