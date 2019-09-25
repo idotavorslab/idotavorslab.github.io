@@ -119,8 +119,8 @@ const HomePage = () => {
     
     async function init() {
         
-        rightWidget.mouseover(() => newsData.stopAutoSwitch());
-        rightWidget.mouseout(() => newsData.startAutoSwitch());
+        // rightWidget.mouseover(() => newsData.stopAutoSwitch());
+        // rightWidget.mouseout(() => newsData.startAutoSwitch());
         
         // ***  About
         const data = await fetchJson('main/home/home.json');
@@ -157,6 +157,8 @@ const HomePage = () => {
             i++;
             
         }
+        rightWidget.mouseover(() => newsData.stopAutoSwitch());
+        rightWidget.mouseout(() => newsData.startAutoSwitch());
         // ***  Research Snippets
         const researchData = Object.entries(await fetchJson('main/research/research.json'));
         const researchSnippets = elem({query: "#research_snippets"});
