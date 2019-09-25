@@ -51,6 +51,7 @@ const WindowElem = elem({ htmlElement: window })
                 .attr({ src, hidden: "" })
                 .on({
                 load: () => {
+                    console.log(...less(`loaded ${page} | ${file}`));
                     CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
                 }
             });

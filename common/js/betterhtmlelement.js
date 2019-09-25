@@ -103,6 +103,7 @@ class BetterHTMLElement {
 		this._cachedChildren = {};
 		if (newHtmlElement instanceof BetterHTMLElement) {
 			this._htmlElement.replaceWith(newHtmlElement.e);
+			this._htmlElement = newHtmlElement.e;
 			for (let [_key, _cachedChild] of enumerate(newHtmlElement._cachedChildren)) {
 				this._cache(_key, _cachedChild);
 			}
