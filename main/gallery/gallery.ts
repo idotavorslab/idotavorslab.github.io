@@ -174,24 +174,15 @@ const GalleryPage = () => {
         // **  Populate galleryImgs: GalleryImg[] from data
         for (let {brightness, contrast, file, year, caption} of data) {
             let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
-            console.log('before maybe using cached imgs', galleryImg);
             let cachedImage: Img = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log(...less('gallery | cachedImage isnt undefined:'), cachedImage);
+                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             } else {
-                console.log(...less('gallery | cachedImage IS undefined'));
+                console.log(...less(`gallery | "gallery.${file}" not in cache`));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            console.log('after maybe using cached imgs', galleryImg);
-            /*galleryImg
-                .pointerdown((event: PointerEvent) => {
-                    event.stopPropagation();
-                    return toggleImgViewer(galleryImg);
-                })
-                .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
-            */
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year and index

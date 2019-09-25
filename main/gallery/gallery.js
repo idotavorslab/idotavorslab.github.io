@@ -115,18 +115,16 @@ const GalleryPage = () => {
         const galleryImgs = [];
         for (let { brightness, contrast, file, year, caption } of data) {
             let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
-            console.log('before maybe using cached imgs', galleryImg);
             let cachedImage = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log(...less('gallery | cachedImage isnt undefined:'), cachedImage);
+                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             }
             else {
-                console.log(...less('gallery | cachedImage IS undefined'));
+                console.log(...less(`gallery | "gallery.${file}" not in cache`));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            console.log('after maybe using cached imgs', galleryImg);
             galleryImgs.push(galleryImg);
         }
         galleryImgs

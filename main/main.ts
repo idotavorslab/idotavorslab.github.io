@@ -47,7 +47,7 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
-            console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
+            console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
             if (window.location.hash !== "")
                 fetchJson('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
             
@@ -69,6 +69,7 @@ const WindowElem = elem({htmlElement: window})
             }
             
             async function cachePeople() {
+                console.log(...less('cachePeople'));
                 const peopleData = await fetchJson('main/people/people.json', "no-cache");
                 const {team: teamData, alumni: alumniData} = peopleData;
                 for (let [_, {image}] of dict(teamData).items())
@@ -78,12 +79,14 @@ const WindowElem = elem({htmlElement: window})
             }
             
             async function cacheGallery() {
+                console.log(...less('cacheGallery'));
                 const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
                 for (let file of galleryFiles)
                     cache(file, "gallery")
             }
             
             async function cacheResearch() {
+                console.log(...less('cacheResearch'));
                 const researchData = await fetchJson('main/research/research.json', "no-cache");
                 for (let [_, {image}] of dict(researchData).items())
                     cache(image, "research")
@@ -99,6 +102,7 @@ const WindowElem = elem({htmlElement: window})
                 if (!window.location.hash.includes('gallery'))
                     cacheGallery();
                 console.log('done caching');
+                console.groupEnd();
             });
             
         }
