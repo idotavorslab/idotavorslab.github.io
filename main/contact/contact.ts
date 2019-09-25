@@ -4,7 +4,7 @@ const ContactPage = () => {
         const visit = div({cls: 'visit'})
             .append(
                 elem({tag: 'h1', text: 'Visit'}),
-                img({src: 'main/contact/home.svg'}),
+                img({src: 'main/contact/home-simple.svg'}),
                 paragraph({cls: 'subtitle', text: 'Address'}),
                 anchor({href: data.visit.link, text: data.visit.address}).target("_blank")
             );
