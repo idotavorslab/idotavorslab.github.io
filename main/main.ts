@@ -1,4 +1,4 @@
-const isIphone = window.clientInformation.userAgent.includes('iPhone');
+const isIphone = window.navigator.userAgent.includes('iPhone');
 
 // @ts-ignore
 const DocumentElem = elem({htmlElement: document});
