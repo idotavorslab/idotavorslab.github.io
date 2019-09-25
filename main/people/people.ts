@@ -297,7 +297,7 @@ const PeoplePage = () => {
         
         
         type TeamType = TMap<{ role: string, image: string, cv: string, email: string }>
-        const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson('main/people/people.json', "no-cache");
+        const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson('main/people/people.json');
         // const absExpandoHeight = (teamData["ido tavor"].cv.length + teamData["ido tavor"].email.length + 8) / 2
         const expando: Expando = new Expando();
         

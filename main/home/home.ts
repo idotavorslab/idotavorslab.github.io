@@ -123,7 +123,7 @@ const HomePage = () => {
         rightWidget.mouseout(() => newsData.startAutoSwitch());
         
         // ***  About
-        const data = await fetchJson('main/home/home.json', "no-cache");
+        const data = await fetchJson('main/home/home.json');
         rightWidget.newsCoverImageContainer
             .append(img({src: `main/home/${data["news-cover-image"]}`}));
         
@@ -158,7 +158,7 @@ const HomePage = () => {
             
         }
         // ***  Research Snippets
-        const researchData = Object.entries(await fetchJson('main/research/research.json', "no-cache"));
+        const researchData = Object.entries(await fetchJson('main/research/research.json'));
         const researchSnippets = elem({query: "#research_snippets"});
         
         for (let [i, [title, {thumbnail}]] of Object.entries(<[string, { thumbnail: string }][]>researchData)) {

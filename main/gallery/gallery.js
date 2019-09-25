@@ -111,7 +111,7 @@ const GalleryPage = () => {
             event.stopPropagation();
         });
         imgViewer.isopen = false;
-        const data = await fetchJson("main/gallery/gallery.json", "no-cache");
+        const data = await fetchJson("main/gallery/gallery.json");
         const galleryImgs = [];
         for (let { brightness, contrast, file, year, caption } of data) {
             let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);

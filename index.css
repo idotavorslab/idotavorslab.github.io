@@ -796,14 +796,22 @@ div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
   border-radius: 15px;
 }
 
-iframe#contact_iframe {
+iframe#contact_form {
+  width: var(--w);
+  height: 600px;
+  border-radius: 15px;
+  margin-bottom: calc(var(--gap) * 2);
+  height: -webkit-fill-available;
+}
+
+iframe#contact_map {
   width: var(--w);
   height: 600px;
   border-radius: 15px;
 }
 
 div#contact_grid {
-  margin-bottom: calc(var(--gap) * 2);
+  margin-bottom: calc(var(--gap));
   --rowLength: 3;
   --itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
   display: grid;
@@ -839,6 +847,9 @@ div#contact_grid > div > a {
   font-size: 20px;
   line-height: 32px;
   grid-column: span 2;
+}
+div#contact_grid > div.visit > a {
+  text-transform: capitalize;
 }
 
 /*# sourceMappingURL=index.css.map */

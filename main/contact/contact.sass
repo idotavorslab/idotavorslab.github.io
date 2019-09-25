@@ -1,9 +1,14 @@
-iframe#contact_iframe
+iframe#contact_form
+	@include iframeMixin()
+	margin-bottom: calc(var(--gap) * 2)
+	height: -webkit-fill-available
+
+iframe#contact_map
 	@include iframeMixin()
 
+
 div#contact_grid
-	margin:
-		bottom: calc(var(--gap) * 2)
+	margin-bottom: calc(var(--gap))
 	// *  DEP: home.sass funding grid
 	--rowLength: 3
 	--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
@@ -42,6 +47,10 @@ div#contact_grid
 			font-size: 20px
 			line-height: 32px
 			grid-column: span 2
+
+		&.visit > a
+			text-transform: capitalize
+
 
 
 

@@ -1,21 +1,34 @@
 const ContactPage = () => {
     async function init() {
-        const address = 'Sackler Bldg, Room #631 Tel Aviv University, Tel Aviv-Yafo, Israel';
+        const data = await fetchJson("main/contact/contact.json");
+        const visit = div({ cls: 'visit' })
+            .append(elem({ tag: 'h1', text: 'Visit' }), img({ src: 'main/contact/home.svg' }), paragraph({ cls: 'subtitle', text: 'Address' }), anchor({ href: data.visit.link, text: data.visit.address }).target("_blank"));
+        const call = div({ cls: 'call' })
+            .append(elem({ tag: 'h1', text: 'Call' }), img({ src: 'main/contact/phone.svg' }), paragraph({ cls: 'subtitle', text: data.call.hours }), anchor({ text: data.call.phone, href: `tel:${data.call.phone}` }).target("_blank"));
+        const email = div({ cls: 'email' })
+            .append(elem({ tag: 'h1', text: 'Email' }), img({ src: 'main/contact/envelope.svg' }), anchor({
+            text: data.email,
+            href: `mailto:${data.email}`
+        }).target("_blank"));
         const grid = div({ id: 'contact_grid' })
-            .append(div({ cls: 'visit' })
-            .append(elem({ tag: 'h1', text: 'Visit' }), img({ src: 'main/contact/Home_font_awesome.svg' }), paragraph({ cls: 'subtitle', text: 'Address' }), anchor({ href: `https://goo.gl/maps/wmR4cYfhDRwgM1m59`, text: address }).target("_blank")), div({ cls: 'call' })
-            .append(elem({ tag: 'h1', text: 'Call' }), img({ src: 'main/contact/Phone_font_awesome.svg' }), paragraph({ cls: 'subtitle', text: "9am - 17pm Su - Th" }), anchor({ text: '0733804420', href: `tel:0733804420` }).target("_blank")), div({ cls: 'email' })
-            .append(elem({ tag: 'h1', text: 'Email' }), img({ src: 'main/contact/Envelope_alt_font_awesome.svg' }), anchor({
-            text: 'idotavor@tauex.tau.ac.il',
-            href: `mailto:idotavor@tauex.tau.ac.il`
-        }).target("_blank")));
-        Home.empty().class('contact-page').append(grid, elem({ tag: 'iframe' })
-            .id('contact_iframe')
+            .append(visit, call, email);
+        const form = elem({ tag: 'iframe', text: "Loading" })
+            .id('contact_form')
             .attr({
             frameborder: "0",
             allowfullscreen: "",
-            src: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d844.8119449796943!2d34.8055412!3d32.11661!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d496e45f48b8b%3A0xc263bdfe4d2d0a80!2sSackler%20Interdepartmental%20Core%20Facility!5e0!3m2!1sen!2sil!4v1569246056843!5m2!1sen!2sil"
-        }));
+            marginheight: "0",
+            marginwidth: "0",
+            src: data.form
+        });
+        let map = elem({ tag: 'iframe' })
+            .id('contact_map')
+            .attr({
+            frameborder: "0",
+            allowfullscreen: "",
+            src: data.map
+        });
+        Home.empty().class('contact-page').append(grid, form, map);
     }
     return { init };
 };

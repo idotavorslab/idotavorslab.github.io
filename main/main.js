@@ -6,11 +6,13 @@ const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window })
     .on({
     scroll: (event) => {
-        if (window.scrollY > 0) {
-            Navbar.removeClass('box-shadow');
-        }
-        else {
-            Navbar.addClass('box-shadow');
+        if (Navbar !== undefined) {
+            if (window.scrollY > 0) {
+                Navbar.removeClass('box-shadow');
+            }
+            else {
+                Navbar.addClass('box-shadow');
+            }
         }
     },
     hashchange: (event) => {
@@ -58,7 +60,7 @@ const WindowElem = elem({ htmlElement: window })
         }
         async function cachePeople() {
             console.log(...less('cachePeople'));
-            const peopleData = await fetchJson('main/people/people.json', "no-cache");
+            const peopleData = await fetchJson('main/people/people.json');
             const { team: teamData, alumni: alumniData } = peopleData;
             for (let [_, { image }] of dict(teamData).items())
                 cache(image, "people");
@@ -67,13 +69,13 @@ const WindowElem = elem({ htmlElement: window })
         }
         async function cacheGallery() {
             console.log(...less('cacheGallery'));
-            const galleryFiles = (await fetchJson("main/gallery/gallery.json", "no-cache")).map(d => d.file);
+            const galleryFiles = (await fetchJson("main/gallery/gallery.json")).map(d => d.file);
             for (let file of galleryFiles)
                 cache(file, "gallery");
         }
         async function cacheResearch() {
             console.log(...less('cacheResearch'));
-            const researchData = await fetchJson('main/research/research.json', "no-cache");
+            const researchData = await fetchJson('main/research/research.json');
             for (let [_, { image }] of dict(researchData).items())
                 cache(image, "research");
         }

@@ -5,7 +5,7 @@ const ResearchPage = () => {
     
     async function init(selectedIndex?: number) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        const data = await fetchJson('main/research/research.json', "no-cache");
+        const data = await fetchJson('main/research/research.json');
         const articles: Article[] = [];
         let emptied = false;
         type TResearchData = { image: string, text: string, circle?: boolean }[];
