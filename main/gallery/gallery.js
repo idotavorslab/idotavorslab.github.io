@@ -18,6 +18,13 @@ const GalleryPage = () => {
                     this.brightness = brightness;
                 if (year !== undefined)
                     this.year = year;
+                this
+                    .pointerdown((event) => {
+                    console.log('this pointerdown:', this);
+                    event.stopPropagation();
+                    return toggleImgViewer(this);
+                })
+                    .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             }
             getLeftImage() {
                 let i;
@@ -108,22 +115,18 @@ const GalleryPage = () => {
         const galleryImgs = [];
         for (let { brightness, contrast, file, year, caption } of data) {
             let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
+            console.log('before maybe using cached imgs', galleryImg);
             let cachedImage = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log('gallery | cachedImage isnt undefined:', cachedImage);
+                console.log(...less('gallery | cachedImage isnt undefined:'), cachedImage);
             }
             else {
-                console.log('gallery | cachedImage IS undefined');
+                console.log(...less('gallery | cachedImage IS undefined'));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            galleryImg
-                .pointerdown((event) => {
-                event.stopPropagation();
-                return toggleImgViewer(galleryImg);
-            })
-                .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
+            console.log('after maybe using cached imgs', galleryImg);
             galleryImgs.push(galleryImg);
         }
         galleryImgs
@@ -132,7 +135,6 @@ const GalleryPage = () => {
         console.log(JSON.parstr({ "galleryImgs after sort and index": galleryImgs }));
         const yearToYearDiv = {};
         let count = 0;
-        console.group('for (let galleryImg of galleryImgs)');
         function appendToRow(yearDiv, galleryImg, count) {
             switch (count % 4) {
                 case 0:
@@ -171,7 +173,6 @@ const GalleryPage = () => {
             }
             appendToRow(yearDiv, galleryImg, count);
         }
-        console.groupEnd();
         console.log(JSON.parstr({ yearToYearDiv }));
         let selectedImg = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' })

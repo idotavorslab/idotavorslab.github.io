@@ -42,14 +42,14 @@ const GalleryPage = () => {
                 if (year !== undefined)
                     this.year = year;
                 
-                /*this
+                this
                     .pointerdown((event: PointerEvent) => {
                         console.log('this pointerdown:', this);
                         event.stopPropagation();
                         return toggleImgViewer(this);
                     })
                     .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
-                */
+                
             }
             
             getLeftImage(): GalleryImg {
@@ -174,21 +174,24 @@ const GalleryPage = () => {
         // **  Populate galleryImgs: GalleryImg[] from data
         for (let {brightness, contrast, file, year, caption} of data) {
             let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
+            console.log('before maybe using cached imgs', galleryImg);
             let cachedImage: Img = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log('gallery | cachedImage isnt undefined:', cachedImage);
+                console.log(...less('gallery | cachedImage isnt undefined:'), cachedImage);
             } else {
-                console.log('gallery | cachedImage IS undefined');
+                console.log(...less('gallery | cachedImage IS undefined'));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            galleryImg
+            console.log('after maybe using cached imgs', galleryImg);
+            /*galleryImg
                 .pointerdown((event: PointerEvent) => {
                     event.stopPropagation();
                     return toggleImgViewer(galleryImg);
                 })
                 .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
+            */
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year and index
@@ -201,7 +204,6 @@ const GalleryPage = () => {
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
-        console.group('for (let galleryImg of galleryImgs)');
         
         function appendToRow(yearDiv: YearDiv, galleryImg: GalleryImg, count: number) {
             switch (count % 4) {
@@ -250,7 +252,6 @@ const GalleryPage = () => {
             
             
         }
-        console.groupEnd();
         console.log(JSON.parstr({yearToYearDiv}));
         let selectedImg: GalleryImg = new GalleryImg();
         

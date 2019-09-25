@@ -176,6 +176,9 @@ function calcAbsValue(cssStr, width) {
     copyToClipboard(expression);
     return expression;
 }
+function less(val) {
+    return [`%c${val}`, 'font-size: 10px; color: rgb(150,150,150)'];
+}
 function log(bold = false) {
     return function _log(target, name, descriptor, ...outargs) {
         const orig = descriptor.value;

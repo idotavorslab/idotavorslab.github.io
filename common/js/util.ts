@@ -270,6 +270,9 @@ function calcAbsValue(cssStr: string, width: number): string {
     
 }
 
+function less(val: string): [string, string] {
+    return [`%c${val}`, 'font-size: 10px; color: rgb(150,150,150)']
+}
 
 function log(bold: boolean = false) {
     return function _log(target, name, descriptor, ...outargs) {
@@ -323,6 +326,7 @@ function showArrowOnHover(anchors: BetterHTMLElement[]) {
             })
     });
 }
+
 
 interface JSON {
     

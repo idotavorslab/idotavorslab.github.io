@@ -1,19 +1,23 @@
+/**Thrown when either too much or not enough arguments were passed. Prints what was expected and what was actually passed.*/
 class BadArgumentsAmountError extends Error {
 	constructor(expectedArgsNum, passedArgs, details) {
 		const requiresExactNumOfArgs = !Array.isArray(expectedArgsNum);
-		const validArgs = {};
+		const argsWithValues = {};
 		for (let [argname, argval] of Object.entries(passedArgs)) {
-			if (argval)
-				validArgs[argname] = argval;
+			if (argval !== undefined)
+				argsWithValues[argname] = argval;
 		}
-		const argNamesValues = Object.entries(validArgs).flatMap(([argname, argval]) => `${argname}: ${argval}`).join(', ');
+		const argNamesValues = Object.entries(argsWithValues)
+		                             // @ts-ignore
+		                             .flatMap(([argname, argval]) => `${argname}: ${argval}`)
+		                             .join('", "');
 		let message;
 		if (requiresExactNumOfArgs) {
 			message = `Didn't receive exactly ${expectedArgsNum} arg. `;
 		} else {
 			message = `Didn't receive between ${expectedArgsNum[0]} to ${expectedArgsNum[1]} args. `;
 		}
-		message += `Instead, out of ${Object.keys(passedArgs).length} received (${Object.keys(passedArgs)}), ${Object.keys(validArgs).length} had value: ${argNamesValues}. ${details ? 'Details: ' + details : ''}`;
+		message += `Instead, out of ${Object.keys(passedArgs).length} received (${Object.keys(passedArgs)}), ${Object.keys(argsWithValues).length} had value: "${argNamesValues}". ${details ? 'Details: ' + details : ''}`;
 		super(message);
 	}
 }
@@ -32,7 +36,7 @@ class BetterHTMLElement {
 		this._listeners = {};
 		this._cachedChildren = {};
 		const { tag, id, htmlElement, text, query, children, cls } = elemOptions;
-		if ([tag, id, htmlElement, query].filter(x => x).length > 1) {
+		if ([tag, id, htmlElement, query].filter(x => x !== undefined).length > 1) {
 			throw new BadArgumentsAmountError(1, {
 				tag,
 				id,
@@ -44,7 +48,7 @@ class BetterHTMLElement {
 			throw new BadArgumentsAmountError(1, {
 				tag,
 				children
-			}, 'children and tag options are mutually exclusive, since tag implies creating a new element and children implies getting an existing one.');
+			}, '"children" and "tag" options are mutually exclusive, because tag implies creating a new element and children implies getting an existing one.');
 		if (tag) {
 			if (['svg', 'path'].includes(tag.toLowerCase())) {
 				this._isSvg = true;
@@ -96,22 +100,26 @@ class BetterHTMLElement {
 	}
 
 	wrapSomethingElse(newHtmlElement) {
+		this._cachedChildren = {};
 		if (newHtmlElement instanceof BetterHTMLElement) {
 			this._htmlElement = newHtmlElement.e;
 			for (let [_key, _cachedChild] of enumerate(newHtmlElement._cachedChildren)) {
 				this._cache(_key, _cachedChild);
 			}
-			if (Object.keys(this._cachedChildren).length !== Object.keys(newHtmlElement._cachedChildren).length
-			    || Object.values(this._cachedChildren).length !== Object.values(newHtmlElement._cachedChildren).length) {
+			if (Object.keys(this._cachedChildren).length
+			    !== Object.keys(newHtmlElement._cachedChildren).length
+			    ||
+			    Object.values(this._cachedChildren).filter(v => v !== undefined).length
+			    !== Object.values(newHtmlElement._cachedChildren).filter(v => v !== undefined).length) {
 				console.warn(`wrapSomethingElse this._cachedChildren length !== newHtmlElement._cachedChildren.length`, {
 					this: this,
 					newHtmlElement
 				});
 			}
-			//    TODO: _listeners
-			this.on(newHtmlElement._listeners);
-
+			this.on(Object.assign({}, this._listeners, newHtmlElement._listeners));
 		} else {
+			// No way to get newHtmlElement event listeners besides hacking Element.prototype
+			this.on(this._listeners);
 			this._htmlElement = newHtmlElement;
 		}
 		return this;
