@@ -82,8 +82,6 @@ const HomePage = () => {
         }
     }
     async function init() {
-        rightWidget.mouseover(() => newsData.stopAutoSwitch());
-        rightWidget.mouseout(() => newsData.startAutoSwitch());
         const data = await fetchJson('main/home/home.json');
         rightWidget.newsCoverImageContainer
             .append(img({ src: `main/home/${data["news-cover-image"]}` }));
@@ -108,6 +106,8 @@ const HomePage = () => {
             radios.append(newsData[i].radio);
             i++;
         }
+        rightWidget.mouseover(() => newsData.stopAutoSwitch());
+        rightWidget.mouseout(() => newsData.startAutoSwitch());
         const researchData = Object.entries(await fetchJson('main/research/research.json'));
         const researchSnippets = elem({ query: "#research_snippets" });
         for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {

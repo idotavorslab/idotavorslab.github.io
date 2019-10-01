@@ -2,7 +2,7 @@ const ContactPage = () => {
     async function init() {
         const data = await fetchJson("main/contact/contact.json");
         const visit = div({ cls: 'visit' })
-            .append(elem({ tag: 'h1', text: 'Visit' }), img({ src: 'main/contact/home.svg' }), paragraph({ cls: 'subtitle', text: 'Address' }), anchor({ href: data.visit.link, text: data.visit.address }).target("_blank"));
+            .append(elem({ tag: 'h1', text: 'Visit' }), img({ src: 'main/contact/home-simple.svg' }), paragraph({ cls: 'subtitle', text: 'Address' }), anchor({ href: data.visit.link, text: data.visit.address }).target("_blank"));
         const call = div({ cls: 'call' })
             .append(elem({ tag: 'h1', text: 'Call' }), img({ src: 'main/contact/phone.svg' }), paragraph({ cls: 'subtitle', text: data.call.hours }), anchor({ text: data.call.phone, href: `tel:${data.call.phone}` }).target("_blank"));
         const email = div({ cls: 'email' })
