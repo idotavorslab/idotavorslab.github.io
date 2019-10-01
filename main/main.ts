@@ -23,7 +23,6 @@ const WindowElem = elem({htmlElement: window})
         },
         hashchange: (event: HashChangeEvent) => {
             // called on navbar click, backbutton click
-            // routeNew(event.newURL);
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading

@@ -18,8 +18,7 @@ const GalleryPage = () => {
                     this.brightness = brightness;
                 if (year !== undefined)
                     this.year = year;
-                this
-                    .pointerdown((event) => {
+                this.pointerdown((event) => {
                     console.log('this pointerdown:', this);
                     event.stopPropagation();
                     return toggleImgViewer(this);
@@ -171,7 +170,7 @@ const GalleryPage = () => {
             }
             appendToRow(yearDiv, galleryImg, count);
         }
-        console.log(JSON.parstr({ yearToYearDiv }));
+        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' })
             .append(...Object.values(yearToYearDiv).reverse());

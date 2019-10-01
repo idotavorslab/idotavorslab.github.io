@@ -311,8 +311,38 @@ function log(bold: boolean = false) {
     }
 }
 
+function isinstance(obj, ...ctors) {
+    for (let ctor of ctors)
+        if (obj instanceof ctor)
+            return true;
+    return false;
+}
 
-JSON.parstr = (value: any) => JSON.parse(JSON.stringify(value));
+JSON.parstr = (value: any) => {
+    function nodeToObj(node: Node) {
+        const domObj = {};
+        for (let prop in node) {
+            let val = node[prop];
+            if (bool(val)) {
+                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList,))
+                    continue;
+                domObj[prop] = val;
+            }
+        }
+        return domObj;
+    }
+    
+    let stringified = JSON.stringify(value, (thisArg, key) => {
+        if (key instanceof Node) {
+            return nodeToObj(key);
+        } else {
+            return key;
+        }
+    });
+    return JSON.parse(stringified);
+    
+    
+};
 
 function showArrowOnHover(anchors: BetterHTMLElement[]) {
     anchors.forEach((anch: BetterHTMLElement) => {

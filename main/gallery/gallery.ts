@@ -42,12 +42,11 @@ const GalleryPage = () => {
                 if (year !== undefined)
                     this.year = year;
                 
-                this
-                    .pointerdown((event: PointerEvent) => {
-                        console.log('this pointerdown:', this);
-                        event.stopPropagation();
-                        return toggleImgViewer(this);
-                    })
+                this.pointerdown((event: PointerEvent) => {
+                    console.log('this pointerdown:', this);
+                    event.stopPropagation();
+                    return toggleImgViewer(this);
+                })
                     .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
                 
             }
@@ -196,6 +195,7 @@ const GalleryPage = () => {
             .forEach((image, i) => image.index = i);
         
         console.log(JSON.parstr({"galleryImgs after sort and index": galleryImgs}));
+        
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
@@ -247,7 +247,7 @@ const GalleryPage = () => {
             
             
         }
-        console.log(JSON.parstr({yearToYearDiv}));
+        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg: GalleryImg = new GalleryImg();
         
         const imagesContainer = div({id: 'images_container'})

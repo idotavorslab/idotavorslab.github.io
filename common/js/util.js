@@ -188,7 +188,35 @@ function log(bold = false) {
         };
     };
 }
-JSON.parstr = (value) => JSON.parse(JSON.stringify(value));
+function isinstance(obj, ...ctors) {
+    for (let ctor of ctors)
+        if (obj instanceof ctor)
+            return true;
+    return false;
+}
+JSON.parstr = (value) => {
+    function nodeToObj(node) {
+        const domObj = {};
+        for (let prop in node) {
+            let val = node[prop];
+            if (bool(val)) {
+                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList))
+                    continue;
+                domObj[prop] = val;
+            }
+        }
+        return domObj;
+    }
+    let stringified = JSON.stringify(value, (thisArg, key) => {
+        if (key instanceof Node) {
+            return nodeToObj(key);
+        }
+        else {
+            return key;
+        }
+    });
+    return JSON.parse(stringified);
+};
 function showArrowOnHover(anchors) {
     anchors.forEach((anch) => {
         anch
