@@ -213,7 +213,7 @@ div#main div#home {
 
 div#intro {
   display: flex;
-  margin-bottom: var(--gap);
+  margin-bottom: calc(var(--gap) * 2);
   position: relative;
   text-align: left;
 }
@@ -327,7 +327,7 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
 
 div#funding {
   text-align: center;
-  margin-top: var(--gap);
+  margin-top: calc(var(--gap) * 2);
   margin-bottom: var(--gap);
 }
 div#funding > div#sponsors {

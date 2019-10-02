@@ -102,7 +102,7 @@ function str(val) {
     return new Str(val);
 }
 
-function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
+/*function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
 function enumerate<T>(obj: IterableIterator<T>): IterableIterator<[number, T]>;
 function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
 function* enumerate(obj) {
@@ -121,6 +121,7 @@ function* enumerate(obj) {
 function wait(ms: number): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+*/
 
 async function concurrent<T>(...promises: Promise<T>[]): Promise<T[]> {
     return await Promise.all(promises);
@@ -311,8 +312,53 @@ function log(bold: boolean = false) {
     }
 }
 
+function isinstance(obj, ...ctors) {
+    for (let ctor of ctors)
+        if (obj instanceof ctor)
+            return true;
+    return false;
+}
 
-JSON.parstr = (value: any) => JSON.parse(JSON.stringify(value));
+JSON.parstr = (value: any) => {
+    function nodeToObj(node: Node) {
+        const domObj = {};
+        for (let prop in node) {
+            let val = node[prop];
+            if (bool(val)) {
+                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList))
+                    continue;
+                domObj[prop] = val;
+            }
+        }
+        return {localName: node.localName, ...domObj};
+        // let tmp = {};
+        // tmp[node.localName] = domObj;
+        // return tmp;
+    }
+    
+    let stringified = JSON.stringify(value, (thisArg, key) => {
+        if (key instanceof Node) {
+            // thisArg = `${thisArg} (${key.localName})`;
+            return nodeToObj(key);
+        } else if (key instanceof BetterHTMLElement) {
+            key.type = key.__proto__.constructor.name;
+            return key;
+        } else {
+            return key;
+        }
+    });
+    let parsed = JSON.parse(stringified);
+    // if (!Array.isArray(parsed) && typeof parsed === 'object') {
+    //     let parsedNew = {};
+    //     for (let key in parsed) {
+    //         parsedNew[key] = {...{localName: value[key].localName}, ...parsed[key]};
+    //     }
+    //     return parsedNew;
+    // }
+    return parsed;
+    
+    
+};
 
 function showArrowOnHover(anchors: BetterHTMLElement[]) {
     anchors.forEach((anch: BetterHTMLElement) => {
@@ -334,3 +380,5 @@ interface JSON {
     /**JSON.parse(JSON.stringify(value))*/
         (value: any) => any,
 }
+
+

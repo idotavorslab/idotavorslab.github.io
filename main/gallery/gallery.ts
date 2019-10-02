@@ -42,13 +42,12 @@ const GalleryPage = () => {
                 if (year !== undefined)
                     this.year = year;
                 
-                this
-                    .pointerdown((event: PointerEvent) => {
-                        console.log('this pointerdown:', this);
-                        event.stopPropagation();
-                        return toggleImgViewer(this);
-                    })
-                    .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
+                this.pointerdown((event: PointerEvent) => {
+                    console.log('this pointerdown:', this);
+                    event.stopPropagation();
+                    return toggleImgViewer(this);
+                })
+                
                 
             }
             
@@ -99,7 +98,7 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer  =>  switchToImg
         function switchToImg(_selectedImg: GalleryImg) {
             // *  Clicked Arrow key or clicked Chevron
-            console.log(`galleryImg.switchToImg(`, {_selectedImg});
+            console.log(`galleryImg.switchToImg(`, JSON.parstr({_selectedImg}));
             selectedImg = _selectedImg;
             imgViewer.caption.text(selectedImg.caption);
             let clone = _selectedImg.e.cloneNode();
@@ -143,7 +142,7 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
-            console.log('galleryImg.toggleImgViewer(', {_selectedImg});
+            console.log('galleryImg.toggleImgViewer(', JSON.parstr({_selectedImg}));
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
@@ -187,6 +186,8 @@ const GalleryPage = () => {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
+            // keep out of constructor
+            galleryImg.css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year and index
@@ -195,7 +196,8 @@ const GalleryPage = () => {
             .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
         
-        console.log(JSON.parstr({"galleryImgs after sort and index": galleryImgs}));
+        console.log("galleryImgs after sort and index:", JSON.parstr(galleryImgs));
+        
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
@@ -247,7 +249,7 @@ const GalleryPage = () => {
             
             
         }
-        console.log(JSON.parstr({yearToYearDiv}));
+        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg: GalleryImg = new GalleryImg();
         
         const imagesContainer = div({id: 'images_container'})

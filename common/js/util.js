@@ -62,22 +62,6 @@ class Str extends String {
 function str(val) {
     return new Str(val);
 }
-function* enumerate(obj) {
-    if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
-        let i = 0;
-        for (let x of obj) {
-            yield [i, x];
-        }
-    }
-    else {
-        for (let prop in obj) {
-            yield [prop, obj[prop]];
-        }
-    }
-}
-function wait(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 async function concurrent(...promises) {
     return await Promise.all(promises);
 }
@@ -188,7 +172,40 @@ function log(bold = false) {
         };
     };
 }
-JSON.parstr = (value) => JSON.parse(JSON.stringify(value));
+function isinstance(obj, ...ctors) {
+    for (let ctor of ctors)
+        if (obj instanceof ctor)
+            return true;
+    return false;
+}
+JSON.parstr = (value) => {
+    function nodeToObj(node) {
+        const domObj = {};
+        for (let prop in node) {
+            let val = node[prop];
+            if (bool(val)) {
+                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList))
+                    continue;
+                domObj[prop] = val;
+            }
+        }
+        return Object.assign({ localName: node.localName }, domObj);
+    }
+    let stringified = JSON.stringify(value, (thisArg, key) => {
+        if (key instanceof Node) {
+            return nodeToObj(key);
+        }
+        else if (key instanceof BetterHTMLElement) {
+            key.type = key.__proto__.constructor.name;
+            return key;
+        }
+        else {
+            return key;
+        }
+    });
+    let parsed = JSON.parse(stringified);
+    return parsed;
+};
 function showArrowOnHover(anchors) {
     anchors.forEach((anch) => {
         anch

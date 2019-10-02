@@ -191,8 +191,10 @@ declare class BetterHTMLElement {
     /**Get the id of the element*/
     id(): string;
     
-    /**For each `[styleAttr, styleVal]` pair, set the `style[styleAttr]` to `styleVal`.*/
+    /**For each `{<styleAttr>: <styleVal>}` pair, set the `style[styleAttr]` to `styleVal`.*/
     css(css: Partial<CssOptions>): this;
+    /**Get `style[css]`*/
+    css(css: string): string;
     
     /**Remove the value of the passed style properties*/
     uncss(...removeProps: (keyof CssOptions)[]): this;
@@ -543,3 +545,9 @@ interface TRecMap<T> {
     
     [s: number]: T | TRecMap<T>;
 }
+
+declare function enumerate(obj: any): any[];
+
+declare function wait(ms: number): Promise<any>;
+
+declare function extend(sup: any, child: any): any;

@@ -18,13 +18,11 @@ const GalleryPage = () => {
                     this.brightness = brightness;
                 if (year !== undefined)
                     this.year = year;
-                this
-                    .pointerdown((event) => {
+                this.pointerdown((event) => {
                     console.log('this pointerdown:', this);
                     event.stopPropagation();
                     return toggleImgViewer(this);
-                })
-                    .css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
+                });
             }
             getLeftImage() {
                 let i;
@@ -62,7 +60,7 @@ const GalleryPage = () => {
 </svg>
 `;
         function switchToImg(_selectedImg) {
-            console.log(`galleryImg.switchToImg(`, { _selectedImg });
+            console.log(`galleryImg.switchToImg(`, JSON.parstr({ _selectedImg }));
             selectedImg = _selectedImg;
             imgViewer.caption.text(selectedImg.caption);
             let clone = _selectedImg.e.cloneNode();
@@ -89,7 +87,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         function toggleImgViewer(_selectedImg) {
-            console.log('galleryImg.toggleImgViewer(', { _selectedImg });
+            console.log('galleryImg.toggleImgViewer(', JSON.parstr({ _selectedImg }));
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
@@ -125,12 +123,13 @@ const GalleryPage = () => {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
+            galleryImg.css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
             galleryImgs.push(galleryImg);
         }
         galleryImgs
             .sort(({ year: yearA }, { year: yearB }) => yearB - yearA)
             .forEach((image, i) => image.index = i);
-        console.log(JSON.parstr({ "galleryImgs after sort and index": galleryImgs }));
+        console.log("galleryImgs after sort and index:", JSON.parstr(galleryImgs));
         const yearToYearDiv = {};
         let count = 0;
         function appendToRow(yearDiv, galleryImg, count) {
@@ -171,7 +170,7 @@ const GalleryPage = () => {
             }
             appendToRow(yearDiv, galleryImg, count);
         }
-        console.log(JSON.parstr({ yearToYearDiv }));
+        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' })
             .append(...Object.values(yearToYearDiv).reverse());
