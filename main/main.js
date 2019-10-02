@@ -79,9 +79,9 @@ const WindowElem = elem({ htmlElement: window })
             for (let [_, { image }] of dict(researchData).items())
                 cache(image, "research");
         }
-        console.log('waiting 1000...');
+        console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
-            console.log('done waiting, starting caching');
+            console.log(...less('done waiting, starting caching'));
             if (!window.location.hash.includes('research'))
                 cacheResearch();
             if (!window.location.hash.includes('people'))
@@ -102,7 +102,7 @@ class NavbarElem extends BetterHTMLElement {
                 .pointerdown(() => {
                 let href = pageString === "home" ? '' : `#${pageString}`;
                 console.log(`navbar ${pageString} pointerdown, clicking fake <a href="${href}">`);
-                elem({ tag: 'a' }).attr({ href }).click();
+                anchor({ href }).click();
             })
                 .mouseover(() => this._emphasize(this[pageString]))
                 .mouseout(() => this._resetPales());

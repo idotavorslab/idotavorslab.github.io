@@ -6,9 +6,14 @@
    perf.measure('start', 'end');
  }
  const measures = perf.getMeasures('start', 'end');
- console.log(measures.name, measures.avg());
+ console.log(measures.name, measures.avg());    // results in ms
  > start -> end 48.01234567891011127*/
 const perf = (() => {
+    interface ExPerformanceEntryList extends PerformanceEntryList {
+        name: string;
+        avg: () => number;
+    }
+    
     function mark(markName: string) {
         window.performance.mark(markName);
     }
@@ -22,17 +27,21 @@ const perf = (() => {
             measure(start, end);
     }
     
-    function getMeasures(startMark: string, endMark: string): PerformanceEntryList {
+    function getMeasures(startMark: string, endMark: string): ExPerformanceEntryList {
         const name = `${startMark} -> ${endMark}`;
-        const measures = window.performance.getEntriesByName(name, 'measure');
-        // @ts-ignore
-        measures.avg = () => avg(measures.map(m => m.duration));
-        // @ts-ignore
+        const measures = <ExPerformanceEntryList>window.performance.getEntriesByName(name, 'measure');
+        
+        
+        measures.avg = () => {
+            let _durations = measures.map(m => m.duration);
+            let _sum = _durations.reduce((a, b) => a + b);
+            return _sum / _durations.length;
+        };
         measures.name = name;
         return measures;
     }
     
-    function getManyMeasures(...startEndPairs: string[][]): PerformanceEntryList[] {
+    function getManyMeasures(...startEndPairs: string[][]): ExPerformanceEntryList[] {
         const manyMeasures = [];
         for (let [start, end] of startEndPairs)
             manyMeasures.push(getMeasures(start, end));

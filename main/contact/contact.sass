@@ -30,12 +30,14 @@ div#contact_grid
 			grid-row: 1/1
 			grid-column: 1/1
 
-		& > img
+		& > svg, & > img, & > div
+			background-repeat: no-repeat
 			grid-row: 1/1
 			grid-column: 2/2
 			// *  DEP: h1 line-height
 			width: calc(32px * 1.5)
 			margin: 0 auto
+			height: auto
 
 		& > p.subtitle
 			color: var(--GREY5)

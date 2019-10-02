@@ -12,7 +12,11 @@ const perf = (() => {
     function getMeasures(startMark, endMark) {
         const name = `${startMark} -> ${endMark}`;
         const measures = window.performance.getEntriesByName(name, 'measure');
-        measures.avg = () => avg(measures.map(m => m.duration));
+        measures.avg = () => {
+            let _durations = measures.map(m => m.duration);
+            let _sum = _durations.reduce((a, b) => a + b);
+            return _sum / _durations.length;
+        };
         measures.name = name;
         return measures;
     }

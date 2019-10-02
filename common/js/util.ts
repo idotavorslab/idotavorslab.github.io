@@ -199,10 +199,20 @@ function round(n: number, d: number = 0) {
     return int(n * fr) / fr;
 }
 
-async function fetchJson(path: string, cache: RequestCache = "default") {
+async function _fetch(path: string, cache: RequestCache = "default", fmt: "json" | "text") {
     let req = new Request(path, {cache});
-    return (await fetch(req)).json();
+    return (await fetch(req))[fmt]();
 }
+
+
+function fetchJson(path: string, cache: RequestCache = "default") {
+    return _fetch(path, cache, "json");
+}
+
+async function fetchText(path: string, cache: RequestCache = "default") {
+    return _fetch(path, cache, "text");
+}
+
 
 function windowStats() {
     console.log(window.clientInformation.userAgent);

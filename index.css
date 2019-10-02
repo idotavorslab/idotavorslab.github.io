@@ -831,11 +831,13 @@ div#contact_grid > div > h1 {
   grid-row: 1/1;
   grid-column: 1/1;
 }
-div#contact_grid > div > img {
+div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > div > div {
+  background-repeat: no-repeat;
   grid-row: 1/1;
   grid-column: 2/2;
   width: calc(32px * 1.5);
   margin: 0 auto;
+  height: auto;
 }
 div#contact_grid > div > p.subtitle {
   color: var(--GREY5);

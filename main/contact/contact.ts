@@ -1,10 +1,20 @@
 const ContactPage = () => {
     async function init() {
+        /*function htmlToElement(html) {
+            const template = document.createElement('template');
+            html = html.trim(); // Never return a text node of whitespace as the result
+            template.innerHTML = html;
+            return template.content.firstChild;
+        }
+        */
+        
+        // let svg = await fetchText("main/contact/home-simple.svg");
         const data = await fetchJson("main/contact/contact.json");
         const visit = div({cls: 'visit'})
             .append(
                 elem({tag: 'h1', text: 'Visit'}),
-                img({src: 'main/contact/home-simple.svg'}),
+                // htmlToElement(svg),
+                div().css({backgroundImage: `url(main/contact/${data.visit.icon}`}),
                 paragraph({cls: 'subtitle', text: 'Address'}),
                 anchor({href: data.visit.link, text: data.visit.address}).target("_blank")
             );
@@ -13,7 +23,7 @@ const ContactPage = () => {
             
             .append(
                 elem({tag: 'h1', text: 'Call'}),
-                img({src: 'main/contact/phone.svg'}),
+                div().css({backgroundImage: `url(main/contact/${data.call.icon}`}),
                 paragraph({cls: 'subtitle', text: data.call.hours}),
                 anchor({text: data.call.phone, href: `tel:${data.call.phone}`}).target("_blank")
             );
@@ -21,11 +31,8 @@ const ContactPage = () => {
         const email = div({cls: 'email'})
             .append(
                 elem({tag: 'h1', text: 'Email'}),
-                img({src: 'main/contact/envelope.svg'}),
-                anchor({
-                    text: data.email,
-                    href: `mailto:${data.email}`
-                }).target("_blank")
+                div().css({backgroundImage: `url(main/contact/${data.email.icon}`}),
+                anchor({text: data.email.address, href: `mailto:${data.email.address}`}).target("_blank")
             );
         
         const grid = div({id: 'contact_grid'})
@@ -55,7 +62,8 @@ const ContactPage = () => {
             grid,
             form,
             map
-        )
+        );
+        
     }
     
     return {init}

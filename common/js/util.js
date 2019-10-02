@@ -110,9 +110,15 @@ function round(n, d = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;
 }
-async function fetchJson(path, cache = "default") {
+async function _fetch(path, cache = "default", fmt) {
     let req = new Request(path, { cache });
-    return (await fetch(req)).json();
+    return (await fetch(req))[fmt]();
+}
+function fetchJson(path, cache = "default") {
+    return _fetch(path, cache, "json");
+}
+async function fetchText(path, cache = "default") {
+    return _fetch(path, cache, "text");
 }
 function windowStats() {
     console.log(window.clientInformation.userAgent);
