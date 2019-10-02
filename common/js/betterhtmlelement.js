@@ -155,12 +155,16 @@ class BetterHTMLElement {
 		}
 	}
 
-	/**For each `[styleAttr, styleVal]` pair, set the `style[styleAttr]` to `styleVal`.*/
 	css(css) {
-		for (let [styleAttr, styleVal] of enumerate(css))
-			this.e.style[styleAttr] = styleVal;
-		return this;
-	}
+        if (typeof css === 'string') {
+            return this.e.style[css];
+        }
+        else {
+            for (let [styleAttr, styleVal] of enumerate(css))
+                this.e.style[styleAttr] = styleVal;
+            return this;
+        }
+    }
 
 	/**Remove the value of the passed style properties*/
 	uncss(...removeProps) {

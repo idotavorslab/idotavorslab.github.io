@@ -47,7 +47,7 @@ const GalleryPage = () => {
                     event.stopPropagation();
                     return toggleImgViewer(this);
                 })
-                    .css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
+                
                 
             }
             
@@ -186,6 +186,8 @@ const GalleryPage = () => {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
+            // keep out of constructor
+            galleryImg.css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             galleryImgs.push(galleryImg);
         }
         // **  Sort galleryImgs by year and index

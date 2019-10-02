@@ -35,7 +35,6 @@ const WindowElem = elem({htmlElement: window})
             
         },
         load: () => {
-            
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {
