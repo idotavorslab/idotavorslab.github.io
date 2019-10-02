@@ -156,15 +156,14 @@ class BetterHTMLElement {
 	}
 
 	css(css) {
-        if (typeof css === 'string') {
-            return this.e.style[css];
-        }
-        else {
-            for (let [styleAttr, styleVal] of enumerate(css))
-                this.e.style[styleAttr] = styleVal;
-            return this;
-        }
-    }
+		if (typeof css === 'string') {
+			return this.e.style[css];
+		} else {
+			for (let [styleAttr, styleVal] of enumerate(css))
+				this.e.style[styleAttr] = styleVal;
+			return this;
+		}
+	}
 
 	/**Remove the value of the passed style properties*/
 	uncss(...removeProps) {
@@ -242,18 +241,26 @@ class BetterHTMLElement {
 	}
 
 	// ***  Nodes
-	/**Insert one or several `BetterHTMLElement`s or vanilla `Node`s just after `this`.*/
+	/**Insert at least one `node` just after `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
 	after(...nodes) {
-		if (nodes[0] instanceof BetterHTMLElement)
-			for (let bhe of nodes)
-				this.e.after(bhe.e);
-		else
-			for (let node of nodes)
-				this.e.after(node); // TODO: test what happens when passed strings
+		for (let node of nodes) {
+			if (node instanceof BetterHTMLElement)
+				this.e.after(node.e);
+			else
+				this.e.after(node);
+		}
 		return this;
+		/*if (nodes[0] instanceof BetterHTMLElement)
+			 for (let bhe of <BetterHTMLElement[]>nodes)
+				  this.e.after(bhe.e);
+		else
+			 for (let node of <(string | Node)[]>nodes)
+				  this.e.after(node); // TODO: test what happens when passed strings
+		return this;
+		*/
 	}
 
-	/**Insert `this` just after a `BetterHTMLElement` or vanilla `Node`s.*/
+	/**Insert `this` just after a `BetterHTMLElement` or a vanilla `Node`.*/
 	insertAfter(node) {
 		if (node instanceof BetterHTMLElement)
 			node.e.after(this.e);
@@ -262,15 +269,22 @@ class BetterHTMLElement {
 		return this;
 	}
 
-	/**Insert one or several `BetterHTMLElement`s or vanilla `Node`s after the last child of `this`*/
+	/**Insert at least one `node` after the last child of `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
 	append(...nodes) {
-		if (nodes[0] instanceof BetterHTMLElement)
-			for (let bhe of nodes)
-				this.e.append(bhe.e);
-		else
-			for (let node of nodes)
-				this.e.append(node); // TODO: test what happens when passed strings
+		for (let node of nodes) {
+			if (node instanceof BetterHTMLElement)
+				this.e.append(node.e);
+			else
+				this.e.append(node);
+		}
 		return this;
+		/*if (nodes[0] instanceof BetterHTMLElement)
+			 for (let bhe of <BetterHTMLElement[]>nodes)
+				  this.e.append(bhe.e);
+		else
+			 for (let node of <(string | Node)[]>nodes)
+				  this.e.append(node); // TODO: test what happens when passed strings
+		return this;*/
 	}
 
 	/**Append `this` to a `BetterHTMLElement` or a vanilla `Node`*/
@@ -282,18 +296,25 @@ class BetterHTMLElement {
 		return this;
 	}
 
-	/**Inserts one or several `BetterHTMLElement`s or vanilla `Node`s just before `this`*/
+	/**Insert at least one `node` just before `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
 	before(...nodes) {
-		if (nodes[0] instanceof BetterHTMLElement)
-			for (let bhe of nodes)
-				this.e.before(bhe.e);
-		else
-			for (let node of nodes)
-				this.e.before(node); // TODO: test what happens when passed strings
+		for (let node of nodes) {
+			if (node instanceof BetterHTMLElement)
+				this.e.before(node.e);
+			else
+				this.e.before(node);
+		}
 		return this;
+		/*if (nodes[0] instanceof BetterHTMLElement)
+			 for (let bhe of <BetterHTMLElement[]>nodes)
+				  this.e.before(bhe.e);
+		else
+			 for (let node of <(string | Node)[]>nodes)
+				  this.e.before(node); // TODO: test what happens when passed strings
+		return this;*/
 	}
 
-	/**Insert `this` just before a `BetterHTMLElement` or vanilla `Node`s.*/
+	/**Insert `this` just before a `BetterHTMLElement` or a vanilla `Node`s.*/
 	insertBefore(node) {
 		if (node instanceof BetterHTMLElement)
 			node.e.before(this.e);
@@ -850,6 +871,18 @@ class Anchor extends BetterHTMLElement {
 	}
 }
 
+/*class Svg extends BetterHTMLElement{
+    protected readonly _htmlElement: SVGElement;
+    constructor({id, cls,htmlElement}: SvgConstructor) {
+        super({tag: 'svg', cls});
+        if (id)
+            this.id(id);
+        if (src)
+            this._htmlElement.src = src;
+
+    }
+}
+*/
 customElements.define('better-html-element', BetterHTMLElement);
 customElements.define('better-div', Div, { extends: 'div' });
 customElements.define('better-p', Paragraph, { extends: 'p' });
@@ -907,26 +940,6 @@ function enumerate(obj) {
 
 function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// child extends sup
-function extend(sup, child) {
-	child.prototype = sup.prototype;
-	const handler = {
-		construct
-	};
-
-	// "new BoyCls"
-	function construct(_, argArray) {
-		const obj = new child;
-		sup.apply(obj, argArray); // calls PersonCtor. Sets name
-		child.apply(obj, argArray); // calls BoyCtor. Sets age
-		return obj;
-	}
-
-	// @ts-ignore
-	const proxy = new Proxy(child, handler);
-	return proxy;
 }
 
 //# sourceMappingURL=all.js.map

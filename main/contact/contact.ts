@@ -1,10 +1,21 @@
 const ContactPage = () => {
     async function init() {
+        function htmlToElement(html) {
+            const template = document.createElement('template');
+            html = html.trim(); // Never return a text node of whitespace as the result
+            template.innerHTML = html;
+            return template.content.firstChild;
+        }
+        
+        let svg = await fetchText("main/contact/home-simple.svg");
+        // const svgElem = elem({tag: 'svg'});
         const data = await fetchJson("main/contact/contact.json");
         const visit = div({cls: 'visit'})
             .append(
                 elem({tag: 'h1', text: 'Visit'}),
-                img({src: 'main/contact/home-simple.svg'}),
+                // htmlToElement(svg),
+                // svgElem,
+                // img({src: 'main/contact/home-simple.svg'}),
                 paragraph({cls: 'subtitle', text: 'Address'}),
                 anchor({href: data.visit.link, text: data.visit.address}).target("_blank")
             );
@@ -55,7 +66,8 @@ const ContactPage = () => {
             grid,
             form,
             map
-        )
+        );
+        // document.querySelector("#contact_grid > div.visit > h1").after(htmlToElement(svg))
     }
     
     return {init}

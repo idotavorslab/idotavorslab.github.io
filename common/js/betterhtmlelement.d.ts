@@ -30,6 +30,10 @@ interface AnchorConstructor extends SubElemConstructor {
     href?: string;
 }
 
+interface SvgConstructor extends BaseElemConstructor {
+    htmlElement?: SVGElement;
+}
+
 declare type OmittedCssProps =
     "animationDirection"
     | "animationFillMode"
@@ -225,23 +229,23 @@ declare class BetterHTMLElement {
     /**Returns whether `this` has a class that matches passed function */
     hasClass(cls: TFunction): boolean;
     
-    /**Insert one or several `BetterHTMLElement`s or vanilla `Node`s just after `this`.*/
-    after(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
+    /**Insert at least one `node` just after `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
+    after(...nodes: Array<BetterHTMLElement | Node>): this;
     
-    /**Insert `this` just after a `BetterHTMLElement` or vanilla `Node`s.*/
-    insertAfter(node: BetterHTMLElement | (string | Node)): this;
+    /**Insert `this` just after a `BetterHTMLElement` or a vanilla `Node`.*/
+    insertAfter(node: BetterHTMLElement | HTMLElement): this;
     
-    /**Insert one or several `BetterHTMLElement`s or vanilla `Node`s after the last child of `this`*/
-    append(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
+    /**Insert at least one `node` after the last child of `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
+    append(...nodes: Array<BetterHTMLElement | Node>): this;
     
     /**Append `this` to a `BetterHTMLElement` or a vanilla `Node`*/
-    appendTo(node: BetterHTMLElement | (string | Node)): this;
+    appendTo(node: BetterHTMLElement | HTMLElement): this;
     
-    /**Inserts one or several `BetterHTMLElement`s or vanilla `Node`s just before `this`*/
-    before(...nodes: BetterHTMLElement[] | (string | Node)[]): this;
+    /**Insert at least one `node` just before `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
+    before(...nodes: Array<BetterHTMLElement | Node>): this;
     
-    /**Insert `this` just before a `BetterHTMLElement` or vanilla `Node`s.*/
-    insertBefore(node: BetterHTMLElement | (string | Node)): this;
+    /**Insert `this` just before a `BetterHTMLElement` or a vanilla `Node`s.*/
+    insertBefore(node: BetterHTMLElement | HTMLElement): this;
     
     replaceChild(newChild: Node, oldChild: Node): this;
     replaceChild(newChild: BetterHTMLElement, oldChild: BetterHTMLElement): this;
@@ -549,5 +553,3 @@ interface TRecMap<T> {
 declare function enumerate(obj: any): any[];
 
 declare function wait(ms: number): Promise<any>;
-
-declare function extend(sup: any, child: any): any;

@@ -92,9 +92,10 @@ const WindowElem = elem({htmlElement: window})
                     cache(image, "research")
             }
             
-            console.log('waiting 1000...');
+            console.log(...less('waiting 1000...'));
             wait(1000).then(() => {
-                console.log('done waiting, starting caching');
+                
+                console.log(...less('done waiting, starting caching'));
                 if (!window.location.hash.includes('research'))
                     cacheResearch();
                 if (!window.location.hash.includes('people'))
@@ -132,7 +133,8 @@ class NavbarElem extends BetterHTMLElement {
                 .pointerdown(() => {
                     let href = pageString === "home" ? '' : `#${pageString}`;
                     console.log(`navbar ${pageString} pointerdown, clicking fake <a href="${href}">`);
-                    elem({tag: 'a'}).attr({href}).click(); // no need to select because Routing.route does this
+                    anchor({href}).click(); // no need to select because Routing.route does this
+                    // elem({tag: 'a'}).attr({href}).click();
                 })
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
