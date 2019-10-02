@@ -543,3 +543,9 @@ interface TRecMap<T> {
     
     [s: number]: T | TRecMap<T>;
 }
+
+declare function enumerate(obj: any): any[];
+
+declare function wait(ms: number): Promise<any>;
+
+declare function extend(sup: any, child: any): any;

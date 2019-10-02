@@ -102,7 +102,7 @@ function str(val) {
     return new Str(val);
 }
 
-function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
+/*function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
 function enumerate<T>(obj: IterableIterator<T>): IterableIterator<[number, T]>;
 function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
 function* enumerate(obj) {
@@ -121,6 +121,7 @@ function* enumerate(obj) {
 function wait(ms: number): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+*/
 
 async function concurrent<T>(...promises: Promise<T>[]): Promise<T[]> {
     return await Promise.all(promises);
@@ -324,22 +325,37 @@ JSON.parstr = (value: any) => {
         for (let prop in node) {
             let val = node[prop];
             if (bool(val)) {
-                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList,))
+                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList))
                     continue;
                 domObj[prop] = val;
             }
         }
-        return domObj;
+        return {localName: node.localName, ...domObj};
+        // let tmp = {};
+        // tmp[node.localName] = domObj;
+        // return tmp;
     }
     
     let stringified = JSON.stringify(value, (thisArg, key) => {
         if (key instanceof Node) {
+            // thisArg = `${thisArg} (${key.localName})`;
             return nodeToObj(key);
+        } else if (key instanceof BetterHTMLElement) {
+            key.type = key.__proto__.constructor.name;
+            return key;
         } else {
             return key;
         }
     });
-    return JSON.parse(stringified);
+    let parsed = JSON.parse(stringified);
+    // if (!Array.isArray(parsed) && typeof parsed === 'object') {
+    //     let parsedNew = {};
+    //     for (let key in parsed) {
+    //         parsedNew[key] = {...{localName: value[key].localName}, ...parsed[key]};
+    //     }
+    //     return parsedNew;
+    // }
+    return parsed;
     
     
 };
@@ -364,3 +380,5 @@ interface JSON {
     /**JSON.parse(JSON.stringify(value))*/
         (value: any) => any,
 }
+
+

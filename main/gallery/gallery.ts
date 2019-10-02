@@ -98,7 +98,7 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer  =>  switchToImg
         function switchToImg(_selectedImg: GalleryImg) {
             // *  Clicked Arrow key or clicked Chevron
-            console.log(`galleryImg.switchToImg(`, {_selectedImg});
+            console.log(`galleryImg.switchToImg(`, JSON.parstr({_selectedImg}));
             selectedImg = _selectedImg;
             imgViewer.caption.text(selectedImg.caption);
             let clone = _selectedImg.e.cloneNode();
@@ -142,7 +142,7 @@ const GalleryPage = () => {
         // galleryImg.pointerdown  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
-            console.log('galleryImg.toggleImgViewer(', {_selectedImg});
+            console.log('galleryImg.toggleImgViewer(', JSON.parstr({_selectedImg}));
             if (imgViewer.isopen)
                 return closeImgViewer();
             imgViewerClose.toggleClass('on', true);
@@ -194,7 +194,7 @@ const GalleryPage = () => {
             .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
         
-        console.log(JSON.parstr({"galleryImgs after sort and index": galleryImgs}));
+        console.log("galleryImgs after sort and index:", JSON.parstr(galleryImgs));
         
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
