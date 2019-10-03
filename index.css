@@ -131,24 +131,24 @@ body.theater {
 
 h1 {
   text-align: left;
-  margin: unset;
+  margin-top: unset;
+  margin-right: unset;
+  margin-bottom: 20px;
+  margin-left: unset;
+  font-family: OpenSansBold;
   color: var(--GREY8);
   letter-spacing: -0.5px;
 }
 @media screen and (min-width: 500px) {
   h1 {
-    font-family: OpenSansBold;
     font-size: 36px;
-    margin-bottom: 20px;
-    line-height: calc(36px * 1.5);
+    line-height: 54px;
   }
 }
 @media screen and (max-width: 500px) {
   h1 {
-    font-family: OpenSansBold;
     font-size: 28px;
-    margin-bottom: 20px;
-    line-height: calc(28px * 1.5);
+    line-height: 42px;
   }
 }
 
@@ -895,9 +895,18 @@ div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > d
   background-repeat: no-repeat;
   grid-row: 1/1;
   grid-column: 2/2;
-  width: calc(32px * 1.5);
   margin: 0 auto;
   height: auto;
+}
+@media screen and (min-width: 500px) {
+  div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > div > div {
+    width: 54px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > div > div {
+    width: 42px;
+  }
 }
 div#contact_grid > div > p.subtitle {
   color: var(--GREY5);

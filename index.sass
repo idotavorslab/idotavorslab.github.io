@@ -40,13 +40,26 @@ body
 	&.theater
 		background-color: var(--GREY8)
 
+
 h1
 	text-align: left
-	margin: unset
+	margin:
+		top: unset
+		right: unset
+		bottom: 20px
+		left: unset
+
+	font-family: OpenSansBold
+
 	@include min-width($BP4)
-		@include titleMixin(36px)
+		font-size: 36px
+		// 36 * 1.5 *  DEP: contact.sass img width
+		line-height: 54px
 	@include max-width($BP4)
-		@include titleMixin(28px)
+		font-size: 28px
+		// 28 * 1.5 *  DEP: contact.sass img width
+		line-height: 42px
+
 	color: var(--GREY8)
 	letter-spacing: -0.5px
 

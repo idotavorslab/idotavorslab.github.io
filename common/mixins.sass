@@ -2,15 +2,7 @@
 	text-shadow: $x $y $blur $color, $x * -1 $y $blur $color, $x $y * -1 $blur $color, $x * -1 $y * -1 $blur $color
 
 
-@mixin titleMixin($fontSize)
 
-	font:
-		family: OpenSansBold
-		size: $fontSize
-	margin-bottom: 20px
-
-	// *  DEP: contact.sass img width
-	line-height: calc(#{$fontSize} * 1.5)
 
 
 @mixin borderMixin($color, $radius:2px)
@@ -52,8 +44,10 @@
 		font-size: 20px
 	@include max-width($BP4)
 		font-size: 16px
+
 // **  --gap
 @mixin setLocalGapVar()
+
 	/// 1340 <= screen
 	@include min-width($BP1)
 		// 60px
