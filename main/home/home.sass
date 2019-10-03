@@ -126,6 +126,8 @@ div#research_snippets_container
 		& > div.snippet
 			width: var(--snippetWidth)
 			cursor: pointer
+			@include max-width($BP4)
+				margin-bottom: var(--gap)
 
 			&:hover
 				& > img, & > div
@@ -140,15 +142,18 @@ div#research_snippets_container
 
 			& > img
 				width: inherit
-				// same as news radius
+				// *  DEP: same as news radius
 				border-radius: 20px
+				@include max-width($BP4)
+					max-height: 280px
+					object-fit: cover
 
 			& > div.snippet-title
-				font-family: OpenSansSemiBold
 				@include min-width($BP4)
+					font-family: OpenSansSemiBold
 					margin-top: 8px
 				@include max-width($BP4)
-					margin-bottom: var(--gap)
+					font-size: 12px
 
 // ***  funding
 div#funding

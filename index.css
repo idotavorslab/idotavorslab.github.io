@@ -7,7 +7,7 @@
   --W4: 90%;
   --GAP0: 60px;
   --GAP1: 40px;
-  --GAP2: 20px;
+  --GAP2: 30px;
   --BIG_GAP0: 120px;
   --BIG_GAP1: 80px;
   --BIG_GAP2: 40px;
@@ -388,6 +388,11 @@ div#research_snippets_container > div#research_snippets > div.snippet {
   width: var(--snippetWidth);
   cursor: pointer;
 }
+@media screen and (max-width: 500px) {
+  div#research_snippets_container > div#research_snippets > div.snippet {
+    margin-bottom: var(--gap);
+  }
+}
 div#research_snippets_container > div#research_snippets > div.snippet:hover > img, div#research_snippets_container > div#research_snippets > div.snippet:hover > div {
   transform: translateY(-4px);
 }
@@ -401,17 +406,21 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
   width: inherit;
   border-radius: 20px;
 }
-div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
-  font-family: OpenSansSemiBold;
+@media screen and (max-width: 500px) {
+  div#research_snippets_container > div#research_snippets > div.snippet > img {
+    max-height: 280px;
+    object-fit: cover;
+  }
 }
 @media screen and (min-width: 500px) {
   div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
+    font-family: OpenSansSemiBold;
     margin-top: 8px;
   }
 }
 @media screen and (max-width: 500px) {
   div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
-    margin-bottom: var(--gap);
+    font-size: 12px;
   }
 }
 
