@@ -1,10 +1,6 @@
 
 div#home.people-page
 
-	& > div.title
-		@include titleMixin()
-		text-align: left
-
 
 	& > div.grid
 		@include gridContainerMixin("div.person")
@@ -46,7 +42,7 @@ div#home.people-page
 
 			// [min-width: $BP1]:  30px
 			// [max-width: $BP1]:  20px
-			--expandoPadding: calc(var(--gap) / 2)
+			--expandoPadding: var(--small_gap)
 			$colorTrans: color 300ms cubic-bezier(1, 0, 1, 0)
 
 

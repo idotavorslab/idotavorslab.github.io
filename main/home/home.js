@@ -82,15 +82,15 @@ const HomePage = () => {
         }
     }
     async function init() {
-        const data = await fetchJson('main/home/home.json');
+        const data = await fetchDict('main/home/home.json');
         rightWidget.newsCoverImageContainer
             .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         elem({ query: '#navbar > img.home' }).attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
-        for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {
+        for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
-            if (i == "0")
+            if (i == 0)
                 cls = 'bold';
             aboutText.append(paragraph({ text: p, cls }));
         }
@@ -108,9 +108,9 @@ const HomePage = () => {
         }
         rightWidget.mouseover(() => newsData.stopAutoSwitch());
         rightWidget.mouseout(() => newsData.startAutoSwitch());
-        const researchData = Object.entries(await fetchJson('main/research/research.json'));
+        const researchData = await fetchDict('main/research/research.json');
         const researchSnippets = elem({ query: "#research_snippets" });
-        for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {
+        for (let [i, [title, { thumbnail }]] of enumerate(researchData.items())) {
             researchSnippets.append(div({ cls: 'snippet' })
                 .append(img({ src: `main/research/${thumbnail}` }).on({
                 load: () => {
@@ -124,7 +124,7 @@ const HomePage = () => {
         }
         const fundingData = data.funding;
         const sponsorsGrid = elem({ query: "#sponsors" });
-        for (let [title, { image, text, large }] of Object.entries(fundingData)) {
+        for (let [title, { image, text, large }] of dict(fundingData).items()) {
             let sponsorImage = img({ src: `main/home/${image}` })
                 .on({
                 load: () => {

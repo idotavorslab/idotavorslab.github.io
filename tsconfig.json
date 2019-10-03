@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-        "experimentalDecorators": true,
+		"experimentalDecorators": true,
 		"target": "ES2017",
 		"esModuleInterop": true,
 		"removeComments": true,

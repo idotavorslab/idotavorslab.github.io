@@ -2,24 +2,14 @@
 div#intro
 	display: flex
 	margin:
-		bottom: calc(var(--gap) * 2)
+		bottom: var(--big_gap)
 	position: relative
 	text-align: left
 
 	// **  about
 	& > div#about
-		text-align: left
-		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
-		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
-		width: calc((var(--w) * 2 / 3) - var(--gap))
-
-		& > img
-			display: block
-			margin:
-				right: auto
-				left: auto
-				bottom: var(--gap)
-			width: inherit
+		// keep no width because #right_widget
+		//width: calc((var(--w) * 2 / 3) - var(--gap))
 
 		& > div
 			position: relative
@@ -27,12 +17,20 @@ div#intro
 
 	// **  right_widget
 	& > div#right_widget
+
 		// *  DEP: research.sass article>..>img width
-		width: 542px
+		// [$BP1]:      (1200 * 0.45)  =  540px
+		// [$BP2:$BP1]: (984 * 0.45)  =  442px
+		$rightWidgetWidth: calc(0.45 * var(--w))
+		width: $rightWidgetWidth
+		@include max-width($BP2)
+			// *  important
+			display: none
 		height: 640px
 		$borderRadius: 20px
 		$dim: 15px
-		$padding: 24px 32px
+		$paddingVert: 24px
+		$paddingHoriz: 32px
 		border-radius: $borderRadius
 		box-shadow: 0 2px 10px 2px var(--GREY02)
 		display: flex
@@ -42,24 +40,24 @@ div#intro
 
 		& > div#news_cover_image_container
 			background-color: var(--GREY02)
-			padding: $padding
+			padding: $paddingVert $paddingHoriz
 			border-radius: $borderRadius $borderRadius 0 0
 
 			& > img
-				width: 478px
+				// [$BP1]:      540px - 64px  =  476px
+				// [$BP2:$BP1]: 442px - 64px  =  378px
+				width: calc(#{$rightWidgetWidth} - 2 * #{$paddingHoriz})
 
 		& > div#news
-
-
 			display: flex
 			flex-direction: column
-			padding: $padding
+			padding: $paddingVert $paddingHoriz
 			line-height: 32px
 			position: relative
 
 
 			& > div.title
-				font-size: 20px
+				@include pFontSize()
 				font-family: OpenSansBold
 				line-height: 20px
 				color: var(--GREY8)
@@ -73,7 +71,7 @@ div#intro
 
 
 			& > div.content
-				font-size: 20px
+				@include pFontSize()
 
 
 		& > div#radios
@@ -107,25 +105,29 @@ div#intro
 div#research_snippets_container
 	text-align: left
 
-	//& > div.title
-		@include titleMixin(36px)
-		letter-spacing: -0.5px
 
 	& > div#research_snippets
-		// (1200 - 3*40) / 4  =  1080 / 4  =  270
-		// *  DEP: repeat(4
-		// *  DEP: [column|row]-gap: var(--GAP1)
-		--snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4)
-		display: grid
-		// *  DEP: --snippetWidth
-		grid:
-			template-columns: repeat(4, var(--snippetWidth))
-			column-gap: var(--GAP1)
-			row-gap: var(--GAP1)
+		@include min-width($BP4)
+			// TODO: 3 in a row when BP2
+			// (1200 - 3*40) / 4  =  1080 / 4  =  270
+			// *  DEP: repeat(4
+			// *  DEP: [column|row]-gap: var(--GAP1)
+			--snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4)
+			display: grid
+			// *  DEP: --snippetWidth
+			grid:
+				template-columns: repeat(4, var(--snippetWidth))
+				column-gap: var(--GAP1)
+				row-gap: var(--GAP1)
+
+		@include max-width($BP4)
+			--snippetWidth: 100%
 
 		& > div.snippet
 			width: var(--snippetWidth)
 			cursor: pointer
+			@include max-width($BP4)
+				margin-bottom: var(--gap)
 
 			&:hover
 				& > img, & > div
@@ -140,19 +142,25 @@ div#research_snippets_container
 
 			& > img
 				width: inherit
-				// same as news radius
+				// *  DEP: same as news radius
 				border-radius: 20px
+				@include max-width($BP4)
+					max-height: 280px
+					object-fit: cover
 
 			& > div.snippet-title
-				font-family: OpenSansSemiBold
-				margin-top: 8px
+				@include min-width($BP4)
+					font-family: OpenSansSemiBold
+					margin-top: 8px
+				@include max-width($BP4)
+					font-size: 12px
 
 // ***  funding
 div#funding
 	// *  DEP: contact.sass contact_grid
 	text-align: center
 	margin:
-		top: calc(var(--gap) * 2)
+		top: var(--big_gap)
 		bottom: var(--gap)
 
 	& > div#sponsors
@@ -174,7 +182,7 @@ div#funding
 			& > img
 				width: 160px
 				height: 160px
-				margin: 0 auto calc(var(--gap) / 2) auto
+				margin: 0 auto var(--small_gap) auto
 				object-fit: contain
 
 			& > div.sponsor-title
@@ -200,7 +208,7 @@ div#footer
 			cursor: pointer
 			// med-logo.png is height 72px
 			height: 72px
-			margin: 0 calc(var(--gap) / 2)
+			margin: 0 var(--small_gap)
 //width: 120px
 
 

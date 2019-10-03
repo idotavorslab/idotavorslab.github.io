@@ -1,10 +1,10 @@
 const ResearchPage = () => {
     async function init(selectedIndex) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        const data = await fetchJson('main/research/research.json');
+        const data = await fetchDict('main/research/research.json');
         const articles = [];
         let emptied = false;
-        for (let [i, [title, { image, text, circle }]] of Object.entries(Object.entries(data))) {
+        for (let [i, [title, { image, text, circle }]] of enumerate(data.items())) {
             let articleCls = i % 2 == 0 ? '' : 'reverse';
             let imgCls = circle === true ? 'circle' : '';
             let imgElem;

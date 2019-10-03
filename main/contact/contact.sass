@@ -1,6 +1,6 @@
 iframe#contact_form
 	@include iframeMixin()
-	margin-bottom: calc(var(--gap) * 2)
+	margin-bottom: var(--big_gap)
 	height: -webkit-fill-available
 
 iframe#contact_map
@@ -34,8 +34,13 @@ div#contact_grid
 			background-repeat: no-repeat
 			grid-row: 1/1
 			grid-column: 2/2
-			// *  DEP: h1 line-height
-			width: calc(32px * 1.5)
+			// *  DEP: contact.sass img width
+			@include min-width($BP4)
+				width: 54px
+			@include max-width($BP4)
+				width: 42px
+
+
 			margin: 0 auto
 			height: auto
 
@@ -46,8 +51,8 @@ div#contact_grid
 
 		& > a
 			grid-row: 3/3
-			font-size: 20px
-			line-height: 32px
+			@include pFontSize(true)
+
 			grid-column: span 2
 
 		&.visit > a

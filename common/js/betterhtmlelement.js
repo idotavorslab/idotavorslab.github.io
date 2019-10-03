@@ -45,12 +45,12 @@ class BetterHTMLElement {
 				query
 			});
 		}
-		if (tag && children)
+		if (tag !== undefined && children !== undefined)
 			throw new BadArgumentsAmountError(1, {
 				tag,
 				children
 			}, '"children" and "tag" options are mutually exclusive, because tag implies creating a new element and children implies getting an existing one.');
-		if (tag) {
+		if (tag !== undefined) {
 			if (['svg', 'path'].includes(tag.toLowerCase())) {
 				this._isSvg = true;
 				this._htmlElement = document.createElementNS(SVG_NS_URI, tag);
@@ -58,11 +58,11 @@ class BetterHTMLElement {
 			} else {
 				this._htmlElement = document.createElement(tag);
 			}
-		} else if (id)
+		} else if (id !== undefined)
 			this._htmlElement = document.getElementById(id);
-		else if (query)
+		else if (query !== undefined)
 			this._htmlElement = document.querySelector(query);
-		else if (htmlElement)
+		else if (htmlElement !== undefined)
 			this._htmlElement = htmlElement;
 		else {
 			throw new BadArgumentsAmountError(1, {
@@ -708,7 +708,7 @@ class BetterHTMLElement {
 	data(key, parse = true) {
 		// TODO: jquery doesn't affect data-* attrs in DOM. https://api.jquery.com/data/
 		const data = this.e.getAttribute(`data-${key}`);
-		if (parse)
+		if (parse === true)
 			return JSON.parse(data);
 		else
 			return data;
@@ -775,7 +775,7 @@ class BetterHTMLElement {
 		const reachedTo = isFadeOut ? (op) => op - opStep > 0 : (op) => op + opStep < 1;
 		const interval = setInterval(() => {
 			if (reachedTo(opacity)) {
-				if (isFadeOut)
+				if (isFadeOut === true)
 					opacity -= opStep;
 				else
 					opacity += opStep;
@@ -803,7 +803,7 @@ class Div extends BetterHTMLElement {
 	/**Create a Div element. Optionally set its id, text or cls.*/
 	constructor({ id, text, cls } = {}) {
 		super({ tag: 'div', text, cls });
-		if (id)
+		if (id !== undefined)
 			this.id(id);
 	}
 }
@@ -812,7 +812,7 @@ class Paragraph extends BetterHTMLElement {
 	/**Create a Paragraph element. Optionally set its id, text or cls.*/
 	constructor({ id, text, cls } = {}) {
 		super({ tag: 'p', text, cls });
-		if (id)
+		if (id !== undefined)
 			this.id(id);
 	}
 }
@@ -821,7 +821,7 @@ class Span extends BetterHTMLElement {
 	/**Create a Span element. Optionally set its id, text or cls.*/
 	constructor({ id, text, cls } = {}) {
 		super({ tag: 'span', text, cls });
-		if (id)
+		if (id !== undefined)
 			this.id(id);
 	}
 }
@@ -830,9 +830,9 @@ class Img extends BetterHTMLElement {
 	/**Create an Img element. Optionally set its id, src or cls.*/
 	constructor({ id, src, cls }) {
 		super({ tag: 'img', cls });
-		if (id)
+		if (id !== undefined)
 			this.id(id);
-		if (src)
+		if (src !== undefined)
 			this._htmlElement.src = src;
 	}
 
@@ -850,9 +850,9 @@ class Anchor extends BetterHTMLElement {
 	/**Create an Anchor element. Optionally set its id, text, href or cls.*/
 	constructor({ id, text, cls, href } = {}) {
 		super({ tag: 'a', text, cls });
-		if (id)
+		if (id !== undefined)
 			this.id(id);
-		if (href)
+		if (href !== undefined)
 			this.href(href);
 	}
 
@@ -919,16 +919,14 @@ function anchor({ id, text, cls, href } = {}) {
 	return new Anchor({ id, text, cls, href });
 }
 
-/*function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
-function enumerate<T>(obj: IterableIterator<T>): IterableIterator<[number, T]>;
-function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
-*/
+
 function enumerate(obj) {
 	let array = [];
 	if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
 		let i = 0;
 		for (let x of obj) {
 			array.push([i, x]);
+			i++;
 		}
 	} else {
 		for (let prop in obj) {

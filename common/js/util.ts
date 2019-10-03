@@ -33,29 +33,80 @@ function bool(val: any): boolean {
     return Object.keys(val).length !== 0;
 }
 
+
+type TDict<T> = Dict<T> & { [P in keyof T]: T[P] };
+
+
+// type TDict<T> =
+//      Dict<T> & { [P in keyof T]: T[P] }
+// const Dict
+
 class Dict<T> {
+    
     constructor(obj: T) {
         Object.assign(this, obj);
     }
     
-    * items(): IterableIterator<[string, T[keyof T]]> {
+    items(): [string, T[keyof T]][] {
         const proxy = this as unknown as T;
+        const kvpairs = [];
         for (let k in proxy) {
-            yield [k, proxy[k]];
+            kvpairs.push([k, proxy[k]]);
         }
+        return kvpairs;
     }
     
-    * keys(): IterableIterator<string> {
+    keys(): string[] {
         const proxy = this as unknown as T;
+        const keys = [];
         for (let k in proxy) {
-            yield k;
+            keys.push(k);
         }
+        return keys;
     }
+    
+    values(): string[] {
+        const proxy = this as unknown as T;
+        const values = [];
+        for (let k in proxy) {
+            values.push(proxy[k]);
+        }
+        return values;
+    }
+    
+    
 }
 
-function dict<T>(obj: T): Dict<T> {
-    return new Dict<T>(obj);
+function dict<T>(obj: T): TDict<T> {
+    return new Dict<T>(obj) as TDict<T>;
 }
+
+
+/*class List<T> extends Array {
+    constructor(items: T[]) {
+        super(...items);
+    }
+    
+    count(object: T): number {
+        return this.filter(x => x === object).length
+    }
+    
+    index(object: T, start?: number, stop?: number): number {
+        if (stop === undefined)
+            return super.indexOf(object, start);
+        else // assumes start and stop arent undefined
+            return this.slice(start, stop).indexOf(object)
+    }
+    
+    // sort({key, reverse}: { key?: (k: T) => any, reverse?: boolean } = {key: k => k, reverse: false}) {
+    //     // return super.sort()
+    // }
+    
+}
+
+function list<T>(items: T[]) {
+    return new List<T>(items);
+}*/
 
 class Str extends String {
     constructor(value) {
@@ -75,53 +126,10 @@ class Str extends String {
     }
 }
 
-// const oldProto = Str.prototype;
-// Str = function (lol) {
-//     console.log({'this': this, lol});
-//     let zis = this;
-//
-//     return new Proxy(this, {
-//         get(target: Str, p: string | number | symbol, receiver: any): any {
-//             console.log('get');
-//         }
-//     });
-// };
-// Str.prototype = oldProto;
-// Object.defineProperty(Str, 'prototype', {
-//     set: function (value) {
-//         console.log('set!', {value});
-//     },
-//     get: function () {
-//         console.log('get!');
-//         return true;
-//     },
-//
-// });
-
 function str(val) {
     return new Str(val);
 }
 
-/*function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
-function enumerate<T>(obj: IterableIterator<T>): IterableIterator<[number, T]>;
-function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
-function* enumerate(obj) {
-    if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
-        let i: number = 0;
-        for (let x of obj) {
-            yield [i, x];
-        }
-    } else {
-        for (let prop in obj) {
-            yield [prop, obj[prop]];
-        }
-    }
-}
-
-function wait(ms: number): Promise<any> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-*/
 
 async function concurrent<T>(...promises: Promise<T>[]): Promise<T[]> {
     return await Promise.all(promises);
@@ -199,17 +207,29 @@ function round(n: number, d: number = 0) {
     return int(n * fr) / fr;
 }
 
-async function _fetch(path: string, cache: RequestCache = "default", fmt: "json" | "text") {
+async function _fetch(path: string, cache: RequestCache, fmt: "json")
+async function _fetch(path: string, cache: RequestCache, fmt: "text")
+async function _fetch(path, cache: RequestCache = "default", fmt) {
     let req = new Request(path, {cache});
     return (await fetch(req))[fmt]();
 }
 
 
-function fetchJson(path: string, cache: RequestCache = "default") {
-    return _fetch(path, cache, "json");
+async function fetchArray(path: string, cache?: RequestCache): Promise<any[]>
+async function fetchArray<T>(path: string, cache?: RequestCache): Promise<T[]>
+async function fetchArray(path, cache = "default") {
+    let fetched = await _fetch(path, <RequestCache>cache, "json");
+    return fetched;
 }
 
-async function fetchText(path: string, cache: RequestCache = "default") {
+async function fetchDict(path: string, cache?: RequestCache): Promise<TDict<any>>
+async function fetchDict<T>(path: string, cache?: RequestCache): Promise<TDict<T>>
+async function fetchDict(path, cache = "default") {
+    let fetched = await _fetch(path, <RequestCache>cache, "json");
+    return dict(fetched);
+}
+
+async function fetchText(path: string, cache: RequestCache = "default"): Promise<string> {
     return _fetch(path, cache, "text");
 }
 

@@ -2,18 +2,6 @@
 	text-shadow: $x $y $blur $color, $x * -1 $y $blur $color, $x $y * -1 $blur $color, $x * -1 $y * -1 $blur $color
 
 
-@mixin titleMixin($fontSize: 24px)
-
-	font:
-		family: OpenSansBold
-		size: $fontSize
-	//margin-bottom: 5px
-	margin-bottom: 20px
-
-	// *  DEP: contact.sass img width
-	line-height: calc(#{$fontSize} * 1.5)
-
-
 @mixin borderMixin($color, $radius:2px)
 	border:
 		width: 1px
@@ -21,6 +9,10 @@
 		style: solid
 		@if ($radius)
 			radius: $radius
+
+@mixin width-between($bpA,$bpB)
+	@media screen and (min-width: $bpA) and (max-width: $bpB)
+		@content
 
 @mixin min-width($bp)
 	@media screen and (min-width: $bp)
@@ -43,23 +35,83 @@
 		// [max-width: $BP1]:  (984 - 40*3) / 4  =  (984 - 120) / 4  = 864 / 4  =  216px
 		--tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4)
 
+@mixin pFontSize($alsoLineHeight:false)
+	/// 500px
+	@include min-width($BP4)
+		font-size: 20px
+		@if ($alsoLineHeight == true)
+			line-height: 32px
+
+	@include max-width($BP4)
+		font-size: 16px
+		@if ($alsoLineHeight == true)
+			line-height: 24px
+
 
 // **  --gap
 @mixin setLocalGapVar()
-	@include min-width($BP1)
-		--gap: var(--GAP0)
 
-	@include max-width($BP1)
+	/// 1340 <= screen
+	@include min-width($BP1)
+		// 60px
+		--gap: var(--GAP0)
+		// 120px
+		--big_gap: var(--BIG_GAP0)
+		// 30px
+		--small_gap: var(--SMALL_GAP0)
+
+	/// 1023 <= screen <= 1340
+	@include width-between($BP2, $BP1)
+		// 40px
 		--gap: var(--GAP1)
+		// 80px
+		--big_gap: var(--BIG_GAP1)
+		// 20px
+		--small_gap: var(--SMALL_GAP1)
+
+	/// screen <= 1023
+	@include max-width($BP2)
+		// ???
+		--gap: var(--GAP2)
+		--big_gap: var(--BIG_GAP2)
+		--small_gap: var(--SMALL_GAP2)
 
 // **  --w
 @mixin setLocalWVar()
+	/// 1340 <= screen
 	@include min-width($BP1)
 		// 1200px
 		--w: var(--W0)
-	@include max-width($BP1)
+		#window_stats:after
+			content: "--w: var(--W0): 1200px \A [BP1] screen: #{$BP1} screen"
+
+	/// 1023 <= screen <= 1340
+	@include width-between($BP2, $BP1)
 		// 984px
 		--w: var(--W1)
+		#window_stats:after
+			content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
+
+	/// 760 <= screen <= 1023
+	@include width-between($BP3, $BP2)
+		// 748px
+		--w: var(--W2)
+		#window_stats:after
+			content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
+
+	/// 500 <= screen <= 760
+	@include width-between($BP4, $BP3)
+		// 496px
+		--w: var(--W3)
+		#window_stats:after
+			content: "--w: var(--W3): 496px \A [BP4] screen [BP3]: #{$BP4} screen #{$BP3}"
+
+	/// screen <= 500
+	@include max-width($BP4)
+		// 90%
+		--w: var(--W4)
+		#window_stats:after
+			content: "--w: var(--W3): 90% \A screen [BP4]: screen #{$BP4}"
 
 @mixin iframeMixin()
 	width: var(--w)
@@ -79,7 +131,7 @@
 			bottom: auto
 		@else
 			bottom: var(--gap)
-		//left: auto
+	//left: auto
 
 	// **  grid
 	grid-template:

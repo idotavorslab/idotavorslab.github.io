@@ -203,7 +203,7 @@ const PeoplePage = () => {
             const grid = div({ cls: 'grid' }).append(...people);
             return grid;
         }
-        const { alumni: alumniData, team: teamData } = await fetchJson('main/people/people.json');
+        const { alumni: alumniData, team: teamData } = await fetchDict('main/people/people.json');
         const expando = new Expando();
         const team = new People();
         const alumni = new People();

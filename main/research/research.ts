@@ -5,12 +5,10 @@ const ResearchPage = () => {
     
     async function init(selectedIndex?: number) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        const data = await fetchJson('main/research/research.json');
+        const data = await fetchDict<TResearchData>('main/research/research.json');
         const articles: Article[] = [];
         let emptied = false;
-        type TResearchData = { image: string, text: string, circle?: boolean }[];
-        for (let [i, [title, {image, text, circle}]] of Object.entries(Object.entries(<TResearchData>data))) {
-            // @ts-ignore
+        for (let [i, [title, {image, text, circle}]] of enumerate(data.items())) {
             let articleCls = i % 2 == 0 ? '' : 'reverse';
             let imgCls = circle === true ? 'circle' : '';
             let imgElem: BetterHTMLElement;

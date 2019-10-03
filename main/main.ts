@@ -49,7 +49,7 @@ const WindowElem = elem({htmlElement: window})
             });
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
             if (window.location.hash !== "")
-                fetchJson('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
+                fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
             
             function cache(file: string, page: Routing.Page) {
                 let src;
@@ -70,7 +70,7 @@ const WindowElem = elem({htmlElement: window})
             
             async function cachePeople() {
                 console.log(...less('cachePeople'));
-                const peopleData = await fetchJson('main/people/people.json');
+                const peopleData = await fetchDict('main/people/people.json');
                 const {team: teamData, alumni: alumniData} = peopleData;
                 for (let [_, {image}] of dict(teamData).items())
                     cache(image, "people");
@@ -80,15 +80,16 @@ const WindowElem = elem({htmlElement: window})
             
             async function cacheGallery() {
                 console.log(...less('cacheGallery'));
-                const galleryFiles = (await fetchJson("main/gallery/gallery.json")).map(d => d.file);
+                let galleryData = await fetchArray<{ file: string }>("main/gallery/gallery.json");
+                const galleryFiles = galleryData.map(d => d.file);
                 for (let file of galleryFiles)
                     cache(file, "gallery")
             }
             
             async function cacheResearch() {
                 console.log(...less('cacheResearch'));
-                const researchData = await fetchJson('main/research/research.json');
-                for (let [_, {image}] of dict(researchData).items())
+                const researchData = await fetchDict('main/research/research.json');
+                for (let [_, {image}] of researchData.items())
                     cache(image, "research")
             }
             

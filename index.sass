@@ -36,21 +36,35 @@ body
 	font-family: "OpenSans", sans-serif
 	margin: 0
 	line-height: 24px
-	//overflow: overlay
 
 	&.theater
 		background-color: var(--GREY8)
 
+
 h1
 	text-align: left
-	margin: unset
-	@include titleMixin(36px)
+	margin:
+		top: unset
+		right: unset
+		bottom: 20px
+		left: unset
+
+	font-family: OpenSansBold
+
+	// *  DEP: contact.sass img width
+	@include min-width($BP4)
+		font-size: 36px
+		line-height: 54px
+	@include max-width($BP4)
+		font-size: 28px
+		line-height: 42px
+
 	color: var(--GREY8)
 	letter-spacing: -0.5px
 
 p
-	font-size: 20px
-	line-height: 32px
+	@include pFontSize(true)
+
 	text-align: left
 	margin-block-start: 0
 
@@ -84,22 +98,11 @@ a
 
 div#main
 
-	//--marginVertical: 40px
-
 
 	margin: 0 auto
 
 	max-width: 100%
-	// 1340 <= screen
-	@include min-width($BP1)
-		// 1200px
-		width: var(--W0)
-
-	// *  DEP: people.ts PeoplePage().init()
-	// 1023 <= screen <= 1340
-	@media screen and (min-width: $BP2) and (max-width: $BP1)
-		// 984px
-		width: var(--W1)
+	width: var(--w)
 
 	text-align: center
 	@import 'main/navbar/navbar.sass'
@@ -148,10 +151,13 @@ div#main
 
 #window_stats
 	display: none
+	//display: block
 	position: fixed
 	bottom: 0
-	background-color: rgba(0, 0, 0, 0.5)
+	background-color: rgba(0, 0, 0, 0.75)
 	color: white
+	font-family: OpenSansBold
+	white-space: pre
 
 @import 'main/home/home.sass'
 @import 'main/research/research.sass'
