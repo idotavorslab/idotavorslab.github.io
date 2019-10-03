@@ -47,12 +47,14 @@
 		--tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4)
 
 @mixin pFontSize()
+	/// 500px
 	@include min-width($BP4)
 		font-size: 20px
 	@include max-width($BP4)
 		font-size: 16px
 // **  --gap
 @mixin setLocalGapVar()
+	/// 1340 <= screen
 	@include min-width($BP1)
 		// 60px
 		--gap: var(--GAP0)
@@ -61,6 +63,7 @@
 		// 30px
 		--small_gap: var(--SMALL_GAP0)
 
+	/// 1023 <= screen <= 1340
 	@include width-between($BP2, $BP1)
 		// 40px
 		--gap: var(--GAP1)
@@ -69,6 +72,7 @@
 		// 20px
 		--small_gap: var(--SMALL_GAP1)
 
+	/// screen <= 1023
 	@include max-width($BP2)
 		// ???
 		--gap: var(--GAP2)
@@ -77,34 +81,35 @@
 
 // **  --w
 @mixin setLocalWVar()
-	// 1340 <= screen
+	/// 1340 <= screen
 	@include min-width($BP1)
 		// 1200px
 		--w: var(--W0)
 		#window_stats:after
 			content: "--w: var(--W0): 1200px \A [BP1] screen: #{$BP1} screen"
-	// 1023 <= screen <= 1340
+
+	/// 1023 <= screen <= 1340
 	@include width-between($BP2, $BP1)
 		// 984px
 		--w: var(--W1)
 		#window_stats:after
 			content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
 
-	// 760 <= screen <= 1023
+	/// 760 <= screen <= 1023
 	@include width-between($BP3, $BP2)
 		// 748px
 		--w: var(--W2)
 		#window_stats:after
 			content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
 
-	// 500 <= screen <= 760
+	/// 500 <= screen <= 760
 	@include width-between($BP4, $BP3)
 		// 496px
 		--w: var(--W3)
 		#window_stats:after
 			content: "--w: var(--W3): 496px \A [BP4] screen [BP3]: #{$BP4} screen #{$BP3}"
 
-	// screen <= 500
+	/// screen <= 500
 	@include max-width($BP4)
 		// 90%
 		--w: var(--W4)
