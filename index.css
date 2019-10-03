@@ -2,7 +2,9 @@
 :root {
   --W0: 1200px;
   --W1: 984px;
-  --W2: 800px;
+  --W2: 748px;
+  --W3: 496px;
+  --W4: 90%;
   --GAP0: 60px;
   --GAP1: 40px;
   --GOOGLEBLUE: rgb(59, 130, 240);
@@ -60,7 +62,7 @@ body {
     --w: var(--W0);
   }
   body #window_stats:after {
-    content: "--w: var(--W0): 1200px \a[BP1]screen: 1340px screen";
+    content: "--w: var(--W0): 1200px \a[BP1] screen: 1340px screen";
   }
 }
 @media screen and (min-width: 1023px) and (max-width: 1340px) {
@@ -68,15 +70,31 @@ body {
     --w: var(--W1);
   }
   body #window_stats:after {
-    content: "--w: var(--W1): 984px \a[BP2]screen[BP1]: 1023px screen 1340px";
+    content: "--w: var(--W1): 984px \a[BP2] screen [BP1]: 1023px screen 1340px";
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (min-width: 760px) and (max-width: 1023px) {
   body {
     --w: var(--W2);
   }
   body #window_stats:after {
-    content: "--w: var(--W2): ???px \ascreen[BP2]: screen 1023px";
+    content: "--w: var(--W2): 748px \a[BP3] screen [BP2]: 760px screen 1023px";
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 760px) {
+  body {
+    --w: var(--W3);
+  }
+  body #window_stats:after {
+    content: "--w: var(--W3): 496px \a[BP4] screen [BP3]: 500px screen 760px";
+  }
+}
+@media screen and (max-width: 500px) {
+  body {
+    --w: var(--W4);
+  }
+  body #window_stats:after {
+    content: "--w: var(--W3): 90% \ascreen [BP4]: screen 500px";
   }
 }
 @media screen and (min-width: 1340px) {
