@@ -214,28 +214,7 @@ async function _fetch(path, cache: RequestCache = "default", fmt) {
     return (await fetch(req))[fmt]();
 }
 
-/*interface FetchJsonParams<T extends "array" | "object"> {
-    path: string;
-    cache?: RequestCache;
-    jsontype: T extends "array" ? "array" : "object";
-}
-*/
 
-/*async function fetchJson({path, cache, jsontype}: { path: string; cache?: RequestCache; jsontype?: "array" }): Promise<Array<any>>
-async function fetchJson({path, cache, jsontype}: { path: string; cache?: RequestCache; jsontype?: "object" }): Promise<Dict<unknown | any>>
-*/
-
-/*async function fetchJson<T>({path, cache, jsontype}: FetchJsonParams<"array">): Promise<T[]>
-async function fetchJson<T>({path, cache, jsontype}: FetchJsonParams<"object">): Promise<Dict<T>>
-
-async function fetchJson<T>({path, cache = "default", jsontype}) {
-    let fetched = await _fetch(path, <RequestCache>cache, "json");
-    if (jsontype === "array")
-        return fetched;
-    else
-        return dict<T>(fetched);
-}
-*/
 async function fetchArray(path: string, cache?: RequestCache): Promise<any[]>
 async function fetchArray<T>(path: string, cache?: RequestCache): Promise<T[]>
 async function fetchArray(path, cache = "default") {

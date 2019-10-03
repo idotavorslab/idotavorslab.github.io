@@ -919,10 +919,8 @@ function anchor({ id, text, cls, href } = {}) {
 	return new Anchor({ id, text, cls, href });
 }
 
-/*function enumerate<T>(obj: T[]): IterableIterator<[number, T]>;
-function enumerate<T>(obj: IterableIterator<T>): IterableIterator<[number, T]>;
-function enumerate<T>(obj: T): IterableIterator<[keyof T, T[keyof T]]>;
-*/
+
+
 function enumerate(obj) {
 	let array = [];
 	if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {

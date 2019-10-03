@@ -550,6 +550,9 @@ interface TRecMap<T> {
     [s: number]: T | TRecMap<T>;
 }
 
-declare function enumerate(obj: any): any[];
+
+declare function enumerate<T>(obj: T[]): [number, T][];
+declare function enumerate<T>(obj: T): [keyof T, T[keyof T]][];
+
 
 declare function wait(ms: number): Promise<any>;
