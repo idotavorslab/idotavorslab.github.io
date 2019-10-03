@@ -1,19 +1,7 @@
-@mixin selectedMixin()
-	color: black
-
-//border-bottom:
-	color: rgba(218, 165, 32, 1)
-	width: 1px
-	style: solid
 
 div#navbar
 	// MAYBE depends on index.sass #main --marginVertical (half)
 	--fontSize: 20px
-
-	@include min-width($BP1)
-		--imgWidth: 80px
-	@include max-width($BP1)
-		--imgWidth: 75px
 
 	// **  for FIXED navbar
 	position: fixed
@@ -36,7 +24,6 @@ div#navbar
 
 	& > div, & > img.home
 		margin:
-			//top: 0
 			top: auto
 			// 40px
 			right: calc(var(--fontSize) * 2)
@@ -50,7 +37,6 @@ div#navbar
 
 	// tau logo
 	& > img.uni
-		//height: var(--imgWidth)
 		height: 40px
 		margin: auto 0
 
@@ -58,23 +44,14 @@ div#navbar
 		margin-right: auto
 
 	& > div
-
-		// for onhover border
-		//border-bottom:
-			color: var(--TRANS)
-			width: 1px
-			style: solid
 		display: block
-		// for onhover border
 		padding: 10px 0
 		transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out
 
 		&:hover
 			color: black
-		//color: var(--GREY6)
 
 
-		//border-bottom-color: var(--TRANS)
 		&.selected
 			color: black
 

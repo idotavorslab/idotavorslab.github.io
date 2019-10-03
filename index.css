@@ -2,7 +2,7 @@
 :root {
   --W0: 1200px;
   --W1: 984px;
-  --W2: 600px;
+  --W2: 800px;
   --GAP0: 60px;
   --GAP1: 40px;
   --GOOGLEBLUE: rgb(59, 130, 240);
@@ -155,16 +155,6 @@ div#main div#navbar {
   height: 70px;
   margin: auto auto 0 auto;
 }
-@media screen and (min-width: 1340px) {
-  div#main div#navbar {
-    --imgWidth: 80px;
-  }
-}
-@media screen and (max-width: 1340px) {
-  div#main div#navbar {
-    --imgWidth: 75px;
-  }
-}
 div#main div#navbar.box-shadow {
   box-shadow: inset 0 -1px 0 0 var(--GREY2);
 }
@@ -214,6 +204,7 @@ div#main div#home {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
+  font-family: OpenSansBold;
   display: block;
   white-space: pre;
 }
@@ -239,7 +230,7 @@ div#intro > div#about > div {
   position: relative;
 }
 div#intro > div#right_widget {
-  width: 542px;
+  width: calc(0.45 * var(--w));
   height: 640px;
   border-radius: 20px;
   box-shadow: 0 2px 10px 2px var(--GREY02);
@@ -247,13 +238,18 @@ div#intro > div#right_widget {
   flex-direction: column;
   margin-left: var(--gap);
 }
+@media screen and (max-width: 1023px) {
+  div#intro > div#right_widget {
+    display: none;
+  }
+}
 div#intro > div#right_widget > div#news_cover_image_container {
   background-color: var(--GREY02);
   padding: 24px 32px;
   border-radius: 20px 20px 0 0;
 }
 div#intro > div#right_widget > div#news_cover_image_container > img {
-  width: 478px;
+  width: calc(calc(0.45 * var(--w)) - 2 * 32px);
 }
 div#intro > div#right_widget > div#news {
   display: flex;

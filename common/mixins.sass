@@ -22,6 +22,10 @@
 		@if ($radius)
 			radius: $radius
 
+@mixin width-between($bpA,$bpB)
+	@media screen and (min-width: $bpA) and (max-width: $bpB)
+		@content
+
 @mixin min-width($bp)
 	@media screen and (min-width: $bp)
 		@content
@@ -61,7 +65,7 @@
 		#window_stats:after
 			content: "--w: var(--W0): 1200px \A [BP1]screen: #{$BP1} screen"
 	// 1023 <= screen <= 1340
-	@media screen and (min-width: $BP2) and (max-width: $BP1)
+	@include width-between($BP2, $BP1)
 		// 984px
 		--w: var(--W1)
 		#window_stats:after
