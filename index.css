@@ -114,19 +114,41 @@ body.theater {
 h1 {
   text-align: left;
   margin: unset;
-  font-family: OpenSansBold;
-  font-size: 36px;
-  margin-bottom: 20px;
-  line-height: calc(36px * 1.5);
   color: var(--GREY8);
   letter-spacing: -0.5px;
 }
+@media screen and (min-width: 500px) {
+  h1 {
+    font-family: OpenSansBold;
+    font-size: 36px;
+    margin-bottom: 20px;
+    line-height: calc(36px * 1.5);
+  }
+}
+@media screen and (max-width: 500px) {
+  h1 {
+    font-family: OpenSansBold;
+    font-size: 28px;
+    margin-bottom: 20px;
+    line-height: calc(28px * 1.5);
+  }
+}
 
 p {
-  font-size: 20px;
-  line-height: 32px;
   text-align: left;
   margin-block-start: 0;
+}
+@media screen and (min-width: 500px) {
+  p {
+    font-size: 20px;
+    line-height: 32px;
+  }
+}
+@media screen and (max-width: 500px) {
+  p {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 p.bold, div.bold, span.bold {
@@ -220,7 +242,7 @@ div#main div#home {
 #window_stats {
   position: fixed;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   color: white;
   font-family: OpenSansBold;
   display: block;
@@ -235,7 +257,6 @@ div#intro {
 }
 div#intro > div#about {
   text-align: left;
-  width: calc((var(--w) * 2 / 3) - var(--gap));
 }
 div#intro > div#about > img {
   display: block;
@@ -433,13 +454,6 @@ div#home > div.article[class~=reverse] > img {
   grid-column: 1/1;
 }
 
-div#home.people-page > div.title {
-  font-family: OpenSansBold;
-  font-size: 24px;
-  margin-bottom: 20px;
-  line-height: calc(24px * 1.5);
-  text-align: left;
-}
 div#home.people-page > div.grid {
   display: grid;
   --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);

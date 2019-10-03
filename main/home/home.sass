@@ -9,9 +9,10 @@ div#intro
 	// **  about
 	& > div#about
 		text-align: left
+		// keep no width because #right_widget
 		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
 		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
-		width: calc((var(--w) * 2 / 3) - var(--gap))
+		//width: calc((var(--w) * 2 / 3) - var(--gap))
 
 		& > img
 			display: block
@@ -34,6 +35,7 @@ div#intro
 		$rightWidgetWidth: calc(0.45 * var(--w))
 		width: $rightWidgetWidth
 		@include max-width($BP2)
+			// *  important
 			display: none
 		height: 640px
 		$borderRadius: 20px
@@ -116,9 +118,6 @@ div#intro
 div#research_snippets_container
 	text-align: left
 
-	//& > div.title
-		@include titleMixin(36px)
-		letter-spacing: -0.5px
 
 	& > div#research_snippets
 		// (1200 - 3*40) / 4  =  1080 / 4  =  270
