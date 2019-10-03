@@ -54,12 +54,19 @@
 
 // **  --w
 @mixin setLocalWVar()
+	// 1340 <= screen
 	@include min-width($BP1)
 		// 1200px
 		--w: var(--W0)
-	@include max-width($BP1)
+	// 1023 <= screen <= 1340
+	@media screen and (min-width: $BP2) and (max-width: $BP1)
 		// 984px
 		--w: var(--W1)
+
+	// screen <= 1023
+	@include max-width($BP2)
+		// 984px
+		--w: var(--W2)
 
 @mixin iframeMixin()
 	width: var(--w)
@@ -79,7 +86,7 @@
 			bottom: auto
 		@else
 			bottom: var(--gap)
-		//left: auto
+	//left: auto
 
 	// **  grid
 	grid-template:

@@ -2,6 +2,7 @@
 :root {
   --W0: 1200px;
   --W1: 984px;
+  --W2: 600px;
   --GAP0: 60px;
   --GAP1: 40px;
   --GOOGLEBLUE: rgb(59, 130, 240);
@@ -59,9 +60,14 @@ body {
     --w: var(--W0);
   }
 }
-@media screen and (max-width: 1340px) {
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
   body {
     --w: var(--W1);
+  }
+}
+@media screen and (max-width: 1023px) {
+  body {
+    --w: var(--W2);
   }
 }
 @media screen and (min-width: 1340px) {
@@ -125,17 +131,8 @@ a.arrow-trans:after {
 div#main {
   margin: 0 auto;
   max-width: 100%;
+  width: var(--w);
   text-align: center;
-}
-@media screen and (min-width: 1340px) {
-  div#main {
-    width: var(--W0);
-  }
-}
-@media screen and (min-width: 1023px) and (max-width: 1340px) {
-  div#main {
-    width: var(--W1);
-  }
 }
 div#main div#navbar {
   --fontSize: 20px;
