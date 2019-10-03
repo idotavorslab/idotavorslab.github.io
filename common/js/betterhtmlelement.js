@@ -920,13 +920,13 @@ function anchor({ id, text, cls, href } = {}) {
 }
 
 
-
 function enumerate(obj) {
 	let array = [];
 	if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
 		let i = 0;
 		for (let x of obj) {
 			array.push([i, x]);
+			i++;
 		}
 	} else {
 		for (let prop in obj) {

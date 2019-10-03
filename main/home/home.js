@@ -88,9 +88,9 @@ const HomePage = () => {
         elem({ query: '#navbar > img.home' }).attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
-        for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {
+        for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
-            if (i == "0")
+            if (i == 0)
                 cls = 'bold';
             aboutText.append(paragraph({ text: p, cls }));
         }
@@ -124,7 +124,7 @@ const HomePage = () => {
         }
         const fundingData = data.funding;
         const sponsorsGrid = elem({ query: "#sponsors" });
-        for (let [title, { image, text, large }] of Object.entries(fundingData)) {
+        for (let [title, { image, text, large }] of dict(fundingData).items()) {
             let sponsorImage = img({ src: `main/home/${image}` })
                 .on({
                 load: () => {

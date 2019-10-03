@@ -5,7 +5,6 @@ const ResearchPage = () => {
     
     async function init(selectedIndex?: number) {
         console.log('ResearchPage init, selectedIndex: ', selectedIndex);
-        type TResearchData = TMap<{ text: string, image: string, circle?: boolean, thumbnail: string }>;
         const data = await fetchDict<TResearchData>('main/research/research.json');
         const articles: Article[] = [];
         let emptied = false;

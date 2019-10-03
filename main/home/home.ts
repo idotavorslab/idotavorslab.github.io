@@ -1,3 +1,5 @@
+// used in research.ts
+type TResearchData = TMap<{ text: string, image: string, circle?: boolean, thumbnail: string }>;
 const HomePage = () => {
     type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number };
     type TRightWidget = BetterHTMLElement & {
@@ -125,7 +127,7 @@ const HomePage = () => {
         // ***  About
         type TFunding = TMap<{ image: string, text: string, large?: boolean }>;
         type TNews = TMap<{ content: string, date?: string, links: TMap<any> }>;
-        type THomeData = { logo: string, "news-cover-image": string, news: TNews, funding: TFunding };
+        type THomeData = { logo: string, "about-text": string, "news-cover-image": string, news: TNews, funding: TFunding };
         const data = await fetchDict<THomeData>('main/home/home.json');
         rightWidget.newsCoverImageContainer
             .append(img({src: `main/home/${data["news-cover-image"]}`}));
@@ -136,9 +138,9 @@ const HomePage = () => {
         const aboutText = elem({query: "#about > .about-text"});
         
         const splitParagraphs = (val: string): string[] => val.split("</p>").join("").split("<p>").slice(1);
-        for (let [i, p] of Object.entries(splitParagraphs(data["about-text"]))) {
+        for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
-            if (i == "0")
+            if (i == 0)
                 cls = 'bold';
             aboutText.append(paragraph({text: p, cls}))
         }
@@ -163,7 +165,7 @@ const HomePage = () => {
         rightWidget.mouseover(() => newsData.stopAutoSwitch());
         rightWidget.mouseout(() => newsData.startAutoSwitch());
         // ***  Research Snippets
-        type TResearchData = TMap<{ text: string, image: string, circle?: boolean, thumbnail: string }>;
+        
         const researchData = await fetchDict<TResearchData>('main/research/research.json');
         const researchSnippets = elem({query: "#research_snippets"});
         
@@ -180,7 +182,6 @@ const HomePage = () => {
                         div({cls: 'snippet-title', text: title})
                     )
                     .pointerdown((event) => {
-                        // @ts-ignore
                         ResearchPage().init(i);
                         history.pushState(null, null, '#research')
                     })
@@ -189,7 +190,7 @@ const HomePage = () => {
         // ***  Funding
         const fundingData = data.funding;
         const sponsorsGrid = elem({query: "#sponsors"});
-        for (let [title, {image, text, large}] of Object.entries(fundingData)) {
+        for (let [title, {image, text, large}] of dict(fundingData).items()) {
             let sponsorImage = img({src: `main/home/${image}`})
                 .on({
                     load: () => {
