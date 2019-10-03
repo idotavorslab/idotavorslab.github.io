@@ -58,15 +58,21 @@
 	@include min-width($BP1)
 		// 1200px
 		--w: var(--W0)
+		#window_stats:after
+			content: "--w: var(--W0): 1200px \A [BP1]screen: #{$BP1} screen"
 	// 1023 <= screen <= 1340
 	@media screen and (min-width: $BP2) and (max-width: $BP1)
 		// 984px
 		--w: var(--W1)
+		#window_stats:after
+			content: "--w: var(--W1): 984px \A [BP2]screen[BP1]: #{$BP2} screen #{$BP1}"
 
 	// screen <= 1023
 	@include max-width($BP2)
 		// 984px
 		--w: var(--W2)
+		#window_stats:after
+			content: "--w: var(--W2): ???px \A screen[BP2]: screen #{$BP2}"
 
 @mixin iframeMixin()
 	width: var(--w)

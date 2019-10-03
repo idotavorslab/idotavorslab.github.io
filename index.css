@@ -59,15 +59,24 @@ body {
   body {
     --w: var(--W0);
   }
+  body #window_stats:after {
+    content: "--w: var(--W0): 1200px \a[BP1]screen: 1340px screen";
+  }
 }
 @media screen and (min-width: 1023px) and (max-width: 1340px) {
   body {
     --w: var(--W1);
   }
+  body #window_stats:after {
+    content: "--w: var(--W1): 984px \a[BP2]screen[BP1]: 1023px screen 1340px";
+  }
 }
 @media screen and (max-width: 1023px) {
   body {
     --w: var(--W2);
+  }
+  body #window_stats:after {
+    content: "--w: var(--W2): ???px \ascreen[BP2]: screen 1023px";
   }
 }
 @media screen and (min-width: 1340px) {
@@ -201,11 +210,12 @@ div#main div#home {
 }
 
 #window_stats {
-  display: none;
   position: fixed;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
+  display: block;
+  white-space: pre;
 }
 
 div#intro {
