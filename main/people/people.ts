@@ -297,8 +297,13 @@ const PeoplePage = () => {
         
         
         type TeamType = TMap<{ role: string, image: string, cv: string, email: string }>
-        const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson('main/people/people.json');
-        // const absExpandoHeight = (teamData["ido tavor"].cv.length + teamData["ido tavor"].email.length + 8) / 2
+        /*const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson({
+            path: 'main/people/people.json',
+            jsontype: "object"
+        });
+        */
+        const {alumni: alumniData, team: teamData} = await fetchDict<{ alumni: TeamType, team: TeamType }>('main/people/people.json');
+        
         const expando: Expando = new Expando();
         
         /*const longestCv = Math.max(

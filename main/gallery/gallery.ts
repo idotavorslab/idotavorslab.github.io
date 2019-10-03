@@ -171,8 +171,8 @@ const GalleryPage = () => {
             });
         
         imgViewer.isopen = false;
-        type TGalleryData = { file: string, contrast: number, brightness: number, caption: string, year: number }[];
-        const data: TGalleryData = await fetchJson("main/gallery/gallery.json");
+        type TGalleryData = { file: string, contrast: number, brightness: number, caption: string, year: number };
+        const data = await fetchArray<TGalleryData>("main/gallery/gallery.json");
         const galleryImgs: GalleryImg[] = [];
         // **  Populate galleryImgs: GalleryImg[] from data
         for (let {brightness, contrast, file, year, caption} of data) {

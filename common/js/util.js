@@ -29,17 +29,29 @@ class Dict {
     constructor(obj) {
         Object.assign(this, obj);
     }
-    *items() {
+    items() {
         const proxy = this;
+        const kvpairs = [];
         for (let k in proxy) {
-            yield [k, proxy[k]];
+            kvpairs.push([k, proxy[k]]);
         }
+        return kvpairs;
     }
-    *keys() {
+    keys() {
         const proxy = this;
+        const keys = [];
         for (let k in proxy) {
-            yield k;
+            keys.push(k);
         }
+        return keys;
+    }
+    values() {
+        const proxy = this;
+        const values = [];
+        for (let k in proxy) {
+            values.push(proxy[k]);
+        }
+        return values;
     }
 }
 function dict(obj) {
@@ -114,8 +126,13 @@ async function _fetch(path, cache = "default", fmt) {
     let req = new Request(path, { cache });
     return (await fetch(req))[fmt]();
 }
-function fetchJson(path, cache = "default") {
-    return _fetch(path, cache, "json");
+async function fetchArray(path, cache = "default") {
+    let fetched = await _fetch(path, cache, "json");
+    return fetched;
+}
+async function fetchDict(path, cache = "default") {
+    let fetched = await _fetch(path, cache, "json");
+    return dict(fetched);
 }
 async function fetchText(path, cache = "default") {
     return _fetch(path, cache, "text");

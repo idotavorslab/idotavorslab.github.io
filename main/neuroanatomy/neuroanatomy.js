@@ -1,7 +1,6 @@
 const NeuroanatomyPage = () => {
     async function init() {
-        const data = await fetchJson('main/neuroanatomy/neuroanatomy.json');
-        const { brains: brainsData, "intro-text": introText } = data;
+        const { brains: brainsData, "intro-text": introText } = await fetchDict('main/neuroanatomy/neuroanatomy.json');
         const brains = [];
         for (let [title, { text, link }] of Object.entries(brainsData)) {
             console.log(JSON.parstr({ title, text, link }));

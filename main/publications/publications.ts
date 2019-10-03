@@ -41,7 +41,8 @@ const PublicationsPage = () => {
     async function init() {
         
         console.log('PublicationsPage init');
-        const {selected: selectedData, publications: publicationsData} = await fetchJson('main/publications/publications.json');
+        type TPublicationData = { selected: string[], publications: TMap<{ year: number, creds: string, mag: string, thumbnail: string, link: string }> };
+        const {selected: selectedData, publications: publicationsData} = await fetchDict<TPublicationData>('main/publications/publications.json');
         // console.log('PublicationsPage data:', JSON.parstr({selectedData, publicationsData}));
         const publications: Publication[] = [];
         const selected: Publication[] = [];

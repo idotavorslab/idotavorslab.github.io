@@ -82,7 +82,7 @@ const HomePage = () => {
         }
     }
     async function init() {
-        const data = await fetchJson('main/home/home.json');
+        const data = await fetchDict('main/home/home.json');
         rightWidget.newsCoverImageContainer
             .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         elem({ query: '#navbar > img.home' }).attr({ src: `main/home/${data.logo}` });
@@ -108,9 +108,9 @@ const HomePage = () => {
         }
         rightWidget.mouseover(() => newsData.stopAutoSwitch());
         rightWidget.mouseout(() => newsData.startAutoSwitch());
-        const researchData = Object.entries(await fetchJson('main/research/research.json'));
+        const researchData = await fetchDict('main/research/research.json');
         const researchSnippets = elem({ query: "#research_snippets" });
-        for (let [i, [title, { thumbnail }]] of Object.entries(researchData)) {
+        for (let [i, [title, { thumbnail }]] of enumerate(researchData.items())) {
             researchSnippets.append(div({ cls: 'snippet' })
                 .append(img({ src: `main/research/${thumbnail}` }).on({
                 load: () => {

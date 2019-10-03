@@ -123,7 +123,10 @@ const HomePage = () => {
         // rightWidget.mouseout(() => newsData.startAutoSwitch());
         
         // ***  About
-        const data = await fetchJson('main/home/home.json');
+        type TFunding = TMap<{ image: string, text: string, large?: boolean }>;
+        type TNews = TMap<{ content: string, date?: string, links: TMap<any> }>;
+        type THomeData = { logo: string, "news-cover-image": string, news: TNews, funding: TFunding };
+        const data = await fetchDict<THomeData>('main/home/home.json');
         rightWidget.newsCoverImageContainer
             .append(img({src: `main/home/${data["news-cover-image"]}`}));
         
@@ -160,10 +163,11 @@ const HomePage = () => {
         rightWidget.mouseover(() => newsData.stopAutoSwitch());
         rightWidget.mouseout(() => newsData.startAutoSwitch());
         // ***  Research Snippets
-        const researchData = Object.entries(await fetchJson('main/research/research.json'));
+        type TResearchData = TMap<{ text: string, image: string, circle?: boolean, thumbnail: string }>;
+        const researchData = await fetchDict<TResearchData>('main/research/research.json');
         const researchSnippets = elem({query: "#research_snippets"});
         
-        for (let [i, [title, {thumbnail}]] of Object.entries(<[string, { thumbnail: string }][]>researchData)) {
+        for (let [i, [title, {thumbnail}]] of enumerate(researchData.items())) {
             
             researchSnippets.append(
                 div({cls: 'snippet'})
@@ -183,7 +187,7 @@ const HomePage = () => {
             )
         }
         // ***  Funding
-        const fundingData: { title: { image: string, text: string, large?: boolean } } = data.funding;
+        const fundingData = data.funding;
         const sponsorsGrid = elem({query: "#sponsors"});
         for (let [title, {image, text, large}] of Object.entries(fundingData)) {
             let sponsorImage = img({src: `main/home/${image}`})

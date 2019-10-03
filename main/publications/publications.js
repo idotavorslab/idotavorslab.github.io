@@ -30,7 +30,7 @@ const PublicationsPage = () => {
     }
     async function init() {
         console.log('PublicationsPage init');
-        const { selected: selectedData, publications: publicationsData } = await fetchJson('main/publications/publications.json');
+        const { selected: selectedData, publications: publicationsData } = await fetchDict('main/publications/publications.json');
         const publications = [];
         const selected = [];
         for (let title of selectedData) {

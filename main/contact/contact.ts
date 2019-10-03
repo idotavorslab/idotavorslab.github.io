@@ -7,9 +7,15 @@ const ContactPage = () => {
             return template.content.firstChild;
         }
         
-        
+        type TContactData = {
+            visit: { address: string, link: string, icon: string },
+            call: { hours: string, phone: string, icon: string },
+            email: { address: string, icon: string, }
+            map: string,
+            form: string
+        };
         // let svg = await fetchText("main/contact/home-simple.svg");
-        const data = await fetchJson("main/contact/contact.json");
+        const data = await fetchDict<TContactData>("main/contact/contact.json");
         const visit = div({cls: 'visit'})
             .append(
                 elem({tag: 'h1', text: 'Visit'}),
