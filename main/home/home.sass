@@ -8,19 +8,8 @@ div#intro
 
 	// **  about
 	& > div#about
-		text-align: left
 		// keep no width because #right_widget
-		// [min-width: $BP1]:   (1200 * 2/3) - 60  =  740px
-		// [max-width: $BP1]:   (984 * 2/3) - 40  =  616px
 		//width: calc((var(--w) * 2 / 3) - var(--gap))
-
-		& > img
-			display: block
-			margin:
-				right: auto
-				left: auto
-				bottom: var(--gap)
-			width: inherit
 
 		& > div
 			position: relative
@@ -68,7 +57,7 @@ div#intro
 
 
 			& > div.title
-				font-size: 20px
+				@include pFontSize()
 				font-family: OpenSansBold
 				line-height: 20px
 				color: var(--GREY8)
@@ -82,7 +71,7 @@ div#intro
 
 
 			& > div.content
-				font-size: 20px
+				@include pFontSize()
 
 
 		& > div#radios
@@ -130,8 +119,9 @@ div#research_snippets_container
 				template-columns: repeat(4, var(--snippetWidth))
 				column-gap: var(--GAP1)
 				row-gap: var(--GAP1)
+
 		@include max-width($BP4)
-			--snippetWidth: -webkit-fill-available
+			--snippetWidth: 100%
 
 		& > div.snippet
 			width: var(--snippetWidth)
@@ -155,7 +145,10 @@ div#research_snippets_container
 
 			& > div.snippet-title
 				font-family: OpenSansSemiBold
-				margin-top: 8px
+				@include min-width($BP4)
+					margin-top: 8px
+				@include max-width($BP4)
+					margin-bottom: var(--gap)
 
 // ***  funding
 div#funding

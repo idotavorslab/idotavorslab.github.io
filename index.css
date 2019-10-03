@@ -159,20 +159,12 @@ p {
 @media screen and (min-width: 500px) {
   p {
     font-size: 20px;
-  }
-}
-@media screen and (max-width: 500px) {
-  p {
-    font-size: 16px;
-  }
-}
-@media screen and (min-width: 500px) {
-  p {
     line-height: 32px;
   }
 }
 @media screen and (max-width: 500px) {
   p {
+    font-size: 16px;
     line-height: 24px;
   }
 }
@@ -216,12 +208,21 @@ div#main div#navbar {
   background-color: rgba(255, 255, 255, 0.92);
   transition: box-shadow 0.2s ease-in-out;
   display: flex;
-  font-size: 20px;
   height: 70px;
   margin: auto auto 0 auto;
 }
 div#main div#navbar.box-shadow {
   box-shadow: inset 0 -1px 0 0 var(--GREY2);
+}
+@media screen and (min-width: 500px) {
+  div#main div#navbar {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#main div#navbar {
+    font-size: 16px;
+  }
 }
 div#main div#navbar > div, div#main div#navbar > img {
   cursor: pointer;
@@ -280,16 +281,6 @@ div#intro {
   position: relative;
   text-align: left;
 }
-div#intro > div#about {
-  text-align: left;
-}
-div#intro > div#about > img {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: var(--gap);
-  width: inherit;
-}
 div#intro > div#about > div {
   position: relative;
 }
@@ -323,11 +314,20 @@ div#intro > div#right_widget > div#news {
   position: relative;
 }
 div#intro > div#right_widget > div#news > div.title {
-  font-size: 20px;
   font-family: OpenSansBold;
   line-height: 20px;
   color: var(--GREY8);
   margin-bottom: unset;
+}
+@media screen and (min-width: 500px) {
+  div#intro > div#right_widget > div#news > div.title {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#intro > div#right_widget > div#news > div.title {
+    font-size: 16px;
+  }
 }
 div#intro > div#right_widget > div#news > div.date {
   color: var(--GREY5);
@@ -335,8 +335,15 @@ div#intro > div#right_widget > div#news > div.date {
 div#intro > div#right_widget > div#news > div.date.mb {
   margin-bottom: 15px;
 }
-div#intro > div#right_widget > div#news > div.content {
-  font-size: 20px;
+@media screen and (min-width: 500px) {
+  div#intro > div#right_widget > div#news > div.content {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#intro > div#right_widget > div#news > div.content {
+    font-size: 16px;
+  }
 }
 div#intro > div#right_widget > div#radios {
   margin: auto auto 32px auto;
@@ -374,7 +381,7 @@ div#research_snippets_container {
 }
 @media screen and (max-width: 500px) {
   div#research_snippets_container > div#research_snippets {
-    --snippetWidth: -webkit-fill-available;
+    --snippetWidth: 100%;
   }
 }
 div#research_snippets_container > div#research_snippets > div.snippet {
@@ -396,7 +403,16 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
 }
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
-  margin-top: 8px;
+}
+@media screen and (min-width: 500px) {
+  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
+    margin-top: 8px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
+    margin-bottom: var(--gap);
+  }
 }
 
 div#funding {
@@ -922,9 +938,19 @@ div#contact_grid > div > p.subtitle {
 }
 div#contact_grid > div > a {
   grid-row: 3/3;
-  font-size: 20px;
-  line-height: 32px;
   grid-column: span 2;
+}
+@media screen and (min-width: 500px) {
+  div#contact_grid > div > a {
+    font-size: 20px;
+    line-height: 32px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#contact_grid > div > a {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 div#contact_grid > div.visit > a {
   text-transform: capitalize;

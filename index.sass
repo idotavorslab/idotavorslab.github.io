@@ -63,11 +63,8 @@ h1
 	letter-spacing: -0.5px
 
 p
-	@include pFontSize()
-	@include min-width($BP4)
-		line-height: 32px
-	@include max-width($BP4)
-		line-height: 24px
+	@include pFontSize(true)
+
 	text-align: left
 	margin-block-start: 0
 
