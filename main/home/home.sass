@@ -118,16 +118,20 @@ div#research_snippets_container
 
 
 	& > div#research_snippets
-		// (1200 - 3*40) / 4  =  1080 / 4  =  270
-		// *  DEP: repeat(4
-		// *  DEP: [column|row]-gap: var(--GAP1)
-		--snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4)
-		display: grid
-		// *  DEP: --snippetWidth
-		grid:
-			template-columns: repeat(4, var(--snippetWidth))
-			column-gap: var(--GAP1)
-			row-gap: var(--GAP1)
+		@include min-width($BP4)
+			// TODO: 3 in a row when BP2
+			// (1200 - 3*40) / 4  =  1080 / 4  =  270
+			// *  DEP: repeat(4
+			// *  DEP: [column|row]-gap: var(--GAP1)
+			--snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4)
+			display: grid
+			// *  DEP: --snippetWidth
+			grid:
+				template-columns: repeat(4, var(--snippetWidth))
+				column-gap: var(--GAP1)
+				row-gap: var(--GAP1)
+		@include max-width($BP4)
+			--snippetWidth: -webkit-fill-available
 
 		& > div.snippet
 			width: var(--snippetWidth)

@@ -10,7 +10,7 @@
   --GAP2: 20px;
   --BIG_GAP0: 120px;
   --BIG_GAP1: 80px;
-  --BIG_GAP2: 60px;
+  --BIG_GAP2: 40px;
   --SMALL_GAP0: 30px;
   --SMALL_GAP1: 20px;
   --SMALL_GAP2: 15px;
@@ -265,12 +265,12 @@ div#main div#home {
 }
 
 #window_stats {
+  display: none;
   position: fixed;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
   color: white;
   font-family: OpenSansBold;
-  display: block;
   white-space: pre;
 }
 
@@ -363,12 +363,19 @@ div#intro > div#right_widget > div#radios > .radio[class~=selected] {
 div#research_snippets_container {
   text-align: left;
 }
-div#research_snippets_container > div#research_snippets {
-  --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
-  display: grid;
-  grid-template-columns: repeat(4, var(--snippetWidth));
-  grid-column-gap: var(--GAP1);
-  grid-row-gap: var(--GAP1);
+@media screen and (min-width: 500px) {
+  div#research_snippets_container > div#research_snippets {
+    --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
+    display: grid;
+    grid-template-columns: repeat(4, var(--snippetWidth));
+    grid-column-gap: var(--GAP1);
+    grid-row-gap: var(--GAP1);
+  }
+}
+@media screen and (max-width: 500px) {
+  div#research_snippets_container > div#research_snippets {
+    --snippetWidth: -webkit-fill-available;
+  }
 }
 div#research_snippets_container > div#research_snippets > div.snippet {
   width: var(--snippetWidth);
