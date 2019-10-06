@@ -270,7 +270,7 @@ div#footer {
   color: var(--GREY3);
   background-color: #262626;
   --paddingHoriz: calc((100% - var(--w)) / 2);
-  padding: var(--gap) var(--paddingHoriz) 0 var(--paddingHoriz);
+  padding: var(--gap) var(--paddingHoriz);
 }
 div#footer a {
   color: #77a9f6;
@@ -311,6 +311,9 @@ div#footer > div#gilad {
   div#footer > div#contact > div {
     margin-bottom: var(--gap);
   }
+  div#footer > div#contact > div.address > a {
+    line-height: 24px;
+  }
   div#footer > div#logos {
     margin-bottom: var(--gap);
   }
@@ -339,6 +342,9 @@ div#footer > div#gilad {
   }
   div#footer > div#contact > div.address {
     grid-column: 1/1;
+  }
+  div#footer > div#contact > div.address > a {
+    line-height: 32px;
   }
   div#footer > div#contact > div.phone-email {
     grid-column: 2/2;

@@ -204,7 +204,7 @@ type TContactData = {
     form: string
 };
 fetchDict<TContactData>("main/contact/contact.json").then(data => {
-    Footer.contact.address.append(paragraph({text: data.visit.address}));
+    Footer.contact.address.append(anchor({href: data.visit.link, text: data.visit.address}).target("_blank"));
     Footer.contact["phone-email"].append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
