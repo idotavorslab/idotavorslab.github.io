@@ -133,6 +133,7 @@ class NavbarElem extends BetterHTMLElement {
         }
     }
 }
+let Navbar;
 Footer.append(elem({ tag: 'iframe' })
     .id('contact_map')
     .attr({
@@ -140,5 +141,11 @@ Footer.append(elem({ tag: 'iframe' })
     allowfullscreen: "",
     src: "https://bit.ly/2mGwkNo"
 }));
-let Navbar;
+fetchDict("main/contact/contact.json").then(data => {
+    Footer.contact.address.append(paragraph({ text: data.visit.address }));
+    Footer.contact["phone-email"].append(paragraph().html(`Phone:
+                                                        <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
+                                                        Email:
+                                                        <a href="mailto:${data.email.address}">${data.email.address}</a>`));
+});
 //# sourceMappingURL=main.js.map

@@ -109,7 +109,16 @@ const WindowElem = elem({htmlElement: window})
             
         }
     });
-const Footer = elem({
+
+interface IFooter extends Div {
+    contact: Div & {
+        address: Div;
+        'phone-email': Div;
+        map: Div
+    }
+}
+
+const Footer: IFooter = <IFooter>elem({
     id: 'footer', children: {
         contact: {'#contact': {address: '.address', 'phone-email': '.phone-email', map: '.map'}},
         logos: '#logos'
@@ -173,6 +182,9 @@ class NavbarElem extends BetterHTMLElement {
     
 }
 
+
+let Navbar; // WindowElem.load =>
+
 Footer.append(elem({tag: 'iframe'})
     .id('contact_map')
     .attr({
@@ -180,5 +192,17 @@ Footer.append(elem({tag: 'iframe'})
         allowfullscreen: "",
         src: "https://bit.ly/2mGwkNo"
     }));
-let Navbar; // WindowElem.load =>
-
+type TContactData = {
+    visit: { address: string, link: string, icon: string },
+    call: { hours: string, phone: string, icon: string },
+    email: { address: string, icon: string, }
+    map: string,
+    form: string
+};
+fetchDict<TContactData>("main/contact/contact.json").then(data => {
+    Footer.contact.address.append(paragraph({text: data.visit.address}));
+    Footer.contact["phone-email"].append(paragraph().html(`Phone:
+                                                        <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
+                                                        Email:
+                                                        <a href="mailto:${data.email.address}">${data.email.address}</a>`))
+});
