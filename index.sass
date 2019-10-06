@@ -173,36 +173,29 @@ div#footer
 		color: rgb(119, 169, 246)
 	box-shadow: 0 -1px 0 var(--GREY2)
 	color: var(--GREY3)
-	background-color: #262626
+
 
 	//--paddingHoriz: calc((100% - var(--w)) / 2)
 	//padding: var(--gap) var(--paddingHoriz)
 
 	// **  all resolutions
+	& > section#contact_section
+		background-color: #464646
 
-	& > div.main-cls > div#contact
-		// TODO: var(--small-font)
-		& > div > p
-			font-size: 16px
+		& > div.main-cls
+			// TODO: var(--small-font)
+			& > div > p
+				font-size: 16px
 
-		& > div.address
-			text-transform: capitalize
+			& > div.address
+				text-transform: capitalize
 
+	& > section#logos_section
+		background-color: #262626
 
-	& > div#logos
-		display: none
-
-		& > img, & > div > img
+		img
 			filter: invert(1)
 			cursor: pointer
-	// med-logo.png is height 72px
-	//@include min-width($BP1)
-	//	height: 60px
-	//@include width-between($BP2, $BP1)
-	//	height: 50px
-	//@include width-between($BP4, $BP2)
-	//	height: 40px
-
 
 	& > div#gilad
 		//display: block
@@ -231,7 +224,7 @@ div#footer
 
 	// **  min-width($BP4)
 	@include min-width($BP4)
-		& > div.main-cls
+		& > section#contact_section > div.main-cls
 			padding: var(--gap) 0
 			display: grid
 			grid:
@@ -245,44 +238,44 @@ div#footer
 				column-gap: var(--gap)
 
 
-			& > div
+			//& > div
 				display: contents
 
-			& > div#contact
-				grid-row: 1/1
 
-				& > div.address
-					grid-column: 1/1
-
-				//& > a
-					// *  DEP: mixins.sass pFontSize
-					line-height: 32px
+			& > div.address
+				grid-column: 1/1
 
 
-				& > div.phone-email
-					grid-column: 2/2
-
-			& > div#logos
-				grid-row: 2/2
-				grid-column: 1/3
-
-				& > div.uni-and-medicine
-					grid-column: 1/2
-					display: flex
-
-					& > img.medicine
-						// *  DEP: #footer grid-column-gap
-						margin-left: var(--gap)
-
-				& > img.sagol
-					grid-column: 2/2
+			& > div.phone-email
+				grid-column: 2/2
 
 			& > iframe#contact_map
-				grid-column: 4/5
-				grid-row: 1/3
+				grid-column: 4/4
+				//grid-row: 1/3
 				//border-radius: 15px
 				width: 100%
 				height: 100%
+//& > section#logos_section > div.main-cls
+		//grid-row: 2/2
+		//grid-column: 1/3
+
+		& > div.uni-and-medicine
+			grid-column: 1/2
+			display: flex
+
+			& > img.medicine
+				// *  DEP: #footer grid-column-gap
+				margin-left: var(--gap)
+
+		& > img.sagol
+			grid-column: 2/2
+
+
+
+
+
+
+
 
 
 #window_stats
