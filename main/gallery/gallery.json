@@ -12,13 +12,13 @@
 		"year": 2019
 	},
 	{
-		"caption": "Niv presenting at the Sagol School of Neuroscience Retreat 2019",
-		"file": "02.jpeg",
+		"caption": "Sagol School of Neuroscience Retreat 2019",
+		"file": "03.jpeg",
 		"year": 2019
 	},
 	{
-		"caption": "Sagol School of Neuroscience Retreat 2019",
-		"file": "03.jpeg",
+		"caption": "Niv presenting at the Sagol School of Neuroscience Retreat 2019",
+		"file": "02.jpeg",
 		"year": 2019
 	},
 	{
@@ -114,10 +114,9 @@
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "20.jpg",
+		"file": "23.jpg",
 		"year": 2019,
-		"contrast": 1.1,
-		"brightness": 1.05
+		"brightness": 1.15
 	},
 	{
 		"caption": "OHBM 2019 Rome",
@@ -131,9 +130,10 @@
 	},
 	{
 		"caption": "OHBM 2019 Rome",
-		"file": "23.jpg",
+		"file": "20.jpg",
 		"year": 2019,
-		"brightness": 1.15
+		"contrast": 1.1,
+		"brightness": 1.05
 	},
 	{
 		"caption": "OHBM 2019 Rome",
