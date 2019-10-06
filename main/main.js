@@ -94,7 +94,12 @@ const WindowElem = elem({ htmlElement: window })
         });
     }
 });
-const Footer = elem({ id: 'footer', children: { contact: '#contact', logos: '#logos' } });
+const Footer = elem({
+    id: 'footer', children: {
+        contact: { '#contact': { address: '.address', 'phone-email': '.phone-email', map: '.map' } },
+        logos: '#logos'
+    }
+});
 class NavbarElem extends BetterHTMLElement {
     constructor({ query, children }) {
         super({ query, children });
@@ -128,5 +133,12 @@ class NavbarElem extends BetterHTMLElement {
         }
     }
 }
+Footer.append(elem({ tag: 'iframe' })
+    .id('contact_map')
+    .attr({
+    frameborder: "0",
+    allowfullscreen: "",
+    src: "https://bit.ly/2mGwkNo"
+}));
 let Navbar;
 //# sourceMappingURL=main.js.map
