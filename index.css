@@ -412,15 +412,12 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
     object-fit: cover;
   }
 }
+div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
+  font-family: OpenSansSemiBold;
+}
 @media screen and (min-width: 500px) {
   div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
-    font-family: OpenSansSemiBold;
     margin-top: 8px;
-  }
-}
-@media screen and (max-width: 500px) {
-  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
-    font-size: 12px;
   }
 }
 
