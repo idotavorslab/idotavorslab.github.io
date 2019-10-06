@@ -53,7 +53,6 @@ const WindowElem = elem({ htmlElement: window })
                 .attr({ src, hidden: "" })
                 .on({
                 load: () => {
-                    console.log(...less(`loaded ${page} | ${file}`));
                     CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
                 }
             });
@@ -147,7 +146,7 @@ Footer.append(elem({ tag: 'iframe' })
     allowfullscreen: "",
     src: "https://bit.ly/2mGwkNo"
 }), div({ id: 'gilad' }).html(`2019
-        Developed by <a href="http://giladbarnea.github.io">Gilad Barnea</a>`));
+        Developed by <a href="http://giladbarnea.github.io">UgUg</a>`));
 fetchDict("main/contact/contact.json").then(data => {
     Footer.contact.address.append(anchor({ href: data.visit.link, text: data.visit.address }).target("_blank"));
     Footer.contact["phone-email"].append(paragraph().html(`Phone:

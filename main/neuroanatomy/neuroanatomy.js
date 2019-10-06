@@ -3,7 +3,6 @@ const NeuroanatomyPage = () => {
         const { brains: brainsData, "intro-text": introText } = await fetchDict('main/neuroanatomy/neuroanatomy.json');
         const brains = [];
         for (let [title, { text, link }] of Object.entries(brainsData)) {
-            console.log(JSON.parstr({ title, text, link }));
             let brain = div({ cls: 'brain' }).append(elem({ tag: 'h1' }).text(title), paragraph({ cls: 'text' }).html(text), div({ cls: 'sketchfab-embed-wrapper' }).html(wrapSketch(title, link)));
             brains.push(brain);
         }

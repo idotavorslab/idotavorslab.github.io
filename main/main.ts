@@ -62,7 +62,7 @@ const WindowElem = elem({htmlElement: window})
                     .attr({src, hidden: ""})
                     .on({
                         load: () => {
-                            console.log(...less(`loaded ${page} | ${file}`));
+                            // console.log(...less(`loaded ${page} | ${file}`));
                             CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
                         }
                     });
@@ -201,7 +201,7 @@ Footer.append(
             src: "https://bit.ly/2mGwkNo"
         }),
     div({id: 'gilad'}).html(`2019
-        Developed by <a href="http://giladbarnea.github.io">Gilad Barnea</a>`)
+        Developed by <a href="http://giladbarnea.github.io">UgUg</a>`)
 );
 type TContactData = {
     visit: { address: string, link: string, icon: string },

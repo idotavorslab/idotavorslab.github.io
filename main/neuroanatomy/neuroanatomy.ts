@@ -8,7 +8,7 @@ const NeuroanatomyPage = () => {
         // const {brains: brainsData, "intro-text": introText} = data;
         const brains = [];
         for (let [title, {text, link}] of Object.entries(brainsData)) {
-            console.log(JSON.parstr({title, text, link}));
+            // console.log(JSON.parstr({title, text, link}));
             let brain = div({cls: 'brain'}).append(
                 elem({tag: 'h1'}).text(title),
                 paragraph({cls: 'text'}).html(text),
