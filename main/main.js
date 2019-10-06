@@ -2,6 +2,11 @@ const isIphone = window.navigator.userAgent.includes('iPhone');
 const DocumentElem = elem({ htmlElement: document });
 const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
+const FundingSection = elem({
+    id: 'funding_section', children: {
+        sponsorsGrid: 'div#sponsors_grid'
+    }
+});
 const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window })
     .on({
@@ -18,10 +23,10 @@ const WindowElem = elem({ htmlElement: window })
     hashchange: (event) => {
         const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
         if (!bool(newURL)) {
-            elem({ tag: 'a' }).attr({ href: `` }).click();
+            anchor({ href: '' }).click();
         }
         else {
-            console.log(`hash change, event.newURL: "${event.newURL}"\nnewURL: "${newURL}"`);
+            console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
             Routing.route(newURL);
         }
     },
@@ -93,31 +98,6 @@ const WindowElem = elem({ htmlElement: window })
         });
     }
 });
-const Footer = elem({
-    id: 'footer', children: {
-        contactSection: {
-            '#contact_section': {
-                mainCls: {
-                    '.main-cls': {
-                        address: '.address',
-                        "phone-email": '.phone-email',
-                        map: '.map'
-                    }
-                }
-            }
-        },
-        logosSection: {
-            '#logos_section': {
-                mainCls: '.main-cls'
-            }
-        },
-        ugugSection: {
-            '#ugug_section': {
-                mainCls: '.main-cls'
-            }
-        }
-    }
-});
 class NavbarElem extends BetterHTMLElement {
     constructor({ query, children }) {
         super({ query, children });
@@ -152,22 +132,47 @@ class NavbarElem extends BetterHTMLElement {
     }
 }
 let Navbar;
-Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
-    .id('contact_map')
-    .attr({
-    frameborder: "0",
-    allowfullscreen: "",
-    src: "https://bit.ly/2mGwkNo"
-}));
+const Footer = elem({
+    id: 'footer', children: {
+        contactSection: {
+            '#contact_section': {
+                mainCls: {
+                    '.main-cls': {
+                        address: '.address',
+                        "phone-email": '.phone-email',
+                        map: '.map'
+                    }
+                }
+            }
+        },
+        logosSection: {
+            '#logos_section': {
+                mainCls: '.main-cls'
+            }
+        },
+        ugugSection: {
+            '#ugug_section': {
+                mainCls: '.main-cls'
+            }
+        }
+    }
+});
 Footer.ugugSection.mainCls.html(`2019
-Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>
-<a href="http://maurann.com" target="_blank">(morki's bf)</a>`);
+    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>
+    <a href="http://maurann.com" target="_blank">(morki's bf)</a>`);
 fetchDict("main/contact/contact.json").then(data => {
     Footer.contactSection.mainCls.address.append(anchor({ href: data.visit.link }).html(data.visit.address).target("_blank"));
     Footer.contactSection.mainCls["phone-email"].append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));
+    Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
+        .id('contact_map')
+        .attr({
+        frameborder: "0",
+        allowfullscreen: "",
+        src: data.map
+    }));
     const [uni, medicine, sagol] = Footer.logosSection.mainCls.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));

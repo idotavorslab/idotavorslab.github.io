@@ -19,7 +19,7 @@ const Routing = (() => {
         return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
     }
     function route(url) {
-        console.log(`%croute(url: "${url}")`, `color: ${GOOGLEBLUE}`);
+        console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().includes(url)) {
                 console.log(`\tvalid url ("${url}"), calling pageObj().init()`);
@@ -27,6 +27,8 @@ const Routing = (() => {
                     Footer.attr({ hidden: '' });
                 else
                     Footer.removeAttr('hidden');
+                if (url !== "home")
+                    FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 const selectNavbarItem = () => Navbar.select(Navbar[url]);
