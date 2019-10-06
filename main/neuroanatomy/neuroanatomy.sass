@@ -11,16 +11,27 @@ div#home
 	//& > span.bold:after
 		content: " "
 
-	& > div.brain
-		margin-bottom: var(--big_gap)
+	& > div#brains_flex
+		display: flex
+		flex-wrap: wrap
+
+		& > div.brain:nth-child(2n+1)
+			// *  DEP: div.brain width
+			margin-right: var(--gap)
+
+		& > div.brain
+			margin-bottom: var(--big_gap)
+			// *  DEP: div.brain:nth-child(2n+1) margin-right
+			width: calc(50% - calc(var(--gap) / 2))
 
 
-		& > p.text
-			width: calc(var(--w) * 0.6)
+			& > div.sketchfab-embed-wrapper
+				margin-bottom: var(--small_gap)
 
+				& > iframe
+					border-radius: 15px
+					width: 100%
+					height: calc(var(--w) / 2 - var(--big_gap) * 2)
 
-		& > div.sketchfab-embed-wrapper
-			& > iframe
-				@include iframeMixin()
 
 

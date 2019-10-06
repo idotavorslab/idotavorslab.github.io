@@ -975,16 +975,24 @@ div#home > div#neuroanatomy_intro {
 div#home > div#neuroanatomy_intro > p:first-of-type {
   font-family: OpenSansBold;
 }
-div#home > div.brain {
+div#home > div#brains_flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+div#home > div#brains_flex > div.brain:nth-child(2n+1) {
+  margin-right: var(--gap);
+}
+div#home > div#brains_flex > div.brain {
   margin-bottom: var(--big_gap);
+  width: calc(50% - calc(var(--gap) / 2));
 }
-div#home > div.brain > p.text {
-  width: calc(var(--w) * 0.6);
+div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
+  margin-bottom: var(--small_gap);
 }
-div#home > div.brain > div.sketchfab-embed-wrapper > iframe {
-  width: var(--w);
-  height: 600px;
+div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper > iframe {
   border-radius: 15px;
+  width: 100%;
+  height: calc(var(--w) / 2 - var(--big_gap) * 2);
 }
 
 iframe#contact_form {
