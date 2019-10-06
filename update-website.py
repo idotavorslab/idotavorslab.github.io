@@ -80,7 +80,7 @@ if not onlygit:
                '.python-version',
                ]
     excludestr = ' '.join(['--exclude=%s' % ex for ex in exclude])
-    cmd = 'rsync -avrth --delete-excluded %s ./ idotavor@gp.tau.ac.il:public_html' % excludestr
+    cmd = 'rsync -avrth --delete-excluded --chmod=755 %s ./ idotavor@gp.tau.ac.il:public_html' % excludestr
     print('cmd: %s\n\n\n' % cmd)
     os.system(cmd)
 
@@ -90,6 +90,3 @@ if not onlygit:
        |   In a few minutes, you will be able to see the changes at tau.ac.il/~idotavor |
        ----------------------------------------------------------------------------------
        ''')
-
-mylist = list(["hi", "bye"])
-mylist.sort(reverse=True)

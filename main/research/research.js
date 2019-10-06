@@ -11,10 +11,8 @@ const ResearchPage = () => {
             let cachedImage = CacheDiv[`research.${image}`];
             if (cachedImage !== undefined) {
                 imgElem = cachedImage.removeAttr('hidden');
-                console.log('research | cachedImage isnt undefined:', cachedImage);
             }
             else {
-                console.log('research | cachedImage IS undefined:', cachedImage);
                 let src;
                 if (image.includes('http') || image.includes('www')) {
                     src = image;

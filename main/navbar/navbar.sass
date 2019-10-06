@@ -1,9 +1,7 @@
 
 div#navbar
-	// MAYBE depends on index.sass #main --marginVertical (half)
-
-
-	// **  for FIXED navbar
+	@include max-width($BP4)
+		display: none
 	position: fixed
 	width: inherit
 	z-index: 5
@@ -25,7 +23,6 @@ div#navbar
 	& > div, & > img.home
 		margin:
 			top: auto
-			// 40px
 			right: 40px
 			left: 0
 			bottom: auto

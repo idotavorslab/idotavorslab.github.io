@@ -18,8 +18,8 @@ const GalleryPage = () => {
                     this.brightness = brightness;
                 if (year !== undefined)
                     this.year = year;
-                this.pointerdown((event) => {
-                    console.log('this pointerdown:', this);
+                this.click((event) => {
+                    console.log('this click:', this);
                     event.stopPropagation();
                     return toggleImgViewer(this);
                 });
@@ -69,11 +69,11 @@ const GalleryPage = () => {
         async function gotoAdjImg(event) {
             event.stopPropagation();
             if (event.currentTarget.id === 'left_chevron') {
-                console.log('left chevron pointerdown');
+                console.log('left chevron click');
                 switchToImg(selectedImg.getLeftImage());
             }
             else {
-                console.log('right chevron pointerdown');
+                console.log('right chevron click');
                 switchToImg(selectedImg.getRightImage());
             }
         }
@@ -100,12 +100,12 @@ const GalleryPage = () => {
         }
         const imgViewer = div({ id: 'img_viewer' })
             .cacheAppend({
-            left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).pointerdown(gotoAdjImg),
+            left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).click(gotoAdjImg),
             img: img({}),
-            right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).pointerdown(gotoAdjImg),
+            right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).click(gotoAdjImg),
             caption: div({ id: 'caption' })
-        }).pointerdown((event) => {
-            console.log('imgViewer pointerdown, stopping propagation');
+        }).click((event) => {
+            console.log('imgViewer click, stopping propagation');
             event.stopPropagation();
         });
         imgViewer.isopen = false;
@@ -175,10 +175,10 @@ const GalleryPage = () => {
         const imagesContainer = div({ id: 'images_container' })
             .append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
-            .pointerdown(() => {
+            .click(() => {
             if (!imgViewer.isopen)
                 return;
-            console.log('document pointerdown, closeImgViewer()');
+            console.log('document click, closeImgViewer()');
             closeImgViewer();
         })
             .keydown((event) => {
@@ -195,7 +195,7 @@ const GalleryPage = () => {
         });
         const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
             .attr({ viewBox: `0 0 32 32` })
-            .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).pointerdown(closeImgViewer);
+            .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).click(closeImgViewer);
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
     }
     return { init };

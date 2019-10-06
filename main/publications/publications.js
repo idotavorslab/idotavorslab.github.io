@@ -25,7 +25,7 @@ const PublicationsPage = () => {
                 }),
                 pdf: div({ cls: 'pdf-div' })
                     .text(_getPdfText(link))
-            }).pointerdown(_openLink);
+            }).click(_openLink);
         }
     }
     async function init() {

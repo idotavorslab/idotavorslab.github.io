@@ -14,8 +14,8 @@ const ContactPage = () => {
             map: string,
             form: string
         };
-        // let svg = await fetchText("main/contact/home-simple.svg");
         const data = await fetchDict<TContactData>("main/contact/contact.json");
+        // let svg = await fetchText("main/contact/home-simple.svg");
         const visit = div({cls: 'visit'})
             .append(
                 elem({tag: 'h1', text: 'Visit'}),

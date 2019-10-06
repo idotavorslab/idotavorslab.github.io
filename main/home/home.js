@@ -36,7 +36,7 @@ const HomePage = () => {
         }
         push(item) {
             this.data.push(item);
-            item.radio.pointerdown(async () => {
+            item.radio.click(async () => {
                 this._userPressed = true;
                 this.stopAutoSwitch();
                 await this.switchTo(item);
@@ -117,27 +117,21 @@ const HomePage = () => {
                     console.log(`%cloaded: ${thumbnail}`, `color: #ffc66d`);
                 }
             }), div({ cls: 'snippet-title', text: title }))
-                .pointerdown((event) => {
+                .click((event) => {
                 ResearchPage().init(i);
                 history.pushState(null, null, '#research');
+                Footer.attr({ hidden: '' });
+                Navbar.select(Navbar.research);
             }));
         }
         const fundingData = data.funding;
-        const sponsorsGrid = elem({ query: "#sponsors" });
+        FundingSection.removeAttr('hidden');
         for (let [title, { image, text, large }] of dict(fundingData).items()) {
-            let sponsorImage = img({ src: `main/home/${image}` })
-                .on({
-                load: () => {
-                    console.log(`%cloaded: ${image}`, `color: #ffc66d`);
-                }
-            });
+            let sponsorImage = img({ src: `main/home/${image}` });
             if (large === true)
                 sponsorImage.css({ width: '260px' });
-            sponsorsGrid.append(div({ cls: 'sponsor' }).append(sponsorImage, div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
+            FundingSection.sponsorsGrid.append(div({ cls: 'sponsor' }).append(sponsorImage, div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
         }
-        elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));
-        elem({ query: "#logos > :nth-child(2)" }).pointerdown(() => window.open("https://en-med.tau.ac.il/"));
-        elem({ query: "#logos > :nth-child(3)" }).pointerdown(() => window.open("https://www.sagol.tau.ac.il/"));
     }
     return { init };
 };

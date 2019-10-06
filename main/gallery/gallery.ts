@@ -42,8 +42,8 @@ const GalleryPage = () => {
                 if (year !== undefined)
                     this.year = year;
                 
-                this.pointerdown((event: PointerEvent) => {
-                    console.log('this pointerdown:', this);
+                this.click((event: PointerEvent) => {
+                    console.log('this click:', this);
                     event.stopPropagation();
                     return toggleImgViewer(this);
                 })
@@ -95,7 +95,7 @@ const GalleryPage = () => {
         //**  Functions
         // DocumentElem.keydown Arrow  =>  switchToImg
         // Chevron click  =>  gotoAdjImg  =>  switchToImg
-        // galleryImg.pointerdown  =>  toggleImgViewer  =>  switchToImg
+        // galleryImg.click  =>  toggleImgViewer  =>  switchToImg
         function switchToImg(_selectedImg: GalleryImg) {
             // *  Clicked Arrow key or clicked Chevron
             console.log(`galleryImg.switchToImg(`, JSON.parstr({_selectedImg}));
@@ -116,18 +116,18 @@ const GalleryPage = () => {
             event.stopPropagation();
             // @ts-ignore
             if (event.currentTarget.id === 'left_chevron') {
-                console.log('left chevron pointerdown');
+                console.log('left chevron click');
                 switchToImg(selectedImg.getLeftImage());
             } else { // right
-                console.log('right chevron pointerdown');
+                console.log('right chevron click');
                 switchToImg(selectedImg.getRightImage());
             }
         }
         
-        // galleryImg.pointerdown  =>  closeImgViewer
-        // DocumentElem.pointerdown  =>  closeImgViewer
+        // galleryImg.click  =>  closeImgViewer
+        // DocumentElem.click  =>  closeImgViewer
         // DocumentElem.keydown Arrow  =>  closeImgViewer
-        // X.pointerdown  =>  closeImgViewer
+        // X.click  =>  closeImgViewer
         function closeImgViewer() {
             // *  Clicked X, click outside viewer, Escape,
             Body.toggleClass('theater', false);
@@ -139,7 +139,7 @@ const GalleryPage = () => {
             imgViewer.isopen = false;
         }
         
-        // galleryImg.pointerdown  =>  toggleImgViewer
+        // galleryImg.click  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
             console.log('galleryImg.toggleImgViewer(', JSON.parstr({_selectedImg}));
@@ -159,14 +159,14 @@ const GalleryPage = () => {
         //**  imgViewer
         const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
-                left: div({id: 'left_chevron', cls: 'left'}).html(chevronSvg).pointerdown(gotoAdjImg),
+                left: div({id: 'left_chevron', cls: 'left'}).html(chevronSvg).click(gotoAdjImg),
                 img: img({}),
-                right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).pointerdown(gotoAdjImg),
+                right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).click(gotoAdjImg),
                 caption: div({id: 'caption'})
-            }).pointerdown((event: Event) => {
+            }).click((event: Event) => {
                 // *  Clicked on img, not chevrons. do nothing
                 // TODO: listen to .left, img, .right clicks for better resolution
-                console.log('imgViewer pointerdown, stopping propagation');
+                console.log('imgViewer click, stopping propagation');
                 event.stopPropagation();
             });
         
@@ -256,10 +256,10 @@ const GalleryPage = () => {
             .append(...Object.values(yearToYearDiv).reverse());
         
         DocumentElem
-            .pointerdown(() => {
+            .click(() => {
                 if (!imgViewer.isopen)
                     return;
-                console.log('document pointerdown, closeImgViewer()');
+                console.log('document click, closeImgViewer()');
                 closeImgViewer();
             })
             .keydown((event: KeyboardEvent) => {
@@ -284,7 +284,7 @@ const GalleryPage = () => {
                     elem({tag: 'path', cls: 'upright'}),
                     elem({tag: 'path', cls: 'downleft'})
                 )
-        ).pointerdown(closeImgViewer);
+        ).click(closeImgViewer);
         
         
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);

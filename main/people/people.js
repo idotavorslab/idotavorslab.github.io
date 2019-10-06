@@ -29,8 +29,8 @@ const PeoplePage = () => {
                     console.log('people | cachedImage IS undefined');
                     imgElem = img({ src: `main/people/${image}` });
                 }
-                this.append(imgElem, div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).pointerdown((event) => {
-                    console.log('person pointerdown, stopping prop and toggling expando');
+                this.append(imgElem, div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).click((event) => {
+                    console.log('person click, stopping prop and toggling expando');
                     event.stopPropagation();
                     expando.toggle(this);
                 });
@@ -101,16 +101,16 @@ const PeoplePage = () => {
                 super({ id: 'person_expando' });
                 this.owner = null;
                 this
-                    .pointerdown((event) => {
-                    console.log('expando pointerdown, stopping propagation');
+                    .click((event) => {
+                    console.log('expando click, stopping propagation');
                     event.stopPropagation();
                 })
                     .append(elem({ tag: 'svg' })
                     .id('svg_root')
                     .attr({ viewBox: '0 0 15 15' })
                     .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
-                    .pointerdown((event) => {
-                    console.log('svg pointerdown, stopping prop and closing');
+                    .click((event) => {
+                    console.log('svg click, stopping prop and closing');
                     event.stopPropagation();
                     this.close();
                 }))
@@ -211,8 +211,8 @@ const PeoplePage = () => {
         const alumniGrid = gridFactory({ gridData: alumniData, people: alumni });
         Home.empty().class('people-page').append(elem({ tag: 'h1', text: 'Team' }), teamGrid, elem({ tag: 'h1', text: 'Alumni' }), alumniGrid);
         DocumentElem
-            .pointerdown(() => {
-            console.log('DocumentElem pointerdown');
+            .click(() => {
+            console.log('DocumentElem click');
             if (expando.owner !== null)
                 expando.close();
         })

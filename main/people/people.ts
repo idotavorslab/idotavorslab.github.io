@@ -33,8 +33,8 @@ const PeoplePage = () => {
                     imgElem,
                     div({text: name, cls: "name"}),
                     div({text: role, cls: "role"}),
-                ).pointerdown((event) => {
-                    console.log('person pointerdown, stopping prop and toggling expando');
+                ).click((event) => {
+                    console.log('person click, stopping prop and toggling expando');
                     event.stopPropagation();
                     expando.toggle(this);
                 });
@@ -132,9 +132,9 @@ const PeoplePage = () => {
             constructor() {
                 super({id: 'person_expando'});
                 this
-                    .pointerdown((event: Event) => {
+                    .click((event: Event) => {
                         // prevent propagation to DocumentElem
-                        console.log('expando pointerdown, stopping propagation');
+                        console.log('expando click, stopping propagation');
                         event.stopPropagation();
                     })
                     .append(
@@ -145,8 +145,8 @@ const PeoplePage = () => {
                                 elem({tag: 'path', cls: 'upright'}),
                                 elem({tag: 'path', cls: 'downleft'})
                             )
-                            .pointerdown((event) => {
-                                console.log('svg pointerdown, stopping prop and closing');
+                            .click((event) => {
+                                console.log('svg click, stopping prop and closing');
                                 event.stopPropagation();
                                 this.close();
                             }))
@@ -341,8 +341,8 @@ const PeoplePage = () => {
         
         
         DocumentElem
-            .pointerdown(() => {
-                console.log('DocumentElem pointerdown');
+            .click(() => {
+                console.log('DocumentElem click');
                 if (expando.owner !== null)
                     expando.close()
             })

@@ -1,8 +1,9 @@
 // ***  intro
+$_marginBottom: 80px
 div#intro
 	display: flex
 	margin:
-		bottom: var(--big_gap)
+		bottom: $_marginBottom
 	position: relative
 	text-align: left
 
@@ -149,67 +150,63 @@ div#research_snippets_container
 					object-fit: cover
 
 			& > div.snippet-title
+				font-family: OpenSansSemiBold
+				font-size: 20px
+				line-height: 26px
 				@include min-width($BP4)
-					font-family: OpenSansSemiBold
 					margin-top: 8px
-				@include max-width($BP4)
-					font-size: 12px
+//@include max-width($BP4)
+	font-size: 12px
 
 // ***  funding
-div#funding
-	// *  DEP: contact.sass contact_grid
-	text-align: center
-	margin:
-		top: var(--big_gap)
-		bottom: var(--gap)
+section#funding_section
+	//background-color: rgb(231, 231, 224)
+	background-color: rgb(242, 242, 242)
+	margin-top: $_marginBottom
 
-	& > div#sponsors
-		--rowLength: 3
-		--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
-		display: grid
-		grid:
-			template-columns: repeat(var(--rowLength), var(--sponsorWidth))
-			column-gap: var(--GAP1)
-			row-gap: var(--GAP1)
-
-		& > div.sponsor
-
-			cursor: pointer
-			display: flex
-			flex-direction: column
+	& > div.main-cls
+		padding: 60px 0 $_marginBottom 0
 
 
-			& > img
-				width: 160px
-				height: 160px
-				margin: 0 auto var(--small_gap) auto
-				object-fit: contain
+		// *  DEP: contact.sass contact_grid
+		text-align: center
+		//margin:
+			top: var(--big_gap)
+			bottom: var(--gap)
 
-			& > div.sponsor-title
-				font-family: OpenSansBold
-				margin:
-					top: 0
-					bottom: 8px
+		& > h1
+			text-align: center
+			margin-bottom: 60px
+
+		& > div#sponsors_grid
+			--rowLength: 3
+			--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+			display: grid
+			grid:
+				template-columns: repeat(var(--rowLength), var(--sponsorWidth))
+				column-gap: var(--GAP1)
+				row-gap: var(--GAP1)
+
+			& > div.sponsor
+
+				cursor: pointer
+				display: flex
+				flex-direction: column
 
 
-			& > div.sponsor-text
+				& > img
+					width: 160px
+					height: 160px
+					margin: 0 auto var(--small_gap) auto
+					object-fit: contain
+
+				& > div.sponsor-title
+					font-family: OpenSansBold
+					margin:
+						top: 0
+						bottom: 8px
 
 
-// ***  footer
-div#footer
-	box-shadow: 0 -1px 0 var(--GREY2)
-	padding-top: 30px
-
-	& > div#logos
-		//margin: calc(var(--GAP0) / 2) auto
-		//display: inline-block
-
-		& > img
-			cursor: pointer
-			// med-logo.png is height 72px
-			height: 72px
-			margin: 0 var(--small_gap)
-//width: 120px
 
 
 

@@ -4,9 +4,14 @@ const isIphone = window.navigator.userAgent.includes('iPhone');
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
-
+const FundingSection = <Div & { sponsorsGrid: Div }>elem({
+    id: 'funding_section', children: {
+        sponsorsGrid: 'div#sponsors_grid'
+    }
+});
 
 const CacheDiv = elem({id: 'cache'});
+
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
@@ -26,9 +31,10 @@ const WindowElem = elem({htmlElement: window})
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
-                elem({tag: 'a'}).attr({href: ``}).click()
+                // elem({tag: 'a'}).attr({href: ``}).click()
+                anchor({href: ''}).click();
             } else {
-                console.log(`hash change, event.newURL: "${event.newURL}"\nnewURL: "${newURL}"`);
+                console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
                 Routing.route(<Routing.Page>newURL);
             }
             
@@ -62,7 +68,7 @@ const WindowElem = elem({htmlElement: window})
                     .attr({src, hidden: ""})
                     .on({
                         load: () => {
-                            console.log(...less(`loaded ${page} | ${file}`));
+                            // console.log(...less(`loaded ${page} | ${file}`));
                             CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
                         }
                     });
@@ -109,7 +115,6 @@ const WindowElem = elem({htmlElement: window})
             
         }
     });
-const Footer = elem({id: 'footer'});
 
 
 class NavbarElem extends BetterHTMLElement {
@@ -123,7 +128,7 @@ class NavbarElem extends BetterHTMLElement {
     
     constructor({query, children}) {
         super({query, children});
-        // this.home.pointerdown(() => {
+        // this.home.click(() => {
         //     // _startSeparatorAnimation();
         //     // @ts-ignore
         //     window.location = window.location.origin;
@@ -131,9 +136,9 @@ class NavbarElem extends BetterHTMLElement {
         
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
-                .pointerdown(() => {
+                .click(() => {
                     let href = pageString === "home" ? '' : `#${pageString}`;
-                    console.log(`navbar ${pageString} pointerdown, clicking fake <a href="${href}">`);
+                    console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
                     anchor({href}).click(); // no need to select because Routing.route does this
                     // elem({tag: 'a'}).attr({href}).click();
                 })
@@ -168,5 +173,81 @@ class NavbarElem extends BetterHTMLElement {
     
 }
 
-
 let Navbar; // WindowElem.load =>
+
+// ***  Footer
+interface IFooter extends Div {
+    contactSection: Div & {
+        mainCls: Div & {
+            address: Div;
+            'phone-email': Div;
+            map: Div
+        }
+    };
+    logosSection: Div & {
+        mainCls: Div
+    };
+    ugugSection: Div & {
+        mainCls: Div
+    }
+}
+
+const Footer: IFooter = <IFooter>elem({
+    id: 'footer', children: {
+        contactSection: {
+            '#contact_section': {
+                mainCls: {
+                    '.main-cls': {
+                        address: '.address',
+                        "phone-email": '.phone-email',
+                        map: '.map'
+                    }
+                }
+            }
+        },
+        logosSection: {
+            '#logos_section': {
+                mainCls: '.main-cls'
+            }
+        },
+        ugugSection: {
+            '#ugug_section': {
+                mainCls: '.main-cls'
+            }
+        }
+        
+        
+    }
+});
+
+Footer.ugugSection.mainCls.html(`2019
+    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>
+    <a href="http://maurann.com" target="_blank">(morki's bf)</a>`);
+
+type TContactData = {
+    visit: { address: string, link: string, icon: string },
+    call: { hours: string, phone: string, icon: string },
+    email: { address: string, icon: string, }
+    map: string,
+    form: string
+};
+fetchDict<TContactData>("main/contact/contact.json").then(data => {
+    Footer.contactSection.mainCls.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
+    Footer.contactSection.mainCls["phone-email"].append(paragraph().html(`Phone:
+                                                        <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
+                                                        Email:
+                                                        <a href="mailto:${data.email.address}">${data.email.address}</a>`));
+    Footer.contactSection.mainCls.append(
+        elem({tag: 'iframe'})
+            .id('contact_map')
+            .attr({
+                frameborder: "0",
+                allowfullscreen: "",
+                src: data.map
+            }),
+    );
+    const [uni, medicine, sagol] = Footer.logosSection.mainCls.children('img');
+    uni.click(() => window.open("https://www.tau.ac.il"));
+    medicine.click(() => window.open("https://en-med.tau.ac.il/"));
+    sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
+});

@@ -8,18 +8,19 @@ const NeuroanatomyPage = () => {
         // const {brains: brainsData, "intro-text": introText} = data;
         const brains = [];
         for (let [title, {text, link}] of Object.entries(brainsData)) {
-            console.log(JSON.parstr({title, text, link}));
+            // console.log(JSON.parstr({title, text, link}));
             let brain = div({cls: 'brain'}).append(
-                elem({tag: 'h1'}).text(title),
+                elem({tag: 'h2'}).text(title),
+                div({cls: 'sketchfab-embed-wrapper'}).html(wrapSketch(title, link)),
                 paragraph({cls: 'text'}).html(text),
-                div({cls: 'sketchfab-embed-wrapper'}).html(wrapSketch(title, link))
             );
             brains.push(brain);
         }
         Home.empty().class('neuroanatomy-page').append(
             elem({tag: 'h1'}).text('Introduction'),
             div({id: 'neuroanatomy_intro'}).html(introText),
-            ...brains
+            div({id: 'brains_flex'}).append(...brains)
+            // ...brains
         )
     }
     
