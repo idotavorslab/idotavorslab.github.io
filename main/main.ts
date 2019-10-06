@@ -117,8 +117,11 @@ interface IFooter extends Div {
             'phone-email': Div;
             map: Div
         }
-    }
+    };
     logosSection: Div & {
+        mainCls: Div
+    };
+    ugugSection: Div & {
         mainCls: Div
     }
 }
@@ -141,6 +144,12 @@ const Footer: IFooter = <IFooter>elem({
                 mainCls: '.main-cls'
             }
         },
+        ugugSection: {
+            '#ugug_section': {
+                mainCls: '.main-cls'
+            }
+        }
+        
         
     }
 });
@@ -216,6 +225,9 @@ Footer.contactSection.mainCls.append(
     // div({id: 'gilad'}).html(`2019
     //     Developed by <a href="http://giladbarnea.github.io" target="_blank">UgUg</a>`)
 );
+Footer.ugugSection.mainCls.html(`2019
+Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>
+<a href="http://maurann.com" target="_blank">(morki's bf)</a>`);
 type TContactData = {
     visit: { address: string, link: string, icon: string },
     call: { hours: string, phone: string, icon: string },

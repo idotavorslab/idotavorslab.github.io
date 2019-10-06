@@ -288,7 +288,7 @@ div#main div#home {
   display: block;
   opacity: 1;
   position: relative;
-  padding-top: 110px;
+  padding-top: 130px;
 }
 
 div#footer {
@@ -308,7 +308,7 @@ div#footer > section#contact_section > div.main-cls > div.address {
   text-transform: capitalize;
 }
 div#footer > section#logos_section {
-  background-color: #262626;
+  background-color: #464646;
 }
 div#footer > section#logos_section img {
   filter: invert(1);
@@ -331,7 +331,7 @@ div#footer > div#gilad {
 }
 @media screen and (min-width: 500px) {
   div#footer > section#contact_section > div.main-cls {
-    padding: var(--gap) 0;
+    padding: 60px 0 40px 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-row-gap: var(--gap);
@@ -346,7 +346,20 @@ div#footer > div#gilad {
   div#footer > section#contact_section > div.main-cls > iframe#contact_map {
     grid-column: 4/4;
     width: 100%;
-    height: 100%;
+    height: calc(100% + 100px);
+  }
+  div#footer > section#logos_section {
+    padding-bottom: 60px;
+  }
+  div#footer > section#logos_section img {
+    height: 60px;
+    margin-right: 40px;
+    width: auto;
+  }
+  div#footer > section#ugug_section {
+    background-color: #262626;
+    font-size: 12px;
+    padding: 10px 0;
   }
 }
 
@@ -362,7 +375,7 @@ div#footer > div#gilad {
 
 div#intro {
   display: flex;
-  margin-bottom: var(--big_gap);
+  margin-bottom: 80px;
   position: relative;
   text-align: left;
 }
@@ -499,6 +512,8 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
 }
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
+  font-size: 20px;
+  line-height: 26px;
 }
 @media screen and (min-width: 500px) {
   div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
@@ -507,7 +522,7 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
 }
 
 section#funding_section {
-  background-color: antiquewhite;
+  background-color: #f2f2f2;
   margin-top: 80px;
 }
 section#funding_section > div#funding {
@@ -542,6 +557,7 @@ section#funding_section > div#funding > div#sponsors > div.sponsor > div.sponsor
   margin-top: 0;
   margin-bottom: 8px;
 }
+
 div#home > div.article {
   display: grid;
   grid-column-gap: var(--gap);

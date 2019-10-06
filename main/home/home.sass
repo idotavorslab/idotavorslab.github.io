@@ -1,8 +1,9 @@
 // ***  intro
+$_marginBottom: 80px
 div#intro
 	display: flex
 	margin:
-		bottom: var(--big_gap)
+		bottom: $_marginBottom
 	position: relative
 	text-align: left
 
@@ -150,6 +151,8 @@ div#research_snippets_container
 
 			& > div.snippet-title
 				font-family: OpenSansSemiBold
+				font-size: 20px
+				line-height: 26px
 				@include min-width($BP4)
 					margin-top: 8px
 //@include max-width($BP4)
@@ -157,11 +160,12 @@ div#research_snippets_container
 
 // ***  funding
 section#funding_section
-	background-color: antiquewhite
-	margin-top: 80px
+	//background-color: rgb(231, 231, 224)
+	background-color: rgb(242, 242, 242)
+	margin-top: $_marginBottom
 
 	& > div#funding
-		padding: 60px 0 80px 0
+		padding: 60px 0 $_marginBottom 0
 
 
 		// *  DEP: contact.sass contact_grid
@@ -203,10 +207,6 @@ section#funding_section
 						bottom: 8px
 
 
-				& > div.sponsor-text
-
-
-//width: 120px
 
 
 
