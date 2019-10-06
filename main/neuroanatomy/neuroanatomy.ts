@@ -10,7 +10,7 @@ const NeuroanatomyPage = () => {
         for (let [title, {text, link}] of Object.entries(brainsData)) {
             // console.log(JSON.parstr({title, text, link}));
             let brain = div({cls: 'brain'}).append(
-                elem({tag: 'h1'}).text(title),
+                elem({tag: 'h2'}).text(title),
                 div({cls: 'sketchfab-embed-wrapper'}).html(wrapSketch(title, link)),
                 paragraph({cls: 'text'}).html(text),
             );

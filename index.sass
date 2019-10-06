@@ -62,6 +62,17 @@ h1
 	color: var(--GREY8)
 	letter-spacing: -0.5px
 
+h2
+	font-family: OpenSansBold
+	color: var(--GREY8)
+	letter-spacing: -0.5px
+	@include min-width($BP4)
+		font-size: 24px
+		line-height: 32px
+	@include max-width($BP4)
+		font-size: 12px
+		line-height: 16px
+
 p
 	@include pFontSize(true)
 

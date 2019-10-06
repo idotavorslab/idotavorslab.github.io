@@ -152,6 +152,24 @@ h1 {
   }
 }
 
+h2 {
+  font-family: OpenSansBold;
+  color: var(--GREY8);
+  letter-spacing: -0.5px;
+}
+@media screen and (min-width: 500px) {
+  h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
+@media screen and (max-width: 500px) {
+  h2 {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
 p {
   text-align: left;
   margin-block-start: 0;
@@ -987,7 +1005,7 @@ div#home > div#brains_flex > div.brain {
   width: calc(50% - calc(var(--gap) / 2));
 }
 div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
-  margin-bottom: var(--small_gap);
+  margin-bottom: calc(var(--small_gap) / 2);
 }
 div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper > iframe {
   border-radius: 15px;
