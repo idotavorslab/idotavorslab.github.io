@@ -208,12 +208,6 @@ const HomePage = () => {
         }
         
         
-        // ***  Logos
-        elem({query: "#logos > :nth-child(1)"}).pointerdown(() => window.open("https://www.tau.ac.il"));
-        elem({query: "#logos > :nth-child(2)"}).pointerdown(() => window.open("https://en-med.tau.ac.il/"));
-        elem({query: "#logos > :nth-child(3)"}).pointerdown(() => window.open("https://www.sagol.tau.ac.il/"));
-        
-        
     }
     
     

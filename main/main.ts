@@ -115,12 +115,19 @@ interface IFooter extends Div {
         address: Div;
         'phone-email': Div;
         map: Div
-    }
+    },
+    logos: Div
 }
 
 const Footer: IFooter = <IFooter>elem({
     id: 'footer', children: {
-        contact: {'#contact': {address: '.address', 'phone-email': '.phone-email', map: '.map'}},
+        contact: {
+            '#contact': {
+                address: '.address',
+                'phone-email': '.phone-email',
+                map: '.map'
+            }
+        },
         logos: '#logos'
     }
 });
@@ -208,5 +215,9 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
     Footer.contact["phone-email"].append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
-                                                        <a href="mailto:${data.email.address}">${data.email.address}</a>`))
+                                                        <a href="mailto:${data.email.address}">${data.email.address}</a>`));
+    const [uni, medicine, sagol] = Footer.logos.children('img');
+    uni.click(() => window.open("https://www.tau.ac.il"));
+    medicine.click(() => window.open("https://en-med.tau.ac.il/"));
+    sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });

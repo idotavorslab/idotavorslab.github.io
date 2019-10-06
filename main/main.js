@@ -96,7 +96,13 @@ const WindowElem = elem({ htmlElement: window })
 });
 const Footer = elem({
     id: 'footer', children: {
-        contact: { '#contact': { address: '.address', 'phone-email': '.phone-email', map: '.map' } },
+        contact: {
+            '#contact': {
+                address: '.address',
+                'phone-email': '.phone-email',
+                map: '.map'
+            }
+        },
         logos: '#logos'
     }
 });
@@ -148,5 +154,9 @@ fetchDict("main/contact/contact.json").then(data => {
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));
+    const [uni, medicine, sagol] = Footer.logos.children('img');
+    uni.click(() => window.open("https://www.tau.ac.il"));
+    medicine.click(() => window.open("https://en-med.tau.ac.il/"));
+    sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });
 //# sourceMappingURL=main.js.map

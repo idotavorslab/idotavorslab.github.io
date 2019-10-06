@@ -135,9 +135,6 @@ const HomePage = () => {
                 sponsorImage.css({ width: '260px' });
             sponsorsGrid.append(div({ cls: 'sponsor' }).append(sponsorImage, div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
         }
-        elem({ query: "#logos > :nth-child(1)" }).pointerdown(() => window.open("https://www.tau.ac.il"));
-        elem({ query: "#logos > :nth-child(2)" }).pointerdown(() => window.open("https://en-med.tau.ac.il/"));
-        elem({ query: "#logos > :nth-child(3)" }).pointerdown(() => window.open("https://www.sagol.tau.ac.il/"));
     }
     return { init };
 };
