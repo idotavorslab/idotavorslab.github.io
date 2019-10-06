@@ -185,13 +185,17 @@ class NavbarElem extends BetterHTMLElement {
 
 let Navbar; // WindowElem.load =>
 
-Footer.append(elem({tag: 'iframe'})
-    .id('contact_map')
-    .attr({
-        frameborder: "0",
-        allowfullscreen: "",
-        src: "https://bit.ly/2mGwkNo"
-    }));
+Footer.append(
+    elem({tag: 'iframe'})
+        .id('contact_map')
+        .attr({
+            frameborder: "0",
+            allowfullscreen: "",
+            src: "https://bit.ly/2mGwkNo"
+        }),
+    div({id: 'gilad'}).html(`2019
+        Developed by <a href="http://giladbarnea.github.io">Gilad Barnea</a>`)
+);
 type TContactData = {
     visit: { address: string, link: string, icon: string },
     call: { hours: string, phone: string, icon: string },

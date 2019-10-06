@@ -140,7 +140,8 @@ Footer.append(elem({ tag: 'iframe' })
     frameborder: "0",
     allowfullscreen: "",
     src: "https://bit.ly/2mGwkNo"
-}));
+}), div({ id: 'gilad' }).html(`2019
+        Developed by <a href="http://giladbarnea.github.io">Gilad Barnea</a>`));
 fetchDict("main/contact/contact.json").then(data => {
     Footer.contact.address.append(paragraph({ text: data.visit.address }));
     Footer.contact["phone-email"].append(paragraph().html(`Phone:
