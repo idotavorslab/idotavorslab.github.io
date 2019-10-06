@@ -111,23 +111,30 @@ const WindowElem = elem({htmlElement: window})
     });
 
 interface IFooter extends Div {
-    contact: Div & {
-        address: Div;
-        'phone-email': Div;
-        map: Div
-    },
+    mainCls: Div & {
+        contact: Div & {
+            address: Div;
+            'phone-email': Div;
+            map: Div
+        },
+    }
     logos: Div
 }
 
 const Footer: IFooter = <IFooter>elem({
     id: 'footer', children: {
-        contact: {
-            '#contact': {
-                address: '.address',
-                'phone-email': '.phone-email',
-                map: '.map'
+        mainCls: {
+            '.main-cls': {
+                contact: {
+                    '#contact': {
+                        address: '.address',
+                        'phone-email': '.phone-email',
+                        map: '.map'
+                    }
+                }
             }
-        },
+        }
+        ,
         logos: '#logos'
     }
 });
@@ -192,7 +199,7 @@ class NavbarElem extends BetterHTMLElement {
 
 let Navbar; // WindowElem.load =>
 
-Footer.append(
+Footer.mainCls.append(
     elem({tag: 'iframe'})
         .id('contact_map')
         .attr({
@@ -201,7 +208,7 @@ Footer.append(
             src: "https://bit.ly/2mGwkNo"
         }),
     div({id: 'gilad'}).html(`2019
-        Developed by <a href="http://giladbarnea.github.io">UgUg</a>`)
+        Developed by <a href="http://giladbarnea.github.io" target="_blank">UgUg</a>`)
 );
 type TContactData = {
     visit: { address: string, link: string, icon: string },
@@ -211,8 +218,8 @@ type TContactData = {
     form: string
 };
 fetchDict<TContactData>("main/contact/contact.json").then(data => {
-    Footer.contact.address.append(anchor({href: data.visit.link, text: data.visit.address}).target("_blank"));
-    Footer.contact["phone-email"].append(paragraph().html(`Phone:
+    Footer.mainCls.contact.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
+    Footer.mainCls.contact["phone-email"].append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));

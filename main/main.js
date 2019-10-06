@@ -95,11 +95,15 @@ const WindowElem = elem({ htmlElement: window })
 });
 const Footer = elem({
     id: 'footer', children: {
-        contact: {
-            '#contact': {
-                address: '.address',
-                'phone-email': '.phone-email',
-                map: '.map'
+        mainCls: {
+            '.main-cls': {
+                contact: {
+                    '#contact': {
+                        address: '.address',
+                        'phone-email': '.phone-email',
+                        map: '.map'
+                    }
+                }
             }
         },
         logos: '#logos'
@@ -139,17 +143,17 @@ class NavbarElem extends BetterHTMLElement {
     }
 }
 let Navbar;
-Footer.append(elem({ tag: 'iframe' })
+Footer.mainCls.append(elem({ tag: 'iframe' })
     .id('contact_map')
     .attr({
     frameborder: "0",
     allowfullscreen: "",
     src: "https://bit.ly/2mGwkNo"
 }), div({ id: 'gilad' }).html(`2019
-        Developed by <a href="http://giladbarnea.github.io">UgUg</a>`));
+        Developed by <a href="http://giladbarnea.github.io" target="_blank">UgUg</a>`));
 fetchDict("main/contact/contact.json").then(data => {
-    Footer.contact.address.append(anchor({ href: data.visit.link, text: data.visit.address }).target("_blank"));
-    Footer.contact["phone-email"].append(paragraph().html(`Phone:
+    Footer.mainCls.contact.address.append(anchor({ href: data.visit.link }).html(data.visit.address).target("_blank"));
+    Footer.mainCls.contact["phone-email"].append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));
