@@ -90,6 +90,3 @@ if not onlygit:
        |   In a few minutes, you will be able to see the changes at tau.ac.il/~idotavor |
        ----------------------------------------------------------------------------------
        ''')
-
-mylist = list(["hi", "bye"])
-mylist.sort(reverse=True)

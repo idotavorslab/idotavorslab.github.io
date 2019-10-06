@@ -109,7 +109,7 @@ const WindowElem = elem({htmlElement: window})
             
         }
     });
-const Footer = elem({id: 'footer'});
+const Footer = elem({id: 'footer', children: {contact: '#contact', logos: '#logos'}});
 
 
 class NavbarElem extends BetterHTMLElement {

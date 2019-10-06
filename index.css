@@ -265,6 +265,37 @@ div#main div#home {
   padding-top: 110px;
 }
 
+div#footer {
+  box-shadow: 0 -1px 0 var(--GREY2);
+  color: var(--GREY3);
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-template-rows: repeat(2, auto);
+  grid-row-gap: var(--gap);
+  background-color: #262626;
+  padding: var(--small_gap) calc((100% - var(--w)) / 2);
+}
+div#footer > div#contact {
+  grid-row: 1/1;
+}
+div#footer > div#logos {
+  grid-row: 2/2;
+  display: contents;
+}
+div#footer > div#logos > img {
+  cursor: pointer;
+  height: 72px;
+}
+div#footer > div#logos > img.uni {
+  grid-column: 1/1;
+}
+div#footer > div#logos > img.medicine {
+  grid-column: 2/2;
+}
+div#footer > div#logos > img.sagol {
+  grid-column: 3/3;
+}
+
 #window_stats {
   display: none;
   position: fixed;
@@ -450,16 +481,6 @@ div#funding > div#sponsors > div.sponsor > div.sponsor-title {
   margin-top: 0;
   margin-bottom: 8px;
 }
-div#footer {
-  box-shadow: 0 -1px 0 var(--GREY2);
-  padding-top: 30px;
-}
-div#footer > div#logos > img {
-  cursor: pointer;
-  height: 72px;
-  margin: 0 var(--small_gap);
-}
-
 div#home > div.article {
   display: grid;
   grid-column-gap: var(--gap);
