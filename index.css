@@ -283,6 +283,7 @@ div#footer > div#logos {
   display: contents;
 }
 div#footer > div#logos > img {
+  filter: invert(1);
   cursor: pointer;
   height: 72px;
 }
