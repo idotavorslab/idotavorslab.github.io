@@ -144,7 +144,7 @@ class NavbarElem extends BetterHTMLElement {
     
     constructor({query, children}) {
         super({query, children});
-        // this.home.pointerdown(() => {
+        // this.home.click(() => {
         //     // _startSeparatorAnimation();
         //     // @ts-ignore
         //     window.location = window.location.origin;
@@ -152,9 +152,9 @@ class NavbarElem extends BetterHTMLElement {
         
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
-                .pointerdown(() => {
+                .click(() => {
                     let href = pageString === "home" ? '' : `#${pageString}`;
-                    console.log(`navbar ${pageString} pointerdown, clicking fake <a href="${href}">`);
+                    console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
                     anchor({href}).click(); // no need to select because Routing.route does this
                     // elem({tag: 'a'}).attr({href}).click();
                 })

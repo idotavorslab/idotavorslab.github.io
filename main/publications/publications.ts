@@ -33,7 +33,7 @@ const PublicationsPage = () => {
                 pdf: div({cls: 'pdf-div'})
                     .text(_getPdfText(link)) // ext
                 
-            }).pointerdown(_openLink);
+            }).click(_openLink);
             
         }
     }

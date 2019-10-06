@@ -111,9 +111,9 @@ class NavbarElem extends BetterHTMLElement {
         super({ query, children });
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
-                .pointerdown(() => {
+                .click(() => {
                 let href = pageString === "home" ? '' : `#${pageString}`;
-                console.log(`navbar ${pageString} pointerdown, clicking fake <a href="${href}">`);
+                console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
                 anchor({ href }).click();
             })
                 .mouseover(() => this._emphasize(this[pageString]))

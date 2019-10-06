@@ -36,7 +36,7 @@ const HomePage = () => {
         }
         push(item) {
             this.data.push(item);
-            item.radio.pointerdown(async () => {
+            item.radio.click(async () => {
                 this._userPressed = true;
                 this.stopAutoSwitch();
                 await this.switchTo(item);
@@ -117,7 +117,7 @@ const HomePage = () => {
                     console.log(`%cloaded: ${thumbnail}`, `color: #ffc66d`);
                 }
             }), div({ cls: 'snippet-title', text: title }))
-                .pointerdown((event) => {
+                .click((event) => {
                 ResearchPage().init(i);
                 history.pushState(null, null, '#research');
             }));
