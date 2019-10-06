@@ -306,7 +306,18 @@ div#footer > div#gilad {
 @media screen and (max-width: 500px) {
   div#footer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+  }
+  div#footer > div#contact > div {
+    margin-bottom: var(--gap);
+  }
+  div#footer > div#logos {
+    margin-bottom: var(--gap);
+  }
+  div#footer > div#logos > img, div#footer > div#logos > div > img {
+    max-height: 72px;
+    max-width: 100%;
+    object-fit: scale-down;
   }
   div#footer > iframe#contact_map {
     display: none;

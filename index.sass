@@ -169,8 +169,6 @@ div#footer
 
 
 	& > div#logos
-
-
 		& > img, & > div > img
 			filter: invert(1)
 			cursor: pointer
@@ -190,9 +188,20 @@ div#footer
 	// **  max-width($BP4)
 	@include max-width($BP4)
 		display: flex
-		flex-direction: row
+		flex-direction: column
+		& > div#contact
+			& > div
+				margin-bottom: var(--gap)
+		& > div#logos
+			margin-bottom: var(--gap)
+
+			& > img, & > div > img
+				max-height: 72px
+				max-width: 100%
+				object-fit: scale-down
 		& > iframe#contact_map
 			display: none
+
 
 	// **  min-width($BP4)
 	@include min-width($BP4)
