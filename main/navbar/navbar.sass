@@ -1,6 +1,7 @@
 section#navbar_section
 	background-color: rgba(255, 255, 255, 0.92)
-	//background-color: red
+	@include max-width($BP4)
+		height: 60px
 	position: fixed
 	width: 100%
 	z-index: 5
@@ -15,10 +16,10 @@ section#navbar_section
 		//right: -100px
 		right: 0px
 		//top: -100px
-		top: 0px
+		//top: 0px
 		transition: .5s ease-in-out
 		//width: 200px
-		width: 100px
+		width: 50px
 		//z-index: 100
 
 		&:focus
@@ -26,9 +27,9 @@ section#navbar_section
 
 
 		& > span#hamburger
-			background: #000
+			background: var(--GREY8)
 			height: 2px
-			left: 50px
+			//left: 50px
 			position: absolute
 			//top: 135px
 			top: 30px
@@ -38,7 +39,7 @@ section#navbar_section
 
 
 			&:after, &:before
-				background: #000
+				background: var(--GREY8)
 				content: ""
 				height: 100%
 				position: absolute

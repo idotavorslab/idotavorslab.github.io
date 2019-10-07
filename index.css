@@ -334,13 +334,17 @@ section#navbar_section {
   width: 100%;
   z-index: 5;
 }
+@media screen and (max-width: 500px) {
+  section#navbar_section {
+    height: 60px;
+  }
+}
 section#navbar_section div#hamburger_menu {
   cursor: pointer;
   position: absolute;
   right: 0px;
-  top: 0px;
   transition: 0.5s ease-in-out;
-  width: 100px;
+  width: 50px;
 }
 @media screen and (min-width: 500px) {
   section#navbar_section div#hamburger_menu {
@@ -351,9 +355,8 @@ section#navbar_section div#hamburger_menu:focus {
   border-width: 0px;
 }
 section#navbar_section div#hamburger_menu > span#hamburger {
-  background: #000;
+  background: var(--GREY8);
   height: 2px;
-  left: 50px;
   position: absolute;
   top: 30px;
   transform-origin: center;
@@ -361,7 +364,7 @@ section#navbar_section div#hamburger_menu > span#hamburger {
   width: 30px;
 }
 section#navbar_section div#hamburger_menu > span#hamburger:after, section#navbar_section div#hamburger_menu > span#hamburger:before {
-  background: #000;
+  background: var(--GREY8);
   content: "";
   height: 100%;
   position: absolute;
