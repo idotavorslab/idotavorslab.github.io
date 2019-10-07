@@ -107,9 +107,13 @@ section#navbar_section
 			display: flex
 			flex-direction: column
 			transition: opacity 0.5s ease-in-out 0.25s
-
 			opacity: 1
-
+		//animation:
+			name: FadeIn
+			iteration-count: 1
+			duration: 0.5s
+			delay: 0.25s
+			fill-mode: forwards
 
 	div#navbar
 		@include max-width($BP4)

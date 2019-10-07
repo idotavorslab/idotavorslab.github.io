@@ -24,9 +24,9 @@ const PeoplePage = () => {
                 let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
                     imgElem = cachedImage.removeAttr('hidden');
-                    console.log('people | cachedImage isnt undefined:', cachedImage);
+                    // console.log('people | cachedImage isnt undefined:', cachedImage);
                 } else {
-                    console.log('people | cachedImage IS undefined');
+                    // console.log('people | cachedImage IS undefined');
                     imgElem = img({src: `main/people/${image}`});
                 }
                 this.append(

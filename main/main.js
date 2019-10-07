@@ -181,6 +181,15 @@ const hamburgerMenu = elem({
     id: 'hamburger_menu', children: { hamburger: '#hamburger' }
 });
 const navigationItems = elem({ id: 'navigation_items' });
+navigationItems.children('div').forEach((bhe) => {
+    bhe.click(() => {
+        const innerText = bhe.e.innerText.toLowerCase();
+        let href = innerText === "home" ? '' : `#${innerText}`;
+        hamburgerMenu.removeClass('open');
+        navigationItems.removeClass('open');
+        anchor({ href }).click();
+    });
+});
 hamburgerMenu.click(async (event) => {
     console.log('hamburgerMenu.click');
     hamburgerMenu.toggleClass('open');

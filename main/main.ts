@@ -31,11 +31,11 @@ const WindowElem = elem({htmlElement: window})
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
-                // elem({tag: 'a'}).attr({href: ``}).click()
                 anchor({href: ''}).click();
             } else {
+                // regular navbar click
                 console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
-                Routing.route(<Routing.Page>newURL);
+                Routing.route(<Routing.PageSansHome>newURL);
             }
             
             
@@ -128,19 +128,14 @@ class NavbarElem extends BetterHTMLElement {
     
     constructor({query, children}) {
         super({query, children});
-        // this.home.click(() => {
-        //     // _startSeparatorAnimation();
-        //     // @ts-ignore
-        //     window.location = window.location.origin;
-        // });
-        
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
                 .click(() => {
                     let href = pageString === "home" ? '' : `#${pageString}`;
                     console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
+                    // empty => page reloads to root => route("")
+                    // #something => onhashchange
                     anchor({href}).click(); // no need to select because Routing.route does this
-                    // elem({tag: 'a'}).attr({href}).click();
                 })
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -255,16 +250,21 @@ const hamburgerMenu = <Div & { hamburger: Span }>elem({
     id: 'hamburger_menu', children: {hamburger: '#hamburger'}
 });
 const navigationItems = elem({id: 'navigation_items'});
+navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
+    bhe.click(() => {
+        const innerText = bhe.e.innerText.toLowerCase();
+        let href = innerText === "home" ? '' : `#${innerText}`;
+        hamburgerMenu.removeClass('open');
+        navigationItems.removeClass('open');
+        anchor({href}).click(); // no need to select because Routing.route does this
+    });
+});
 hamburgerMenu.click(async (event: MouseEvent) => {
     console.log('hamburgerMenu.click');
     hamburgerMenu.toggleClass('open');
     navigationItems.toggleClass('open');
     if (hamburgerMenu.hasClass('open')) {
         console.log('opened');
-        // await TL.toAsync(hamburgerMenu.hamburger.e,
-        //     0.5,
-        //     {opacity: 0}
-        // )
     } else {
         console.log('closed');
         
