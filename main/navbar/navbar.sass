@@ -1,59 +1,62 @@
-
-div#navbar
-	@include max-width($BP4)
-		display: none
-	position: fixed
-	width: inherit
-	z-index: 5
+section#navbar_section
 	background-color: rgba(255, 255, 255, 0.92)
-	transition: box-shadow 0.2s ease-in-out
+	//background-color: red
+	position: fixed
+	width: 100%
+	z-index: 5
 
-	&.box-shadow
-		box-shadow: inset 0 -1px 0 0 var(--GREY2)
+	div#navbar
+		@include max-width($BP4)
+			display: none
+		@include pFontSize()
 
-	display: flex
-	@include pFontSize()
-	height: 70px
+		display: flex
+		height: 70px
 
-	margin: auto auto 0 auto
+		transition: box-shadow 0.2s ease-in-out
 
-	& > div, & > img
-		cursor: pointer
+		margin: auto auto 0 auto
 
-	& > div, & > img.home
-		margin:
-			top: auto
-			right: 40px
-			left: 0
-			bottom: auto
+		&.box-shadow
+			box-shadow: inset 0 -1px 0 0 var(--GREY2)
 
-	// logo
-	& > img.home
-		width: 60px
-		margin: auto auto auto 0
+		& > div, & > img
+			cursor: pointer
+			letter-spacing: 0.5px
+			transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out, letter-spacing 0.2s ease-in-out
 
-	// tau logo
-	& > img.uni
-		height: 40px
-		margin: auto 0
+		& > div, & > img.home
+			margin:
+				top: auto
+				right: 40px
+				left: 0
+				bottom: auto
 
-	& > div:nth-last-child(2)
-		margin-right: auto
+		// logo
+		& > img.home
+			width: 60px
+			margin: auto auto auto 0
 
-	& > div
-		display: block
-		padding: 10px 0
-		transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out
+		// tau logo
+		& > img.uni
+			height: 40px
+			margin: auto 0
 
-		&:hover
-			color: black
+		& > div:nth-last-child(2)
+			margin-right: auto
 
+		& > div
+			display: block
+			padding: 10px 0
 
-		&.selected
-			color: black
+			&:hover, &.selected
+				color: black
+				letter-spacing: 1.5px
+				padding: 10px 0
 
-		&.pale
-			color: var(--GREY6)
+			&.pale
+				color: var(--GREY6)
+				letter-spacing: 0.5px
 
 
 

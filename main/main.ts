@@ -180,7 +180,7 @@ interface IFooter extends Div {
     contactSection: Div & {
         mainCls: Div & {
             address: Div;
-            'phone-email': Div;
+            contact: Div;
             map: Div
         }
     };
@@ -199,8 +199,8 @@ const Footer: IFooter = <IFooter>elem({
                 mainCls: {
                     '.main-cls': {
                         address: '.address',
-                        "phone-email": '.phone-email',
-                        map: '.map'
+                        contact: '.contact',
+                        map: '#contact_map'
                     }
                 }
             }
@@ -221,8 +221,7 @@ const Footer: IFooter = <IFooter>elem({
 });
 
 Footer.ugugSection.mainCls.html(`2019
-    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>
-    <a href="http://maurann.com" target="_blank">(morki's bf)</a>`);
+    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>`);
 
 type TContactData = {
     visit: { address: string, link: string, icon: string },
@@ -233,7 +232,7 @@ type TContactData = {
 };
 fetchDict<TContactData>("main/contact/contact.json").then(data => {
     Footer.contactSection.mainCls.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
-    Footer.contactSection.mainCls["phone-email"].append(paragraph().html(`Phone:
+    Footer.contactSection.mainCls.contact.append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));
