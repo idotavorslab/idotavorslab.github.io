@@ -106,11 +106,12 @@ div#intro
 div#research_snippets_container
 	text-align: left
 
-	// **  All Resolutions
+
 	& > h1
 		margin-bottom: 30px
 
 	& > div#research_snippets
+		// **  All Resolutions
 		& > div.snippet
 			width: var(--snippetWidth)
 			cursor: pointer
@@ -136,10 +137,8 @@ div#research_snippets_container
 				font-size: 20px
 				line-height: 26px
 
-
-	// **  min-width($BP4)
-	@include min-width($BP4)
-		& > div#research_snippets
+		// **  min-width($BP4)
+		@include min-width($BP4)
 			// TODO: 3 in a row when BP2
 			// (1200 - 3*40) / 4  =  1080 / 4  =  270
 			// *  DEP: repeat(4
@@ -154,12 +153,10 @@ div#research_snippets_container
 
 			& > div.snippet > div.snippet-title
 				margin-top: 8px
+		// **  max-width($BP4)
+		@include max-width($BP4)
 
-	// **  max-width($BP4)
-	@include max-width($BP4)
-		& > div#research_snippets
 			--snippetWidth: 100%
-
 			& > div.snippet
 				margin-bottom: var(--gap)
 
