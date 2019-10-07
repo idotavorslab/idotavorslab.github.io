@@ -4,9 +4,9 @@ const isIphone = window.navigator.userAgent.includes('iPhone');
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
-const FundingSection = <Div & { sponsorsGrid: Div }>elem({
+const FundingSection = <Div & { sponsorsContainer: Div }>elem({
     id: 'funding_section', children: {
-        sponsorsGrid: 'div#sponsors_grid'
+        sponsorsContainer: 'div#sponsors_container'
     }
 });
 

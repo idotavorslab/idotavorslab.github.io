@@ -167,44 +167,64 @@ section#funding_section
 	& > div.main-cls
 		padding: 60px 0 $_marginBottom 0
 
-
-		// *  DEP: contact.sass contact_grid
-		text-align: center
-		//margin:
-			top: var(--big_gap)
-			bottom: var(--gap)
-
+		// **  All Resolutions
 		& > h1
-			text-align: center
 			margin-bottom: 60px
 
-		& > div#sponsors_grid
-			--rowLength: 3
-			--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
-			display: grid
-			grid:
-				template-columns: repeat(var(--rowLength), var(--sponsorWidth))
-				column-gap: var(--GAP1)
-				row-gap: var(--GAP1)
+		& > div#sponsors_container > div.sponsor
+			cursor: pointer
+			display: flex
+			flex-direction: column
 
-			& > div.sponsor
+			& > img
+				width: 160px
+				height: auto
+				margin: 0 auto var(--small_gap) auto
+				object-fit: contain
 
-				cursor: pointer
+			& > div.sponsor-title
+				font-family: OpenSansBold
+				margin:
+					top: 0
+					bottom: 8px
+
+		// **  min-width($BP4)
+		@include min-width($BP4)
+			&, & > h1
+				text-align: center
+
+			& > div#sponsors_container
+				--rowLength: 3
+				--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+				display: grid
+				grid:
+					template-columns: repeat(var(--rowLength), var(--sponsorWidth))
+					column-gap: var(--GAP1)
+					row-gap: var(--GAP1)
+
+
+		// **  max-width($BP4)
+		@include max-width($BP4)
+			&, & > h1
+				text-align: left
+
+
+			& > div#sponsors_container
 				display: flex
 				flex-direction: column
 
+				& > div.sponsor
+					margin-bottom: 60px
 
-				& > img
-					width: 160px
-					height: 160px
-					margin: 0 auto var(--small_gap) auto
-					object-fit: contain
 
-				& > div.sponsor-title
-					font-family: OpenSansBold
-					margin:
-						top: 0
-						bottom: 8px
+					& > img
+						margin-left: 0
+
+
+
+
+
+
 
 
 

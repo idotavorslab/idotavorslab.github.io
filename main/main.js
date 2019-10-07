@@ -4,7 +4,7 @@ const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
 const FundingSection = elem({
     id: 'funding_section', children: {
-        sponsorsGrid: 'div#sponsors_grid'
+        sponsorsContainer: 'div#sponsors_container'
     }
 });
 const CacheDiv = elem({ id: 'cache' });
