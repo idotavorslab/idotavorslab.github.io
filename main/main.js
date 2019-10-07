@@ -10,7 +10,7 @@ const FundingSection = elem({
 const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window })
     .on({
-    scroll: (event) => {
+    scroll: async (event) => {
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
                 Navbar.removeClass('box-shadow');
@@ -31,6 +31,7 @@ const WindowElem = elem({ htmlElement: window })
         }
     },
     load: () => {
+        MOBILE = window.innerWidth <= $BP4;
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -43,7 +44,6 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
-        MOBILE = window.innerWidth <= $BP4;
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")

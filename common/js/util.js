@@ -4,7 +4,19 @@ const $BP4 = 500;
 const W0 = 1200;
 const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
-let MOBILE = false;
+let MOBILE = undefined;
+async function untilNotUndefined(val, debugText) {
+    let count = 0;
+    while (val === undefined) {
+        if (count >= 500) {
+            console.warn(`untilNotUndefined(val) reached count 500, returning false. debugText: ${debugText}`, { val });
+            return false;
+        }
+        await wait(2);
+        count++;
+    }
+    return true;
+}
 function float(str) {
     return parseFloat(str);
 }

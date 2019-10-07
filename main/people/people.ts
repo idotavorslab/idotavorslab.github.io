@@ -2,6 +2,7 @@ const PeoplePage = () => {
     
     async function init() {
         console.log('PeoplePage init');
+        // await untilNotUndefined(MOBILE, 'people MOBILE');
         let ROWSIZE = 4;
         if (window.innerWidth >= $BP1) { // 1340
             // ROWSIZE = 4;

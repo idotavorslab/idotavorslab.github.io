@@ -44,6 +44,7 @@ const Routing = (() => {
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 const selectNavbarItem = () => Navbar.select(Navbar[url]);
+                // untilNotUndefined(Navbar, 'route Navbar').then(selectNavbarItem);
                 if (Navbar === undefined) {
                     // happens when refreshing to a #page
                     window.onload = selectNavbarItem
@@ -51,6 +52,7 @@ const Routing = (() => {
                     // happens when navigating through navbar
                     selectNavbarItem()
                 }
+                
                 
             } else { // bad url, reload to homepage
                 alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
