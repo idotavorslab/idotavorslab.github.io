@@ -341,7 +341,6 @@ section#navbar_section div#hamburger_menu {
   top: 0px;
   transition: 0.5s ease-in-out;
   width: 100px;
-  z-index: 100;
 }
 @media screen and (min-width: 500px) {
   section#navbar_section div#hamburger_menu {
@@ -393,6 +392,32 @@ section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
   animation-duration: 0s;
   animation-delay: 0.5s;
   animation-fill-mode: forwards;
+}
+section#navbar_section > div#navigation_items {
+  opacity: 0;
+  position: absolute;
+  top: 60px;
+  text-align: center;
+  width: 100%;
+}
+section#navbar_section > div#navigation_items > div {
+  font-size: 28px;
+  font-family: OpenSansBold;
+  color: var(--GREY8);
+  padding: 40px 0;
+  box-shadow: 0 -1px 0px var(--GREY3);
+}
+section#navbar_section > div#navigation_items > div:last-of-type {
+  box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3);
+}
+section#navbar_section > div#navigation_items:not([class^=open]) {
+  transition: opacity 0.5s ease-out;
+}
+section#navbar_section > div#navigation_items.open {
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.5s ease-in-out 0.25s;
+  opacity: 1;
 }
 section#navbar_section div#navbar {
   display: flex;
@@ -455,6 +480,14 @@ section#navbar_section div#navbar > div.pale {
   }
   to {
     opacity: 0;
+  }
+}
+@keyframes FadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 div#intro {

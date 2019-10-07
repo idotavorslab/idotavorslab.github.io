@@ -254,9 +254,11 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
 const hamburgerMenu = <Div & { hamburger: Span }>elem({
     id: 'hamburger_menu', children: {hamburger: '#hamburger'}
 });
+const navigationItems = elem({id: 'navigation_items'});
 hamburgerMenu.click(async (event: MouseEvent) => {
     console.log('hamburgerMenu.click');
     hamburgerMenu.toggleClass('open');
+    navigationItems.toggleClass('open');
     if (hamburgerMenu.hasClass('open')) {
         console.log('opened');
         // await TL.toAsync(hamburgerMenu.hamburger.e,
