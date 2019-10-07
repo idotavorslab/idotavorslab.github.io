@@ -4,9 +4,9 @@ const isIphone = window.navigator.userAgent.includes('iPhone');
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
-const FundingSection = <Div & { sponsorsGrid: Div }>elem({
+const FundingSection = <Div & { sponsorsContainer: Div }>elem({
     id: 'funding_section', children: {
-        sponsorsGrid: 'div#sponsors_grid'
+        sponsorsContainer: 'div#sponsors_container'
     }
 });
 
@@ -15,7 +15,8 @@ const CacheDiv = elem({id: 'cache'});
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
-        scroll: (event: Event) => {
+        scroll: async (event: Event) => {
+            // await untilNotUndefined(Navbar);
             if (Navbar !== undefined) {
                 if (window.scrollY > 0) {
                     Navbar.removeClass('box-shadow')
@@ -25,22 +26,24 @@ const WindowElem = elem({htmlElement: window})
                 }
             }
             
+            
         },
         hashchange: (event: HashChangeEvent) => {
             // called on navbar click, backbutton click
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
-                // elem({tag: 'a'}).attr({href: ``}).click()
                 anchor({href: ''}).click();
             } else {
+                // regular navbar click
                 console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
-                Routing.route(<Routing.Page>newURL);
+                Routing.route(<Routing.PageSansHome>newURL);
             }
             
             
         },
         load: () => {
+            MOBILE = window.innerWidth <= $BP4;
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {
@@ -53,7 +56,9 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
+            
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
+            console.log({innerWidth: window.innerWidth, MOBILE});
             if (window.location.hash !== "")
                 fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
             
@@ -128,19 +133,14 @@ class NavbarElem extends BetterHTMLElement {
     
     constructor({query, children}) {
         super({query, children});
-        // this.home.click(() => {
-        //     // _startSeparatorAnimation();
-        //     // @ts-ignore
-        //     window.location = window.location.origin;
-        // });
-        
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
                 .click(() => {
                     let href = pageString === "home" ? '' : `#${pageString}`;
                     console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
+                    // empty => page reloads to root => route("")
+                    // #something => onhashchange
                     anchor({href}).click(); // no need to select because Routing.route does this
-                    // elem({tag: 'a'}).attr({href}).click();
                 })
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -249,4 +249,28 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
+});
+
+const hamburgerMenu = <Div & { hamburger: Span }>elem({
+    id: 'hamburger_menu', children: {hamburger: '#hamburger'}
+});
+const navigationItems = elem({id: 'navigation_items'});
+navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
+    bhe.click(() => {
+        const innerText = bhe.e.innerText.toLowerCase();
+        let href = innerText === "home" ? '' : `#${innerText}`;
+        hamburgerMenu.removeClass('open');
+        navigationItems.removeClass('open');
+        anchor({href}).click(); // no need to select because Routing.route does this
+    });
+});
+hamburgerMenu.click(async (event: MouseEvent) => {
+    console.log('hamburgerMenu.click');
+    hamburgerMenu.toggleClass('open');
+    navigationItems.toggleClass('open');
+    if (hamburgerMenu.hasClass('open')) {
+        console.log('opened');
+    } else {
+        console.log('closed');
+    }
 });

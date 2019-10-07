@@ -7,9 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 const PeoplePage = () => {
     async function init() {
         console.log('PeoplePage init');
-        let ROWSIZE;
-        if (window.innerWidth >= BP1) {
-            ROWSIZE = 4;
+        let ROWSIZE = 4;
+        if (window.innerWidth >= $BP1) {
         }
         else {
             ROWSIZE = 4;
@@ -23,10 +22,8 @@ const PeoplePage = () => {
                 let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
                     imgElem = cachedImage.removeAttr('hidden');
-                    console.log('people | cachedImage isnt undefined:', cachedImage);
                 }
                 else {
-                    console.log('people | cachedImage IS undefined');
                     imgElem = img({ src: `main/people/${image}` });
                 }
                 this.append(imgElem, div({ text: name, cls: "name" }), div({ text: role, cls: "role" })).click((event) => {
@@ -193,23 +190,24 @@ const PeoplePage = () => {
         __decorate([
             log()
         ], Expando.prototype, "setHtml", null);
-        function gridFactory({ gridData, people }) {
+        function containerFactory({ containerData, people }) {
             let index = 0;
-            for (let [name, { image, role, cv, email }] of dict(gridData).items()) {
+            for (let [name, { image, role, cv, email }] of dict(containerData).items()) {
                 let person = new Person(image, name, role, cv, email);
                 people.push(person);
                 index++;
             }
-            const grid = div({ cls: 'grid' }).append(...people);
+            let cls = MOBILE ? 'flex' : 'grid';
+            const grid = div({ cls }).append(...people);
             return grid;
         }
         const { alumni: alumniData, team: teamData } = await fetchDict('main/people/people.json');
         const expando = new Expando();
         const team = new People();
         const alumni = new People();
-        const teamGrid = gridFactory({ gridData: teamData, people: team });
-        const alumniGrid = gridFactory({ gridData: alumniData, people: alumni });
-        Home.empty().class('people-page').append(elem({ tag: 'h1', text: 'Team' }), teamGrid, elem({ tag: 'h1', text: 'Alumni' }), alumniGrid);
+        const teamContainer = containerFactory({ containerData: teamData, people: team });
+        const alumniContainer = containerFactory({ containerData: alumniData, people: alumni });
+        Home.empty().class('people-page').append(elem({ tag: 'h1', text: 'Team' }), teamContainer, elem({ tag: 'h1', text: 'Alumni' }), alumniContainer);
         DocumentElem
             .click(() => {
             console.log('DocumentElem click');

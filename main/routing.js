@@ -21,14 +21,13 @@ const Routing = (() => {
     function route(url) {
         console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
-            if (pageStrings().includes(url)) {
+            if (pageStrings().slice(1).includes(url)) {
                 console.log(`\tvalid url ("${url}"), calling pageObj().init()`);
                 if (url === "gallery")
                     Footer.attr({ hidden: '' });
                 else
                     Footer.removeAttr('hidden');
-                if (url !== "home")
-                    FundingSection.attr({ hidden: '' });
+                FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 const selectNavbarItem = () => Navbar.select(Navbar[url]);
@@ -40,7 +39,8 @@ const Routing = (() => {
                 }
             }
             else {
-                elem({ tag: 'a' }).attr({ href: `` }).click();
+                alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
+                anchor({ href: `` }).click();
             }
         }
         else {
@@ -49,7 +49,7 @@ const Routing = (() => {
         }
     }
     let lastPage = window.location.hash.slice(1);
-    console.log(`Routing() root, window.location: ${window.location}\ncalling route("${lastPage}")`);
+    console.log(`Routing() root, window.location: ${window.location}\ncalling route(lastPage = "${lastPage}")`);
     route(lastPage);
     return { route, pageStrings };
 })();

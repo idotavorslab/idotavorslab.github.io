@@ -2,9 +2,10 @@ const PeoplePage = () => {
     
     async function init() {
         console.log('PeoplePage init');
-        let ROWSIZE;
-        if (window.innerWidth >= BP1) { // 1340
-            ROWSIZE = 4;
+        // await untilNotUndefined(MOBILE, 'people MOBILE');
+        let ROWSIZE = 4;
+        if (window.innerWidth >= $BP1) { // 1340
+            // ROWSIZE = 4;
         } else {
             ROWSIZE = 4;
         }
@@ -24,9 +25,9 @@ const PeoplePage = () => {
                 let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
                     imgElem = cachedImage.removeAttr('hidden');
-                    console.log('people | cachedImage isnt undefined:', cachedImage);
+                    // console.log('people | cachedImage isnt undefined:', cachedImage);
                 } else {
-                    console.log('people | cachedImage IS undefined');
+                    // console.log('people | cachedImage IS undefined');
                     imgElem = img({src: `main/people/${image}`});
                 }
                 this.append(
@@ -281,15 +282,16 @@ const PeoplePage = () => {
             
         }
         
-        function gridFactory({gridData, people}: { gridData: TeamType, people: People }): Div {
+        function containerFactory({containerData, people}: { containerData: TeamType, people: People }): Div {
             
             let index = 0;
-            for (let [name, {image, role, cv, email}] of dict(gridData).items()) {
+            for (let [name, {image, role, cv, email}] of dict(containerData).items()) {
                 let person = new Person(image, name, role, cv, email);
                 people.push(person);
                 index++;
             }
-            const grid = div({cls: 'grid'}).append(...people);
+            let cls = MOBILE ? 'flex' : 'grid';
+            const grid = div({cls}).append(...people);
             
             
             return grid;
@@ -297,46 +299,26 @@ const PeoplePage = () => {
         
         
         type TeamType = TMap<{ role: string, image: string, cv: string, email: string }>
-        /*const {alumni: alumniData, team: teamData}: { alumni: TeamType, team: TeamType } = await fetchJson({
-            path: 'main/people/people.json',
-            jsontype: "object"
-        });
-        */
+        
         const {alumni: alumniData, team: teamData} = await fetchDict<{ alumni: TeamType, team: TeamType }>('main/people/people.json');
         
         const expando: Expando = new Expando();
         
-        /*const longestCv = Math.max(
-            ...Object
-                .values({...alumniData, ...teamData})
-                .map(({cv}) => cv.length)
-        );
-        
-        
-                const expandoHeight = Math.round((longestCv - 680) / 55);
-              console.log({longestCv, expandoHeight});
-                if (expandoHeight > 0 && expandoHeight <= 12)
-                    expando.class(`height-${expandoHeight}`);
-        */
         
         const team: People = new People();
         const alumni: People = new People();
         
         
-        // **  Grids
-        const teamGrid = gridFactory({gridData: teamData, people: team});
-        const alumniGrid = gridFactory({gridData: alumniData, people: alumni});
+        // **  Containers
+        const teamContainer = containerFactory({containerData: teamData, people: team});
+        const alumniContainer = containerFactory({containerData: alumniData, people: alumni});
         
         
         Home.empty().class('people-page').append(
-            // div({cls: 'title', text: 'Team'}),
-            // div({cls: 'separator'}),
             elem({tag: 'h1', text: 'Team'}),
-            teamGrid,
-            // div({cls: 'title', text: 'Alumni'}),
-            // div({cls: 'separator'}),
+            teamContainer,
             elem({tag: 'h1', text: 'Alumni'}),
-            alumniGrid
+            alumniContainer
         );
         
         

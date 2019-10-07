@@ -1,12 +1,22 @@
-const BP0 = 1535;
-const BP1 = 1340;
-const $BP2 = 1023;
+const $BP0 = 1535;
+const $BP1 = 1340;
+const $BP4 = 500;
 const W0 = 1200;
 const W1 = 984;
-const GAP0 = 60;
-const GREY5 = 'rgb(153, 153, 153)';
-const GREY7 = 'rgb(68, 68, 68)';
 const GOOGLEBLUE = '#3b82f0';
+let MOBILE = undefined;
+async function untilNotUndefined(val, debugText) {
+    let count = 0;
+    while (val === undefined) {
+        if (count >= 500) {
+            console.warn(`untilNotUndefined(val) reached count 500, returning false. debugText: ${debugText}`, { val });
+            return false;
+        }
+        await wait(2);
+        count++;
+    }
+    return true;
+}
 function float(str) {
     return parseFloat(str);
 }
@@ -168,7 +178,7 @@ function calcCssValue(h1, h2) {
     return expression;
 }
 function calcAbsValue(cssStr, width) {
-    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vw'));
+    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
     const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
     const ispositive = cssStr.includes('+');
     const format = (w) => {

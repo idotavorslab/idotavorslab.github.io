@@ -1,16 +1,30 @@
-const BP0 = 1535;
+const $BP0 = 1535;
 // needs to be higher than --W0
-const BP1 = 1340;
+const $BP1 = 1340;
 // needs to be higher than --W1
-const $BP2 = 1023;
+const $BP4 = 500;
 // [BP1]W0[BP0]
 const W0 = 1200;
 // [BP2]W1[BP1]
 const W1 = 984;
-const GAP0 = 60;
-const GREY5 = 'rgb(153, 153, 153)';
-const GREY7 = 'rgb(68, 68, 68)';
+
 const GOOGLEBLUE = '#3b82f0';
+
+let MOBILE = undefined;
+
+async function untilNotUndefined(val: any, debugText?: string): Promise<boolean> {
+    let count: number = 0;
+    while (val === undefined) {
+        if (count >= 500) {
+            console.warn(`untilNotUndefined(val) reached count 500, returning false. debugText: ${debugText}`, {val});
+            return false;
+        }
+        await wait(2);
+        count++;
+    }
+    return true;
+}
+
 
 function float(str: string): number {
     return parseFloat(str);
@@ -280,10 +294,10 @@ function calcCssValue(h1: [number, number], h2: [number, number]) {
 }
 
 /**@example
- * calcAbsValue("calc(26.53vw - 15.91px)", 1040)
+ * calcAbsValue("calc(26.53vh - 15.91px)", 1040)
  * > "260px"*/
 function calcAbsValue(cssStr: string, width: number): string {
-    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vw'));
+    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
     const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
     const ispositive = cssStr.includes('+');
     const format = (w) => {

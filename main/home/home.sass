@@ -107,7 +107,37 @@ div#research_snippets_container
 	text-align: left
 
 
+	& > h1
+		margin-bottom: 30px
+
 	& > div#research_snippets
+		// **  All Resolutions
+		& > div.snippet
+			width: var(--snippetWidth)
+			cursor: pointer
+
+			&:hover
+				& > img, & > div
+					transform: translateY(-4px)
+
+				& > img
+					box-shadow: 0 2px 10px 2px var(--GREY4)
+
+			& > img, & > div
+				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
+
+			& > img
+				width: inherit
+				// *  DEP: same as news radius
+				border-radius: 20px
+
+
+			& > div.snippet-title
+				font-family: OpenSansSemiBold
+				font-size: 20px
+				line-height: 26px
+
+		// **  min-width($BP4)
 		@include min-width($BP4)
 			// TODO: 3 in a row when BP2
 			// (1200 - 3*40) / 4  =  1080 / 4  =  270
@@ -121,90 +151,87 @@ div#research_snippets_container
 				column-gap: var(--GAP1)
 				row-gap: var(--GAP1)
 
+			& > div.snippet > div.snippet-title
+				margin-top: 8px
+
+		// **  max-width($BP4)
 		@include max-width($BP4)
+
 			--snippetWidth: 100%
-
-		& > div.snippet
-			width: var(--snippetWidth)
-			cursor: pointer
-			@include max-width($BP4)
-				margin-bottom: var(--gap)
-
-			&:hover
-				& > img, & > div
-					transform: translateY(-4px)
+			& > div.snippet
+				margin-bottom: var(--GAP0)
 
 				& > img
-					box-shadow: 0 2px 10px 2px var(--GREY4)
-
-
-			& > img, & > div
-				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
-
-			& > img
-				width: inherit
-				// *  DEP: same as news radius
-				border-radius: 20px
-				@include max-width($BP4)
 					max-height: 280px
 					object-fit: cover
 
-			& > div.snippet-title
-				font-family: OpenSansSemiBold
-				font-size: 20px
-				line-height: 26px
-				@include min-width($BP4)
-					margin-top: 8px
-//@include max-width($BP4)
-	font-size: 12px
 
 // ***  funding
 section#funding_section
-	//background-color: rgb(231, 231, 224)
 	background-color: rgb(242, 242, 242)
 	margin-top: $_marginBottom
 
 	& > div.main-cls
 		padding: 60px 0 $_marginBottom 0
 
-
-		// *  DEP: contact.sass contact_grid
-		text-align: center
-		//margin:
-			top: var(--big_gap)
-			bottom: var(--gap)
-
+		// **  All Resolutions
 		& > h1
-			text-align: center
 			margin-bottom: 60px
 
-		& > div#sponsors_grid
-			--rowLength: 3
-			--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
-			display: grid
-			grid:
-				template-columns: repeat(var(--rowLength), var(--sponsorWidth))
-				column-gap: var(--GAP1)
-				row-gap: var(--GAP1)
+		& > div#sponsors_container > div.sponsor
+			cursor: pointer
+			display: flex
+			flex-direction: column
 
-			& > div.sponsor
+			& > img
+				width: 160px
+				height: auto
+				margin: 0 auto var(--small_gap) auto
+				object-fit: contain
 
-				cursor: pointer
+			& > div.sponsor-title
+				font-family: OpenSansBold
+				margin:
+					top: 0
+					bottom: 8px
+
+		// **  min-width($BP4)
+		@include min-width($BP4)
+			&, & > h1
+				text-align: center
+
+			& > div#sponsors_container
+				--rowLength: 3
+				--sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+				display: grid
+				grid:
+					template-columns: repeat(var(--rowLength), var(--sponsorWidth))
+					column-gap: var(--GAP1)
+					row-gap: var(--GAP1)
+
+
+		// **  max-width($BP4)
+		@include max-width($BP4)
+			&, & > h1
+				text-align: left
+
+
+			& > div#sponsors_container
 				display: flex
 				flex-direction: column
 
+				& > div.sponsor
+					margin-bottom: 60px
 
-				& > img
-					width: 160px
-					height: 160px
-					margin: 0 auto var(--small_gap) auto
-					object-fit: contain
 
-				& > div.sponsor-title
-					font-family: OpenSansBold
-					margin:
-						top: 0
-						bottom: 8px
+					& > img
+						margin-left: 0
+
+
+
+
+
+
 
 
 

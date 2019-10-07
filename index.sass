@@ -121,8 +121,11 @@ div#main
 		display: block
 		opacity: 1
 		position: relative
-		// navbar(70) + 60 = 130px
-		padding-top: 130px
+		@include min-width($BP4)
+			// navbar(70) + 60 = 130px
+			padding-top: 130px
+		@include max-width($BP4)
+			padding-top: 50px
 
 // ***  footer
 // div#footer

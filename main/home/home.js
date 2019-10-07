@@ -130,7 +130,7 @@ const HomePage = () => {
             let sponsorImage = img({ src: `main/home/${image}` });
             if (large === true)
                 sponsorImage.css({ width: '260px' });
-            FundingSection.sponsorsGrid.append(div({ cls: 'sponsor' }).append(sponsorImage, div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
+            FundingSection.sponsorsContainer.append(div({ cls: 'sponsor' }).append(sponsorImage, div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })));
         }
     }
     return { init };

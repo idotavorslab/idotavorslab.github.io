@@ -4,13 +4,13 @@ const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
 const FundingSection = elem({
     id: 'funding_section', children: {
-        sponsorsGrid: 'div#sponsors_grid'
+        sponsorsContainer: 'div#sponsors_container'
     }
 });
 const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window })
     .on({
-    scroll: (event) => {
+    scroll: async (event) => {
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
                 Navbar.removeClass('box-shadow');
@@ -31,6 +31,7 @@ const WindowElem = elem({ htmlElement: window })
         }
     },
     load: () => {
+        MOBILE = window.innerWidth <= $BP4;
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -44,6 +45,7 @@ const WindowElem = elem({ htmlElement: window })
             }
         });
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
+        console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")
             fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
         function cache(file, page) {
@@ -176,5 +178,29 @@ fetchDict("main/contact/contact.json").then(data => {
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
+});
+const hamburgerMenu = elem({
+    id: 'hamburger_menu', children: { hamburger: '#hamburger' }
+});
+const navigationItems = elem({ id: 'navigation_items' });
+navigationItems.children('div').forEach((bhe) => {
+    bhe.click(() => {
+        const innerText = bhe.e.innerText.toLowerCase();
+        let href = innerText === "home" ? '' : `#${innerText}`;
+        hamburgerMenu.removeClass('open');
+        navigationItems.removeClass('open');
+        anchor({ href }).click();
+    });
+});
+hamburgerMenu.click(async (event) => {
+    console.log('hamburgerMenu.click');
+    hamburgerMenu.toggleClass('open');
+    navigationItems.toggleClass('open');
+    if (hamburgerMenu.hasClass('open')) {
+        console.log('opened');
+    }
+    else {
+        console.log('closed');
+    }
 });
 //# sourceMappingURL=main.js.map
