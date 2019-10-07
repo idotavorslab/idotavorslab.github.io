@@ -14,12 +14,14 @@ let MOBILE = undefined;
 
 async function untilNotUndefined(val: any, debugText?: string): Promise<boolean> {
     let count: number = 0;
+    if (val !== undefined) return true;
     while (val === undefined) {
-        if (count >= 500) {
-            console.warn(`untilNotUndefined(val) reached count 500, returning false. debugText: ${debugText}`, {val});
+        if (count >= 10) {
+            console.warn(`untilNotUndefined(val) reached count 10, returning false. debugText: ${debugText}`, {val});
             return false;
         }
-        await wait(2);
+        await wait(500);
+        console.log("this['Navbar']:", this['Navbar']);
         count++;
     }
     return true;

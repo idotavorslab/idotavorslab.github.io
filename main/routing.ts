@@ -27,7 +27,7 @@ const Routing = (() => {
     }
     
     
-    function route(url: Routing.PageSansHome) {
+    async function route(url: Routing.PageSansHome) {
         console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
@@ -44,14 +44,17 @@ const Routing = (() => {
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 const selectNavbarItem = () => Navbar.select(Navbar[url]);
-                // untilNotUndefined(Navbar, 'route Navbar').then(selectNavbarItem);
-                if (Navbar === undefined) {
+                console.log('Navbar before untilNotUndefined in route:', Navbar);
+                await untilNotUndefined(Navbar, 'route Navbar');
+                Navbar.select(Navbar[url]);
+                /*if (Navbar === undefined) {
                     // happens when refreshing to a #page
                     window.onload = selectNavbarItem
                 } else {
                     // happens when navigating through navbar
                     selectNavbarItem()
                 }
+                */
                 
                 
             } else { // bad url, reload to homepage

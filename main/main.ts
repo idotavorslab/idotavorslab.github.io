@@ -16,7 +16,14 @@ const CacheDiv = elem({id: 'cache'});
 const WindowElem = elem({htmlElement: window})
     .on({
         scroll: async (event: Event) => {
-            // await untilNotUndefined(Navbar);
+            /*await untilNotUndefined(Navbar, 'scroll Navbar');
+            if (window.scrollY > 0) {
+                Navbar.removeClass('box-shadow')
+            } else {
+                Navbar.addClass('box-shadow')
+                
+            }
+            */
             if (Navbar !== undefined) {
                 if (window.scrollY > 0) {
                     Navbar.removeClass('box-shadow')
@@ -104,7 +111,7 @@ const WindowElem = elem({htmlElement: window})
                     cache(image, "research")
             }
             
-            console.log(...less('waiting 1000...'));
+            /*console.log(...less('waiting 1000...'));
             wait(1000).then(() => {
                 
                 console.log(...less('done waiting, starting caching'));
@@ -117,6 +124,8 @@ const WindowElem = elem({htmlElement: window})
                 console.log('done caching');
                 console.groupEnd();
             });
+            */
+            
             
         }
     });
@@ -145,7 +154,11 @@ class NavbarElem extends BetterHTMLElement {
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
         }
-        
+        /*this.e.addEventListener('navbarReady', (event) => {
+            console.log('navbarReady fired within ctor');
+        })
+        this.e.dispatchEvent(NavbarReady);
+        */
     }
     
     
@@ -174,6 +187,7 @@ class NavbarElem extends BetterHTMLElement {
 }
 
 let Navbar; // WindowElem.load =>
+// let NavbarReady = new Event('navbarReady');
 
 // ***  Footer
 interface IFooter extends Div {
