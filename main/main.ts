@@ -41,7 +41,7 @@ const WindowElem = elem({htmlElement: window})
             
         },
         load: () => {
-            MOBILE = window.innerWidth <= $BP4;
+            
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {
@@ -54,7 +54,9 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
+            MOBILE = window.innerWidth <= $BP4;
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
+            console.log({innerWidth: window.innerWidth, MOBILE});
             if (window.location.hash !== "")
                 fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
             
