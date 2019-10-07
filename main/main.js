@@ -180,8 +180,14 @@ fetchDict("main/contact/contact.json").then(data => {
 const hamburgerMenu = elem({
     id: 'hamburger_menu', children: { hamburger: '#hamburger' }
 });
-hamburgerMenu.click((event) => {
+hamburgerMenu.click(async (event) => {
     console.log('hamburgerMenu.click');
     hamburgerMenu.toggleClass('open');
+    if (hamburgerMenu.hasClass('open')) {
+        console.log('opened');
+    }
+    else {
+        console.log('closed');
+    }
 });
 //# sourceMappingURL=main.js.map

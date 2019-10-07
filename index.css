@@ -325,6 +325,66 @@ section#navbar_section {
   width: 100%;
   z-index: 5;
 }
+section#navbar_section div#hamburger_menu {
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  transition: 0.5s ease-in-out;
+  width: 100px;
+  z-index: 100;
+}
+@media screen and (min-width: 500px) {
+  section#navbar_section div#hamburger_menu {
+    display: none;
+  }
+}
+section#navbar_section div#hamburger_menu:focus {
+  border-width: 0px;
+}
+section#navbar_section div#hamburger_menu > span#hamburger {
+  background: #000;
+  height: 2px;
+  left: 50px;
+  position: absolute;
+  top: 30px;
+  transform-origin: center;
+  transition: 0.5s ease-in-out;
+  width: 30px;
+}
+section#navbar_section div#hamburger_menu > span#hamburger:after, section#navbar_section div#hamburger_menu > span#hamburger:before {
+  background: #000;
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+section#navbar_section div#hamburger_menu > span#hamburger:after {
+  bottom: -10px;
+  transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
+}
+section#navbar_section div#hamburger_menu > span#hamburger:before {
+  top: -10px;
+  opacity: 1;
+  transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
+}
+section#navbar_section div#hamburger_menu[class~=open] > span#hamburger {
+  transform: rotate(45deg);
+}
+section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:after, section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
+  transform: rotate(90deg);
+}
+section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:after {
+  bottom: 0;
+}
+section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
+  top: 0;
+  animation-name: FadeOut;
+  animation-iteration-count: 1;
+  animation-duration: 0s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
 section#navbar_section div#navbar {
   display: flex;
   height: 70px;
@@ -380,6 +440,14 @@ section#navbar_section div#navbar > div.pale {
   letter-spacing: 0.5px;
 }
 
+@keyframes FadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 div#intro {
   display: flex;
   margin-bottom: 80px;
