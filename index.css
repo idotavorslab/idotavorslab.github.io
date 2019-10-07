@@ -480,28 +480,12 @@ div#intro > div#right_widget > div#radios > .radio[class~=selected] {
 div#research_snippets_container {
   text-align: left;
 }
-@media screen and (min-width: 500px) {
-  div#research_snippets_container > div#research_snippets {
-    --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
-    display: grid;
-    grid-template-columns: repeat(4, var(--snippetWidth));
-    grid-column-gap: var(--GAP1);
-    grid-row-gap: var(--GAP1);
-  }
-}
-@media screen and (max-width: 500px) {
-  div#research_snippets_container > div#research_snippets {
-    --snippetWidth: 100%;
-  }
+div#research_snippets_container > h1 {
+  margin-bottom: 30px;
 }
 div#research_snippets_container > div#research_snippets > div.snippet {
   width: var(--snippetWidth);
   cursor: pointer;
-}
-@media screen and (max-width: 500px) {
-  div#research_snippets_container > div#research_snippets > div.snippet {
-    margin-bottom: var(--gap);
-  }
 }
 div#research_snippets_container > div#research_snippets > div.snippet:hover > img, div#research_snippets_container > div#research_snippets > div.snippet:hover > div {
   transform: translateY(-4px);
@@ -516,20 +500,33 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
   width: inherit;
   border-radius: 20px;
 }
-@media screen and (max-width: 500px) {
-  div#research_snippets_container > div#research_snippets > div.snippet > img {
-    max-height: 280px;
-    object-fit: cover;
-  }
-}
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
   font-size: 20px;
   line-height: 26px;
 }
 @media screen and (min-width: 500px) {
+  div#research_snippets_container > div#research_snippets {
+    --snippetWidth: calc((var(--w) - 3 * var(--GAP1)) / 4);
+    display: grid;
+    grid-template-columns: repeat(4, var(--snippetWidth));
+    grid-column-gap: var(--GAP1);
+    grid-row-gap: var(--GAP1);
+  }
   div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
     margin-top: 8px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#research_snippets_container > div#research_snippets {
+    --snippetWidth: 100%;
+  }
+  div#research_snippets_container > div#research_snippets > div.snippet {
+    margin-bottom: var(--gap);
+  }
+  div#research_snippets_container > div#research_snippets > div.snippet > img {
+    max-height: 280px;
+    object-fit: cover;
   }
 }
 

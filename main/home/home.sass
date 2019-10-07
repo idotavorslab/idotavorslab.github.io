@@ -106,9 +106,40 @@ div#intro
 div#research_snippets_container
 	text-align: left
 
+	// **  All Resolutions
+	& > h1
+		margin-bottom: 30px
 
 	& > div#research_snippets
-		@include min-width($BP4)
+		& > div.snippet
+			width: var(--snippetWidth)
+			cursor: pointer
+
+			&:hover
+				& > img, & > div
+					transform: translateY(-4px)
+
+				& > img
+					box-shadow: 0 2px 10px 2px var(--GREY4)
+
+			& > img, & > div
+				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
+
+			& > img
+				width: inherit
+				// *  DEP: same as news radius
+				border-radius: 20px
+
+
+			& > div.snippet-title
+				font-family: OpenSansSemiBold
+				font-size: 20px
+				line-height: 26px
+
+
+	// **  min-width($BP4)
+	@include min-width($BP4)
+		& > div#research_snippets
 			// TODO: 3 in a row when BP2
 			// (1200 - 3*40) / 4  =  1080 / 4  =  270
 			// *  DEP: repeat(4
@@ -121,42 +152,21 @@ div#research_snippets_container
 				column-gap: var(--GAP1)
 				row-gap: var(--GAP1)
 
-		@include max-width($BP4)
+			& > div.snippet > div.snippet-title
+				margin-top: 8px
+
+	// **  max-width($BP4)
+	@include max-width($BP4)
+		& > div#research_snippets
 			--snippetWidth: 100%
 
-		& > div.snippet
-			width: var(--snippetWidth)
-			cursor: pointer
-			@include max-width($BP4)
+			& > div.snippet
 				margin-bottom: var(--gap)
 
-			&:hover
-				& > img, & > div
-					transform: translateY(-4px)
-
 				& > img
-					box-shadow: 0 2px 10px 2px var(--GREY4)
-
-
-			& > img, & > div
-				transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out
-
-			& > img
-				width: inherit
-				// *  DEP: same as news radius
-				border-radius: 20px
-				@include max-width($BP4)
 					max-height: 280px
 					object-fit: cover
 
-			& > div.snippet-title
-				font-family: OpenSansSemiBold
-				font-size: 20px
-				line-height: 26px
-				@include min-width($BP4)
-					margin-top: 8px
-//@include max-width($BP4)
-	font-size: 12px
 
 // ***  funding
 section#funding_section
