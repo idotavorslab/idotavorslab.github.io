@@ -41,6 +41,7 @@ const WindowElem = elem({htmlElement: window})
             
         },
         load: () => {
+            MOBILE = window.innerWidth <= $BP4;
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {

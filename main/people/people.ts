@@ -2,9 +2,9 @@ const PeoplePage = () => {
     
     async function init() {
         console.log('PeoplePage init');
-        let ROWSIZE;
-        if (window.innerWidth >= BP1) { // 1340
-            ROWSIZE = 4;
+        let ROWSIZE = 4;
+        if (window.innerWidth >= $BP1) { // 1340
+            // ROWSIZE = 4;
         } else {
             ROWSIZE = 4;
         }
