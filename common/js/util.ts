@@ -280,10 +280,10 @@ function calcCssValue(h1: [number, number], h2: [number, number]) {
 }
 
 /**@example
- * calcAbsValue("calc(26.53vw - 15.91px)", 1040)
+ * calcAbsValue("calc(26.53vh - 15.91px)", 1040)
  * > "260px"*/
 function calcAbsValue(cssStr: string, width: number): string {
-    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vw'));
+    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
     const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
     const ispositive = cssStr.includes('+');
     const format = (w) => {

@@ -168,7 +168,7 @@ function calcCssValue(h1, h2) {
     return expression;
 }
 function calcAbsValue(cssStr, width) {
-    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vw'));
+    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
     const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
     const ispositive = cssStr.includes('+');
     const format = (w) => {

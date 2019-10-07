@@ -377,7 +377,7 @@ section#navbar_section div#hamburger_menu > span#hamburger:before {
 }
 section#navbar_section div#hamburger_menu[class~=open] > span#hamburger {
   transform: rotate(45deg);
-  box-shadow: 0 0 0 100vw white, 0 0 0 110vh white;
+  box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
 }
 section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:after, section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
   transform: rotate(90deg);
@@ -399,12 +399,14 @@ section#navbar_section > div#navigation_items {
   top: 60px;
   text-align: center;
   width: 100%;
+  height: calc(100vh - 60px);
 }
 section#navbar_section > div#navigation_items > div {
   font-size: 28px;
   font-family: OpenSansBold;
+  line-height: 24px;
   color: var(--GREY8);
-  padding: 40px 0;
+  padding: calc((100vh - 60px - 24px * 6) / 12) 0;
   box-shadow: 0 -1px 0px var(--GREY3);
 }
 section#navbar_section > div#navigation_items > div:last-of-type {

@@ -57,7 +57,7 @@ section#navbar_section
 		&[class~="open"]
 			& > span#hamburger
 				transform: rotate(45deg)
-				box-shadow: 0 0 0 100vw white, 0 0 0 110vh white
+				box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
 
 				&:after, &:before
 					transform: rotate(90deg)
@@ -78,18 +78,23 @@ section#navbar_section
 		//display: none
 		opacity: 0
 		position: absolute
-		top: 60px
-
+		$_top: 60px
+		top: $_top
 		text-align: center
 		width: 100%
+		height: calc(100vh - #{$_top})
 
 
 		& > div
 			font-size: 28px
+			$_lineHeight: 24px
 			font-family: OpenSansBold
-			//line-height: 42px
+			line-height: $_lineHeight
 			color: var(--GREY8)
-			padding: 40px 0
+			// 60 + (24 + 44*2) * 6
+			// 6 items
+			// $top + ($lineHeight + 2x)*6  =  100vh
+			padding: calc((100vh - #{$_top} - #{$_lineHeight} * 6) / 12) 0
 			box-shadow: 0 -1px 0px var(--GREY3)
 
 			&:last-of-type
