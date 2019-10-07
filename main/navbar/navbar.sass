@@ -75,7 +75,6 @@ section#navbar_section
 						fill-mode: forwards
 
 	& > div#navigation_items
-		//display: none
 		opacity: 0
 		position: absolute
 		$_top: 60px
@@ -100,20 +99,16 @@ section#navbar_section
 			&:last-of-type
 				box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3)
 
-		&:not([class^="open"])
-			transition: opacity 0.5s ease-out
 
-		&.open
+		&:not([class~="open"])
+			transition: opacity 0.5s ease-out
+			pointer-events: none
+
+		&[class~="open"]
 			display: flex
 			flex-direction: column
 			transition: opacity 0.5s ease-in-out 0.25s
 			opacity: 1
-		//animation:
-			name: FadeIn
-			iteration-count: 1
-			duration: 0.5s
-			delay: 0.25s
-			fill-mode: forwards
 
 	div#navbar
 		@include max-width($BP4)

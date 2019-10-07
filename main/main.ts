@@ -267,6 +267,5 @@ hamburgerMenu.click(async (event: MouseEvent) => {
         console.log('opened');
     } else {
         console.log('closed');
-        
     }
 });
