@@ -522,7 +522,7 @@ div#research_snippets_container > div#research_snippets > div.snippet > div.snip
     --snippetWidth: 100%;
   }
   div#research_snippets_container > div#research_snippets > div.snippet {
-    margin-bottom: var(--gap);
+    margin-bottom: var(--GAP0);
   }
   div#research_snippets_container > div#research_snippets > div.snippet > img {
     max-height: 280px;
