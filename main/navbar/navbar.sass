@@ -33,7 +33,7 @@ section#navbar_section
 			//top: 135px
 			top: 30px
 			transform-origin: center
-			transition: $trans
+			transition: transform $trans, box-shadow $trans
 			width: 30px
 
 
@@ -42,24 +42,22 @@ section#navbar_section
 				content: ""
 				height: 100%
 				position: absolute
-
+				transition: transform $trans, bottom $trans, top $trans
 				width: 100%
 
 			&:after
 				bottom: -10px
-				transition: transform $trans, bottom $trans, top $trans
 
 
 			&:before
 				top: -10px
 				opacity: 1
-				//transition: transform $trans, bottom $trans, top $trans, opacity 0.5s ease-in-out 0.5s
-				transition: transform $trans, bottom $trans, top $trans
 
 
 		&[class~="open"]
 			& > span#hamburger
 				transform: rotate(45deg)
+				box-shadow: 0 0 0 100vw #FFF, 0 0 0 100vh #FFF
 
 				&:after, &:before
 					transform: rotate(90deg)

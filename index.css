@@ -226,7 +226,16 @@ div#main div#home {
   display: block;
   opacity: 1;
   position: relative;
-  padding-top: 130px;
+}
+@media screen and (min-width: 500px) {
+  div#main div#home {
+    padding-top: 130px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#main div#home {
+    padding-top: 50px;
+  }
 }
 
 div#footer {
@@ -349,7 +358,7 @@ section#navbar_section div#hamburger_menu > span#hamburger {
   position: absolute;
   top: 30px;
   transform-origin: center;
-  transition: 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   width: 30px;
 }
 section#navbar_section div#hamburger_menu > span#hamburger:after, section#navbar_section div#hamburger_menu > span#hamburger:before {
@@ -357,19 +366,19 @@ section#navbar_section div#hamburger_menu > span#hamburger:after, section#navbar
   content: "";
   height: 100%;
   position: absolute;
+  transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
   width: 100%;
 }
 section#navbar_section div#hamburger_menu > span#hamburger:after {
   bottom: -10px;
-  transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
 }
 section#navbar_section div#hamburger_menu > span#hamburger:before {
   top: -10px;
   opacity: 1;
-  transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
 }
 section#navbar_section div#hamburger_menu[class~=open] > span#hamburger {
   transform: rotate(45deg);
+  box-shadow: 0 0 0 100vw #FFF, 0 0 0 100vh #FFF;
 }
 section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:after, section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
   transform: rotate(90deg);
