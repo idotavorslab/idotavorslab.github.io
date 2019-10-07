@@ -158,8 +158,7 @@ const Footer = elem({
     }
 });
 Footer.ugugSection.mainCls.html(`2019
-    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>
-    <a href="http://maurann.com" target="_blank">(morki's bf)</a>`);
+    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>`);
 fetchDict("main/contact/contact.json").then(data => {
     Footer.contactSection.mainCls.address.append(anchor({ href: data.visit.link }).html(data.visit.address).target("_blank"));
     Footer.contactSection.mainCls["phone-email"].append(paragraph().html(`Phone:

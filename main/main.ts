@@ -221,8 +221,7 @@ const Footer: IFooter = <IFooter>elem({
 });
 
 Footer.ugugSection.mainCls.html(`2019
-    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>
-    <a href="http://maurann.com" target="_blank">(morki's bf)</a>`);
+    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>`);
 
 type TContactData = {
     visit: { address: string, link: string, icon: string },

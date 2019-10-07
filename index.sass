@@ -118,40 +118,6 @@ div#main
 	//width: var(--w)
 
 	text-align: center
-	@import 'main/navbar/navbar.sass'
-
-	//div.separators
-		// **  for FIXED navbar
-		z-index: 5
-		display: inline-block
-		margin:
-			// **  for FIXED navbar
-			top: 70px
-			//top: 0px
-			right: auto
-			// 39px (1px sep height)
-			bottom: calc(var(--marginVertical) - 1px)
-			left: 0
-
-		[class~="separator"]
-			// **  for FIXED navbar
-			position: fixed
-			//position: absolute
-			height: 1px
-			width: 50%
-			transition: background 500ms
-
-		[class~="left"]
-			left: 0
-			background:
-				image: linear-gradient(90deg, var(--TRANS) 0%, rgba(0, 0, 0, 0.1) 10%)
-
-
-		[class~="right"]
-			left: 50%
-
-			background:
-				image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 90%, var(--TRANS) 100%)
 
 
 	div#home
@@ -162,10 +128,6 @@ div#main
 		padding-top: 130px
 
 // ***  footer
-
-
-
-
 div#footer
 
 	a
@@ -270,16 +232,16 @@ div#footer
 			font-size: 12px
 			padding: 10px 0
 
-		//& > div.uni-and-medicine
-			grid-column: 1/2
-			display: flex
+//& > div.uni-and-medicine
+	grid-column: 1/2
+	display: flex
 
-			& > img.medicine
-				// *  DEP: #footer grid-column-gap
-				margin-left: var(--gap)
+	& > img.medicine
+		// *  DEP: #footer grid-column-gap
+		margin-left: var(--gap)
 
-			& > img.sagol
-				grid-column: 2/2
+	& > img.sagol
+		grid-column: 2/2
 
 
 #window_stats
@@ -292,6 +254,7 @@ div#footer
 	font-family: OpenSansBold
 	white-space: pre
 
+@import 'main/navbar/navbar.sass'
 @import 'main/home/home.sass'
 @import 'main/research/research.sass'
 @import 'main/people/people.sass'
