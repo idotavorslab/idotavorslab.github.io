@@ -22,6 +22,8 @@ section#navbar_section
 
 		& > div, & > img
 			cursor: pointer
+			letter-spacing: 0.5px
+			transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out, letter-spacing 0.2s ease-in-out
 
 		& > div, & > img.home
 			margin:
@@ -46,13 +48,15 @@ section#navbar_section
 		& > div
 			display: block
 			padding: 10px 0
-			transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out
 
 			&:hover, &.selected
 				color: black
+				letter-spacing: 1.5px
+				padding: 10px 0
 
 			&.pale
 				color: var(--GREY6)
+				letter-spacing: 0.5px
 
 
 
