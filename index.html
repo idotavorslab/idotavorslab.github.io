@@ -14,10 +14,72 @@
 
 
     <link rel="stylesheet" href="index.css"/>
-    <style></style>
+    <style>
+        #hamburger_menu {
+            position: absolute;
+            right: -100px;
+            top: -100px;
+            z-index: 100;
+            width: 200px;
+            height: 200px;
+            background: #FFF;
+            transition: .5s ease-in-out;
+            box-shadow: 0 0 0 0 #FFF, 0 0 0 0 #FFF;
+            cursor: pointer;
+        }
+
+        #hamburger_menu:focus {
+            border-width: 0px;
+        }
+
+        #hamburger {
+            position: absolute;
+            top: 135px;
+            left: 50px;
+            width: 30px;
+            height: 2px;
+            background: #000;
+            display: block;
+            transform-origin: center;
+            transition: .5s ease-in-out;
+        }
+
+        #hamburger:after, #hamburger:before {
+            transition: .5s ease-in-out;
+            content: "";
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        #hamburger:before {
+            top: -10px;
+        }
+
+        #hamburger:after {
+            bottom: -10px;
+        }
+
+        #hamburger_menu[class~="open"] > span#hamburger {
+            transform: rotate(45deg);
+        }
+
+        #hamburger_menu[class~="open"] > span#hamburger:after {
+            transform: rotate(90deg);
+            bottom: 0;
+        }
+
+        #hamburger_menu[class~="open"] > span#hamburger:before {
+            transform: rotate(90deg);
+            top: 0;
+        }
+    </style>
 </head>
 
 <body>
+<!-- ***  navbar -->
 <section id="navbar_section">
     <div id="navbar" class="box-shadow main-cls">
         <img class="home">
@@ -29,10 +91,12 @@
         <div class="contact">Contact</div>
         <img class="uni" src="main/home/uni-logo-only-english-553x240.png">
     </div>
+    <div id="hamburger_menu" class="main-cls">
+        <span id="hamburger"></span>
+    </div>
 </section>
 <!-- ***  main -->
 <div id="main" class="main-cls">
-    <!-- **  navbar -->
 
 
     <!-- **  home -->

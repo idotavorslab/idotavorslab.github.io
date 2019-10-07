@@ -328,8 +328,8 @@ section#navbar_section {
 section#navbar_section div#navbar {
   display: flex;
   height: 70px;
-  transition: box-shadow 0.2s ease-in-out;
   margin: auto auto 0 auto;
+  transition: box-shadow 0.2s ease-in-out;
 }
 @media screen and (max-width: 500px) {
   section#navbar_section div#navbar {
@@ -361,8 +361,8 @@ section#navbar_section div#navbar > div, section#navbar_section div#navbar > img
   margin-bottom: auto;
 }
 section#navbar_section div#navbar > img.home {
-  width: 60px;
   margin: auto auto auto 0;
+  width: 60px;
 }
 section#navbar_section div#navbar > img.uni {
   height: 40px;
@@ -371,14 +371,9 @@ section#navbar_section div#navbar > img.uni {
 section#navbar_section div#navbar > div:nth-last-child(2) {
   margin-right: auto;
 }
-section#navbar_section div#navbar > div {
-  display: block;
-  padding: 10px 0;
-}
 section#navbar_section div#navbar > div:hover, section#navbar_section div#navbar > div.selected {
   color: black;
-  letter-spacing: 1.5px;
-  padding: 10px 0;
+  letter-spacing: 1.25px;
 }
 section#navbar_section div#navbar > div.pale {
   color: var(--GREY6);

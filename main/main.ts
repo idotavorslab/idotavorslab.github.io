@@ -250,3 +250,11 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });
+
+const hamburgerMenu = <Div & { hamburger: Span }>elem({
+    id: 'hamburger_menu', children: {hamburger: '#hamburger'}
+});
+hamburgerMenu.click((event: MouseEvent) => {
+    console.log('hamburgerMenu.click');
+    hamburgerMenu.toggleClass('open')
+});

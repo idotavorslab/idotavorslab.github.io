@@ -5,17 +5,43 @@ section#navbar_section
 	width: 100%
 	z-index: 5
 
+	//div#hamburger_menu
+		@include min-width($BP4)
+			display: none
+		display: flex
+		height: 70px
+
+		& > span#hamburger
+			background: black
+			height: 2px
+			margin-left: auto
+			width: 30px
+
+			&:after
+				background: red
+
+			&:before
+				background: blue
+
+			&:after, &:before
+				top: -10px
+				content: ""
+				//position: absolute
+				//display: block
+				width: 100%
+				height: 100%
+
 	div#navbar
 		@include max-width($BP4)
 			display: none
+
+
 		@include pFontSize()
 
 		display: flex
 		height: 70px
-
-		transition: box-shadow 0.2s ease-in-out
-
 		margin: auto auto 0 auto
+		transition: box-shadow 0.2s ease-in-out
 
 		&.box-shadow
 			box-shadow: inset 0 -1px 0 0 var(--GREY2)
@@ -34,8 +60,8 @@ section#navbar_section
 
 		// logo
 		& > img.home
-			width: 60px
 			margin: auto auto auto 0
+			width: 60px
 
 		// tau logo
 		& > img.uni
@@ -46,13 +72,10 @@ section#navbar_section
 			margin-right: auto
 
 		& > div
-			display: block
-			padding: 10px 0
-
 			&:hover, &.selected
 				color: black
-				letter-spacing: 1.5px
-				padding: 10px 0
+				letter-spacing: 1.25px
+
 
 			&.pale
 				color: var(--GREY6)
