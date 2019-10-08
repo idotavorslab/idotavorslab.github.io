@@ -12,7 +12,9 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 
 const CacheDiv = elem({id: 'cache'});
 
+
 class EventEmitter {
+    
     private _store: TMap<Function[]> = {};
     
     constructor() {
@@ -44,12 +46,14 @@ class EventEmitter {
             
         }
         
-        const onetimeFn = _fn.bind(this);
         this.on(key, _fn.bind(this));
     }
     
-    until(key: string): Promise<unknown> {
-        return new Promise(resolve => this.on(key, resolve))
+    until(key: string, options: { once: boolean } = {once: true}): Promise<unknown> {
+        if (options && options.once)
+            return new Promise(resolve => this.one(key, resolve));
+        else
+            return new Promise(resolve => this.on(key, resolve))
     }
 }
 
@@ -67,10 +71,10 @@ const WindowElem = elem({htmlElement: window})
                 
             }
             */
-            // Emitter.on('navbarConstructed', () => window.scrollY > 0 ? Navbar.removeClass('box-shadow') : Navbar.addClass('box-shadow'));
-            /*console.log('scroll started waiting for navbarConstructed');
-            Emitter.on('navbarConstructed', () => {
-                console.log('scroll stopped waiting for navbarConstructed');
+            // Emitter.on('navbarReady', () => window.scrollY > 0 ? Navbar.removeClass('box-shadow') : Navbar.addClass('box-shadow'));
+            /*console.log('scroll started waiting for navbarReady');
+            Emitter.on('navbarReady', () => {
+                console.log('scroll stopped waiting for navbarReady');
                 if (window.scrollY > 0) {
                     Navbar.removeClass('box-shadow')
                 } else {
@@ -90,13 +94,13 @@ const WindowElem = elem({htmlElement: window})
                     
                 }
             } /*else {
-                console.log('scroll Navbar === undefined, waiting for navbarConstructed...');
-                Emitter.until('navbarConstructed').then(() => {
+                console.log('scroll Navbar === undefined, waiting for navbarReady...');
+                Emitter.until('navbarReady').then(() => {
                     if (window.scrollY > 0) {
-                        console.log('scroll stopped waiting for navbarConstructed, removing box-shadow');
+                        console.log('scroll stopped waiting for navbarReady, removing box-shadow');
                         Navbar.removeClass('box-shadow')
                     } else {
-                        console.log('scroll stopped waiting for navbarConstructed, adding box-shadow');
+                        console.log('scroll stopped waiting for navbarReady, adding box-shadow');
                         Navbar.addClass('box-shadow')
                         
                     }
@@ -134,7 +138,7 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
-            Emitter.emit('navbarConstructed');
+            Emitter.emit('navbarReady');
             
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
             console.log({innerWidth: window.innerWidth, MOBILE});

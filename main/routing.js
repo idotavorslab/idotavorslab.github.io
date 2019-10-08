@@ -30,11 +30,8 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                console.log('routing before navbarConstructed, Navbar:', Navbar);
-                Emitter.one('navbarConstructed', () => {
-                    console.log('routing inside navbarConstructed callback, Navbar:', Navbar);
-                });
-                console.log('routing after navbarConstructed, Navbar:', Navbar, 6);
+                await Emitter.until('navbarReady');
+                Navbar.select(Navbar[url]);
             }
             else {
                 alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);

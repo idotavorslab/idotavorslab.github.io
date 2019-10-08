@@ -43,21 +43,25 @@ const Routing = (() => {
                 
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                // console.log('routing started waiting for navbarConstructed');
-                // Emitter.on('navbarConstructed', () => {
-                //     console.log('routing stopped waiting for navbarConstructed');
-                //     Navbar.select(Navbar[url]);
-                // });
-                console.log('routing before navbarConstructed, Navbar:', Navbar);
-                Emitter.one('navbarConstructed', () => {
-                    console.log('routing inside navbarConstructed callback, Navbar:', Navbar);
+                /*console.log('routing started waiting for navbarReady');
+                Emitter.on('navbarReady', () => {
+                    console.log('routing stopped waiting for navbarReady');
+                    Navbar.select(Navbar[url]);
                 });
-                console.log('routing after navbarConstructed, Navbar:', Navbar 6);
-                /*console.log('route await navbarConstructed start');
-                console.time('route await navbarConstructed');
-                await Emitter.until('navbarConstructed');
-                console.log('route await navbarConstructed end');
-                console.timeEnd('route await navbarConstructed');
+                */
+                /*                console.log('routing before navbarReady, Navbar:', Navbar);
+                                Emitter.one('navbarReady', () => {
+                                    console.log('routing inside navbarReady callback, Navbar:', Navbar);
+                                });
+                                console.log('routing after navbarReady, Navbar:', Navbar);
+                */
+                await Emitter.until('navbarReady');
+                Navbar.select(Navbar[url]);
+                /*console.log('route await navbarReady start');
+                console.time('route await navbarReady');
+                await Emitter.until('navbarReady');
+                console.log('route await navbarReady end');
+                console.timeEnd('route await navbarReady');
                 Navbar.select(Navbar[url]);
                 */
                 

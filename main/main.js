@@ -33,11 +33,13 @@ class EventEmitter {
             this._store[key].splice(indexofFn, 1);
             console.log('_fn, after removing. this._store[key].length:', this._store[key].length);
         }
-        const onetimeFn = _fn.bind(this);
         this.on(key, _fn.bind(this));
     }
-    until(key) {
-        return new Promise(resolve => this.on(key, resolve));
+    until(key, options = { once: true }) {
+        if (options && options.once)
+            return new Promise(resolve => this.one(key, resolve));
+        else
+            return new Promise(resolve => this.on(key, resolve));
     }
 }
 const Emitter = new EventEmitter();
@@ -77,7 +79,7 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
-        Emitter.emit('navbarConstructed');
+        Emitter.emit('navbarReady');
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")
