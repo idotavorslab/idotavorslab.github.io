@@ -12,12 +12,14 @@ const GOOGLEBLUE = '#3b82f0';
 
 let MOBILE = undefined;
 
-async function untilNotUndefined(val: any, debugText?: string): Promise<boolean> {
+
+
+async function untilNotUndefined(arr: any[], debugText?: string): Promise<boolean> {
     let count: number = 0;
-    if (val !== undefined) return true;
-    while (val === undefined) {
+    if (arr[0] !== undefined) return true;
+    while (arr[0] === undefined) {
         if (count >= 10) {
-            console.warn(`untilNotUndefined(val) reached count 10, returning false. debugText: ${debugText}`, {val});
+            console.warn(`untilNotUndefined(arr) reached count 10, returning false. debugText: ${debugText}`, {arr});
             return false;
         }
         await wait(500);
@@ -52,10 +54,6 @@ function bool(val: any): boolean {
 
 type TDict<T> = Dict<T> & { [P in keyof T]: T[P] };
 
-
-// type TDict<T> =
-//      Dict<T> & { [P in keyof T]: T[P] }
-// const Dict
 
 class Dict<T> {
     

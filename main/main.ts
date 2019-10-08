@@ -12,6 +12,30 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 
 const CacheDiv = elem({id: 'cache'});
 
+class EventEmitter {
+    private _store: TMap<Function[]> = {};
+    
+    constructor() {
+    
+    }
+    
+    emit(key: string, data?: any) {
+        if (this._store[key]) {
+            for (let fn in this._store[key])
+                this._store[key][fn](data || undefined);
+        }
+    }
+    
+    on(key: string, fn: Function) {
+        if (this._store[key])
+            this._store[key].push(fn);
+        else
+            this._store[key] = [fn];
+    }
+}
+
+
+const Emitter = new EventEmitter();
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
@@ -63,6 +87,9 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
+            console.log('emitting navbarConstructed');
+            Emitter.emit('navbarConstructed');
+            console.log('after emitting navbarConstructed');
             
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
             console.log({innerWidth: window.innerWidth, MOBILE});

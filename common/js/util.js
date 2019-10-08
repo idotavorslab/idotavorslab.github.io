@@ -5,13 +5,13 @@ const W0 = 1200;
 const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
-async function untilNotUndefined(val, debugText) {
+async function untilNotUndefined(arr, debugText) {
     let count = 0;
-    if (val !== undefined)
+    if (arr[0] !== undefined)
         return true;
-    while (val === undefined) {
+    while (arr[0] === undefined) {
         if (count >= 10) {
-            console.warn(`untilNotUndefined(val) reached count 10, returning false. debugText: ${debugText}`, { val });
+            console.warn(`untilNotUndefined(arr) reached count 10, returning false. debugText: ${debugText}`, { arr });
             return false;
         }
         await wait(500);

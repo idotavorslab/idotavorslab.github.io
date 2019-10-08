@@ -30,10 +30,10 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                const selectNavbarItem = () => Navbar.select(Navbar[url]);
-                console.log('Navbar before untilNotUndefined in route:', Navbar);
-                await untilNotUndefined(Navbar, 'route Navbar');
-                Navbar.select(Navbar[url]);
+                Emitter.on('navbarConstructed', function () {
+                    console.log('inside navbarConstructed fn');
+                    Navbar.select(Navbar[url]);
+                });
             }
             else {
                 alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);

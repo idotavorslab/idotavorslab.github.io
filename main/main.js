@@ -8,6 +8,24 @@ const FundingSection = elem({
     }
 });
 const CacheDiv = elem({ id: 'cache' });
+class EventEmitter {
+    constructor() {
+        this._store = {};
+    }
+    emit(key, data) {
+        if (this._store[key]) {
+            for (let fn in this._store[key])
+                this._store[key][fn](data || undefined);
+        }
+    }
+    on(key, fn) {
+        if (this._store[key])
+            this._store[key].push(fn);
+        else
+            this._store[key] = [fn];
+    }
+}
+const Emitter = new EventEmitter();
 const WindowElem = elem({ htmlElement: window })
     .on({
     scroll: async (event) => {
@@ -44,6 +62,9 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
+        console.log('emitting navbarConstructed');
+        Emitter.emit('navbarConstructed');
+        console.log('after emitting navbarConstructed');
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")
