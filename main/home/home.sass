@@ -184,10 +184,15 @@ section#funding_section
 			flex-direction: column
 
 			& > img
-				width: 160px
+				$dim: 160px
 				height: auto
 				margin: 0 auto var(--small_gap) auto
 				object-fit: contain
+				width: $dim
+
+				&.large
+					width: 260px
+					height: $dim
 
 			& > div.sponsor-title
 				font-family: OpenSansBold
@@ -226,6 +231,7 @@ section#funding_section
 
 					& > img
 						margin-left: 0
+
 
 
 

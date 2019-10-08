@@ -195,7 +195,7 @@ const HomePage = () => {
         
         for (let [title, {image, text, large}] of dict(fundingData).items()) {
             let sponsorImage = img({src: `main/home/${image}`});
-            if (large === true) sponsorImage.css({width: '260px'});
+            if (large === true) sponsorImage.class('large');
             FundingSection.sponsorsContainer.append(
                 div({cls: 'sponsor'}).append(
                     sponsorImage,

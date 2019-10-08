@@ -657,10 +657,14 @@ section#funding_section > div.main-cls > div#sponsors_container > div.sponsor {
   flex-direction: column;
 }
 section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > img {
-  width: 160px;
   height: auto;
   margin: 0 auto var(--small_gap) auto;
   object-fit: contain;
+  width: 160px;
+}
+section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > img.large {
+  width: 260px;
+  height: 160px;
 }
 section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > div.sponsor-title {
   font-family: OpenSansBold;
