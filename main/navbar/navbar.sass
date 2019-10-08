@@ -71,11 +71,15 @@ section#navbar_section
 						delay: 0.5s
 						fill-mode: forwards
 
-	& > div#hamburger_logo > img
-		// *  DEP: #hamburger_menu width
-		height: calc(var(--mobileNavbarHeight) - 10px)
-		// half of 10px
-		margin-top: 5px
+	& > div#hamburger_logo
+		@include min-width($BP4)
+			display: none
+
+		& > img
+			// *  DEP: #hamburger_menu width
+			height: calc(var(--mobileNavbarHeight) - 10px)
+			// half of 10px
+			margin-top: 5px
 
 	& > div#navigation_items
 		opacity: 0

@@ -401,6 +401,11 @@ section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before
   animation-delay: 0.5s;
   animation-fill-mode: forwards;
 }
+@media screen and (min-width: 500px) {
+  section#navbar_section > div#hamburger_logo {
+    display: none;
+  }
+}
 section#navbar_section > div#hamburger_logo > img {
   height: calc(var(--mobileNavbarHeight) - 10px);
   margin-top: 5px;
