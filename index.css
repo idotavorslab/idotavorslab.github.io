@@ -329,6 +329,7 @@ div#footer > section#ugug_section {
 }
 
 section#navbar_section {
+  --mobileHeight: 60px;
   background-color: rgba(255, 255, 255, 0.92);
   position: fixed;
   width: 100%;
@@ -336,25 +337,25 @@ section#navbar_section {
 }
 @media screen and (max-width: 500px) {
   section#navbar_section {
-    height: 60px;
+    height: var(--mobileHeight);
   }
 }
-section#navbar_section div#hamburger_menu {
+section#navbar_section > div#hamburger_menu {
   cursor: pointer;
   position: absolute;
   right: 0px;
   transition: 0.5s ease-in-out;
-  width: 50px;
+  width: calc(var(--mobileHeight) - 10px);
 }
 @media screen and (min-width: 500px) {
-  section#navbar_section div#hamburger_menu {
+  section#navbar_section > div#hamburger_menu {
     display: none;
   }
 }
-section#navbar_section div#hamburger_menu:focus {
+section#navbar_section > div#hamburger_menu:focus {
   border-width: 0px;
 }
-section#navbar_section div#hamburger_menu > span#hamburger {
+section#navbar_section > div#hamburger_menu > span#hamburger {
   background: var(--GREY8);
   height: 2px;
   position: absolute;
@@ -363,7 +364,7 @@ section#navbar_section div#hamburger_menu > span#hamburger {
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   width: 30px;
 }
-section#navbar_section div#hamburger_menu > span#hamburger:after, section#navbar_section div#hamburger_menu > span#hamburger:before {
+section#navbar_section > div#hamburger_menu > span#hamburger:after, section#navbar_section > div#hamburger_menu > span#hamburger:before {
   background: var(--GREY8);
   content: "";
   height: 100%;
@@ -371,24 +372,24 @@ section#navbar_section div#hamburger_menu > span#hamburger:after, section#navbar
   transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
   width: 100%;
 }
-section#navbar_section div#hamburger_menu > span#hamburger:after {
+section#navbar_section > div#hamburger_menu > span#hamburger:after {
   bottom: -10px;
 }
-section#navbar_section div#hamburger_menu > span#hamburger:before {
+section#navbar_section > div#hamburger_menu > span#hamburger:before {
   top: -10px;
   opacity: 1;
 }
-section#navbar_section div#hamburger_menu[class~=open] > span#hamburger {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger {
   transform: rotate(45deg);
   box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
 }
-section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:after, section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:after, section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before {
   transform: rotate(90deg);
 }
-section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:after {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:after {
   bottom: 0;
 }
-section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before {
   top: 0;
   animation-name: FadeOut;
   animation-iteration-count: 1;
@@ -396,20 +397,24 @@ section#navbar_section div#hamburger_menu[class~=open] > span#hamburger:before {
   animation-delay: 0.5s;
   animation-fill-mode: forwards;
 }
+section#navbar_section > div#hamburger_logo > img {
+  height: calc(var(--mobileHeight) - 10px);
+  margin-top: 5px;
+}
 section#navbar_section > div#navigation_items {
   opacity: 0;
   position: absolute;
-  top: 60px;
+  top: var(--mobileHeight);
   text-align: center;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - var(--mobileHeight));
 }
 section#navbar_section > div#navigation_items > div {
   font-size: 28px;
   font-family: OpenSansBold;
   line-height: 24px;
   color: var(--GREY8);
-  padding: calc((100vh - 60px - 24px * 6) / 12) 0;
+  padding: calc((100vh - var(--mobileHeight) - 24px * 6) / 12) 0;
   box-shadow: 0 -1px 0px var(--GREY3);
 }
 section#navbar_section > div#navigation_items > div:last-of-type {
@@ -425,57 +430,57 @@ section#navbar_section > div#navigation_items[class~=open] {
   transition: opacity 0.5s ease-in-out 0.25s;
   opacity: 1;
 }
-section#navbar_section div#navbar {
+section#navbar_section > div#navbar {
   display: flex;
   height: 70px;
   margin: auto auto 0 auto;
   transition: box-shadow 0.2s ease-in-out;
 }
 @media screen and (max-width: 500px) {
-  section#navbar_section div#navbar {
+  section#navbar_section > div#navbar {
     display: none;
   }
 }
 @media screen and (min-width: 500px) {
-  section#navbar_section div#navbar {
+  section#navbar_section > div#navbar {
     font-size: 20px;
   }
 }
 @media screen and (max-width: 500px) {
-  section#navbar_section div#navbar {
+  section#navbar_section > div#navbar {
     font-size: 16px;
   }
 }
-section#navbar_section div#navbar.box-shadow {
+section#navbar_section > div#navbar.box-shadow {
   box-shadow: inset 0 -1px 0 0 var(--GREY2);
 }
-section#navbar_section div#navbar > div, section#navbar_section div#navbar > img {
+section#navbar_section > div#navbar > div, section#navbar_section > div#navbar > img {
   cursor: pointer;
   letter-spacing: 0.5px;
   transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out, letter-spacing 0.2s ease-in-out;
 }
-section#navbar_section div#navbar > div, section#navbar_section div#navbar > img.home {
+section#navbar_section > div#navbar > div, section#navbar_section > div#navbar > img.home {
   margin-top: auto;
   margin-right: 40px;
   margin-left: 0;
   margin-bottom: auto;
 }
-section#navbar_section div#navbar > img.home {
+section#navbar_section > div#navbar > img.home {
   margin: auto auto auto 0;
   width: 60px;
 }
-section#navbar_section div#navbar > img.uni {
+section#navbar_section > div#navbar > img.uni {
   height: 40px;
   margin: auto 0;
 }
-section#navbar_section div#navbar > div:nth-last-child(2) {
+section#navbar_section > div#navbar > div:nth-last-child(2) {
   margin-right: auto;
 }
-section#navbar_section div#navbar > div:hover, section#navbar_section div#navbar > div.selected {
+section#navbar_section > div#navbar > div:hover, section#navbar_section > div#navbar > div.selected {
   color: black;
   letter-spacing: 1.25px;
 }
-section#navbar_section div#navbar > div.pale {
+section#navbar_section > div#navbar > div.pale {
   color: var(--GREY6);
   letter-spacing: 0.5px;
 }
