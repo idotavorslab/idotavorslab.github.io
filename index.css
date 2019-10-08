@@ -219,6 +219,11 @@ a.arrow-trans:after {
   width: var(--w);
 }
 
+:root {
+  --mobileNavbarHeight: 60px;
+  --regularNavbarHeight: 70px;
+}
+
 div#main {
   text-align: center;
 }
@@ -229,12 +234,12 @@ div#main div#home {
 }
 @media screen and (min-width: 500px) {
   div#main div#home {
-    padding-top: 130px;
+    padding-top: calc(var(--regularNavbarHeight) + 60px);
   }
 }
 @media screen and (max-width: 500px) {
   div#main div#home {
-    padding-top: 60px;
+    padding-top: var(--mobileNavbarHeight);
   }
 }
 
@@ -329,7 +334,6 @@ div#footer > section#ugug_section {
 }
 
 section#navbar_section {
-  --mobileHeight: 60px;
   background-color: rgba(255, 255, 255, 0.92);
   position: fixed;
   width: 100%;
@@ -337,7 +341,7 @@ section#navbar_section {
 }
 @media screen and (max-width: 500px) {
   section#navbar_section {
-    height: var(--mobileHeight);
+    height: var(--mobileNavbarHeight);
   }
 }
 section#navbar_section > div#hamburger_menu {
@@ -345,7 +349,7 @@ section#navbar_section > div#hamburger_menu {
   position: absolute;
   right: 0px;
   transition: 0.5s ease-in-out;
-  width: calc(var(--mobileHeight) - 10px);
+  width: calc(var(--mobileNavbarHeight) - 10px);
 }
 @media screen and (min-width: 500px) {
   section#navbar_section > div#hamburger_menu {
@@ -359,10 +363,10 @@ section#navbar_section > div#hamburger_menu > span#hamburger {
   background: var(--GREY8);
   height: 2px;
   position: absolute;
-  top: calc(var(--mobileHeight) / 2);
+  top: calc(var(--mobileNavbarHeight) / 2);
   transform-origin: center;
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-  width: calc(var(--mobileHeight) / 2);
+  width: calc(var(--mobileNavbarHeight) / 2);
 }
 section#navbar_section > div#hamburger_menu > span#hamburger:after, section#navbar_section > div#hamburger_menu > span#hamburger:before {
   background: var(--GREY8);
@@ -398,23 +402,23 @@ section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before
   animation-fill-mode: forwards;
 }
 section#navbar_section > div#hamburger_logo > img {
-  height: calc(var(--mobileHeight) - 10px);
+  height: calc(var(--mobileNavbarHeight) - 10px);
   margin-top: 5px;
 }
 section#navbar_section > div#navigation_items {
   opacity: 0;
   position: absolute;
-  top: var(--mobileHeight);
+  top: var(--mobileNavbarHeight);
   text-align: center;
   width: 100%;
-  height: calc(100vh - var(--mobileHeight));
+  height: calc(100vh - var(--mobileNavbarHeight));
 }
 section#navbar_section > div#navigation_items > div {
   font-size: 28px;
   font-family: OpenSansBold;
   line-height: 24px;
   color: var(--GREY8);
-  padding: calc((100vh - var(--mobileHeight) - 24px * 6) / 12) 0;
+  padding: calc((100vh - var(--mobileNavbarHeight) - 24px * 6) / 12) 0;
   box-shadow: 0 -1px 0px var(--GREY3);
 }
 section#navbar_section > div#navigation_items > div:last-of-type {

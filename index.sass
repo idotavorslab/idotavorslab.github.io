@@ -112,6 +112,10 @@ a
 	max-width: 100%
 	width: var(--w)
 
+\:root
+	--mobileNavbarHeight: 60px
+	--regularNavbarHeight: 70px
+
 div#main
 
 	text-align: center
@@ -122,11 +126,11 @@ div#main
 		opacity: 1
 		position: relative
 		@include min-width($BP4)
-			// navbar(70) + 60 = 130px
-			padding-top: 130px
+			//130px
+			padding-top: calc(var(--regularNavbarHeight) + 60px)
 		@include max-width($BP4)
 			// *  DEP: navbar.sass #navbar_section --mobileHeight
-			padding-top: 60px
+			padding-top: var(--mobileNavbarHeight)
 
 // ***  footer
 // div#footer
