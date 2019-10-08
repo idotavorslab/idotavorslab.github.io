@@ -234,7 +234,7 @@ div#main div#home {
 }
 @media screen and (max-width: 500px) {
   div#main div#home {
-    padding-top: 50px;
+    padding-top: 60px;
   }
 }
 
@@ -359,10 +359,10 @@ section#navbar_section > div#hamburger_menu > span#hamburger {
   background: var(--GREY8);
   height: 2px;
   position: absolute;
-  top: 30px;
+  top: calc(var(--mobileHeight) / 2);
   transform-origin: center;
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-  width: 30px;
+  width: calc(var(--mobileHeight) / 2);
 }
 section#navbar_section > div#hamburger_menu > span#hamburger:after, section#navbar_section > div#hamburger_menu > span#hamburger:before {
   background: var(--GREY8);

@@ -125,7 +125,8 @@ div#main
 			// navbar(70) + 60 = 130px
 			padding-top: 130px
 		@include max-width($BP4)
-			padding-top: 50px
+			// *  DEP: navbar.sass #navbar_section --mobileHeight
+			padding-top: 60px
 
 // ***  footer
 // div#footer
@@ -245,18 +246,6 @@ div#footer
 				height: var(--GAP0)
 				margin-right: var(--GAP1)
 				width: auto
-
-
-//& > div.uni-and-medicine
-	grid-column: 1/2
-	display: flex
-
-	& > img.medicine
-		// *  DEP: #footer grid-column-gap
-		margin-left: var(--gap)
-
-	& > img.sagol
-		grid-column: 2/2
 
 
 #window_stats

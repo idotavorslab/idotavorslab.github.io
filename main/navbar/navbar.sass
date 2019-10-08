@@ -27,10 +27,12 @@ section#navbar_section
 			background: var(--GREY8)
 			height: 2px
 			position: absolute
-			top: 30px
+			// 30px
+			top: calc(var(--mobileHeight) / 2)
 			transform-origin: center
 			transition: transform $trans, box-shadow $trans
-			width: 30px
+			// 30px
+			width: calc(var(--mobileHeight) / 2)
 
 
 			&:after, &:before
@@ -79,7 +81,6 @@ section#navbar_section
 	& > div#navigation_items
 		opacity: 0
 		position: absolute
-		$_top: 60px
 		top: var(--mobileHeight)
 		text-align: center
 		width: 100%
