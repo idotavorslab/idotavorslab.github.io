@@ -14,15 +14,19 @@ class EventEmitter {
     }
     emit(key, data) {
         if (this._store[key]) {
-            for (let fn in this._store[key])
-                this._store[key][fn](data || undefined);
+            let { fns } = this._store[key];
+            for (let fn of fns) {
+                fn(data || undefined);
+            }
+            this._store[key].emitCount++;
         }
+        return this._store[key].emitCount;
     }
     on(key, fn) {
         if (this._store[key])
-            this._store[key].push(fn);
+            this._store[key].fns.push(fn);
         else
-            this._store[key] = [fn];
+            this._store[key] = { emitCount: null, fns: [fn] };
     }
 }
 const Emitter = new EventEmitter();
@@ -64,7 +68,7 @@ const WindowElem = elem({ htmlElement: window })
         });
         console.log('emitting navbarConstructed');
         Emitter.emit('navbarConstructed');
-        console.log('after emitting navbarConstructed');
+        console.log('after emitting navbarConstructed', Emitter._store['navbarConstructed']);
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")

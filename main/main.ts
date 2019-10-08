@@ -13,24 +13,28 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 const CacheDiv = elem({id: 'cache'});
 
 class EventEmitter {
-    private _store: TMap<Function[]> = {};
+    private _store: TMap<{ emitCount: number, fns: Function[] }> = {};
     
     constructor() {
     
     }
     
-    emit(key: string, data?: any) {
+    emit(key: string, data?: any): number | null {
         if (this._store[key]) {
-            for (let fn in this._store[key])
-                this._store[key][fn](data || undefined);
+            let {fns} = this._store[key];
+            for (let fn of fns) {
+                fn(data || undefined);
+            }
+            this._store[key].emitCount++;
         }
+        return this._store[key].emitCount
     }
     
-    on(key: string, fn: Function) {
+    on(key: string, fn: Function): void {
         if (this._store[key])
-            this._store[key].push(fn);
+            this._store[key].fns.push(fn);
         else
-            this._store[key] = [fn];
+            this._store[key] = {emitCount: null, fns: [fn]};
     }
 }
 
@@ -89,7 +93,7 @@ const WindowElem = elem({htmlElement: window})
             });
             console.log('emitting navbarConstructed');
             Emitter.emit('navbarConstructed');
-            console.log('after emitting navbarConstructed');
+            console.log('after emitting navbarConstructed', Emitter._store['navbarConstructed']);
             
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
             console.log({innerWidth: window.innerWidth, MOBILE});
