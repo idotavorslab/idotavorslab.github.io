@@ -13,28 +13,43 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 const CacheDiv = elem({id: 'cache'});
 
 class EventEmitter {
-    private _store: TMap<{ emitCount: number, fns: Function[] }> = {};
+    private _store: TMap<Function[]> = {};
     
     constructor() {
     
     }
     
-    emit(key: string, data?: any): number | null {
+    emit(key: string, data?: any): void {
         if (this._store[key]) {
-            let {fns} = this._store[key];
-            for (let fn of fns) {
+            for (let fn of this._store[key]) {
                 fn(data || undefined);
             }
-            this._store[key].emitCount++;
         }
-        return this._store[key].emitCount
     }
     
     on(key: string, fn: Function): void {
         if (this._store[key])
-            this._store[key].fns.push(fn);
+            this._store[key].push(fn);
         else
-            this._store[key] = {emitCount: null, fns: [fn]};
+            this._store[key] = [fn];
+    }
+    
+    one(key: string, fn: Function): void {
+        function _fn() {
+            console.log('_fn, calling fn() then removing. this._store[key].length:', this._store[key].length);
+            fn();
+            let indexofFn = (<Function[]>this._store[key]).indexOf(_fn);
+            this._store[key].splice(indexofFn, 1);
+            console.log('_fn, after removing. this._store[key].length:', this._store[key].length);
+            
+        }
+        
+        const onetimeFn = _fn.bind(this);
+        this.on(key, _fn.bind(this));
+    }
+    
+    until(key: string): Promise<unknown> {
+        return new Promise(resolve => this.on(key, resolve))
     }
 }
 
@@ -43,7 +58,7 @@ const Emitter = new EventEmitter();
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
-        scroll: async (event: Event) => {
+        scroll: (event: Event) => {
             /*await untilNotUndefined(Navbar, 'scroll Navbar');
             if (window.scrollY > 0) {
                 Navbar.removeClass('box-shadow')
@@ -52,14 +67,42 @@ const WindowElem = elem({htmlElement: window})
                 
             }
             */
-            if (Navbar !== undefined) {
+            // Emitter.on('navbarConstructed', () => window.scrollY > 0 ? Navbar.removeClass('box-shadow') : Navbar.addClass('box-shadow'));
+            /*console.log('scroll started waiting for navbarConstructed');
+            Emitter.on('navbarConstructed', () => {
+                console.log('scroll stopped waiting for navbarConstructed');
                 if (window.scrollY > 0) {
                     Navbar.removeClass('box-shadow')
                 } else {
                     Navbar.addClass('box-shadow')
                     
                 }
+            });
+            */
+            
+            if (Navbar !== undefined) {
+                if (window.scrollY > 0) {
+                    // console.log('scroll Navbar !== undefined, removing box-shadow');
+                    Navbar.removeClass('box-shadow')
+                } else {
+                    // console.log('scroll Navbar !== undefined, adding box-shadow');
+                    Navbar.addClass('box-shadow')
+                    
+                }
+            } /*else {
+                console.log('scroll Navbar === undefined, waiting for navbarConstructed...');
+                Emitter.until('navbarConstructed').then(() => {
+                    if (window.scrollY > 0) {
+                        console.log('scroll stopped waiting for navbarConstructed, removing box-shadow');
+                        Navbar.removeClass('box-shadow')
+                    } else {
+                        console.log('scroll stopped waiting for navbarConstructed, adding box-shadow');
+                        Navbar.addClass('box-shadow')
+                        
+                    }
+                })
             }
+            */
             
             
         },
@@ -91,9 +134,7 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
-            console.log('emitting navbarConstructed');
             Emitter.emit('navbarConstructed');
-            console.log('after emitting navbarConstructed', Emitter._store['navbarConstructed']);
             
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
             console.log({innerWidth: window.innerWidth, MOBILE});

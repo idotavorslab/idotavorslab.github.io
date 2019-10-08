@@ -43,20 +43,22 @@ const Routing = (() => {
                 
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                Emitter.on('navbarConstructed', function () {
-                    console.log('inside navbarConstructed fn');
-                    Navbar.select(Navbar[url]);
+                // console.log('routing started waiting for navbarConstructed');
+                // Emitter.on('navbarConstructed', () => {
+                //     console.log('routing stopped waiting for navbarConstructed');
+                //     Navbar.select(Navbar[url]);
+                // });
+                console.log('routing before navbarConstructed, Navbar:', Navbar);
+                Emitter.one('navbarConstructed', () => {
+                    console.log('routing inside navbarConstructed callback, Navbar:', Navbar);
                 });
-                // console.log('Navbar before untilNotUndefined in route:', Navbar);
-                // await untilNotUndefined([Navbar], 'route Navbar');
-                
-                /*if (Navbar === undefined) {
-                    // happens when refreshing to a #page
-                    window.onload = selectNavbarItem
-                } else {
-                    // happens when navigating through navbar
-                    selectNavbarItem()
-                }
+                console.log('routing after navbarConstructed, Navbar:', Navbar 6);
+                /*console.log('route await navbarConstructed start');
+                console.time('route await navbarConstructed');
+                await Emitter.until('navbarConstructed');
+                console.log('route await navbarConstructed end');
+                console.timeEnd('route await navbarConstructed');
+                Navbar.select(Navbar[url]);
                 */
                 
                 

@@ -14,25 +14,36 @@ class EventEmitter {
     }
     emit(key, data) {
         if (this._store[key]) {
-            let { fns } = this._store[key];
-            for (let fn of fns) {
+            for (let fn of this._store[key]) {
                 fn(data || undefined);
             }
-            this._store[key].emitCount++;
         }
-        return this._store[key].emitCount;
     }
     on(key, fn) {
         if (this._store[key])
-            this._store[key].fns.push(fn);
+            this._store[key].push(fn);
         else
-            this._store[key] = { emitCount: null, fns: [fn] };
+            this._store[key] = [fn];
+    }
+    one(key, fn) {
+        function _fn() {
+            console.log('_fn, calling fn() then removing. this._store[key].length:', this._store[key].length);
+            fn();
+            let indexofFn = this._store[key].indexOf(_fn);
+            this._store[key].splice(indexofFn, 1);
+            console.log('_fn, after removing. this._store[key].length:', this._store[key].length);
+        }
+        const onetimeFn = _fn.bind(this);
+        this.on(key, _fn.bind(this));
+    }
+    until(key) {
+        return new Promise(resolve => this.on(key, resolve));
     }
 }
 const Emitter = new EventEmitter();
 const WindowElem = elem({ htmlElement: window })
     .on({
-    scroll: async (event) => {
+    scroll: (event) => {
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
                 Navbar.removeClass('box-shadow');
@@ -66,9 +77,7 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
-        console.log('emitting navbarConstructed');
         Emitter.emit('navbarConstructed');
-        console.log('after emitting navbarConstructed', Emitter._store['navbarConstructed']);
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")

@@ -30,10 +30,11 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                Emitter.on('navbarConstructed', function () {
-                    console.log('inside navbarConstructed fn');
-                    Navbar.select(Navbar[url]);
+                console.log('routing before navbarConstructed, Navbar:', Navbar);
+                Emitter.one('navbarConstructed', () => {
+                    console.log('routing inside navbarConstructed callback, Navbar:', Navbar);
                 });
+                console.log('routing after navbarConstructed, Navbar:', Navbar, 6);
             }
             else {
                 alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);

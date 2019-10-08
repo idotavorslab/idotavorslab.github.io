@@ -13,23 +13,6 @@ const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
 
 
-
-async function untilNotUndefined(arr: any[], debugText?: string): Promise<boolean> {
-    let count: number = 0;
-    if (arr[0] !== undefined) return true;
-    while (arr[0] === undefined) {
-        if (count >= 10) {
-            console.warn(`untilNotUndefined(arr) reached count 10, returning false. debugText: ${debugText}`, {arr});
-            return false;
-        }
-        await wait(500);
-        console.log("this['Navbar']:", this['Navbar']);
-        count++;
-    }
-    return true;
-}
-
-
 function float(str: string): number {
     return parseFloat(str);
 }
