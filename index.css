@@ -345,6 +345,7 @@ section#navbar_section {
   }
 }
 section#navbar_section > div#hamburger_menu {
+  height: inherit;
   cursor: pointer;
   position: absolute;
   right: 0px;
@@ -359,7 +360,7 @@ section#navbar_section > div#hamburger_menu {
 section#navbar_section > div#hamburger_menu:focus {
   border-width: 0px;
 }
-section#navbar_section > div#hamburger_menu > span#hamburger {
+section#navbar_section > div#hamburger_menu > span#hamburger_lines {
   background: var(--GREY8);
   height: 2px;
   position: absolute;
@@ -368,7 +369,7 @@ section#navbar_section > div#hamburger_menu > span#hamburger {
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   width: calc(var(--mobileNavbarHeight) / 2);
 }
-section#navbar_section > div#hamburger_menu > span#hamburger:after, section#navbar_section > div#hamburger_menu > span#hamburger:before {
+section#navbar_section > div#hamburger_menu > span#hamburger_lines:after, section#navbar_section > div#hamburger_menu > span#hamburger_lines:before {
   background: var(--GREY8);
   content: "";
   height: 100%;
@@ -376,24 +377,24 @@ section#navbar_section > div#hamburger_menu > span#hamburger:after, section#navb
   transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
   width: 100%;
 }
-section#navbar_section > div#hamburger_menu > span#hamburger:after {
+section#navbar_section > div#hamburger_menu > span#hamburger_lines:after {
   bottom: -10px;
 }
-section#navbar_section > div#hamburger_menu > span#hamburger:before {
+section#navbar_section > div#hamburger_menu > span#hamburger_lines:before {
   top: -10px;
   opacity: 1;
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger_lines {
   transform: rotate(45deg);
   box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:after, section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger_lines:after, section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger_lines:before {
   transform: rotate(90deg);
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:after {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger_lines:after {
   bottom: 0;
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before {
+section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger_lines:before {
   top: 0;
   animation-name: FadeOut;
   animation-iteration-count: 1;
@@ -417,10 +418,7 @@ section#navbar_section > div#hamburger_logo > img {
 }
 section#navbar_section > div#navigation_items {
   opacity: 0;
-  position: absolute;
-  top: var(--mobileNavbarHeight);
-  text-align: center;
-  width: 100%;
+  position: relative;
   height: calc(100vh - var(--mobileNavbarHeight));
 }
 section#navbar_section > div#navigation_items > div {
@@ -428,6 +426,7 @@ section#navbar_section > div#navigation_items > div {
   font-family: OpenSansBold;
   line-height: 24px;
   color: var(--GREY8);
+  cursor: pointer;
   padding: calc((100vh - var(--mobileNavbarHeight) - 24px * 6) / 12) 0;
   box-shadow: 0 -1px 0px var(--GREY3);
 }

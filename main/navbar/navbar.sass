@@ -10,7 +10,7 @@ section#navbar_section
 	& > div#hamburger_menu
 		@include min-width($BP4)
 			display: none
-
+		height: inherit
 		cursor: pointer
 		position: absolute
 		right: 0px
@@ -22,7 +22,7 @@ section#navbar_section
 			border-width: 0px
 
 
-		& > span#hamburger
+		& > span#hamburger_lines
 			background: var(--GREY8)
 			height: 2px
 			position: absolute
@@ -52,7 +52,7 @@ section#navbar_section
 
 
 		&[class~="open"]
-			& > span#hamburger
+			& > span#hamburger_lines
 				transform: rotate(45deg)
 				box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
 
@@ -88,10 +88,13 @@ section#navbar_section
 
 	& > div#navigation_items
 		opacity: 0
-		position: absolute
-		top: var(--mobileNavbarHeight)
-		text-align: center
-		width: 100%
+		//position: absolute
+		position: relative
+		//top: var(--mobileNavbarHeight)
+		//text-align: center
+		//width: var(--w)
+		// 5%
+		//left: calc((100% - var(--W4)) / 2)
 		height: calc(100vh - var(--mobileNavbarHeight))
 
 
@@ -101,11 +104,16 @@ section#navbar_section
 			font-family: OpenSansBold
 			line-height: $_lineHeight
 			color: var(--GREY8)
+			cursor: pointer
 			// 60 + (24 + 44*2) * 6
 			// 6 items
 			// $top + ($lineHeight + 2x)*6  =  100vh
 			padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
 			box-shadow: 0 -1px 0px var(--GREY3)
+
+			&:first-of-type
+			//width: 100%
+			//left: 10%
 
 			&:last-of-type
 				box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3)

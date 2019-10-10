@@ -343,8 +343,8 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });
 
-const hamburgerMenu = <Div & { hamburger: Span }>elem({
-    id: 'hamburger_menu', children: {hamburger: '#hamburger'}
+const hamburgerMenu = <Div & { hamburgerLines: Span }>elem({
+    id: 'hamburger_menu', children: {hamburgerLines: '#hamburger_lines'}
 });
 const navigationItems = elem({id: 'navigation_items'});
 navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
