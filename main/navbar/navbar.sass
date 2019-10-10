@@ -10,64 +10,65 @@ section#navbar_section
 	& > div#hamburger
 		height: inherit
 
-		& > div.menu
-			@include min-width($BP4)
-				display: none
-			height: inherit
-			cursor: pointer
-			position: absolute
-			right: 0px
-			transition: .5s ease-in-out
-			// *  DEP: #hamburger_logo > img height
-			width: calc(var(--mobileNavbarHeight) - 10px)
-
-			&:focus
-				border-width: 0px
-
-
-			& > span.lines
-				background: var(--GREY8)
-				height: 2px
+		& > div.menu-and-logo-container
+			& > div.menu
+				@include min-width($BP4)
+					display: none
+				height: inherit
+				cursor: pointer
 				position: absolute
-				// 30px
-				top: calc(var(--mobileNavbarHeight) / 2)
-				transform-origin: center
-				transition: transform $_trans, box-shadow $_trans
-				// 30px
-				width: calc(var(--mobileNavbarHeight) / 2)
+				right: 0px
+				transition: .5s ease-in-out
+				// *  DEP: #hamburger_logo > img height
+				width: calc(var(--mobileNavbarHeight) - 10px)
+
+				&:focus
+					border-width: 0px
 
 
-				&:after, &:before
+				& > span.lines
 					background: var(--GREY8)
-					content: ""
-					height: 100%
+					height: 2px
 					position: absolute
-					transition: transform $_trans, bottom $_trans, top $_trans
-					width: 100%
-
-				&:after
-					bottom: -10px
-
-
-				&:before
-					top: -10px
-					opacity: 1
+					// 30px
+					top: calc(var(--mobileNavbarHeight) / 2)
+					transform-origin: center
+					transition: transform $_trans, box-shadow $_trans
+					// 30px
+					width: calc(var(--mobileNavbarHeight) / 2)
 
 
-		& > div.logo
-			position: relative
-			// actual img width
-			width: 150px
-			// 5%
-			margin-left: calc((100% - var(--W4)) / 2)
-			@include min-width($BP4)
-				display: none
+					&:after, &:before
+						background: var(--GREY8)
+						content: ""
+						height: 100%
+						position: absolute
+						transition: transform $_trans, bottom $_trans, top $_trans
+						width: 100%
 
-			& > img
-				// *  DEP: #hamburger_menu width
-				height: calc(var(--mobileNavbarHeight) - 24px)
-				// half of 24
-				margin-top: 12px
+					&:after
+						bottom: -10px
+
+
+					&:before
+						top: -10px
+						opacity: 1
+
+
+			& > div.logo
+				position: relative
+				// actual img width
+				width: max-content
+				// 5%
+				//margin-left: calc((100% - var(--W4)) / 2)
+				@include min-width($BP4)
+					display: none
+
+				& > img
+					// *  DEP: #hamburger_menu width
+					height: calc(var(--mobileNavbarHeight) - 24px)
+					// half of 24
+					margin-top: 12px
 
 		& > div.items
 			opacity: 0
@@ -91,27 +92,21 @@ section#navbar_section
 				// 6 items
 				// $top + ($lineHeight + 2x)*6  =  100vh
 				padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
-				box-shadow: 0 -1px 0px var(--GREY3)
 
-				&:first-of-type
-				//width: 100%
-				//left: 10%
+				&:not(:first-of-type)
+					box-shadow: 0 -1px 0px var(--GREY3)
+
 				&:last-of-type
 					box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3)
-		//&:not([class~="open"])
-			transition: opacity 0.5s ease-out
-			pointer-events: none
-		//&[class~="open"]
-			display: flex
-			flex-direction: column
-			transition: opacity 0.5s ease-in-out 0.25s
-			opacity: 1
 
 
 		&[class~="open"]
-			& > div.menu > span.lines
+			box-shadow: 0 1px 0px var(--GREY3)
+
+			& > div.menu-and-logo-container > div.menu > span.lines
 				transform: rotate(45deg)
 				box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
+				z-index: -1
 
 				&:after, &:before
 					transform: rotate(90deg)

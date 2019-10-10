@@ -347,7 +347,7 @@ section#navbar_section {
 section#navbar_section > div#hamburger {
   height: inherit;
 }
-section#navbar_section > div#hamburger > div.menu {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu {
   height: inherit;
   cursor: pointer;
   position: absolute;
@@ -356,14 +356,14 @@ section#navbar_section > div#hamburger > div.menu {
   width: calc(var(--mobileNavbarHeight) - 10px);
 }
 @media screen and (min-width: 500px) {
-  section#navbar_section > div#hamburger > div.menu {
+  section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu {
     display: none;
   }
 }
-section#navbar_section > div#hamburger > div.menu:focus {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu:focus {
   border-width: 0px;
 }
-section#navbar_section > div#hamburger > div.menu > span.lines {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines {
   background: var(--GREY8);
   height: 2px;
   position: absolute;
@@ -372,7 +372,7 @@ section#navbar_section > div#hamburger > div.menu > span.lines {
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   width: calc(var(--mobileNavbarHeight) / 2);
 }
-section#navbar_section > div#hamburger > div.menu > span.lines:after, section#navbar_section > div#hamburger > div.menu > span.lines:before {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:after, section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:before {
   background: var(--GREY8);
   content: "";
   height: 100%;
@@ -380,24 +380,23 @@ section#navbar_section > div#hamburger > div.menu > span.lines:after, section#na
   transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
   width: 100%;
 }
-section#navbar_section > div#hamburger > div.menu > span.lines:after {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:after {
   bottom: -10px;
 }
-section#navbar_section > div#hamburger > div.menu > span.lines:before {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:before {
   top: -10px;
   opacity: 1;
 }
-section#navbar_section > div#hamburger > div.logo {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo {
   position: relative;
-  width: 150px;
-  margin-left: calc((100% - var(--W4)) / 2);
+  width: max-content;
 }
 @media screen and (min-width: 500px) {
-  section#navbar_section > div#hamburger > div.logo {
+  section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo {
     display: none;
   }
 }
-section#navbar_section > div#hamburger > div.logo > img {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo > img {
   height: calc(var(--mobileNavbarHeight) - 24px);
   margin-top: 12px;
 }
@@ -413,22 +412,28 @@ section#navbar_section > div#hamburger > div.items > div {
   color: var(--GREY8);
   cursor: pointer;
   padding: calc((100vh - var(--mobileNavbarHeight) - 24px * 6) / 12) 0;
+}
+section#navbar_section > div#hamburger > div.items > div:not(:first-of-type) {
   box-shadow: 0 -1px 0px var(--GREY3);
 }
 section#navbar_section > div#hamburger > div.items > div:last-of-type {
   box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3);
 }
-section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines {
+section#navbar_section > div#hamburger[class~=open] {
+  box-shadow: 0 1px 0px var(--GREY3);
+}
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines {
   transform: rotate(45deg);
   box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
+  z-index: -1;
 }
-section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:after, section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:before {
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:after, section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:before {
   transform: rotate(90deg);
 }
-section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:after {
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:after {
   bottom: 0;
 }
-section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:before {
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:before {
   top: 0;
   animation-name: FadeOut;
   animation-iteration-count: 1;
