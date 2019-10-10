@@ -401,6 +401,11 @@ section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before
   animation-delay: 0.5s;
   animation-fill-mode: forwards;
 }
+section#navbar_section > div#hamburger_logo {
+  position: relative;
+  width: 150px;
+  margin-left: calc((100% - var(--W4)) / 2);
+}
 @media screen and (min-width: 500px) {
   section#navbar_section > div#hamburger_logo {
     display: none;
@@ -888,7 +893,7 @@ div#home.people-page > div.grid > div#person_expando.expanded > div.close {
 }
 div#publications_container > div.year > div.title-and-minimize-flex {
   display: flex;
-  color: var(--GREY3);
+  color: var(--GREY5);
   margin-bottom: var(--small_gap);
 }
 div#publications_container > div.year > div.title-and-minimize-flex > span.year-title {
@@ -902,23 +907,6 @@ div#publications_container > div.year > div.title-and-minimize-flex > img {
   height: 25px;
   margin: auto 0 auto auto;
 }
-div#publications_container > div.year > div.title-and-minimize-flex > div.minimize {
-  border-width: 1px;
-  border-color: var(--GREY3);
-  border-style: solid;
-  border-radius: 2px;
-  color: var(--GREY6);
-  font-size: 14px;
-  height: 32px;
-  margin: auto 0 auto auto;
-  text-align: center;
-  transition: box-shadow 200ms;
-  width: 32px;
-}
-div#publications_container > div.year > div.title-and-minimize-flex > div.minimize:hover {
-  cursor: pointer;
-  box-shadow: 0px 2px 3px 0px var(--GREY2);
-}
 div#publications_container > div.year > div.publication {
   border-width: 1px;
   border-color: var(--GREY2);
@@ -927,11 +915,20 @@ div#publications_container > div.year > div.publication {
   background-color: var(--GREY02);
   border-radius: 15px;
   display: flex;
-  margin: 0 0 var(--gap) 0;
   padding: var(--small_gap);
   position: relative;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+@media screen and (min-width: 500px) {
+  div#publications_container > div.year > div.publication {
+    margin: 0 0 var(--gap) 0;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#publications_container > div.year > div.publication {
+    margin: 0 0 20px 0;
+  }
 }
 div#publications_container > div.year > div.publication:hover {
   transform: translateY(-4px);
@@ -941,6 +938,11 @@ div#publications_container > div.year > div.publication > img.thumbnail {
   width: 100px;
   border: 1px solid var(--GREY3);
   margin: auto var(--small_gap) auto 0;
+}
+@media screen and (max-width: 500px) {
+  div#publications_container > div.year > div.publication > img.thumbnail {
+    display: none;
+  }
 }
 div#publications_container > div.year > div.publication > div.pdf-div {
   border-width: 1px;
@@ -956,6 +958,11 @@ div#publications_container > div.year > div.publication > div.pdf-div {
   margin-left: auto;
   padding: 10px;
   text-transform: uppercase;
+}
+@media screen and (max-width: 500px) {
+  div#publications_container > div.year > div.publication > div.pdf-div {
+    display: none;
+  }
 }
 div#publications_container > div.year > div.publication > div.content-div > div {
   margin-top: 5px;

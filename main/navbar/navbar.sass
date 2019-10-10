@@ -72,6 +72,11 @@ section#navbar_section
 						fill-mode: forwards
 
 	& > div#hamburger_logo
+		position: relative
+		// actual img width
+		width: 150px
+		// 5%
+		margin-left: calc((100% - var(--W4)) / 2)
 		@include min-width($BP4)
 			display: none
 
