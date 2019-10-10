@@ -63,6 +63,7 @@ body {
   font-family: "OpenSans", sans-serif;
   margin: 0;
   line-height: 24px;
+  transition: filter 0.2s ease-in-out;
 }
 @media screen and (min-width: 1340px) {
   body {
@@ -345,6 +346,9 @@ section#navbar_section {
   }
 }
 section#navbar_section > div#hamburger {
+  height: inherit;
+}
+section#navbar_section > div#hamburger > div.menu-and-logo-container {
   height: inherit;
 }
 section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu {

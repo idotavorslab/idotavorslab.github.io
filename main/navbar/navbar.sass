@@ -11,6 +11,8 @@ section#navbar_section
 		height: inherit
 
 		& > div.menu-and-logo-container
+			height: inherit
+
 			& > div.menu
 				@include min-width($BP4)
 					display: none
@@ -56,11 +58,9 @@ section#navbar_section
 
 
 			& > div.logo
+				// makes it not disappear on open
 				position: relative
-				// actual img width
 				width: max-content
-				// 5%
-				//margin-left: calc((100% - var(--W4)) / 2)
 				@include min-width($BP4)
 					display: none
 

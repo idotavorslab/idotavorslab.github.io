@@ -383,7 +383,6 @@ hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
 hamburger.click((event: PointerEvent) => {
     console.log('hamburger.click');
     hamburger.toggleClass('open');
-    // hamburger.items.toggleClass('open');
     if (hamburger.hasClass('open')) {
         console.log('opened');
     } else {
