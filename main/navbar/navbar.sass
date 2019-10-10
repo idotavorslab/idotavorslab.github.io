@@ -8,6 +8,8 @@ section#navbar_section
 	$_trans: 0.5s ease-in-out
 
 	& > div#hamburger
+		height: inherit
+
 		& > div.menu
 			@include min-width($BP4)
 				display: none
@@ -52,26 +54,6 @@ section#navbar_section
 					opacity: 1
 
 
-			&[class~="open"]
-				& > span.lines
-					transform: rotate(45deg)
-					box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
-
-					&:after, &:before
-						transform: rotate(90deg)
-
-					&:after
-						bottom: 0
-
-					&:before
-						top: 0
-						animation:
-							name: FadeOut
-							iteration-count: 1
-							duration: 0s
-							delay: 0.5s
-							fill-mode: forwards
-
 		& > div.logo
 			position: relative
 			// actual img width
@@ -98,7 +80,6 @@ section#navbar_section
 			//left: calc((100% - var(--W4)) / 2)
 			height: calc(100vh - var(--mobileNavbarHeight))
 
-
 			& > div
 				font-size: 28px
 				$_lineHeight: 24px
@@ -115,20 +96,49 @@ section#navbar_section
 				&:first-of-type
 				//width: 100%
 				//left: 10%
-
 				&:last-of-type
 					box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3)
+		//&:not([class~="open"])
+			transition: opacity 0.5s ease-out
+			pointer-events: none
+		//&[class~="open"]
+			display: flex
+			flex-direction: column
+			transition: opacity 0.5s ease-in-out 0.25s
+			opacity: 1
 
 
-			&:not([class~="open"])
-				transition: opacity 0.5s ease-out
-				pointer-events: none
+		&[class~="open"]
+			& > div.menu > span.lines
+				transform: rotate(45deg)
+				box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
 
-			&[class~="open"]
+				&:after, &:before
+					transform: rotate(90deg)
+
+				&:after
+					bottom: 0
+
+				&:before
+					top: 0
+					animation:
+						name: FadeOut
+						iteration-count: 1
+						duration: 0s
+						delay: 0.5s
+						fill-mode: forwards
+
+			& > div.items
 				display: flex
 				flex-direction: column
 				transition: opacity 0.5s ease-in-out 0.25s
 				opacity: 1
+
+		&:not([class~="open"])
+			& > div.items
+				transition: opacity 0.5s ease-out
+				pointer-events: none
+
 
 	& > div#navbar
 		@include max-width($BP4)
@@ -177,7 +187,7 @@ section#navbar_section
 
 			&.pale
 				color: var(--GREY6)
-	//letter-spacing: 0.5px
+//letter-spacing: 0.5px
 
 
 @keyframes FadeOut

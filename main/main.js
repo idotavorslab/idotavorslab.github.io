@@ -209,19 +209,19 @@ const hamburger = elem({
     id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
 });
 hamburger.items.children('div').forEach((bhe) => {
-    bhe.click(() => {
+    bhe.click((event) => {
         const innerText = bhe.e.innerText.toLowerCase();
+        console.log(`hamburger ${innerText} click`);
         let href = innerText === "home" ? '' : `#${innerText}`;
         hamburger.menu.removeClass('open');
         hamburger.items.removeClass('open');
         anchor({ href }).click();
     });
 });
-hamburger.menu.click(async (event) => {
-    console.log('hamburger.menu.click');
-    hamburger.menu.toggleClass('open');
-    hamburger.items.toggleClass('open');
-    if (hamburger.menu.hasClass('open')) {
+hamburger.click((event) => {
+    console.log('hamburger.click');
+    hamburger.toggleClass('open');
+    if (hamburger.hasClass('open')) {
         console.log('opened');
     }
     else {

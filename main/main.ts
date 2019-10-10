@@ -359,19 +359,32 @@ const hamburger = <IHamburger>elem({
 // const navigationItems = elem({id: 'navigation_items'});
 // navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
 hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
-    bhe.click(() => {
+    bhe.click((event: PointerEvent) => {
         const innerText = bhe.e.innerText.toLowerCase();
+        console.log(`hamburger ${innerText} click`);
         let href = innerText === "home" ? '' : `#${innerText}`;
         hamburger.menu.removeClass('open');
         hamburger.items.removeClass('open');
         anchor({href}).click(); // no need to select because Routing.route does this
     });
 });
-hamburger.menu.click(async (event: MouseEvent) => {
+/*hamburger.menu.click(async (event: MouseEvent) => {
     console.log('hamburger.menu.click');
     hamburger.menu.toggleClass('open');
     hamburger.items.toggleClass('open');
     if (hamburger.menu.hasClass('open')) {
+        console.log('opened');
+    } else {
+        console.log('closed');
+    }
+});
+
+*/
+hamburger.click((event: PointerEvent) => {
+    console.log('hamburger.click');
+    hamburger.toggleClass('open');
+    // hamburger.items.toggleClass('open');
+    if (hamburger.hasClass('open')) {
         console.log('opened');
     } else {
         console.log('closed');

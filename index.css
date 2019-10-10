@@ -344,6 +344,9 @@ section#navbar_section {
     height: var(--mobileNavbarHeight);
   }
 }
+section#navbar_section > div#hamburger {
+  height: inherit;
+}
 section#navbar_section > div#hamburger > div.menu {
   height: inherit;
   cursor: pointer;
@@ -384,24 +387,6 @@ section#navbar_section > div#hamburger > div.menu > span.lines:before {
   top: -10px;
   opacity: 1;
 }
-section#navbar_section > div#hamburger > div.menu[class~=open] > span.lines {
-  transform: rotate(45deg);
-  box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
-}
-section#navbar_section > div#hamburger > div.menu[class~=open] > span.lines:after, section#navbar_section > div#hamburger > div.menu[class~=open] > span.lines:before {
-  transform: rotate(90deg);
-}
-section#navbar_section > div#hamburger > div.menu[class~=open] > span.lines:after {
-  bottom: 0;
-}
-section#navbar_section > div#hamburger > div.menu[class~=open] > span.lines:before {
-  top: 0;
-  animation-name: FadeOut;
-  animation-iteration-count: 1;
-  animation-duration: 0s;
-  animation-delay: 0.5s;
-  animation-fill-mode: forwards;
-}
 section#navbar_section > div#hamburger > div.logo {
   position: relative;
   width: 150px;
@@ -433,15 +418,33 @@ section#navbar_section > div#hamburger > div.items > div {
 section#navbar_section > div#hamburger > div.items > div:last-of-type {
   box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3);
 }
-section#navbar_section > div#hamburger > div.items:not([class~=open]) {
-  transition: opacity 0.5s ease-out;
-  pointer-events: none;
+section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines {
+  transform: rotate(45deg);
+  box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
 }
-section#navbar_section > div#hamburger > div.items[class~=open] {
+section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:after, section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:before {
+  transform: rotate(90deg);
+}
+section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:after {
+  bottom: 0;
+}
+section#navbar_section > div#hamburger[class~=open] > div.menu > span.lines:before {
+  top: 0;
+  animation-name: FadeOut;
+  animation-iteration-count: 1;
+  animation-duration: 0s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+section#navbar_section > div#hamburger[class~=open] > div.items {
   display: flex;
   flex-direction: column;
   transition: opacity 0.5s ease-in-out 0.25s;
   opacity: 1;
+}
+section#navbar_section > div#hamburger:not([class~=open]) > div.items {
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
 }
 section#navbar_section > div#navbar {
   display: flex;
