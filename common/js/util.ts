@@ -357,10 +357,9 @@ JSON.parstr = (value: any) => {
                 domObj[prop] = val;
             }
         }
+        // @ts-ignore
         return {localName: node.localName, ...domObj};
-        // let tmp = {};
-        // tmp[node.localName] = domObj;
-        // return tmp;
+        
     }
     
     let stringified = JSON.stringify(value, (thisArg, key) => {
@@ -368,6 +367,7 @@ JSON.parstr = (value: any) => {
             // thisArg = `${thisArg} (${key.localName})`;
             return nodeToObj(key);
         } else if (key instanceof BetterHTMLElement) {
+            // @ts-ignore
             key.type = key.__proto__.constructor.name;
             return key;
         } else {
