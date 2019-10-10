@@ -513,6 +513,14 @@ section#navbar_section > div#navbar > div.pale {
     opacity: 1;
   }
 }
+div#mobile_cover_image_container {
+  width: 100%;
+  background-color: var(--GREY02);
+}
+div#mobile_cover_image_container > img {
+  width: 100%;
+}
+
 div#intro {
   display: flex;
   margin-bottom: 80px;

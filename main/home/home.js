@@ -91,6 +91,9 @@ const HomePage = () => {
             rightWidget.newsCoverImageContainer
                 .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         }
+        else {
+            elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
+        }
         if (Navbar === undefined)
             await Emitter.until('navbarReady');
         Navbar.home.attr({ src: `main/home/${data.logo}` });
