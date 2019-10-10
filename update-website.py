@@ -87,11 +87,11 @@ if not onlygit:
         'chmod -R 755 __tmp/':                                                                       "chmod'ing -R 755 everything inside __tmp dir",
         'rsync -avrth --delete-excluded %s ./__tmp/ idotavor@gp.tau.ac.il:public_html' % excludestr: 'syncing contents of __tmp dir to idotavor@gp.tau.ac.il',
         # 'cd ..':                                                                               "cd'ing back to root folder",
-        # 'rm -rf __tmp':                                                                        'removing local __tmp dir'
+        'rm -rf __tmp':                                                                              'removing local __tmp dir'
         }
 
     for cmd, description in cmds.items():
-        input('\n%s...' % description.capitalize())
+        print('\n%s...' % description.capitalize())
         code = os.system(cmd)
         if code != 0:
             print('\n\t!!\tSomething went wrong while %s. Quitting.' % description)
