@@ -880,9 +880,11 @@ div#home.people-page > div.grid > div#person_expando.expanded > div.close {
   opacity: 1;
 }
 
-div#publications_container > div.year {
-  border-left: 1px solid var(--GREY2);
-  padding-left: 40px;
+@media screen and (min-width: 500px) {
+  div#publications_container > div.year {
+    border-left: 1px solid var(--GREY2);
+    padding-left: 40px;
+  }
 }
 div#publications_container > div.year > div.title-and-minimize-flex {
   display: flex;

@@ -17,9 +17,10 @@
 
 div#publications_container
 	& > div.year
-		border-left: 1px solid var(--GREY2)
-		padding:
-			left: 40px
+		@include min-width($BP4)
+			border-left: 1px solid var(--GREY2)
+			padding:
+				left: 40px
 
 		& > div.title-and-minimize-flex
 			display: flex
