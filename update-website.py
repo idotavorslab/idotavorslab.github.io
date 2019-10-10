@@ -84,7 +84,7 @@ if not onlygit:
     cmds = {
         'mkdir __tmp':                                                                         'creating local __tmp dir',
         'cd __tmp':                                                                            "cd'ing into __tmp dir",
-        'rsync -arth --delete-excluded %s ../ .' % excludestr:                                 'copying website files into __tmp dir',
+        'rsync -arth %s ../ .' % excludestr:                                                   'copying website files into __tmp dir',
         'chmod -R 755 .':                                                                      "chmod'ing -R 755 everything inside __tmp dir",
         'rsync -avrth --delete-excluded %s ./ idotavor@gp.tau.ac.il:public_html' % excludestr: 'syncing contents of __tmp dir to idotavor@gp.tau.ac.il',
         'cd ..':                                                                               "cd'ing back to root folder",
