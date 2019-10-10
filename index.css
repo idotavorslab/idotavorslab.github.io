@@ -406,18 +406,12 @@ section#navbar_section > div#hamburger > div.items {
   height: calc(100vh - var(--mobileNavbarHeight));
 }
 section#navbar_section > div#hamburger > div.items > div {
-  font-size: 28px;
-  font-family: OpenSansBold;
-  line-height: 24px;
   color: var(--GREY8);
   cursor: pointer;
-  padding: calc((100vh - var(--mobileNavbarHeight) - 24px * 6) / 12) 0;
+  padding: 24px 0;
 }
 section#navbar_section > div#hamburger > div.items > div:not(:first-of-type) {
   box-shadow: 0 -1px 0px var(--GREY3);
-}
-section#navbar_section > div#hamburger > div.items > div:last-of-type {
-  box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3);
 }
 section#navbar_section > div#hamburger[class~=open] {
   box-shadow: 0 1px 0px var(--GREY3);
