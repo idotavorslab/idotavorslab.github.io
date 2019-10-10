@@ -9,13 +9,14 @@ section#navbar_section
 
 	& > div#hamburger
 		height: inherit
+		@include min-width($BP4)
+			display: none
 
 		& > div.menu-and-logo-container
 			height: inherit
 
 			& > div.menu
-				@include min-width($BP4)
-					display: none
+
 				height: inherit
 				cursor: pointer
 				position: absolute
@@ -61,7 +62,7 @@ section#navbar_section
 				// makes it not disappear on open
 				position: relative
 				width: max-content
-				@include min-width($BP4)
+				//@include min-width($BP4)
 					display: none
 
 				& > img

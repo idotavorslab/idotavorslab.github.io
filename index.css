@@ -348,6 +348,11 @@ section#navbar_section {
 section#navbar_section > div#hamburger {
   height: inherit;
 }
+@media screen and (min-width: 500px) {
+  section#navbar_section > div#hamburger {
+    display: none;
+  }
+}
 section#navbar_section > div#hamburger > div.menu-and-logo-container {
   height: inherit;
 }
@@ -358,11 +363,6 @@ section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu 
   right: 0px;
   transition: 0.5s ease-in-out;
   width: calc(var(--mobileNavbarHeight) - 10px);
-}
-@media screen and (min-width: 500px) {
-  section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu {
-    display: none;
-  }
 }
 section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu:focus {
   border-width: 0px;
@@ -394,11 +394,6 @@ section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu 
 section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo {
   position: relative;
   width: max-content;
-}
-@media screen and (min-width: 500px) {
-  section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo {
-    display: none;
-  }
 }
 section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo > img {
   height: calc(var(--mobileNavbarHeight) - 24px);

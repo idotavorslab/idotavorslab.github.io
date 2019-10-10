@@ -116,7 +116,7 @@ const WindowElem = elem({htmlElement: window})
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
-                anchor({href: ''}).click();
+                anchor({href: ``}).appendTo(Body).click().remove();
             } else {
                 // regular navbar click
                 console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
@@ -227,7 +227,8 @@ class NavbarElem extends BetterHTMLElement {
                     console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
                     // empty => page reloads to root => route("")
                     // #something => onhashchange
-                    anchor({href}).click(); // no need to select because Routing.route does this
+                    
+                    anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
                 })
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -360,12 +361,12 @@ const hamburger = <IHamburger>elem({
 // navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
 hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
     bhe.click((event: PointerEvent) => {
+        event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`hamburger ${innerText} click`);
         let href = innerText === "home" ? '' : `#${innerText}`;
-        hamburger.menu.removeClass('open');
-        hamburger.items.removeClass('open');
-        anchor({href}).click(); // no need to select because Routing.route does this
+        hamburger.removeClass('open');
+        anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
     });
 });
 /*hamburger.menu.click(async (event: MouseEvent) => {

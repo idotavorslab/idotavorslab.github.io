@@ -39,7 +39,7 @@ const Routing = (() => {
             }
             else {
                 alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
-                anchor({ href: `` }).click();
+                anchor({ href: `` }).appendTo(Body).click().remove();
             }
         }
         else {
