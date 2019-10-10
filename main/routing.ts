@@ -53,7 +53,6 @@ const Routing = (() => {
                 
                 
             } else { // bad url, reload to homepage
-                // alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
                 // anchor({href: ``}).appendTo(Body).click().remove();
                 console.log(`Routing.initPage(), bad url, not in pageStrings(): "${url}". Calling Routing.navigateTo("home")`);
                 Routing.navigateTo("home");
@@ -67,8 +66,7 @@ const Routing = (() => {
     
     function navigateTo(url: Routing.Page) {
         if (url.startsWith('#')) {
-            console.error(`navigateTo(url) bad url:`, url);
-            return alert(`navigateTo(url) bad url: ${url}`);
+            throw new Error(`navigateTo(url) bad url: "${url}"`);
         }
         let href = url === "home" ? '' : `#${url}`;
         console.log(`Routing.navigateTo(url: "${url}") clicking fake <a href="${href}">`);

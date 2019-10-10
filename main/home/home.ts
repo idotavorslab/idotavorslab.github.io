@@ -1,6 +1,7 @@
 // used in research.ts
 type TResearchData = TMap<{ text: string, image: string, circle?: boolean, thumbnail: string }>;
 const HomePage = () => {
+    
     type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number };
     type TRightWidget = BetterHTMLElement & {
         newsCoverImageContainer: Div,
@@ -11,22 +12,6 @@ const HomePage = () => {
         },
         radios: Div,
     };
-    /** The single #news>date,title,content,radios html to show selected news */
-    const rightWidget: TRightWidget = <TRightWidget>elem({
-        query: '#right_widget',
-        children: {
-            newsCoverImageContainer: '#news_cover_image_container',
-            news: {
-                '#news': {
-                    title: '.title',
-                    date: '.date',
-                    content: '.content'
-                }
-            },
-            radios: '#radios',
-        }
-    });
-    const newsChildren: HTMLElement[] = rightWidget.news.children().map(c => c.e);
     
     class NewsData {
         readonly data: TNewsDataItem[];
@@ -119,6 +104,27 @@ const HomePage = () => {
         }
     }
     
+    let rightWidget: TRightWidget;
+    let newsChildren: HTMLElement[];
+    if (!MOBILE) {
+        rightWidget = <TRightWidget>elem({
+            query: '#right_widget',
+            children: {
+                newsCoverImageContainer: '#news_cover_image_container',
+                news: {
+                    '#news': {
+                        title: '.title',
+                        date: '.date',
+                        content: '.content'
+                    }
+                },
+                radios: '#radios',
+            }
+        });
+        
+        newsChildren = rightWidget.news.children().map(c => c.e);
+    }
+    
     async function init() {
         
         // rightWidget.mouseover(() => newsData.stopAutoSwitch());
@@ -129,11 +135,15 @@ const HomePage = () => {
         type TNews = TMap<{ content: string, date?: string, links: TMap<any> }>;
         type THomeData = { logo: string, "about-text": string, "news-cover-image": string, news: TNews, funding: TFunding };
         const data = await fetchDict<THomeData>('main/home/home.json');
-        rightWidget.newsCoverImageContainer
-            .append(img({src: `main/home/${data["news-cover-image"]}`}));
+        if (!MOBILE) {
+            rightWidget.newsCoverImageContainer
+                .append(img({src: `main/home/${data["news-cover-image"]}`}));
+        }
         
-        // don't use Navbar because might not have constructed yet
-        elem({query: '#navbar > img.home'}).attr({src: `main/home/${data.logo}`});
+        if (Navbar === undefined)
+            await Emitter.until('navbarReady');
+        Navbar.home.attr({src: `main/home/${data.logo}`});
+        // elem({query: '#navbar > img.home'}).attr({src: `main/home/${data.logo}`});
         
         const aboutText = elem({query: "#about > .about-text"});
         
@@ -144,26 +154,29 @@ const HomePage = () => {
                 cls = 'bold';
             aboutText.append(paragraph({text: p, cls}))
         }
-        // ***  News
-        /** Holds the data from .json in an array, plus the matching radio BetterHTMLElement */
-        const newsData = new NewsData();
-        
-        
-        let i = 0;
-        const radios = elem({id: 'radios'});
-        for (let [title, {date, content, links}] of dict(data.news).items()) {
-            let item: TNewsDataItem = {title, date, content, links, radio: div({cls: 'radio'}), index: i};
-            newsData.push(item);
-            if (i === 0) {
-                newsData.switchTo(item);
+        if (!MOBILE) {
+            
+            // ***  News
+            /** Holds the data from .json in an array, plus the matching radio BetterHTMLElement */
+            const newsData = new NewsData();
+            
+            
+            let i = 0;
+            const radios = elem({id: 'radios'});
+            for (let [title, {date, content, links}] of dict(data.news).items()) {
+                let item: TNewsDataItem = {title, date, content, links, radio: div({cls: 'radio'}), index: i};
+                newsData.push(item);
+                if (i === 0) {
+                    newsData.switchTo(item);
+                }
+                
+                radios.append(newsData[i].radio);
+                i++;
+                
             }
-            
-            radios.append(newsData[i].radio);
-            i++;
-            
+            rightWidget.mouseover(() => newsData.stopAutoSwitch());
+            rightWidget.mouseout(() => newsData.startAutoSwitch());
         }
-        rightWidget.mouseover(() => newsData.stopAutoSwitch());
-        rightWidget.mouseout(() => newsData.startAutoSwitch());
         // ***  Research Snippets
         
         const researchData = await fetchDict<TResearchData>('main/research/research.json');

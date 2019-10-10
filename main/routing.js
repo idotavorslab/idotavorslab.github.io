@@ -49,8 +49,7 @@ const Routing = (() => {
     }
     function navigateTo(url) {
         if (url.startsWith('#')) {
-            console.error(`navigateTo(url) bad url:`, url);
-            return alert(`navigateTo(url) bad url: ${url}`);
+            throw new Error(`navigateTo(url) bad url: "${url}"`);
         }
         let href = url === "home" ? '' : `#${url}`;
         console.log(`Routing.navigateTo(url: "${url}") clicking fake <a href="${href}">`);
