@@ -205,24 +205,23 @@ fetchDict("main/contact/contact.json").then(data => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });
-const hamburgerMenu = elem({
-    id: 'hamburger_menu', children: { hamburgerLines: '#hamburger_lines' }
+const hamburger = elem({
+    id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
 });
-const navigationItems = elem({ id: 'navigation_items' });
-navigationItems.children('div').forEach((bhe) => {
+hamburger.items.children('div').forEach((bhe) => {
     bhe.click(() => {
         const innerText = bhe.e.innerText.toLowerCase();
         let href = innerText === "home" ? '' : `#${innerText}`;
-        hamburgerMenu.removeClass('open');
-        navigationItems.removeClass('open');
+        hamburger.menu.removeClass('open');
+        hamburger.items.removeClass('open');
         anchor({ href }).click();
     });
 });
-hamburgerMenu.click(async (event) => {
-    console.log('hamburgerMenu.click');
-    hamburgerMenu.toggleClass('open');
-    navigationItems.toggleClass('open');
-    if (hamburgerMenu.hasClass('open')) {
+hamburger.menu.click(async (event) => {
+    console.log('hamburger.menu.click');
+    hamburger.menu.toggleClass('open');
+    hamburger.items.toggleClass('open');
+    if (hamburger.menu.hasClass('open')) {
         console.log('opened');
     }
     else {

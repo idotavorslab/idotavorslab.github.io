@@ -343,24 +343,35 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });
 
-const hamburgerMenu = <Div & { hamburgerLines: Span }>elem({
-    id: 'hamburger_menu', children: {hamburgerLines: '#hamburger_lines'}
+interface IHamburger extends Div {
+    menu: Div;
+    logo: Div;
+    items: Div;
+}
+
+const hamburger = <IHamburger>elem({
+    id: 'hamburger', children: {menu: '.menu', logo: '.logo', items: '.items'}
+    
 });
-const navigationItems = elem({id: 'navigation_items'});
-navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
+// const hamburgerMenu = <Div & { hamburgerLines: Span }>elem({
+//     id: 'hamburger_menu', children: {hamburgerLines: '#hamburger_lines'}
+// });
+// const navigationItems = elem({id: 'navigation_items'});
+// navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
+hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
     bhe.click(() => {
         const innerText = bhe.e.innerText.toLowerCase();
         let href = innerText === "home" ? '' : `#${innerText}`;
-        hamburgerMenu.removeClass('open');
-        navigationItems.removeClass('open');
+        hamburger.menu.removeClass('open');
+        hamburger.items.removeClass('open');
         anchor({href}).click(); // no need to select because Routing.route does this
     });
 });
-hamburgerMenu.click(async (event: MouseEvent) => {
-    console.log('hamburgerMenu.click');
-    hamburgerMenu.toggleClass('open');
-    navigationItems.toggleClass('open');
-    if (hamburgerMenu.hasClass('open')) {
+hamburger.menu.click(async (event: MouseEvent) => {
+    console.log('hamburger.menu.click');
+    hamburger.menu.toggleClass('open');
+    hamburger.items.toggleClass('open');
+    if (hamburger.menu.hasClass('open')) {
         console.log('opened');
     } else {
         console.log('closed');

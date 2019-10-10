@@ -7,127 +7,128 @@ section#navbar_section
 	z-index: 5
 	$_trans: 0.5s ease-in-out
 
-	& > div#hamburger_menu
-		@include min-width($BP4)
-			display: none
-		height: inherit
-		cursor: pointer
-		position: absolute
-		right: 0px
-		transition: .5s ease-in-out
-		// *  DEP: #hamburger_logo > img height
-		width: calc(var(--mobileNavbarHeight) - 10px)
-
-		&:focus
-			border-width: 0px
-
-
-		& > span#hamburger_lines
-			background: var(--GREY8)
-			height: 2px
+	& > div#hamburger
+		& > div.menu
+			@include min-width($BP4)
+				display: none
+			height: inherit
+			cursor: pointer
 			position: absolute
-			// 30px
-			top: calc(var(--mobileNavbarHeight) / 2)
-			transform-origin: center
-			transition: transform $_trans, box-shadow $_trans
-			// 30px
-			width: calc(var(--mobileNavbarHeight) / 2)
+			right: 0px
+			transition: .5s ease-in-out
+			// *  DEP: #hamburger_logo > img height
+			width: calc(var(--mobileNavbarHeight) - 10px)
+
+			&:focus
+				border-width: 0px
 
 
-			&:after, &:before
+			& > span.lines
 				background: var(--GREY8)
-				content: ""
-				height: 100%
+				height: 2px
 				position: absolute
-				transition: transform $_trans, bottom $_trans, top $_trans
-				width: 100%
+				// 30px
+				top: calc(var(--mobileNavbarHeight) / 2)
+				transform-origin: center
+				transition: transform $_trans, box-shadow $_trans
+				// 30px
+				width: calc(var(--mobileNavbarHeight) / 2)
 
-			&:after
-				bottom: -10px
-
-
-			&:before
-				top: -10px
-				opacity: 1
-
-
-		&[class~="open"]
-			& > span#hamburger_lines
-				transform: rotate(45deg)
-				box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
 
 				&:after, &:before
-					transform: rotate(90deg)
+					background: var(--GREY8)
+					content: ""
+					height: 100%
+					position: absolute
+					transition: transform $_trans, bottom $_trans, top $_trans
+					width: 100%
 
 				&:after
-					bottom: 0
+					bottom: -10px
+
 
 				&:before
-					top: 0
-					animation:
-						name: FadeOut
-						iteration-count: 1
-						duration: 0s
-						delay: 0.5s
-						fill-mode: forwards
-
-	& > div#hamburger_logo
-		position: relative
-		// actual img width
-		width: 150px
-		// 5%
-		margin-left: calc((100% - var(--W4)) / 2)
-		@include min-width($BP4)
-			display: none
-
-		& > img
-			// *  DEP: #hamburger_menu width
-			height: calc(var(--mobileNavbarHeight) - 24px)
-			// half of 24
-			margin-top: 12px
-
-	& > div#navigation_items
-		opacity: 0
-		//position: absolute
-		position: relative
-		//top: var(--mobileNavbarHeight)
-		//text-align: center
-		//width: var(--w)
-		// 5%
-		//left: calc((100% - var(--W4)) / 2)
-		height: calc(100vh - var(--mobileNavbarHeight))
+					top: -10px
+					opacity: 1
 
 
-		& > div
-			font-size: 28px
-			$_lineHeight: 24px
-			font-family: OpenSansBold
-			line-height: $_lineHeight
-			color: var(--GREY8)
-			cursor: pointer
-			// 60 + (24 + 44*2) * 6
-			// 6 items
-			// $top + ($lineHeight + 2x)*6  =  100vh
-			padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
-			box-shadow: 0 -1px 0px var(--GREY3)
+			&[class~="open"]
+				& > span.lines
+					transform: rotate(45deg)
+					box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
 
-			&:first-of-type
-			//width: 100%
-			//left: 10%
+					&:after, &:before
+						transform: rotate(90deg)
 
-			&:last-of-type
-				box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3)
+					&:after
+						bottom: 0
+
+					&:before
+						top: 0
+						animation:
+							name: FadeOut
+							iteration-count: 1
+							duration: 0s
+							delay: 0.5s
+							fill-mode: forwards
+
+		& > div.logo
+			position: relative
+			// actual img width
+			width: 150px
+			// 5%
+			margin-left: calc((100% - var(--W4)) / 2)
+			@include min-width($BP4)
+				display: none
+
+			& > img
+				// *  DEP: #hamburger_menu width
+				height: calc(var(--mobileNavbarHeight) - 24px)
+				// half of 24
+				margin-top: 12px
+
+		& > div.items
+			opacity: 0
+			//position: absolute
+			position: relative
+			//top: var(--mobileNavbarHeight)
+			//text-align: center
+			//width: var(--w)
+			// 5%
+			//left: calc((100% - var(--W4)) / 2)
+			height: calc(100vh - var(--mobileNavbarHeight))
 
 
-		&:not([class~="open"])
-			transition: opacity 0.5s ease-out
-			pointer-events: none
+			& > div
+				font-size: 28px
+				$_lineHeight: 24px
+				font-family: OpenSansBold
+				line-height: $_lineHeight
+				color: var(--GREY8)
+				cursor: pointer
+				// 60 + (24 + 44*2) * 6
+				// 6 items
+				// $top + ($lineHeight + 2x)*6  =  100vh
+				padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
+				box-shadow: 0 -1px 0px var(--GREY3)
 
-		&[class~="open"]
-			display: flex
-			flex-direction: column
-			transition: opacity 0.5s ease-in-out 0.25s
-			opacity: 1
+				&:first-of-type
+				//width: 100%
+				//left: 10%
+
+				&:last-of-type
+					box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3)
+
+
+			&:not([class~="open"])
+				transition: opacity 0.5s ease-out
+				pointer-events: none
+
+			&[class~="open"]
+				display: flex
+				flex-direction: column
+				transition: opacity 0.5s ease-in-out 0.25s
+				opacity: 1
 
 	& > div#navbar
 		@include max-width($BP4)
