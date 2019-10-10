@@ -30,7 +30,11 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                await Emitter.until('navbarReady');
+                if (Navbar === undefined) {
+                    console.log('route Navbar === undefined, awaiting navbarReady...');
+                    await Emitter.until('navbarReady');
+                    console.log('route done awaiting navbarReady');
+                }
                 Navbar.select(Navbar[url]);
             }
             else {

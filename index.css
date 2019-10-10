@@ -441,7 +441,7 @@ section#navbar_section > div#navigation_items[class~=open] {
 }
 section#navbar_section > div#navbar {
   display: flex;
-  height: 70px;
+  height: var(--regularNavbarHeight);
   margin: auto auto 0 auto;
   transition: box-shadow 0.2s ease-in-out;
 }
@@ -466,7 +466,7 @@ section#navbar_section > div#navbar.box-shadow {
 section#navbar_section > div#navbar > div, section#navbar_section > div#navbar > img {
   cursor: pointer;
   letter-spacing: 0.5px;
-  transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out, letter-spacing 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 }
 section#navbar_section > div#navbar > div, section#navbar_section > div#navbar > img.home {
   margin-top: auto;
@@ -487,11 +487,9 @@ section#navbar_section > div#navbar > div:nth-last-child(2) {
 }
 section#navbar_section > div#navbar > div:hover, section#navbar_section > div#navbar > div.selected {
   color: black;
-  letter-spacing: 1.25px;
 }
 section#navbar_section > div#navbar > div.pale {
   color: var(--GREY6);
-  letter-spacing: 0.5px;
 }
 
 @keyframes FadeOut {

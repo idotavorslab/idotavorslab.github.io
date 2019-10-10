@@ -50,6 +50,7 @@ class EventEmitter {
     }
     
     until(key: string, options: { once: boolean } = {once: true}): Promise<unknown> {
+        console.log('EventEmitter until,', {key, options});
         if (options && options.once)
             return new Promise(resolve => this.one(key, resolve));
         else
@@ -138,6 +139,7 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
+            console.log('WindowElem onload emitting navbarReady');
             Emitter.emit('navbarReady');
             
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);

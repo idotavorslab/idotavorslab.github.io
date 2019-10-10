@@ -55,7 +55,11 @@ const Routing = (() => {
                                 });
                                 console.log('routing after navbarReady, Navbar:', Navbar);
                 */
-                await Emitter.until('navbarReady');
+                if (Navbar === undefined) {
+                    console.log('route Navbar === undefined, awaiting navbarReady...');
+                    await Emitter.until('navbarReady');
+                    console.log('route done awaiting navbarReady');
+                }
                 Navbar.select(Navbar[url]);
                 /*console.log('route await navbarReady start');
                 console.time('route await navbarReady');

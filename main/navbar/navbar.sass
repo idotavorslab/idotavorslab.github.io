@@ -5,7 +5,7 @@ section#navbar_section
 	position: fixed
 	width: 100%
 	z-index: 5
-	$trans: 0.5s ease-in-out
+	$_trans: 0.5s ease-in-out
 
 	& > div#hamburger_menu
 		@include min-width($BP4)
@@ -29,7 +29,7 @@ section#navbar_section
 			// 30px
 			top: calc(var(--mobileNavbarHeight) / 2)
 			transform-origin: center
-			transition: transform $trans, box-shadow $trans
+			transition: transform $_trans, box-shadow $_trans
 			// 30px
 			width: calc(var(--mobileNavbarHeight) / 2)
 
@@ -39,7 +39,7 @@ section#navbar_section
 				content: ""
 				height: 100%
 				position: absolute
-				transition: transform $trans, bottom $trans, top $trans
+				transition: transform $_trans, bottom $_trans, top $_trans
 				width: 100%
 
 			&:after
@@ -120,13 +120,12 @@ section#navbar_section
 		@include max-width($BP4)
 			display: none
 
-
 		@include pFontSize()
-
+		$_trans: 0.2s ease-in-out
 		display: flex
-		height: 70px
+		height: var(--regularNavbarHeight)
 		margin: auto auto 0 auto
-		transition: box-shadow 0.2s ease-in-out
+		transition: box-shadow $_trans
 
 		&.box-shadow
 			box-shadow: inset 0 -1px 0 0 var(--GREY2)
@@ -134,7 +133,7 @@ section#navbar_section
 		& > div, & > img
 			cursor: pointer
 			letter-spacing: 0.5px
-			transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out, letter-spacing 0.2s ease-in-out
+			transition: color $_trans, border-bottom-color $_trans
 
 		& > div, & > img.home
 			margin:
@@ -159,12 +158,12 @@ section#navbar_section
 		& > div
 			&:hover, &.selected
 				color: black
-				letter-spacing: 1.25px
+			//letter-spacing: 1.25px
 
 
 			&.pale
 				color: var(--GREY6)
-				letter-spacing: 0.5px
+	//letter-spacing: 0.5px
 
 
 @keyframes FadeOut
