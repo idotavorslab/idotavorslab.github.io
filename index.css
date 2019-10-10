@@ -63,6 +63,7 @@ body {
   font-family: "OpenSans", sans-serif;
   margin: 0;
   line-height: 24px;
+  transition: filter 0.2s ease-in-out;
 }
 @media screen and (min-width: 1340px) {
   body {
@@ -344,22 +345,29 @@ section#navbar_section {
     height: var(--mobileNavbarHeight);
   }
 }
-section#navbar_section > div#hamburger_menu {
+section#navbar_section > div#hamburger {
+  height: inherit;
+}
+@media screen and (min-width: 500px) {
+  section#navbar_section > div#hamburger {
+    display: none;
+  }
+}
+section#navbar_section > div#hamburger > div.menu-and-logo-container {
+  height: inherit;
+}
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu {
+  height: inherit;
   cursor: pointer;
   position: absolute;
   right: 0px;
   transition: 0.5s ease-in-out;
   width: calc(var(--mobileNavbarHeight) - 10px);
 }
-@media screen and (min-width: 500px) {
-  section#navbar_section > div#hamburger_menu {
-    display: none;
-  }
-}
-section#navbar_section > div#hamburger_menu:focus {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu:focus {
   border-width: 0px;
 }
-section#navbar_section > div#hamburger_menu > span#hamburger {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines {
   background: var(--GREY8);
   height: 2px;
   position: absolute;
@@ -368,7 +376,7 @@ section#navbar_section > div#hamburger_menu > span#hamburger {
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   width: calc(var(--mobileNavbarHeight) / 2);
 }
-section#navbar_section > div#hamburger_menu > span#hamburger:after, section#navbar_section > div#hamburger_menu > span#hamburger:before {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:after, section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:before {
   background: var(--GREY8);
   content: "";
   height: 100%;
@@ -376,24 +384,49 @@ section#navbar_section > div#hamburger_menu > span#hamburger:after, section#navb
   transition: transform 0.5s ease-in-out, bottom 0.5s ease-in-out, top 0.5s ease-in-out;
   width: 100%;
 }
-section#navbar_section > div#hamburger_menu > span#hamburger:after {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:after {
   bottom: -10px;
 }
-section#navbar_section > div#hamburger_menu > span#hamburger:before {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:before {
   top: -10px;
   opacity: 1;
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger {
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo {
+  position: relative;
+  width: max-content;
+}
+section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo > img {
+  height: calc(var(--mobileNavbarHeight) - 24px);
+  margin-top: 12px;
+}
+section#navbar_section > div#hamburger > div.items {
+  opacity: 0;
+  position: relative;
+  height: calc(100vh - var(--mobileNavbarHeight));
+}
+section#navbar_section > div#hamburger > div.items > div {
+  color: var(--GREY8);
+  cursor: pointer;
+  padding: 24px 0;
+}
+section#navbar_section > div#hamburger > div.items > div:not(:first-of-type) {
+  box-shadow: 0 -1px 0px var(--GREY3);
+}
+section#navbar_section > div#hamburger[class~=open] {
+  box-shadow: 0 1px 0px var(--GREY3);
+}
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines {
   transform: rotate(45deg);
   box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
+  z-index: -1;
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:after, section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before {
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:after, section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:before {
   transform: rotate(90deg);
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:after {
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:after {
   bottom: 0;
 }
-section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before {
+section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:before {
   top: 0;
   animation-name: FadeOut;
   animation-iteration-count: 1;
@@ -401,47 +434,19 @@ section#navbar_section > div#hamburger_menu[class~=open] > span#hamburger:before
   animation-delay: 0.5s;
   animation-fill-mode: forwards;
 }
-@media screen and (min-width: 500px) {
-  section#navbar_section > div#hamburger_logo {
-    display: none;
-  }
-}
-section#navbar_section > div#hamburger_logo > img {
-  height: calc(var(--mobileNavbarHeight) - 24px);
-  margin-top: 12px;
-}
-section#navbar_section > div#navigation_items {
-  opacity: 0;
-  position: absolute;
-  top: var(--mobileNavbarHeight);
-  text-align: center;
-  width: 100%;
-  height: calc(100vh - var(--mobileNavbarHeight));
-}
-section#navbar_section > div#navigation_items > div {
-  font-size: 28px;
-  font-family: OpenSansBold;
-  line-height: 24px;
-  color: var(--GREY8);
-  padding: calc((100vh - var(--mobileNavbarHeight) - 24px * 6) / 12) 0;
-  box-shadow: 0 -1px 0px var(--GREY3);
-}
-section#navbar_section > div#navigation_items > div:last-of-type {
-  box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3);
-}
-section#navbar_section > div#navigation_items:not([class~=open]) {
-  transition: opacity 0.5s ease-out;
-  pointer-events: none;
-}
-section#navbar_section > div#navigation_items[class~=open] {
+section#navbar_section > div#hamburger[class~=open] > div.items {
   display: flex;
   flex-direction: column;
   transition: opacity 0.5s ease-in-out 0.25s;
   opacity: 1;
 }
+section#navbar_section > div#hamburger:not([class~=open]) > div.items {
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
+}
 section#navbar_section > div#navbar {
   display: flex;
-  height: 70px;
+  height: var(--regularNavbarHeight);
   margin: auto auto 0 auto;
   transition: box-shadow 0.2s ease-in-out;
 }
@@ -466,7 +471,7 @@ section#navbar_section > div#navbar.box-shadow {
 section#navbar_section > div#navbar > div, section#navbar_section > div#navbar > img {
   cursor: pointer;
   letter-spacing: 0.5px;
-  transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out, letter-spacing 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 }
 section#navbar_section > div#navbar > div, section#navbar_section > div#navbar > img.home {
   margin-top: auto;
@@ -487,11 +492,9 @@ section#navbar_section > div#navbar > div:nth-last-child(2) {
 }
 section#navbar_section > div#navbar > div:hover, section#navbar_section > div#navbar > div.selected {
   color: black;
-  letter-spacing: 1.25px;
 }
 section#navbar_section > div#navbar > div.pale {
   color: var(--GREY6);
-  letter-spacing: 0.5px;
 }
 
 @keyframes FadeOut {
@@ -882,13 +885,15 @@ div#home.people-page > div.grid > div#person_expando.expanded > div.close {
   opacity: 1;
 }
 
-div#publications_container > div.year {
-  border-left: 1px solid var(--GREY2);
-  padding-left: 40px;
+@media screen and (min-width: 500px) {
+  div#publications_container > div.year {
+    border-left: 1px solid var(--GREY2);
+    padding-left: 40px;
+  }
 }
 div#publications_container > div.year > div.title-and-minimize-flex {
   display: flex;
-  color: var(--GREY3);
+  color: var(--GREY5);
   margin-bottom: var(--small_gap);
 }
 div#publications_container > div.year > div.title-and-minimize-flex > span.year-title {
@@ -902,23 +907,6 @@ div#publications_container > div.year > div.title-and-minimize-flex > img {
   height: 25px;
   margin: auto 0 auto auto;
 }
-div#publications_container > div.year > div.title-and-minimize-flex > div.minimize {
-  border-width: 1px;
-  border-color: var(--GREY3);
-  border-style: solid;
-  border-radius: 2px;
-  color: var(--GREY6);
-  font-size: 14px;
-  height: 32px;
-  margin: auto 0 auto auto;
-  text-align: center;
-  transition: box-shadow 200ms;
-  width: 32px;
-}
-div#publications_container > div.year > div.title-and-minimize-flex > div.minimize:hover {
-  cursor: pointer;
-  box-shadow: 0px 2px 3px 0px var(--GREY2);
-}
 div#publications_container > div.year > div.publication {
   border-width: 1px;
   border-color: var(--GREY2);
@@ -927,11 +915,20 @@ div#publications_container > div.year > div.publication {
   background-color: var(--GREY02);
   border-radius: 15px;
   display: flex;
-  margin: 0 0 var(--gap) 0;
   padding: var(--small_gap);
   position: relative;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+@media screen and (min-width: 500px) {
+  div#publications_container > div.year > div.publication {
+    margin: 0 0 var(--gap) 0;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#publications_container > div.year > div.publication {
+    margin: 0 0 20px 0;
+  }
 }
 div#publications_container > div.year > div.publication:hover {
   transform: translateY(-4px);
@@ -941,6 +938,11 @@ div#publications_container > div.year > div.publication > img.thumbnail {
   width: 100px;
   border: 1px solid var(--GREY3);
   margin: auto var(--small_gap) auto 0;
+}
+@media screen and (max-width: 500px) {
+  div#publications_container > div.year > div.publication > img.thumbnail {
+    display: none;
+  }
 }
 div#publications_container > div.year > div.publication > div.pdf-div {
   border-width: 1px;
@@ -956,6 +958,11 @@ div#publications_container > div.year > div.publication > div.pdf-div {
   margin-left: auto;
   padding: 10px;
   text-transform: uppercase;
+}
+@media screen and (max-width: 500px) {
+  div#publications_container > div.year > div.publication > div.pdf-div {
+    display: none;
+  }
 }
 div#publications_container > div.year > div.publication > div.content-div > div {
   margin-top: 5px;

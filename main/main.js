@@ -36,6 +36,7 @@ class EventEmitter {
         this.on(key, _fn.bind(this));
     }
     until(key, options = { once: true }) {
+        console.log('EventEmitter until,', { key, options });
         if (options && options.once)
             return new Promise(resolve => this.one(key, resolve));
         else
@@ -58,7 +59,7 @@ const WindowElem = elem({ htmlElement: window })
     hashchange: (event) => {
         const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
         if (!bool(newURL)) {
-            anchor({ href: '' }).click();
+            anchor({ href: `` }).appendTo(Body).click().remove();
         }
         else {
             console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
@@ -79,6 +80,7 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
+        console.log('WindowElem onload emitting navbarReady');
         Emitter.emit('navbarReady');
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
@@ -132,7 +134,7 @@ class NavbarElem extends BetterHTMLElement {
                 .click(() => {
                 let href = pageString === "home" ? '' : `#${pageString}`;
                 console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
-                anchor({ href }).click();
+                anchor({ href }).appendTo(Body).click().remove();
             })
                 .mouseover(() => this._emphasize(this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -203,24 +205,27 @@ fetchDict("main/contact/contact.json").then(data => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });
-const hamburgerMenu = elem({
-    id: 'hamburger_menu', children: { hamburger: '#hamburger' }
+const hamburger = elem({
+    id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
 });
-const navigationItems = elem({ id: 'navigation_items' });
-navigationItems.children('div').forEach((bhe) => {
-    bhe.click(() => {
+hamburger.logo.click((event) => {
+    event.stopPropagation();
+    anchor({ href: `` }).appendTo(Body).click().remove();
+});
+hamburger.items.children('div').forEach((bhe) => {
+    bhe.click((event) => {
+        event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
+        console.log(`hamburger ${innerText} click`);
         let href = innerText === "home" ? '' : `#${innerText}`;
-        hamburgerMenu.removeClass('open');
-        navigationItems.removeClass('open');
-        anchor({ href }).click();
+        hamburger.removeClass('open');
+        anchor({ href }).appendTo(Body).click().remove();
     });
 });
-hamburgerMenu.click(async (event) => {
-    console.log('hamburgerMenu.click');
-    hamburgerMenu.toggleClass('open');
-    navigationItems.toggleClass('open');
-    if (hamburgerMenu.hasClass('open')) {
+hamburger.click((event) => {
+    console.log('hamburger.click');
+    hamburger.toggleClass('open');
+    if (hamburger.hasClass('open')) {
         console.log('opened');
     }
     else {

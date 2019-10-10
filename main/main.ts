@@ -50,6 +50,7 @@ class EventEmitter {
     }
     
     until(key: string, options: { once: boolean } = {once: true}): Promise<unknown> {
+        console.log('EventEmitter until,', {key, options});
         if (options && options.once)
             return new Promise(resolve => this.one(key, resolve));
         else
@@ -115,7 +116,7 @@ const WindowElem = elem({htmlElement: window})
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
-                anchor({href: ''}).click();
+                anchor({href: ``}).appendTo(Body).click().remove();
             } else {
                 // regular navbar click
                 console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
@@ -138,6 +139,7 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
+            console.log('WindowElem onload emitting navbarReady');
             Emitter.emit('navbarReady');
             
             console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
@@ -225,7 +227,8 @@ class NavbarElem extends BetterHTMLElement {
                     console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
                     // empty => page reloads to root => route("")
                     // #something => onhashchange
-                    anchor({href}).click(); // no need to select because Routing.route does this
+                    
+                    anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
                 })
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -341,24 +344,35 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
 });
 
-const hamburgerMenu = <Div & { hamburger: Span }>elem({
-    id: 'hamburger_menu', children: {hamburger: '#hamburger'}
+interface IHamburger extends Div {
+    menu: Div;
+    logo: Div;
+    items: Div;
+}
+
+const hamburger = <IHamburger>elem({
+    id: 'hamburger', children: {menu: '.menu', logo: '.logo', items: '.items'}
+    
 });
-const navigationItems = elem({id: 'navigation_items'});
-navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
-    bhe.click(() => {
+hamburger.logo.click((event: PointerEvent) => {
+    event.stopPropagation();
+    anchor({href: ``}).appendTo(Body).click().remove();
+});
+hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
+    bhe.click((event: PointerEvent) => {
+        event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
+        console.log(`hamburger ${innerText} click`);
         let href = innerText === "home" ? '' : `#${innerText}`;
-        hamburgerMenu.removeClass('open');
-        navigationItems.removeClass('open');
-        anchor({href}).click(); // no need to select because Routing.route does this
+        hamburger.removeClass('open');
+        anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
     });
 });
-hamburgerMenu.click(async (event: MouseEvent) => {
-    console.log('hamburgerMenu.click');
-    hamburgerMenu.toggleClass('open');
-    navigationItems.toggleClass('open');
-    if (hamburgerMenu.hasClass('open')) {
+
+hamburger.click((event: PointerEvent) => {
+    console.log('hamburger.click');
+    hamburger.toggleClass('open');
+    if (hamburger.hasClass('open')) {
         console.log('opened');
     } else {
         console.log('closed');

@@ -5,56 +5,97 @@ section#navbar_section
 	position: fixed
 	width: 100%
 	z-index: 5
-	$trans: 0.5s ease-in-out
+	$_trans: 0.5s ease-in-out
 
-	& > div#hamburger_menu
+	& > div#hamburger
+		height: inherit
 		@include min-width($BP4)
 			display: none
 
-		cursor: pointer
-		position: absolute
-		right: 0px
-		transition: .5s ease-in-out
-		// *  DEP: #hamburger_logo > img height
-		width: calc(var(--mobileNavbarHeight) - 10px)
+		& > div.menu-and-logo-container
+			height: inherit
 
-		&:focus
-			border-width: 0px
+			& > div.menu
 
-
-		& > span#hamburger
-			background: var(--GREY8)
-			height: 2px
-			position: absolute
-			// 30px
-			top: calc(var(--mobileNavbarHeight) / 2)
-			transform-origin: center
-			transition: transform $trans, box-shadow $trans
-			// 30px
-			width: calc(var(--mobileNavbarHeight) / 2)
-
-
-			&:after, &:before
-				background: var(--GREY8)
-				content: ""
-				height: 100%
+				height: inherit
+				cursor: pointer
 				position: absolute
-				transition: transform $trans, bottom $trans, top $trans
-				width: 100%
+				right: 0px
+				transition: .5s ease-in-out
+				// *  DEP: #hamburger_logo > img height
+				width: calc(var(--mobileNavbarHeight) - 10px)
 
-			&:after
-				bottom: -10px
+				&:focus
+					border-width: 0px
 
 
-			&:before
-				top: -10px
-				opacity: 1
+				& > span.lines
+					background: var(--GREY8)
+					height: 2px
+					position: absolute
+					// 30px
+					top: calc(var(--mobileNavbarHeight) / 2)
+					transform-origin: center
+					transition: transform $_trans, box-shadow $_trans
+					// 30px
+					width: calc(var(--mobileNavbarHeight) / 2)
+
+
+					&:after, &:before
+						background: var(--GREY8)
+						content: ""
+						height: 100%
+						position: absolute
+						transition: transform $_trans, bottom $_trans, top $_trans
+						width: 100%
+
+					&:after
+						bottom: -10px
+
+
+					&:before
+						top: -10px
+						opacity: 1
+
+
+			& > div.logo
+				// makes it not disappear on open
+				position: relative
+				width: max-content
+				//@include min-width($BP4)
+					display: none
+
+				& > img
+					// *  DEP: #hamburger_menu width
+					height: calc(var(--mobileNavbarHeight) - 24px)
+					// half of 24
+					margin-top: 12px
+
+		& > div.items
+			opacity: 0
+			position: relative
+			height: calc(100vh - var(--mobileNavbarHeight))
+
+			& > div
+				color: var(--GREY8)
+				cursor: pointer
+				// 60 + (24 + 44*2) * 6
+				// 6 items
+				// $top + ($lineHeight + 2x)*6  =  100vh
+				//padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
+				padding: 24px 0
+
+				&:not(:first-of-type)
+					box-shadow: 0 -1px 0px var(--GREY3)
 
 
 		&[class~="open"]
-			& > span#hamburger
+			box-shadow: 0 1px 0px var(--GREY3)
+
+			& > div.menu-and-logo-container > div.menu > span.lines
 				transform: rotate(45deg)
 				box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
+				z-index: -1
 
 				&:after, &:before
 					transform: rotate(90deg)
@@ -71,62 +112,28 @@ section#navbar_section
 						delay: 0.5s
 						fill-mode: forwards
 
-	& > div#hamburger_logo
-		@include min-width($BP4)
-			display: none
-
-		& > img
-			// *  DEP: #hamburger_menu width
-			height: calc(var(--mobileNavbarHeight) - 24px)
-			// half of 24
-			margin-top: 12px
-
-	& > div#navigation_items
-		opacity: 0
-		position: absolute
-		top: var(--mobileNavbarHeight)
-		text-align: center
-		width: 100%
-		height: calc(100vh - var(--mobileNavbarHeight))
-
-
-		& > div
-			font-size: 28px
-			$_lineHeight: 24px
-			font-family: OpenSansBold
-			line-height: $_lineHeight
-			color: var(--GREY8)
-			// 60 + (24 + 44*2) * 6
-			// 6 items
-			// $top + ($lineHeight + 2x)*6  =  100vh
-			padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
-			box-shadow: 0 -1px 0px var(--GREY3)
-
-			&:last-of-type
-				box-shadow: 0 -1px 0px var(--GREY3), 0 1px 0px var(--GREY3)
-
+			& > div.items
+				display: flex
+				flex-direction: column
+				transition: opacity 0.5s ease-in-out 0.25s
+				opacity: 1
 
 		&:not([class~="open"])
-			transition: opacity 0.5s ease-out
-			pointer-events: none
+			& > div.items
+				transition: opacity 0.5s ease-out
+				pointer-events: none
 
-		&[class~="open"]
-			display: flex
-			flex-direction: column
-			transition: opacity 0.5s ease-in-out 0.25s
-			opacity: 1
 
 	& > div#navbar
 		@include max-width($BP4)
 			display: none
 
-
 		@include pFontSize()
-
+		$_trans: 0.2s ease-in-out
 		display: flex
-		height: 70px
+		height: var(--regularNavbarHeight)
 		margin: auto auto 0 auto
-		transition: box-shadow 0.2s ease-in-out
+		transition: box-shadow $_trans
 
 		&.box-shadow
 			box-shadow: inset 0 -1px 0 0 var(--GREY2)
@@ -134,7 +141,7 @@ section#navbar_section
 		& > div, & > img
 			cursor: pointer
 			letter-spacing: 0.5px
-			transition: color 200ms ease-in-out, border-bottom-color 200ms ease-in-out, letter-spacing 0.2s ease-in-out
+			transition: color $_trans, border-bottom-color $_trans
 
 		& > div, & > img.home
 			margin:
@@ -159,12 +166,10 @@ section#navbar_section
 		& > div
 			&:hover, &.selected
 				color: black
-				letter-spacing: 1.25px
 
 
 			&.pale
 				color: var(--GREY6)
-				letter-spacing: 0.5px
 
 
 @keyframes FadeOut

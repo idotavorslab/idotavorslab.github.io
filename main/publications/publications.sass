@@ -17,13 +17,14 @@
 
 div#publications_container
 	& > div.year
-		border-left: 1px solid var(--GREY2)
-		padding:
-			left: 40px
+		@include min-width($BP4)
+			border-left: 1px solid var(--GREY2)
+			padding:
+				left: 40px
 
 		& > div.title-and-minimize-flex
 			display: flex
-			color: var(--GREY3)
+			color: var(--GREY5)
 			margin:
 				// 30px
 				bottom: var(--small_gap)
@@ -41,7 +42,7 @@ div#publications_container
 				height: 25px
 				margin: auto 0 auto auto
 
-			& > div.minimize
+			//& > div.minimize
 				@include borderMixin(var(--GREY3))
 				color: var(--GREY6)
 				font-size: 14px
@@ -62,8 +63,10 @@ div#publications_container
 			background-color: var(--GREY02)
 			border-radius: 15px
 			display: flex
-			margin: 0 0 var(--gap) 0
-			// 30px
+			@include min-width($BP4)
+				margin: 0 0 var(--gap) 0
+			@include max-width($BP4)
+				margin: 0 0 20px 0
 			padding: var(--small_gap)
 			position: relative
 			//transition: box-shadow 200ms
@@ -75,6 +78,8 @@ div#publications_container
 				box-shadow: 0px 5px 6px 0px var(--GREY4)
 
 			& > img.thumbnail
+				@include max-width($BP4)
+					display: none
 				width: 100px
 				border: 1px solid var(--GREY3)
 				// 30px
@@ -82,6 +87,8 @@ div#publications_container
 
 
 			& > div.pdf-div
+				@include max-width($BP4)
+					display: none
 				@include borderMixin(var(--GREY3))
 				background-color: var(--GREY01)
 				color: var(--GREY6)

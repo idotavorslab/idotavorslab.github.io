@@ -55,7 +55,11 @@ const Routing = (() => {
                                 });
                                 console.log('routing after navbarReady, Navbar:', Navbar);
                 */
-                await Emitter.until('navbarReady');
+                if (Navbar === undefined) {
+                    console.log('route Navbar === undefined, awaiting navbarReady...');
+                    await Emitter.until('navbarReady');
+                    console.log('route done awaiting navbarReady');
+                }
                 Navbar.select(Navbar[url]);
                 /*console.log('route await navbarReady start');
                 console.time('route await navbarReady');
@@ -68,7 +72,7 @@ const Routing = (() => {
                 
             } else { // bad url, reload to homepage
                 alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
-                anchor({href: ``}).click();
+                anchor({href: ``}).appendTo(Body).click().remove();
             }
         } else {
             // happens when loading localhost:8000 or refreshing at homepage
