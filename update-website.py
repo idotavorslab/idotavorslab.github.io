@@ -92,7 +92,7 @@ if not onlygit:
         }
 
     for cmd, description in cmds.items():
-        print('\n%s...' % description.upper())
+        print('\n%s...' % description.capitalize())
         code = os.system(cmd)
         if code != 0:
             print('\n\t!!\tSomething went wrong while %s. Quitting.' % description)
