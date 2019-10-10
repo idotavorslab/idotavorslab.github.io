@@ -2,14 +2,15 @@ import re
 import os
 import sys
 
+SSHTGT = 'idotavor@gp.tau.ac.il:public_html'
 print('''
        -----------------------------------------------------------------------------------------------------------------
        |   USAGE:                                                                                                      |
-       |   python update-website.py         Pushes changes to GitHub, then copies idotavor@gp.tau.ac.il:public_html    |
+       |   python update-website.py         Pushes changes to GitHub, then copies %s    |
        |   python update-website.py git     Only pushes to GitHub                                                      |
-       |   python update-website.py scp     Only copies files to idotavor@gp.tau.ac.il:public_html                     |
+       |   python update-website.py scp     Only copies files to %s                     |
        -----------------------------------------------------------------------------------------------------------------
-    ''')
+    ''' % (SSHTGT, SSHTGT))
 
 if sys.version_info[0] < 3:
     inputfn = raw_input
@@ -78,16 +79,17 @@ if not onlygit:
                '*.zip',
                '*.sh',
                '.python-version',
-               '__tmp*'
+               # '__tmp*'
                ]
+    TMPDIR = '~/Documents/__tmp'
     excludestr = ' '.join(['--exclude=%s' % ex for ex in exclude])
     cmds = {
-        'mkdir __tmp':                                                                               'creating local __tmp dir',
-        'rsync -arth %s ./ __tmp/' % excludestr:                                                     'copying website files into __tmp dir',
-        'chmod -R 755 __tmp/':                                                                       "chmod'ing -R 755 everything inside __tmp dir",
-        'rsync -avrth --delete-excluded %s ./__tmp/ idotavor@gp.tau.ac.il:public_html' % excludestr: 'syncing contents of __tmp dir to idotavor@gp.tau.ac.il',
-        # 'cd ..':                                                                               "cd'ing back to root folder",
-        'rm -rf __tmp':                                                                              'removing local __tmp dir'
+        'mkdir %s' % TMPDIR:                            'creating local %s dir' % TMPDIR,
+        'rsync -arth %s ./ %s/' % (excludestr, TMPDIR): 'copying website files into %s dir' % TMPDIR,
+        'chmod -R 755 %s/' % TMPDIR:                    "chmod'ing -R 755 everything inside %s dir" % TMPDIR,
+        'rsync -avrth --delete-excluded %s ./ %s/ %s' % (
+            excludestr, TMPDIR, SSHTGT):                'syncing contents of %s dir to %s' % (TMPDIR, SSHTGT),
+        'rm -rf %s' % TMPDIR:                           'removing local %s dir' % TMPDIR
         }
 
     for cmd, description in cmds.items():
@@ -99,7 +101,7 @@ if not onlygit:
 
     print('''
        ----------------------------------------------------------------------------------
-       |   Success copying files to idotavor@gp.tau.ac.il:public_html.                  |
+       |   Success copying files to %s.                  |
        |   In a few minutes, you will be able to see the changes at tau.ac.il/~idotavor |
        ----------------------------------------------------------------------------------
-       ''')
+       ''' % SSHTGT)
