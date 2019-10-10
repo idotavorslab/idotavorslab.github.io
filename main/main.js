@@ -59,11 +59,11 @@ const WindowElem = elem({ htmlElement: window })
     hashchange: (event) => {
         const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
         if (!bool(newURL)) {
-            anchor({ href: `` }).appendTo(Body).click().remove();
+            Routing.navigateTo("home");
         }
         else {
             console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
-            Routing.route(newURL);
+            Routing.initPage(newURL);
         }
     },
     load: () => {
@@ -132,9 +132,8 @@ class NavbarElem extends BetterHTMLElement {
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
                 .click(() => {
-                let href = pageString === "home" ? '' : `#${pageString}`;
-                console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
-                anchor({ href }).appendTo(Body).click().remove();
+                console.log(`navbar ${pageString} click`);
+                Routing.navigateTo(pageString);
             })
                 .mouseover(() => this._emphasize(this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -210,16 +209,15 @@ const hamburger = elem({
 });
 hamburger.logo.click((event) => {
     event.stopPropagation();
-    anchor({ href: `` }).appendTo(Body).click().remove();
+    Routing.navigateTo("home");
 });
 hamburger.items.children('div').forEach((bhe) => {
     bhe.click((event) => {
         event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`hamburger ${innerText} click`);
-        let href = innerText === "home" ? '' : `#${innerText}`;
         hamburger.removeClass('open');
-        anchor({ href }).appendTo(Body).click().remove();
+        Routing.navigateTo(innerText);
     });
 });
 hamburger.click((event) => {

@@ -116,11 +116,12 @@ const WindowElem = elem({htmlElement: window})
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
-                anchor({href: ``}).appendTo(Body).click().remove();
+                Routing.navigateTo("home");
+                // anchor({href: ``}).appendTo(Body).click().remove();
             } else {
                 // regular navbar click
                 console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
-                Routing.route(<Routing.PageSansHome>newURL);
+                Routing.initPage(<Routing.PageSansHome>newURL);
             }
             
             
@@ -223,12 +224,14 @@ class NavbarElem extends BetterHTMLElement {
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
                 .click(() => {
-                    let href = pageString === "home" ? '' : `#${pageString}`;
-                    console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
+                    console.log(`navbar ${pageString} click`);
+                    Routing.navigateTo(pageString);
+                    /*let href = pageString === "home" ? '' : `#${pageString}`;
                     // empty => page reloads to root => route("")
                     // #something => onhashchange
                     
                     anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
+                    */
                 })
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -356,16 +359,18 @@ const hamburger = <IHamburger>elem({
 });
 hamburger.logo.click((event: PointerEvent) => {
     event.stopPropagation();
-    anchor({href: ``}).appendTo(Body).click().remove();
+    Routing.navigateTo("home");
+    // anchor({href: ``}).appendTo(Body).click().remove();
 });
 hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
     bhe.click((event: PointerEvent) => {
         event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`hamburger ${innerText} click`);
-        let href = innerText === "home" ? '' : `#${innerText}`;
         hamburger.removeClass('open');
-        anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
+        Routing.navigateTo(<Routing.PageSansHome>innerText);
+        // let href = innerText === "home" ? '' : `#${innerText}`;
+        // anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
     });
 });
 

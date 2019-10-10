@@ -27,8 +27,8 @@ const Routing = (() => {
     }
     
     
-    async function route(url: Routing.PageSansHome) {
-        console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
+    async function initPage(url: Routing.PageSansHome) {
+        console.log(`%cRouting.initPage(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
                 console.log(`\tvalid url ("${url}"), calling pageObj().init()`);
@@ -45,16 +45,18 @@ const Routing = (() => {
                 pageObj().init();
                 
                 if (Navbar === undefined) {
-                    console.log('route Navbar === undefined, awaiting navbarReady...');
+                    console.log('initPage Navbar === undefined, awaiting navbarReady...');
                     await Emitter.until('navbarReady');
-                    console.log('route done awaiting navbarReady');
+                    console.log('initPage done awaiting navbarReady');
                 }
                 Navbar.select(Navbar[url]);
                 
                 
             } else { // bad url, reload to homepage
-                alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
-                anchor({href: ``}).appendTo(Body).click().remove();
+                // alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
+                // anchor({href: ``}).appendTo(Body).click().remove();
+                console.log(`Routing.initPage(), bad url, not in pageStrings(): "${url}". Calling Routing.navigateTo("home")`);
+                Routing.navigateTo("home");
             }
         } else {
             // happens when loading localhost:8000 or refreshing at homepage
@@ -63,10 +65,21 @@ const Routing = (() => {
         }
     }
     
+    function navigateTo(url: Routing.Page) {
+        if (url.startsWith('#')) {
+            console.error(`navigateTo(url) bad url:`, url);
+            return alert(`navigateTo(url) bad url: ${url}`);
+        }
+        let href = url === "home" ? '' : `#${url}`;
+        console.log(`Routing.navigateTo(url: "${url}") clicking fake <a href="${href}">`);
+        anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
+    }
+    
     let lastPage = window.location.hash.slice(1);
-    console.log(`Routing() root, window.location: ${window.location}\ncalling route(lastPage = "${lastPage}")`);
-    route(<Routing.PageSansHome>lastPage);
-    return {route, pageStrings}
+    console.log(`Routing() root, window.location: ${window.location}\ncalling initPage(lastPage = "${lastPage}")`);
+    initPage(<Routing.PageSansHome>lastPage);
+    
+    return {initPage, navigateTo, pageStrings}
 })();
 
 
