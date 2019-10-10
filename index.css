@@ -515,10 +515,18 @@ section#navbar_section > div#navbar > div.pale {
 }
 div#mobile_cover_image_container {
   width: 100%;
+  --_side: calc((100% - var(--W4)) / 2);
   background-color: var(--GREY02);
+  margin: 0 var(--_side) 40px calc(-1 * var(--_side));
+  padding: 16px var(--_side);
+}
+@media screen and (min-width: 500px) {
+  div#mobile_cover_image_container {
+    display: none;
+  }
 }
 div#mobile_cover_image_container > img {
-  width: 100%;
+  width: inherit;
 }
 
 div#intro {

@@ -1,10 +1,15 @@
 $_marginBottom: 80px
 div#mobile_cover_image_container
+	@include min-width($BP4)
+		display: none
 	width: 100%
+	--_side: calc((100% - var(--W4)) / 2)
 	background-color: var(--GREY02)
+	margin: 0 var(--_side) 40px calc(-1 * var(--_side))
+	padding: 16px var(--_side)
 
 	& > img
-		width: 100%
+		width: inherit
 // ***  intro
 div#intro
 	display: flex
@@ -16,7 +21,6 @@ div#intro
 	// **  about
 	& > div#about
 		// keep no width because #right_widget
-		//width: calc((var(--w) * 2 / 3) - var(--gap))
 
 		& > div
 			position: relative
