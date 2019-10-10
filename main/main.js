@@ -208,6 +208,10 @@ fetchDict("main/contact/contact.json").then(data => {
 const hamburger = elem({
     id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
 });
+hamburger.logo.click((event) => {
+    event.stopPropagation();
+    anchor({ href: `` }).appendTo(Body).click().remove();
+});
 hamburger.items.children('div').forEach((bhe) => {
     bhe.click((event) => {
         event.stopPropagation();

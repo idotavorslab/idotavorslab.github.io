@@ -354,11 +354,10 @@ const hamburger = <IHamburger>elem({
     id: 'hamburger', children: {menu: '.menu', logo: '.logo', items: '.items'}
     
 });
-// const hamburgerMenu = <Div & { hamburgerLines: Span }>elem({
-//     id: 'hamburger_menu', children: {hamburgerLines: '#hamburger_lines'}
-// });
-// const navigationItems = elem({id: 'navigation_items'});
-// navigationItems.children('div').forEach((bhe: BetterHTMLElement) => {
+hamburger.logo.click((event: PointerEvent) => {
+    event.stopPropagation();
+    anchor({href: ``}).appendTo(Body).click().remove();
+});
 hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
     bhe.click((event: PointerEvent) => {
         event.stopPropagation();
@@ -369,18 +368,7 @@ hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
         anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
     });
 });
-/*hamburger.menu.click(async (event: MouseEvent) => {
-    console.log('hamburger.menu.click');
-    hamburger.menu.toggleClass('open');
-    hamburger.items.toggleClass('open');
-    if (hamburger.menu.hasClass('open')) {
-        console.log('opened');
-    } else {
-        console.log('closed');
-    }
-});
 
-*/
 hamburger.click((event: PointerEvent) => {
     console.log('hamburger.click');
     hamburger.toggleClass('open');
