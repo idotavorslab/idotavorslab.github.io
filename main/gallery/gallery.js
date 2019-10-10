@@ -119,7 +119,6 @@ const GalleryPage = () => {
                 console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             }
             else {
-                console.log(...less(`gallery | "gallery.${file}" not in cache`));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
@@ -129,7 +128,6 @@ const GalleryPage = () => {
         galleryImgs
             .sort(({ year: yearA }, { year: yearB }) => yearB - yearA)
             .forEach((image, i) => image.index = i);
-        console.log("galleryImgs after sort and index:", JSON.parstr(galleryImgs));
         const yearToYearDiv = {};
         let count = 0;
         function appendToRow(yearDiv, galleryImg, count) {

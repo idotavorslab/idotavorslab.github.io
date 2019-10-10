@@ -27,7 +27,7 @@ const Routing = (() => {
     }
     
     
-    function route(url: Routing.PageSansHome) {
+    async function route(url: Routing.PageSansHome) {
         console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
@@ -43,15 +43,27 @@ const Routing = (() => {
                 
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                const selectNavbarItem = () => Navbar.select(Navbar[url]);
-                // untilNotUndefined(Navbar, 'route Navbar').then(selectNavbarItem);
-                if (Navbar === undefined) {
-                    // happens when refreshing to a #page
-                    window.onload = selectNavbarItem
-                } else {
-                    // happens when navigating through navbar
-                    selectNavbarItem()
-                }
+                /*console.log('routing started waiting for navbarReady');
+                Emitter.on('navbarReady', () => {
+                    console.log('routing stopped waiting for navbarReady');
+                    Navbar.select(Navbar[url]);
+                });
+                */
+                /*                console.log('routing before navbarReady, Navbar:', Navbar);
+                                Emitter.one('navbarReady', () => {
+                                    console.log('routing inside navbarReady callback, Navbar:', Navbar);
+                                });
+                                console.log('routing after navbarReady, Navbar:', Navbar);
+                */
+                await Emitter.until('navbarReady');
+                Navbar.select(Navbar[url]);
+                /*console.log('route await navbarReady start');
+                console.time('route await navbarReady');
+                await Emitter.until('navbarReady');
+                console.log('route await navbarReady end');
+                console.timeEnd('route await navbarReady');
+                Navbar.select(Navbar[url]);
+                */
                 
                 
             } else { // bad url, reload to homepage

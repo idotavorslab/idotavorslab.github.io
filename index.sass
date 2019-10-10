@@ -112,6 +112,10 @@ a
 	max-width: 100%
 	width: var(--w)
 
+\:root
+	--mobileNavbarHeight: 60px
+	--regularNavbarHeight: 70px
+
 div#main
 
 	text-align: center
@@ -122,10 +126,11 @@ div#main
 		opacity: 1
 		position: relative
 		@include min-width($BP4)
-			// navbar(70) + 60 = 130px
-			padding-top: 130px
+			//130px
+			padding-top: calc(var(--regularNavbarHeight) + 60px)
 		@include max-width($BP4)
-			padding-top: 50px
+			// *  DEP: navbar.sass #navbar_section --mobileHeight
+			padding-top: var(--mobileNavbarHeight)
 
 // ***  footer
 // div#footer
@@ -245,18 +250,6 @@ div#footer
 				height: var(--GAP0)
 				margin-right: var(--GAP1)
 				width: auto
-
-
-//& > div.uni-and-medicine
-	grid-column: 1/2
-	display: flex
-
-	& > img.medicine
-		// *  DEP: #footer grid-column-gap
-		margin-left: var(--gap)
-
-	& > img.sagol
-		grid-column: 2/2
 
 
 #window_stats

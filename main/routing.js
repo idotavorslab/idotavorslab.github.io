@@ -18,7 +18,7 @@ const Routing = (() => {
     function pageStrings() {
         return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
     }
-    function route(url) {
+    async function route(url) {
         console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
@@ -30,13 +30,8 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                const selectNavbarItem = () => Navbar.select(Navbar[url]);
-                if (Navbar === undefined) {
-                    window.onload = selectNavbarItem;
-                }
-                else {
-                    selectNavbarItem();
-                }
+                await Emitter.until('navbarReady');
+                Navbar.select(Navbar[url]);
             }
             else {
                 alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);

@@ -8,9 +8,44 @@ const FundingSection = elem({
     }
 });
 const CacheDiv = elem({ id: 'cache' });
+class EventEmitter {
+    constructor() {
+        this._store = {};
+    }
+    emit(key, data) {
+        if (this._store[key]) {
+            for (let fn of this._store[key]) {
+                fn(data || undefined);
+            }
+        }
+    }
+    on(key, fn) {
+        if (this._store[key])
+            this._store[key].push(fn);
+        else
+            this._store[key] = [fn];
+    }
+    one(key, fn) {
+        function _fn() {
+            console.log('_fn, calling fn() then removing. this._store[key].length:', this._store[key].length);
+            fn();
+            let indexofFn = this._store[key].indexOf(_fn);
+            this._store[key].splice(indexofFn, 1);
+            console.log('_fn, after removing. this._store[key].length:', this._store[key].length);
+        }
+        this.on(key, _fn.bind(this));
+    }
+    until(key, options = { once: true }) {
+        if (options && options.once)
+            return new Promise(resolve => this.one(key, resolve));
+        else
+            return new Promise(resolve => this.on(key, resolve));
+    }
+}
+const Emitter = new EventEmitter();
 const WindowElem = elem({ htmlElement: window })
     .on({
-    scroll: async (event) => {
+    scroll: (event) => {
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
                 Navbar.removeClass('box-shadow');
@@ -44,6 +79,7 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
+        Emitter.emit('navbarReady');
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")
@@ -86,18 +122,6 @@ const WindowElem = elem({ htmlElement: window })
             for (let [_, { image }] of researchData.items())
                 cache(image, "research");
         }
-        console.log(...less('waiting 1000...'));
-        wait(1000).then(() => {
-            console.log(...less('done waiting, starting caching'));
-            if (!window.location.hash.includes('research'))
-                cacheResearch();
-            if (!window.location.hash.includes('people'))
-                cachePeople();
-            if (!window.location.hash.includes('gallery'))
-                cacheGallery();
-            console.log('done caching');
-            console.groupEnd();
-        });
     }
 });
 class NavbarElem extends BetterHTMLElement {

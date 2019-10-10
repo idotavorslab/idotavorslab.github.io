@@ -12,19 +12,6 @@ const GOOGLEBLUE = '#3b82f0';
 
 let MOBILE = undefined;
 
-async function untilNotUndefined(val: any, debugText?: string): Promise<boolean> {
-    let count: number = 0;
-    while (val === undefined) {
-        if (count >= 500) {
-            console.warn(`untilNotUndefined(val) reached count 500, returning false. debugText: ${debugText}`, {val});
-            return false;
-        }
-        await wait(2);
-        count++;
-    }
-    return true;
-}
-
 
 function float(str: string): number {
     return parseFloat(str);
@@ -50,10 +37,6 @@ function bool(val: any): boolean {
 
 type TDict<T> = Dict<T> & { [P in keyof T]: T[P] };
 
-
-// type TDict<T> =
-//      Dict<T> & { [P in keyof T]: T[P] }
-// const Dict
 
 class Dict<T> {
     

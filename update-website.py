@@ -60,9 +60,9 @@ if not onlyscp:
 
 if not onlygit:
     print('''
-       ----------------------------------------------------------------------
-       |   (secure)Copying files to idotavor@gp.tau.ac.il:public_html...    |
-       ----------------------------------------------------------------------
+       ----------------------------------
+       |   Starting sync commands...    |
+       ----------------------------------
     ''')
     exclude = ['.git',
                '.gitignore',
@@ -78,11 +78,24 @@ if not onlygit:
                '*.zip',
                '*.sh',
                '.python-version',
+               '__tmp*'
                ]
     excludestr = ' '.join(['--exclude=%s' % ex for ex in exclude])
-    cmd = 'sudo rsync -avrth --delete-excluded --chmod=755 %s ./ idotavor@gp.tau.ac.il:public_html' % excludestr
-    print('cmd: %s\n\n\n' % cmd)
-    os.system(cmd)
+    cmds = {
+        'mkdir __tmp':                                                                               'creating local __tmp dir',
+        'rsync -arth %s ./ __tmp/' % excludestr:                                                     'copying website files into __tmp dir',
+        'chmod -R 755 __tmp/':                                                                       "chmod'ing -R 755 everything inside __tmp dir",
+        'rsync -avrth --delete-excluded %s ./__tmp/ idotavor@gp.tau.ac.il:public_html' % excludestr: 'syncing contents of __tmp dir to idotavor@gp.tau.ac.il',
+        # 'cd ..':                                                                               "cd'ing back to root folder",
+        'rm -rf __tmp':                                                                              'removing local __tmp dir'
+        }
+
+    for cmd, description in cmds.items():
+        print('\n%s...' % description.capitalize())
+        code = os.system(cmd)
+        if code != 0:
+            print('\n\t!!\tSomething went wrong while %s. Quitting.' % description)
+            sys.exit(code)
 
     print('''
        ----------------------------------------------------------------------------------

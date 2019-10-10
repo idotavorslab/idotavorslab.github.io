@@ -182,7 +182,7 @@ const GalleryPage = () => {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
                 console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             } else {
-                console.log(...less(`gallery | "gallery.${file}" not in cache`));
+                // console.log(...less(`gallery | "gallery.${file}" not in cache`));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
@@ -196,7 +196,7 @@ const GalleryPage = () => {
             .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
         
-        console.log("galleryImgs after sort and index:", JSON.parstr(galleryImgs));
+        // console.log("galleryImgs after sort and index:", JSON.parstr(galleryImgs));
         
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
