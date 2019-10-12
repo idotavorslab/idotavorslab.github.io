@@ -13,79 +13,6 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 const CacheDiv = elem({id: 'cache'});
 
 
-class EventEmitter {
-    
-    private _store: TMap<Function[]> = {};
-    
-    constructor() {
-    
-    }
-    
-    emit(key: string, data?: any): void {
-        console.log(`EventEmitter.emit()`, JSON.parstr({
-            key,
-            'this._store[key](length?)': this._store[key] ? this._store[key].length : undefined
-        }), 'l');
-        if (this._store[key]) {
-            for (let fn of this._store[key]) {
-                fn(data || undefined);
-            }
-        }
-    }
-    
-    on(key: string, fn: Function): void {
-        if (this._store[key])
-            this._store[key].push(fn);
-        else
-            this._store[key] = [fn];
-    }
-    
-    one(key: string, fn: Function): void {
-        function _fn() {
-            console.log('_fn, calling fn() then removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
-            fn();
-            let indexofFn = (<Function[]>this._store[key]).findIndex(f => f.id === id);
-            // TODO: remove for prod
-            if (indexofFn === -1) throw new Error(`indexofFn is -1, key: "${key}"`);
-            this._store[key].splice(indexofFn, 1);
-            console.log('_fn, after removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
-            
-        }
-        
-        const id = Math.random();
-        console.log(`EventEmitter.one,`, JSON.parstr({key, id}), 'b');
-        const bound = _fn.bind(this);
-        bound.id = id;
-        this.on(key, bound);
-    }
-    
-    until(key: 'navbarReady' | 'MOBILEReady', options: { once: boolean, debug?: string } = {once: true}): Promise<unknown> {
-        let message = `EventEmitter.until`;
-        if (options && options.debug)
-            message += ` | (debug: ${options.debug})`;
-        console.log(message, JSON.parstr({key}), 'bg');
-        if (options && options.once)
-            return new Promise(resolve =>
-                this.one(key, () => {
-                    message = `until one resolving key`;
-                    if (options && options.debug)
-                        message += ` | (debug: ${options.debug})`;
-                    console.log(message, JSON.parstr({key}), 'bg');
-                    return resolve();
-                }));
-        else
-            return new Promise(resolve => this.on(key, () => {
-                message = `until on resolving key`;
-                if (options && options.debug)
-                    message += ` | (debug: ${options.debug})`;
-                console.log(message, JSON.parstr({key}), 'bg');
-                return resolve();
-            }))
-    }
-}
-
-
-const Emitter = new EventEmitter();
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
@@ -155,7 +82,7 @@ const WindowElem = elem({htmlElement: window})
         load: () => {
             console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
             MOBILE = window.innerWidth <= $BP4;
-            Emitter.emit('MOBILEReady');
+            // Emitter.emit('MOBILEReady');
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {
@@ -169,7 +96,7 @@ const WindowElem = elem({htmlElement: window})
                 }
             });
             
-            Emitter.emit('navbarReady');
+            // Emitter.emit('navbarReady');
             
             
             console.log({innerWidth: window.innerWidth, MOBILE});
