@@ -365,7 +365,7 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
-    console.log({MOBILE});
+    /*console.log({MOBILE});
     await Emitter.until("MOBILEReady", {debug: 'main.ts Footer'});
     if (!MOBILE) {
         await wait(3000);
@@ -379,9 +379,10 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
                     src: data.map
                 }),
         );
-    }
-    /*    WindowElem.on({
-            load: async () => {
+    }*/
+    WindowElem.on({
+        load: async () => {
+            if (!MOBILE) {
                 await wait(3000);
                 console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
                 Footer.contactSection.mainCls.append(
@@ -394,7 +395,8 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
                         }),
                 );
             }
-        });*/
+        }
+    });
     
     
 });

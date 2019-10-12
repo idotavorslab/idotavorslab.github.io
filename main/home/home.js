@@ -88,33 +88,26 @@ const HomePage = () => {
             newsChildren = rightWidget.news.children().map(c => c.e);
         }
     }
-    if (MOBILE === undefined) {
-        log('home outside init, BEFORE then:', JSON.parstr({ MOBILE }), 'o');
-        Emitter.until('MOBILEReady').then(() => {
-            log('home outside init, AFTER then:', JSON.parstr({ MOBILE }), 'o');
-            return buildRightWidgetAndNewsChildren();
-        });
-    }
-    else {
+    if (MOBILE === undefined)
+        WindowElem.on({ load: buildRightWidgetAndNewsChildren });
+    else
         buildRightWidgetAndNewsChildren();
-    }
     async function init() {
         const data = await fetchDict('main/home/home.json');
-        log('home init() BEFORE waiting:', JSON.parstr({ MOBILE }), 'grn');
-        if (MOBILE === undefined) {
-            await Emitter.until('MOBILEReady');
+        function buildNewsCoverImage() {
+            if (!MOBILE) {
+                rightWidget.newsCoverImageContainer
+                    .append(img({ src: `main/home/${data["news-cover-image"]}` }));
+            }
+            else {
+                log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
+                elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
+            }
         }
-        log('home init() AFTER waiting:', JSON.parstr({ MOBILE }), 'grn');
-        if (!MOBILE) {
-            rightWidget.newsCoverImageContainer
-                .append(img({ src: `main/home/${data["news-cover-image"]}` }));
-        }
-        else {
-            log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
-            elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
-        }
-        if (Navbar === undefined)
-            await Emitter.until('navbarReady');
+        if (MOBILE === undefined)
+            WindowElem.on({ load: buildNewsCoverImage });
+        else
+            buildNewsCoverImage();
         Navbar.home.attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
