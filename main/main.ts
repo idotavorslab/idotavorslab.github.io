@@ -60,7 +60,7 @@ class EventEmitter {
     }
     
     until(key: 'navbarReady' | 'MOBILEReady', options: { once: boolean } = {once: true}): Promise<unknown> {
-        log('EventEmitter.until,', JSON.parstr({key}));
+        log('EventEmitter.until,', JSON.parstr({key}), 'bg');
         if (options && options.once)
             return new Promise(resolve =>
                 this.one(key, () => {

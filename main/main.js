@@ -46,7 +46,7 @@ class EventEmitter {
         this.on(key, bound);
     }
     until(key, options = { once: true }) {
-        log('EventEmitter.until,', JSON.parstr({ key }));
+        log('EventEmitter.until,', JSON.parstr({ key }), 'bg');
         if (options && options.once)
             return new Promise(resolve => this.one(key, () => {
                 console.log(`until one resolving key`, JSON.parstr({ key }));

@@ -5,6 +5,7 @@ const W0 = 1200;
 const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
+const FILEDATA = {};
 function float(str) {
     return parseFloat(str);
 }
@@ -270,45 +271,58 @@ function getStackTrace() {
     stack = stack.split('\n').map(line => line.trim().replace('at ', ''));
     return stack[3];
 }
-function log(message, ...args) {
+async function log(message, ...args) {
     const stack = getStackTrace();
     let splitstack = stack.split(window.location.href)[1].split(':');
     let jspath = splitstack[0];
-    fetch(new Request(jspath)).then(async (jsblob) => {
-        let jsdata = (await jsblob.text()).split('\n');
-        let jslineno = parseInt(splitstack[1]) - 1;
-        if (jslineno === -1)
-            throw new Error('jslineno is -1');
-        let jsline = jsdata[jslineno].trim();
-        let tspath = jspath.split(".")[0] + '.ts';
-        fetch(new Request(tspath)).then(async (tsblob) => {
-            let tsdata = (await tsblob.text()).split('\n');
-            const weakTsLineNos = [];
-            const strongTsLineNos = [];
-            tsdata.forEach((line, index) => {
-                if (line.includes(jsline))
-                    strongTsLineNos.push(index);
-                else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
-                    weakTsLineNos.push(index);
-            });
-            let tslineno;
-            if (strongTsLineNos.length === 1) {
-                if (weakTsLineNos.length === 0)
-                    tslineno = strongTsLineNos[0];
-                else {
-                    debugger;
-                }
-            }
-            else {
-                if (weakTsLineNos.length === 1)
-                    tslineno = weakTsLineNos[0];
-                else {
-                    debugger;
-                }
-            }
-            let tsline = tsdata[tslineno];
-            console.log(message, `${window.location.href}${tspath}:${tslineno + 1}`, ...args);
-        });
+    console.log({ jspath });
+    let jsdata;
+    if (jspath in FILEDATA) {
+        jsdata = FILEDATA[jspath];
+    }
+    else {
+        let _blob = await fetch(new Request(jspath));
+        jsdata = (await _blob.text()).split('\n');
+        FILEDATA[jspath] = jsdata;
+    }
+    let jslineno = parseInt(splitstack[1]) - 1;
+    if (jslineno === -1)
+        throw new Error('jslineno is -1');
+    let jsline = jsdata[jslineno].trim();
+    let tspath = jspath.split(".")[0] + '.ts';
+    let tsdata;
+    if (tspath in FILEDATA) {
+        tsdata = FILEDATA[tspath];
+    }
+    else {
+        let _blob = await fetch(new Request(tspath));
+        tsdata = (await _blob.text()).split('\n');
+        FILEDATA[tspath] = tsdata;
+    }
+    const weakTsLineNos = [];
+    const strongTsLineNos = [];
+    tsdata.forEach((line, index) => {
+        if (line.includes(jsline))
+            strongTsLineNos.push(index);
+        else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
+            weakTsLineNos.push(index);
     });
+    let tslineno;
+    if (strongTsLineNos.length === 1) {
+        if (weakTsLineNos.length === 0)
+            tslineno = strongTsLineNos[0];
+        else {
+            debugger;
+        }
+    }
+    else {
+        if (weakTsLineNos.length === 1)
+            tslineno = weakTsLineNos[0];
+        else {
+            debugger;
+        }
+    }
+    console.log(message, ...args, `${window.location.href}${tspath}:${tslineno + 1}`);
+    ;
 }
 //# sourceMappingURL=util.js.map
