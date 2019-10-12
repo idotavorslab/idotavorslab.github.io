@@ -531,9 +531,18 @@ div#mobile_cover_image_container > img {
 
 div#intro {
   display: flex;
-  margin-bottom: 80px;
   position: relative;
   text-align: left;
+}
+@media screen and (min-width: 500px) {
+  div#intro {
+    margin-bottom: 80px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#intro {
+    margin-bottom: 40px;
+  }
 }
 div#intro > div#about > div {
   position: relative;

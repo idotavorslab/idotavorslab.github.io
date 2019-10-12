@@ -68,30 +68,49 @@ const HomePage = () => {
     }
     let rightWidget;
     let newsChildren;
-    if (!MOBILE) {
-        rightWidget = elem({
-            query: '#right_widget',
-            children: {
-                newsCoverImageContainer: '#news_cover_image_container',
-                news: {
-                    '#news': {
-                        title: '.title',
-                        date: '.date',
-                        content: '.content'
-                    }
-                },
-                radios: '#radios',
-            }
+    function buildRightWidgetAndNewsChildren() {
+        console.log('buildRightWidgetAndNewsChildren', JSON.parstr({ MOBILE }));
+        if (!MOBILE) {
+            rightWidget = elem({
+                query: '#right_widget',
+                children: {
+                    newsCoverImageContainer: '#news_cover_image_container',
+                    news: {
+                        '#news': {
+                            title: '.title',
+                            date: '.date',
+                            content: '.content'
+                        }
+                    },
+                    radios: '#radios',
+                }
+            });
+            newsChildren = rightWidget.news.children().map(c => c.e);
+        }
+    }
+    if (MOBILE === undefined) {
+        console.log('home outside init, BEFORE then:', JSON.parstr({ MOBILE }));
+        Emitter.until('MOBILEReady').then(() => {
+            console.log('home outside init, AFTER then:', JSON.parstr({ MOBILE }));
+            return buildRightWidgetAndNewsChildren();
         });
-        newsChildren = rightWidget.news.children().map(c => c.e);
+    }
+    else {
+        buildRightWidgetAndNewsChildren();
     }
     async function init() {
         const data = await fetchDict('main/home/home.json');
+        console.log('home init() BEFORE waiting:', JSON.parstr({ MOBILE }));
+        if (MOBILE === undefined) {
+            await Emitter.until('MOBILEReady');
+        }
+        console.log('home init() AFTER waiting:', JSON.parstr({ MOBILE }));
         if (!MOBILE) {
             rightWidget.newsCoverImageContainer
                 .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         }
         else {
+            console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`);
             elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
         }
         if (Navbar === undefined)

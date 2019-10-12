@@ -302,7 +302,7 @@ function less(val: string): [string, string] {
     return [`%c${val}`, 'font-size: 10px; color: rgb(150,150,150)']
 }
 
-function log(bold: boolean = false) {
+function logFn(bold: boolean = false) {
     return function _log(target, name, descriptor, ...outargs) {
         /*console.log(
             'OUTSIDE',
@@ -408,4 +408,85 @@ interface JSON {
         (value: any) => any,
 }
 
+
+// child extends sup
+function extend(sup, child) {
+    if (bool(sup.prototype))
+        child.prototype = sup.prototype;
+    else if (bool(sup.__proto__))
+        child.prototype = sup.__proto__;
+    else {
+        child.prototype = sup;
+        console.warn('Both bool(sup.prototype) and bool(sup.__proto__) failed => child.prototype is set to sup.');
+    }
+    
+    const handler = {
+        construct
+    };
+    
+    // "new BoyCls"
+    function construct(_, argArray) {
+        const obj = new child;
+        sup.apply(obj, argArray);    // calls PersonCtor. Sets name
+        child.apply(obj, argArray); // calls BoyCtor. Sets age
+        return obj;
+    }
+    
+    
+    const proxy = new Proxy(child, handler);
+    return proxy;
+}
+
+/*function getStackTrace(caller?) {
+    const obj = {};
+    Error.captureStackTrace(obj, caller ? caller : getStackTrace);
+    // Error.captureStackTrace(obj, window);
+    return obj.stack;
+}
+*/
+
+function getStackTrace2() {
+    
+    let stack;
+    
+    try {
+        throw new Error('');
+    } catch (error) {
+        stack = error.stack || '';
+    }
+    
+    stack = stack.split('\n').map(line => line.trim());
+    return stack[3]
+}
+
+function log(message, ...args) {
+    /*const stack = getStackTrace(log);
+    console.log(message, ...[stack, ...args]);
+    */
+    /*try {
+        var a = {};
+        a.debug();
+    } catch (ex) {
+        // console.log(ex.stack)
+        console.log(message, ...[ex.stack, ...args]);
+    }
+    */
+    const stack = getStackTrace2();
+    console.log(message, ...[stack, ...args]);
+    
+    /*let stack;
+    
+    try {
+        throw new Error('');
+    } catch (error) {
+        stack = error.stack || '';
+    }
+    
+    stack = stack.split('\n').map(line => line.trim());
+    console.log(message, ...[stack, ...args]);
+    */
+}
+
+
+log('wow');
 

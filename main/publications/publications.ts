@@ -86,12 +86,13 @@ const PublicationsPage = () => {
         
         // **  Create div.year's from publications
         for (let year of Object.keys(yearToPublication).reverse()) { // 2019, 2018, 2016
-            years.push(div({cls: 'year'}).append(
+            let yearDiv = div({cls: 'year'}).append(
                 div({cls: 'title-and-minimize-flex'}).append(
                     span({cls: 'year-title'}).text(year),
                 ),
                 ...yearToPublication[year],
-            ))
+            );
+            years.push(yearDiv)
         }
         
         const publicationsContainer = div({id: "publications_container"}).append(

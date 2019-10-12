@@ -13,6 +13,10 @@ class EventEmitter {
         this._store = {};
     }
     emit(key, data) {
+        console.log(`EventEmitter.emit()`, JSON.parstr({
+            key,
+            'this._store[key](length?)': this._store[key] ? this._store[key].length : undefined
+        }));
         if (this._store[key]) {
             for (let fn of this._store[key]) {
                 fn(data || undefined);
@@ -27,20 +31,32 @@ class EventEmitter {
     }
     one(key, fn) {
         function _fn() {
-            console.log('_fn, calling fn() then removing. this._store[key].length:', this._store[key].length);
+            console.log('_fn, calling fn() then removing.', JSON.parstr({ 'this._store[key].length': this._store[key].length }));
             fn();
-            let indexofFn = this._store[key].indexOf(_fn);
+            let indexofFn = this._store[key].findIndex(f => f.id === id);
+            if (indexofFn === -1)
+                throw new Error(`indexofFn is -1, key: "${key}"`);
             this._store[key].splice(indexofFn, 1);
-            console.log('_fn, after removing. this._store[key].length:', this._store[key].length);
+            console.log('_fn, after removing.', JSON.parstr({ 'this._store[key].length': this._store[key].length }));
         }
-        this.on(key, _fn.bind(this));
+        const id = Symbol(Math.random());
+        console.log(`EventEmitter.one,`, JSON.parstr({ key, id }));
+        const bound = _fn.bind(this);
+        bound.id = id;
+        this.on(key, bound);
     }
     until(key, options = { once: true }) {
-        console.log('EventEmitter until,', { key, options });
+        console.log('EventEmitter.until,', JSON.parstr({ key }));
         if (options && options.once)
-            return new Promise(resolve => this.one(key, resolve));
+            return new Promise(resolve => this.one(key, () => {
+                console.log(`until one resolving key`, JSON.parstr({ key }));
+                return resolve();
+            }));
         else
-            return new Promise(resolve => this.on(key, resolve));
+            return new Promise(resolve => this.on(key, () => {
+                console.log(`until one resolving key`, JSON.parstr({ key }));
+                return resolve();
+            }));
     }
 }
 const Emitter = new EventEmitter();
@@ -68,6 +84,7 @@ const WindowElem = elem({ htmlElement: window })
     },
     load: () => {
         MOBILE = window.innerWidth <= $BP4;
+        Emitter.emit('MOBILEReady');
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -80,7 +97,6 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
-        console.log('WindowElem onload emitting navbarReady');
         Emitter.emit('navbarReady');
         console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });

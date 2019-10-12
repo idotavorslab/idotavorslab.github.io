@@ -184,7 +184,7 @@ function calcAbsValue(cssStr, width) {
 function less(val) {
     return [`%c${val}`, 'font-size: 10px; color: rgb(150,150,150)'];
 }
-function log(bold = false) {
+function logFn(bold = false) {
     return function _log(target, name, descriptor, ...outargs) {
         const orig = descriptor.value;
         descriptor.value = function (...args) {
@@ -238,4 +238,41 @@ function showArrowOnHover(anchors) {
         });
     });
 }
+function extend(sup, child) {
+    if (bool(sup.prototype))
+        child.prototype = sup.prototype;
+    else if (bool(sup.__proto__))
+        child.prototype = sup.__proto__;
+    else {
+        child.prototype = sup;
+        console.warn('Both bool(sup.prototype) and bool(sup.__proto__) failed => child.prototype is set to sup.');
+    }
+    const handler = {
+        construct
+    };
+    function construct(_, argArray) {
+        const obj = new child;
+        sup.apply(obj, argArray);
+        child.apply(obj, argArray);
+        return obj;
+    }
+    const proxy = new Proxy(child, handler);
+    return proxy;
+}
+function getStackTrace2() {
+    let stack;
+    try {
+        throw new Error('');
+    }
+    catch (error) {
+        stack = error.stack || '';
+    }
+    stack = stack.split('\n').map(line => line.trim());
+    return stack[3];
+}
+function log(message, ...args) {
+    const stack = getStackTrace2();
+    console.log(message, ...[stack, ...args]);
+}
+log('wow');
 //# sourceMappingURL=util.js.map
