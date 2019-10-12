@@ -22,7 +22,7 @@ class EventEmitter {
     }
     
     emit(key: string, data?: any): void {
-        log(`EventEmitter.emit()`, JSON.parstr({
+        console.log(`EventEmitter.emit()`, JSON.parstr({
             key,
             'this._store[key](length?)': this._store[key] ? this._store[key].length : undefined
         }), 'l');
@@ -42,18 +42,18 @@ class EventEmitter {
     
     one(key: string, fn: Function): void {
         function _fn() {
-            log('_fn, calling fn() then removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
+            console.log('_fn, calling fn() then removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
             fn();
             let indexofFn = (<Function[]>this._store[key]).findIndex(f => f.id === id);
             // TODO: remove for prod
             if (indexofFn === -1) throw new Error(`indexofFn is -1, key: "${key}"`);
             this._store[key].splice(indexofFn, 1);
-            log('_fn, after removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
+            console.log('_fn, after removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
             
         }
         
         const id = Math.random();
-        log(`EventEmitter.one,`, JSON.parstr({key, id}), 'b');
+        console.log(`EventEmitter.one,`, JSON.parstr({key, id}), 'b');
         const bound = _fn.bind(this);
         bound.id = id;
         this.on(key, bound);
@@ -63,14 +63,14 @@ class EventEmitter {
         let message = `EventEmitter.until`;
         if (options && options.debug)
             message += ` | (debug: ${options.debug})`;
-        log(message, JSON.parstr({key}), 'bg');
+        console.log(message, JSON.parstr({key}), 'bg');
         if (options && options.once)
             return new Promise(resolve =>
                 this.one(key, () => {
                     message = `until one resolving key`;
                     if (options && options.debug)
                         message += ` | (debug: ${options.debug})`;
-                    log(message, JSON.parstr({key}), 'bg');
+                    console.log(message, JSON.parstr({key}), 'bg');
                     return resolve();
                 }));
         else
@@ -78,7 +78,7 @@ class EventEmitter {
                 message = `until on resolving key`;
                 if (options && options.debug)
                     message += ` | (debug: ${options.debug})`;
-                log(message, JSON.parstr({key}), 'bg');
+                console.log(message, JSON.parstr({key}), 'bg');
                 return resolve();
             }))
     }

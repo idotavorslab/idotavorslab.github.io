@@ -43,13 +43,13 @@ const Routing = (() => {
                 
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                
-                if (Navbar === undefined) {
+                WindowElem.on({load: () => Navbar.select(Navbar[url])});
+                /*if (Navbar === undefined) {
                     console.log('%cinitPage Navbar === undefined, awaiting navbarReady...', `color: ${GOOGLEBLUE}`);
                     await Emitter.until('navbarReady');
                     console.log('%cinitPage done awaiting navbarReady', `color: ${GOOGLEBLUE}`);
                 }
-                Navbar.select(Navbar[url]);
+                Navbar.select(Navbar[url]);*/
                 
                 
             } else { // bad url, reload to homepage
