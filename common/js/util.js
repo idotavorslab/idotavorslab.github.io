@@ -272,19 +272,43 @@ function getStackTrace() {
 }
 function log(message, ...args) {
     const stack = getStackTrace();
-    let jspath = stack.replace(window.location.href, '').split(':')[0];
+    let splitstack = stack.split(window.location.href)[1].split(':');
+    let jspath = splitstack[0];
     fetch(new Request(jspath)).then(async (jsblob) => {
         let jsdata = (await jsblob.text()).split('\n');
-        let jslineno = parseInt(stack.replace(window.location.href, '').split(':')[1]) - 1;
-        let jsline = jsdata[jslineno];
+        let jslineno = parseInt(splitstack[1]) - 1;
+        if (jslineno === -1)
+            throw new Error('jslineno is -1');
+        let jsline = jsdata[jslineno].trim();
         let tspath = jspath.split(".")[0] + '.ts';
         fetch(new Request(tspath)).then(async (tsblob) => {
             let tsdata = (await tsblob.text()).split('\n');
-            let tslineno = tsdata.findIndex(line => line.includes(jsline));
+            const weakTsLineNos = [];
+            const strongTsLineNos = [];
+            tsdata.forEach((line, index) => {
+                if (line.includes(jsline))
+                    strongTsLineNos.push(index);
+                else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
+                    weakTsLineNos.push(index);
+            });
+            let tslineno;
+            if (strongTsLineNos.length === 1) {
+                if (weakTsLineNos.length === 0)
+                    tslineno = strongTsLineNos[0];
+                else {
+                    debugger;
+                }
+            }
+            else {
+                if (weakTsLineNos.length === 1)
+                    tslineno = weakTsLineNos[0];
+                else {
+                    debugger;
+                }
+            }
             let tsline = tsdata[tslineno];
-            console.log(message, `${window.location.href}${tspath}:${tslineno}`);
+            console.log(message, `${window.location.href}${tspath}:${tslineno + 1}`, ...args);
         });
     });
 }
-log('wow');
 //# sourceMappingURL=util.js.map

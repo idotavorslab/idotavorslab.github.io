@@ -462,27 +462,66 @@ function getStackTrace() {
 function log(message, ...args) {
     
     const stack: string = getStackTrace();
-    let jspath = stack.replace(window.location.href, '').split(':')[0];
+    let splitstack = stack.split(window.location.href)[1].split(':');
+    let jspath = splitstack[0];
     // console.log({stack, jspath});
     fetch(new Request(jspath)).then(async jsblob => {
         let jsdata: string[] = (await jsblob.text()).split('\n');
-        let jslineno = parseInt(stack.replace(window.location.href, '').split(':')[1]) - 1;
-        let jsline = jsdata[jslineno];
+        let jslineno = parseInt(splitstack[1]) - 1;
+        if (jslineno === -1) throw new Error('jslineno is -1');
+        let jsline = jsdata[jslineno].trim();
         let tspath = jspath.split(".")[0] + '.ts';
         // console.log({tspath});
         fetch(new Request(tspath)).then(async tsblob => {
             let tsdata: string[] = (await tsblob.text()).split('\n');
-            let tslineno = tsdata.findIndex(line => line.includes(jsline));
+            const weakTsLineNos = [];
+            const strongTsLineNos = [];
+            tsdata.forEach((line, index) => {
+                if (line.includes(jsline))
+                    strongTsLineNos.push(index);
+                else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
+                    weakTsLineNos.push(index);
+            });
+            
+            let tslineno;
+            if (strongTsLineNos.length === 1) {
+                if (weakTsLineNos.length === 0)
+                    tslineno = strongTsLineNos[0];
+                else {
+                    debugger;
+                }
+            } else {
+                if (weakTsLineNos.length === 1)
+                    tslineno = weakTsLineNos[0];
+                else {
+                    
+                    debugger;
+                }
+            }
+            /*if (tslineno === -1) {
+                tslineno = tsdata.findIndex(line => line.includes(jsline.split(' ')[0]));
+                if (tslineno === -1) throw new Error('tslineno is -1');
+                othertslineno = tsdata.reverse().findIndex(line => line.includes(jsline.split(' ')[0]));
+                if (othertslineno !== -1) {
+                    debugger;
+                }
+            } else {
+                othertslineno = tsdata.reverse().findIndex(line => line.includes(jsline));
+            }
+            if (othertslineno !== -1) {
+                debugger;
+            }
+            */
             let tsline = tsdata[tslineno];
             // console.log({tsdata, tslineno, tsline});
-            console.log(message, `${window.location.href}${tspath}:${tslineno}`);
+            console.log(message, `${window.location.href}${tspath}:${tslineno + 1}`, ...args);
         });
     });
     
 }
 
 
-log('wow');
+// log('wow');
 
 
 
