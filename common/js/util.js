@@ -272,10 +272,22 @@ function getStackTrace() {
     return stack[3];
 }
 async function log(message, ...args) {
+    const colors = {
+        t: '#64FFDA',
+        grn: '#4CAF50',
+        lg: '#76FF03',
+        l: '#CDDC39',
+        y: '#FFFF00',
+        a: '#FFCA28',
+        o: '#FF6D00',
+        do: '#D84315',
+        b: '#795548',
+        gry: '#9e9e9e',
+        bg: '#607d8b'
+    };
     const stack = getStackTrace();
     let splitstack = stack.split(window.location.href)[1].split(':');
     let jspath = splitstack[0];
-    console.log({ jspath });
     let jsdata;
     if (jspath in FILEDATA) {
         jsdata = FILEDATA[jspath];
@@ -290,6 +302,7 @@ async function log(message, ...args) {
         throw new Error('jslineno is -1');
     let jsline = jsdata[jslineno].trim();
     let tspath = jspath.split(".")[0] + '.ts';
+    console.log({ jspath, tspath });
     let tsdata;
     if (tspath in FILEDATA) {
         tsdata = FILEDATA[tspath];
@@ -322,7 +335,9 @@ async function log(message, ...args) {
             debugger;
         }
     }
-    console.log(message, ...args, `${window.location.href}${tspath}:${tslineno + 1}`);
-    ;
+    if (args[args.length - 1] in colors)
+        console.log(`%c${message}`, `color: ${colors[args[args.length - 1]]}`, ...args.slice(0, args.length - 1), `${window.location.href}${tspath}:${tslineno + 1}`);
+    else
+        console.log(message, ...args, `${window.location.href}${tspath}:${tslineno + 1}`);
 }
 //# sourceMappingURL=util.js.map
