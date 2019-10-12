@@ -86,6 +86,18 @@ const WindowElem = elem({ htmlElement: window })
             for (let [_, { image }] of researchData.items())
                 cache(image, "research");
         }
+        console.log(...less('waiting 1000...'));
+        wait(1000).then(() => {
+            console.log(...less('done waiting, starting caching'));
+            if (!window.location.hash.includes('research'))
+                cacheResearch();
+            if (!window.location.hash.includes('people'))
+                cachePeople();
+            if (!window.location.hash.includes('gallery'))
+                cacheGallery();
+            console.log('done caching');
+            console.groupEnd();
+        });
     }
 });
 class NavbarElem extends BetterHTMLElement {

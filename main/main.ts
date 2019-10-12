@@ -17,26 +17,6 @@ const CacheDiv = elem({id: 'cache'});
 const WindowElem = elem({htmlElement: window})
     .on({
         scroll: (event: Event) => {
-            /*await untilNotUndefined(Navbar, 'scroll Navbar');
-            if (window.scrollY > 0) {
-                Navbar.removeClass('box-shadow')
-            } else {
-                Navbar.addClass('box-shadow')
-                
-            }
-            */
-            // Emitter.on('navbarReady', () => window.scrollY > 0 ? Navbar.removeClass('box-shadow') : Navbar.addClass('box-shadow'));
-            /*console.log('scroll started waiting for navbarReady');
-            Emitter.on('navbarReady', () => {
-                console.log('scroll stopped waiting for navbarReady');
-                if (window.scrollY > 0) {
-                    Navbar.removeClass('box-shadow')
-                } else {
-                    Navbar.addClass('box-shadow')
-                    
-                }
-            });
-            */
             
             if (Navbar !== undefined) {
                 if (window.scrollY > 0) {
@@ -145,7 +125,7 @@ const WindowElem = elem({htmlElement: window})
                     cache(image, "research")
             }
             
-            /*console.log(...less('waiting 1000...'));
+            console.log(...less('waiting 1000...'));
             wait(1000).then(() => {
                 
                 console.log(...less('done waiting, starting caching'));
@@ -158,7 +138,6 @@ const WindowElem = elem({htmlElement: window})
                 console.log('done caching');
                 console.groupEnd();
             });
-            */
             
             
         }
