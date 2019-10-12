@@ -490,7 +490,7 @@ async function log(message, ...args) {
     if (jslineno === -1) throw new Error('jslineno is -1');
     let jsline = jsdata[jslineno].trim();
     let tspath = jspath.split(".")[0] + '.ts';
-    console.log({jspath, tspath});
+    // console.log({jspath, tspath});
     let tsdata: string[];
     if (tspath in FILEDATA) {
         tsdata = FILEDATA[tspath];
@@ -524,9 +524,9 @@ async function log(message, ...args) {
         }
     }
     if (args[args.length - 1] in colors)
-        console.log(`%c${message}`, `color: ${colors[args[args.length - 1]]}`, ...args.slice(0, args.length - 1), `${window.location.href}${tspath}:${tslineno + 1}`);
+        console.log(`%c${message}`, `color: ${colors[args[args.length - 1]]}`, ...args.slice(0, args.length - 1), `${tspath}:${tslineno + 1}`);
     else
-        console.log(message, ...args, `${window.location.href}${tspath}:${tslineno + 1}`);
+        console.log(message, ...args, `${tspath}:${tslineno + 1}`);
     /*    fetch(new Request(jspath)).then(async jsblob => {
             let jsdata: string[] = (await jsblob.text()).split('\n');
             let jslineno = parseInt(splitstack[1]) - 1;

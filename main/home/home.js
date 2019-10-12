@@ -89,9 +89,9 @@ const HomePage = () => {
         }
     }
     if (MOBILE === undefined) {
-        console.log('home outside init, BEFORE then:', JSON.parstr({ MOBILE }));
+        log('home outside init, BEFORE then:', JSON.parstr({ MOBILE }), 'o');
         Emitter.until('MOBILEReady').then(() => {
-            console.log('home outside init, AFTER then:', JSON.parstr({ MOBILE }));
+            log('home outside init, AFTER then:', JSON.parstr({ MOBILE }), 'o');
             return buildRightWidgetAndNewsChildren();
         });
     }
@@ -100,17 +100,17 @@ const HomePage = () => {
     }
     async function init() {
         const data = await fetchDict('main/home/home.json');
-        console.log('home init() BEFORE waiting:', JSON.parstr({ MOBILE }));
+        log('home init() BEFORE waiting:', JSON.parstr({ MOBILE }), 'grn');
         if (MOBILE === undefined) {
             await Emitter.until('MOBILEReady');
         }
-        console.log('home init() AFTER waiting:', JSON.parstr({ MOBILE }));
+        log('home init() AFTER waiting:', JSON.parstr({ MOBILE }), 'grn');
         if (!MOBILE) {
             rightWidget.newsCoverImageContainer
                 .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         }
         else {
-            console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`);
+            log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
             elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
         }
         if (Navbar === undefined)
@@ -144,11 +144,7 @@ const HomePage = () => {
         const researchSnippets = elem({ query: "#research_snippets" });
         for (let [i, [title, { thumbnail }]] of enumerate(researchData.items())) {
             researchSnippets.append(div({ cls: 'snippet' })
-                .append(img({ src: `main/research/${thumbnail}` }).on({
-                load: () => {
-                    console.log(`%cloaded: ${thumbnail}`, `color: #ffc66d`);
-                }
-            }), div({ cls: 'snippet-title', text: title }))
+                .append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title }))
                 .click((event) => {
                 ResearchPage().init(i);
                 history.pushState(null, null, '#research');
