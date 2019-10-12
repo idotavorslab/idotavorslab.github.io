@@ -52,7 +52,7 @@ class EventEmitter {
             
         }
         
-        const id = Symbol(Math.random());
+        const id = Math.random();
         log(`EventEmitter.one,`, JSON.parstr({key, id}), 'b');
         const bound = _fn.bind(this);
         bound.id = id;
@@ -144,6 +144,7 @@ const WindowElem = elem({htmlElement: window})
             
         },
         load: () => {
+            console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
             MOBILE = window.innerWidth <= $BP4;
             Emitter.emit('MOBILEReady');
             Navbar = new NavbarElem({
@@ -161,7 +162,7 @@ const WindowElem = elem({htmlElement: window})
             
             Emitter.emit('navbarReady');
             
-            console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
+            
             console.log({innerWidth: window.innerWidth, MOBILE});
             if (window.location.hash !== "")
                 fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
@@ -350,19 +351,22 @@ fetchDict<TContactData>("main/contact/contact.json").then(data => {
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));
-    Footer.contactSection.mainCls.append(
-        elem({tag: 'iframe'})
-            .id('contact_map')
-            .attr({
-                frameborder: "0",
-                allowfullscreen: "",
-                src: data.map
-            }),
-    );
+    
     const [uni, medicine, sagol] = Footer.logosSection.mainCls.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
+    window.onload = () =>
+        Footer.contactSection.mainCls.append(
+            elem({tag: 'iframe'})
+                .id('contact_map')
+                .attr({
+                    frameborder: "0",
+                    allowfullscreen: "",
+                    src: data.map
+                }),
+        );
+    
 });
 
 interface IHamburger extends Div {

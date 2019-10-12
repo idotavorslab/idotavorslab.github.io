@@ -213,16 +213,16 @@ JSON.parstr = (value) => {
         }
         return Object.assign({ localName: node.localName }, domObj);
     }
-    let stringified = JSON.stringify(value, (thisArg, key) => {
-        if (key instanceof Node) {
-            return nodeToObj(key);
+    let stringified = JSON.stringify(value, (__thisArg, __key) => {
+        if (__key instanceof Node) {
+            return nodeToObj(__key);
         }
-        else if (key instanceof BetterHTMLElement) {
-            key.type = key.__proto__.constructor.name;
-            return key;
+        else if (__key instanceof BetterHTMLElement) {
+            __key.type = __key.__proto__.constructor.name;
+            return __key;
         }
         else {
-            return key;
+            return __key;
         }
     });
     let parsed = JSON.parse(stringified);
