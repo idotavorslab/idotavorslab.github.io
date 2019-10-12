@@ -445,7 +445,7 @@ function extend(sup, child) {
 }
 */
 
-function getStackTrace2() {
+function getStackTrace() {
     
     let stack;
     
@@ -455,38 +455,34 @@ function getStackTrace2() {
         stack = error.stack || '';
     }
     
-    stack = stack.split('\n').map(line => line.trim());
+    stack = stack.split('\n').map(line => line.trim().replace('at ', ''));
     return stack[3]
 }
 
 function log(message, ...args) {
-    /*const stack = getStackTrace(log);
-    console.log(message, ...[stack, ...args]);
-    */
-    /*try {
-        var a = {};
-        a.debug();
-    } catch (ex) {
-        // console.log(ex.stack)
-        console.log(message, ...[ex.stack, ...args]);
-    }
-    */
-    const stack = getStackTrace2();
-    console.log(message, ...[stack, ...args]);
     
-    /*let stack;
+    const stack: string = getStackTrace();
+    let jspath = stack.replace(window.location.href, '').split(':')[0];
+    // console.log({stack, jspath});
+    fetch(new Request(jspath)).then(async jsblob => {
+        let jsdata: string[] = (await jsblob.text()).split('\n');
+        let jslineno = parseInt(stack.replace(window.location.href, '').split(':')[1]) - 1;
+        let jsline = jsdata[jslineno];
+        let tspath = jspath.split(".")[0] + '.ts';
+        // console.log({tspath});
+        fetch(new Request(tspath)).then(async tsblob => {
+            let tsdata: string[] = (await tsblob.text()).split('\n');
+            let tslineno = tsdata.findIndex(line => line.includes(jsline));
+            let tsline = tsdata[tslineno];
+            // console.log({tsdata, tslineno, tsline});
+            console.log(message, `${window.location.href}${tspath}:${tslineno}`);
+        });
+    });
     
-    try {
-        throw new Error('');
-    } catch (error) {
-        stack = error.stack || '';
-    }
-    
-    stack = stack.split('\n').map(line => line.trim());
-    console.log(message, ...[stack, ...args]);
-    */
 }
 
 
 log('wow');
+
+
 

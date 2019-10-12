@@ -259,7 +259,7 @@ function extend(sup, child) {
     const proxy = new Proxy(child, handler);
     return proxy;
 }
-function getStackTrace2() {
+function getStackTrace() {
     let stack;
     try {
         throw new Error('');
@@ -267,12 +267,24 @@ function getStackTrace2() {
     catch (error) {
         stack = error.stack || '';
     }
-    stack = stack.split('\n').map(line => line.trim());
+    stack = stack.split('\n').map(line => line.trim().replace('at ', ''));
     return stack[3];
 }
 function log(message, ...args) {
-    const stack = getStackTrace2();
-    console.log(message, ...[stack, ...args]);
+    const stack = getStackTrace();
+    let jspath = stack.replace(window.location.href, '').split(':')[0];
+    fetch(new Request(jspath)).then(async (jsblob) => {
+        let jsdata = (await jsblob.text()).split('\n');
+        let jslineno = parseInt(stack.replace(window.location.href, '').split(':')[1]) - 1;
+        let jsline = jsdata[jslineno];
+        let tspath = jspath.split(".")[0] + '.ts';
+        fetch(new Request(tspath)).then(async (tsblob) => {
+            let tsdata = (await tsblob.text()).split('\n');
+            let tslineno = tsdata.findIndex(line => line.includes(jsline));
+            let tsline = tsdata[tslineno];
+            console.log(message, `${window.location.href}${tspath}:${tslineno}`);
+        });
+    });
 }
 log('wow');
 //# sourceMappingURL=util.js.map
