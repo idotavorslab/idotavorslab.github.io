@@ -46,15 +46,24 @@ class EventEmitter {
         this.on(key, bound);
     }
     until(key, options = { once: true }) {
-        log('EventEmitter.until,', JSON.parstr({ key }), 'bg');
+        let message = `EventEmitter.until`;
+        if (options && options.debug)
+            message += ` | (debug: ${options.debug})`;
+        log(message, JSON.parstr({ key }), 'bg');
         if (options && options.once)
             return new Promise(resolve => this.one(key, () => {
-                log(`until one resolving key`, JSON.parstr({ key }), 'bg');
+                message = `until one resolving key`;
+                if (options && options.debug)
+                    message += ` | (debug: ${options.debug})`;
+                log(message, JSON.parstr({ key }), 'bg');
                 return resolve();
             }));
         else
             return new Promise(resolve => this.on(key, () => {
-                log(`until on resolving key`, JSON.parstr({ key }), 'bg');
+                message = `until on resolving key`;
+                if (options && options.debug)
+                    message += ` | (debug: ${options.debug})`;
+                log(message, JSON.parstr({ key }), 'bg');
                 return resolve();
             }));
     }
@@ -202,7 +211,7 @@ const Footer = elem({
 });
 Footer.ugugSection.mainCls.html(`2019
     Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>`);
-fetchDict("main/contact/contact.json").then(data => {
+fetchDict("main/contact/contact.json").then(async (data) => {
     Footer.contactSection.mainCls.address.append(anchor({ href: data.visit.link }).html(data.visit.address).target("_blank"));
     Footer.contactSection.mainCls.contact.append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
@@ -212,13 +221,19 @@ fetchDict("main/contact/contact.json").then(data => {
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
-    window.onload = () => Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
-        .id('contact_map')
-        .attr({
-        frameborder: "0",
-        allowfullscreen: "",
-        src: data.map
-    }));
+    console.log({ MOBILE });
+    await Emitter.until("MOBILEReady", { debug: 'main.ts Footer' });
+    if (!MOBILE) {
+        await wait(3000);
+        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+        Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
+            .id('contact_map')
+            .attr({
+            frameborder: "0",
+            allowfullscreen: "",
+            src: data.map
+        }));
+    }
 });
 const hamburger = elem({
     id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }

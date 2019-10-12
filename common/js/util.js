@@ -320,19 +320,50 @@ async function log(message, ...args) {
             weakTsLineNos.push(index);
     });
     let tslineno;
-    if (strongTsLineNos.length === 1) {
-        if (weakTsLineNos.length === 0)
-            tslineno = strongTsLineNos[0];
+    if (strongTsLineNos.length < 2) {
+        if (strongTsLineNos.length === 1) {
+            if (weakTsLineNos.length === 0)
+                tslineno = strongTsLineNos[0];
+            else {
+                debugger;
+            }
+        }
         else {
-            debugger;
+            if (weakTsLineNos.length === 0) {
+                debugger;
+            }
+            else if (weakTsLineNos.length === 1)
+                tslineno = weakTsLineNos[0];
+            else {
+                const weakTsLineNosScores = {};
+                for (let weak of weakTsLineNos) {
+                    weakTsLineNosScores[weak] = undefined;
+                    for (let dist = 0; dist < 10; dist++) {
+                        if (tsdata[weak + dist].includes(message)
+                            || tsdata[weak - dist].includes(message)) {
+                            weakTsLineNosScores[weak] = dist;
+                            dist = 10;
+                        }
+                    }
+                }
+                Object.keys(weakTsLineNosScores).forEach(k => {
+                    if (weakTsLineNosScores[k] === undefined) {
+                        delete weakTsLineNosScores[k];
+                    }
+                });
+                let minLineScoreTuple = [null, null];
+                for (let [lineno, score] of dict(weakTsLineNosScores).items()) {
+                    if (minLineScoreTuple[0] === null
+                        || score < minLineScoreTuple[1])
+                        minLineScoreTuple = [lineno, score];
+                }
+                tslineno = minLineScoreTuple[0];
+                debugger;
+            }
         }
     }
     else {
-        if (weakTsLineNos.length === 1)
-            tslineno = weakTsLineNos[0];
-        else {
-            debugger;
-        }
+        debugger;
     }
     if (args[args.length - 1] in colors)
         console.log(`%c${message}`, `color: ${colors[args[args.length - 1]]}`, ...args.slice(0, args.length - 1), `${tspath}:${tslineno + 1}`);

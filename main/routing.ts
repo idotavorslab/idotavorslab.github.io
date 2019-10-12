@@ -76,7 +76,6 @@ const Routing = (() => {
     let lastPage = window.location.hash.slice(1);
     console.log(`%cRouting() root, window.location: ${window.location}\ncalling initPage(lastPage = "${lastPage}")`, `color: ${GOOGLEBLUE}`);
     initPage(<Routing.PageSansHome>lastPage);
-    
     return {initPage, navigateTo, pageStrings}
 })();
 
