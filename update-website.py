@@ -83,16 +83,26 @@ if not onlygit:
                ]
     TMPDIR = '~/Documents/__tmp'
     excludestr = ' '.join(['--exclude=%s' % ex for ex in exclude])
-    cmds = {
+
+    cmds = [
+        'mkdir %s' % TMPDIR,
+        'rsync -arth %s ./ %s/' % (excludestr, TMPDIR),
+        'chmod -R 755 %s/' % TMPDIR,
+        'rsync -avrth --delete-excluded %s %s/ %s' % (
+            excludestr, TMPDIR, SSHTGT),
+        'rm -rf %s' % TMPDIR
+        ]
+    cmd_to_description = {
         'mkdir %s' % TMPDIR:                            'creating local %s dir' % TMPDIR,
         'rsync -arth %s ./ %s/' % (excludestr, TMPDIR): 'copying website files into %s dir' % TMPDIR,
         'chmod -R 755 %s/' % TMPDIR:                    "chmod'ing -R 755 everything inside %s dir" % TMPDIR,
-        'rsync -avrth --delete-excluded %s ./ %s/ %s' % (
+        'rsync -avrth --delete-excluded %s %s/ %s' % (
             excludestr, TMPDIR, SSHTGT):                'syncing contents of %s dir to %s' % (TMPDIR, SSHTGT),
         'rm -rf %s' % TMPDIR:                           'removing local %s dir' % TMPDIR
         }
 
-    for cmd, description in cmds.items():
+    for cmd in cmds:
+        description = cmd_to_description[cmd]
         print('\n%s...' % description.capitalize())
         code = os.system(cmd)
         if code != 0:
