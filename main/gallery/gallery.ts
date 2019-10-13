@@ -233,7 +233,7 @@ const GalleryPage = () => {
                 count = 0;
                 yearDiv = <YearDiv>div({cls: 'year'})
                     .cacheAppend({
-                        title: div({cls: 'year-title'}).text(galleryImg.year),
+                        title: div({cls: 'title'}).text(galleryImg.year),
                         grid: div({cls: 'grid'}).cacheAppend({
                             row0: div({cls: 'row'}),
                             row1: div({cls: 'row'}),

@@ -16,14 +16,15 @@ div#home.gallery-page
 					opacity: 0.5
 
 		& > div.year
+			// **  All Resolutions
 
 			border-left: 1px solid var(--GREY2)
-			padding:
-				left: 40px
+
 			margin-bottom: var(--gap)
 
-			& > div.year-title
-				color: var(--GREY3)
+			& > div.title
+				// *  DEP: publications.sass div#publications_container > div.year > div.title-flex
+				color: var(--GREY5)
 				letter-spacing: 1px
 				margin-bottom: var(--small_gap)
 
@@ -34,22 +35,13 @@ div#home.gallery-page
 
 			& > div.grid
 				@include gridContainerMixin(img, true)
-	//& > div.title-and-minimize-flex
-		display: flex
-		color: var(--GREY3)
-		margin:
-			// 30px
-			bottom: calc(var(--GAP0) / 2)
 
-		& > span.year-title
-			letter-spacing: 1px
-			margin: auto 0
+			// **  min-width($BP4)
+			@include min-width($BP4)
+				padding-left: 39px
 
-			font:
-				family: OpenSansLight
-				size: 25px
-			line-height: 25px
-
+			// **  max-width($BP4)
+			@include max-width($BP4)
 
 	div#img_viewer
 

@@ -79,7 +79,7 @@ const PublicationsPage = () => {
         
         // **  Create div.year from selected
         const selectedPublicationsElem = div({cls: 'year'}).append(
-            div({cls: 'title-and-minimize-flex'}).append(
+            div({cls: 'title-flex'}).append(
                 span({cls: 'year-title'}).text('Selected Publications'),
             ),
         );
@@ -93,7 +93,7 @@ const PublicationsPage = () => {
         // **  Create div.year's from publications
         for (let year of Object.keys(yearToPublication).reverse()) { // 2019, 2018, 2016
             let yearDiv = div({cls: 'year'}).append(
-                div({cls: 'title-and-minimize-flex'}).append(
+                div({cls: 'title-flex'}).append(
                     span({cls: 'year-title'}).text(year),
                 ),
                 ...yearToPublication[year],
