@@ -159,6 +159,8 @@ const HomePage = () => {
         if (!MOBILE) {
             if (MOBILE === undefined)
                 await WindowElem.promiseLoaded();
+            while (rightWidget === undefined)
+                await wait(11);
             rightWidget.newsCoverImageContainer
                 .append(img({src: `main/home/${data["news-cover-image"]}`}));
         } else {

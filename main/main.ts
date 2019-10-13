@@ -93,6 +93,9 @@ WindowElem.promiseLoaded = async function () {
     if (this.isLoaded)
         return true;
     let count = 0;
+    let ms = Math.random() * 10;
+    while (ms < 5)
+        ms = Math.random() * 10;
     while (!this.isLoaded) {
         if (count >= 2000) {
             if (count === 2000)
@@ -101,7 +104,7 @@ WindowElem.promiseLoaded = async function () {
                 console.warn(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
             await wait(200);
         } else {
-            await wait(5);
+            await wait(ms);
         }
         
         count++;

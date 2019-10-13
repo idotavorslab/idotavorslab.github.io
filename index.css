@@ -481,7 +481,7 @@ section#navbar_section > div#navbar > div, section#navbar_section > div#navbar >
 }
 section#navbar_section > div#navbar > img.home {
   margin: auto auto auto 0;
-  width: 60px;
+  width: calc(820px / 7);
 }
 section#navbar_section > div#navbar > img.uni {
   height: 40px;

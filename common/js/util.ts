@@ -285,9 +285,15 @@ class ExTweenLite {
         console.log(...less('ExTweenLite.load(), this:'), this);
         if (this.isLoaded)
             return true;
-        let script = document.querySelector(`script[src*="Tween"]`);
+        let scriptA = document.querySelector(`script[src*="Tween"]`);
+        let scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
         let count = 0;
-        while (script === null) {
+        
+        let ms = Math.random() * 10;
+        while (ms < 5)
+            ms = Math.random() * 10;
+        
+        while (scriptA === null || scriptB === null) {
             if (count >= 2000) {
                 if (count === 2000)
                     console.trace(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
@@ -295,12 +301,13 @@ class ExTweenLite {
                     console.warn(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
                 await wait(200);
             } else {
-                await wait(5);
+                await wait(ms);
             }
-            script = document.querySelector(`script[src*="Tween"]`);
+            scriptA = document.querySelector(`script[src*="Tween"]`);
+            scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
             count++;
         }
-        console.log(...green('TweenLite script loaded'));
+        console.log(...green('TweenLite scripts loaded'));
         this.isLoaded = true;
         return true;
     }
