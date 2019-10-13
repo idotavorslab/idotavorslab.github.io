@@ -22,6 +22,10 @@ class EventEmitter {
     }
     
     emit(key: string, data?: any): void {
+        log(`EventEmitter.emit()`, JSON.parstr({
+            key,
+            'this._store[key](length?)': this._store[key] ? this._store[key].length : undefined
+        }), 'l');
         if (this._store[key]) {
             for (let fn of this._store[key]) {
                 fn(data || undefined);
@@ -38,23 +42,46 @@ class EventEmitter {
     
     one(key: string, fn: Function): void {
         function _fn() {
-            console.log('_fn, calling fn() then removing. this._store[key].length:', this._store[key].length);
+            log('_fn, calling fn() then removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
             fn();
-            let indexofFn = (<Function[]>this._store[key]).indexOf(_fn);
+            // @ts-ignore
+            let indexofFn = (<Function[]>this._store[key]).findIndex(f => f.id === id);
+            // TODO: remove for prod
+            if (indexofFn === -1) throw new Error(`indexofFn is -1, key: "${key}"`);
             this._store[key].splice(indexofFn, 1);
-            console.log('_fn, after removing. this._store[key].length:', this._store[key].length);
+            log('_fn, after removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
             
         }
         
-        this.on(key, _fn.bind(this));
+        const id = Math.random();
+        log(`EventEmitter.one,`, JSON.parstr({key, id}), 'b');
+        const bound = _fn.bind(this);
+        bound.id = id;
+        this.on(key, bound);
     }
     
-    until(key: string, options: { once: boolean } = {once: true}): Promise<unknown> {
-        console.log('EventEmitter until,', {key, options});
+    until(key: 'navbarReady' | 'MOBILEReady', options: { once: boolean, debug?: string } = {once: true}): Promise<unknown> {
+        let message = `EventEmitter.until`;
+        if (options && options.debug)
+            message += ` | (debug: ${options.debug})`;
+        log(message, JSON.parstr({key}), 'bg');
         if (options && options.once)
-            return new Promise(resolve => this.one(key, resolve));
+            return new Promise(resolve =>
+                this.one(key, () => {
+                    message = `until one resolving key`;
+                    if (options && options.debug)
+                        message += ` | (debug: ${options.debug})`;
+                    log(message, JSON.parstr({key}), 'bg');
+                    return resolve();
+                }));
         else
-            return new Promise(resolve => this.on(key, resolve))
+            return new Promise(resolve => this.on(key, () => {
+                message = `until on resolving key`;
+                if (options && options.debug)
+                    message += ` | (debug: ${options.debug})`;
+                log(message, JSON.parstr({key}), 'bg');
+                return resolve();
+            }))
     }
 }
 
@@ -116,17 +143,20 @@ const WindowElem = elem({htmlElement: window})
             const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
             if (!bool(newURL)) {
                 // this prevents the user pressing back to homepage, then route calling HomePage().init() instead of reloading
-                anchor({href: ``}).appendTo(Body).click().remove();
+                Routing.navigateTo("home");
+                // anchor({href: ``}).appendTo(Body).click().remove();
             } else {
                 // regular navbar click
                 console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
-                Routing.route(<Routing.PageSansHome>newURL);
+                Routing.initPage(<Routing.PageSansHome>newURL);
             }
             
             
         },
         load: () => {
+            console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
             MOBILE = window.innerWidth <= $BP4;
+            // Emitter.emit('MOBILEReady');
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {
@@ -139,10 +169,10 @@ const WindowElem = elem({htmlElement: window})
                     contact: '.contact',
                 }
             });
-            console.log('WindowElem onload emitting navbarReady');
-            Emitter.emit('navbarReady');
             
-            console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
+            // Emitter.emit('navbarReady');
+            
+            
             console.log({innerWidth: window.innerWidth, MOBILE});
             if (window.location.hash !== "")
                 fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
@@ -189,7 +219,7 @@ const WindowElem = elem({htmlElement: window})
                     cache(image, "research")
             }
             
-            /*console.log(...less('waiting 1000...'));
+            console.log(...less('waiting 1000...'));
             wait(1000).then(() => {
                 
                 console.log(...less('done waiting, starting caching'));
@@ -202,7 +232,6 @@ const WindowElem = elem({htmlElement: window})
                 console.log('done caching');
                 console.groupEnd();
             });
-            */
             
             
         }
@@ -223,12 +252,14 @@ class NavbarElem extends BetterHTMLElement {
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
                 .click(() => {
-                    let href = pageString === "home" ? '' : `#${pageString}`;
-                    console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
+                    console.log(`navbar ${pageString} click`);
+                    Routing.navigateTo(pageString);
+                    /*let href = pageString === "home" ? '' : `#${pageString}`;
                     // empty => page reloads to root => route("")
                     // #something => onhashchange
                     
                     anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
+                    */
                 })
                 .mouseover(() => this._emphasize(<Div>this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -323,25 +354,51 @@ type TContactData = {
     map: string,
     form: string
 };
-fetchDict<TContactData>("main/contact/contact.json").then(data => {
+fetchDict<TContactData>("main/contact/contact.json").then(async data => {
     Footer.contactSection.mainCls.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
     Footer.contactSection.mainCls.contact.append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));
-    Footer.contactSection.mainCls.append(
-        elem({tag: 'iframe'})
-            .id('contact_map')
-            .attr({
-                frameborder: "0",
-                allowfullscreen: "",
-                src: data.map
-            }),
-    );
+    
     const [uni, medicine, sagol] = Footer.logosSection.mainCls.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
+    /*console.log({MOBILE});
+    await Emitter.until("MOBILEReady", {debug: 'main.ts Footer'});
+    if (!MOBILE) {
+        await wait(3000);
+        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+        Footer.contactSection.mainCls.append(
+            elem({tag: 'iframe'})
+                .id('contact_map')
+                .attr({
+                    frameborder: "0",
+                    allowfullscreen: "",
+                    src: data.map
+                }),
+        );
+    }*/
+    WindowElem.on({
+        load: async () => {
+            if (!MOBILE) {
+                await wait(3000);
+                console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+                Footer.contactSection.mainCls.append(
+                    elem({tag: 'iframe'})
+                        .id('contact_map')
+                        .attr({
+                            frameborder: "0",
+                            allowfullscreen: "",
+                            src: data.map
+                        }),
+                );
+            }
+        }
+    });
+    
+    
 });
 
 interface IHamburger extends Div {
@@ -356,16 +413,18 @@ const hamburger = <IHamburger>elem({
 });
 hamburger.logo.click((event: PointerEvent) => {
     event.stopPropagation();
-    anchor({href: ``}).appendTo(Body).click().remove();
+    Routing.navigateTo("home");
+    // anchor({href: ``}).appendTo(Body).click().remove();
 });
 hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
     bhe.click((event: PointerEvent) => {
         event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`hamburger ${innerText} click`);
-        let href = innerText === "home" ? '' : `#${innerText}`;
         hamburger.removeClass('open');
-        anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
+        Routing.navigateTo(<Routing.PageSansHome>innerText);
+        // let href = innerText === "home" ? '' : `#${innerText}`;
+        // anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
     });
 });
 
@@ -378,3 +437,4 @@ hamburger.click((event: PointerEvent) => {
         console.log('closed');
     }
 });
+

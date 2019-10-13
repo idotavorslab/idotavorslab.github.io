@@ -56,7 +56,8 @@ const PublicationsPage = () => {
         }
         years.push(selectedPublicationsElem);
         for (let year of Object.keys(yearToPublication).reverse()) {
-            years.push(div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year]));
+            let yearDiv = div({ cls: 'year' }).append(div({ cls: 'title-and-minimize-flex' }).append(span({ cls: 'year-title' }).text(year)), ...yearToPublication[year]);
+            years.push(yearDiv);
         }
         const publicationsContainer = div({ id: "publications_container" }).append(...years);
         Home.empty().class('publications-page').append(publicationsContainer);

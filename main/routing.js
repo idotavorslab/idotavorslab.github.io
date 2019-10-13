@@ -18,11 +18,11 @@ const Routing = (() => {
     function pageStrings() {
         return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
     }
-    async function route(url) {
-        console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
+    async function initPage(url) {
+        console.log(`%cRouting.initPage(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
-                console.log(`\tvalid url ("${url}"), calling pageObj().init()`);
+                console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
                 if (url === "gallery")
                     Footer.attr({ hidden: '' });
                 else
@@ -30,26 +30,29 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                if (Navbar === undefined) {
-                    console.log('route Navbar === undefined, awaiting navbarReady...');
-                    await Emitter.until('navbarReady');
-                    console.log('route done awaiting navbarReady');
-                }
-                Navbar.select(Navbar[url]);
+                WindowElem.on({ load: () => Navbar.select(Navbar[url]) });
             }
             else {
-                alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
-                anchor({ href: `` }).appendTo(Body).click().remove();
+                console.log(`%cRouting.initPage(), bad url, not in pageStrings(): "${url}". Calling Routing.navigateTo("home")`, `color: ${GOOGLEBLUE}`);
+                Routing.navigateTo("home");
             }
         }
         else {
-            console.log('\tempty url, calling HomePage().init()');
+            console.log('\t%cempty url, calling HomePage().init()', `color: ${GOOGLEBLUE}`);
             HomePage().init();
         }
     }
+    function navigateTo(url) {
+        if (url.startsWith('#')) {
+            throw new Error(`navigateTo(url) bad url: "${url}"`);
+        }
+        let href = url === "home" ? '' : `#${url}`;
+        console.log(`%cRouting.navigateTo(url: "${url}") clicking fake <a href="${href}">`, `color: ${GOOGLEBLUE}`);
+        anchor({ href }).appendTo(Body).click().remove();
+    }
     let lastPage = window.location.hash.slice(1);
-    console.log(`Routing() root, window.location: ${window.location}\ncalling route(lastPage = "${lastPage}")`);
-    route(lastPage);
-    return { route, pageStrings };
+    console.log(`%cRouting() root, window.location: ${window.location}\ncalling initPage(lastPage = "${lastPage}")`, `color: ${GOOGLEBLUE}`);
+    initPage(lastPage);
+    return { initPage, navigateTo, pageStrings };
 })();
 //# sourceMappingURL=routing.js.map

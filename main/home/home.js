@@ -1,19 +1,4 @@
 const HomePage = () => {
-    const rightWidget = elem({
-        query: '#right_widget',
-        children: {
-            newsCoverImageContainer: '#news_cover_image_container',
-            news: {
-                '#news': {
-                    title: '.title',
-                    date: '.date',
-                    content: '.content'
-                }
-            },
-            radios: '#radios',
-        }
-    });
-    const newsChildren = rightWidget.news.children().map(c => c.e);
     class NewsData {
         constructor() {
             this._userPressed = false;
@@ -81,11 +66,49 @@ const HomePage = () => {
             clearInterval(this._interval);
         }
     }
+    let rightWidget;
+    let newsChildren;
+    function buildRightWidgetAndNewsChildren() {
+        console.log('buildRightWidgetAndNewsChildren', JSON.parstr({ MOBILE }));
+        if (!MOBILE) {
+            rightWidget = elem({
+                query: '#right_widget',
+                children: {
+                    newsCoverImageContainer: '#news_cover_image_container',
+                    news: {
+                        '#news': {
+                            title: '.title',
+                            date: '.date',
+                            content: '.content'
+                        }
+                    },
+                    radios: '#radios',
+                }
+            });
+            newsChildren = rightWidget.news.children().map(c => c.e);
+        }
+    }
+    if (MOBILE === undefined)
+        WindowElem.on({ load: buildRightWidgetAndNewsChildren });
+    else
+        buildRightWidgetAndNewsChildren();
     async function init() {
         const data = await fetchDict('main/home/home.json');
-        rightWidget.newsCoverImageContainer
-            .append(img({ src: `main/home/${data["news-cover-image"]}` }));
-        elem({ query: '#navbar > img.home' }).attr({ src: `main/home/${data.logo}` });
+        function buildNewsCoverImage() {
+            if (!MOBILE) {
+                rightWidget.newsCoverImageContainer
+                    .append(img({ src: `main/home/${data["news-cover-image"]}` }));
+            }
+            else {
+                console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
+                elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
+            }
+        }
+        if (MOBILE === undefined)
+            WindowElem.on({ load: buildNewsCoverImage });
+        else
+            buildNewsCoverImage();
+        Navbar.home.attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {
@@ -94,29 +117,27 @@ const HomePage = () => {
                 cls = 'bold';
             aboutText.append(paragraph({ text: p, cls }));
         }
-        const newsData = new NewsData();
-        let i = 0;
-        const radios = elem({ id: 'radios' });
-        for (let [title, { date, content, links }] of dict(data.news).items()) {
-            let item = { title, date, content, links, radio: div({ cls: 'radio' }), index: i };
-            newsData.push(item);
-            if (i === 0) {
-                newsData.switchTo(item);
+        if (!MOBILE) {
+            const newsData = new NewsData();
+            let i = 0;
+            const radios = elem({ id: 'radios' });
+            for (let [title, { date, content, links }] of dict(data.news).items()) {
+                let item = { title, date, content, links, radio: div({ cls: 'radio' }), index: i };
+                newsData.push(item);
+                if (i === 0) {
+                    newsData.switchTo(item);
+                }
+                radios.append(newsData[i].radio);
+                i++;
             }
-            radios.append(newsData[i].radio);
-            i++;
+            rightWidget.mouseover(() => newsData.stopAutoSwitch());
+            rightWidget.mouseout(() => newsData.startAutoSwitch());
         }
-        rightWidget.mouseover(() => newsData.stopAutoSwitch());
-        rightWidget.mouseout(() => newsData.startAutoSwitch());
         const researchData = await fetchDict('main/research/research.json');
         const researchSnippets = elem({ query: "#research_snippets" });
         for (let [i, [title, { thumbnail }]] of enumerate(researchData.items())) {
             researchSnippets.append(div({ cls: 'snippet' })
-                .append(img({ src: `main/research/${thumbnail}` }).on({
-                load: () => {
-                    console.log(`%cloaded: ${thumbnail}`, `color: #ffc66d`);
-                }
-            }), div({ cls: 'snippet-title', text: title }))
+                .append(img({ src: `main/research/${thumbnail}` }), div({ cls: 'snippet-title', text: title }))
                 .click((event) => {
                 ResearchPage().init(i);
                 history.pushState(null, null, '#research');

@@ -1,5 +1,6 @@
 const ContactPage = () => {
     async function init() {
+        console.log('ContactPage.init()');
         function htmlToElement(html) {
             const template = document.createElement('template');
             html = html.trim();

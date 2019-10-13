@@ -13,6 +13,10 @@ class EventEmitter {
         this._store = {};
     }
     emit(key, data) {
+        log(`EventEmitter.emit()`, JSON.parstr({
+            key,
+            'this._store[key](length?)': this._store[key] ? this._store[key].length : undefined
+        }), 'l');
         if (this._store[key]) {
             for (let fn of this._store[key]) {
                 fn(data || undefined);
@@ -27,20 +31,41 @@ class EventEmitter {
     }
     one(key, fn) {
         function _fn() {
-            console.log('_fn, calling fn() then removing. this._store[key].length:', this._store[key].length);
+            log('_fn, calling fn() then removing.', JSON.parstr({ 'this._store[key].length': this._store[key].length }), 'b');
             fn();
-            let indexofFn = this._store[key].indexOf(_fn);
+            let indexofFn = this._store[key].findIndex(f => f.id === id);
+            if (indexofFn === -1)
+                throw new Error(`indexofFn is -1, key: "${key}"`);
             this._store[key].splice(indexofFn, 1);
-            console.log('_fn, after removing. this._store[key].length:', this._store[key].length);
+            log('_fn, after removing.', JSON.parstr({ 'this._store[key].length': this._store[key].length }), 'b');
         }
-        this.on(key, _fn.bind(this));
+        const id = Math.random();
+        log(`EventEmitter.one,`, JSON.parstr({ key, id }), 'b');
+        const bound = _fn.bind(this);
+        bound.id = id;
+        this.on(key, bound);
     }
     until(key, options = { once: true }) {
-        console.log('EventEmitter until,', { key, options });
+        let message = `EventEmitter.until`;
+        if (options && options.debug)
+            message += ` | (debug: ${options.debug})`;
+        log(message, JSON.parstr({ key }), 'bg');
         if (options && options.once)
-            return new Promise(resolve => this.one(key, resolve));
+            return new Promise(resolve => this.one(key, () => {
+                message = `until one resolving key`;
+                if (options && options.debug)
+                    message += ` | (debug: ${options.debug})`;
+                log(message, JSON.parstr({ key }), 'bg');
+                return resolve();
+            }));
         else
-            return new Promise(resolve => this.on(key, resolve));
+            return new Promise(resolve => this.on(key, () => {
+                message = `until on resolving key`;
+                if (options && options.debug)
+                    message += ` | (debug: ${options.debug})`;
+                log(message, JSON.parstr({ key }), 'bg');
+                return resolve();
+            }));
     }
 }
 const Emitter = new EventEmitter();
@@ -59,14 +84,15 @@ const WindowElem = elem({ htmlElement: window })
     hashchange: (event) => {
         const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
         if (!bool(newURL)) {
-            anchor({ href: `` }).appendTo(Body).click().remove();
+            Routing.navigateTo("home");
         }
         else {
             console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
-            Routing.route(newURL);
+            Routing.initPage(newURL);
         }
     },
     load: () => {
+        console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
         MOBILE = window.innerWidth <= $BP4;
         Navbar = new NavbarElem({
             query: 'div#navbar',
@@ -80,9 +106,6 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
-        console.log('WindowElem onload emitting navbarReady');
-        Emitter.emit('navbarReady');
-        console.group(`window loaded, window.location.hash: "${window.location.hash}"`);
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")
             fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
@@ -124,6 +147,18 @@ const WindowElem = elem({ htmlElement: window })
             for (let [_, { image }] of researchData.items())
                 cache(image, "research");
         }
+        console.log(...less('waiting 1000...'));
+        wait(1000).then(() => {
+            console.log(...less('done waiting, starting caching'));
+            if (!window.location.hash.includes('research'))
+                cacheResearch();
+            if (!window.location.hash.includes('people'))
+                cachePeople();
+            if (!window.location.hash.includes('gallery'))
+                cacheGallery();
+            console.log('done caching');
+            console.groupEnd();
+        });
     }
 });
 class NavbarElem extends BetterHTMLElement {
@@ -132,9 +167,8 @@ class NavbarElem extends BetterHTMLElement {
         for (let pageString of Routing.pageStrings()) {
             this[pageString]
                 .click(() => {
-                let href = pageString === "home" ? '' : `#${pageString}`;
-                console.log(`navbar ${pageString} click, clicking fake <a href="${href}">`);
-                anchor({ href }).appendTo(Body).click().remove();
+                console.log(`navbar ${pageString} click`);
+                Routing.navigateTo(pageString);
             })
                 .mouseover(() => this._emphasize(this[pageString]))
                 .mouseout(() => this._resetPales());
@@ -187,39 +221,46 @@ const Footer = elem({
 });
 Footer.ugugSection.mainCls.html(`2019
     Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>`);
-fetchDict("main/contact/contact.json").then(data => {
+fetchDict("main/contact/contact.json").then(async (data) => {
     Footer.contactSection.mainCls.address.append(anchor({ href: data.visit.link }).html(data.visit.address).target("_blank"));
     Footer.contactSection.mainCls.contact.append(paragraph().html(`Phone:
                                                         <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                                         Email:
                                                         <a href="mailto:${data.email.address}">${data.email.address}</a>`));
-    Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
-        .id('contact_map')
-        .attr({
-        frameborder: "0",
-        allowfullscreen: "",
-        src: data.map
-    }));
     const [uni, medicine, sagol] = Footer.logosSection.mainCls.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
+    WindowElem.on({
+        load: async () => {
+            if (!MOBILE) {
+                await wait(3000);
+                console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+                Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
+                    .id('contact_map')
+                    .attr({
+                    frameborder: "0",
+                    allowfullscreen: "",
+                    src: data.map
+                }));
+            }
+        }
+    });
 });
 const hamburger = elem({
     id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
 });
 hamburger.logo.click((event) => {
     event.stopPropagation();
-    anchor({ href: `` }).appendTo(Body).click().remove();
+    Routing.navigateTo("home");
 });
 hamburger.items.children('div').forEach((bhe) => {
     bhe.click((event) => {
         event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`hamburger ${innerText} click`);
-        let href = innerText === "home" ? '' : `#${innerText}`;
         hamburger.removeClass('open');
-        anchor({ href }).appendTo(Body).click().remove();
+        Routing.navigateTo(innerText);
     });
 });
 hamburger.click((event) => {

@@ -513,11 +513,36 @@ section#navbar_section > div#navbar > div.pale {
     opacity: 1;
   }
 }
+div#mobile_cover_image_container {
+  width: 100%;
+  --_side: calc((100% - var(--W4)) / 2);
+  background-color: var(--GREY02);
+  margin: 0 var(--_side) 40px calc(-1 * var(--_side));
+  padding: 16px var(--_side);
+}
+@media screen and (min-width: 500px) {
+  div#mobile_cover_image_container {
+    display: none;
+  }
+}
+div#mobile_cover_image_container > img {
+  width: inherit;
+}
+
 div#intro {
   display: flex;
-  margin-bottom: 80px;
   position: relative;
   text-align: left;
+}
+@media screen and (min-width: 500px) {
+  div#intro {
+    margin-bottom: 80px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#intro {
+    margin-bottom: 40px;
+  }
 }
 div#intro > div#about > div {
   position: relative;

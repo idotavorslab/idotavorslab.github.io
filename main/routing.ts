@@ -27,11 +27,11 @@ const Routing = (() => {
     }
     
     
-    async function route(url: Routing.PageSansHome) {
-        console.log(`%cRouting.route(url: "${url}")`, `color: ${GOOGLEBLUE}`);
+    async function initPage(url: Routing.PageSansHome) {
+        console.log(`%cRouting.initPage(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
-                console.log(`\tvalid url ("${url}"), calling pageObj().init()`);
+                console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
                 
                 // happens also in home researchSnippets snippet click
                 if (url === "gallery")
@@ -43,48 +43,40 @@ const Routing = (() => {
                 
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                /*console.log('routing started waiting for navbarReady');
-                Emitter.on('navbarReady', () => {
-                    console.log('routing stopped waiting for navbarReady');
-                    Navbar.select(Navbar[url]);
-                });
-                */
-                /*                console.log('routing before navbarReady, Navbar:', Navbar);
-                                Emitter.one('navbarReady', () => {
-                                    console.log('routing inside navbarReady callback, Navbar:', Navbar);
-                                });
-                                console.log('routing after navbarReady, Navbar:', Navbar);
-                */
-                if (Navbar === undefined) {
-                    console.log('route Navbar === undefined, awaiting navbarReady...');
+                WindowElem.on({load: () => Navbar.select(Navbar[url])});
+                /*if (Navbar === undefined) {
+                    console.log('%cinitPage Navbar === undefined, awaiting navbarReady...', `color: ${GOOGLEBLUE}`);
                     await Emitter.until('navbarReady');
-                    console.log('route done awaiting navbarReady');
+                    console.log('%cinitPage done awaiting navbarReady', `color: ${GOOGLEBLUE}`);
                 }
-                Navbar.select(Navbar[url]);
-                /*console.log('route await navbarReady start');
-                console.time('route await navbarReady');
-                await Emitter.until('navbarReady');
-                console.log('route await navbarReady end');
-                console.timeEnd('route await navbarReady');
-                Navbar.select(Navbar[url]);
-                */
+                Navbar.select(Navbar[url]);*/
                 
                 
             } else { // bad url, reload to homepage
-                alert(`bad url, not in pageStrings(): "${url}". calling anchor({href: ''}).click()`);
-                anchor({href: ``}).appendTo(Body).click().remove();
+                // anchor({href: ``}).appendTo(Body).click().remove();
+                console.log(`%cRouting.initPage(), bad url, not in pageStrings(): "${url}". Calling Routing.navigateTo("home")`, `color: ${GOOGLEBLUE}`);
+                Routing.navigateTo("home");
             }
         } else {
             // happens when loading localhost:8000 or refreshing at homepage
-            console.log('\tempty url, calling HomePage().init()');
+            console.log('\t%cempty url, calling HomePage().init()', `color: ${GOOGLEBLUE}`);
             HomePage().init();
         }
     }
     
+    function navigateTo(url: Routing.Page) {
+        if (url.startsWith('#')) {
+            throw new Error(`navigateTo(url) bad url: "${url}"`);
+        }
+        let href = url === "home" ? '' : `#${url}`;
+        console.log(`%cRouting.navigateTo(url: "${url}") clicking fake <a href="${href}">`, `color: ${GOOGLEBLUE}`);
+        anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
+    }
+    
     let lastPage = window.location.hash.slice(1);
-    console.log(`Routing() root, window.location: ${window.location}\ncalling route(lastPage = "${lastPage}")`);
-    route(<Routing.PageSansHome>lastPage);
-    return {route, pageStrings}
+    console.log(`%cRouting() root, window.location: ${window.location}\ncalling initPage(lastPage = "${lastPage}")`, `color: ${GOOGLEBLUE}`);
+    initPage(<Routing.PageSansHome>lastPage);
+    return {initPage, navigateTo, pageStrings}
 })();
 
 
