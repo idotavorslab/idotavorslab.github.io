@@ -237,4 +237,3 @@ hamburger.click((event) => {
         console.log('closed');
     }
 });
-//# sourceMappingURL=main.js.map

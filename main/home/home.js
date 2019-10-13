@@ -94,6 +94,8 @@ const HomePage = () => {
         if (!MOBILE) {
             if (MOBILE === undefined)
                 await WindowElem.promiseLoaded();
+            while(rightWidget === undefined)
+                await wait(10);
             rightWidget.newsCoverImageContainer
                 .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         }
@@ -152,4 +154,3 @@ const HomePage = () => {
     }
     return { init };
 };
-//# sourceMappingURL=home.js.map

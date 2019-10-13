@@ -64,4 +64,3 @@ const PublicationsPage = () => {
     }
     return { init };
 };
-//# sourceMappingURL=publications.js.map

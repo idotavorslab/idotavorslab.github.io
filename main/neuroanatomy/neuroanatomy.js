@@ -19,4 +19,3 @@ const NeuroanatomyPage = () => {
     }
     return { init };
 };
-//# sourceMappingURL=neuroanatomy.js.map

@@ -28,4 +28,3 @@ const perf = (() => {
     }
     return { measureMany, getManyMeasures, getMeasures, measure, mark };
 })();
-//# sourceMappingURL=perf.js.map

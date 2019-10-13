@@ -36,4 +36,3 @@ const ContactPage = () => {
     }
     return { init };
 };
-//# sourceMappingURL=contact.js.map

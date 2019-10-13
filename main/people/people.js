@@ -238,4 +238,3 @@ const PeoplePage = () => {
     }
     return { init };
 };
-//# sourceMappingURL=people.js.map

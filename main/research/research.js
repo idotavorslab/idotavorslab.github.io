@@ -48,4 +48,3 @@ const ResearchPage = () => {
     }
     return { init };
 };
-//# sourceMappingURL=research.js.map
