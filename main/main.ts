@@ -12,8 +12,7 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 
 const CacheDiv = elem({id: 'cache'});
 
-
-class EventEmitter {
+/*class EventEmitter {
     
     private _store: TMap<Function[]> = {};
     
@@ -84,9 +83,8 @@ class EventEmitter {
             }))
     }
 }
-
-
 const Emitter = new EventEmitter();
+*/
 // @ts-ignore
 const WindowElem = elem({htmlElement: window})
     .on({
@@ -381,19 +379,21 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
         );
     }*/
     WindowElem.on({
-        load: async () => {
+        load: () => {
             if (!MOBILE) {
-                await wait(3000);
-                console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
-                Footer.contactSection.mainCls.append(
-                    elem({tag: 'iframe'})
-                        .id('contact_map')
-                        .attr({
-                            frameborder: "0",
-                            allowfullscreen: "",
-                            src: data.map
-                        }),
-                );
+                wait(3000).then(() => {
+                    console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+                    Footer.contactSection.mainCls.append(
+                        elem({tag: 'iframe'})
+                            .id('contact_map')
+                            .attr({
+                                frameborder: "0",
+                                allowfullscreen: "",
+                                src: data.map
+                            }),
+                    );
+                });
+                
             }
         }
     });
