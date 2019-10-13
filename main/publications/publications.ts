@@ -39,12 +39,9 @@ const PublicationsPage = () => {
             
             
             this.year = year;
-            console.log('Publication ctor', {title});
-            
             const capitalize = s => `${s.slice(0, 1).toUpperCase()}${s.slice(1)}`;
             title = title.split(' ').map(word => LOWERCASE_WORDS.includes(word) ? word : capitalize(word)).join(' ');
-            if (title[0].toLowerCase() === title[0]) {
-            }
+            
             this.cacheAppend({
                 thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}),
                 content: div({cls: "content-div"}).cacheAppend({

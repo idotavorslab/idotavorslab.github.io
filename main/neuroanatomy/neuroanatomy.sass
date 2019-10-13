@@ -3,13 +3,13 @@ div#home
 
 	& > div#neuroanatomy_intro
 		margin-bottom: calc(var(--gap))
-		width: calc(var(--w) * 0.6)
+		@include min-width($BP4)
+			width: calc(var(--w) * 0.6)
 
 		& > p
 			&:first-of-type
 				font-family: OpenSansBold
-	//& > span.bold:after
-		content: " "
+
 
 	& > div#brains_flex
 		display: flex

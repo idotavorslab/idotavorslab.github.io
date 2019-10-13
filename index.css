@@ -1155,7 +1155,11 @@ div#home {
 }
 div#home > div#neuroanatomy_intro {
   margin-bottom: calc(var(--gap));
-  width: calc(var(--w) * 0.6);
+}
+@media screen and (min-width: 500px) {
+  div#home > div#neuroanatomy_intro {
+    width: calc(var(--w) * 0.6);
+  }
 }
 div#home > div#neuroanatomy_intro > p:first-of-type {
   font-family: OpenSansBold;
