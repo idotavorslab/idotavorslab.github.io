@@ -1193,14 +1193,11 @@ div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper > iframe {
 @media screen and (max-width: 500px) {
   div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
     width: 100%;
-    margin: auto;
+    height: 220px;
   }
   div#home > div#brains_flex > div.brain > h2 {
     line-height: 20px;
     font-size: 20px;
-  }
-  div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
-    height: calc(var(--w) * 0.8);
   }
 }
 

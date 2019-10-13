@@ -6,6 +6,24 @@ const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
 const FILEDATA = {};
+const ALWAYS_LOWERCASE = ["a",
+    "an",
+    "the",
+    "at",
+    "by",
+    "for",
+    "in",
+    "of",
+    "on",
+    "to",
+    "up",
+    "and",
+    "as",
+    "but",
+    "or",
+    "nor"];
+const capitalizeWord = w => `${w.slice(0, 1).toUpperCase()}${w.slice(1)}`;
+const capitalizeLine = line => line.split(' ').map(word => ALWAYS_LOWERCASE.includes(word) ? word : capitalizeWord(word)).join(' ');
 function float(str) {
     return parseFloat(str);
 }

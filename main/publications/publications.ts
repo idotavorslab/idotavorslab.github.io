@@ -1,20 +1,5 @@
 const PublicationsPage = () => {
-    const LOWERCASE_WORDS = ["a",
-        "an",
-        "the",
-        "at",
-        "by",
-        "for",
-        "in",
-        "of",
-        "on",
-        "to",
-        "up",
-        "and",
-        "as",
-        "but",
-        "or",
-        "nor"];
+    
     
     class Publication extends Div {
         year: number;
@@ -39,8 +24,9 @@ const PublicationsPage = () => {
             
             
             this.year = year;
-            const capitalize = s => `${s.slice(0, 1).toUpperCase()}${s.slice(1)}`;
-            title = title.split(' ').map(word => LOWERCASE_WORDS.includes(word) ? word : capitalize(word)).join(' ');
+            
+            title = capitalizeLine(title);
+            // title.split(' ').map(word => ALWAYS_LOWERCASE.includes(word) ? word : capitalizeWord(word)).join(' ');
             
             this.cacheAppend({
                 thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}),
