@@ -185,9 +185,13 @@ section#funding_section
 	margin-top: $_marginBottom
 
 	& > div.main-cls
+		$sponsorImgWidth: 160px
 		padding: 60px 0 $_marginBottom 0
 
 		// **  All Resolutions
+		&, & > h1
+			text-align: center
+
 		& > h1
 			margin-bottom: 60px
 
@@ -197,15 +201,14 @@ section#funding_section
 			flex-direction: column
 
 			& > img
-				$dim: 160px
+
 				height: auto
 				margin: 0 auto var(--small_gap) auto
 				object-fit: contain
-				width: $dim
+				width: $sponsorImgWidth
 
 				&.large
 					width: 260px
-					height: $dim
 
 			& > div.sponsor-title
 				font-family: OpenSansBold
@@ -215,8 +218,7 @@ section#funding_section
 
 		// **  min-width($BP4)
 		@include min-width($BP4)
-			&, & > h1
-				text-align: center
+
 
 			& > div#sponsors_container
 				--rowLength: 3
@@ -227,10 +229,13 @@ section#funding_section
 					column-gap: var(--GAP1)
 					row-gap: var(--GAP1)
 
+				& > div.sponsor > img.large
+					height: $sponsorImgWidth
+
 
 		// **  max-width($BP4)
 		@include max-width($BP4)
-			&, & > h1
+			//&, & > h1
 				text-align: left
 
 
@@ -241,9 +246,10 @@ section#funding_section
 				& > div.sponsor
 					margin-bottom: 60px
 
+					& > img.large
+						height: auto
 
-					& > img
-						margin-left: 0
+
 
 
 

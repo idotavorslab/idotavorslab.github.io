@@ -2,7 +2,6 @@ const NeuroanatomyPage = () => {
     
     
     async function init() {
-        // const data: { "intro-text": string, brains: TMap<{ title: string, text: string, link: string }> } = await fetchJson('main/neuroanatomy/neuroanatomy.json');
         type TNeuroanatomyData = { brains: TMap<{ text: string, link: string }>, "intro-text": string };
         const {brains: brainsData, "intro-text": introText} = await fetchDict<TNeuroanatomyData>('main/neuroanatomy/neuroanatomy.json');
         // const {brains: brainsData, "intro-text": introText} = data;
@@ -10,8 +9,8 @@ const NeuroanatomyPage = () => {
         for (let [title, {text, link}] of Object.entries(brainsData)) {
             // console.log(JSON.parstr({title, text, link}));
             let brain = div({cls: 'brain'}).append(
-                elem({tag: 'h2'}).text(title),
                 div({cls: 'sketchfab-embed-wrapper'}).html(wrapSketch(title, link)),
+                elem({tag: 'h2'}).text(capitalizeLine(title)),
                 paragraph({cls: 'text'}).html(text),
             );
             brains.push(brain);

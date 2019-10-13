@@ -166,7 +166,7 @@ h2 {
 }
 @media screen and (max-width: 500px) {
   h2 {
-    font-size: 12px;
+    font-size: 16px;
     line-height: 16px;
   }
 }
@@ -481,7 +481,7 @@ section#navbar_section > div#navbar > div, section#navbar_section > div#navbar >
 }
 section#navbar_section > div#navbar > img.home {
   margin: auto auto auto 0;
-  width: 60px;
+  width: calc(820px / 7);
 }
 section#navbar_section > div#navbar > img.uni {
   height: 40px;
@@ -690,6 +690,9 @@ section#funding_section {
 section#funding_section > div.main-cls {
   padding: 60px 0 80px 0;
 }
+section#funding_section > div.main-cls, section#funding_section > div.main-cls > h1 {
+  text-align: center;
+}
 section#funding_section > div.main-cls > h1 {
   margin-bottom: 60px;
 }
@@ -706,7 +709,6 @@ section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > 
 }
 section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > img.large {
   width: 260px;
-  height: 160px;
 }
 section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > div.sponsor-title {
   font-family: OpenSansBold;
@@ -714,9 +716,6 @@ section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > 
   margin-bottom: 8px;
 }
 @media screen and (min-width: 500px) {
-  section#funding_section > div.main-cls, section#funding_section > div.main-cls > h1 {
-    text-align: center;
-  }
   section#funding_section > div.main-cls > div#sponsors_container {
     --rowLength: 3;
     --sponsorWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
@@ -725,11 +724,11 @@ section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > 
     grid-column-gap: var(--GAP1);
     grid-row-gap: var(--GAP1);
   }
+  section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > img.large {
+    height: 160px;
+  }
 }
 @media screen and (max-width: 500px) {
-  section#funding_section > div.main-cls, section#funding_section > div.main-cls > h1 {
-    text-align: left;
-  }
   section#funding_section > div.main-cls > div#sponsors_container {
     display: flex;
     flex-direction: column;
@@ -737,8 +736,8 @@ section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > 
   section#funding_section > div.main-cls > div#sponsors_container > div.sponsor {
     margin-bottom: 60px;
   }
-  section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > img {
-    margin-left: 0;
+  section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > img.large {
+    height: auto;
   }
 }
 
@@ -913,7 +912,12 @@ div#home.people-page > div.grid > div#person_expando.expanded > div.close {
 @media screen and (min-width: 500px) {
   div#publications_container > div.year {
     border-left: 1px solid var(--GREY2);
-    padding-left: 40px;
+    padding-left: 39px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#publications_container > div.year {
+    margin-bottom: 40px;
   }
 }
 div#publications_container > div.year > div.title-and-minimize-flex {
@@ -1155,8 +1159,12 @@ div#home {
   text-align: left;
 }
 div#home > div#neuroanatomy_intro {
-  margin-bottom: calc(var(--gap));
-  width: calc(var(--w) * 0.6);
+  margin-bottom: 60px;
+}
+@media screen and (min-width: 500px) {
+  div#home > div#neuroanatomy_intro {
+    width: calc(var(--w) * 0.6);
+  }
 }
 div#home > div#neuroanatomy_intro > p:first-of-type {
   font-family: OpenSansBold;
@@ -1165,12 +1173,8 @@ div#home > div#brains_flex {
   display: flex;
   flex-wrap: wrap;
 }
-div#home > div#brains_flex > div.brain:nth-child(2n+1) {
-  margin-right: var(--gap);
-}
 div#home > div#brains_flex > div.brain {
   margin-bottom: var(--big_gap);
-  width: calc(50% - calc(var(--gap) / 2));
 }
 div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
   margin-bottom: calc(var(--small_gap) / 2);
@@ -1178,7 +1182,28 @@ div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
 div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper > iframe {
   border-radius: 15px;
   width: 100%;
-  height: calc(var(--w) / 2 - var(--big_gap) * 2);
+  height: 100%;
+}
+@media screen and (min-width: 500px) {
+  div#home > div#brains_flex > div.brain {
+    width: calc(50% - calc(var(--gap) / 2));
+  }
+  div#home > div#brains_flex > div.brain:nth-child(2n+1) {
+    margin-right: var(--gap);
+  }
+  div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
+    height: calc(var(--w) / 2 - var(--big_gap) * 2);
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
+    width: 100%;
+    height: 220px;
+  }
+  div#home > div#brains_flex > div.brain > h2 {
+    line-height: 20px;
+    font-size: 20px;
+  }
 }
 
 iframe#contact_form {

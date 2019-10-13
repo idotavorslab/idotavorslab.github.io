@@ -43,7 +43,11 @@ const Routing = (() => {
                 
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                WindowElem.on({load: () => Navbar.select(Navbar[url])});
+                
+                if (Navbar === undefined)
+                    await WindowElem.promiseLoaded();
+                Navbar.select(Navbar[url])
+                /*WindowElem.on({load: () => Navbar.select(Navbar[url])});*/
                 /*if (Navbar === undefined) {
                     console.log('%cinitPage Navbar === undefined, awaiting navbarReady...', `color: ${GOOGLEBLUE}`);
                     await Emitter.until('navbarReady');

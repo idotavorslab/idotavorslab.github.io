@@ -1,12 +1,20 @@
 {
 	"intro-text": "<p>Understanding the structure of the human brain is crucial for advanced research on brain function and connectivity.</p> <p>Dr. Tavor is teaching neuroanatomy in Tel Aviv University and together with a talented team of teaching assistants he is currently working on integrating technology and novel visual approaches to the classroom. Below are some examples of the 3D models of the human brain that we have recently created. Please contact us if you have any comments - we are always happy to improve :)</p>",
 	"brains": {
-		"3D Surface of the Human Brain": {
+		"3D surface of the human brain": {
 			"text": "<p>This model presents the lateral surface of the two hemispheres as well as the bottom aspect of the brain, including the brainstem and cerebellum.</p> ",
 			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d"
 		},
 		"4D Surface of the Cat Tummy": {
 			"text": "This model presents the vestibular terrain of the three nanospheres as well as the upper aspect of the tummy, including the furry part and ticklish part. Here is some more text about cat tummies, to simulate a scenario where widely different texts are used.",
+			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d"
+		},
+		"Lorem ipsum dolor sit amet": {
+			"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d"
+		},
+		"Finibus Bonorum et Malorum": {
+			"text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt",
 			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d"
 		}
 	}

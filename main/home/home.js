@@ -69,7 +69,7 @@ const HomePage = () => {
     let rightWidget;
     let newsChildren;
     function buildRightWidgetAndNewsChildren() {
-        console.log('buildRightWidgetAndNewsChildren', JSON.parstr({ MOBILE }));
+        console.log('buildRightWidgetAndNewsChildren,', JSON.parstr({ MOBILE }));
         if (!MOBILE) {
             rightWidget = elem({
                 query: '#right_widget',
@@ -88,26 +88,23 @@ const HomePage = () => {
             newsChildren = rightWidget.news.children().map(c => c.e);
         }
     }
-    if (MOBILE === undefined)
-        WindowElem.on({ load: buildRightWidgetAndNewsChildren });
-    else
-        buildRightWidgetAndNewsChildren();
+    WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
     async function init() {
         const data = await fetchDict('main/home/home.json');
-        function buildNewsCoverImage() {
-            if (!MOBILE) {
-                rightWidget.newsCoverImageContainer
-                    .append(img({ src: `main/home/${data["news-cover-image"]}` }));
-            }
-            else {
-                console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
-                elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
-            }
-        }
         if (MOBILE === undefined)
-            WindowElem.on({ load: buildNewsCoverImage });
-        else
-            buildNewsCoverImage();
+            await WindowElem.promiseLoaded();
+        if (!MOBILE) {
+            while (rightWidget === undefined)
+                await wait(11);
+            rightWidget.newsCoverImageContainer
+                .append(img({ src: `main/home/${data["news-cover-image"]}` }));
+        }
+        else {
+            console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
+            elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
+        }
+        if (Navbar === undefined)
+            await WindowElem.promiseLoaded();
         Navbar.home.attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
@@ -118,6 +115,7 @@ const HomePage = () => {
             aboutText.append(paragraph({ text: p, cls }));
         }
         if (!MOBILE) {
+            console.log('HomePage().init(), building News, entered !MOBILE clause', JSON.parstr({ MOBILE }));
             const newsData = new NewsData();
             let i = 0;
             const radios = elem({ id: 'radios' });

@@ -15,6 +15,7 @@ const PublicationsPage = () => {
                 return "↗";
             }
             this.year = year;
+            title = capitalizeLine(title);
             this.cacheAppend({
                 thumb: img({ src: `main/publications/${thumbnail}`, cls: "thumbnail" }),
                 content: div({ cls: "content-div" }).cacheAppend({

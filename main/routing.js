@@ -30,7 +30,9 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                WindowElem.on({ load: () => Navbar.select(Navbar[url]) });
+                if (Navbar === undefined)
+                    await WindowElem.promiseLoaded();
+                Navbar.select(Navbar[url]);
             }
             else {
                 console.log(`%cRouting.initPage(), bad url, not in pageStrings(): "${url}". Calling Routing.navigateTo("home")`, `color: ${GOOGLEBLUE}`);

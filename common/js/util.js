@@ -6,6 +6,24 @@ const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
 const FILEDATA = {};
+const ALWAYS_LOWERCASE = ["a",
+    "an",
+    "the",
+    "at",
+    "by",
+    "for",
+    "in",
+    "of",
+    "on",
+    "to",
+    "up",
+    "and",
+    "as",
+    "but",
+    "or",
+    "nor"];
+const capitalizeWord = w => `${w.slice(0, 1).toUpperCase()}${w.slice(1)}`;
+const capitalizeLine = line => line.split(' ').map(word => ALWAYS_LOWERCASE.includes(word) ? word : capitalizeWord(word)).join(' ');
 function float(str) {
     return parseFloat(str);
 }
@@ -116,7 +134,48 @@ const ajax = (() => {
     }
     return { post, get };
 })();
-const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => new Promise(resolve => TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }))) });
+class ExTweenLite {
+    constructor() {
+        this.isLoaded = false;
+        this.load().then(() => {
+            Object.assign(this, TweenLite);
+            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
+        });
+    }
+    async toAsync(target, duration, vars) {
+        return new Promise(resolve => this.to(target, duration, Object.assign({}, vars, { onComplete: resolve })));
+    }
+    async load() {
+        console.log(...less('ExTweenLite.load(), this:'), this);
+        if (this.isLoaded)
+            return true;
+        let scriptA = document.querySelector(`script[src*="Tween"]`);
+        let scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
+        let count = 0;
+        let ms = Math.random() * 10;
+        while (ms < 5)
+            ms = Math.random() * 10;
+        while (scriptA === null || scriptB === null) {
+            if (count >= 2000) {
+                if (count === 2000)
+                    console.trace(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                else if (count % 5 === 0)
+                    console.warn(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                await wait(200);
+            }
+            else {
+                await wait(ms);
+            }
+            scriptA = document.querySelector(`script[src*="Tween"]`);
+            scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
+            count++;
+        }
+        console.log(...green('TweenLite scripts loaded'));
+        this.isLoaded = true;
+        return true;
+    }
+}
+const TL = new ExTweenLite();
 function round(n, d = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;
@@ -184,6 +243,12 @@ function calcAbsValue(cssStr, width) {
 }
 function less(val) {
     return [`%c${val}`, 'font-size: 10px; color: rgb(150,150,150)'];
+}
+function green(val) {
+    return [`%c${val}`, 'color: #3BAA57'];
+}
+function orange(val) {
+    return [`%c${val}`, 'color: #ffc66d'];
 }
 function logFn(bold = false) {
     return function _log(target, name, descriptor, ...outargs) {

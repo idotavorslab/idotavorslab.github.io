@@ -8,69 +8,34 @@ const FundingSection = elem({
     }
 });
 const CacheDiv = elem({ id: 'cache' });
-class EventEmitter {
-    constructor() {
-        this._store = {};
-    }
-    emit(key, data) {
-        log(`EventEmitter.emit()`, JSON.parstr({
-            key,
-            'this._store[key](length?)': this._store[key] ? this._store[key].length : undefined
-        }), 'l');
-        if (this._store[key]) {
-            for (let fn of this._store[key]) {
-                fn(data || undefined);
-            }
+const WindowElem = elem({ htmlElement: window });
+WindowElem.isLoaded = false;
+WindowElem.promiseLoaded = async function () {
+    console.log('WindowElem.promiseLoaded()');
+    if (this.isLoaded)
+        return true;
+    let count = 0;
+    let ms = Math.random() * 10;
+    while (ms < 5)
+        ms = Math.random() * 10;
+    while (!this.isLoaded) {
+        if (count >= 2000) {
+            if (count === 2000)
+                console.trace(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+            else if (count % 5 === 0)
+                console.warn(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+            await wait(200);
         }
-    }
-    on(key, fn) {
-        if (this._store[key])
-            this._store[key].push(fn);
-        else
-            this._store[key] = [fn];
-    }
-    one(key, fn) {
-        function _fn() {
-            log('_fn, calling fn() then removing.', JSON.parstr({ 'this._store[key].length': this._store[key].length }), 'b');
-            fn();
-            let indexofFn = this._store[key].findIndex(f => f.id === id);
-            if (indexofFn === -1)
-                throw new Error(`indexofFn is -1, key: "${key}"`);
-            this._store[key].splice(indexofFn, 1);
-            log('_fn, after removing.', JSON.parstr({ 'this._store[key].length': this._store[key].length }), 'b');
+        else {
+            await wait(ms);
         }
-        const id = Math.random();
-        log(`EventEmitter.one,`, JSON.parstr({ key, id }), 'b');
-        const bound = _fn.bind(this);
-        bound.id = id;
-        this.on(key, bound);
+        count++;
     }
-    until(key, options = { once: true }) {
-        let message = `EventEmitter.until`;
-        if (options && options.debug)
-            message += ` | (debug: ${options.debug})`;
-        log(message, JSON.parstr({ key }), 'bg');
-        if (options && options.once)
-            return new Promise(resolve => this.one(key, () => {
-                message = `until one resolving key`;
-                if (options && options.debug)
-                    message += ` | (debug: ${options.debug})`;
-                log(message, JSON.parstr({ key }), 'bg');
-                return resolve();
-            }));
-        else
-            return new Promise(resolve => this.on(key, () => {
-                message = `until on resolving key`;
-                if (options && options.debug)
-                    message += ` | (debug: ${options.debug})`;
-                log(message, JSON.parstr({ key }), 'bg');
-                return resolve();
-            }));
-    }
-}
-const Emitter = new EventEmitter();
-const WindowElem = elem({ htmlElement: window })
-    .on({
+    console.log(...green('WindowElem.promiseLoaded() returning true'));
+    this.isLoaded = true;
+    return true;
+};
+WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
@@ -93,6 +58,7 @@ const WindowElem = elem({ htmlElement: window })
     },
     load: () => {
         console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
+        WindowElem.isLoaded = true;
         MOBILE = window.innerWidth <= $BP4;
         Navbar = new NavbarElem({
             query: 'div#navbar',
@@ -231,21 +197,18 @@ fetchDict("main/contact/contact.json").then(async (data) => {
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
-    WindowElem.on({
-        load: async () => {
-            if (!MOBILE) {
-                await wait(3000);
-                console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
-                Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
-                    .id('contact_map')
-                    .attr({
-                    frameborder: "0",
-                    allowfullscreen: "",
-                    src: data.map
-                }));
-            }
-        }
-    });
+    await WindowElem.promiseLoaded();
+    if (!MOBILE) {
+        await wait(3000);
+        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+        Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
+            .id('contact_map')
+            .attr({
+            frameborder: "0",
+            allowfullscreen: "",
+            src: data.map
+        }));
+    }
 });
 const hamburger = elem({
     id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }

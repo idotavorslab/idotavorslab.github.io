@@ -1,4 +1,6 @@
 const PublicationsPage = () => {
+    
+    
     class Publication extends Div {
         year: number;
         
@@ -22,6 +24,10 @@ const PublicationsPage = () => {
             
             
             this.year = year;
+            
+            title = capitalizeLine(title);
+            // title.split(' ').map(word => ALWAYS_LOWERCASE.includes(word) ? word : capitalizeWord(word)).join(' ');
+            
             this.cacheAppend({
                 thumb: img({src: `main/publications/${thumbnail}`, cls: "thumbnail"}),
                 content: div({cls: "content-div"}).cacheAppend({

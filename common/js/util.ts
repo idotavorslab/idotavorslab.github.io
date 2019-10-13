@@ -13,6 +13,24 @@ const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
 
 const FILEDATA = {};
+const ALWAYS_LOWERCASE = ["a",
+    "an",
+    "the",
+    "at",
+    "by",
+    "for",
+    "in",
+    "of",
+    "on",
+    "to",
+    "up",
+    "and",
+    "as",
+    "but",
+    "or",
+    "nor"];
+const capitalizeWord = w => `${w.slice(0, 1).toUpperCase()}${w.slice(1)}`;
+const capitalizeLine = line => line.split(' ').map(word => ALWAYS_LOWERCASE.includes(word) ? word : capitalizeWord(word)).join(' ');
 
 function float(str: string): number {
     return parseFloat(str);
@@ -187,9 +205,16 @@ const ajax: TAjax = (() => {
     
     return {post, get};
 })();
-const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown> } = {
+
+
+/*
+
+// @ts-ignore
+const TL: ITL = {
     
-    ...TweenLite,
+    /!*...TweenLite || function () {
+        this.load()
+    },*!/
     toAsync: (target: object, duration: number, vars: Gsap.ToVars) =>
         new Promise(resolve =>
             TL.to(target, duration,
@@ -197,8 +222,117 @@ const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.
                     ...vars,
                     onComplete: resolve
                 })
+        ),
+    isLoaded: false,
+    async load() {
+        console.log('TL.load(), this:', this);
+        if (TL.isLoaded)
+            return true;
+        let script = document.querySelector(`script[src*="Tween"]`);
+        let count = 0;
+        while (script === null) {
+            if (count >= 2000) {
+                if (count === 2000)
+                    console.trace(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                else if (count % 5 === 0)
+                    console.warn(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                await wait(200);
+            } else {
+                await wait(5);
+            }
+            script = document.querySelector(`script[src*="Tween"]`);
+            count++;
+        }
+        console.log(...green('TweenLite script loaded'));
+        TL.isLoaded = true;
+        return true;
+    },
+    
+    /!*load: async () => {
+        
+        if (TL.isLoaded)
+            return true;
+        let script = document.querySelector(`script[src*="Tween"]`);
+        let count = 0;
+        while (script === null) {
+            if (count >= 2000) {
+                if (count === 2000)
+                    console.trace(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                else if (count % 5 === 0)
+                    console.warn(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                await wait(200);
+            } else {
+                await wait(5);
+            }
+            script = document.querySelector(`script[src*="Tween"]`);
+            count++;
+        }
+        console.log(...green('TweenLite script loaded, this:'), this);
+        TL.isLoaded = true;
+        return true;
+    }*!/
+};*/
+interface ITL extends Gsap.Tween {
+    toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown>;
+    load: () => Promise<boolean>;
+    isLoaded: boolean;
+}
+
+class ExTweenLite {
+    isLoaded: boolean = false;
+    
+    constructor() {
+        this.load().then(() => {
+            Object.assign(this, TweenLite);
+            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
+        })
+        
+    }
+    
+    async toAsync(target: object, duration: number, vars: Gsap.ToVars) {
+        return new Promise(resolve =>
+            // @ts-ignore
+            this.to(target, duration,
+                {
+                    ...vars,
+                    onComplete: resolve
+                })
         )
-};
+    }
+    
+    async load() {
+        console.log(...less('ExTweenLite.load(), this:'), this);
+        if (this.isLoaded)
+            return true;
+        let scriptA = document.querySelector(`script[src*="Tween"]`);
+        let scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
+        let count = 0;
+        
+        let ms = Math.random() * 10;
+        while (ms < 5)
+            ms = Math.random() * 10;
+        
+        while (scriptA === null || scriptB === null) {
+            if (count >= 2000) {
+                if (count === 2000)
+                    console.trace(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                else if (count % 5 === 0)
+                    console.warn(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                await wait(200);
+            } else {
+                await wait(ms);
+            }
+            scriptA = document.querySelector(`script[src*="Tween"]`);
+            scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
+            count++;
+        }
+        console.log(...green('TweenLite scripts loaded'));
+        this.isLoaded = true;
+        return true;
+    }
+}
+
+const TL: ITL = <ITL>new ExTweenLite();
 
 function round(n: number, d: number = 0) {
     const fr = 10 ** d;
@@ -301,6 +435,14 @@ function calcAbsValue(cssStr: string, width: number): string {
 
 function less(val: string): [string, string] {
     return [`%c${val}`, 'font-size: 10px; color: rgb(150,150,150)']
+}
+
+function green(val: string): [string, string] {
+    return [`%c${val}`, 'color: #3BAA57']
+}
+
+function orange(val: string): [string, string] {
+    return [`%c${val}`, 'color: #ffc66d']
 }
 
 function logFn(bold: boolean = false) {
@@ -600,9 +742,6 @@ async function log(message, ...args) {
     
     
 }
-
-
-// log('wow');
 
 
 
