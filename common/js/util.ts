@@ -273,6 +273,7 @@ class ExTweenLite {
     
     async toAsync(target: object, duration: number, vars: Gsap.ToVars) {
         return new Promise(resolve =>
+            // @ts-ignore
             this.to(target, duration,
                 {
                     ...vars,

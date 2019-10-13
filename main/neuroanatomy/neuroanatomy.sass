@@ -16,7 +16,7 @@ div#home
 		display: flex
 		flex-wrap: wrap
 
-		@include min-width($BP4)
+		//@include min-width($BP4)
 			& > div.brain:nth-child(2n+1)
 				// *  DEP: div.brain width
 				margin-right: var(--gap)
@@ -26,15 +26,8 @@ div#home
 				margin-right: auto
 
 		& > div.brain
+			// **  All Resolutions
 			margin-bottom: var(--big_gap)
-			@include min-width($BP4)
-				// *  DEP: div.brain:nth-child(2n+1) margin-right
-				width: calc(50% - calc(var(--gap) / 2))
-			@include max-width($BP4)
-				width: 75%
-				margin-right: auto
-				margin-left: auto
-
 
 			& > div.sketchfab-embed-wrapper
 				margin-bottom: calc(var(--small_gap) / 2)
@@ -42,7 +35,41 @@ div#home
 				& > iframe
 					border-radius: 15px
 					width: 100%
+					//height: inherit
+					height: 100%
+
+
+			// **  min-width($BP4)
+			@include min-width($BP4)
+				// *  DEP: div.brain:nth-child(2n+1) margin-right
+				width: calc(50% - calc(var(--gap) / 2))
+				&:nth-child(2n+1)
+					// *  DEP: div.brain width
+					margin-right: var(--gap)
+
+				& > div.sketchfab-embed-wrapper
 					height: calc(var(--w) / 2 - var(--big_gap) * 2)
+
+
+			// **  max-width($BP4)
+			@include max-width($BP4)
+
+				& > div.sketchfab-embed-wrapper
+					width: 100%
+					margin: auto
+
+				& > h2
+					//text-align: center
+					line-height: 20px
+					font-size: 20px
+
+				& > p.text
+					//text-align: center
+
+				& > div.sketchfab-embed-wrapper
+					height: calc(var(--w) * 0.8)
+
+
 
 
 
