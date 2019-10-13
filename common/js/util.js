@@ -116,17 +116,29 @@ const ajax = (() => {
     }
     return { post, get };
 })();
-const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => new Promise(resolve => TL.to(target, duration, Object.assign({}, vars, { onComplete: resolve }))), isLoaded: false, load: async () => {
-        if (TL.isLoaded)
+class ExTweenLite {
+    constructor() {
+        this.isLoaded = false;
+        this.load().then(() => {
+            Object.assign(this, TweenLite);
+            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
+        });
+    }
+    async toAsync(target, duration, vars) {
+        return new Promise(resolve => this.to(target, duration, Object.assign({}, vars, { onComplete: resolve })));
+    }
+    async load() {
+        console.log(...less('ExTweenLite.load(), this:'), this);
+        if (this.isLoaded)
             return true;
         let script = document.querySelector(`script[src*="Tween"]`);
         let count = 0;
         while (script === null) {
             if (count >= 2000) {
                 if (count === 2000)
-                    console.trace(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                    console.trace(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
                 else if (count % 5 === 0)
-                    console.warn(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                    console.warn(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
                 await wait(200);
             }
             else {
@@ -136,9 +148,11 @@ const TL = Object.assign({}, TweenLite, { toAsync: (target, duration, vars) => n
             count++;
         }
         console.log(...green('TweenLite script loaded'));
-        TL.isLoaded = true;
+        this.isLoaded = true;
         return true;
-    } });
+    }
+}
+const TL = new ExTweenLite();
 function round(n, d = 0) {
     const fr = 10 ** d;
     return int(n * fr) / fr;

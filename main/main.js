@@ -8,8 +8,12 @@ const FundingSection = elem({
     }
 });
 const CacheDiv = elem({ id: 'cache' });
-const WindowElem = elem({ htmlElement: window })
-    .on({
+const WindowElem = elem({ htmlElement: window });
+WindowElem.isLoaded = false;
+WindowElem.load = async function () {
+    console.log('WindowElem.load, this:', this);
+};
+WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {

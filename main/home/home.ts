@@ -55,8 +55,7 @@ const HomePage = () => {
         async switchTo(selectedItem: TNewsDataItem) {
             if (this._selected !== undefined)
                 this._selected.radio.toggleClass('selected');
-            await TL.load();
-            console.log('switchTo after awaiting TL.load()');
+            // await TL.load();
             TL.to(newsChildren, 0.1, {opacity: 0});
             await wait(25);
             
@@ -173,7 +172,7 @@ const HomePage = () => {
         }
         
         if (MOBILE === undefined) {
-            console.log(...orange('HomePage().init() MOBILE === undefined, instanciating new Promise'));
+            /*console.log(...orange('HomePage().init() MOBILE === undefined, instanciating new Promise'));
             const loaded = new Promise(resolve => {
                 window.onload = () => {
                     console.log(...orange('HomePage().init() window.onload resolving'));
@@ -183,15 +182,19 @@ const HomePage = () => {
             console.log(...orange('HomePage().init() awaiting window.onload...'));
             const result = await loaded;
             console.log(...orange('HomePage().init() done awaiting window.onload, calling buildNewsCoverImage'));
-            buildNewsCoverImage();
-            // WindowElem.on({load: buildNewsCoverImage});
+            buildNewsCoverImage();*/
+            
+            /*await WindowElem.load();
+            buildNewsCoverImage();*/
+            
+            WindowElem.on({load: buildNewsCoverImage});
         } else {
             buildNewsCoverImage();
         }
         
         /*if (Navbar === undefined)
             await Emitter.until('navbarReady');*/
-        Navbar.home.attr({src: `main/home/${data.logo}`});
+        // Navbar.home.attr({src: `main/home/${data.logo}`});
         
         const aboutText = elem({query: "#about > .about-text"});
         
