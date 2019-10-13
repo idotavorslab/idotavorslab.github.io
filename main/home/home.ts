@@ -55,7 +55,6 @@ const HomePage = () => {
         async switchTo(selectedItem: TNewsDataItem) {
             if (this._selected !== undefined)
                 this._selected.radio.toggleClass('selected');
-            // await TL.load();
             TL.to(newsChildren, 0.1, {opacity: 0});
             await wait(25);
             
@@ -194,7 +193,10 @@ const HomePage = () => {
         
         /*if (Navbar === undefined)
             await Emitter.until('navbarReady');*/
-        // Navbar.home.attr({src: `main/home/${data.logo}`});
+        if (Navbar === undefined) {
+            await WindowElem.promiseLoaded();
+        }
+        Navbar.home.attr({src: `main/home/${data.logo}`});
         
         const aboutText = elem({query: "#about > .about-text"});
         

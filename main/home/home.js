@@ -110,6 +110,10 @@ const HomePage = () => {
         else {
             buildNewsCoverImage();
         }
+        if (Navbar === undefined) {
+            await WindowElem.promiseLoaded();
+        }
+        Navbar.home.attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {

@@ -10,8 +10,27 @@ const FundingSection = elem({
 const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window });
 WindowElem.isLoaded = false;
-WindowElem.load = async function () {
-    console.log('WindowElem.load, this:', this);
+WindowElem.promiseLoaded = async function () {
+    console.log('WindowElem.promiseLoaded()');
+    if (this.isLoaded)
+        return true;
+    let count = 0;
+    while (!this.isLoaded) {
+        if (count >= 2000) {
+            if (count === 2000)
+                console.trace(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+            else if (count % 5 === 0)
+                console.warn(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+            await wait(200);
+        }
+        else {
+            await wait(5);
+        }
+        count++;
+    }
+    console.log(...green('WindowElem.promiseLoaded() returning true'));
+    this.isLoaded = true;
+    return true;
 };
 WindowElem.on({
     scroll: (event) => {
@@ -36,6 +55,7 @@ WindowElem.on({
     },
     load: () => {
         console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
+        WindowElem.isLoaded = true;
         MOBILE = window.innerWidth <= $BP4;
         Navbar = new NavbarElem({
             query: 'div#navbar',
