@@ -1027,7 +1027,7 @@ div#home.gallery-page div#images_container > div.year {
   border-left: 1px solid var(--GREY2);
   margin-bottom: var(--gap);
 }
-div#home.gallery-page div#images_container > div.year > div.year-title {
+div#home.gallery-page div#images_container > div.year > div.title {
   color: var(--GREY5);
   letter-spacing: 1px;
   margin-bottom: var(--small_gap);
