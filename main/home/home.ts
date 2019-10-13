@@ -107,7 +107,7 @@ const HomePage = () => {
     let newsChildren: HTMLElement[];
     
     function buildRightWidgetAndNewsChildren() {
-        console.log('buildRightWidgetAndNewsChildren', JSON.parstr({MOBILE}));
+        console.log('buildRightWidgetAndNewsChildren,', JSON.parstr({MOBILE}));
         if (!MOBILE) {
             rightWidget = <TRightWidget>elem({
                 query: '#right_widget',
@@ -128,10 +128,11 @@ const HomePage = () => {
         }
     }
     
-    if (MOBILE === undefined)
+    WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
+    /*if (MOBILE === undefined)
         WindowElem.on({load: buildRightWidgetAndNewsChildren});
     else
-        buildRightWidgetAndNewsChildren();
+        buildRightWidgetAndNewsChildren();*/
     
     /*if (MOBILE === undefined) {
         log('home outside init, BEFORE then:', JSON.parstr({MOBILE}), 'o');
@@ -154,48 +155,19 @@ const HomePage = () => {
         type THomeData = { logo: string, "about-text": string, "news-cover-image": string, news: TNews, funding: TFunding };
         const data = await fetchDict<THomeData>('main/home/home.json');
         
-        /*// await wait(500);
-        log('home init() BEFORE waiting:', JSON.parstr({MOBILE}), 'grn');
-        if (MOBILE === undefined) {
-            await Emitter.until('MOBILEReady');
-        }
-        log('home init() AFTER waiting:', JSON.parstr({MOBILE}), 'grn');*/
-        function buildNewsCoverImage() {
-            if (!MOBILE) {
-                rightWidget.newsCoverImageContainer
-                    .append(img({src: `main/home/${data["news-cover-image"]}`}));
-            } else {
-                console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
-                elem({query: '#mobile_cover_image_container > img'}).attr({src: `main/home/${data["news-cover-image"]}`});
-            }
-        }
         
-        if (MOBILE === undefined) {
-            /*console.log(...orange('HomePage().init() MOBILE === undefined, instanciating new Promise'));
-            const loaded = new Promise(resolve => {
-                window.onload = () => {
-                    console.log(...orange('HomePage().init() window.onload resolving'));
-                    resolve('hehe');
-                };
-            });
-            console.log(...orange('HomePage().init() awaiting window.onload...'));
-            const result = await loaded;
-            console.log(...orange('HomePage().init() done awaiting window.onload, calling buildNewsCoverImage'));
-            buildNewsCoverImage();*/
-            
-            /*await WindowElem.load();
-            buildNewsCoverImage();*/
-            
-            WindowElem.on({load: buildNewsCoverImage});
+        if (!MOBILE) {
+            if (MOBILE === undefined)
+                await WindowElem.promiseLoaded();
+            rightWidget.newsCoverImageContainer
+                .append(img({src: `main/home/${data["news-cover-image"]}`}));
         } else {
-            buildNewsCoverImage();
+            console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
+            elem({query: '#mobile_cover_image_container > img'}).attr({src: `main/home/${data["news-cover-image"]}`});
         }
         
-        /*if (Navbar === undefined)
-            await Emitter.until('navbarReady');*/
-        if (Navbar === undefined) {
+        if (Navbar === undefined)
             await WindowElem.promiseLoaded();
-        }
         Navbar.home.attr({src: `main/home/${data.logo}`});
         
         const aboutText = elem({query: "#about > .about-text"});
@@ -208,7 +180,7 @@ const HomePage = () => {
             aboutText.append(paragraph({text: p, cls}))
         }
         if (!MOBILE) {
-            
+            console.log('HomePage().init(), building News, entered !MOBILE clause', JSON.parstr({MOBILE}));
             // ***  News
             /** Holds the data from .json in an array, plus the matching radio BetterHTMLElement */
             const newsData = new NewsData();
@@ -240,13 +212,7 @@ const HomePage = () => {
             researchSnippets.append(
                 div({cls: 'snippet'})
                     .append(
-                        img({src: `main/research/${thumbnail}`})
-                        // .on({
-                        //     load: () => {
-                        //         console.log(`%cloaded: ${thumbnail}`, `color: #ffc66d`);
-                        //     }
-                        // })
-                        ,
+                        img({src: `main/research/${thumbnail}`}),
                         div({cls: 'snippet-title', text: title})
                     )
                     .click((event) => {
