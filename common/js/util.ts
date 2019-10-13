@@ -187,9 +187,16 @@ const ajax: TAjax = (() => {
     
     return {post, get};
 })();
-const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown> } = {
+
+
+/*
+
+// @ts-ignore
+const TL: ITL = {
     
-    ...TweenLite,
+    /!*...TweenLite || function () {
+        this.load()
+    },*!/
     toAsync: (target: object, duration: number, vars: Gsap.ToVars) =>
         new Promise(resolve =>
             TL.to(target, duration,
@@ -197,8 +204,109 @@ const TL: Gsap.Tween & { toAsync: (target: object, duration: number, vars: Gsap.
                     ...vars,
                     onComplete: resolve
                 })
+        ),
+    isLoaded: false,
+    async load() {
+        console.log('TL.load(), this:', this);
+        if (TL.isLoaded)
+            return true;
+        let script = document.querySelector(`script[src*="Tween"]`);
+        let count = 0;
+        while (script === null) {
+            if (count >= 2000) {
+                if (count === 2000)
+                    console.trace(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                else if (count % 5 === 0)
+                    console.warn(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                await wait(200);
+            } else {
+                await wait(5);
+            }
+            script = document.querySelector(`script[src*="Tween"]`);
+            count++;
+        }
+        console.log(...green('TweenLite script loaded'));
+        TL.isLoaded = true;
+        return true;
+    },
+    
+    /!*load: async () => {
+        
+        if (TL.isLoaded)
+            return true;
+        let script = document.querySelector(`script[src*="Tween"]`);
+        let count = 0;
+        while (script === null) {
+            if (count >= 2000) {
+                if (count === 2000)
+                    console.trace(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                else if (count % 5 === 0)
+                    console.warn(`TL.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                await wait(200);
+            } else {
+                await wait(5);
+            }
+            script = document.querySelector(`script[src*="Tween"]`);
+            count++;
+        }
+        console.log(...green('TweenLite script loaded, this:'), this);
+        TL.isLoaded = true;
+        return true;
+    }*!/
+};*/
+interface ITL extends Gsap.Tween {
+    toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown>;
+    load: () => Promise<boolean>;
+    isLoaded: boolean;
+}
+
+class ExTweenLite {
+    isLoaded: boolean = false;
+    
+    constructor() {
+        this.load().then(() => {
+            Object.assign(this, TweenLite);
+            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
+        })
+        
+    }
+    
+    async toAsync(target: object, duration: number, vars: Gsap.ToVars) {
+        return new Promise(resolve =>
+            this.to(target, duration,
+                {
+                    ...vars,
+                    onComplete: resolve
+                })
         )
-};
+    }
+    
+    async load() {
+        console.log(...less('ExTweenLite.load(), this:'), this);
+        if (this.isLoaded)
+            return true;
+        let script = document.querySelector(`script[src*="Tween"]`);
+        let count = 0;
+        while (script === null) {
+            if (count >= 2000) {
+                if (count === 2000)
+                    console.trace(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                else if (count % 5 === 0)
+                    console.warn(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                await wait(200);
+            } else {
+                await wait(5);
+            }
+            script = document.querySelector(`script[src*="Tween"]`);
+            count++;
+        }
+        console.log(...green('TweenLite script loaded'));
+        this.isLoaded = true;
+        return true;
+    }
+}
+
+const TL: ITL = <ITL>new ExTweenLite();
 
 function round(n: number, d: number = 0) {
     const fr = 10 ** d;
@@ -301,6 +409,14 @@ function calcAbsValue(cssStr: string, width: number): string {
 
 function less(val: string): [string, string] {
     return [`%c${val}`, 'font-size: 10px; color: rgb(150,150,150)']
+}
+
+function green(val: string): [string, string] {
+    return [`%c${val}`, 'color: #3BAA57']
+}
+
+function orange(val: string): [string, string] {
+    return [`%c${val}`, 'color: #ffc66d']
 }
 
 function logFn(bold: boolean = false) {
@@ -410,9 +526,196 @@ interface JSON {
 }
 
 
+// child extends sup
+function extend(sup, child) {
+    if (bool(sup.prototype))
+        child.prototype = sup.prototype;
+    else if (bool(sup.__proto__))
+        child.prototype = sup.__proto__;
+    else {
+        child.prototype = sup;
+        console.warn('Both bool(sup.prototype) and bool(sup.__proto__) failed => child.prototype is set to sup.');
+    }
+    
+    const handler = {
+        construct
+    };
+    
+    // "new BoyCls"
+    function construct(_, argArray) {
+        const obj = new child;
+        sup.apply(obj, argArray);    // calls PersonCtor. Sets name
+        child.apply(obj, argArray); // calls BoyCtor. Sets age
+        return obj;
+    }
+    
+    
+    const proxy = new Proxy(child, handler);
+    return proxy;
+}
 
+/*function getStackTrace(caller?) {
+    const obj = {};
+    Error.captureStackTrace(obj, caller ? caller : getStackTrace);
+    // Error.captureStackTrace(obj, window);
+    return obj.stack;
+}
+*/
 
+function getStackTrace() {
+    
+    let stack;
+    
+    try {
+        throw new Error('');
+    } catch (error) {
+        stack = error.stack || '';
+    }
+    
+    stack = stack.split('\n').map(line => line.trim().replace('at ', ''));
+    return stack[3]
+}
 
+async function log(message, ...args) {
+    const colors = {
+        t: '#64FFDA',
+        grn: '#4CAF50',
+        lg: '#76FF03',
+        l: '#CDDC39',
+        y: '#FFFF00',
+        a: '#FFCA28',
+        o: '#FF6D00',
+        do: '#D84315',
+        b: '#795548',
+        gry: '#9e9e9e',
+        bg: '#607d8b'
+    };
+    const stack: string = getStackTrace();
+    let splitstack = stack.split(window.location.href)[1].split(':');
+    let jspath = splitstack[0];
+    
+    let jsdata: string[];
+    if (jspath in FILEDATA) {
+        jsdata = FILEDATA[jspath];
+    } else {
+        let _blob = await fetch(new Request(jspath));
+        jsdata = (await _blob.text()).split('\n');
+        FILEDATA[jspath] = jsdata;
+    }
+    let jslineno = parseInt(splitstack[1]) - 1;
+    if (jslineno === -1) throw new Error('jslineno is -1');
+    let jsline = jsdata[jslineno].trim();
+    let tspath = jspath.split(".")[0] + '.ts';
+    // console.log({jspath, tspath});
+    let tsdata: string[];
+    if (tspath in FILEDATA) {
+        tsdata = FILEDATA[tspath];
+    } else {
+        let _blob = await fetch(new Request(tspath));
+        tsdata = (await _blob.text()).split('\n');
+        FILEDATA[tspath] = tsdata;
+    }
+    const weakTsLineNos = [];
+    const strongTsLineNos = [];
+    tsdata.forEach((line, index) => {
+        if (line.includes(jsline))
+            strongTsLineNos.push(index);
+        else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
+            weakTsLineNos.push(index);
+    });
+    
+    let tslineno;
+    if (strongTsLineNos.length < 2) {
+        if (strongTsLineNos.length === 1) {
+            if (weakTsLineNos.length === 0)
+                tslineno = strongTsLineNos[0];
+            else { // weakTsLineNos.length >= 1
+                debugger;
+            }
+        } else { // strongTsLineNos.length === 0
+            if (weakTsLineNos.length === 0) {
+                debugger;
+            } else if (weakTsLineNos.length === 1)
+                tslineno = weakTsLineNos[0];
+            else { // weakTsLineNos.length >= 2
+                const weakTsLineNosScores = {};
+                for (let weak of weakTsLineNos) {
+                    weakTsLineNosScores[weak] = undefined;
+                    for (let dist = 0; dist < 10; dist++) {
+                        if (tsdata[weak + dist].includes(message)
+                            || tsdata[weak - dist].includes(message)) {
+                            weakTsLineNosScores[weak] = dist;
+                            dist = 10;
+                        }
+                    }
+                }
+                Object.keys(weakTsLineNosScores).forEach(k => {
+                    if (weakTsLineNosScores[k] === undefined) {
+                        delete weakTsLineNosScores[k]
+                    }
+                    
+                });
+                let minLineScoreTuple = [null, null];
+                for (let [lineno, score] of dict(weakTsLineNosScores).items()) {
+                    if (minLineScoreTuple[0] === null
+                        || score < minLineScoreTuple[1])
+                        minLineScoreTuple = [lineno, score];
+                }
+                tslineno = minLineScoreTuple[0];
+                debugger;
+            }
+        }
+    } else {
+        debugger;
+    }
+    
+    if (args[args.length - 1] in colors)
+        console.log(`%c${message}`, `color: ${colors[args[args.length - 1]]}`, ...args.slice(0, args.length - 1), `${tspath}:${tslineno + 1}`);
+    else
+        console.log(message, ...args, `${tspath}:${tslineno + 1}`);
+    /*    fetch(new Request(jspath)).then(async jsblob => {
+            let jsdata: string[] = (await jsblob.text()).split('\n');
+            let jslineno = parseInt(splitstack[1]) - 1;
+            if (jslineno === -1) throw new Error('jslineno is -1');
+            let jsline = jsdata[jslineno].trim();
+            let tspath = jspath.split(".")[0] + '.ts';
+            // console.log({tspath});
+            fetch(new Request(tspath)).then(async tsblob => {
+                let tsdata: string[] = (await tsblob.text()).split('\n');
+                const weakTsLineNos = [];
+                const strongTsLineNos = [];
+                tsdata.forEach((line, index) => {
+                    if (line.includes(jsline))
+                        strongTsLineNos.push(index);
+                    else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
+                        weakTsLineNos.push(index);
+                });
+                
+                let tslineno;
+                if (strongTsLineNos.length === 1) {
+                    if (weakTsLineNos.length === 0)
+                        tslineno = strongTsLineNos[0];
+                    else {
+                        debugger;
+                    }
+                } else {
+                    if (weakTsLineNos.length === 1)
+                        tslineno = weakTsLineNos[0];
+                    else {
+                        
+                        debugger;
+                    }
+                }
+                
+                let tsline = tsdata[tslineno];
+                // console.log({tsdata, tslineno, tsline});
+                console.log(message, ...args, `${window.location.href}${tspath}:${tslineno + 1}`);
+            });
+        })
+    */
+    
+    
+}
 
 
 
