@@ -405,25 +405,41 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
                 }),
         );
     }*/
-    WindowElem.on({
-        load: () => {
-            if (!MOBILE) {
-                wait(3000).then(() => {
-                    console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
-                    Footer.contactSection.mainCls.append(
-                        elem({tag: 'iframe'})
-                            .id('contact_map')
-                            .attr({
-                                frameborder: "0",
-                                allowfullscreen: "",
-                                src: data.map
-                            }),
-                    );
-                });
-                
+    await WindowElem.promiseLoaded();
+    if (!MOBILE) {
+        await wait(3000);
+        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+        Footer.contactSection.mainCls.append(
+            elem({tag: 'iframe'})
+                .id('contact_map')
+                .attr({
+                    frameborder: "0",
+                    allowfullscreen: "",
+                    src: data.map
+                }),
+        );
+        
+    }
+    
+    /*    WindowElem.on({
+            load: () => {
+                if (!MOBILE) {
+                    wait(3000).then(() => {
+                        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
+                        Footer.contactSection.mainCls.append(
+                            elem({tag: 'iframe'})
+                                .id('contact_map')
+                                .attr({
+                                    frameborder: "0",
+                                    allowfullscreen: "",
+                                    src: data.map
+                                }),
+                        );
+                    });
+                    
+                }
             }
-        }
-    });
+        });*/
     
     
 });
