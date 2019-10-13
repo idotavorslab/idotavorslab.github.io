@@ -44,6 +44,7 @@ class EventEmitter {
         function _fn() {
             log('_fn, calling fn() then removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
             fn();
+            // @ts-ignore
             let indexofFn = (<Function[]>this._store[key]).findIndex(f => f.id === id);
             // TODO: remove for prod
             if (indexofFn === -1) throw new Error(`indexofFn is -1, key: "${key}"`);
@@ -155,7 +156,7 @@ const WindowElem = elem({htmlElement: window})
         load: () => {
             console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
             MOBILE = window.innerWidth <= $BP4;
-            Emitter.emit('MOBILEReady');
+            // Emitter.emit('MOBILEReady');
             Navbar = new NavbarElem({
                 query: 'div#navbar',
                 children: {
@@ -169,7 +170,7 @@ const WindowElem = elem({htmlElement: window})
                 }
             });
             
-            Emitter.emit('navbarReady');
+            // Emitter.emit('navbarReady');
             
             
             console.log({innerWidth: window.innerWidth, MOBILE});
@@ -218,7 +219,7 @@ const WindowElem = elem({htmlElement: window})
                     cache(image, "research")
             }
             
-            /*console.log(...less('waiting 1000...'));
+            console.log(...less('waiting 1000...'));
             wait(1000).then(() => {
                 
                 console.log(...less('done waiting, starting caching'));
@@ -231,7 +232,6 @@ const WindowElem = elem({htmlElement: window})
                 console.log('done caching');
                 console.groupEnd();
             });
-            */
             
             
         }

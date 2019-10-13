@@ -94,7 +94,6 @@ const WindowElem = elem({ htmlElement: window })
     load: () => {
         console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
         MOBILE = window.innerWidth <= $BP4;
-        Emitter.emit('MOBILEReady');
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -107,7 +106,6 @@ const WindowElem = elem({ htmlElement: window })
                 contact: '.contact',
             }
         });
-        Emitter.emit('navbarReady');
         console.log({ innerWidth: window.innerWidth, MOBILE });
         if (window.location.hash !== "")
             fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
@@ -149,6 +147,18 @@ const WindowElem = elem({ htmlElement: window })
             for (let [_, { image }] of researchData.items())
                 cache(image, "research");
         }
+        console.log(...less('waiting 1000...'));
+        wait(1000).then(() => {
+            console.log(...less('done waiting, starting caching'));
+            if (!window.location.hash.includes('research'))
+                cacheResearch();
+            if (!window.location.hash.includes('people'))
+                cachePeople();
+            if (!window.location.hash.includes('gallery'))
+                cacheGallery();
+            console.log('done caching');
+            console.groupEnd();
+        });
     }
 });
 class NavbarElem extends BetterHTMLElement {

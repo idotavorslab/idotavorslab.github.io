@@ -100,7 +100,7 @@ const HomePage = () => {
                     .append(img({ src: `main/home/${data["news-cover-image"]}` }));
             }
             else {
-                log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
+                console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
                 elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
             }
         }

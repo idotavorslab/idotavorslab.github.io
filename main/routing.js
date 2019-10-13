@@ -30,12 +30,7 @@ const Routing = (() => {
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                if (Navbar === undefined) {
-                    console.log('%cinitPage Navbar === undefined, awaiting navbarReady...', `color: ${GOOGLEBLUE}`);
-                    await Emitter.until('navbarReady');
-                    console.log('%cinitPage done awaiting navbarReady', `color: ${GOOGLEBLUE}`);
-                }
-                Navbar.select(Navbar[url]);
+                WindowElem.on({ load: () => Navbar.select(Navbar[url]) });
             }
             else {
                 console.log(`%cRouting.initPage(), bad url, not in pageStrings(): "${url}". Calling Routing.navigateTo("home")`, `color: ${GOOGLEBLUE}`);
