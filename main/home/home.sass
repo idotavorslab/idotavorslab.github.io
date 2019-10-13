@@ -188,6 +188,9 @@ section#funding_section
 		padding: 60px 0 $_marginBottom 0
 
 		// **  All Resolutions
+		&, & > h1
+			text-align: center
+
 		& > h1
 			margin-bottom: 60px
 
@@ -215,8 +218,7 @@ section#funding_section
 
 		// **  min-width($BP4)
 		@include min-width($BP4)
-			&, & > h1
-				text-align: center
+
 
 			& > div#sponsors_container
 				--rowLength: 3
@@ -230,7 +232,7 @@ section#funding_section
 
 		// **  max-width($BP4)
 		@include max-width($BP4)
-			&, & > h1
+			//&, & > h1
 				text-align: left
 
 
@@ -242,7 +244,7 @@ section#funding_section
 					margin-bottom: 60px
 
 
-					& > img
+					//& > img
 						margin-left: 0
 
 
