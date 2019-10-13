@@ -2,7 +2,8 @@ div#home
 	text-align: left
 
 	& > div#neuroanatomy_intro
-		margin-bottom: calc(var(--gap))
+		//margin-bottom: calc(var(--gap))
+		margin-bottom: 60px
 		@include min-width($BP4)
 			width: calc(var(--w) * 0.6)
 
@@ -15,14 +16,24 @@ div#home
 		display: flex
 		flex-wrap: wrap
 
-		& > div.brain:nth-child(2n+1)
-			// *  DEP: div.brain width
-			margin-right: var(--gap)
+		@include min-width($BP4)
+			& > div.brain:nth-child(2n+1)
+				// *  DEP: div.brain width
+				margin-right: var(--gap)
+
+		//@include max-width($BP4)
+			& > div.brain
+				margin-right: auto
 
 		& > div.brain
 			margin-bottom: var(--big_gap)
-			// *  DEP: div.brain:nth-child(2n+1) margin-right
-			width: calc(50% - calc(var(--gap) / 2))
+			@include min-width($BP4)
+				// *  DEP: div.brain:nth-child(2n+1) margin-right
+				width: calc(50% - calc(var(--gap) / 2))
+			@include max-width($BP4)
+				width: 75%
+				margin-right: auto
+				margin-left: auto
 
 
 			& > div.sketchfab-embed-wrapper

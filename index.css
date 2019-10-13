@@ -1154,7 +1154,7 @@ div#home {
   text-align: left;
 }
 div#home > div#neuroanatomy_intro {
-  margin-bottom: calc(var(--gap));
+  margin-bottom: 60px;
 }
 @media screen and (min-width: 500px) {
   div#home > div#neuroanatomy_intro {
@@ -1168,12 +1168,25 @@ div#home > div#brains_flex {
   display: flex;
   flex-wrap: wrap;
 }
-div#home > div#brains_flex > div.brain:nth-child(2n+1) {
-  margin-right: var(--gap);
+@media screen and (min-width: 500px) {
+  div#home > div#brains_flex > div.brain:nth-child(2n+1) {
+    margin-right: var(--gap);
+  }
 }
 div#home > div#brains_flex > div.brain {
   margin-bottom: var(--big_gap);
-  width: calc(50% - calc(var(--gap) / 2));
+}
+@media screen and (min-width: 500px) {
+  div#home > div#brains_flex > div.brain {
+    width: calc(50% - calc(var(--gap) / 2));
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home > div#brains_flex > div.brain {
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
   margin-bottom: calc(var(--small_gap) / 2);
