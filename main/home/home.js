@@ -91,9 +91,9 @@ const HomePage = () => {
     WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
     async function init() {
         const data = await fetchDict('main/home/home.json');
+        if (MOBILE === undefined)
+            await WindowElem.promiseLoaded();
         if (!MOBILE) {
-            if (MOBILE === undefined)
-                await WindowElem.promiseLoaded();
             while (rightWidget === undefined)
                 await wait(11);
             rightWidget.newsCoverImageContainer
