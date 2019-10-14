@@ -790,27 +790,35 @@ div#home > div.article[class~=reverse] > img {
 }
 
 div#home.people-page > div.grid {
+  --tagWidth: calc((var(--w) - (var(--gap) * (var(--columns) - 1))) / var(--columns));
   display: grid;
-  --tagWidth: calc((var(--w) - (var(--gap) * 3)) / 4);
   margin-bottom: var(--gap);
-  grid-template-columns: repeat(4, var(--tagWidth));
+  grid-template-columns: repeat(var(--columns), 1fr);
   grid-template-rows: repeat(2, auto);
   grid-row-gap: var(--gap);
   grid-column-gap: var(--gap);
   text-align: center;
 }
+@media screen and (min-width: 500px) {
+  div#home.people-page > div.grid {
+    --columns: 4;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home.people-page > div.grid {
+    --columns: 3;
+  }
+}
 div#home.people-page > div.grid div.person {
   margin: auto;
+  width: 100%;
 }
-div#home.people-page > div.grid div.person:nth-of-type(4n+4) {
-  margin: 0 0px auto auto;
-}
-div#home.people-page > div.grid div.person:nth-of-type(4n+1) {
-  margin: 0 auto auto 0;
-}
-@media screen and (min-width: 1023px) {
-  div#home.people-page > div.grid div.person {
-    width: var(--tagWidth);
+@media screen and (min-width: 500px) {
+  div#home.people-page > div.grid div.person:nth-of-type(4n+4) {
+    margin: 0 0px auto auto;
+  }
+  div#home.people-page > div.grid div.person:nth-of-type(4n+1) {
+    margin: 0 auto auto 0;
   }
 }
 div#home.people-page > div.grid > div.person {
@@ -1024,7 +1032,6 @@ div#home.gallery-page div#images_container:not([class=theater]) > div.year > div
   opacity: 0.5;
 }
 div#home.gallery-page div#images_container > div.year {
-  border-left: 1px solid var(--GREY2);
   margin-bottom: var(--gap);
 }
 div#home.gallery-page div#images_container > div.year > div.title {
@@ -1036,30 +1043,42 @@ div#home.gallery-page div#images_container > div.year > div.title {
   line-height: 25px;
 }
 div#home.gallery-page div#images_container > div.year > div.grid {
+  --tagWidth: calc((var(--w) - (8px * (var(--columns) - 1))) / var(--columns));
   display: grid;
-  --tagWidth: calc((var(--w) - (8px * 3)) / 4);
   margin-bottom: auto;
-  grid-template-columns: repeat(4, var(--tagWidth));
+  grid-template-columns: repeat(var(--columns), 1fr);
   grid-template-rows: repeat(2, auto);
   grid-row-gap: 8px;
   grid-column-gap: 8px;
 }
+@media screen and (min-width: 500px) {
+  div#home.gallery-page div#images_container > div.year > div.grid {
+    --columns: 4;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home.gallery-page div#images_container > div.year > div.grid {
+    --columns: 3;
+  }
+}
 div#home.gallery-page div#images_container > div.year > div.grid img {
   margin: auto;
+  width: 100%;
 }
-div#home.gallery-page div#images_container > div.year > div.grid img:nth-of-type(4n+4) {
-  margin: 0 0px auto auto;
-}
-div#home.gallery-page div#images_container > div.year > div.grid img:nth-of-type(4n+1) {
-  margin: 0 auto auto 0;
-}
-@media screen and (min-width: 1023px) {
-  div#home.gallery-page div#images_container > div.year > div.grid img {
-    width: var(--tagWidth);
+@media screen and (min-width: 500px) {
+  div#home.gallery-page div#images_container > div.year > div.grid img:nth-of-type(4n+4) {
+    margin: 0 0px auto auto;
   }
+  div#home.gallery-page div#images_container > div.year > div.grid img:nth-of-type(4n+1) {
+    margin: 0 auto auto 0;
+  }
+}
+div#home.gallery-page div#images_container > div.year > div.grid > div.row {
+  width: auto;
 }
 @media screen and (min-width: 500px) {
   div#home.gallery-page div#images_container > div.year {
+    border-left: 1px solid var(--GREY2);
     padding-left: 39px;
   }
 }

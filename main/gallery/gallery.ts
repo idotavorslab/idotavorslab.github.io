@@ -230,6 +230,7 @@ const GalleryPage = () => {
                 // console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
                 
             } else {
+                
                 count = 0;
                 yearDiv = <YearDiv>div({cls: 'year'})
                     .cacheAppend({

@@ -17,9 +17,6 @@ div#home.gallery-page
 
 		& > div.year
 			// **  All Resolutions
-
-			border-left: 1px solid var(--GREY2)
-
 			margin-bottom: var(--gap)
 
 			& > div.title
@@ -36,8 +33,12 @@ div#home.gallery-page
 			& > div.grid
 				@include gridContainerMixin(img, true)
 
+				& > div.row
+					width: auto
+
 			// **  min-width($BP4)
 			@include min-width($BP4)
+				border-left: 1px solid var(--GREY2)
 				padding-left: 39px
 
 			// **  max-width($BP4)
