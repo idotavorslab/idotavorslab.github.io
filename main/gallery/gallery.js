@@ -157,15 +157,17 @@ const GalleryPage = () => {
             }
             else {
                 count = 0;
+                let gridChildrenObj = {
+                    row0: div({ cls: 'row' }),
+                    row1: div({ cls: 'row' }),
+                    row2: div({ cls: 'row' }),
+                };
+                if (!MOBILE)
+                    gridChildrenObj.row3 = div({ cls: 'row' });
                 yearDiv = div({ cls: 'year' })
                     .cacheAppend({
                     title: div({ cls: 'title' }).text(galleryImg.year),
-                    grid: div({ cls: 'grid' }).cacheAppend({
-                        row0: div({ cls: 'row' }),
-                        row1: div({ cls: 'row' }),
-                        row2: div({ cls: 'row' }),
-                        row3: div({ cls: 'row' }),
-                    })
+                    grid: div({ cls: 'grid' }).cacheAppend(gridChildrenObj)
                 });
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
