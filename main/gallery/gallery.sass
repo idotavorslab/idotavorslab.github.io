@@ -82,17 +82,61 @@ div#home.gallery-page
 			opacity: 1
 			z-index: 5
 
+		--chevronWidth: 44px
+
 		& > img
 			@include min-width($BP4)
 				max-height: var(--localHeight)
-				//width: 100%
-				//object-fit: contain
+			//width: 100%
+			//object-fit: contain
 			@include max-width($BP4)
-				width: 75%
+				//width: 75%
+				width: calc(100% - 2 * var(--chevronWidth))
 				object-fit: contain
 
+
+		& > div#right_css_chevron, & > div#left_css_chevron
+			display: flex
+			margin: auto
+			//width: $chevronWidth
+
+			& > span.lines
+				background: white
+				height: 2px
+				position: relative
+				top: calc(var(--chevronWidth) / 1.5)
+				transform-origin: center
+
+				transition: transform 0.1s, box-shadow 0.1s
+				width: calc(var(--chevronWidth) / 2)
+
+				&:after
+					background: white
+					content: ""
+					height: 100%
+					position: absolute
+					transition: transform 0.1s, bottom 0.1s, top 0.1s
+					transform: rotate(90deg)
+					bottom: calc((var(--chevronWidth) / 4))
+					right: calc((var(--chevronWidth) / 4))
+					width: 100%
+
+			&.left
+				padding-bottom: calc(var(--chevronWidth) / 2)
+
+				& > span.lines
+					transform: rotate(45deg)
+
+			&.right
+				// 7/6 = 1/2 + 1/1.5
+				padding-bottom: calc((var(--chevronWidth) * 7 / 6))
+
+				& > span.lines
+					transform: rotate(225deg)
+
 		& > div#caption
-			@include fourWayTextShadow(1px, 1px, 0, black)
+			@include min-width($BP4)
+				@include fourWayTextShadow(1px, 1px, 0, black)
 			text-align: center
 			position: fixed
 			font-size: 24px
@@ -108,7 +152,7 @@ div#home.gallery-page
 			margin: auto
 			opacity: 0.8
 			transition: opacity 100ms, transform 50ms
-			width: 44px
+			width: var(--chevronWidth)
 			z-index: 5
 
 			&:hover

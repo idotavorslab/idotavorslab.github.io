@@ -1091,6 +1091,7 @@ div#home.gallery-page div#img_viewer {
   transition: opacity 200ms;
   width: var(--w);
   z-index: -1;
+  --chevronWidth: 44px;
 }
 @media screen and (min-width: 1340px) {
   div#home.gallery-page div#img_viewer {
@@ -1118,12 +1119,47 @@ div#home.gallery-page div#img_viewer.on {
 }
 @media screen and (max-width: 500px) {
   div#home.gallery-page div#img_viewer > img {
-    width: 75%;
+    width: calc(100% - 2 * var(--chevronWidth));
     object-fit: contain;
   }
 }
+div#home.gallery-page div#img_viewer > div#right_css_chevron, div#home.gallery-page div#img_viewer > div#left_css_chevron {
+  display: flex;
+  margin: auto;
+}
+div#home.gallery-page div#img_viewer > div#right_css_chevron > span.lines, div#home.gallery-page div#img_viewer > div#left_css_chevron > span.lines {
+  background: white;
+  height: 2px;
+  position: relative;
+  top: calc(var(--chevronWidth) / 1.5);
+  transform-origin: center;
+  transition: transform 0.1s, box-shadow 0.1s;
+  width: calc(var(--chevronWidth) / 2);
+}
+div#home.gallery-page div#img_viewer > div#right_css_chevron > span.lines:after, div#home.gallery-page div#img_viewer > div#left_css_chevron > span.lines:after {
+  background: white;
+  content: "";
+  height: 100%;
+  position: absolute;
+  transition: transform 0.1s, bottom 0.1s, top 0.1s;
+  transform: rotate(90deg);
+  bottom: calc((var(--chevronWidth) / 4));
+  right: calc((var(--chevronWidth) / 4));
+  width: 100%;
+}
+div#home.gallery-page div#img_viewer > div#right_css_chevron.left, div#home.gallery-page div#img_viewer > div#left_css_chevron.left {
+  padding-bottom: calc(var(--chevronWidth) / 2);
+}
+div#home.gallery-page div#img_viewer > div#right_css_chevron.left > span.lines, div#home.gallery-page div#img_viewer > div#left_css_chevron.left > span.lines {
+  transform: rotate(45deg);
+}
+div#home.gallery-page div#img_viewer > div#right_css_chevron.right, div#home.gallery-page div#img_viewer > div#left_css_chevron.right {
+  padding-bottom: calc((var(--chevronWidth) * 7 / 6));
+}
+div#home.gallery-page div#img_viewer > div#right_css_chevron.right > span.lines, div#home.gallery-page div#img_viewer > div#left_css_chevron.right > span.lines {
+  transform: rotate(225deg);
+}
 div#home.gallery-page div#img_viewer > div#caption {
-  text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
   text-align: center;
   position: fixed;
   font-size: 24px;
@@ -1132,13 +1168,18 @@ div#home.gallery-page div#img_viewer > div#caption {
   margin-top: calc(var(--localHeight) / 2);
   width: inherit;
 }
+@media screen and (min-width: 500px) {
+  div#home.gallery-page div#img_viewer > div#caption {
+    text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
+  }
+}
 div#home.gallery-page div#img_viewer > div#right_chevron, div#home.gallery-page div#img_viewer > div#left_chevron {
   cursor: pointer;
   filter: invert(1) drop-shadow(2px 4px 6px black);
   margin: auto;
   opacity: 0.8;
   transition: opacity 100ms, transform 50ms;
-  width: 44px;
+  width: var(--chevronWidth);
   z-index: 5;
 }
 div#home.gallery-page div#img_viewer > div#right_chevron:hover, div#home.gallery-page div#img_viewer > div#left_chevron:hover {

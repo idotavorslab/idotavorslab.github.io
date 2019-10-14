@@ -113,9 +113,9 @@ const GalleryPage = () => {
         }
         const imgViewer = div({ id: 'img_viewer' })
             .cacheAppend({
-            left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).click(gotoAdjImg),
-            img: img({}),
-            right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).click(gotoAdjImg),
+            left: div({ id: 'left_css_chevron', cls: 'left' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
+            img: img(),
+            right: div({ id: 'right_css_chevron', cls: 'right' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
             caption: div({ id: 'caption' })
         }).click((event) => {
             console.log('imgViewer click, stopping propagation');
