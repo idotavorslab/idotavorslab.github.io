@@ -14,6 +14,8 @@
   --SMALL_GAP0: 30px;
   --SMALL_GAP1: 20px;
   --SMALL_GAP2: 15px;
+  --MOBILE_NAVBAR_HEIGHT: 60px;
+  --REGULAR_NAVBAR_HEIGHT: 70px;
   --GOOGLEBLUE: rgb(59, 130, 240);
   --GREY00: rgb(255, 255, 255);
   --GREY01: rgb(250, 250, 250);
@@ -220,11 +222,6 @@ a.arrow-trans:after {
   width: var(--w);
 }
 
-:root {
-  --mobileNavbarHeight: 60px;
-  --regularNavbarHeight: 70px;
-}
-
 div#main {
   text-align: center;
 }
@@ -235,12 +232,12 @@ div#main div#home {
 }
 @media screen and (min-width: 500px) {
   div#main div#home {
-    padding-top: calc(var(--regularNavbarHeight) + 60px);
+    padding-top: calc(var(--REGULAR_NAVBAR_HEIGHT) + 60px);
   }
 }
 @media screen and (max-width: 500px) {
   div#main div#home {
-    padding-top: var(--mobileNavbarHeight);
+    padding-top: var(--MOBILE_NAVBAR_HEIGHT);
   }
 }
 
@@ -342,7 +339,7 @@ section#navbar_section {
 }
 @media screen and (max-width: 500px) {
   section#navbar_section {
-    height: var(--mobileNavbarHeight);
+    height: var(--MOBILE_NAVBAR_HEIGHT);
   }
 }
 section#navbar_section > div#hamburger {
@@ -362,7 +359,7 @@ section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu 
   position: absolute;
   right: 0px;
   transition: 0.5s ease-in-out;
-  width: calc(var(--mobileNavbarHeight) - 10px);
+  width: calc(var(--MOBILE_NAVBAR_HEIGHT) - 10px);
 }
 section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu:focus {
   border-width: 0px;
@@ -371,10 +368,10 @@ section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu 
   background: var(--GREY8);
   height: 2px;
   position: absolute;
-  top: calc(var(--mobileNavbarHeight) / 2);
+  top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2);
   transform-origin: center;
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-  width: calc(var(--mobileNavbarHeight) / 2);
+  width: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2);
 }
 section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:after, section#navbar_section > div#hamburger > div.menu-and-logo-container > div.menu > span.lines:before {
   background: var(--GREY8);
@@ -396,13 +393,13 @@ section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo 
   width: max-content;
 }
 section#navbar_section > div#hamburger > div.menu-and-logo-container > div.logo > img {
-  height: calc(var(--mobileNavbarHeight) - 24px);
+  height: calc(var(--MOBILE_NAVBAR_HEIGHT) - 24px);
   margin-top: 12px;
 }
 section#navbar_section > div#hamburger > div.items {
   opacity: 0;
   position: relative;
-  height: calc(100vh - var(--mobileNavbarHeight));
+  height: calc(100vh - var(--MOBILE_NAVBAR_HEIGHT));
 }
 section#navbar_section > div#hamburger > div.items > div {
   color: var(--GREY8);
@@ -446,7 +443,7 @@ section#navbar_section > div#hamburger:not([class~=open]) > div.items {
 }
 section#navbar_section > div#navbar {
   display: flex;
-  height: var(--regularNavbarHeight);
+  height: var(--REGULAR_NAVBAR_HEIGHT);
   margin: auto auto 0 auto;
   transition: box-shadow 0.2s ease-in-out;
 }
@@ -1161,10 +1158,19 @@ div#home.gallery-page div#img_viewer > div#right_chevron.left > svg, div#home.ga
 }
 div#home.gallery-page div#img_viewer_close {
   position: fixed;
-  top: var(--gap);
   right: var(--gap);
   opacity: 0;
   transition: opacity 100ms;
+}
+@media screen and (min-width: 500px) {
+  div#home.gallery-page div#img_viewer_close {
+    top: var(--gap);
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home.gallery-page div#img_viewer_close {
+    top: calc(var(--MOBILE_NAVBAR_HEIGHT) + var(--small_gap));
+  }
 }
 div#home.gallery-page div#img_viewer_close.on {
   opacity: 0.8;

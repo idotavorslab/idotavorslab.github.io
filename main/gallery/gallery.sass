@@ -134,7 +134,10 @@ div#home.gallery-page
 	div#img_viewer_close
 		// **  --gap, --w, --tagWidth vars from mixins.sass
 		position: fixed
-		top: var(--gap)
+		@include min-width($BP4)
+			top: var(--gap)
+		@include max-width($BP4)
+			top: calc(var(--MOBILE_NAVBAR_HEIGHT) + var(--small_gap))
 		right: var(--gap)
 		opacity: 0
 		transition: opacity 100ms
