@@ -120,6 +120,7 @@
 		--tagWidth: calc((var(--w) - (var(--gap) * (#{$columns} - 1))) / #{$columns})
 
 @mixin gridContainerMixin($childTag, $tight:false)
+	// *  DEP: gallery.ts
 	@include min-width($BP4)
 		--columns: 4
 	@include max-width($BP4)

@@ -42,6 +42,9 @@ const GalleryPage = () => {
             }
         }
         console.log('GalleryPage init');
+        if (MOBILE === undefined)
+            await WindowElem.promiseLoaded();
+        const ROWSIZE = MOBILE ? 3 : 4;
         const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 185.343 185.343">
     <path style="fill:#000;"
@@ -131,7 +134,7 @@ const GalleryPage = () => {
         const yearToYearDiv = {};
         let count = 0;
         function appendToRow(yearDiv, galleryImg, count) {
-            switch (count % 4) {
+            switch (count % ROWSIZE) {
                 case 0:
                     yearDiv.grid.row0.append(galleryImg);
                     break;
