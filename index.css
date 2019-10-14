@@ -804,11 +804,13 @@ div#home.people-page > div.grid {
 @media screen and (min-width: 500px) {
   div#home.people-page > div.grid {
     --columns: 4;
+    --_tightGap: 8px;
   }
 }
 @media screen and (max-width: 500px) {
   div#home.people-page > div.grid {
     --columns: 3;
+    --_tightGap: 4px;
   }
 }
 div#home.people-page > div.grid div.person {
@@ -1026,9 +1028,18 @@ div#home.gallery-page div#images_container[class=theater] {
 }
 div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img {
   margin-top: 0;
-  margin-bottom: 3px;
   cursor: pointer;
   transition: opacity 100ms;
+}
+@media screen and (min-width: 500px) {
+  div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img {
+    margin-bottom: 3px;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img {
+    margin-bottom: -2px;
+  }
 }
 div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img:hover {
   opacity: 0.5;
@@ -1045,22 +1056,24 @@ div#home.gallery-page div#images_container > div.year > div.title {
   line-height: 25px;
 }
 div#home.gallery-page div#images_container > div.year > div.grid {
-  --tagWidth: calc((var(--w) - (8px * (var(--columns) - 1))) / var(--columns));
+  --tagWidth: calc((var(--w) - (var(--_tightGap) * (var(--columns) - 1))) / var(--columns));
   display: grid;
   margin-bottom: auto;
   grid-template-columns: repeat(var(--columns), 1fr);
   grid-template-rows: repeat(2, auto);
-  grid-row-gap: 8px;
-  grid-column-gap: 8px;
+  grid-row-gap: var(--_tightGap);
+  grid-column-gap: var(--_tightGap);
 }
 @media screen and (min-width: 500px) {
   div#home.gallery-page div#images_container > div.year > div.grid {
     --columns: 4;
+    --_tightGap: 8px;
   }
 }
 @media screen and (max-width: 500px) {
   div#home.gallery-page div#images_container > div.year > div.grid {
     --columns: 3;
+    --_tightGap: 4px;
   }
 }
 div#home.gallery-page div#images_container > div.year > div.grid img {

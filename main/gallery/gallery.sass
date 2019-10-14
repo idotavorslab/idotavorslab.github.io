@@ -8,7 +8,10 @@ div#home.gallery-page
 		&:not([class="theater"])
 			& > div.year > div.grid > div.row > img
 				margin-top: 0
-				margin-bottom: 3px
+				@include min-width($BP4)
+					margin-bottom: 3px
+				@include max-width($BP4)
+					margin-bottom: -2px
 				cursor: pointer
 				transition: opacity 100ms
 
