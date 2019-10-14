@@ -99,6 +99,7 @@ div#home.gallery-page
 			display: flex
 			margin: auto
 			//width: $chevronWidth
+			transition: transform 50ms
 
 			& > span.lines
 				background: white
@@ -107,7 +108,7 @@ div#home.gallery-page
 				top: calc(var(--chevronWidth) / 1.5)
 				transform-origin: center
 
-				transition: transform 0.1s, box-shadow 0.1s
+
 				width: calc(var(--chevronWidth) / 2)
 
 				&:after
@@ -115,14 +116,17 @@ div#home.gallery-page
 					content: ""
 					height: 100%
 					position: absolute
-					transition: transform 0.1s, bottom 0.1s, top 0.1s
 					transform: rotate(90deg)
 					bottom: calc((var(--chevronWidth) / 4))
 					right: calc((var(--chevronWidth) / 4))
 					width: 100%
 
+
 			&.left
 				padding-bottom: calc(var(--chevronWidth) / 2)
+
+				&:active
+					transform: translateX(-4px)
 
 				& > span.lines
 					transform: rotate(45deg)
@@ -130,6 +134,9 @@ div#home.gallery-page
 			&.right
 				// 7/6 = 1/2 + 1/1.5
 				padding-bottom: calc((var(--chevronWidth) * 7 / 6))
+
+				&:active
+					transform: translateX(4px)
 
 				& > span.lines
 					transform: rotate(225deg)
@@ -145,34 +152,34 @@ div#home.gallery-page
 			margin-top: calc(var(--localHeight) / 2)
 			width: inherit
 
-		& > div#right_chevron, & > div#left_chevron
+	//& > div#right_chevron, & > div#left_chevron
 
-			cursor: pointer
-			filter: invert(1) drop-shadow(2px 4px 6px black)
+		cursor: pointer
+		filter: invert(1) drop-shadow(2px 4px 6px black)
+		margin: auto
+		opacity: 0.8
+		transition: opacity 100ms, transform 50ms
+		width: var(--chevronWidth)
+		z-index: 5
+
+		&:hover
+			opacity: 1
+
+
+		&.right
 			margin: auto
-			opacity: 0.8
-			transition: opacity 100ms, transform 50ms
-			width: var(--chevronWidth)
-			z-index: 5
 
-			&:hover
-				opacity: 1
-
-
-			&.right
-				margin: auto
-
-				&:active
-					& > svg
-						transform: translateX(4px)
-
-			&.left
-				&:active
-					& > svg
-						transform: rotate(180deg) translateX(4px)
-
+			&:active
 				& > svg
-					transform: rotate(180deg)
+					transform: translateX(4px)
+
+		&.left
+			&:active
+				& > svg
+					transform: rotate(180deg) translateX(4px)
+
+			& > svg
+				transform: rotate(180deg)
 
 	div#img_viewer_close_css
 		height: var(--MOBILE_NAVBAR_HEIGHT)
@@ -180,7 +187,7 @@ div#home.gallery-page
 		position: fixed
 		right: 0px
 		top: 0px
-		transition: opacity 0.5s ease-in-out
+		transition: opacity 0.1s ease-in
 		width: calc(var(--MOBILE_NAVBAR_HEIGHT) - 10px)
 		z-index: 5
 		pointer-events: none
@@ -213,12 +220,8 @@ div#home.gallery-page
 				transform: rotate(90deg)
 				width: 100%
 
-		//&:before
-			top: -10px
-			opacity: 1
 
-	div#img_viewer_close
-		// **  --gap, --w, --tagWidth vars from mixins.sass
+	//div#img_viewer_close
 		position: fixed
 		@include min-width($BP4)
 			top: var(--gap)
