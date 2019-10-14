@@ -80,7 +80,8 @@ const GalleryPage = () => {
                 switchToImg(selectedImg.getRightImage());
             }
         }
-        function closeImgViewer() {
+        function closeImgViewer(event) {
+            console.log('closeImgViewer', event);
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
             _toggleNavigationElementsDisplay(true);
@@ -103,12 +104,10 @@ const GalleryPage = () => {
         }
         function _toggleNavigationElementsDisplay(on) {
             if (on) {
-                Navbar.css({ opacity: 1 });
-                elem({ id: 'navbar_section' }).css({ opacity: 1 });
+                elem({ id: 'navbar_section' }).removeClass('off');
             }
             else {
-                Navbar.css({ opacity: 0 });
-                elem({ id: 'navbar_section' }).css({ opacity: 0 });
+                elem({ id: 'navbar_section' }).addClass('off');
             }
         }
         const imgViewer = div({ id: 'img_viewer' })
@@ -206,9 +205,8 @@ const GalleryPage = () => {
                     return switchToImg(selectedImg.getRightImage());
             }
         });
-        const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
-            .attr({ viewBox: `0 0 32 32` })
-            .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).click(closeImgViewer);
+        const imgViewerClose = div({ id: 'img_viewer_close_css' })
+            .append(span({ cls: 'lines' })).click(closeImgViewer);
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
     }
     return { init };

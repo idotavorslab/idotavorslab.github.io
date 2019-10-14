@@ -250,7 +250,7 @@ function green(val) {
 function orange(val) {
     return [`%c${val}`, 'color: #ffc66d'];
 }
-function logFn(bold = false) {
+function log(bold = false) {
     return function _log(target, name, descriptor, ...outargs) {
         const orig = descriptor.value;
         descriptor.value = function (...args) {
@@ -336,7 +336,7 @@ function getStackTrace() {
     stack = stack.split('\n').map(line => line.trim().replace('at ', ''));
     return stack[3];
 }
-async function log(message, ...args) {
+async function exlog(message, ...args) {
     const colors = {
         t: '#64FFDA',
         grn: '#4CAF50',

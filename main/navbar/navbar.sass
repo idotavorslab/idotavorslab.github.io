@@ -3,9 +3,14 @@ section#navbar_section
 	@include max-width($BP4)
 		height: var(--MOBILE_NAVBAR_HEIGHT)
 	position: fixed
+	transition: opacity 0.1s
 	width: 100%
 	z-index: 5
 	$_trans: 0.5s ease-in-out
+
+	&[class="off"]
+		opacity: 0
+		pointer-events: none
 
 	& > div#hamburger
 		height: inherit

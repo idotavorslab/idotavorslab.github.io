@@ -445,7 +445,7 @@ function orange(val: string): [string, string] {
     return [`%c${val}`, 'color: #ffc66d']
 }
 
-function logFn(bold: boolean = false) {
+function log(bold: boolean = false) {
     return function _log(target, name, descriptor, ...outargs) {
         /*console.log(
             'OUTSIDE',
@@ -602,7 +602,7 @@ function getStackTrace() {
     return stack[3]
 }
 
-async function log(message, ...args) {
+async function exlog(message, ...args) {
     const colors = {
         t: '#64FFDA',
         grn: '#4CAF50',

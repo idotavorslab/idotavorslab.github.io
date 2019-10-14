@@ -188,7 +188,7 @@ const PeoplePage = () => {
             }
         }
         __decorate([
-            logFn()
+            log()
         ], Expando.prototype, "setHtml", null);
         function containerFactory({ containerData, people }) {
             let index = 0;

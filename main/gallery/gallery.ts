@@ -134,8 +134,9 @@ const GalleryPage = () => {
         // DocumentElem.click  =>  closeImgViewer
         // DocumentElem.keydown Arrow  =>  closeImgViewer
         // X.click  =>  closeImgViewer
-        function closeImgViewer() {
+        function closeImgViewer(event?) {
             // *  Clicked X, click outside viewer, Escape,
+            console.log('closeImgViewer', event);
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
             _toggleNavigationElementsDisplay(true);
@@ -144,6 +145,7 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
+        
         
         // galleryImg.click  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
@@ -164,11 +166,13 @@ const GalleryPage = () => {
         
         function _toggleNavigationElementsDisplay(on: boolean) {
             if (on) {
-                Navbar.css({opacity: 1});
-                elem({id: 'navbar_section'}).css({opacity: 1});
+                elem({id: 'navbar_section'}).removeClass('off');
+                // Navbar.css({opacity: 1});
+                // elem({id: 'navbar_section'}).css({opacity: 1});
             } else {
-                Navbar.css({opacity: 0});
-                elem({id: 'navbar_section'}).css({opacity: 0});
+                elem({id: 'navbar_section'}).addClass('off');
+                // Navbar.css({opacity: 0});
+                // elem({id: 'navbar_section'}).css({opacity: 0});
             }
         }
         
@@ -257,6 +261,7 @@ const GalleryPage = () => {
                     
                 };
                 if (!MOBILE)
+                // @ts-ignore
                     gridChildrenObj.row3 = div({cls: 'row'});
                 
                 yearDiv = <YearDiv>div({cls: 'year'})
@@ -300,14 +305,19 @@ const GalleryPage = () => {
                     
                 }
             });
-        const imgViewerClose = div({id: 'img_viewer_close'}).append(
-            elem({tag: 'svg'})
-                .attr({viewBox: `0 0 32 32`})
-                .append(
-                    elem({tag: 'path', cls: 'upright'}),
-                    elem({tag: 'path', cls: 'downleft'})
-                )
-        ).click(closeImgViewer);
+        /*
+                const imgViewerClose = div({id: 'img_viewer_close'}).append(
+                    elem({tag: 'svg'})
+                        .attr({viewBox: `0 0 32 32`})
+                        .append(
+                            elem({tag: 'path', cls: 'upright'}),
+                            elem({tag: 'path', cls: 'downleft'})
+                        )
+                ).click(closeImgViewer);
+        */
+        
+        const imgViewerClose = div({id: 'img_viewer_close_css'})
+            .append(span({cls: 'lines'})).click(closeImgViewer);
         
         
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
