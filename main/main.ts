@@ -12,79 +12,6 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 
 const CacheDiv = elem({id: 'cache'});
 
-/*class EventEmitter {
-    
-    private _store: TMap<Function[]> = {};
-    
-    constructor() {
-    
-    }
-    
-    emit(key: string, data?: any): void {
-        log(`EventEmitter.emit()`, JSON.parstr({
-            key,
-            'this._store[key](length?)': this._store[key] ? this._store[key].length : undefined
-        }), 'l');
-        if (this._store[key]) {
-            for (let fn of this._store[key]) {
-                fn(data || undefined);
-            }
-        }
-    }
-    
-    on(key: string, fn: Function): void {
-        if (this._store[key])
-            this._store[key].push(fn);
-        else
-            this._store[key] = [fn];
-    }
-    
-    one(key: string, fn: Function): void {
-        function _fn() {
-            log('_fn, calling fn() then removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
-            fn();
-            // @ts-ignore
-            let indexofFn = (<Function[]>this._store[key]).findIndex(f => f.id === id);
-            // TODO: remove for prod
-            if (indexofFn === -1) throw new Error(`indexofFn is -1, key: "${key}"`);
-            this._store[key].splice(indexofFn, 1);
-            log('_fn, after removing.', JSON.parstr({'this._store[key].length': this._store[key].length}), 'b');
-            
-        }
-        
-        const id = Math.random();
-        log(`EventEmitter.one,`, JSON.parstr({key, id}), 'b');
-        const bound = _fn.bind(this);
-        bound.id = id;
-        this.on(key, bound);
-    }
-    
-    until(key: 'navbarReady' | 'MOBILEReady', options: { once: boolean, debug?: string } = {once: true}): Promise<unknown> {
-        let message = `EventEmitter.until`;
-        if (options && options.debug)
-            message += ` | (debug: ${options.debug})`;
-        log(message, JSON.parstr({key}), 'bg');
-        if (options && options.once)
-            return new Promise(resolve =>
-                this.one(key, () => {
-                    message = `until one resolving key`;
-                    if (options && options.debug)
-                        message += ` | (debug: ${options.debug})`;
-                    log(message, JSON.parstr({key}), 'bg');
-                    return resolve();
-                }));
-        else
-            return new Promise(resolve => this.on(key, () => {
-                message = `until on resolving key`;
-                if (options && options.debug)
-                    message += ` | (debug: ${options.debug})`;
-                log(message, JSON.parstr({key}), 'bg');
-                return resolve();
-            }))
-    }
-}
-const Emitter = new EventEmitter();
-*/
 // @ts-ignore
 const WindowElem = elem({htmlElement: window});
 WindowElem.isLoaded = false;
@@ -113,6 +40,42 @@ WindowElem.promiseLoaded = async function () {
     this.isLoaded = true;
     return true;
 };
+
+interface IHamburger extends Div {
+    menu: Div;
+    logo: Div;
+    items: Div;
+}
+
+const Hamburger = <IHamburger>elem({
+    id: 'hamburger', children: {menu: '.menu', logo: '.logo', items: '.items'}
+    
+});
+Hamburger.logo.click((event: PointerEvent) => {
+    event.stopPropagation();
+    Routing.navigateTo("home");
+});
+Hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
+    bhe.click((event: PointerEvent) => {
+        event.stopPropagation();
+        const innerText = bhe.e.innerText.toLowerCase();
+        console.log(`Hamburger ${innerText} click`);
+        Hamburger.removeClass('open');
+        Routing.navigateTo(<Routing.PageSansHome>innerText);
+    });
+});
+
+Hamburger.click((event: PointerEvent) => {
+    console.log('Hamburger.click');
+    Hamburger.toggleClass('open');
+    if (Hamburger.hasClass('open')) {
+        console.log('Hamburger opened');
+    } else {
+        console.log('Hamburger closed');
+    }
+});
+
+
 WindowElem.on({
     scroll: (event: Event) => {
         /*await untilNotUndefined(Navbar, 'scroll Navbar');
@@ -178,10 +141,9 @@ WindowElem.on({
         
     },
     load: () => {
-        console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
+        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
         WindowElem.isLoaded = true;
         MOBILE = window.innerWidth <= $BP4;
-        // Emitter.emit('MOBILEReady');
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {
@@ -195,15 +157,13 @@ WindowElem.on({
             }
         });
         
-        // Emitter.emit('navbarReady');
-        
         
         console.log({innerWidth: window.innerWidth, MOBILE});
         if (window.location.hash !== "")
             fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
         
         function cache(file: string, page: Routing.Page) {
-            let src;
+            let src: string;
             if (file.includes('http') || file.includes('www')) {
                 src = file;
             } else {
@@ -254,7 +214,7 @@ WindowElem.on({
                 cachePeople();
             if (!window.location.hash.includes('gallery'))
                 cacheGallery();
-            console.log('done caching');
+            console.log(...less('done caching'));
             console.groupEnd();
         });
         
@@ -321,7 +281,7 @@ class NavbarElem extends BetterHTMLElement {
     
 }
 
-let Navbar; // WindowElem.load =>
+let Navbar: NavbarElem; // WindowElem.load =>
 // let NavbarReady = new Event('navbarReady');
 
 // ***  Footer
@@ -349,7 +309,7 @@ const Footer: IFooter = <IFooter>elem({
                     '.main-cls': {
                         address: '.address',
                         contact: '.contact',
-                        map: '#contact_map'
+                        // map: '#contact_map'
                     }
                 }
             }
@@ -442,42 +402,5 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
         });*/
     
     
-});
-
-interface IHamburger extends Div {
-    menu: Div;
-    logo: Div;
-    items: Div;
-}
-
-const hamburger = <IHamburger>elem({
-    id: 'hamburger', children: {menu: '.menu', logo: '.logo', items: '.items'}
-    
-});
-hamburger.logo.click((event: PointerEvent) => {
-    event.stopPropagation();
-    Routing.navigateTo("home");
-    // anchor({href: ``}).appendTo(Body).click().remove();
-});
-hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
-    bhe.click((event: PointerEvent) => {
-        event.stopPropagation();
-        const innerText = bhe.e.innerText.toLowerCase();
-        console.log(`hamburger ${innerText} click`);
-        hamburger.removeClass('open');
-        Routing.navigateTo(<Routing.PageSansHome>innerText);
-        // let href = innerText === "home" ? '' : `#${innerText}`;
-        // anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
-    });
-});
-
-hamburger.click((event: PointerEvent) => {
-    console.log('hamburger.click');
-    hamburger.toggleClass('open');
-    if (hamburger.hasClass('open')) {
-        console.log('opened');
-    } else {
-        console.log('closed');
-    }
 });
 

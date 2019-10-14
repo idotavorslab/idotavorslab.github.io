@@ -1118,7 +1118,7 @@ div#home.gallery-page div#img_viewer.on {
 }
 @media screen and (max-width: 500px) {
   div#home.gallery-page div#img_viewer > img {
-    width: 80%;
+    width: 75%;
     object-fit: contain;
   }
 }

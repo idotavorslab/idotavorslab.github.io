@@ -35,6 +35,32 @@ WindowElem.promiseLoaded = async function () {
     this.isLoaded = true;
     return true;
 };
+const Hamburger = elem({
+    id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
+});
+Hamburger.logo.click((event) => {
+    event.stopPropagation();
+    Routing.navigateTo("home");
+});
+Hamburger.items.children('div').forEach((bhe) => {
+    bhe.click((event) => {
+        event.stopPropagation();
+        const innerText = bhe.e.innerText.toLowerCase();
+        console.log(`Hamburger ${innerText} click`);
+        Hamburger.removeClass('open');
+        Routing.navigateTo(innerText);
+    });
+});
+Hamburger.click((event) => {
+    console.log('Hamburger.click');
+    Hamburger.toggleClass('open');
+    if (Hamburger.hasClass('open')) {
+        console.log('Hamburger opened');
+    }
+    else {
+        console.log('Hamburger closed');
+    }
+});
 WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
@@ -57,7 +83,7 @@ WindowElem.on({
         }
     },
     load: () => {
-        console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
+        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
         WindowElem.isLoaded = true;
         MOBILE = window.innerWidth <= $BP4;
         Navbar = new NavbarElem({
@@ -122,7 +148,7 @@ WindowElem.on({
                 cachePeople();
             if (!window.location.hash.includes('gallery'))
                 cacheGallery();
-            console.log('done caching');
+            console.log(...less('done caching'));
             console.groupEnd();
         });
     }
@@ -168,7 +194,6 @@ const Footer = elem({
                     '.main-cls': {
                         address: '.address',
                         contact: '.contact',
-                        map: '#contact_map'
                     }
                 }
             }
@@ -208,32 +233,6 @@ fetchDict("main/contact/contact.json").then(async (data) => {
             allowfullscreen: "",
             src: data.map
         }));
-    }
-});
-const hamburger = elem({
-    id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
-});
-hamburger.logo.click((event) => {
-    event.stopPropagation();
-    Routing.navigateTo("home");
-});
-hamburger.items.children('div').forEach((bhe) => {
-    bhe.click((event) => {
-        event.stopPropagation();
-        const innerText = bhe.e.innerText.toLowerCase();
-        console.log(`hamburger ${innerText} click`);
-        hamburger.removeClass('open');
-        Routing.navigateTo(innerText);
-    });
-});
-hamburger.click((event) => {
-    console.log('hamburger.click');
-    hamburger.toggleClass('open');
-    if (hamburger.hasClass('open')) {
-        console.log('opened');
-    }
-    else {
-        console.log('closed');
     }
 });
 //# sourceMappingURL=main.js.map

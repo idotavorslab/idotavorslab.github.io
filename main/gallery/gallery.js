@@ -83,7 +83,7 @@ const GalleryPage = () => {
         function closeImgViewer() {
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
-            Navbar.css({ opacity: 1 });
+            _toggleNavigationElementsDisplay(true);
             imgViewer
                 .toggleClass('on', false);
             imgViewerClose.toggleClass('on', false);
@@ -99,7 +99,17 @@ const GalleryPage = () => {
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
-            Navbar.css({ opacity: 0 });
+            _toggleNavigationElementsDisplay(false);
+        }
+        function _toggleNavigationElementsDisplay(on) {
+            if (on) {
+                Navbar.css({ opacity: 1 });
+                elem({ id: 'navbar_section' }).css({ opacity: 1 });
+            }
+            else {
+                Navbar.css({ opacity: 0 });
+                elem({ id: 'navbar_section' }).css({ opacity: 0 });
+            }
         }
         const imgViewer = div({ id: 'img_viewer' })
             .cacheAppend({
