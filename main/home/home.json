@@ -22,7 +22,7 @@
 		},
 		"New paper published in Human Brain Mapping": {
 			"date": "Oct 15, 2019",
-			"content": "<p>Check out our latest paper on short-term plasticity following motor sequence learning.</p> <p>We used diffusion MRI to detect rapid microstructural changes in the brains of musically-naïve participants after a 45-minutes piano training. We found changes in diffusion properties in motor system regions such as the premotor cortex and cerebellum, providing an important reminder for the dynamic nature of the human brain and for the potential of diffusion MRI to follow on tissue plasticity over short timescales.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>",
+			"content": "<p>Check out our latest paper on short-term plasticity following motor sequence learning.</p> <p>We used diffusion MRI to detect rapid microstructural changes in the brains of musically-naïve participants after a 45-minutes piano training. We found changes in diffusion properties in motor system regions such as the premotor cortex and cerebellum, providing an important reminder for the dynamic nature of the human brain and for the potential of diffusion MRI to follow on tissue plasticity over short timescales.</p>",
 			"links": {
 				"our latest paper": "https://onlinelibrary.wiley.com/doi/full/10.1002/hbm.24814"
 			}
