@@ -53,10 +53,8 @@ def main():
             elif isinstance(content, list):
                 handle_list(content)
     from pprint import pprint
-    # pprint(files_in_jsons)
     unused_files = []
     cwd = os.getcwd()
-    print '\nunused:\n'
     for dirpath, dirnames, filenames in os.walk(os.getcwd()):
         remove_where(dirnames, lambda d: d.startswith('.'))
         remove_where(filenames, lambda f: not os.path.splitext(f)[1] in FILE_EXTS)
