@@ -1,4 +1,5 @@
-const isIphone = window.navigator.userAgent.includes('iPhone');
+const IS_GILAD = window.navigator.userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36";
+const IS_IPHONE = window.navigator.userAgent.includes('iPhone');
 const DocumentElem = elem({ htmlElement: document });
 const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
@@ -11,7 +12,7 @@ const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window });
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
-    console.log('WindowElem.promiseLoaded()');
+    console.log('WindowElem.promiseLoaded(), this.isLoaded:', this.isLoaded);
     if (this.isLoaded)
         return true;
     let count = 0;
@@ -223,6 +224,7 @@ fetchDict("main/contact/contact.json").then(async (data) => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
+    console.log({ MOBILE, IS_IPHONE, IS_GILAD });
     if (!MOBILE) {
         await wait(3000);
         console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");

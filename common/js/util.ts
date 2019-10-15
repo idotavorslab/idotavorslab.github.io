@@ -377,7 +377,7 @@ html.clientHeight: ${document.documentElement.clientHeight}
 html.clientWidth: ${document.documentElement.clientWidth}
 body.clientHeight: ${document.body.clientHeight}
 body.clientWidth: ${document.body.clientWidth}
-iPhone: ${isIphone}
+iPhone: ${IS_IPHONE}
 `
 }
 
@@ -386,7 +386,12 @@ iPhone: ${isIphone}
 // };
 //
 // document.addEventListener("DOMContentLoaded", setWindowStatsInnerText);
+
 // window.onresize = setWindowStatsInnerText;
+function isOverflown({clientWidth, clientHeight, scrollWidth, scrollHeight}): boolean {
+    console.log({clientWidth, clientHeight, scrollWidth, scrollHeight});
+    return scrollHeight > clientHeight || scrollWidth > clientWidth;
+}
 
 function copyToClipboard(val) {
     const copyText = elem({tag: 'input'});

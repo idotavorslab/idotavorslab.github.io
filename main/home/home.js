@@ -47,6 +47,25 @@ const HomePage = () => {
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
+            console.log('isOverflown:', isOverflown(rightWidget.news.e));
+            let overflown = isOverflown(rightWidget.news.e);
+            if (overflown) {
+                let lastChild = rightWidget.news.content.e.lastChild;
+                let oldText = lastChild.innerText;
+                let newText = oldText.slice(0, oldText.length / 2);
+                lastChild.innerText = newText;
+                while (isOverflown(rightWidget.news.e)) {
+                    oldText = lastChild.innerText;
+                    if (oldText.length < 30) {
+                        lastChild.remove();
+                        lastChild = rightWidget.news.content.e.lastChild;
+                        oldText = lastChild.innerText;
+                    }
+                    newText = oldText.slice(0, oldText.length / 2);
+                    lastChild.innerText = newText;
+                }
+                lastChild.innerText = `${lastChild.innerText}...`;
+            }
         }
         startAutoSwitch() {
             if (this._userPressed) {

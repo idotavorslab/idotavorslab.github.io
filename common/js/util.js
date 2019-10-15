@@ -206,8 +206,12 @@ html.clientHeight: ${document.documentElement.clientHeight}
 html.clientWidth: ${document.documentElement.clientWidth}
 body.clientHeight: ${document.body.clientHeight}
 body.clientWidth: ${document.body.clientWidth}
-iPhone: ${isIphone}
+iPhone: ${IS_IPHONE}
 `;
+}
+function isOverflown({ clientWidth, clientHeight, scrollWidth, scrollHeight }) {
+    console.log({ clientWidth, clientHeight, scrollWidth, scrollHeight });
+    return scrollHeight > clientHeight || scrollWidth > clientWidth;
 }
 function copyToClipboard(val) {
     const copyText = elem({ tag: 'input' });

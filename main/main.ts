@@ -1,4 +1,5 @@
-const isIphone = window.navigator.userAgent.includes('iPhone');
+const IS_GILAD = window.navigator.userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36";
+const IS_IPHONE = window.navigator.userAgent.includes('iPhone');
 
 // @ts-ignore
 const DocumentElem = elem({htmlElement: document});
@@ -16,7 +17,7 @@ const CacheDiv = elem({id: 'cache'});
 const WindowElem = elem({htmlElement: window});
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
-    console.log('WindowElem.promiseLoaded()');
+    console.log('WindowElem.promiseLoaded(), this.isLoaded:', this.isLoaded);
     if (this.isLoaded)
         return true;
     let count = 0;
@@ -350,22 +351,8 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
-    /*console.log({MOBILE});
-    await Emitter.until("MOBILEReady", {debug: 'main.ts Footer'});
-    if (!MOBILE) {
-        await wait(3000);
-        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
-        Footer.contactSection.mainCls.append(
-            elem({tag: 'iframe'})
-                .id('contact_map')
-                .attr({
-                    frameborder: "0",
-                    allowfullscreen: "",
-                    src: data.map
-                }),
-        );
-    }*/
     await WindowElem.promiseLoaded();
+    console.log({MOBILE, IS_IPHONE, IS_GILAD});
     if (!MOBILE) {
         await wait(3000);
         console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
@@ -380,26 +367,6 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
         );
         
     }
-    
-    /*    WindowElem.on({
-            load: () => {
-                if (!MOBILE) {
-                    wait(3000).then(() => {
-                        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
-                        Footer.contactSection.mainCls.append(
-                            elem({tag: 'iframe'})
-                                .id('contact_map')
-                                .attr({
-                                    frameborder: "0",
-                                    allowfullscreen: "",
-                                    src: data.map
-                                }),
-                        );
-                    });
-                    
-                }
-            }
-        });*/
     
     
 });

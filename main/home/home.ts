@@ -78,6 +78,26 @@ const HomePage = () => {
             this._selected = selectedItem;
             
             TL.to(newsChildren, 0.1, {opacity: 1});
+            console.log('isOverflown:', isOverflown(rightWidget.news.e));
+            let overflown = isOverflown(rightWidget.news.e);
+            if (overflown) {
+                let lastChild = rightWidget.news.content.e.lastChild as HTMLParagraphElement;
+                let oldText = lastChild.innerText;
+                let newText = oldText.slice(0, oldText.length / 2);
+                lastChild.innerText = newText;
+                while (isOverflown(rightWidget.news.e)) {
+                    oldText = lastChild.innerText;
+                    if (oldText.length < 30) {
+                        lastChild.remove();
+                        lastChild = rightWidget.news.content.e.lastChild as HTMLParagraphElement;
+                        oldText = lastChild.innerText;
+                    }
+                    newText = oldText.slice(0, oldText.length / 2);
+                    lastChild.innerText = newText;
+                }
+                lastChild.innerText = `${lastChild.innerText}...`
+            }
+            
             
         }
         
@@ -132,8 +152,6 @@ const HomePage = () => {
     
     async function init() {
         
-        // rightWidget.mouseover(() => newsData.stopAutoSwitch());
-        // rightWidget.mouseout(() => newsData.startAutoSwitch());
         
         // ***  About
         type TFunding = TMap<{ image: string, text: string, large?: boolean }>;
