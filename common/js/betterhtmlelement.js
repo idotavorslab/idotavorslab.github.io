@@ -943,6 +943,7 @@ function enumerate(obj) {
 	    || isEmptyArr(obj)
 	    // @ts-ignore
 	    || obj === "") {
+		console.trace('enumerate returning []');
 		return [];
 	}
 	if (obj === null
