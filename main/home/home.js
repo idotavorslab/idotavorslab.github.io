@@ -69,7 +69,6 @@ const HomePage = () => {
     let rightWidget;
     let newsChildren;
     function buildRightWidgetAndNewsChildren() {
-        console.log('buildRightWidgetAndNewsChildren,', JSON.parstr({ MOBILE }));
         if (!MOBILE) {
             rightWidget = elem({
                 query: '#right_widget',

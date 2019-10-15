@@ -107,7 +107,6 @@ const HomePage = () => {
     let newsChildren: HTMLElement[];
     
     function buildRightWidgetAndNewsChildren() {
-        console.log('buildRightWidgetAndNewsChildren,', JSON.parstr({MOBILE}));
         if (!MOBILE) {
             rightWidget = <TRightWidget>elem({
                 query: '#right_widget',
@@ -129,20 +128,7 @@ const HomePage = () => {
     }
     
     WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
-    /*if (MOBILE === undefined)
-        WindowElem.on({load: buildRightWidgetAndNewsChildren});
-    else
-        buildRightWidgetAndNewsChildren();*/
     
-    /*if (MOBILE === undefined) {
-        log('home outside init, BEFORE then:', JSON.parstr({MOBILE}), 'o');
-        Emitter.until('MOBILEReady').then(() => {
-            log('home outside init, AFTER then:', JSON.parstr({MOBILE}), 'o');
-            return buildRightWidgetAndNewsChildren();
-        });
-    } else {
-        buildRightWidgetAndNewsChildren();
-    }*/
     
     async function init() {
         
