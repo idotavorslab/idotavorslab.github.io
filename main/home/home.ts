@@ -97,7 +97,20 @@ const HomePage = () => {
                 }
                 lastChild.innerText = `${lastChild.innerText}...`;
                 lastChild.classList.add('faded');
-                rightWidget.news.content.append(anchor({text: 'Read more', cls: 'center'}))
+                let readMore = anchor({text: 'Read more', cls: 'center'})
+                    .target("_blank")
+                    .click(async () => {
+                        // rightWidget.css({height: 'auto'});
+                        rightWidget.news.content
+                            .html(selectedItem.content);
+                        lastChild.classList.remove('faded');
+                        readMore.remove();
+                        console.log('isOverflown:', isOverflown(rightWidget.news.e));
+                        let diff = rightWidget.news.e.scrollHeight - rightWidget.news.e.clientHeight;
+                        rightWidget.css({height: `${rightWidget.e.clientHeight + diff}px`});
+                        
+                    });
+                rightWidget.news.content.append(readMore)
             }
             
             
