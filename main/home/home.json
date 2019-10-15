@@ -18,13 +18,11 @@
 		},
 		"Congrats to Inbar Meningher for finishing her M.Sc.!": {
 			"date": "Oct 15, 2019",
-			"content": "<p>Our very first graduate student has successfully completed her Master's degree.</p> <p>Congratulations Inbar!</p>",
-			"links": {
-			}
+			"content": "<p>Our very first graduate student has successfully completed her Master's degree.</p> <p>Congratulations Inbar!</p>"
 		},
 		"New paper published in Human Brain Mapping": {
 			"date": "Oct 15, 2019",
-			"content": "<p>Check out our latest paper on short-term plasticity following motor sequence learning.</p> <p>We used diffusion MRI to detect rapid microstructural changes in motor regions following piano training.</p>",
+			"content": "<p>Check out our latest paper on short-term plasticity following motor sequence learning.</p> <p>We used diffusion MRI to detect rapid microstructural changes in the brains of musically-naïve participants after a 45-minutes piano training. We found changes in diffusion properties in motor system regions such as the premotor cortex and cerebellum, providing an important reminder for the dynamic nature of the human brain and for the potential of diffusion MRI to follow on tissue plasticity over short timescales.</p>",
 			"links": {
 				"our latest paper": "https://onlinelibrary.wiley.com/doi/full/10.1002/hbm.24814"
 			}

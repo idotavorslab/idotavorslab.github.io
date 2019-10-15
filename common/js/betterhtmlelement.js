@@ -2,15 +2,8 @@
 class BadArgumentsAmountError extends Error {
 	constructor(expectedArgsNum, passedArgs, details) {
 		const requiresExactNumOfArgs = !Array.isArray(expectedArgsNum);
-		const argsWithValues = {};
-		for (let [argname, argval] of Object.entries(passedArgs)) {
-			if (argval !== undefined)
-				argsWithValues[argname] = argval;
-		}
-		const argNamesValues = Object.entries(argsWithValues)
-		                             // @ts-ignore
-		                             .flatMap(([argname, argval]) => `${argname}: ${argval}`)
-		                             .join('", "');
+		const argsWithValues = BadArgumentsAmountError.getArgsWithValues(passedArgs);
+		const argNamesValues = BadArgumentsAmountError.getArgNamesValues(argsWithValues);
 		let message;
 		if (requiresExactNumOfArgs) {
 			message = `Didn't receive exactly ${expectedArgsNum} arg. `;
@@ -20,14 +13,25 @@ class BadArgumentsAmountError extends Error {
 		message += `Instead, out of ${Object.keys(passedArgs).length} received (${Object.keys(passedArgs)}), ${Object.keys(argsWithValues).length} had value: "${argNamesValues}". ${details ? 'Details: ' + details : ''}`;
 		super(message);
 	}
+
+	static getArgNamesValues(argsWithValues) {
+		return Object.entries(argsWithValues)
+		             // @ts-ignore
+		             .flatMap(([argname, argval]) => `${argname}: ${argval}`)
+		             .join('", "');
+	}
+
+	static getArgsWithValues(passedArgs) {
+		const argsWithValues = {};
+		for (let [argname, argval] of Object.entries(passedArgs)) {
+			if (argval !== undefined)
+				argsWithValues[argname] = argval;
+		}
+		return argsWithValues;
+	}
 }
 
 const SVG_NS_URI = 'http://www.w3.org/2000/svg';
-
-function isFunction(fn) {
-	return fn && {}.toString.call(fn) === '[object Function]';
-}
-
 // TODO: make BetterHTMLElement<T>, for use in eg child[ren] function
 // maybe use https://www.typescriptlang.org/docs/handbook/utility-types.html#thistypet
 // extends HTMLElement: https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/upgrade#Examples
@@ -919,10 +923,36 @@ function anchor({ id, text, cls, href } = {}) {
 	return new Anchor({ id, text, cls, href });
 }
 
-
+// function enumerate(obj: undefined): [void];
 function enumerate(obj) {
+	// undefined    []
+	// {}           []
+	// []           []
+	// ""           []
+	// number       TypeError
+	// null         TypeError
+	// boolean      TypeError
+	// Function     TypeError
+	// "foo"        [ [0, "f"], [1, "o"], [2, "o"] ]
+	// [ "foo" ]    [ [0, "foo"] ]
+	// [ 10 ]       [ [0, 10] ]
+	// { a: "foo" } [ ["a", "foo"] ]
+	let typeofObj = typeof obj;
+	if (obj === undefined
+	    || isEmptyObj(obj)
+	    || isEmptyArr(obj)
+	    // @ts-ignore
+	    || obj === "") {
+		return [];
+	}
+	if (obj === null
+	    || typeofObj === "boolean"
+	    || typeofObj === "number"
+	    || typeofObj === "function") {
+		throw new TypeError(`${typeofObj} object is not iterable`);
+	}
 	let array = [];
-	if (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function') {
+	if (isArray(obj)) {
 		let i = 0;
 		for (let x of obj) {
 			array.push([i, x]);
@@ -936,8 +966,65 @@ function enumerate(obj) {
 	return array;
 }
 
+/*let obj0: { a: boolean, b: number } = {a: true, b: 1};
+let arr0: number[] = [1, 2, 3, 4];
+let arr1: string[] = ["1", "2", "3", "4"];
+let num0: number = 5;
+let undefined0: undefined;
+let null0: null = null;
+let boolean0: boolean = true;
+
+let MyFoo = enumerate(undefined0);
+if (MyFoo === true) {
+    console.log('hi');
+}
+*/
 function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-//# sourceMappingURL=all.js.map
+/*function equalsAny(obj: any, ...others: any[]): boolean {
+    if (!others)
+        throw new Error('Not even one other was passed');
+    let strict = !(isArrayLike(obj) && isObject(obj[obj.length - 1]) && obj[obj.length - 1].strict == false);
+    const _isEq = (_obj, _other) => strict ? _obj === _other : _obj == _other;
+    for (let other of others) {
+        if (_isEq(obj, other))
+            return true;
+    }
+    return false;
+
+}
+*/
+
+// true for string
+function isArray(obj) {
+	return obj && (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function');
+}
+
+function isEmptyArr(collection) {
+	return isArray(collection) && getLength(collection) === 0;
+}
+
+function isEmptyObj(obj) {
+	return isObject(obj) && Object.keys(obj).length === 0;
+}
+
+function isFunction(fn) {
+	return fn && {}.toString.call(fn) === '[object Function]';
+}
+
+// *  underscore.js
+function isObject(obj) {
+	return typeof obj === 'object' && !!obj;
+}
+
+function shallowProperty(key) {
+	return function (obj) {
+		return obj == null ? void 0 : obj[key];
+	};
+}
+
+function getLength(collection) {
+	return shallowProperty('length')(collection);
+}

@@ -47,11 +47,44 @@ const HomePage = () => {
             selectedItem.radio.toggleClass('selected');
             this._selected = selectedItem;
             TL.to(newsChildren, 0.1, { opacity: 1 });
+            console.log('isOverflown:', isOverflown(rightWidget.news.e));
+            let overflown = isOverflown(rightWidget.news.e);
+            if (overflown) {
+                let lastChild = rightWidget.news.content.e.lastChild;
+                let oldText = lastChild.innerText;
+                let newText = oldText.slice(0, oldText.length / 2);
+                lastChild.innerText = newText;
+                while (isOverflown(rightWidget.news.e)) {
+                    oldText = lastChild.innerText;
+                    if (oldText.length < 30) {
+                        lastChild.remove();
+                        lastChild = rightWidget.news.content.e.lastChild;
+                        oldText = lastChild.innerText;
+                    }
+                    newText = oldText.slice(0, oldText.length / 2);
+                    lastChild.innerText = newText;
+                }
+                lastChild.innerText = `${lastChild.innerText}...`;
+                lastChild.classList.add('faded');
+                let readMore = anchor({ text: 'Read more', cls: 'center' })
+                    .target("_blank")
+                    .click(async () => {
+                    rightWidget.news.content
+                        .html(selectedItem.content);
+                    lastChild.classList.remove('faded');
+                    readMore.remove();
+                    console.log('isOverflown:', isOverflown(rightWidget.news.e));
+                    let diff = rightWidget.news.e.scrollHeight - rightWidget.news.e.clientHeight;
+                    rightWidget.css({ height: `${rightWidget.e.clientHeight + diff}px` });
+                });
+                rightWidget.news.content.append(readMore);
+            }
         }
         startAutoSwitch() {
             if (this._userPressed) {
                 return;
             }
+            console.log('startAutoSwitch');
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -63,13 +96,13 @@ const HomePage = () => {
             }, 10000);
         }
         stopAutoSwitch() {
+            console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }
     let rightWidget;
     let newsChildren;
     function buildRightWidgetAndNewsChildren() {
-        console.log('buildRightWidgetAndNewsChildren,', JSON.parstr({ MOBILE }));
         if (!MOBILE) {
             rightWidget = elem({
                 query: '#right_widget',

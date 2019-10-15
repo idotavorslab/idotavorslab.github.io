@@ -1,4 +1,5 @@
-const isIphone = window.navigator.userAgent.includes('iPhone');
+const IS_GILAD = window.navigator.userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36";
+const IS_IPHONE = window.navigator.userAgent.includes('iPhone');
 const DocumentElem = elem({ htmlElement: document });
 const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
@@ -11,7 +12,7 @@ const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window });
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
-    console.log('WindowElem.promiseLoaded()');
+    console.log('WindowElem.promiseLoaded(), this.isLoaded:', this.isLoaded);
     if (this.isLoaded)
         return true;
     let count = 0;
@@ -35,6 +36,32 @@ WindowElem.promiseLoaded = async function () {
     this.isLoaded = true;
     return true;
 };
+const Hamburger = elem({
+    id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
+});
+Hamburger.logo.click((event) => {
+    event.stopPropagation();
+    Routing.navigateTo("home");
+});
+Hamburger.items.children('div').forEach((bhe) => {
+    bhe.click((event) => {
+        event.stopPropagation();
+        const innerText = bhe.e.innerText.toLowerCase();
+        console.log(`Hamburger ${innerText} click`);
+        Hamburger.removeClass('open');
+        Routing.navigateTo(innerText);
+    });
+});
+Hamburger.click((event) => {
+    console.log('Hamburger.click');
+    Hamburger.toggleClass('open');
+    if (Hamburger.hasClass('open')) {
+        console.log('Hamburger opened');
+    }
+    else {
+        console.log('Hamburger closed');
+    }
+});
 WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
@@ -57,7 +84,7 @@ WindowElem.on({
         }
     },
     load: () => {
-        console.log(`window loaded, window.location.hash: "${window.location.hash}"`);
+        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
         WindowElem.isLoaded = true;
         MOBILE = window.innerWidth <= $BP4;
         Navbar = new NavbarElem({
@@ -122,7 +149,7 @@ WindowElem.on({
                 cachePeople();
             if (!window.location.hash.includes('gallery'))
                 cacheGallery();
-            console.log('done caching');
+            console.log(...less('done caching'));
             console.groupEnd();
         });
     }
@@ -168,7 +195,6 @@ const Footer = elem({
                     '.main-cls': {
                         address: '.address',
                         contact: '.contact',
-                        map: '#contact_map'
                     }
                 }
             }
@@ -198,6 +224,7 @@ fetchDict("main/contact/contact.json").then(async (data) => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
+    console.log({ MOBILE, IS_IPHONE, IS_GILAD });
     if (!MOBILE) {
         await wait(3000);
         console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
@@ -208,32 +235,6 @@ fetchDict("main/contact/contact.json").then(async (data) => {
             allowfullscreen: "",
             src: data.map
         }));
-    }
-});
-const hamburger = elem({
-    id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
-});
-hamburger.logo.click((event) => {
-    event.stopPropagation();
-    Routing.navigateTo("home");
-});
-hamburger.items.children('div').forEach((bhe) => {
-    bhe.click((event) => {
-        event.stopPropagation();
-        const innerText = bhe.e.innerText.toLowerCase();
-        console.log(`hamburger ${innerText} click`);
-        hamburger.removeClass('open');
-        Routing.navigateTo(innerText);
-    });
-});
-hamburger.click((event) => {
-    console.log('hamburger.click');
-    hamburger.toggleClass('open');
-    if (hamburger.hasClass('open')) {
-        console.log('opened');
-    }
-    else {
-        console.log('closed');
     }
 });
 //# sourceMappingURL=main.js.map

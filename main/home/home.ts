@@ -78,6 +78,41 @@ const HomePage = () => {
             this._selected = selectedItem;
             
             TL.to(newsChildren, 0.1, {opacity: 1});
+            console.log('isOverflown:', isOverflown(rightWidget.news.e));
+            let overflown = isOverflown(rightWidget.news.e);
+            if (overflown) {
+                let lastChild = rightWidget.news.content.e.lastChild as HTMLParagraphElement;
+                let oldText = lastChild.innerText;
+                let newText = oldText.slice(0, oldText.length / 2);
+                lastChild.innerText = newText;
+                while (isOverflown(rightWidget.news.e)) {
+                    oldText = lastChild.innerText;
+                    if (oldText.length < 30) {
+                        lastChild.remove();
+                        lastChild = rightWidget.news.content.e.lastChild as HTMLParagraphElement;
+                        oldText = lastChild.innerText;
+                    }
+                    newText = oldText.slice(0, oldText.length / 2);
+                    lastChild.innerText = newText;
+                }
+                lastChild.innerText = `${lastChild.innerText}...`;
+                lastChild.classList.add('faded');
+                let readMore = anchor({text: 'Read more', cls: 'center'})
+                    .target("_blank")
+                    .click(async () => {
+                        // rightWidget.css({height: 'auto'});
+                        rightWidget.news.content
+                            .html(selectedItem.content);
+                        lastChild.classList.remove('faded');
+                        readMore.remove();
+                        console.log('isOverflown:', isOverflown(rightWidget.news.e));
+                        let diff = rightWidget.news.e.scrollHeight - rightWidget.news.e.clientHeight;
+                        rightWidget.css({height: `${rightWidget.e.clientHeight + diff}px`});
+                        
+                    });
+                rightWidget.news.content.append(readMore)
+            }
+            
             
         }
         
@@ -86,7 +121,7 @@ const HomePage = () => {
                 return;
             }
             
-            
+            console.log('startAutoSwitch');
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -99,6 +134,7 @@ const HomePage = () => {
         }
         
         stopAutoSwitch() {
+            console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }
@@ -107,7 +143,6 @@ const HomePage = () => {
     let newsChildren: HTMLElement[];
     
     function buildRightWidgetAndNewsChildren() {
-        console.log('buildRightWidgetAndNewsChildren,', JSON.parstr({MOBILE}));
         if (!MOBILE) {
             rightWidget = <TRightWidget>elem({
                 query: '#right_widget',
@@ -129,25 +164,10 @@ const HomePage = () => {
     }
     
     WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
-    /*if (MOBILE === undefined)
-        WindowElem.on({load: buildRightWidgetAndNewsChildren});
-    else
-        buildRightWidgetAndNewsChildren();*/
     
-    /*if (MOBILE === undefined) {
-        log('home outside init, BEFORE then:', JSON.parstr({MOBILE}), 'o');
-        Emitter.until('MOBILEReady').then(() => {
-            log('home outside init, AFTER then:', JSON.parstr({MOBILE}), 'o');
-            return buildRightWidgetAndNewsChildren();
-        });
-    } else {
-        buildRightWidgetAndNewsChildren();
-    }*/
     
     async function init() {
         
-        // rightWidget.mouseover(() => newsData.stopAutoSwitch());
-        // rightWidget.mouseout(() => newsData.startAutoSwitch());
         
         // ***  About
         type TFunding = TMap<{ image: string, text: string, large?: boolean }>;

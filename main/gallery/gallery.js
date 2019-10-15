@@ -42,6 +42,9 @@ const GalleryPage = () => {
             }
         }
         console.log('GalleryPage init');
+        if (MOBILE === undefined)
+            await WindowElem.promiseLoaded();
+        const ROWSIZE = MOBILE ? 3 : 4;
         const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 185.343 185.343">
     <path style="fill:#000;"
@@ -77,10 +80,11 @@ const GalleryPage = () => {
                 switchToImg(selectedImg.getRightImage());
             }
         }
-        function closeImgViewer() {
+        function closeImgViewer(event) {
+            console.log('closeImgViewer', event);
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
-            Navbar.css({ opacity: 1 });
+            _toggleNavigationElementsDisplay(true);
             imgViewer
                 .toggleClass('on', false);
             imgViewerClose.toggleClass('on', false);
@@ -96,13 +100,21 @@ const GalleryPage = () => {
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
-            Navbar.css({ opacity: 0 });
+            _toggleNavigationElementsDisplay(false);
+        }
+        function _toggleNavigationElementsDisplay(on) {
+            if (on) {
+                elem({ id: 'navbar_section' }).removeClass('off');
+            }
+            else {
+                elem({ id: 'navbar_section' }).addClass('off');
+            }
         }
         const imgViewer = div({ id: 'img_viewer' })
             .cacheAppend({
-            left: div({ id: 'left_chevron', cls: 'left' }).html(chevronSvg).click(gotoAdjImg),
-            img: img({}),
-            right: div({ id: 'right_chevron', cls: 'right' }).html(chevronSvg).click(gotoAdjImg),
+            left: div({ id: 'left_css_chevron', cls: 'left' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
+            img: img(),
+            right: div({ id: 'right_css_chevron', cls: 'right' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
             caption: div({ id: 'caption' })
         }).click((event) => {
             console.log('imgViewer click, stopping propagation');
@@ -131,7 +143,7 @@ const GalleryPage = () => {
         const yearToYearDiv = {};
         let count = 0;
         function appendToRow(yearDiv, galleryImg, count) {
-            switch (count % 4) {
+            switch (count % ROWSIZE) {
                 case 0:
                     yearDiv.grid.row0.append(galleryImg);
                     break;
@@ -154,15 +166,17 @@ const GalleryPage = () => {
             }
             else {
                 count = 0;
+                let gridChildrenObj = {
+                    row0: div({ cls: 'row' }),
+                    row1: div({ cls: 'row' }),
+                    row2: div({ cls: 'row' }),
+                };
+                if (!MOBILE)
+                    gridChildrenObj.row3 = div({ cls: 'row' });
                 yearDiv = div({ cls: 'year' })
                     .cacheAppend({
                     title: div({ cls: 'title' }).text(galleryImg.year),
-                    grid: div({ cls: 'grid' }).cacheAppend({
-                        row0: div({ cls: 'row' }),
-                        row1: div({ cls: 'row' }),
-                        row2: div({ cls: 'row' }),
-                        row3: div({ cls: 'row' }),
-                    })
+                    grid: div({ cls: 'grid' }).cacheAppend(gridChildrenObj)
                 });
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
@@ -191,9 +205,8 @@ const GalleryPage = () => {
                     return switchToImg(selectedImg.getRightImage());
             }
         });
-        const imgViewerClose = div({ id: 'img_viewer_close' }).append(elem({ tag: 'svg' })
-            .attr({ viewBox: `0 0 32 32` })
-            .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))).click(closeImgViewer);
+        const imgViewerClose = div({ id: 'img_viewer_close_css' })
+            .append(span({ cls: 'lines' })).click(closeImgViewer);
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
     }
     return { init };

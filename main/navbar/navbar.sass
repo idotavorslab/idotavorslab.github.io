@@ -1,11 +1,16 @@
 section#navbar_section
 	background-color: rgba(255, 255, 255, 0.92)
 	@include max-width($BP4)
-		height: var(--mobileNavbarHeight)
+		height: var(--MOBILE_NAVBAR_HEIGHT)
 	position: fixed
+	transition: opacity 0.1s ease-out
 	width: 100%
 	z-index: 5
 	$_trans: 0.5s ease-in-out
+
+	&[class="off"]
+		opacity: 0
+		pointer-events: none
 
 	& > div#hamburger
 		height: inherit
@@ -23,7 +28,7 @@ section#navbar_section
 				right: 0px
 				transition: .5s ease-in-out
 				// *  DEP: #hamburger_logo > img height
-				width: calc(var(--mobileNavbarHeight) - 10px)
+				width: calc(var(--MOBILE_NAVBAR_HEIGHT) - 10px)
 
 				&:focus
 					border-width: 0px
@@ -34,11 +39,11 @@ section#navbar_section
 					height: 2px
 					position: absolute
 					// 30px
-					top: calc(var(--mobileNavbarHeight) / 2)
+					top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
 					transform-origin: center
 					transition: transform $_trans, box-shadow $_trans
 					// 30px
-					width: calc(var(--mobileNavbarHeight) / 2)
+					width: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
 
 
 					&:after, &:before
@@ -67,14 +72,14 @@ section#navbar_section
 
 				& > img
 					// *  DEP: #hamburger_menu width
-					height: calc(var(--mobileNavbarHeight) - 24px)
+					height: calc(var(--MOBILE_NAVBAR_HEIGHT) - 24px)
 					// half of 24
 					margin-top: 12px
 
 		& > div.items
 			opacity: 0
 			position: relative
-			height: calc(100vh - var(--mobileNavbarHeight))
+			height: calc(100vh - var(--MOBILE_NAVBAR_HEIGHT))
 
 			& > div
 				color: var(--GREY8)
@@ -131,7 +136,7 @@ section#navbar_section
 		@include pFontSize()
 		$_trans: 0.2s ease-in-out
 		display: flex
-		height: var(--regularNavbarHeight)
+		height: var(--REGULAR_NAVBAR_HEIGHT)
 		margin: auto auto 0 auto
 		transition: box-shadow $_trans
 

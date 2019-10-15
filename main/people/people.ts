@@ -239,7 +239,7 @@ const PeoplePage = () => {
             }
             
             // toggle => ownPopulateAndPosition => setHtml
-            @logFn()
+            @log()
             setHtml() {
                 
                 // const expandoHeight = Math.floor((this.owner.cv.length - 640) / 55);
