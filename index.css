@@ -611,6 +611,21 @@ div#intro > div#right_widget > div#news > div.date.mb {
     font-size: 16px;
   }
 }
+div#intro > div#right_widget > div#news > div.content > p.faded:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(transparent 150px, white);
+}
+div#intro > div#right_widget > div#news > div.content > a.center {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
 div#intro > div#right_widget > div#radios {
   margin: auto auto 32px auto;
 }

@@ -65,12 +65,15 @@ const HomePage = () => {
                     lastChild.innerText = newText;
                 }
                 lastChild.innerText = `${lastChild.innerText}...`;
+                lastChild.classList.add('faded');
+                rightWidget.news.content.append(anchor({ text: 'Read more', cls: 'center' }));
             }
         }
         startAutoSwitch() {
             if (this._userPressed) {
                 return;
             }
+            console.log('startAutoSwitch');
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
                 let targetItem = this.data[targetIndex];
@@ -82,6 +85,7 @@ const HomePage = () => {
             }, 10000);
         }
         stopAutoSwitch() {
+            console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }
