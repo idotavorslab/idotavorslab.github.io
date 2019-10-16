@@ -76,19 +76,19 @@
 			"link": "https://n.neurology.org/content/92/6/e567",
 			"thumbnail": "aan.png"
 		},
-		"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion Magnetic Resonance Imaging": {
-			"year": 2019,
-			"creds": "Tavor I., Botvinik-Nezer R., Bernstein-Eliav M., Tsarfaty G. & Assaf Y.",
-			"mag": "Human Brain Mapping",
-			"link": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/hbm.24814",
-			"thumbnail": "HBM.png"
-		},
 		"Brain structure changes induced by attention bias modification training": {
 			"year": 2019,
 			"creds": "Abend R., Rosenfelder A., Shamai D., Pine D.S., Tavor I., Assaf Y. & Bar-Haim Y.",
 			"mag": "Biological Psychology 146, 107736",
 			"link": "https://www.sciencedirect.com/science/article/pii/S030105111830677X",
 			"thumbnail": "biopsych.png"
+		},
+		"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion Magnetic Resonance Imaging": {
+			"year": 2019,
+			"creds": "Tavor I., Botvinik-Nezer R., Bernstein-Eliav M., Tsarfaty G. & Assaf Y.",
+			"mag": "Human Brain Mapping",
+			"link": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/hbm.24814",
+			"thumbnail": "HBM.png"
 		}
 	}
 }
