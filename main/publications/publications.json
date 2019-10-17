@@ -69,6 +69,13 @@
 			"link": "https://www.clinicalkey.com/#!/content/playContent/1-s2.0-S1076633218304422?returnurl=https:%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS1076633218304422%3Fshowall%3Dtrue&referrer=https:%2F%2Fwww.ncbi.nlm.nih.gov%2F",
 			"thumbnail": "academic-radiology.png"
 		},
+		"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion Magnetic Resonance Imaging": {
+			"year": 2019,
+			"creds": "Tavor I., Botvinik-Nezer R., Bernstein-Eliav M., Tsarfaty G. & Assaf Y.",
+			"mag": "Human Brain Mapping",
+			"link": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/hbm.24814",
+			"thumbnail": "HBM.png"
+		},
 		"Selective atrophy of the connected deepest cortical layers following small subcortical infarct": {
 			"year": 2019,
 			"creds": "Lotan E., Tavor I., Barazany D., Ben-Amitay S., Hoffmann C., Tsarfaty G., Assaf Y. & Tanne D.",
@@ -82,13 +89,6 @@
 			"mag": "Biological Psychology 146, 107736",
 			"link": "https://www.sciencedirect.com/science/article/pii/S030105111830677X",
 			"thumbnail": "biopsych.png"
-		},
-		"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion Magnetic Resonance Imaging": {
-			"year": 2019,
-			"creds": "Tavor I., Botvinik-Nezer R., Bernstein-Eliav M., Tsarfaty G. & Assaf Y.",
-			"mag": "Human Brain Mapping",
-			"link": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/hbm.24814",
-			"thumbnail": "HBM.png"
 		}
 	}
 }
