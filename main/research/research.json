@@ -2,7 +2,6 @@
 	"The Musical Brain": {
 		"text": "<p>The brains of professional musicians are structurally and functionally different from “musically naïve” brains. One of these intriguing differences is the fact that while passively listening to music, musicians’ brains show vast motor and pre-motor activity, in contrast to the mainly auditory activation in “musically naïve” brains. Interestingly, this recruitment of motor-related regions during passive listening, is also observed in naïve participants after only a brief period of musical training.</p><p>In our lab we use this phenomenon, alongside many other features of the musical brain, as a model for studying human brain plasticity. We design musical training paradigms and scan participants before and after training to examine structural and functional learning-induced alterations, as well as the association between brain activity and connectivity before and after training.</p>",
 		"image": "musical_brain_research.png",
-		"circle": true,
 		"thumbnail": "music.png"
 	},
 	"Activity and Connectivity in Psychiatric Disorders": {
