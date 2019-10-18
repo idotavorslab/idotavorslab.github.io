@@ -16,15 +16,6 @@ const ContactPage = () => {
             .append(elem({ tag: 'h1', text: 'Email' }), htmlToElement(await fetchText(`main/contact/${data.email.icon}`)), anchor({ text: data.email.address, href: `mailto:${data.email.address}` }).target("_blank"));
         const grid = div({ id: 'contact_grid' })
             .append(visit, call, email);
-        const form = elem({ tag: 'iframe', text: "Loading" })
-            .id('contact_form')
-            .attr({
-            frameborder: "0",
-            allowfullscreen: "",
-            marginheight: "0",
-            marginwidth: "0",
-            src: data.form
-        });
         let map = elem({ tag: 'iframe' })
             .id('contact_map')
             .attr({
@@ -32,7 +23,7 @@ const ContactPage = () => {
             allowfullscreen: "",
             src: data.map
         });
-        Home.empty().class('contact-page').append(grid, form, map);
+        Home.empty().class('contact-page').append(grid, map);
     }
     return { init };
 };
