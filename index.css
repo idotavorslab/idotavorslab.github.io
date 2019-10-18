@@ -621,7 +621,7 @@ div#intro > div#right_widget > div#news > div.content > p.faded:before {
   position: absolute;
   left: 0;
   top: 0;
-  background: linear-gradient(transparent 150px, white);
+  background: linear-gradient(rgba(255, 255, 255, 0) 150px, white);
 }
 div#intro > div#right_widget > div#news > div.content > a.center {
   display: block;
