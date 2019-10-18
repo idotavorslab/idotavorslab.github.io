@@ -775,9 +775,7 @@ div#home > div.article > h1.highlighted {
   color: var(--GOOGLEBLUE);
 }
 div#home > div.article > img {
-  width: calc(0.45 * var(--w));
   object-fit: contain;
-  margin: auto;
   border-radius: 15px;
 }
 div#home > div.article > img.circle {
@@ -807,6 +805,8 @@ div#home > div.article > img.circle {
     grid-row: 2/2;
   }
   div#home > div.article > img {
+    margin: auto;
+    width: calc(0.45 * var(--w));
     grid-column: 2/2;
     grid-row: 2/2;
   }
@@ -818,6 +818,14 @@ div#home > div.article > img.circle {
   div#home > div.article {
     display: flex;
     flex-direction: column;
+  }
+  div#home > div.article > img {
+    margin: 80px auto 60px auto;
+    width: 100%;
+    max-height: 250px;
+  }
+  div#home > div.article:first-of-type > img {
+    margin-top: unset;
   }
 }
 
