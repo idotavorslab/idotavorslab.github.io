@@ -33,7 +33,7 @@ const NeuroanatomyPage = () => {
             link.slice(0, link.length - 1);
         }
         
-        return `<iframe src="${link}/embed?autospin=0.2&amp;preload=1" title="${title}" frameborder="0" allow="autoplay; fullscreen; vr" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>`
+        return `<iframe src="${link}/embed?autospin=0.2&amp;preload=1" title="${title}" allow="autoplay; fullscreen; vr" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>`
     }
     
     return {init}
