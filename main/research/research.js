@@ -25,9 +25,9 @@ const ResearchPage = () => {
             imgElem.class(imgCls);
             let article = div({ cls: `article ${articleCls}` })
                 .cacheAppend({
+                img: imgElem,
                 title: elem({ tag: 'h1', text: title }),
                 text: paragraph({ cls: "text" }).html(text),
-                img: imgElem
             });
             articles.push(article);
             if (!emptied) {
