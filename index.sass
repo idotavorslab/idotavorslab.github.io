@@ -114,6 +114,9 @@ a
 	max-width: 100%
 	width: var(--w)
 
+.main-cls-hack
+	@extend .main-cls
+	padding: 0 calc((100% - var(--w)) / 2)
 
 div#main
 
@@ -154,40 +157,32 @@ div#main
 //
 //      section#ugug_section
 //          div.main-cls
-
 div#footer
 	a
 		color: rgb(119, 169, 246)
+	background-color: #464646
 	box-shadow: 0 -1px 0 var(--GREY2)
 	color: var(--GREY3)
-
-
-	//--paddingHoriz: calc((100% - var(--w)) / 2)
-	//padding: var(--gap) var(--paddingHoriz)
-
+	display: grid
+	grid-template-columns: 30% auto auto auto
+	grid-template-rows: auto auto
+	grid-row-gap: 60px
+	padding:
+		top: var(--GAP0)
+		bottom: var(--GAP0)
 	// **  all resolutions
-	& > section#contact_section
-		background-color: #464646
 
-		& > div.main-cls
-			// TODO: var(--small-font)
-			& > div > p
-				font-size: 16px
+	p
+		font-size: 16px
 
-			& > div.address
-				text-transform: capitalize
+	div.address
+		text-transform: capitalize
 
-	& > section#logos_section
-		background-color: #464646
 
-		img
-			filter: invert(1)
-			cursor: pointer
+	img
+		filter: invert(1)
+		cursor: pointer
 
-	& > section#ugug_section
-		background-color: #262626
-		font-size: 12px
-		padding: 10px 0
 
 	// **  max-width($BP4)
 	@include max-width($BP4)
@@ -214,41 +209,130 @@ div#footer
 
 	// **  min-width($BP4)
 	@include min-width($BP4)
-		& > section#contact_section > div.main-cls
-			padding: var(--GAP0) 0 var(--GAP1) 0
-			display: grid
-			grid:
-				template:
-					//columns: 35% 25% auto
-					columns: repeat(4, 1fr)
-				row-gap: var(--gap)
-				// *  DEP: #logos > img.medicine margin-left
-				column-gap: var(--gap)
+
+		& > div.address
+			grid-column: 1/1
 
 
-			& > div.address
-				grid-column: 1/1
+		& > div.contact
+			grid-column: 2/2
+
+		& > iframe#contact_map
+			grid-column: 4/4
+			grid-row: 1/3
+			//border-radius: 15px
+			width: 100%
+			height: 100%
 
 
-			& > div.contact
-				grid-column: 2/2
-
-			& > iframe#contact_map
-				grid-column: 4/4
-				//grid-row: 1/3
-				//border-radius: 15px
-				width: 100%
-				// *  DEP: div.main-cls padding-bottom var(--GAP1) + img height 60px (var(--GAP0)) = 100px
-				height: calc(100% + var(--GAP1) + var(--GAP0))
-
-
-		& > section#logos_section
-			padding-bottom: var(--GAP0)
+		& > div#logos
+			grid-row: 2/2
+			grid-column: 1/4
+			margin-top: auto
+			//padding-bottom: var(--GAP0)
 
 			img
 				height: var(--GAP0)
 				margin-right: var(--GAP1)
-				width: auto
+
+div#ugug
+	background-color: #262626
+	color: var(--GREY3)
+	font-size: 12px
+	padding:
+		top: 10px
+		bottom: 10px
+//div#footerOLD
+//	a
+//		color: rgb(119, 169, 246)
+//	box-shadow: 0 -1px 0 var(--GREY2)
+//	color: var(--GREY3)
+//
+//
+//	// **  all resolutions
+//	& > section#contact_section
+//		background-color: #464646
+//
+//		& > div.main-cls
+//			// TODO: var(--small-font)
+//			& > div > p
+//				font-size: 16px
+//
+//			& > div.address
+//				text-transform: capitalize
+//
+//	& > section#logos_section
+//		background-color: #464646
+//
+//		img
+//			filter: invert(1)
+//			cursor: pointer
+//
+//	& > section#ugug_section
+//		background-color: #262626
+//		font-size: 12px
+//		padding: 10px 0
+//
+//	// **  max-width($BP4)
+//	@include max-width($BP4)
+//		display: flex
+//		flex-direction: column
+//		& > section#contact_section
+//			padding-top: 30px
+//
+//			& > div.main-cls
+//				& > div.address
+//					margin-bottom: 30px
+//
+//				iframe#contact_map
+//					display: none
+//
+//		& > section#logos_section
+//			padding: 30px 0
+//
+//			img
+//				max-height: 82px
+//				max-width: 100%
+//				object-fit: scale-down
+//
+//
+//	// **  min-width($BP4)
+//	@include min-width($BP4)
+//		& > section#contact_section > div.main-cls
+//			padding: var(--GAP0) 0 var(--GAP1) 0
+//			display: grid
+//			grid:
+//				template:
+//					//columns: 35% 25% auto
+//					columns: repeat(4, 1fr)
+//				row-gap: var(--gap)
+//				// *  DEP: #logos > img.medicine margin-left
+//				column-gap: var(--gap)
+//
+//
+//			& > div.address
+//				grid-column: 1/1
+//
+//
+//			& > div.contact
+//				grid-column: 2/2
+//
+//			& > iframe#contact_map
+//				grid-column: 4/4
+//				//grid-row: 1/3
+//				//border-radius: 15px
+//				width: 100%
+//				// *  DEP: div.main-cls padding-bottom var(--GAP1) + img height 60px (var(--GAP0)) = 100px
+//				height: calc(100% + var(--GAP1) + var(--GAP0))
+//
+//
+//		& > section#logos_section
+//			padding-bottom: var(--GAP0)
+//
+//			img
+//				height: var(--GAP0)
+//				margin-right: var(--GAP1)
+//				width: auto
 
 
 #window_stats
