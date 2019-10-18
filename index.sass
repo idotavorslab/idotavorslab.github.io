@@ -170,35 +170,36 @@ div#footer
 	padding:
 		top: var(--GAP0)
 		bottom: var(--GAP0)
+
 	// **  all resolutions
 
 	p
 		font-size: 16px
 
-	div.address
+	& > div.address
 		text-transform: capitalize
 
-
-	img
-		filter: invert(1)
-		cursor: pointer
+	& > div#logos
+		img
+			filter: invert(1)
+			cursor: pointer
 
 
 	// **  max-width($BP4)
 	@include max-width($BP4)
 		display: flex
 		flex-direction: column
-		& > section#contact_section
-			padding-top: 30px
+		//& > section#contact_section
+		//	padding-top: 30px
+		//
+		//	& > div.main-cls
+		& > div.address
+			margin-bottom: 30px
 
-			& > div.main-cls
-				& > div.address
-					margin-bottom: 30px
+		iframe#contact_map
+			display: none
 
-				iframe#contact_map
-					display: none
-
-		& > section#logos_section
+		div#logos
 			padding: 30px 0
 
 			img

@@ -262,10 +262,10 @@ div#footer a {
 div#footer p {
   font-size: 16px;
 }
-div#footer div.address {
+div#footer > div.address {
   text-transform: capitalize;
 }
-div#footer img {
+div#footer > div#logos img {
   filter: invert(1);
   cursor: pointer;
 }
@@ -274,19 +274,16 @@ div#footer img {
     display: flex;
     flex-direction: column;
   }
-  div#footer > section#contact_section {
-    padding-top: 30px;
-  }
-  div#footer > section#contact_section > div.main-cls > div.address, div#footer > section#contact_section > div.main-cls-hack > div.address {
+  div#footer > div.address {
     margin-bottom: 30px;
   }
-  div#footer > section#contact_section > div.main-cls iframe#contact_map, div#footer > section#contact_section > div.main-cls-hack iframe#contact_map {
+  div#footer iframe#contact_map {
     display: none;
   }
-  div#footer > section#logos_section {
+  div#footer div#logos {
     padding: 30px 0;
   }
-  div#footer > section#logos_section img {
+  div#footer div#logos img {
     max-height: 82px;
     max-width: 100%;
     object-fit: scale-down;
@@ -763,8 +760,6 @@ section#funding_section > div.main-cls > div#sponsors_container > div.sponsor > 
 }
 
 div#home > div.article {
-  display: grid;
-  grid-column-gap: var(--gap);
   height: auto;
   margin-bottom: var(--big_gap);
   text-align: left;
@@ -775,28 +770,15 @@ div#home > div.article > h1 {
   padding-bottom: 2px;
   transition: color 0.6s ease-in-out;
   width: fit-content;
-  grid-column: 1/1;
 }
 div#home > div.article > h1.highlighted {
   color: var(--GOOGLEBLUE);
 }
-div#home > div.article[class~=reverse] > h1 {
-  grid-column: 2/2;
-}
-div#home > div.article > p.text {
-  grid-column: 1/1;
-}
-div#home > div.article[class~=reverse] > p.text {
-  grid-column: 2/2;
-  grid-row: 2/2;
-}
 div#home > div.article > img {
-  width: 542px;
+  width: calc(0.45 * var(--w));
   object-fit: contain;
   margin: auto;
   border-radius: 15px;
-  grid-column: 2/2;
-  grid-row: 2/2;
 }
 div#home > div.article > img.circle {
   --dim: 440px;
@@ -806,8 +788,37 @@ div#home > div.article > img.circle {
   height: var(--dim);
   margin-left: calc(542px - var(--dim));
 }
-div#home > div.article[class~=reverse] > img {
-  grid-column: 1/1;
+@media screen and (min-width: 500px) {
+  div#home > div.article {
+    display: grid;
+    grid-column-gap: var(--gap);
+  }
+  div#home > div.article > h1 {
+    grid-column: 1/1;
+  }
+  div#home > div.article[class~=reverse] > h1 {
+    grid-column: 2/2;
+  }
+  div#home > div.article > p.text {
+    grid-column: 1/1;
+  }
+  div#home > div.article[class~=reverse] > p.text {
+    grid-column: 2/2;
+    grid-row: 2/2;
+  }
+  div#home > div.article > img {
+    grid-column: 2/2;
+    grid-row: 2/2;
+  }
+  div#home > div.article[class~=reverse] > img {
+    grid-column: 1/1;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home > div.article {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 div#home.people-page > div.grid {
