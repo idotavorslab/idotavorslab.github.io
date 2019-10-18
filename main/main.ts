@@ -77,7 +77,7 @@ Hamburger.click((event: PointerEvent) => {
         console.log('Hamburger closed');
     }
 });
-
+const Ugug = elem({id: 'ugug'});
 
 WindowElem.on({
     scroll: (event: Event) => {
@@ -209,7 +209,9 @@ WindowElem.on({
         
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
-            
+            // if (window.outerHeight > parseInt(getComputedStyle(Ugug.e).top)) {
+            //     Ugug.css({bottom: '0'})
+            // }
             console.log(...less('done waiting, starting caching'));
             if (!window.location.hash.includes('research'))
                 cacheResearch();

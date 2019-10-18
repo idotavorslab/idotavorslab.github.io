@@ -64,6 +64,7 @@ Hamburger.click((event) => {
         console.log('Hamburger closed');
     }
 });
+const Ugug = elem({ id: 'ugug' });
 WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
