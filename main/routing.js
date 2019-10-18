@@ -23,10 +23,12 @@ const Routing = (() => {
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
                 console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
-                if (url === "gallery")
-                    Footer.attr({ hidden: '' });
-                else
-                    Footer.removeAttr('hidden');
+                if (url === "contact") {
+                    Footer.css({ display: 'none' });
+                }
+                else {
+                    Footer.uncss('display');
+                }
                 FundingSection.attr({ hidden: '' });
                 const pageObj = getPageObj(url);
                 pageObj().init();

@@ -1333,25 +1333,19 @@ iframe#contact_form {
   border-radius: 15px;
   margin-bottom: var(--big_gap);
   height: -webkit-fill-available;
+  height: -moz-available;
+  height: fill-available;
 }
 
 iframe#contact_map {
   width: var(--w);
   height: 600px;
   border-radius: 15px;
+  margin-bottom: 80px;
 }
 
 div#contact_grid {
   margin-bottom: calc(var(--gap));
-  --rowLength: 3;
-  --itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
-  display: grid;
-  grid-template-columns: repeat(var(--rowLength), var(--itemWidth));
-  grid-column-gap: var(--GAP1);
-  grid-row-gap: var(--GAP1);
-}
-div#contact_grid > div > * {
-  text-align: center;
 }
 div#contact_grid > div {
   display: grid;
@@ -1402,6 +1396,25 @@ div#contact_grid > div > a {
 }
 div#contact_grid > div.visit > a {
   text-transform: capitalize;
+}
+@media screen and (min-width: 500px) {
+  div#contact_grid {
+    --rowLength: 3;
+    --itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
+    display: grid;
+    grid-template-columns: repeat(var(--rowLength), var(--itemWidth));
+    grid-column-gap: var(--GAP1);
+    grid-row-gap: var(--GAP1);
+  }
+  div#contact_grid > div > * {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 500px) {
+  div#contact_grid {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

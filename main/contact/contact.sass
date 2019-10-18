@@ -2,25 +2,18 @@ iframe#contact_form
 	@include iframeMixin()
 	margin-bottom: var(--big_gap)
 	height: -webkit-fill-available
+	height: -moz-available
+	height: fill-available
 
 iframe#contact_map
 	@include iframeMixin()
+	margin-bottom: 80px
 
 
 div#contact_grid
 	margin-bottom: calc(var(--gap))
-	// *  DEP: home.sass funding grid
-	--rowLength: 3
-	--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
-	display: grid
-	grid:
-		template-columns: repeat(var(--rowLength), var(--itemWidth))
-		column-gap: var(--GAP1)
-		row-gap: var(--GAP1)
 
-	& > div > *
-		text-align: center
-
+	// **  All Resolutions
 	& > div
 		display: grid
 		grid-template-rows: 80px 40px auto
@@ -59,7 +52,21 @@ div#contact_grid
 			text-transform: capitalize
 
 
+	// **  min-width($BP4)
+	@include min-width($BP4)
+		& > div > *
+			text-align: center
+		// *  DEP: home.sass funding grid
+		--rowLength: 3
+		--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
+		display: grid
+		grid:
+			template-columns: repeat(var(--rowLength), var(--itemWidth))
+			column-gap: var(--GAP1)
+			row-gap: var(--GAP1)
 
-
-
+	// **  max-width($BP4)
+	@include max-width($BP4)
+		display: flex
+		flex-direction: column
 

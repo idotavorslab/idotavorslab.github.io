@@ -195,7 +195,6 @@ const Footer = elem({
         contact: 'div.contact',
         map: '#contact_map',
         logos: 'div#logos',
-        ugug: 'div#ugug'
     }
 }).css({ height: IS_SAFARI ? '260px' : 'auto' });
 fetchDict("main/contact/contact.json").then(async (data) => {
