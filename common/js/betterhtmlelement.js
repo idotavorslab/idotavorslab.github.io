@@ -82,6 +82,8 @@ class BetterHTMLElement {
 			this.class(cls);
 		if (children !== undefined)
 			this.cacheChildren(children);
+		if (!this._htmlElement)
+			console.warn('!this._htmlElement', arguments);
 		// Object.assign(this, proxy);
 		/*const that = this;
 		return new Proxy(this, {

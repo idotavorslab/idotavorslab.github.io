@@ -1,5 +1,7 @@
-const IS_GILAD = window.navigator.userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36";
-const IS_IPHONE = window.navigator.userAgent.includes('iPhone');
+const userAgent = window.navigator.userAgent;
+const IS_GILAD = userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36";
+const IS_IPHONE = userAgent.includes('iPhone');
+const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 
 // @ts-ignore
 const DocumentElem = elem({htmlElement: document});
@@ -75,7 +77,7 @@ Hamburger.click((event: PointerEvent) => {
         console.log('Hamburger closed');
     }
 });
-
+const Ugug = elem({id: 'ugug'});
 
 WindowElem.on({
     scroll: (event: Event) => {
@@ -207,7 +209,9 @@ WindowElem.on({
         
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
-            
+            // if (window.outerHeight > parseInt(getComputedStyle(Ugug.e).top)) {
+            //     Ugug.css({bottom: '0'})
+            // }
             console.log(...less('done waiting, starting caching'));
             if (!window.location.hash.includes('research'))
                 cacheResearch();
@@ -287,51 +291,21 @@ let Navbar: NavbarElem; // WindowElem.load =>
 
 // ***  Footer
 interface IFooter extends Div {
-    contactSection: Div & {
-        mainCls: Div & {
-            address: Div;
-            contact: Div;
-            map: Div
-        }
-    };
-    logosSection: Div & {
-        mainCls: Div
-    };
-    ugugSection: Div & {
-        mainCls: Div
-    }
+    address: Div;
+    contact: Div;
+    map: Div;
+    logos: Div;
 }
 
 const Footer: IFooter = <IFooter>elem({
     id: 'footer', children: {
-        contactSection: {
-            '#contact_section': {
-                mainCls: {
-                    '.main-cls': {
-                        address: '.address',
-                        contact: '.contact',
-                        // map: '#contact_map'
-                    }
-                }
-            }
-        },
-        logosSection: {
-            '#logos_section': {
-                mainCls: '.main-cls'
-            }
-        },
-        ugugSection: {
-            '#ugug_section': {
-                mainCls: '.main-cls'
-            }
-        }
-        
-        
+        address: 'div.address',
+        contact: 'div.contact',
+        map: '#contact_map',
+        logos: 'div#logos',
     }
-});
+}).css({height: IS_SAFARI ? '260px' : 'auto'});
 
-Footer.ugugSection.mainCls.html(`2019
-    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>`);
 
 type TContactData = {
     visit: { address: string, link: string, icon: string },
@@ -341,33 +315,31 @@ type TContactData = {
     form: string
 };
 fetchDict<TContactData>("main/contact/contact.json").then(async data => {
-    Footer.contactSection.mainCls.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
-    Footer.contactSection.mainCls.contact.append(paragraph().html(`Phone:
-                                                        <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
-                                                        Email:
-                                                        <a href="mailto:${data.email.address}">${data.email.address}</a>`));
+    Footer.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
+    Footer.contact.append(paragraph().html(`Phone:
+                                            <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
+                                            Email:
+                                            <a href="mailto:${data.email.address}">${data.email.address}</a>`));
     
-    const [uni, medicine, sagol] = Footer.logosSection.mainCls.children('img');
+    const [uni, medicine, sagol] = Footer.logos.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
-    console.log({MOBILE, IS_IPHONE, IS_GILAD});
+    console.log('main.ts popuplating Footer;', {MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI});
     if (!MOBILE) {
         await wait(3000);
-        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
-        Footer.contactSection.mainCls.append(
-            elem({tag: 'iframe'})
-                .id('contact_map')
-                .attr({
-                    frameborder: "0",
-                    allowfullscreen: "",
-                    src: data.map
-                }),
-        );
+        console.log("Footer.contactSection.append(elem({tag: 'iframe'}))");
+        Footer.map.attr({
+            frameborder: "0",
+            allowfullscreen: "",
+            src: data.map
+        })
+        
         
     }
     
     
 });
+
 

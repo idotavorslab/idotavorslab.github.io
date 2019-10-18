@@ -1,5 +1,7 @@
-const IS_GILAD = window.navigator.userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36";
-const IS_IPHONE = window.navigator.userAgent.includes('iPhone');
+const userAgent = window.navigator.userAgent;
+const IS_GILAD = userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36";
+const IS_IPHONE = userAgent.includes('iPhone');
+const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 const DocumentElem = elem({ htmlElement: document });
 const Body = elem({ htmlElement: document.body });
 const Home = elem({ id: 'home' });
@@ -62,6 +64,7 @@ Hamburger.click((event) => {
         console.log('Hamburger closed');
     }
 });
+const Ugug = elem({ id: 'ugug' });
 WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
@@ -189,52 +192,32 @@ class NavbarElem extends BetterHTMLElement {
 let Navbar;
 const Footer = elem({
     id: 'footer', children: {
-        contactSection: {
-            '#contact_section': {
-                mainCls: {
-                    '.main-cls': {
-                        address: '.address',
-                        contact: '.contact',
-                    }
-                }
-            }
-        },
-        logosSection: {
-            '#logos_section': {
-                mainCls: '.main-cls'
-            }
-        },
-        ugugSection: {
-            '#ugug_section': {
-                mainCls: '.main-cls'
-            }
-        }
+        address: 'div.address',
+        contact: 'div.contact',
+        map: '#contact_map',
+        logos: 'div#logos',
     }
-});
-Footer.ugugSection.mainCls.html(`2019
-    Developed by <a href="http://giladbarnea.github.io" target="_blank">Gilad Barnea</a>`);
+}).css({ height: IS_SAFARI ? '260px' : 'auto' });
 fetchDict("main/contact/contact.json").then(async (data) => {
-    Footer.contactSection.mainCls.address.append(anchor({ href: data.visit.link }).html(data.visit.address).target("_blank"));
-    Footer.contactSection.mainCls.contact.append(paragraph().html(`Phone:
-                                                        <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
-                                                        Email:
-                                                        <a href="mailto:${data.email.address}">${data.email.address}</a>`));
-    const [uni, medicine, sagol] = Footer.logosSection.mainCls.children('img');
+    Footer.address.append(anchor({ href: data.visit.link }).html(data.visit.address).target("_blank"));
+    Footer.contact.append(paragraph().html(`Phone:
+                                            <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
+                                            Email:
+                                            <a href="mailto:${data.email.address}">${data.email.address}</a>`));
+    const [uni, medicine, sagol] = Footer.logos.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
-    console.log({ MOBILE, IS_IPHONE, IS_GILAD });
+    console.log('main.ts popuplating Footer;', { MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI });
     if (!MOBILE) {
         await wait(3000);
-        console.log("Footer.contactSection.mainCls.append(elem({tag: 'iframe'}))");
-        Footer.contactSection.mainCls.append(elem({ tag: 'iframe' })
-            .id('contact_map')
-            .attr({
+        console.log("Footer.contactSection.append(elem({tag: 'iframe'}))");
+        Footer.map.attr({
             frameborder: "0",
             allowfullscreen: "",
             src: data.map
-        }));
+        });
     }
 });
 //# sourceMappingURL=main.js.map

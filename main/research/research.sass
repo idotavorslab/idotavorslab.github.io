@@ -1,8 +1,7 @@
 // TODO: pic-title-text like evernote mobile
 div#home
 	& > div.article
-		display: grid
-		grid-column-gap: var(--gap)
+		// **  All Resolutions
 		height: auto
 		margin-bottom: var(--big_gap)
 		text-align: left
@@ -16,34 +15,18 @@ div#home
 
 			width: fit-content
 
-			grid-column: 1/1
 
 			&.highlighted
 				color: var(--GOOGLEBLUE)
 
 
-		&[class~="reverse"] > h1
-			grid-column: 2/2
-
-
-		& > p.text
-			grid-column: 1/1
-
-
-		&[class~="reverse"] > p.text
-			grid:
-				column: 2/2
-				row: 2/2
-
 		& > img
 			// *  DEP: home.sass > .right-widget width
-			width: 542px
+
 			object-fit: contain
-			margin: auto
+
 			border-radius: 15px
-			grid:
-				column: 2/2
-				row: 2/2
+
 
 			&.circle
 				--dim: 440px
@@ -53,11 +36,47 @@ div#home
 				height: var(--dim)
 				margin-left: calc(542px - var(--dim))
 
-		&[class~="reverse"] > img
-			grid:
-				column: 1/1
+
+		// **  min-width($BP4)
+		@include min-width($BP4)
+			display: grid
+			grid-column-gap: var(--gap)
+
+			& > h1
+				grid-column: 1/1
 
 
+			&[class~="reverse"] > h1
+				grid-column: 2/2
+			& > p.text
+				grid-column: 1/1
+			&[class~="reverse"] > p.text
+				grid:
+					column: 2/2
+					row: 2/2
+
+			& > img
+				margin: auto
+				width: calc(0.45 * var(--w))
+				grid:
+					column: 2/2
+					row: 2/2
+
+			&[class~="reverse"] > img
+				grid:
+					column: 1/1
 
 
+		// **  max-width($BP4)
+		@include max-width($BP4)
+			display: flex
+			flex-direction: column
 
+
+			& > img
+				margin: 80px auto 60px auto
+				width: 100%
+				max-height: 250px
+
+			&:first-of-type > img
+				margin-top: unset

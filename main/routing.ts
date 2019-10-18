@@ -32,12 +32,18 @@ const Routing = (() => {
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
                 console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
-                
+                if (url === "contact") {
+                    Footer.css({display: 'none'});
+                } else {
+                    Footer.uncss('display')
+                }
                 // happens also in home researchSnippets snippet click
-                if (url === "gallery")
+                /*if (url === "gallery") {
                     Footer.attr({hidden: ''});
-                else
+                    elem({query: 'div#ugug'}).attr({hidden: ''});
+                } else {
                     Footer.removeAttr('hidden');
+                }*/
                 
                 FundingSection.attr({hidden: ''});
                 
@@ -47,13 +53,6 @@ const Routing = (() => {
                 if (Navbar === undefined)
                     await WindowElem.promiseLoaded();
                 Navbar.select(Navbar[url])
-                /*WindowElem.on({load: () => Navbar.select(Navbar[url])});*/
-                /*if (Navbar === undefined) {
-                    console.log('%cinitPage Navbar === undefined, awaiting navbarReady...', `color: ${GOOGLEBLUE}`);
-                    await Emitter.until('navbarReady');
-                    console.log('%cinitPage done awaiting navbarReady', `color: ${GOOGLEBLUE}`);
-                }
-                Navbar.select(Navbar[url]);*/
                 
                 
             } else { // bad url, reload to homepage

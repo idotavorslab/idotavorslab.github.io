@@ -32,7 +32,7 @@ div#intro
 	// **  right_widget
 	& > div#right_widget
 
-		// *  DEP: research.sass article>..>img width
+		// *  DEP: research.sass div.article > img width
 		// [$BP1]:      (1200 * 0.45)  =  540px
 		// [$BP2:$BP1]: (984 * 0.45)  =  442px
 		$rightWidgetWidth: calc(0.45 * var(--w))
@@ -95,7 +95,7 @@ div#intro
 					position: absolute
 					left: 0
 					top: 0
-					background: linear-gradient(transparent 150px, white)
+					background: linear-gradient(rgba(255, 255, 255, 0) 150px, white)
 
 				& > a.center
 					display: block

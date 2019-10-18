@@ -22,16 +22,14 @@ const ContactPage = () => {
             .append(
                 elem({tag: 'h1', text: 'Visit'}),
                 htmlToElement(await fetchText(`main/contact/${data.visit.icon}`)),
-                // div().css({backgroundImage: `url(main/contact/${data.visit.icon}`}),
                 paragraph({cls: 'subtitle', text: 'Address'}),
-                anchor({href: data.visit.link, text: data.visit.address}).target("_blank")
+                anchor({href: data.visit.link}).html(data.visit.address).target("_blank")
             );
         
         const call = div({cls: 'call'})
             
             .append(
                 elem({tag: 'h1', text: 'Call'}),
-                // div().css({backgroundImage: `url(main/contact/${data.call.icon}`}),
                 htmlToElement(await fetchText(`main/contact/${data.call.icon}`)),
                 paragraph({cls: 'subtitle', text: data.call.hours}),
                 anchor({text: data.call.phone, href: `tel:${data.call.phone}`}).target("_blank")
@@ -40,7 +38,6 @@ const ContactPage = () => {
         const email = div({cls: 'email'})
             .append(
                 elem({tag: 'h1', text: 'Email'}),
-                // div().css({backgroundImage: `url(main/contact/${data.email.icon}`}),
                 htmlToElement(await fetchText(`main/contact/${data.email.icon}`)),
                 anchor({text: data.email.address, href: `mailto:${data.email.address}`}).target("_blank")
             );
@@ -52,15 +49,7 @@ const ContactPage = () => {
                 email
             );
         
-        const form = elem({tag: 'iframe', text: "Loading"})
-            .id('contact_form')
-            .attr({
-                frameborder: "0",
-                allowfullscreen: "",
-                marginheight: "0",
-                marginwidth: "0",
-                src: data.form
-            });
+        
         let map = elem({tag: 'iframe'})
             .id('contact_map')
             .attr({
@@ -68,11 +57,15 @@ const ContactPage = () => {
                 allowfullscreen: "",
                 src: data.map
             });
-        Home.empty().class('contact-page').append(
-            grid,
-            form,
-            map
-        );
+        Home.empty().class('contact-page');
+        await WindowElem.promiseLoaded();
+        if (MOBILE)
+            Home.append(grid);
+        else
+            Home.append(
+                grid,
+                map
+            );
         
     }
     
