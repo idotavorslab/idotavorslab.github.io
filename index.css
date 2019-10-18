@@ -993,6 +993,7 @@ div#publications_container > div.year > div.publication:hover {
 }
 div#publications_container > div.year > div.publication > img.thumbnail {
   width: 100px;
+  height: 100px;
   border: 1px solid var(--GREY3);
   margin: auto var(--small_gap) auto 0;
 }
