@@ -23,7 +23,12 @@ const ContactPage = () => {
             allowfullscreen: "",
             src: data.map
         });
-        Home.empty().class('contact-page').append(grid, map);
+        Home.empty().class('contact-page');
+        await WindowElem.promiseLoaded();
+        if (MOBILE)
+            Home.append(grid);
+        else
+            Home.append(grid, map);
     }
     return { init };
 };
