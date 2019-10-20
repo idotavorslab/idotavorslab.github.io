@@ -110,14 +110,12 @@ const PeoplePage = () => {
                     console.log('expando click, stopping propagation');
                     event.stopPropagation();
                 });
-                const onfulfilled = () => {
-                    this.append(svgX);
-                    this.cacheAppend({
+                WindowElem.promiseLoaded().then(() => {
+                    this.append({
                         cv: div({ cls: 'cv' }),
-                        email: div({ cls: 'email' })
+                        svg: svgX, email: div({ cls: 'email' })
                     });
-                };
-                WindowElem.promiseLoaded().then(onfulfilled);
+                });
             }
             async toggle(pressed) {
                 if (this.owner === null) {
@@ -202,6 +200,14 @@ const PeoplePage = () => {
                         break;
                 }
                 this.css({ gridColumn });
+                wait(250).then(() => {
+                    let overflown = isOverflown(this.e);
+                    if (overflown) {
+                        let oldHeight = this.e.clientHeight;
+                        let diff = this.e.scrollHeight - oldHeight;
+                        this.css({ height: `${parseInt(getComputedStyle(this.e).height) + diff}px` });
+                    }
+                });
             }
             _setHtml() {
                 this.cv.html(this.owner.cv);

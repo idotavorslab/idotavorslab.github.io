@@ -129,11 +129,13 @@ const PeoplePage = () => {
             public owner: Person = null;
             public cv: Div;
             public email: Div;
+            private svg: Div;
             
             constructor() {
                 super({id: 'person_expando', cls: 'collapsed'});
                 const svgX = elem({tag: 'svg'})
                     .id('svg_root')
+                    // *  DEP: people.sass div#person_expando > svg#svg_root $dim
                     .attr({viewBox: '0 0 25 25'})
                     .append(
                         elem({tag: 'path', cls: 'upright'}),
@@ -149,15 +151,17 @@ const PeoplePage = () => {
                     console.log('expando click, stopping propagation');
                     event.stopPropagation();
                 });
-                const onfulfilled = () => {
+                
+                WindowElem.promiseLoaded().then(() => {
                     // if (!MOBILE)
-                    this.append(svgX);
-                    this.cacheAppend({
-                        cv: div({cls: 'cv'}),
-                        email: div({cls: 'email'})
-                    })
-                };
-                WindowElem.promiseLoaded().then(onfulfilled);
+                    this.append({
+                            cv: div({cls: 'cv'}),
+                            svg: svgX, email: div({cls: 'email'})
+                        }
+                    );
+                    
+                    
+                });
                 
             }
             
@@ -262,7 +266,26 @@ const PeoplePage = () => {
                         gridColumn = '3/5';
                         break;
                 }
-                this.css({gridColumn})
+                
+                
+                this.css({gridColumn});
+                /*this.on({
+                    transitionend: (event: TransitionEvent) => {
+                        if (event.propertyName === "width") {
+                            console.log(`expando ${event.propertyName} transitionend, elapsed: ${event.elapsedTime}`);
+                            this.off("transitionend");
+                        }
+                    }
+                });*/
+                wait(250).then(() => {
+                    let overflown = isOverflown(this.e);
+                    if (overflown) {
+                        let oldHeight = this.e.clientHeight;
+                        let diff = this.e.scrollHeight - oldHeight;
+                        this.css({height: `${parseInt(getComputedStyle(this.e).height) + diff}px`});
+                    }
+                    
+                });
             }
             
             // toggle => _ownAndPopulate => _setHtml

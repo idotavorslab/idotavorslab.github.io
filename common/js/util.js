@@ -170,7 +170,7 @@ class ExTweenLite {
             scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
             count++;
         }
-        console.log(...green('TweenLite scripts loaded'));
+        console.log(...less('TweenLite scripts loaded'));
         this.isLoaded = true;
         return true;
     }
@@ -210,7 +210,7 @@ iPhone: ${IS_IPHONE}
 `;
 }
 function isOverflown({ clientWidth, clientHeight, scrollWidth, scrollHeight }) {
-    console.log({ clientWidth, clientHeight, scrollWidth, scrollHeight });
+    console.log({ clientHeight, scrollHeight });
     return scrollHeight > clientHeight || scrollWidth > clientWidth;
 }
 function copyToClipboard(val) {

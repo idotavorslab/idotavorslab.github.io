@@ -53,16 +53,18 @@ div#home.people-page
 		// [max-width: $BP1]:  20px
 		--expandoPadding: var(--small_gap)
 		$colorTrans: color 300ms cubic-bezier(1, 0, 1, 0)
+		$svgDim: 25
+		@include max-width($BP1)
+			font-size: 15px
+		@include max-width($BP4)
+			border-radius: 15px
 
 
 		background-color: white
 		box-shadow: 0px 1px 2px white
 		color: white
-
-		@include max-width($BP1)
-			font-size: 15px
-		@include max-width($BP4)
-			border-radius: 15px
+		display: flex
+		flex-wrap: wrap
 		height: 0
 
 		// [min-width: $BP1]:  -50px
@@ -73,27 +75,35 @@ div#home.people-page
 		padding: var(--expandoPadding)
 		text-align: left
 
-		transition: height 50ms, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
+		transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
 
 		// [min-width: $BP1]:  255 - 30*2  =  195px
 		// [max-width: $BP1]:  216 - 20*2  =  176px
 		width: calc(var(--tagWidth) - 2 * var(--expandoPadding))
 
 		& > div.cv
+			width: calc(100% - #{$svgDim * 2}px)
+			margin-block-start: -5px
+
 			& > p
 				font-size: unset
 				line-height: unset
 
+		& > div.email
+			width: 100%
+
 		& > svg#svg_root
 			// *  DEP: people.ts Expando constructor() svgX attr viewBox
-			$dim: 25
+
 			cursor: pointer
-			display: block
+			margin-bottom: auto
 			margin-left: auto
-			//margin-right: ($dim - 1) + px
-			//margin-top: ($dim - 1) + px
-			position: relative
-			width: $dim + px
+			//margin-right: ($svgDim - 1) + px
+			//margin-top: ($svgDim - 1) + px
+			//position: relative
+			width: $svgDim + px
+			padding-left: $svgDim + px
+			padding-bottom: $svgDim + px
 
 
 			& > path
@@ -103,10 +113,10 @@ div#home.people-page
 
 
 				&.upright
-					d: path("m #{$dim - 1} 1 l -#{$dim - 2} #{$dim - 2}")
+					d: path("m #{$svgDim - 1} 1 l -#{$svgDim - 2} #{$svgDim - 2}")
 
 				&.downleft
-					d: path("m 1 1 l #{$dim - 2} #{$dim - 2}")
+					d: path("m 1 1 l #{$svgDim - 2} #{$svgDim - 2}")
 
 
 		//& > a

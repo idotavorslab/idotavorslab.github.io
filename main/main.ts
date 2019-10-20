@@ -19,7 +19,7 @@ const CacheDiv = elem({id: 'cache'});
 const WindowElem = elem({htmlElement: window});
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
-    console.log('WindowElem.promiseLoaded(), this.isLoaded:', this.isLoaded);
+    console.log(...less('WindowElem.promiseLoaded(), this.isLoaded:'), this.isLoaded);
     if (this.isLoaded)
         return true;
     let count = 0;
@@ -39,7 +39,7 @@ WindowElem.promiseLoaded = async function () {
         
         count++;
     }
-    console.log(...green('WindowElem.promiseLoaded() returning true'));
+    console.log(...less('WindowElem.promiseLoaded() returning true'));
     this.isLoaded = true;
     return true;
 };
@@ -291,10 +291,10 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
-    console.log('main.ts popuplating Footer;', {MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI});
+    console.log(...less('main.ts popuplating Footer;'), {MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI});
     if (!MOBILE) {
         await wait(3000);
-        console.log("Footer.contactSection.append(elem({tag: 'iframe'}))");
+        console.log(...less("Footer.contactSection.append(elem({tag: 'iframe'}))"));
         Footer.map.attr({
             frameborder: "0",
             allowfullscreen: "",
