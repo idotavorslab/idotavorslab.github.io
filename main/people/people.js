@@ -19,6 +19,7 @@ const PeoplePage = () => {
                 this.cv = cv;
                 this.email = email;
                 this.name = name;
+                this.role = role;
                 let imgElem;
                 let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
@@ -128,8 +129,9 @@ const PeoplePage = () => {
                     });
                     if (MOBILE) {
                         const title = div({ cls: 'title' });
-                        this.cv.before(title, svgX);
-                        this._cache('title', title);
+                        const role = div({ cls: 'role' });
+                        this.cv.before(title, svgX, role);
+                        this.cacheChildren({ title, role });
                     }
                     else {
                         this.cv.after(svgX);
@@ -240,6 +242,7 @@ const PeoplePage = () => {
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
                 if (MOBILE) {
                     this.title.text(this.owner.name);
+                    this.role.text(this.owner.role);
                     if (isOverflown(this.e))
                         this.css({ bottom: 'unset' });
                     else

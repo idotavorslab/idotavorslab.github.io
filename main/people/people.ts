@@ -16,12 +16,14 @@ const PeoplePage = () => {
             public group: People;
             public index: number;
             public name: string;
+            public role: string;
             
             constructor(image: string, name: string, role: string, cv: string, email: string) {
                 super({cls: 'person'});
                 this.cv = cv;
                 this.email = email;
                 this.name = name;
+                this.role = role;
                 let imgElem;
                 let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
@@ -141,6 +143,7 @@ const PeoplePage = () => {
             public cv: Div;
             public email: Div;
             private title: Div;
+            private role: Div;
             
             constructor() {
                 super({id: 'person_expando', cls: 'collapsed'});
@@ -171,8 +174,9 @@ const PeoplePage = () => {
                     });
                     if (MOBILE) {
                         const title = div({cls: 'title'});
-                        this.cv.before(title, svgX);
-                        this._cache('title', title);
+                        const role = div({cls: 'role'});
+                        this.cv.before(title, svgX, role);
+                        this.cacheChildren({title, role});
                     } else {
                         this.cv.after(svgX)
                     }
@@ -345,6 +349,7 @@ const PeoplePage = () => {
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
                 if (MOBILE) {
                     this.title.text(this.owner.name);
+                    this.role.text(this.owner.role);
                     if (isOverflown(this.e))
                         this.css({bottom: 'unset'});
                     else

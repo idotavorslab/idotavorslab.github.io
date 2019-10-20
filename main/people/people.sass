@@ -4,6 +4,12 @@ div#home.people-page
 		opacity: 0.4
 		filter: blur(2px) contrast(0.8)
 
+	.role
+		text-transform: capitalize
+		color: var(--GREY6)
+		font:
+			family: OpenSansItalic
+
 	// ***  grid
 	& > div.grid
 		@include gridContainerMixin("div.person")
@@ -39,11 +45,6 @@ div#home.people-page
 					family: OpenSansSemiBold
 
 
-			& > div.role
-				color: var(--GREY6)
-				font:
-					family: OpenSansItalic
-
 	// ***  expando
 	div#person_expando
 		@include borderMixin(var(--GREY02))
@@ -67,6 +68,22 @@ div#home.people-page
 			place-content: flex-start
 			top: var(--MOBILE_NAVBAR_HEIGHT)
 			transition: $baseTransition, box-shadow 500ms, opacity 0.2s
+
+			$marginBlockStart: -4px
+			& > div.title
+				text-transform: capitalize
+				color: var(--GREY8)
+				font:
+					size: 20px
+					family: OpenSansBold
+				letter-spacing: -0.5px
+				margin-block-start: $marginBlockStart
+				//margin-bottom: 24px
+				margin-bottom: 0px
+
+			& > div.role
+				margin-bottom: 16px
+				margin-top: $marginBlockStart
 
 		background-color: white
 		box-shadow: 0px 2px 10px white
@@ -108,7 +125,8 @@ div#home.people-page
 			margin-left: auto
 			width: $svgDim + px
 			padding-left: var(--cvRightGap)
-			padding-bottom: $svgDim + px
+			//padding-bottom: $svgDim + px
+			padding-bottom: 0px
 
 
 			& > path
@@ -123,16 +141,6 @@ div#home.people-page
 				&.downleft
 					d: path("m 1 1 l #{$svgDim - 2} #{$svgDim - 2}")
 
-		// only on mobile
-		& > div.title
-			text-transform: capitalize
-			color: var(--GREY8)
-			font:
-				size: 20px
-				family: OpenSansBold
-			letter-spacing: -0.5px
-			margin-block-start: -4px
-			margin-bottom: 24px
 
 		// **  collapsed
 		&.collapsed

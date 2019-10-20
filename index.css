@@ -836,6 +836,11 @@ div#home.people-page .unfocused {
   opacity: 0.4;
   filter: blur(2px) contrast(0.8);
 }
+div#home.people-page .role {
+  text-transform: capitalize;
+  color: var(--GREY6);
+  font-family: OpenSansItalic;
+}
 div#home.people-page > div.grid {
   --tagWidth: calc((var(--w) - (var(--gap) * (var(--columns) - 1))) / var(--columns));
   display: grid;
@@ -906,10 +911,6 @@ div#home.people-page > div.grid > div.person > div.name {
   font-size: large;
   font-family: OpenSansSemiBold;
 }
-div#home.people-page > div.grid > div.person > div.role {
-  color: var(--GREY6);
-  font-family: OpenSansItalic;
-}
 div#home.people-page div#person_expando {
   border-width: 1px;
   border-color: var(--GREY02);
@@ -943,6 +944,19 @@ div#home.people-page div#person_expando {
     top: var(--MOBILE_NAVBAR_HEIGHT);
     transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 500ms, opacity 0.2s;
   }
+  div#home.people-page div#person_expando > div.title {
+    text-transform: capitalize;
+    color: var(--GREY8);
+    font-size: 20px;
+    font-family: OpenSansBold;
+    letter-spacing: -0.5px;
+    margin-block-start: -4px;
+    margin-bottom: 0px;
+  }
+  div#home.people-page div#person_expando > div.role {
+    margin-bottom: 16px;
+    margin-top: -4px;
+  }
 }
 div#home.people-page div#person_expando > div.cv {
   width: calc(100% - 25px - var(--cvRightGap));
@@ -961,7 +975,7 @@ div#home.people-page div#person_expando > svg#svg_root {
   margin-left: auto;
   width: 25px;
   padding-left: var(--cvRightGap);
-  padding-bottom: 25px;
+  padding-bottom: 0px;
 }
 div#home.people-page div#person_expando > svg#svg_root > path {
   fill: none;
@@ -973,15 +987,6 @@ div#home.people-page div#person_expando > svg#svg_root > path.upright {
 }
 div#home.people-page div#person_expando > svg#svg_root > path.downleft {
   d: path("m 1 1 l 23 23");
-}
-div#home.people-page div#person_expando > div.title {
-  text-transform: capitalize;
-  color: var(--GREY8);
-  font-size: 20px;
-  font-family: OpenSansBold;
-  letter-spacing: -0.5px;
-  margin-block-start: -4px;
-  margin-bottom: 24px;
 }
 div#home.people-page div#person_expando.collapsed {
   padding: 0;

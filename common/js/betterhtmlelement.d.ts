@@ -277,12 +277,13 @@ declare class BetterHTMLElement {
     /**For each `[key, selector]` pair, where `selector` is either an `HTMLTag` or a `string`, get `this.child(selector)`, and store it in `this[key]`.
      * @example
      * // Using `cacheChildren` directly
+     * const navbar = elem({ id: 'navbar' });
      * navbar.cacheChildren({ home: '.navbar-item-home', about: '.navbar-item-about' });
      * navbar.home.toggleClass("selected");
      * navbar.about.css(...);
      * @example
      * // Using `cacheChildren` indirectly through `children` constructor option
-     * elem({query: '#navbar', children: { home: '.navbar-item-home', about: '.navbar-item-about' }});
+     * const navbar = elem({ id: 'navbar', children: { home: '.navbar-item-home', about: '.navbar-item-about' }});
      * navbar.home.toggleClass("selected");
      * navbar.about.css(...);
      * @see this.child*/
@@ -291,6 +292,7 @@ declare class BetterHTMLElement {
      * extract `this.child(subselector)`, store it in `this[key]`, then call `this[key].cacheChildren` passing the recursive object.
      * @example
      * // Using `cacheChildren` directly
+     * const navbar = elem({ id: 'navbar' });
      * navbar.cacheChildren({
      *      home: {
      *          '.navbar-item-home': {
@@ -304,7 +306,7 @@ declare class BetterHTMLElement {
      * navbar.home.support.pointerdown(...);
      * @example
      * // Using `cacheChildren` indirectly through `children` constructor option
-     * elem({query: '#navbar', children: {
+     * const navbar = elem({query: '#navbar', children: {
      *      home: {
      *          '.navbar-item-home': {
      *              news: '.navbar-subitem-news,
@@ -317,7 +319,20 @@ declare class BetterHTMLElement {
      * navbar.home.support.pointerdown(...);
      * @see this.child*/
     cacheChildren(keySelectorObj: TRecMap<QuerySelector>): BetterHTMLElement;
-    
+    /**For each `[key, selector]` pair, where `selector` is a `BetterHTMLElement`, store it in `this[key]`.
+     * @example
+     * // Using `cacheChildren` directly
+     * const home = elem({ query: '.navbar-item-home' });
+     * const navbar = elem({ id: 'navbar' });
+     * navbar.cacheChildren({ home });
+     * navbar.home.toggleClass("selected");
+     * @example
+     * // Using `cacheChildren` indirectly through `children` constructor option
+     * const home = elem({ query: '.navbar-item-home' });
+     * const navbar = elem({id: 'navbar', children: { home }});
+     * navbar.home.toggleClass("selected");
+     * @see this.child*/
+    cacheChildren(keySelectorObj: TRecMap<BetterHTMLElement>): BetterHTMLElement;
     /**Remove all children from DOM*/
     empty(): this;
     
@@ -349,7 +364,10 @@ declare class BetterHTMLElement {
     
     /**@deprecated*/
     one(): void;
-    
+    /**Remove `event` from wrapped element's event listeners, but keep the removed listener in cache.
+     * This is useful for later unblocking*/
+    blockListener(event: TEvent): this;
+    unblockListener(event: TEvent): this;
     /** Add a `touchstart` event listener. This is the fast alternative to `click` listeners for mobile (no 300ms wait). */
     touchstart(fn: (ev: TouchEvent) => any, options?: AddEventListenerOptions): this;
     
