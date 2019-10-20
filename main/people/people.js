@@ -95,7 +95,7 @@ const PeoplePage = () => {
         }
         class Expando extends Div {
             constructor() {
-                super({ id: 'person_expando' });
+                super({ id: 'person_expando', cls: 'collapsed' });
                 this.owner = null;
                 this
                     .click((event) => {
@@ -264,7 +264,7 @@ const PeoplePage = () => {
                 expando.close();
         })
             .keydown(keyboardNavigation);
-        Home.empty().class('people-page').append(elem({ tag: 'h1', text: 'Team' }), teamContainer, elem({ tag: 'h1', text: 'Alumni' }), alumniContainer);
+        Home.empty().class('people-page').append(elem({ tag: 'h1', text: 'Team' }), teamContainer, elem({ tag: 'h1', text: 'Alumni' }), alumniContainer, expando);
     }
     return { init };
 };

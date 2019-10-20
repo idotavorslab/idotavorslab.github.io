@@ -907,7 +907,7 @@ div#home.people-page > div.grid > div.person > div.role {
   color: var(--GREY6);
   font-family: OpenSansItalic;
 }
-div#home.people-page > div.grid > div#person_expando {
+div#home.people-page div#person_expando {
   border-width: 1px;
   border-color: var(--GREY02);
   border-style: solid;
@@ -925,15 +925,15 @@ div#home.people-page > div.grid > div#person_expando {
   width: calc(var(--tagWidth) - 2 * var(--expandoPadding));
 }
 @media screen and (max-width: 1340px) {
-  div#home.people-page > div.grid > div#person_expando {
+  div#home.people-page div#person_expando {
     font-size: 15px;
   }
 }
-div#home.people-page > div.grid > div#person_expando > div.cv > p {
+div#home.people-page div#person_expando > div.cv > p {
   font-size: unset;
   line-height: unset;
 }
-div#home.people-page > div.grid > div#person_expando > svg#svg_root {
+div#home.people-page div#person_expando > svg#svg_root {
   --dim: calc(var(--gap) / 4);
   cursor: pointer;
   display: block;
@@ -942,39 +942,39 @@ div#home.people-page > div.grid > div#person_expando > svg#svg_root {
   margin-top: calc(var(--dim) * -1);
   position: relative;
   width: var(--dim);
+  color: white;
+  transition: color 300ms cubic-bezier(1, 0, 1, 0);
 }
-div#home.people-page > div.grid > div#person_expando > svg#svg_root > path {
+div#home.people-page div#person_expando > svg#svg_root > path {
   fill: none;
   stroke-width: 1px;
   stroke: var(--GREY6);
 }
-div#home.people-page > div.grid > div#person_expando > svg#svg_root > path.upright {
+div#home.people-page div#person_expando > svg#svg_root > path.upright {
   d: path("m 14 1 l -13 13");
 }
-div#home.people-page > div.grid > div#person_expando > svg#svg_root > path.downleft {
+div#home.people-page div#person_expando > svg#svg_root > path.downleft {
   d: path("m 1 1 l 13 13");
 }
-div#home.people-page > div.grid > div#person_expando > a {
-  color: white;
-  transition: color 300ms cubic-bezier(1, 0, 1, 0);
-}
-div#home.people-page > div.grid > div#person_expando.collapsed {
+div#home.people-page div#person_expando.collapsed {
   padding: 0;
+  opacity: 0;
+  z-index: -1;
 }
-div#home.people-page > div.grid > div#person_expando.expanded {
+div#home.people-page div#person_expando.expanded {
   border-color: white;
   box-shadow: 0px 2px 10px var(--GREY3);
   color: var(--GREY7);
   height: 300px;
   width: calc(var(--tagWidth) * 2);
 }
-div#home.people-page > div.grid > div#person_expando.expanded > div.email {
+div#home.people-page div#person_expando.expanded > div.email {
   margin-top: calc(var(--gap) / 6);
 }
-div#home.people-page > div.grid > div#person_expando.expanded > div.email > a {
+div#home.people-page div#person_expando.expanded > div.email > a {
   color: var(--GOOGLEBLUE);
 }
-div#home.people-page > div.grid > div#person_expando.expanded > div.close {
+div#home.people-page div#person_expando.expanded > div.close {
   opacity: 1;
 }
 

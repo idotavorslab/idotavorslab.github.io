@@ -131,7 +131,7 @@ const PeoplePage = () => {
             public email: Div;
             
             constructor() {
-                super({id: 'person_expando'});
+                super({id: 'person_expando', cls: 'collapsed'});
                 this
                     .click((event: Event) => {
                         // prevent propagation to DocumentElem
@@ -366,7 +366,8 @@ const PeoplePage = () => {
             elem({tag: 'h1', text: 'Team'}),
             teamContainer,
             elem({tag: 'h1', text: 'Alumni'}),
-            alumniContainer
+            alumniContainer,
+            expando
         );
         
         
