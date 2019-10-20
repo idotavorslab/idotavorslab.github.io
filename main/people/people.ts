@@ -297,7 +297,8 @@ const PeoplePage = () => {
                 if (MOBILE) {
                     People.focusAll();
                     elem({id: 'navbar_section'}).removeClass('off');
-                    [teamH1, alumniH1].forEach(h1 => h1.removeClass('unfocused'))
+                    [teamH1, alumniH1].forEach(h1 => h1.removeClass('unfocused'));
+                    Body.removeClass('noscroll');
                 } else {
                     People.focusOthers(this.owner);
                     
@@ -348,7 +349,9 @@ const PeoplePage = () => {
                         this.css({bottom: 'unset'});
                     else
                         this.uncss('bottom');
-                    [teamH1, alumniH1].forEach(h1 => h1.class('unfocused'))
+                    [teamH1, alumniH1].forEach(h1 => h1.class('unfocused'));
+                    Body.addClass('noscroll');
+                    console.log('WindowElem._listeners.scroll:', WindowElem._listeners.scroll);
                 } else {
                     showArrowOnHover(this.email.children('a'));
                 }
