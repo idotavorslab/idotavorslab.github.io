@@ -44,7 +44,7 @@ const PeoplePage = () => {
             row() {
                 return int(this.index / ROWSIZE);
             }
-            *yieldIndexesBelow() {
+            *_yieldIndexesBelow() {
                 for (let i = this.row() + 1; i <= this.group.length / ROWSIZE; i++) {
                     for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.group.length; j++) {
                         yield [i, j];
@@ -52,16 +52,16 @@ const PeoplePage = () => {
                 }
             }
             pushPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     this.group[i * ROWSIZE + j].css({ gridRow: `${i + 2}/${i + 2}` });
                 }
             }
             pullbackPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     this.group[i * ROWSIZE + j].uncss("gridRow");
                 }
             }
-            squeezeExpandoBelow() {
+            insertExpandoAfterRightmostPerson() {
                 let rightmostPersonIndex = Math.min((ROWSIZE - 1) + this.row() * ROWSIZE, this.group.length - 1);
                 this.group[rightmostPersonIndex].after(expando);
             }
@@ -120,10 +120,10 @@ const PeoplePage = () => {
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
                     if (MOBILE)
-                        this.expand();
+                        this._expand();
                     else
-                        await this.pushAfterAndExpand(pressed);
-                    this.ownAndPopulate(pressed, { setGridCol: !MOBILE });
+                        await this._pushAfterAndExpand(pressed);
+                    this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
                     return;
                 }
                 if (this.owner === pressed) {
@@ -134,48 +134,48 @@ const PeoplePage = () => {
                 pressed.focus();
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) {
-                        this.collapse();
+                        this._collapse();
                         if (MOBILE)
-                            this.expand();
+                            this._expand();
                         else
-                            await this.pushAfterAndExpand(pressed);
+                            await this._pushAfterAndExpand(pressed);
                     }
-                    this.ownAndPopulate(pressed, { setGridCol: !MOBILE });
+                    this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
                 }
                 else {
-                    this.collapse();
+                    this._collapse();
                     if (MOBILE)
-                        this.expand();
+                        this._expand();
                     else
-                        await this.pushAfterAndExpand(pressed);
-                    this.ownAndPopulate(pressed, { setGridCol: !MOBILE });
+                        await this._pushAfterAndExpand(pressed);
+                    this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
                 }
             }
-            async pushAfterAndExpand(pressed) {
+            async _pushAfterAndExpand(pressed) {
                 pressed.pushPeopleBelow();
-                pressed.squeezeExpandoBelow();
+                pressed.insertExpandoAfterRightmostPerson();
                 await wait(0);
-                this.expand();
+                this._expand();
             }
-            ownAndPopulate(pressed, { setGridCol = true }) {
+            _ownAndPopulate(pressed, { setGridCol = true }) {
                 this.owner = pressed;
-                this.setHtml();
+                this._setHtml();
                 if (setGridCol === true)
-                    this.setGridColumn();
+                    this._setGridColumn();
             }
-            collapse() {
+            _collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
                 this.owner.pullbackPeopleBelow();
             }
-            expand() {
+            _expand() {
                 this.removeClass('collapsed').addClass('expanded');
             }
             close() {
-                this.collapse();
+                this._collapse();
                 People.focusOthers(this.owner);
                 this.owner = null;
             }
-            setGridColumn() {
+            _setGridColumn() {
                 let gridColumn;
                 switch (this.owner.indexInRow()) {
                     case 0:
@@ -191,7 +191,7 @@ const PeoplePage = () => {
                 }
                 this.css({ gridColumn });
             }
-            setHtml() {
+            _setHtml() {
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
                 showArrowOnHover(this.email.children('a'));
@@ -202,25 +202,25 @@ const PeoplePage = () => {
         ], Expando.prototype, "toggle", null);
         __decorate([
             log()
-        ], Expando.prototype, "pushAfterAndExpand", null);
+        ], Expando.prototype, "_pushAfterAndExpand", null);
         __decorate([
             log()
-        ], Expando.prototype, "ownAndPopulate", null);
+        ], Expando.prototype, "_ownAndPopulate", null);
         __decorate([
             log()
-        ], Expando.prototype, "collapse", null);
+        ], Expando.prototype, "_collapse", null);
         __decorate([
             log()
-        ], Expando.prototype, "expand", null);
+        ], Expando.prototype, "_expand", null);
         __decorate([
             log()
         ], Expando.prototype, "close", null);
         __decorate([
             log()
-        ], Expando.prototype, "setGridColumn", null);
+        ], Expando.prototype, "_setGridColumn", null);
         __decorate([
             log()
-        ], Expando.prototype, "setHtml", null);
+        ], Expando.prototype, "_setHtml", null);
         function containerFactory({ containerData, people }) {
             let index = 0;
             for (let [name, { image, role, cv, email }] of dict(containerData).items()) {

@@ -60,7 +60,7 @@ const PeoplePage = () => {
                 return int(this.index / ROWSIZE);
             }
             
-            * yieldIndexesBelow(): IterableIterator<[number, number]> {
+            private* _yieldIndexesBelow(): IterableIterator<[number, number]> {
                 // const row = int(person.index / ROWSIZE);
                 for (let i = this.row() + 1; i <= this.group.length / ROWSIZE; i++) {
                     for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.group.length; j++) {
@@ -71,18 +71,18 @@ const PeoplePage = () => {
             
             /**Sets everyone below's gridRow*/
             pushPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     this.group[i * ROWSIZE + j].css({gridRow: `${i + 2}/${i + 2}`});
                 }
             }
             
             pullbackPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     this.group[i * ROWSIZE + j].uncss("gridRow");
                 }
             }
             
-            squeezeExpandoBelow() {
+            insertExpandoAfterRightmostPerson() {
                 let rightmostPersonIndex = Math.min((ROWSIZE - 1) + this.row() * ROWSIZE, this.group.length - 1);
                 this.group[rightmostPersonIndex].after(expando);
             }
@@ -164,10 +164,10 @@ const PeoplePage = () => {
                     // *  Expand
                     People.unfocusOthers(pressed);
                     if (MOBILE)
-                        this.expand();
+                        this._expand();
                     else
-                        await this.pushAfterAndExpand(pressed);
-                    this.ownAndPopulate(pressed, {setGridCol: !MOBILE});
+                        await this._pushAfterAndExpand(pressed);
+                    this._ownAndPopulate(pressed, {setGridCol: !MOBILE});
                     return;
                 }
                 if (this.owner === pressed) {
@@ -181,64 +181,64 @@ const PeoplePage = () => {
                 pressed.focus();
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) { // *  Same group, different row
-                        this.collapse();
+                        this._collapse();
                         if (MOBILE)
-                            this.expand();
+                            this._expand();
                         else
-                            await this.pushAfterAndExpand(pressed);
+                            await this._pushAfterAndExpand(pressed);
                     }
-                    this.ownAndPopulate(pressed, {setGridCol: !MOBILE});
+                    this._ownAndPopulate(pressed, {setGridCol: !MOBILE});
                 } else { // *  Different group
-                    this.collapse();
+                    this._collapse();
                     if (MOBILE)
-                        this.expand();
+                        this._expand();
                     else
-                        await this.pushAfterAndExpand(pressed);
-                    this.ownAndPopulate(pressed, {setGridCol: !MOBILE});
+                        await this._pushAfterAndExpand(pressed);
+                    this._ownAndPopulate(pressed, {setGridCol: !MOBILE});
                 }
                 
                 
             }
             
-            // toggle => ownAndPopulate
+            // toggle => _ownAndPopulate
             @log()
-            async pushAfterAndExpand(pressed: Person) {
+            private async _pushAfterAndExpand(pressed: Person) {
                 pressed.pushPeopleBelow();
-                pressed.squeezeExpandoBelow();
+                pressed.insertExpandoAfterRightmostPerson();
                 await wait(0);
-                this.expand();
+                this._expand();
             }
             
-            // toggle => ownAndPopulate
+            // toggle => _ownAndPopulate
             @log()
-            ownAndPopulate(pressed: Person, {setGridCol = true}) {
+            private _ownAndPopulate(pressed: Person, {setGridCol = true}) {
                 this.owner = pressed;
-                this.setHtml();
+                this._setHtml();
                 if (setGridCol === true)
-                    this.setGridColumn();
+                    this._setGridColumn();
             }
             
             @log()
-            collapse() {
+            private _collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
                 this.owner.pullbackPeopleBelow();
             }
             
             @log()
-            expand() {
+            private _expand() {
                 this.removeClass('collapsed').addClass('expanded');
             }
             
             @log()
             close() {
-                this.collapse();
+                this._collapse();
                 People.focusOthers(this.owner);
                 this.owner = null;
             }
             
-            // toggle => ownAndPopulate => setGridColumn
+            // toggle => _ownAndPopulate => _setGridColumn
             @log()
-            setGridColumn() {
+            private _setGridColumn() {
                 let gridColumn;
                 switch (this.owner.indexInRow()) {
                     case 0:
@@ -255,9 +255,9 @@ const PeoplePage = () => {
                 this.css({gridColumn})
             }
             
-            // toggle => ownAndPopulate => setHtml
+            // toggle => _ownAndPopulate => _setHtml
             @log()
-            setHtml() {
+            private _setHtml() {
                 
                 // const expandoHeight = Math.floor((this.owner.cv.length - 640) / 55);
                 // console.log({'this.owner.cv.length': this.owner.cv.length, expandoHeight});
