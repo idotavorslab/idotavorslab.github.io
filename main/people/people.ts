@@ -220,7 +220,7 @@ const PeoplePage = () => {
             
             @log()
             private _collapse() {
-                this.removeClass('expanded').addClass('collapsed').remove();
+                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
                 this.owner.pullbackPeopleBelow();
             }
             

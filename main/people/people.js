@@ -164,7 +164,7 @@ const PeoplePage = () => {
                     this._setGridColumn();
             }
             _collapse() {
-                this.removeClass('expanded').addClass('collapsed').remove();
+                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
                 this.owner.pullbackPeopleBelow();
             }
             _expand() {
