@@ -170,9 +170,9 @@ const GalleryPage = () => {
         //**  imgViewer
         const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
-                left: div({id: 'left_css_chevron', cls: 'left'}).append(span({cls: 'lines'})).click(gotoAdjImg),
+                left: div({id: 'left_chevron', cls: 'left'}).append(span({cls: 'lines'})).click(gotoAdjImg),
                 img: img(),
-                right: div({id: 'right_css_chevron', cls: 'right'}).append(span({cls: 'lines'})).click(gotoAdjImg),
+                right: div({id: 'right_chevron', cls: 'right'}).append(span({cls: 'lines'})).click(gotoAdjImg),
                 caption: div({id: 'caption'})
             }).click((event: Event) => {
                 // *  Clicked on img, not chevrons. do nothing
@@ -293,7 +293,7 @@ const GalleryPage = () => {
                 }
             });
         
-        const imgViewerClose = div({id: 'img_viewer_close_css'})
+        const imgViewerClose = div({id: 'img_viewer_close'})
             .append(span({cls: 'lines'})).click(closeImgViewer);
         
         

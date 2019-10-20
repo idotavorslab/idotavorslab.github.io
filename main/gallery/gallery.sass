@@ -47,6 +47,7 @@ div#home.gallery-page
 			// **  max-width($BP4)
 			@include max-width($BP4)
 
+	// ***  img_viewer
 	div#img_viewer
 
 		// 1340px
@@ -85,20 +86,17 @@ div#home.gallery-page
 			opacity: 1
 			z-index: 5
 
-		--chevronWidth: 60px
+		--chevronWidth: 55px
 
 		& > img
 			@include min-width($BP4)
 				max-height: var(--localHeight)
-			//width: 100%
-			//object-fit: contain
 			@include max-width($BP4)
-				//width: 75%
-				width: calc(100% - 2 * var(--chevronWidth))
+				width: calc(110% - 2 * var(--chevronWidth))
 				object-fit: contain
 
 
-		& > div#right_css_chevron, & > div#left_css_chevron
+		& > div#right_chevron, & > div#left_chevron
 			display: flex
 			margin: auto
 			//width: $chevronWidth
@@ -184,7 +182,7 @@ div#home.gallery-page
 			& > svg
 				transform: rotate(180deg)
 
-	div#img_viewer_close_css
+	div#img_viewer_close
 		height: var(--MOBILE_NAVBAR_HEIGHT)
 		opacity: 0
 		position: fixed
@@ -224,39 +222,39 @@ div#home.gallery-page
 				width: 100%
 
 
-	//div#img_viewer_close
-		position: fixed
-		@include min-width($BP4)
-			top: var(--gap)
-		@include max-width($BP4)
-			top: calc(var(--MOBILE_NAVBAR_HEIGHT) + var(--small_gap))
-		right: var(--gap)
-		opacity: 0
-		transition: opacity 100ms
+//div#img_viewer_close
+	position: fixed
+	@include min-width($BP4)
+		top: var(--gap)
+	@include max-width($BP4)
+		top: calc(var(--MOBILE_NAVBAR_HEIGHT) + var(--small_gap))
+	right: var(--gap)
+	opacity: 0
+	transition: opacity 100ms
 
-		&.on
-			opacity: 0.8
-			cursor: pointer
+	&.on
+		opacity: 0.8
+		cursor: pointer
 
-			&:hover
-				opacity: 1
+		&:hover
+			opacity: 1
 
-		& > svg
-			display: block
-			// *  DEP: gallery.ts imgViewerClose attr viewBox
-			--dim: 32px
-			width: var(--dim)
-			height: var(--dim)
+	& > svg
+		display: block
+		// *  DEP: gallery.ts imgViewerClose attr viewBox
+		--dim: 32px
+		width: var(--dim)
+		height: var(--dim)
 
 
-			& > path
-				fill: none
-				stroke-width: 4px
-				stroke: white
+		& > path
+			fill: none
+			stroke-width: 4px
+			stroke: white
 
-				// *  DEP: svg --dim
-				&.upright
-					d: path("m 31 1 l -30 30")
+			// *  DEP: svg --dim
+			&.upright
+				d: path("m 31 1 l -30 30")
 
-				&.downleft
-					d: path("m 1 1 l 30 30")
+			&.downleft
+				d: path("m 1 1 l 30 30")
