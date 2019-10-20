@@ -52,7 +52,6 @@ div#home.people-page
 		// [min-width: $BP1]:  30px
 		// [max-width: $BP1]:  20px
 		--expandoPadding: 30px
-		$colorTrans: color 300ms cubic-bezier(1, 0, 1, 0)
 		$svgDim: 25
 		//$svgDim: 15
 		@include max-width($BP1)
@@ -60,10 +59,9 @@ div#home.people-page
 		@include max-width($BP4)
 			border-radius: 15px
 
-		// **  All Resolutions
+
 		background-color: white
 		box-shadow: 0px 1px 2px white
-		color: white
 		display: flex
 		flex-wrap: wrap
 		height: 0
@@ -76,7 +74,7 @@ div#home.people-page
 		padding: var(--expandoPadding)
 		text-align: left
 
-		transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), $colorTrans, box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
+		transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
 
 		// [min-width: $BP1]:  255 - 30*2  =  195px
 		// [max-width: $BP1]:  216 - 20*2  =  176px
@@ -89,6 +87,7 @@ div#home.people-page
 		& > div.cv
 			width: calc(100% - #{$svgDim}px - var(--cvRightGap))
 			margin-block-start: -5px
+			color: var(--GREY7)
 
 			& > p
 				font-size: unset
@@ -105,7 +104,7 @@ div#home.people-page
 			margin-left: auto
 			width: $svgDim + px
 			padding-left: var(--cvRightGap)
-			padding-bottom: var(--cvRightGap)
+			padding-bottom: $svgDim + px
 
 
 			& > path
@@ -122,63 +121,50 @@ div#home.people-page
 
 		// only on mobile
 		& > div.title
+			color: var(--GREY8)
 			font:
 				size: 20px
 				family: OpenSansBold
-			//line-height: 16px
-			margin-bottom: 24px
-			color: var(--GREY8)
 			letter-spacing: -0.5px
 			margin-block-start: -4px
-		//& > a
-			color: white
-			transition: $colorTrans
+			margin-bottom: 24px
 
-		&.collapsed
+		// **  collapsed
+		&[class="collapsed"]
 			padding: 0
 			opacity: 0
 			z-index: -1
 
-		&.expanded
-			z-index: 5
+		// **  expanded
+		&[class="expanded"]
+			border-color: white
+			height: 300px
 			opacity: 1
-			@include min-width($BP4)
-				box-shadow: 0px 2px 10px var(--GREY3)
-				//height: 300px
-			@include max-width($BP4)
-				// *  DEP: gallery.sass div#img_viewer
-				box-shadow: 0px 2px 10px var(--GREY8)
-				//display: flex
-				//flex-direction: column
-				position: fixed
-				top: var(--MOBILE_NAVBAR_HEIGHT)
-				width: 75%
+			z-index: 5
 
-				height: auto
-				margin: auto
-
+			& > div.cv
+				//color: var(--GREY7)
 
 			& > div.email
-				& > a
-					color: var(--GOOGLEBLUE)
-
-				margin:
-					top: 10px
+				margin-top: 10px
 
 			& > div.close
 				opacity: 1
 
+			@include min-width($BP4)
+				box-shadow: 0px 2px 10px var(--GREY3)
+				width: calc(var(--tagWidth) * 2)
 
-			border-color: white
+			@include max-width($BP4)
+				box-shadow: 0px 2px 10px var(--GREY8)
+				height: auto
+				margin: auto
+				position: fixed
+				top: var(--MOBILE_NAVBAR_HEIGHT)
+				width: 75%
 
-			color: var(--GREY7)
-			height: 300px
-			//height: auto
-			//@include expandoHeightMixin()
 
-			// [min-width: $BP1]:  255*2  =  510px
-			// [max-width: $BP1]:  216*2  =  432px
-			width: calc(var(--tagWidth) * 2)
+
 
 
 

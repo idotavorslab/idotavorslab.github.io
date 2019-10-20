@@ -915,7 +915,6 @@ div#home.people-page div#person_expando {
   --expandoPadding: 30px;
   background-color: white;
   box-shadow: 0px 1px 2px white;
-  color: white;
   display: flex;
   flex-wrap: wrap;
   height: 0;
@@ -923,7 +922,7 @@ div#home.people-page div#person_expando {
   overflow: hidden;
   padding: var(--expandoPadding);
   text-align: left;
-  transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), color 300ms cubic-bezier(1, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0);
+  transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0);
   width: calc(var(--tagWidth) - 2 * var(--expandoPadding));
 }
 @media screen and (max-width: 1340px) {
@@ -949,6 +948,7 @@ div#home.people-page div#person_expando {
 div#home.people-page div#person_expando > div.cv {
   width: calc(100% - 25px - var(--cvRightGap));
   margin-block-start: -5px;
+  color: var(--GREY7);
 }
 div#home.people-page div#person_expando > div.cv > p {
   font-size: unset;
@@ -963,7 +963,7 @@ div#home.people-page div#person_expando > svg#svg_root {
   margin-left: auto;
   width: 25px;
   padding-left: var(--cvRightGap);
-  padding-bottom: var(--cvRightGap);
+  padding-bottom: 25px;
 }
 div#home.people-page div#person_expando > svg#svg_root > path {
   fill: none;
@@ -977,49 +977,45 @@ div#home.people-page div#person_expando > svg#svg_root > path.downleft {
   d: path("m 1 1 l 23 23");
 }
 div#home.people-page div#person_expando > div.title {
+  color: var(--GREY8);
   font-size: 20px;
   font-family: OpenSansBold;
-  margin-bottom: 24px;
-  color: var(--GREY8);
   letter-spacing: -0.5px;
   margin-block-start: -4px;
+  margin-bottom: 24px;
 }
-div#home.people-page div#person_expando.collapsed {
+div#home.people-page div#person_expando[class=collapsed] {
   padding: 0;
   opacity: 0;
   z-index: -1;
 }
-div#home.people-page div#person_expando.expanded {
-  z-index: 5;
-  opacity: 1;
+div#home.people-page div#person_expando[class=expanded] {
   border-color: white;
-  color: var(--GREY7);
   height: 300px;
-  width: calc(var(--tagWidth) * 2);
+  opacity: 1;
+  z-index: 5;
+}
+div#home.people-page div#person_expando[class=expanded] > div.email {
+  margin-top: 10px;
+}
+div#home.people-page div#person_expando[class=expanded] > div.close {
+  opacity: 1;
 }
 @media screen and (min-width: 500px) {
-  div#home.people-page div#person_expando.expanded {
+  div#home.people-page div#person_expando[class=expanded] {
     box-shadow: 0px 2px 10px var(--GREY3);
+    width: calc(var(--tagWidth) * 2);
   }
 }
 @media screen and (max-width: 500px) {
-  div#home.people-page div#person_expando.expanded {
+  div#home.people-page div#person_expando[class=expanded] {
     box-shadow: 0px 2px 10px var(--GREY8);
+    height: auto;
+    margin: auto;
     position: fixed;
     top: var(--MOBILE_NAVBAR_HEIGHT);
     width: 75%;
-    height: auto;
-    margin: auto;
   }
-}
-div#home.people-page div#person_expando.expanded > div.email {
-  margin-top: 10px;
-}
-div#home.people-page div#person_expando.expanded > div.email > a {
-  color: var(--GOOGLEBLUE);
-}
-div#home.people-page div#person_expando.expanded > div.close {
-  opacity: 1;
 }
 
 @media screen and (min-width: 500px) {
