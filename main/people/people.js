@@ -106,15 +106,22 @@ const PeoplePage = () => {
                     event.stopPropagation();
                     this.close();
                 });
-                this
-                    .click((event) => {
+                this.click((event) => {
                     console.log('expando click, stopping propagation');
                     event.stopPropagation();
-                })
-                    .append(svgX, {
-                    cv: div({ cls: 'cv' }),
-                    email: div({ cls: 'email' })
                 });
+                const onfulfilled = () => {
+                    if (!MOBILE)
+                        this.append(svgX);
+                    this.cacheAppend({
+                        cv: div({ cls: 'cv' }),
+                        email: div({ cls: 'email' })
+                    });
+                };
+                if (MOBILE === undefined)
+                    WindowElem.promiseLoaded().then(onfulfilled);
+                else
+                    onfulfilled();
             }
             async toggle(pressed) {
                 if (this.owner === null) {

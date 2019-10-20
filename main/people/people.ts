@@ -144,20 +144,24 @@ const PeoplePage = () => {
                         event.stopPropagation();
                         this.close();
                     });
-                this
-                    .click((event: Event) => {
-                        // prevent propagation to DocumentElem
-                        console.log('expando click, stopping propagation');
-                        event.stopPropagation();
-                    })
-                    .append(svgX, {
+                this.click((event: Event) => {
+                    // prevent propagation to DocumentElem
+                    console.log('expando click, stopping propagation');
+                    event.stopPropagation();
+                });
+                const onfulfilled = () => {
+                    if (!MOBILE)
+                        this.append(svgX);
+                    this.cacheAppend({
                         cv: div({cls: 'cv'}),
                         email: div({cls: 'email'})
                     })
-                // .cacheAppend({
-                //     cv: div({cls: 'cv'}),
-                //     email: div({cls: 'email'})
-                // });
+                };
+                if (MOBILE === undefined)
+                    WindowElem.promiseLoaded().then(onfulfilled);
+                else
+                    onfulfilled();
+                
             }
             
             
