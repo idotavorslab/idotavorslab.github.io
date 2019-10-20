@@ -269,14 +269,7 @@ const PeoplePage = () => {
                 
                 
                 this.css({gridColumn});
-                /*this.on({
-                    transitionend: (event: TransitionEvent) => {
-                        if (event.propertyName === "width") {
-                            console.log(`expando ${event.propertyName} transitionend, elapsed: ${event.elapsedTime}`);
-                            this.off("transitionend");
-                        }
-                    }
-                });*/
+                
                 wait(250).then(() => {
                     let overflown = isOverflown(this.e);
                     if (overflown) {
