@@ -956,6 +956,7 @@ div#home.people-page div#person_expando {
   div#home.people-page div#person_expando > div.role {
     margin-bottom: 16px;
     margin-top: -4px;
+    width: 100%;
   }
 }
 div#home.people-page div#person_expando > div.cv {
