@@ -176,12 +176,6 @@ const PeoplePage = () => {
                     } else {
                         this.cv.after(svgX)
                     }
-                    /*this.append({
-                            cv: div({cls: 'cv'}),
-                            svg: svgX,
-                            email: div({cls: 'email'})
-                        }
-                    );*/
                     
                     
                 });
@@ -274,10 +268,8 @@ const PeoplePage = () => {
                 this.css({gridColumn});
                 
                 wait(250).then(() => {
-                    let overflown = isOverflown(this.e);
-                    if (overflown) {
-                        let oldHeight = this.e.clientHeight;
-                        let diff = this.e.scrollHeight - oldHeight;
+                    if (isOverflown(this.e)) {
+                        let diff = this.e.scrollHeight - this.e.clientHeight;
                         this.css({height: `${parseInt(getComputedStyle(this.e).height) + diff}px`});
                     }
                     
@@ -305,6 +297,7 @@ const PeoplePage = () => {
                 if (MOBILE) {
                     People.focusAll();
                     elem({id: 'navbar_section'}).removeClass('off');
+                    [teamH1, alumniH1].forEach(h1 => h1.removeClass('unfocused'))
                 } else {
                     People.focusOthers(this.owner);
                     
@@ -349,9 +342,17 @@ const PeoplePage = () => {
                 */
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
-                if (MOBILE)
+                if (MOBILE) {
                     this.title.text(this.owner.name);
-                showArrowOnHover(this.email.children('a'));
+                    if (isOverflown(this.e))
+                        this.css({bottom: 'unset'});
+                    else
+                        this.uncss('bottom');
+                    [teamH1, alumniH1].forEach(h1 => h1.class('unfocused'))
+                } else {
+                    showArrowOnHover(this.email.children('a'));
+                }
+                
                 
             }
             
@@ -414,17 +415,20 @@ const PeoplePage = () => {
             }
         }
         
-        DocumentElem
-            .click(() => {
-                console.log('DocumentElem click');
-                if (expando.owner !== null)
-                    expando.close()
-            })
-            .keydown(keyboardNavigation);
+        DocumentElem.click(() => {
+            console.log('DocumentElem click');
+            if (expando.owner !== null)
+                expando.close()
+        });
+        if (!MOBILE)
+            DocumentElem.keydown(keyboardNavigation);
+        
+        const teamH1 = elem({tag: 'h1', text: 'Team'});
+        const alumniH1 = elem({tag: 'h1', text: 'Alumni'});
         Home.empty().class('people-page').append(
-            elem({tag: 'h1', text: 'Team'}),
+            teamH1,
             teamContainer,
-            elem({tag: 'h1', text: 'Alumni'}),
+            alumniH1,
             alumniContainer,
             expando
         );

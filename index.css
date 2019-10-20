@@ -829,6 +829,10 @@ div#home > div.article > img.circle {
   }
 }
 
+div#home.people-page .unfocused {
+  opacity: 0.4;
+  filter: blur(2px) contrast(0.8);
+}
 div#home.people-page > div.grid {
   --tagWidth: calc((var(--w) - (var(--gap) * (var(--columns) - 1))) / var(--columns));
   display: grid;
@@ -877,10 +881,6 @@ div#home.people-page > div.grid > div.person {
   height: 100%;
   transition: opacity 500ms;
 }
-div#home.people-page > div.grid > div.person.unfocused {
-  opacity: 0.4;
-  filter: blur(2px) contrast(0.8);
-}
 div#home.people-page > div.grid > div.person > img {
   width: inherit;
   border-radius: 15px;
@@ -914,7 +914,7 @@ div#home.people-page div#person_expando {
   border-radius: 2px;
   --expandoPadding: 30px;
   background-color: white;
-  box-shadow: 0px 1px 2px white;
+  box-shadow: 0px 2px 10px white;
   display: flex;
   flex-wrap: wrap;
   height: 0;
@@ -927,32 +927,23 @@ div#home.people-page div#person_expando {
 @media screen and (min-width: 500px) {
   div#home.people-page div#person_expando {
     transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 1500ms;
-  }
-}
-@media screen and (max-width: 500px) {
-  div#home.people-page div#person_expando {
-    transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 500ms;
-    border-radius: 15px;
-    place-content: flex-start;
-    align-content: flex-start;
-    top: var(--MOBILE_NAVBAR_HEIGHT);
-    bottom: var(--MOBILE_NAVBAR_HEIGHT);
-  }
-}
-@media screen and (min-width: 500px) {
-  div#home.people-page div#person_expando {
     --cvRightGap: 25px;
   }
 }
 @media screen and (max-width: 500px) {
   div#home.people-page div#person_expando {
     --cvRightGap: 15px;
+    align-content: flex-start;
+    border-radius: 15px;
+    bottom: var(--MOBILE_NAVBAR_HEIGHT);
+    place-content: flex-start;
+    top: var(--MOBILE_NAVBAR_HEIGHT);
+    transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 500ms, opacity 0.2s;
   }
 }
 div#home.people-page div#person_expando > div.cv {
   width: calc(100% - 25px - var(--cvRightGap));
   margin-block-start: -5px;
-  color: var(--GREY7);
 }
 div#home.people-page div#person_expando > div.cv > p {
   font-size: unset;
@@ -1014,7 +1005,7 @@ div#home.people-page div#person_expando.expanded > div.close {
 }
 @media screen and (max-width: 500px) {
   div#home.people-page div#person_expando.expanded {
-    box-shadow: 0px 2px 10px var(--GREY8);
+    box-shadow: 0px 5px 10px var(--GREY5);
     height: auto;
     margin: auto;
     position: fixed;

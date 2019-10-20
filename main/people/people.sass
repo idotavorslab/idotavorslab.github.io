@@ -1,6 +1,8 @@
 
 div#home.people-page
-
+	.unfocused
+		opacity: 0.4
+		filter: blur(2px) contrast(0.8)
 
 	// ***  grid
 	& > div.grid
@@ -14,9 +16,6 @@ div#home.people-page
 			height: 100%
 			transition: opacity 500ms
 
-			&.unfocused
-				opacity: 0.4
-				filter: blur(2px) contrast(0.8)
 
 			& > img
 				// inherits from div.person, whose width is 100% in mixins.sass
@@ -59,17 +58,18 @@ div#home.people-page
 		$baseTransition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0)
 		@include min-width($BP4)
 			transition: $baseTransition, box-shadow 1500ms
+			--cvRightGap: 25px
 		@include max-width($BP4)
-			transition: $baseTransition, box-shadow 500ms
-			border-radius: 15px
-			place-content: flex-start
+			--cvRightGap: 15px
 			align-content: flex-start
-			top: var(--MOBILE_NAVBAR_HEIGHT)
+			border-radius: 15px
 			bottom: var(--MOBILE_NAVBAR_HEIGHT)
-
+			place-content: flex-start
+			top: var(--MOBILE_NAVBAR_HEIGHT)
+			transition: $baseTransition, box-shadow 500ms, opacity 0.2s
 
 		background-color: white
-		box-shadow: 0px 1px 2px white
+		box-shadow: 0px 2px 10px white
 		display: flex
 		flex-wrap: wrap
 		height: 0
@@ -86,15 +86,12 @@ div#home.people-page
 		// [min-width: $BP1]:  255 - 30*2  =  195px
 		// [max-width: $BP1]:  216 - 20*2  =  176px
 		width: calc(var(--tagWidth) - 2 * var(--expandoPadding))
-		@include min-width($BP4)
-			--cvRightGap: 25px
-		@include max-width($BP4)
-			--cvRightGap: 15px
+
 
 		& > div.cv
 			width: calc(100% - #{$svgDim}px - var(--cvRightGap))
 			margin-block-start: -5px
-			color: var(--GREY7)
+			//color: var(--GREY7)
 
 			& > p
 				font-size: unset
@@ -151,7 +148,7 @@ div#home.people-page
 			z-index: 5
 
 			& > div.cv
-				//color: var(--GREY7)
+			//color: var(--GREY7)
 
 			& > div.email
 				margin-top: 10px
@@ -164,7 +161,7 @@ div#home.people-page
 				width: calc(var(--tagWidth) * 2)
 
 			@include max-width($BP4)
-				box-shadow: 0px 2px 10px var(--GREY8)
+				box-shadow: 0px 5px 10px var(--GREY5)
 				height: auto
 				margin: auto
 				position: fixed
