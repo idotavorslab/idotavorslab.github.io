@@ -53,10 +53,14 @@ div#home.people-page
 		// [max-width: $BP1]:  20px
 		--expandoPadding: 30px
 		$svgDim: 25
-		//$svgDim: 15
-		@include max-width($BP1)
+		//@include max-width($BP1)
 			font-size: 15px
+
+		$baseTransition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0)
+		@include min-width($BP4)
+			transition: $baseTransition, box-shadow 1500ms
 		@include max-width($BP4)
+			transition: $baseTransition, box-shadow 500ms
 			border-radius: 15px
 
 
@@ -74,7 +78,6 @@ div#home.people-page
 		padding: var(--expandoPadding)
 		text-align: left
 
-		transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0)
 
 		// [min-width: $BP1]:  255 - 30*2  =  195px
 		// [max-width: $BP1]:  216 - 20*2  =  176px

@@ -922,16 +922,16 @@ div#home.people-page div#person_expando {
   overflow: hidden;
   padding: var(--expandoPadding);
   text-align: left;
-  transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), box-shadow 1500ms, border 500ms cubic-bezier(0, 0, 1, 0);
   width: calc(var(--tagWidth) - 2 * var(--expandoPadding));
 }
-@media screen and (max-width: 1340px) {
+@media screen and (min-width: 500px) {
   div#home.people-page div#person_expando {
-    font-size: 15px;
+    transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 1500ms;
   }
 }
 @media screen and (max-width: 500px) {
   div#home.people-page div#person_expando {
+    transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 500ms;
     border-radius: 15px;
   }
 }
