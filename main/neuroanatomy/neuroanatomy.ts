@@ -2,12 +2,12 @@ const NeuroanatomyPage = () => {
     
     
     async function init() {
-        type TNeuroanatomyData = { brains: TMap<{ text: string, link: string }>, "intro-text": string };
+        type TNeuroanatomyData = { brains: TMap<{ text: string, link: string, dev: boolean }>, "intro-text": string };
         const {brains: brainsData, "intro-text": introText} = await fetchDict<TNeuroanatomyData>('main/neuroanatomy/neuroanatomy.json');
-        // const {brains: brainsData, "intro-text": introText} = data;
         const brains = [];
-        for (let [title, {text, link}] of Object.entries(brainsData)) {
-            // console.log(JSON.parstr({title, text, link}));
+        for (let [title, {text, link, dev}] of Object.entries(brainsData)) {
+            if (dev && !IS_GILAD)
+                continue;
             let brain = div({cls: 'brain'}).append(
                 div({cls: 'sketchfab-embed-wrapper'}).html(wrapSketch(title, link)),
                 elem({tag: 'h2'}).text(capitalizeLine(title)),
