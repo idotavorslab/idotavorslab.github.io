@@ -933,6 +933,10 @@ div#home.people-page div#person_expando {
   div#home.people-page div#person_expando {
     transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 500ms;
     border-radius: 15px;
+    place-content: flex-start;
+    align-content: flex-start;
+    top: var(--MOBILE_NAVBAR_HEIGHT);
+    bottom: var(--MOBILE_NAVBAR_HEIGHT);
   }
 }
 @media screen and (min-width: 500px) {
@@ -1014,7 +1018,6 @@ div#home.people-page div#person_expando.expanded > div.close {
     height: auto;
     margin: auto;
     position: fixed;
-    top: var(--MOBILE_NAVBAR_HEIGHT);
     width: 75%;
   }
 }

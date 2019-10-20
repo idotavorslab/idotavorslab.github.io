@@ -62,6 +62,10 @@ div#home.people-page
 		@include max-width($BP4)
 			transition: $baseTransition, box-shadow 500ms
 			border-radius: 15px
+			place-content: flex-start
+			align-content: flex-start
+			top: var(--MOBILE_NAVBAR_HEIGHT)
+			bottom: var(--MOBILE_NAVBAR_HEIGHT)
 
 
 		background-color: white
@@ -164,7 +168,7 @@ div#home.people-page
 				height: auto
 				margin: auto
 				position: fixed
-				top: var(--MOBILE_NAVBAR_HEIGHT)
+
 				width: 75%
 
 
