@@ -85,16 +85,15 @@ div#home.people-page
 				line-height: unset
 
 		& > svg#svg_root
-			// [min-width: $BP1]:  60/4  =  15px
-			// [max-width: $BP1]:  40/4  =  10px
-			$dim: 15px
+			// *  DEP: people.ts Expando constructor() svgX attr viewBox
+			$dim: 25
 			cursor: pointer
 			display: block
 			margin-left: auto
-			margin-right: calc(#{$dim} * -1)
-			margin-top: calc(#{$dim} * -1)
+			//margin-right: ($dim - 1) + px
+			//margin-top: ($dim - 1) + px
 			position: relative
-			width: $dim
+			width: $dim + px
 
 
 			& > path
@@ -104,10 +103,10 @@ div#home.people-page
 
 
 				&.upright
-					d: path("m 14 1 l -13 13")
+					d: path("m #{$dim - 1} 1 l -#{$dim - 2} #{$dim - 2}")
 
 				&.downleft
-					d: path("m 1 1 l 13 13")
+					d: path("m 1 1 l #{$dim - 2} #{$dim - 2}")
 
 
 		//& > a

@@ -99,7 +99,7 @@ const PeoplePage = () => {
                 this.owner = null;
                 const svgX = elem({ tag: 'svg' })
                     .id('svg_root')
-                    .attr({ viewBox: '0 0 15 15' })
+                    .attr({ viewBox: '0 0 25 25' })
                     .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
                     .click((event) => {
                     console.log('svg click, stopping prop and closing');

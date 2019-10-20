@@ -134,7 +134,7 @@ const PeoplePage = () => {
                 super({id: 'person_expando', cls: 'collapsed'});
                 const svgX = elem({tag: 'svg'})
                     .id('svg_root')
-                    .attr({viewBox: '0 0 15 15'})
+                    .attr({viewBox: '0 0 25 25'})
                     .append(
                         elem({tag: 'path', cls: 'upright'}),
                         elem({tag: 'path', cls: 'downleft'})
