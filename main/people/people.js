@@ -119,8 +119,11 @@ const PeoplePage = () => {
             async toggle(pressed) {
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
-                    await this.pushAfterAndExpand(pressed);
-                    this.ownPopulateAndPosition(pressed);
+                    if (MOBILE)
+                        this.expand();
+                    else
+                        await this.pushAfterAndExpand(pressed);
+                    this.ownAndPopulate(pressed, { setGridCol: !MOBILE });
                     return;
                 }
                 if (this.owner === pressed) {
@@ -132,14 +135,20 @@ const PeoplePage = () => {
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) {
                         this.collapse();
-                        await this.pushAfterAndExpand(pressed);
+                        if (MOBILE)
+                            this.expand();
+                        else
+                            await this.pushAfterAndExpand(pressed);
                     }
-                    this.ownPopulateAndPosition(pressed);
+                    this.ownAndPopulate(pressed, { setGridCol: !MOBILE });
                 }
                 else {
                     this.collapse();
-                    await this.pushAfterAndExpand(pressed);
-                    this.ownPopulateAndPosition(pressed);
+                    if (MOBILE)
+                        this.expand();
+                    else
+                        await this.pushAfterAndExpand(pressed);
+                    this.ownAndPopulate(pressed, { setGridCol: !MOBILE });
                 }
             }
             async pushAfterAndExpand(pressed) {
@@ -148,10 +157,11 @@ const PeoplePage = () => {
                 await wait(0);
                 this.expand();
             }
-            ownPopulateAndPosition(pressed) {
+            ownAndPopulate(pressed, { setGridCol = true }) {
                 this.owner = pressed;
                 this.setHtml();
-                this.setGridColumn();
+                if (setGridCol === true)
+                    this.setGridColumn();
             }
             collapse() {
                 this.removeClass('expanded').addClass('collapsed').remove();
@@ -187,6 +197,27 @@ const PeoplePage = () => {
                 showArrowOnHover(this.email.children('a'));
             }
         }
+        __decorate([
+            log()
+        ], Expando.prototype, "toggle", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "pushAfterAndExpand", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "ownAndPopulate", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "collapse", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "expand", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "close", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "setGridColumn", null);
         __decorate([
             log()
         ], Expando.prototype, "setHtml", null);
