@@ -127,21 +127,19 @@ const PeoplePage = () => {
             }
             async toggle(pressed) {
                 if (this.owner === null) {
-                    People.unfocusOthers(pressed);
                     if (MOBILE) {
-                        elem({ id: 'navbar_section' }).addClass('off');
-                        pressed.unfocus();
+                        People.unfocusOthers(null);
                         this._expand();
                     }
                     else {
+                        People.unfocusOthers(pressed);
                         await this._pushAfterAndExpand(pressed);
                     }
-                    this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
+                    this._ownAndPopulate(pressed);
                     return;
                 }
                 if (this.owner === pressed) {
                     this.close();
-                    elem({ id: 'navbar_section' }).removeClass('off');
                     return;
                 }
                 this.owner.unfocus();
@@ -156,7 +154,7 @@ const PeoplePage = () => {
                             await this._pushAfterAndExpand(pressed);
                         }
                     }
-                    this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
+                    this._ownAndPopulate(pressed);
                 }
                 else {
                     this._collapse();
@@ -166,7 +164,7 @@ const PeoplePage = () => {
                     else {
                         await this._pushAfterAndExpand(pressed);
                     }
-                    this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
+                    this._ownAndPopulate(pressed);
                 }
             }
             async _pushAfterAndExpand(pressed) {
@@ -175,23 +173,27 @@ const PeoplePage = () => {
                 await wait(0);
                 this._expand();
             }
-            _ownAndPopulate(pressed, { setGridCol = true }) {
+            _ownAndPopulate(pressed) {
                 this.owner = pressed;
                 this._setHtml();
-                if (setGridCol === true)
+                if (MOBILE)
                     this._setGridColumn();
             }
             _collapse() {
                 this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
-                this.owner.pullbackPeopleBelow();
+                if (!MOBILE)
+                    this.owner.pullbackPeopleBelow();
             }
             _expand() {
                 this.removeClass('collapsed').addClass('expanded');
+                if (MOBILE)
+                    elem({ id: 'navbar_section' }).addClass('off');
             }
             close() {
                 this._collapse();
                 People.focusOthers(this.owner);
                 this.owner = null;
+                elem({ id: 'navbar_section' }).removeClass('off');
             }
             _setGridColumn() {
                 let gridColumn;
