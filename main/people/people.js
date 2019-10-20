@@ -18,6 +18,7 @@ const PeoplePage = () => {
                 super({ cls: 'person' });
                 this.cv = cv;
                 this.email = email;
+                this.name = name;
                 let imgElem;
                 let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
@@ -238,7 +239,7 @@ const PeoplePage = () => {
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
                 if (MOBILE)
-                    this.title.text('Dr. Ido Tavor');
+                    this.title.text(this.owner.name);
                 showArrowOnHover(this.email.children('a'));
             }
         }

@@ -977,6 +977,7 @@ div#home.people-page div#person_expando > svg#svg_root > path.downleft {
   d: path("m 1 1 l 23 23");
 }
 div#home.people-page div#person_expando > div.title {
+  text-transform: capitalize;
   color: var(--GREY8);
   font-size: 20px;
   font-family: OpenSansBold;
