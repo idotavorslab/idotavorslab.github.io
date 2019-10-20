@@ -106,6 +106,18 @@ const PeoplePage = () => {
                 return index;
             }
             
+            static unfocusAll(): void {
+                for (let p of [...team, ...alumni]) {
+                    p.unfocus();
+                }
+            }
+            
+            static focusAll(): void {
+                for (let p of [...team, ...alumni]) {
+                    p.focus();
+                }
+            }
+            
             static unfocusOthers(person: Person): void {
                 for (let p of [...team, ...alumni]) {
                     if (p !== person) {
@@ -182,10 +194,11 @@ const PeoplePage = () => {
             async toggle(pressed: Person) {
                 if (this.owner === null) {
                     // *  Expand
-                    People.unfocusOthers(pressed);
                     if (MOBILE) {
+                        People.unfocusAll();
                         this._expand();
                     } else {
+                        People.unfocusOthers(pressed);
                         await this._pushAfterAndExpand(pressed);
                     }
                     this._ownAndPopulate(pressed);
@@ -223,7 +236,7 @@ const PeoplePage = () => {
                 
             }
             
-            // toggle => _ownAndPopulate
+            // toggle (MOBILE) => _pushAfterAndExpand
             @log()
             private async _pushAfterAndExpand(pressed: Person) {
                 pressed.pushPeopleBelow();
@@ -238,35 +251,12 @@ const PeoplePage = () => {
                 this.owner = pressed;
                 this._setHtml();
                 if (!MOBILE)
-                    this._setGridColumn();
+                    this.__setGridColumn();
             }
             
+            // toggle => _ownAndPopulate (!MOBILE) => __setGridColumn
             @log()
-            private _collapse() {
-                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
-                if (!MOBILE)
-                    this.owner.pullbackPeopleBelow();
-            }
-            
-            @log()
-            private _expand() {
-                this.removeClass('collapsed').addClass('expanded');
-                if (MOBILE)
-                    elem({id: 'navbar_section'}).addClass('off');
-            }
-            
-            @log()
-            close() {
-                this._collapse();
-                People.focusOthers(this.owner);
-                this.owner = null;
-                if (MOBILE)
-                    elem({id: 'navbar_section'}).removeClass('off');
-            }
-            
-            // toggle => _ownAndPopulate => _setGridColumn
-            @log()
-            private _setGridColumn() {
+            private __setGridColumn() {
                 let gridColumn;
                 switch (this.owner.indexInRow()) {
                     case 0:
@@ -294,6 +284,34 @@ const PeoplePage = () => {
                     
                 });
             }
+            
+            @log()
+            private _collapse() {
+                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
+                if (!MOBILE)
+                    this.owner.pullbackPeopleBelow();
+            }
+            
+            @log()
+            private _expand() {
+                this.removeClass('collapsed').addClass('expanded');
+                if (MOBILE)
+                    elem({id: 'navbar_section'}).addClass('off');
+            }
+            
+            @log()
+            close() {
+                this._collapse();
+                this.owner = null;
+                if (MOBILE) {
+                    People.focusAll();
+                    elem({id: 'navbar_section'}).removeClass('off');
+                } else {
+                    People.focusOthers(this.owner);
+                    
+                }
+            }
+            
             
             // toggle => _ownAndPopulate => _setHtml
             @log()

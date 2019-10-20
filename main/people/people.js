@@ -78,6 +78,16 @@ const PeoplePage = () => {
                 person.group = this;
                 return index;
             }
+            static unfocusAll() {
+                for (let p of [...team, ...alumni]) {
+                    p.unfocus();
+                }
+            }
+            static focusAll() {
+                for (let p of [...team, ...alumni]) {
+                    p.focus();
+                }
+            }
             static unfocusOthers(person) {
                 for (let p of [...team, ...alumni]) {
                     if (p !== person) {
@@ -127,11 +137,12 @@ const PeoplePage = () => {
             }
             async toggle(pressed) {
                 if (this.owner === null) {
-                    People.unfocusOthers(pressed);
                     if (MOBILE) {
+                        People.unfocusAll();
                         this._expand();
                     }
                     else {
+                        People.unfocusOthers(pressed);
                         await this._pushAfterAndExpand(pressed);
                     }
                     this._ownAndPopulate(pressed);
@@ -176,26 +187,9 @@ const PeoplePage = () => {
                 this.owner = pressed;
                 this._setHtml();
                 if (!MOBILE)
-                    this._setGridColumn();
+                    this.__setGridColumn();
             }
-            _collapse() {
-                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
-                if (!MOBILE)
-                    this.owner.pullbackPeopleBelow();
-            }
-            _expand() {
-                this.removeClass('collapsed').addClass('expanded');
-                if (MOBILE)
-                    elem({ id: 'navbar_section' }).addClass('off');
-            }
-            close() {
-                this._collapse();
-                People.focusOthers(this.owner);
-                this.owner = null;
-                if (MOBILE)
-                    elem({ id: 'navbar_section' }).removeClass('off');
-            }
-            _setGridColumn() {
+            __setGridColumn() {
                 let gridColumn;
                 switch (this.owner.indexInRow()) {
                     case 0:
@@ -219,6 +213,27 @@ const PeoplePage = () => {
                     }
                 });
             }
+            _collapse() {
+                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
+                if (!MOBILE)
+                    this.owner.pullbackPeopleBelow();
+            }
+            _expand() {
+                this.removeClass('collapsed').addClass('expanded');
+                if (MOBILE)
+                    elem({ id: 'navbar_section' }).addClass('off');
+            }
+            close() {
+                this._collapse();
+                this.owner = null;
+                if (MOBILE) {
+                    People.focusAll();
+                    elem({ id: 'navbar_section' }).removeClass('off');
+                }
+                else {
+                    People.focusOthers(this.owner);
+                }
+            }
             _setHtml() {
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
@@ -238,6 +253,9 @@ const PeoplePage = () => {
         ], Expando.prototype, "_ownAndPopulate", null);
         __decorate([
             log()
+        ], Expando.prototype, "__setGridColumn", null);
+        __decorate([
+            log()
         ], Expando.prototype, "_collapse", null);
         __decorate([
             log()
@@ -245,9 +263,6 @@ const PeoplePage = () => {
         __decorate([
             log()
         ], Expando.prototype, "close", null);
-        __decorate([
-            log()
-        ], Expando.prototype, "_setGridColumn", null);
         __decorate([
             log()
         ], Expando.prototype, "_setHtml", null);
