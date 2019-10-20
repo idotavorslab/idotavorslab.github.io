@@ -132,29 +132,32 @@ const PeoplePage = () => {
             
             constructor() {
                 super({id: 'person_expando', cls: 'collapsed'});
+                const svgX = elem({tag: 'svg'})
+                    .id('svg_root')
+                    .attr({viewBox: '0 0 15 15'})
+                    .append(
+                        elem({tag: 'path', cls: 'upright'}),
+                        elem({tag: 'path', cls: 'downleft'})
+                    )
+                    .click((event) => {
+                        console.log('svg click, stopping prop and closing');
+                        event.stopPropagation();
+                        this.close();
+                    });
                 this
                     .click((event: Event) => {
                         // prevent propagation to DocumentElem
                         console.log('expando click, stopping propagation');
                         event.stopPropagation();
                     })
-                    .append(
-                        elem({tag: 'svg'})
-                            .id('svg_root')
-                            .attr({viewBox: '0 0 15 15'})
-                            .append(
-                                elem({tag: 'path', cls: 'upright'}),
-                                elem({tag: 'path', cls: 'downleft'})
-                            )
-                            .click((event) => {
-                                console.log('svg click, stopping prop and closing');
-                                event.stopPropagation();
-                                this.close();
-                            }))
-                    .cacheAppend({
+                    .append(svgX, {
                         cv: div({cls: 'cv'}),
                         email: div({cls: 'email'})
-                    });
+                    })
+                // .cacheAppend({
+                //     cv: div({cls: 'cv'}),
+                //     email: div({cls: 'email'})
+                // });
             }
             
             

@@ -118,6 +118,21 @@ div#home.people-page
 			z-index: -1
 
 		&.expanded
+			z-index: 5
+			opacity: 1
+			@include max-width($BP4)
+				// *  DEP: gallery.sass div#img_viewer
+				display: flex
+
+				position: fixed
+				top: 50%
+				width: var(--w)
+				--localHeight: 400px
+				height: var(--localHeight)
+				margin:
+					left: auto
+					right: auto
+					top: calc(var(--localHeight) / -2)
 
 
 			& > div.email

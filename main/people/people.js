@@ -97,12 +97,7 @@ const PeoplePage = () => {
             constructor() {
                 super({ id: 'person_expando', cls: 'collapsed' });
                 this.owner = null;
-                this
-                    .click((event) => {
-                    console.log('expando click, stopping propagation');
-                    event.stopPropagation();
-                })
-                    .append(elem({ tag: 'svg' })
+                const svgX = elem({ tag: 'svg' })
                     .id('svg_root')
                     .attr({ viewBox: '0 0 15 15' })
                     .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
@@ -110,8 +105,13 @@ const PeoplePage = () => {
                     console.log('svg click, stopping prop and closing');
                     event.stopPropagation();
                     this.close();
-                }))
-                    .cacheAppend({
+                });
+                this
+                    .click((event) => {
+                    console.log('expando click, stopping propagation');
+                    event.stopPropagation();
+                })
+                    .append(svgX, {
                     cv: div({ cls: 'cv' }),
                     email: div({ cls: 'email' })
                 });

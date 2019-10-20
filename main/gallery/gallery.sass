@@ -153,35 +153,6 @@ div#home.gallery-page
 			margin-top: calc(var(--localHeight) / 2)
 			width: inherit
 
-	//& > div#right_chevron, & > div#left_chevron
-
-		cursor: pointer
-		filter: invert(1) drop-shadow(2px 4px 6px black)
-		margin: auto
-		opacity: 0.8
-		transition: opacity 100ms, transform 50ms
-		width: var(--chevronWidth)
-		z-index: 5
-
-		&:hover
-			opacity: 1
-
-
-		&.right
-			margin: auto
-
-			&:active
-				& > svg
-					transform: translateX(4px)
-
-		&.left
-			&:active
-				& > svg
-					transform: rotate(180deg) translateX(4px)
-
-			& > svg
-				transform: rotate(180deg)
-
 	div#img_viewer_close
 		height: var(--MOBILE_NAVBAR_HEIGHT)
 		opacity: 0
@@ -222,39 +193,3 @@ div#home.gallery-page
 				width: 100%
 
 
-//div#img_viewer_close
-	position: fixed
-	@include min-width($BP4)
-		top: var(--gap)
-	@include max-width($BP4)
-		top: calc(var(--MOBILE_NAVBAR_HEIGHT) + var(--small_gap))
-	right: var(--gap)
-	opacity: 0
-	transition: opacity 100ms
-
-	&.on
-		opacity: 0.8
-		cursor: pointer
-
-		&:hover
-			opacity: 1
-
-	& > svg
-		display: block
-		// *  DEP: gallery.ts imgViewerClose attr viewBox
-		--dim: 32px
-		width: var(--dim)
-		height: var(--dim)
-
-
-		& > path
-			fill: none
-			stroke-width: 4px
-			stroke: white
-
-			// *  DEP: svg --dim
-			&.upright
-				d: path("m 31 1 l -30 30")
-
-			&.downleft
-				d: path("m 1 1 l 30 30")

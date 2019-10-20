@@ -236,8 +236,10 @@ declare class BetterHTMLElement {
     /**Insert `this` just after a `BetterHTMLElement` or a vanilla `Node`.*/
     insertAfter(node: BetterHTMLElement | HTMLElement): this;
     
-    /**Insert at least one `node` after the last child of `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
-    append(...nodes: Array<BetterHTMLElement | Node>): this;
+    /**Insert at least one `node` after the last child of `this`.
+     * Any `node` can be either a `BetterHTMLElement`, a vanilla `Node`,
+     * a `{someKey: BetterHTMLElement}` pairs object, or a `[someKey, BetterHTMLElement]` tuple.*/
+    append(...nodes: Array<BetterHTMLElement | Node | TMap<BetterHTMLElement> | [string, BetterHTMLElement]>): this;
     
     /**Append `this` to a `BetterHTMLElement` or a vanilla `Node`*/
     appendTo(node: BetterHTMLElement | HTMLElement): this;
