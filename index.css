@@ -836,7 +836,6 @@ div#home.people-page > div.grid {
   grid-template-columns: repeat(var(--columns), 1fr);
   grid-template-rows: repeat(2, auto);
   grid-row-gap: var(--gap);
-  grid-column-gap: var(--gap);
   text-align: center;
 }
 @media screen and (min-width: 500px) {
@@ -849,6 +848,16 @@ div#home.people-page > div.grid {
   div#home.people-page > div.grid {
     --columns: 2;
     --_tightGap: 4px;
+  }
+}
+@media screen and (min-width: 500px) {
+  div#home.people-page > div.grid {
+    grid-column-gap: var(--gap);
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home.people-page > div.grid {
+    grid-column-gap: 5%;
   }
 }
 div#home.people-page > div.grid div.person {
@@ -874,8 +883,18 @@ div#home.people-page > div.grid > div.person.unfocused {
 }
 div#home.people-page > div.grid > div.person > img {
   width: inherit;
-  height: calc(var(--tagWidth) / (4 / 3));
   border-radius: 15px;
+  object-fit: cover;
+}
+@media screen and (min-width: 500px) {
+  div#home.people-page > div.grid > div.person > img {
+    height: calc(var(--tagWidth) / (4 / 3));
+  }
+}
+@media screen and (max-width: 500px) {
+  div#home.people-page > div.grid > div.person > img {
+    height: 160px;
+  }
 }
 div#home.people-page > div.grid > div.person > div {
   text-transform: capitalize;

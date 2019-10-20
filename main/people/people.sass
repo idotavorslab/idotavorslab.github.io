@@ -1,7 +1,8 @@
 
 div#home.people-page
 
-	
+
+	// ***  grid
 	& > div.grid
 		@include gridContainerMixin("div.person")
 		text-align: center
@@ -18,10 +19,17 @@ div#home.people-page
 				filter: blur(2px) contrast(0.8)
 
 			& > img
-				// inherits from div.person, whose width is var(--tagWidth) in mixins.sass
+				// inherits from div.person, whose width is 100% in mixins.sass
 				width: inherit
-				height: calc(var(--tagWidth) / (4 / 3))
 				border-radius: 15px
+				object-fit: cover
+				@include min-width($BP4)
+					height: calc(var(--tagWidth) / (4 / 3))
+
+				@include max-width($BP4)
+					// arbitrary, looks good
+					height: 160px
+
 
 			& > div
 				text-transform: capitalize
@@ -37,7 +45,7 @@ div#home.people-page
 				font:
 					family: OpenSansItalic
 
-
+		// ***  expando
 		& > div#person_expando
 			@include borderMixin(var(--GREY02))
 

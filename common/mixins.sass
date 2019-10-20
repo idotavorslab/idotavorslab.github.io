@@ -108,10 +108,8 @@
 	border-radius: 15px
 // **  --tagWidth
 @mixin setLocalTagWidthVar($tight:false, $columns)
-	// *  DEP:  people.sass     #person_expando width
+	// *  DEP:  people.sass     #person_expando width   (only desktop)
 	//                          person > img width (inherit)
-	//          gallery.sass    #img_viewer_close
-	//                          images > img
 	@if ($tight == true)
 		--tagWidth: calc((var(--w) - (var(--_tightGap) * (#{$columns} - 1))) / #{$columns})
 	@else
@@ -149,9 +147,11 @@
 			row-gap: var(--_tightGap)
 			column-gap: var(--_tightGap)
 	@else
-		grid:
-			row-gap: var(--gap)
-			column-gap: var(--gap)
+		grid-row-gap: var(--gap)
+		@include min-width($BP4)
+			grid-column-gap: var(--gap)
+		@include max-width($BP4)
+			grid-column-gap: 5%
 
 	#{$childTag}
 		margin: auto

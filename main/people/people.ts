@@ -290,8 +290,7 @@ const PeoplePage = () => {
                 people.push(person);
                 index++;
             }
-            let cls = MOBILE ? 'flex' : 'grid';
-            const grid = div({cls}).append(...people);
+            const grid = div({cls: 'grid'}).append(...people);
             
             
             return grid;
@@ -312,23 +311,6 @@ const PeoplePage = () => {
         // **  Containers
         const teamContainer = containerFactory({containerData: teamData, people: team});
         const alumniContainer = containerFactory({containerData: alumniData, people: alumni});
-        
-        
-        Home.empty().class('people-page').append(
-            elem({tag: 'h1', text: 'Team'}),
-            teamContainer,
-            elem({tag: 'h1', text: 'Alumni'}),
-            alumniContainer
-        );
-        
-        
-        DocumentElem
-            .click(() => {
-                console.log('DocumentElem click');
-                if (expando.owner !== null)
-                    expando.close()
-            })
-            .keydown(keyboardNavigation);
         
         function keyboardNavigation(event: KeyboardEvent) {
             
@@ -355,6 +337,20 @@ const PeoplePage = () => {
                 
             }
         }
+        
+        DocumentElem
+            .click(() => {
+                console.log('DocumentElem click');
+                if (expando.owner !== null)
+                    expando.close()
+            })
+            .keydown(keyboardNavigation);
+        Home.empty().class('people-page').append(
+            elem({tag: 'h1', text: 'Team'}),
+            teamContainer,
+            elem({tag: 'h1', text: 'Alumni'}),
+            alumniContainer
+        );
         
         
     }
