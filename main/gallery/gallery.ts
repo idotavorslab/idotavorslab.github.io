@@ -75,9 +75,9 @@ const GalleryPage = () => {
         console.log('GalleryPage init');
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
-        const ROWSIZE = MOBILE ? 3 : 4;
+        const ROWSIZE = MOBILE ? 2 : 4;
         
-        const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        /*const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 185.343 185.343">
     <path style="fill:#000;"
 		  d="M 51.707,185.343
@@ -93,7 +93,7 @@ const GalleryPage = () => {
 	Z"/>
 
 </svg>
-`;
+`;*/
         
         
         //**  Functions
@@ -109,10 +109,6 @@ const GalleryPage = () => {
             imgViewer.caption.text(selectedImg.caption);
             let clone = _selectedImg.e.cloneNode();
             imgViewer.img.wrapSomethingElse(clone);
-            // imgViewer.img.e.replaceWith(_selectedImg.e.cloneNode())
-            // imgViewer.img
-            //     .src(`main/gallery/${selectedImg.path}`)
-            //     .css({filter: `contrast(${selectedImg.contrast}) brightness(${selectedImg.brightness})`});
         }
         
         
@@ -140,8 +136,7 @@ const GalleryPage = () => {
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
             _toggleNavigationElementsDisplay(true);
-            imgViewer
-                .toggleClass('on', false);
+            imgViewer.toggleClass('on', false);
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
@@ -167,22 +162,16 @@ const GalleryPage = () => {
         function _toggleNavigationElementsDisplay(on: boolean) {
             if (on) {
                 elem({id: 'navbar_section'}).removeClass('off');
-                // Navbar.css({opacity: 1});
-                // elem({id: 'navbar_section'}).css({opacity: 1});
             } else {
                 elem({id: 'navbar_section'}).addClass('off');
-                // Navbar.css({opacity: 0});
-                // elem({id: 'navbar_section'}).css({opacity: 0});
             }
         }
         
         //**  imgViewer
         const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
-                // left: div({id: 'left_chevron', cls: 'left'}).html(chevronSvg).click(gotoAdjImg),
                 left: div({id: 'left_css_chevron', cls: 'left'}).append(span({cls: 'lines'})).click(gotoAdjImg),
                 img: img(),
-                // right: div({id: 'right_chevron', cls: 'right'}).html(chevronSvg).click(gotoAdjImg),
                 right: div({id: 'right_css_chevron', cls: 'right'}).append(span({cls: 'lines'})).click(gotoAdjImg),
                 caption: div({id: 'caption'})
             }).click((event: Event) => {
@@ -204,7 +193,6 @@ const GalleryPage = () => {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
                 console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             } else {
-                // console.log(...less(`gallery | "gallery.${file}" not in cache`));
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
@@ -218,7 +206,6 @@ const GalleryPage = () => {
             .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
         
-        // console.log("galleryImgs after sort and index:", JSON.parstr(galleryImgs));
         
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
@@ -249,7 +236,6 @@ const GalleryPage = () => {
             if (galleryImg.year in yearToYearDiv) {
                 count++;
                 yearDiv = yearToYearDiv[galleryImg.year];
-                // console.log(`year ${galleryImg.year} in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
                 
             } else {
                 
@@ -257,12 +243,14 @@ const GalleryPage = () => {
                 let gridChildrenObj = {
                     row0: div({cls: 'row'}),
                     row1: div({cls: 'row'}),
-                    row2: div({cls: 'row'}),
                     
                 };
-                if (!MOBILE)
-                // @ts-ignore
+                if (!MOBILE) {
+                    // @ts-ignore
+                    gridChildrenObj.row2 = div({cls: 'row'});
+                    // @ts-ignore
                     gridChildrenObj.row3 = div({cls: 'row'});
+                }
                 
                 yearDiv = <YearDiv>div({cls: 'year'})
                     .cacheAppend({
@@ -270,7 +258,6 @@ const GalleryPage = () => {
                         grid: div({cls: 'grid'}).cacheAppend(gridChildrenObj)
                     });
                 
-                // console.log(`year ${galleryImg.year} NOT in yearToYearDiv`, JSON.parstr({count, galleryImg, yearDiv}));
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
             appendToRow(yearDiv, galleryImg, count);
@@ -305,16 +292,6 @@ const GalleryPage = () => {
                     
                 }
             });
-        /*
-                const imgViewerClose = div({id: 'img_viewer_close'}).append(
-                    elem({tag: 'svg'})
-                        .attr({viewBox: `0 0 32 32`})
-                        .append(
-                            elem({tag: 'path', cls: 'upright'}),
-                            elem({tag: 'path', cls: 'downleft'})
-                        )
-                ).click(closeImgViewer);
-        */
         
         const imgViewerClose = div({id: 'img_viewer_close_css'})
             .append(span({cls: 'lines'})).click(closeImgViewer);

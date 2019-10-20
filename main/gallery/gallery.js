@@ -44,24 +44,7 @@ const GalleryPage = () => {
         console.log('GalleryPage init');
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
-        const ROWSIZE = MOBILE ? 3 : 4;
-        const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 185.343 185.343">
-    <path style="fill:#000;"
-		  d="M 51.707,185.343
-    c -2.741,0-5.493-1.044-7.593-3.149
-    c -4.194-4.194-4.194-10.981,0-15.175
-	l 74.352-74.347
-	L 44.114,18.32
-	c -4.194-4.194-4.194-10.987,0-15.175
-	c 4.194-4.194,10.987-4.194,15.18,0l81.934,81.934
-	c 4.194,4.194,4.194,10.987,0,15.175
-	l -81.934,81.939
-	C 57.201,184.293,54.454,185.343,51.707,185.343
-	Z"/>
-
-</svg>
-`;
+        const ROWSIZE = MOBILE ? 2 : 4;
         function switchToImg(_selectedImg) {
             console.log(`galleryImg.switchToImg(`, JSON.parstr({ _selectedImg }));
             selectedImg = _selectedImg;
@@ -85,8 +68,7 @@ const GalleryPage = () => {
             Body.toggleClass('theater', false);
             imagesContainer.toggleClass('theater', false);
             _toggleNavigationElementsDisplay(true);
-            imgViewer
-                .toggleClass('on', false);
+            imgViewer.toggleClass('on', false);
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
@@ -169,10 +151,11 @@ const GalleryPage = () => {
                 let gridChildrenObj = {
                     row0: div({ cls: 'row' }),
                     row1: div({ cls: 'row' }),
-                    row2: div({ cls: 'row' }),
                 };
-                if (!MOBILE)
+                if (!MOBILE) {
+                    gridChildrenObj.row2 = div({ cls: 'row' });
                     gridChildrenObj.row3 = div({ cls: 'row' });
+                }
                 yearDiv = div({ cls: 'year' })
                     .cacheAppend({
                     title: div({ cls: 'title' }).text(galleryImg.year),

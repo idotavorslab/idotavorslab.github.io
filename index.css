@@ -847,7 +847,7 @@ div#home.people-page > div.grid {
 }
 @media screen and (max-width: 500px) {
   div#home.people-page > div.grid {
-    --columns: 3;
+    --columns: 2;
     --_tightGap: 4px;
   }
 }
@@ -1111,7 +1111,7 @@ div#home.gallery-page div#images_container > div.year > div.grid {
 }
 @media screen and (max-width: 500px) {
   div#home.gallery-page div#images_container > div.year > div.grid {
-    --columns: 3;
+    --columns: 2;
     --_tightGap: 4px;
   }
 }
