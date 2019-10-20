@@ -111,30 +111,31 @@ const PeoplePage = () => {
                     event.stopPropagation();
                 });
                 const onfulfilled = () => {
-                    if (!MOBILE)
-                        this.append(svgX);
+                    this.append(svgX);
                     this.cacheAppend({
                         cv: div({ cls: 'cv' }),
                         email: div({ cls: 'email' })
                     });
                 };
-                if (MOBILE === undefined)
-                    WindowElem.promiseLoaded().then(onfulfilled);
-                else
-                    onfulfilled();
+                WindowElem.promiseLoaded().then(onfulfilled);
             }
             async toggle(pressed) {
                 if (this.owner === null) {
                     People.unfocusOthers(pressed);
-                    if (MOBILE)
+                    if (MOBILE) {
+                        elem({ id: 'navbar_section' }).addClass('off');
+                        pressed.unfocus();
                         this._expand();
-                    else
+                    }
+                    else {
                         await this._pushAfterAndExpand(pressed);
+                    }
                     this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
                     return;
                 }
                 if (this.owner === pressed) {
                     this.close();
+                    elem({ id: 'navbar_section' }).removeClass('off');
                     return;
                 }
                 this.owner.unfocus();
@@ -142,19 +143,23 @@ const PeoplePage = () => {
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) {
                         this._collapse();
-                        if (MOBILE)
+                        if (MOBILE) {
                             this._expand();
-                        else
+                        }
+                        else {
                             await this._pushAfterAndExpand(pressed);
+                        }
                     }
                     this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
                 }
                 else {
                     this._collapse();
-                    if (MOBILE)
+                    if (MOBILE) {
                         this._expand();
-                    else
+                    }
+                    else {
                         await this._pushAfterAndExpand(pressed);
+                    }
                     this._ownAndPopulate(pressed, { setGridCol: !MOBILE });
                 }
             }
