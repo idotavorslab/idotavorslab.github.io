@@ -2,7 +2,9 @@ const NeuroanatomyPage = () => {
     async function init() {
         const { brains: brainsData, "intro-text": introText } = await fetchDict('main/neuroanatomy/neuroanatomy.json');
         const brains = [];
-        for (let [title, { text, link }] of Object.entries(brainsData)) {
+        for (let [title, { text, link, dev }] of Object.entries(brainsData)) {
+            if (dev && !IS_GILAD)
+                continue;
             let brain = div({ cls: 'brain' }).append(div({ cls: 'sketchfab-embed-wrapper' }).html(wrapSketch(title, link)), elem({ tag: 'h2' }).text(capitalizeLine(title)), paragraph({ cls: 'text' }).html(text));
             brains.push(brain);
         }

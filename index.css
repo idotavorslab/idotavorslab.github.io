@@ -1304,6 +1304,7 @@ div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper {
 div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper > iframe {
   width: 100%;
   height: 100%;
+  border: 0;
 }
 @media screen and (min-width: 500px) {
   div#home > div#brains_flex > div.brain {
