@@ -184,19 +184,16 @@ const PeoplePage = () => {
                     // *  Expand
                     People.unfocusOthers(pressed);
                     if (MOBILE) {
-                        elem({id: 'navbar_section'}).addClass('off');
-                        pressed.unfocus();
                         this._expand();
                     } else {
                         await this._pushAfterAndExpand(pressed);
                     }
-                    this._ownAndPopulate(pressed, {setGridCol: !MOBILE});
+                    this._ownAndPopulate(pressed);
                     return;
                 }
                 if (this.owner === pressed) {
                     // *  Close
                     this.close();
-                    elem({id: 'navbar_section'}).removeClass('off');
                     return;
                     
                 }
@@ -212,7 +209,7 @@ const PeoplePage = () => {
                             await this._pushAfterAndExpand(pressed);
                         }
                     }
-                    this._ownAndPopulate(pressed, {setGridCol: !MOBILE});
+                    this._ownAndPopulate(pressed);
                 } else { // *  Different group
                     this._collapse();
                     if (MOBILE) {
@@ -220,7 +217,7 @@ const PeoplePage = () => {
                     } else {
                         await this._pushAfterAndExpand(pressed);
                     }
-                    this._ownAndPopulate(pressed, {setGridCol: !MOBILE});
+                    this._ownAndPopulate(pressed);
                 }
                 
                 
@@ -237,22 +234,25 @@ const PeoplePage = () => {
             
             // toggle => _ownAndPopulate
             @log()
-            private _ownAndPopulate(pressed: Person, {setGridCol = true}) {
+            private _ownAndPopulate(pressed: Person) {
                 this.owner = pressed;
                 this._setHtml();
-                if (setGridCol === true)
+                if (!MOBILE)
                     this._setGridColumn();
             }
             
             @log()
             private _collapse() {
                 this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
-                this.owner.pullbackPeopleBelow();
+                if (!MOBILE)
+                    this.owner.pullbackPeopleBelow();
             }
             
             @log()
             private _expand() {
                 this.removeClass('collapsed').addClass('expanded');
+                if (MOBILE)
+                    elem({id: 'navbar_section'}).addClass('off');
             }
             
             @log()
@@ -260,6 +260,8 @@ const PeoplePage = () => {
                 this._collapse();
                 People.focusOthers(this.owner);
                 this.owner = null;
+                if (MOBILE)
+                    elem({id: 'navbar_section'}).removeClass('off');
             }
             
             // toggle => _ownAndPopulate => _setGridColumn
