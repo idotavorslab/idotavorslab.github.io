@@ -120,7 +120,16 @@ div#home.people-page
 				&.downleft
 					d: path("m 1 1 l #{$svgDim - 2} #{$svgDim - 2}")
 
-
+		// only on mobile
+		& > div.title
+			font:
+				size: 20px
+				family: OpenSansBold
+			//line-height: 16px
+			margin-bottom: 24px
+			color: var(--GREY8)
+			letter-spacing: -0.5px
+			margin-block-start: -4px
 		//& > a
 			color: white
 			transition: $colorTrans

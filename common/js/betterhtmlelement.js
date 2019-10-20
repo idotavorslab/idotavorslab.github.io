@@ -290,13 +290,7 @@ class BetterHTMLElement {
 				this.cacheAppend(node);
 		}
 		return this;
-		/*if (nodes[0] instanceof BetterHTMLElement)
-			 for (let bhe of <BetterHTMLElement[]>nodes)
-				  this.e.append(bhe.e);
-		else
-			 for (let node of <(string | Node)[]>nodes)
-				  this.e.append(node); // TODO: test what happens when passed strings
-		return this;*/
+		
 	}
 
 	/**Append `this` to a `BetterHTMLElement` or a vanilla `Node`*/

@@ -976,6 +976,14 @@ div#home.people-page div#person_expando > svg#svg_root > path.upright {
 div#home.people-page div#person_expando > svg#svg_root > path.downleft {
   d: path("m 1 1 l 23 23");
 }
+div#home.people-page div#person_expando > div.title {
+  font-size: 20px;
+  font-family: OpenSansBold;
+  margin-bottom: 24px;
+  color: var(--GREY8);
+  letter-spacing: -0.5px;
+  margin-block-start: -4px;
+}
 div#home.people-page div#person_expando.collapsed {
   padding: 0;
   opacity: 0;

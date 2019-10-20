@@ -129,7 +129,7 @@ const PeoplePage = () => {
             public owner: Person = null;
             public cv: Div;
             public email: Div;
-            private svg: Div;
+            private title: Div;
             
             constructor() {
                 super({id: 'person_expando', cls: 'collapsed'});
@@ -153,12 +153,24 @@ const PeoplePage = () => {
                 });
                 
                 WindowElem.promiseLoaded().then(() => {
-                    // if (!MOBILE)
+                    
                     this.append({
+                        cv: div({cls: 'cv'}),
+                        email: div({cls: 'email'})
+                    });
+                    if (MOBILE) {
+                        const title = div({cls: 'title'});
+                        this.cv.before(title, svgX);
+                        this._cache('title', title);
+                    } else {
+                        this.cv.after(svgX)
+                    }
+                    /*this.append({
                             cv: div({cls: 'cv'}),
-                            svg: svgX, email: div({cls: 'email'})
+                            svg: svgX,
+                            email: div({cls: 'email'})
                         }
-                    );
+                    );*/
                     
                     
                 });
@@ -318,6 +330,7 @@ const PeoplePage = () => {
                 */
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
+                this.title.text('Dr. Ido Tavor');
                 showArrowOnHover(this.email.children('a'));
                 
             }

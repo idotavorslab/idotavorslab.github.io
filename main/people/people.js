@@ -113,8 +113,16 @@ const PeoplePage = () => {
                 WindowElem.promiseLoaded().then(() => {
                     this.append({
                         cv: div({ cls: 'cv' }),
-                        svg: svgX, email: div({ cls: 'email' })
+                        email: div({ cls: 'email' })
                     });
+                    if (MOBILE) {
+                        const title = div({ cls: 'title' });
+                        this.cv.before(title, svgX);
+                        this._cache('title', title);
+                    }
+                    else {
+                        this.cv.after(svgX);
+                    }
                 });
             }
             async toggle(pressed) {
@@ -212,6 +220,7 @@ const PeoplePage = () => {
             _setHtml() {
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
+                this.title.text('Dr. Ido Tavor');
                 showArrowOnHover(this.email.children('a'));
             }
         }
