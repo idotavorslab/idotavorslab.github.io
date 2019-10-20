@@ -81,50 +81,15 @@ const Ugug = elem({id: 'ugug'});
 
 WindowElem.on({
     scroll: (event: Event) => {
-        /*await untilNotUndefined(Navbar, 'scroll Navbar');
-        if (window.scrollY > 0) {
-            Navbar.removeClass('box-shadow')
-        } else {
-            Navbar.addClass('box-shadow')
-            
-        }
-        */
-        // Emitter.on('navbarReady', () => window.scrollY > 0 ? Navbar.removeClass('box-shadow') : Navbar.addClass('box-shadow'));
-        /*console.log('scroll started waiting for navbarReady');
-        Emitter.on('navbarReady', () => {
-            console.log('scroll stopped waiting for navbarReady');
-            if (window.scrollY > 0) {
-                Navbar.removeClass('box-shadow')
-            } else {
-                Navbar.addClass('box-shadow')
-                
-            }
-        });
-        */
         
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
-                // console.log('scroll Navbar !== undefined, removing box-shadow');
-                Navbar.removeClass('box-shadow')
+                Navbar.removeClass('box-shadow');
             } else {
-                // console.log('scroll Navbar !== undefined, adding box-shadow');
-                Navbar.addClass('box-shadow')
+                Navbar.addClass('box-shadow');
                 
             }
-        } /*else {
-                console.log('scroll Navbar === undefined, waiting for navbarReady...');
-                Emitter.until('navbarReady').then(() => {
-                    if (window.scrollY > 0) {
-                        console.log('scroll stopped waiting for navbarReady, removing box-shadow');
-                        Navbar.removeClass('box-shadow')
-                    } else {
-                        console.log('scroll stopped waiting for navbarReady, adding box-shadow');
-                        Navbar.addClass('box-shadow')
-                        
-                    }
-                })
-            }
-            */
+        }
         
         
     },
