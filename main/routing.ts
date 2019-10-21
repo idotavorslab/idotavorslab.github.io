@@ -46,7 +46,7 @@ const Routing = (() => {
                 }*/
                 
                 FundingSection.attr({hidden: ''});
-                
+                DocumentElem.allOff();
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 

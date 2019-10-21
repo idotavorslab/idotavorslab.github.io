@@ -379,34 +379,31 @@ class BetterHTMLElement {
 	/**key: string. value: either "selector string" OR {"selector string": <recurse down>}*/
 	cacheChildren(keySelectorObj) {
 		for (let [key, selectorOrObj] of enumerate(keySelectorObj)) {
-            let type = typeof selectorOrObj;
-            if (type === 'object') {
-                if (selectorOrObj instanceof BetterHTMLElement) {
-                    this._cache(key, selectorOrObj);
-                }
-                else {
-				let entries = Object.entries(selectorOrObj);
-				if (entries[1] !== undefined) {
-					console.warn(`cacheChildren() received recursive obj with more than 1 selector for a key. Using only 0th selector`, {
-						key,
-						"multiple selectors": entries.map(e => e[0]),
-						selectorOrObj,
-						this: this
-					});
+			let type = typeof selectorOrObj;
+			if (type === 'object') {
+				if (selectorOrObj instanceof BetterHTMLElement) {
+					this._cache(key, selectorOrObj);
+				} else {
+					let entries = Object.entries(selectorOrObj);
+					if (entries[1] !== undefined) {
+						console.warn(`cacheChildren() received recursive obj with more than 1 selector for a key. Using only 0th selector`, {
+							key,
+							"multiple selectors": entries.map(e => e[0]),
+							selectorOrObj,
+							this: this
+						});
+					}
+					// only first because 1:1 for key:selector.
+					// (ie can't do {right: {.right: {...}, .right2: {...}})
+					let [selector, obj] = entries[0];
+					this._cache(key, this.child(selector));
+					this[key].cacheChildren(obj);
 				}
-				// only first because 1:1 for key:selector.
-				// (ie can't do {right: {.right: {...}, .right2: {...}})
-				let [selector, obj] = entries[0];
-				this._cache(key, this.child(selector));
-				this[key].cacheChildren(obj);
-                }
-            }
-            else if (type === "string") {
+			} else if (type === "string") {
 				this._cache(key, this.child(selectorOrObj));
+			} else {
+				console.warn(`cacheChildren, bad selectorOrObj type: "${type}". key: "${key}", value: "${selectorOrObj}". keySelectorObj:`, keySelectorObj);
 			}
-            else {
-                console.warn(`cacheChildren, bad selectorOrObj type: "${type}". key: "${key}", value: "${selectorOrObj}". keySelectorObj:`, keySelectorObj);
-            }
 		}
 		return this;
 	}
@@ -484,26 +481,29 @@ class BetterHTMLElement {
 	one() {
 		throw new Error("NOT IMPLEMENTED");
 	}
-    /**Remove `event` from wrapped element's event listeners, but keep the removed listener in cache.
-     * This is useful for later unblocking*/
-    blockListener(event) {
-        let listener = this._listeners[event];
-        if (listener === undefined) {
-            // @ts-ignore
-            return console.warn(`blockListener(event): this._listeners[event] is undefined. event:`, event);
-        }
-        this.e.removeEventListener(event, listener);
-        return this;
-    }
-    unblockListener(event) {
-        let listener = this._listeners[event];
-        if (listener === undefined) {
-            // @ts-ignore
-            return console.warn(`unblockListener(event): this._listeners[event] is undefined. event:`, event);
-        }
-        this.e.addEventListener(event, listener);
-        return this;
-    }
+
+	/**Remove `event` from wrapped element's event listeners, but keep the removed listener in cache.
+	 * This is useful for later unblocking*/
+	blockListener(event) {
+		let listener = this._listeners[event];
+		if (listener === undefined) {
+			// @ts-ignore
+			return console.warn(`blockListener(event): this._listeners[event] is undefined. event:`, event);
+		}
+		this.e.removeEventListener(event, listener);
+		return this;
+	}
+
+	unblockListener(event) {
+		let listener = this._listeners[event];
+		if (listener === undefined) {
+			// @ts-ignore
+			return console.warn(`unblockListener(event): this._listeners[event] is undefined. event:`, event);
+		}
+		this.e.addEventListener(event, listener);
+		return this;
+	}
+
 	/*
 	mousedown   touchstart	pointerdown
 	mouseenter		        pointerenter

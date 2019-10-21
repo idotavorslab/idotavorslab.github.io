@@ -30,6 +30,7 @@ const Routing = (() => {
                     Footer.uncss('display');
                 }
                 FundingSection.attr({ hidden: '' });
+                DocumentElem.allOff();
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 if (Navbar === undefined)
