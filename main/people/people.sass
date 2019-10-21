@@ -57,19 +57,22 @@ div#home.people-page
 			font-size: 15px
 
 		$baseTransition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0)
+		$marginBlockStart: -4px
 		@include min-width($BP4)
 			transition: $baseTransition, box-shadow 1500ms
 			--cvRightGap: 25px
+			& > div.cv
+				width: calc(100% - #{$svgDim}px - var(--cvRightGap))
 		@include max-width($BP4)
 			--cvRightGap: 15px
 			align-content: flex-start
 			border-radius: 15px
-			bottom: var(--MOBILE_NAVBAR_HEIGHT)
+			bottom: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
 			place-content: flex-start
-			top: var(--MOBILE_NAVBAR_HEIGHT)
+			top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
 			transition: $baseTransition, box-shadow 500ms, opacity 0.2s
 
-			$marginBlockStart: -4px
+
 			& > div.title
 				text-transform: capitalize
 				color: var(--GREY8)
@@ -80,6 +83,9 @@ div#home.people-page
 				margin-block-start: $marginBlockStart
 				//margin-bottom: 24px
 				margin-bottom: 0px
+
+			& > div.cv
+				width: 100%
 
 			& > div.role
 				margin-bottom: 16px
@@ -107,8 +113,8 @@ div#home.people-page
 
 
 		& > div.cv
-			width: calc(100% - #{$svgDim}px - var(--cvRightGap))
-			margin-block-start: -5px
+			//width: calc(100% - #{$svgDim}px - var(--cvRightGap))
+			margin-block-start: $marginBlockStart
 			//color: var(--GREY7)
 
 			& > p
@@ -175,7 +181,7 @@ div#home.people-page
 				margin: auto
 				position: fixed
 
-				width: 75%
+		//width: 75%
 
 
 
