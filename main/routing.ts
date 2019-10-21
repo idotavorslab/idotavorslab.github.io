@@ -68,7 +68,7 @@ const Routing = (() => {
     }
     
     function navigateTo(url: Routing.Page) {
-        if (url.startsWith('#')) {
+        if (url.startsWith('#') || url.toLowerCase() !== url) {
             throw new Error(`navigateTo(url) bad url: "${url}"`);
         }
         let href = url === "home" ? '' : `#${url}`;

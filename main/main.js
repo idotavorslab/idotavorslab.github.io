@@ -41,6 +41,18 @@ WindowElem.promiseLoaded = async function () {
 const Hamburger = elem({
     id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
 });
+Hamburger.toggle = function () {
+    Hamburger.toggleClass('open');
+    Home.toggleClass('blurred');
+    console.log(`Hamburger ${Hamburger.hasClass('open') ? "opened" : "closed"} (at Hamburger.toggle())`);
+};
+Hamburger.open = function () {
+};
+Hamburger.close = function () {
+    console.log('Hamburger.close(), this:', this);
+    Hamburger.removeClass('open');
+    Home.removeClass('blurred');
+};
 Hamburger.logo.click((event) => {
     event.stopPropagation();
     Routing.navigateTo("home");
@@ -50,21 +62,13 @@ Hamburger.items.children('div').forEach((bhe) => {
         event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`Hamburger ${innerText} click`);
-        Hamburger.removeClass('open');
+        Hamburger.close();
         Routing.navigateTo(innerText);
     });
 });
 Hamburger.click((event) => {
     console.log('Hamburger.click');
-    Hamburger.toggleClass('open');
-    if (Hamburger.hasClass('open')) {
-        Home.addClass('blurred');
-        console.log('Hamburger opened');
-    }
-    else {
-        Home.removeClass('blurred');
-        console.log('Hamburger closed');
-    }
+    Hamburger.toggle();
 });
 const Ugug = elem({ id: 'ugug' });
 WindowElem.on({

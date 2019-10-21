@@ -48,12 +48,27 @@ interface IHamburger extends Div {
     menu: Div;
     logo: Div;
     items: Div;
+    open: () => void;
+    close: () => void;
+    toggle: () => void;
 }
 
 const Hamburger = <IHamburger>elem({
     id: 'hamburger', children: {menu: '.menu', logo: '.logo', items: '.items'}
-    
 });
+Hamburger.toggle = function () {
+    Hamburger.toggleClass('open');
+    Home.toggleClass('blurred');
+    console.log(`Hamburger ${Hamburger.hasClass('open') ? "opened" : "closed"} (at Hamburger.toggle())`);
+};
+Hamburger.open = function () {
+
+};
+Hamburger.close = function () {
+    console.log('Hamburger.close(), this:', this);
+    Hamburger.removeClass('open');
+    Home.removeClass('blurred');
+};
 Hamburger.logo.click((event: PointerEvent) => {
     event.stopPropagation();
     Routing.navigateTo("home");
@@ -63,14 +78,15 @@ Hamburger.items.children('div').forEach((bhe: BetterHTMLElement) => {
         event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`Hamburger ${innerText} click`);
-        Hamburger.removeClass('open');
+        Hamburger.close();
         Routing.navigateTo(<Routing.PageSansHome>innerText);
     });
 });
 
 Hamburger.click((event: PointerEvent) => {
     console.log('Hamburger.click');
-    Hamburger.toggleClass('open');
+    Hamburger.toggle();
+    /*Hamburger.toggleClass('open');
     if (Hamburger.hasClass('open')) {
         Home.addClass('blurred');
         console.log('Hamburger opened');
@@ -78,6 +94,7 @@ Hamburger.click((event: PointerEvent) => {
         Home.removeClass('blurred');
         console.log('Hamburger closed');
     }
+    */
 });
 const Ugug = elem({id: 'ugug'});
 
