@@ -1401,36 +1401,25 @@ div#home > div#brains_flex > div.brain > div.sketchfab-embed-wrapper > iframe {
   }
 }
 
-iframe#contact_form {
-  width: var(--w);
-  height: 600px;
-  border-radius: 15px;
-  margin-bottom: var(--big_gap);
-  height: -webkit-fill-available;
-  height: -moz-available;
-  height: fill-available;
-}
-
-iframe#contact_map {
+div#home.contact-page > iframe#contact_map {
   width: var(--w);
   height: 600px;
   border-radius: 15px;
   margin-bottom: 80px;
 }
-
-div#contact_grid {
+div#home.contact-page > div#contact_grid {
   margin-bottom: calc(var(--gap));
 }
-div#contact_grid > div {
+div#home.contact-page > div#contact_grid > div {
   display: grid;
   grid-template-rows: 80px 40px auto;
-  grid-template-columns: repeat(2, calc(var(--itemWidth) / 2));
+  grid-template-columns: repeat(2, 1fr);
 }
-div#contact_grid > div > h1 {
+div#home.contact-page > div#contact_grid > div > h1 {
   grid-row: 1/1;
   grid-column: 1/1;
 }
-div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > div > div {
+div#home.contact-page > div#contact_grid > div > svg, div#home.contact-page > div#contact_grid > div > img, div#home.contact-page > div#contact_grid > div > div {
   background-repeat: no-repeat;
   grid-row: 1/1;
   grid-column: 2/2;
@@ -1438,54 +1427,52 @@ div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > d
   height: auto;
 }
 @media screen and (min-width: 500px) {
-  div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > div > div {
+  div#home.contact-page > div#contact_grid > div > svg, div#home.contact-page > div#contact_grid > div > img, div#home.contact-page > div#contact_grid > div > div {
     width: 54px;
   }
 }
 @media screen and (max-width: 500px) {
-  div#contact_grid > div > svg, div#contact_grid > div > img, div#contact_grid > div > div {
+  div#home.contact-page > div#contact_grid > div > svg, div#home.contact-page > div#contact_grid > div > img, div#home.contact-page > div#contact_grid > div > div {
     width: 42px;
   }
 }
-div#contact_grid > div > p.subtitle {
+div#home.contact-page > div#contact_grid > div > p.subtitle {
   color: var(--GREY5);
   grid-row: 2/2;
   grid-column: span 2;
 }
-div#contact_grid > div > a {
+div#home.contact-page > div#contact_grid > div > a {
   grid-row: 3/3;
   grid-column: span 2;
 }
 @media screen and (min-width: 500px) {
-  div#contact_grid > div > a {
+  div#home.contact-page > div#contact_grid > div > a {
     font-size: 20px;
     line-height: 32px;
   }
 }
 @media screen and (max-width: 500px) {
-  div#contact_grid > div > a {
+  div#home.contact-page > div#contact_grid > div > a {
     font-size: 16px;
     line-height: 24px;
   }
 }
-div#contact_grid > div.visit > a {
+div#home.contact-page > div#contact_grid > div.visit > a {
   text-transform: capitalize;
 }
 @media screen and (min-width: 500px) {
-  div#contact_grid {
-    --rowLength: 3;
-    --itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength));
+  div#home.contact-page > div#contact_grid {
     display: grid;
-    grid-template-columns: repeat(var(--rowLength), var(--itemWidth));
+    grid-template-columns: repeat(3, 1fr);
     grid-column-gap: var(--GAP1);
     grid-row-gap: var(--GAP1);
   }
-  div#contact_grid > div > * {
+  div#home.contact-page > div#contact_grid > div > * {
     text-align: center;
   }
 }
 @media screen and (max-width: 500px) {
-  div#contact_grid {
+  div#home.contact-page > div#contact_grid {
     display: flex;
     flex-direction: column;
   }
