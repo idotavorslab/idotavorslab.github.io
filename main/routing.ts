@@ -50,13 +50,11 @@ const Routing = (() => {
                 const pageObj = getPageObj(url);
                 pageObj().init();
                 
-                if (Navbar === undefined)
-                    await WindowElem.promiseLoaded();
-                Navbar.select(Navbar[url])
+                await WindowElem.promiseLoaded();
+                Navbar.select(Navbar[url]);
                 
                 
             } else { // bad url, reload to homepage
-                // anchor({href: ``}).appendTo(Body).click().remove();
                 console.log(`%cRouting.initPage(), bad url, not in pageStrings(): "${url}". Calling Routing.navigateTo("home")`, `color: ${GOOGLEBLUE}`);
                 Routing.navigateTo("home");
             }
@@ -72,8 +70,11 @@ const Routing = (() => {
             throw new Error(`navigateTo(url) bad url: "${url}"`);
         }
         let href = url === "home" ? '' : `#${url}`;
-        console.log(`%cRouting.navigateTo(url: "${url}") clicking fake <a href="${href}">`, `color: ${GOOGLEBLUE}`);
+        console.log(`%cRouting.navigateTo("${url}") clicking fake <a href="${href}">`, `color: ${GOOGLEBLUE}`);
         anchor({href}).appendTo(Body).click().remove(); // no need to select because Routing.route does this
+        if (MOBILE && window.scrollY > 0) {
+            window.scroll(0, 0);
+        }
     }
     
     let lastPage = window.location.hash.slice(1);

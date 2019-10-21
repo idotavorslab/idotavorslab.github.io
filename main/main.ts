@@ -57,17 +57,15 @@ const Hamburger = <IHamburger>elem({
     id: 'hamburger', children: {menu: '.menu', logo: '.logo', items: '.items'}
 });
 Hamburger.toggle = function () {
-    Hamburger.toggleClass('open');
+    this.toggleClass('open');
     // Home.toggleClass('blurred');
-    console.log(`Hamburger ${Hamburger.hasClass('open') ? "opened" : "closed"} (at Hamburger.toggle())`);
+    console.log(`Hamburger ${this.hasClass('open') ? "opened" : "closed"} (at Hamburger.toggle())`);
 };
 Hamburger.open = function () {
 
 };
 Hamburger.close = function () {
-    console.log('Hamburger.close(), this:', this);
-    Hamburger.removeClass('open');
-    // Home.removeClass('blurred');
+    this.removeClass('open');
 };
 Hamburger.logo.click((event: PointerEvent) => {
     event.stopPropagation();

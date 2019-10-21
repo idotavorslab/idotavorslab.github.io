@@ -33,8 +33,7 @@ const Routing = (() => {
                 DocumentElem.allOff();
                 const pageObj = getPageObj(url);
                 pageObj().init();
-                if (Navbar === undefined)
-                    await WindowElem.promiseLoaded();
+                await WindowElem.promiseLoaded();
                 Navbar.select(Navbar[url]);
             }
             else {
@@ -52,8 +51,11 @@ const Routing = (() => {
             throw new Error(`navigateTo(url) bad url: "${url}"`);
         }
         let href = url === "home" ? '' : `#${url}`;
-        console.log(`%cRouting.navigateTo(url: "${url}") clicking fake <a href="${href}">`, `color: ${GOOGLEBLUE}`);
+        console.log(`%cRouting.navigateTo("${url}") clicking fake <a href="${href}">`, `color: ${GOOGLEBLUE}`);
         anchor({ href }).appendTo(Body).click().remove();
+        if (MOBILE && window.scrollY > 0) {
+            window.scroll(0, 0);
+        }
     }
     let lastPage = window.location.hash.slice(1);
     console.log(`%cRouting() root, window.location: ${window.location}\ncalling initPage(lastPage = "${lastPage}")`, `color: ${GOOGLEBLUE}`);
