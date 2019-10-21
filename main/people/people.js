@@ -318,7 +318,8 @@ const PeoplePage = () => {
             DocumentElem.keydown(keyboardNavigation);
         const teamH1 = elem({ tag: 'h1', text: 'Team' });
         const alumniH1 = elem({ tag: 'h1', text: 'Alumni' });
-        Home.empty().class('people-page').append(teamH1, teamContainer, alumniH1, alumniContainer, expando);
+        Home.empty().class('people-page').append(teamH1, teamContainer, alumniH1, alumniContainer);
+        Body.append(expando);
     }
     return { init };
 };

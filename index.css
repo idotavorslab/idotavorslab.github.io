@@ -911,7 +911,8 @@ div#home.people-page > div.grid > div.person > div.name {
   font-size: large;
   font-family: OpenSansSemiBold;
 }
-div#home.people-page div#person_expando {
+
+div#person_expando {
   border-width: 1px;
   border-color: var(--GREY02);
   border-style: solid;
@@ -926,19 +927,19 @@ div#home.people-page div#person_expando {
   overflow: hidden;
   padding: var(--expandoPadding);
   text-align: left;
-  width: calc(var(--tagWidth) - 2 * var(--expandoPadding));
+  width: calc(var(--tagWidth));
 }
 @media screen and (min-width: 500px) {
-  div#home.people-page div#person_expando {
+  div#person_expando {
     transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 1500ms;
     --cvRightGap: 25px;
   }
-  div#home.people-page div#person_expando > div.cv {
+  div#person_expando > div.cv {
     width: calc(100% - 25px - var(--cvRightGap));
   }
 }
 @media screen and (max-width: 500px) {
-  div#home.people-page div#person_expando {
+  div#person_expando {
     --cvRightGap: 15px;
     align-content: flex-start;
     border-radius: 15px;
@@ -947,7 +948,7 @@ div#home.people-page div#person_expando {
     top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2);
     transition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0), box-shadow 500ms, opacity 0.2s;
   }
-  div#home.people-page div#person_expando > div.title {
+  div#person_expando > div.title {
     text-transform: capitalize;
     color: var(--GREY8);
     font-size: 20px;
@@ -956,73 +957,72 @@ div#home.people-page div#person_expando {
     margin-block-start: -4px;
     margin-bottom: 0px;
   }
-  div#home.people-page div#person_expando > div.cv {
+  div#person_expando > div.cv {
     width: 100%;
   }
-  div#home.people-page div#person_expando > div.role {
+  div#person_expando > div.role {
     margin-bottom: 16px;
     margin-top: -4px;
     width: 100%;
   }
 }
-div#home.people-page div#person_expando > div.cv {
+div#person_expando > div.cv {
   margin-block-start: -4px;
 }
-div#home.people-page div#person_expando > div.cv > p {
+div#person_expando > div.cv > p {
   font-size: unset;
   line-height: unset;
 }
-div#home.people-page div#person_expando > div.email {
+div#person_expando > div.email {
   width: 100%;
+  margin-top: 10px;
 }
-div#home.people-page div#person_expando > svg#svg_root {
+div#person_expando > svg#svg_root {
+  opacity: 0;
   cursor: pointer;
   margin-bottom: auto;
   margin-left: auto;
-  width: 25px;
-  padding-left: var(--cvRightGap);
   padding-bottom: 0px;
+  padding-left: var(--cvRightGap);
+  width: 25px;
+  transition: opacity 1s ease-in-out;
 }
-div#home.people-page div#person_expando > svg#svg_root > path {
+div#person_expando > svg#svg_root > path {
   fill: none;
   stroke-width: 1px;
   stroke: var(--GREY6);
 }
-div#home.people-page div#person_expando > svg#svg_root > path.upright {
+div#person_expando > svg#svg_root > path.upright {
   d: path("m 24 1 l -23 23");
 }
-div#home.people-page div#person_expando > svg#svg_root > path.downleft {
+div#person_expando > svg#svg_root > path.downleft {
   d: path("m 1 1 l 23 23");
 }
-div#home.people-page div#person_expando.collapsed {
+div#person_expando.collapsed {
   padding: 0;
   opacity: 0;
   z-index: -1;
 }
-div#home.people-page div#person_expando.expanded {
+div#person_expando.expanded {
   border-color: white;
   height: 300px;
   opacity: 1;
   z-index: 5;
 }
-div#home.people-page div#person_expando.expanded > div.email {
-  margin-top: 10px;
-}
-div#home.people-page div#person_expando.expanded > div.close {
+div#person_expando.expanded > svg#svg_root {
   opacity: 1;
 }
 @media screen and (min-width: 500px) {
-  div#home.people-page div#person_expando.expanded {
+  div#person_expando.expanded {
     box-shadow: 0px 2px 10px var(--GREY3);
     width: calc(var(--tagWidth) * 2);
   }
 }
 @media screen and (max-width: 500px) {
-  div#home.people-page div#person_expando.expanded {
+  div#person_expando.expanded {
     box-shadow: 0px 5px 10px var(--GREY5);
-    height: auto;
-    margin: auto;
     position: fixed;
+    margin: auto;
   }
 }
 

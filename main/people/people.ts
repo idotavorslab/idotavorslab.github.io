@@ -437,8 +437,8 @@ const PeoplePage = () => {
             teamContainer,
             alumniH1,
             alumniContainer,
-            expando
         );
+        Body.append(expando);
         
         
     }

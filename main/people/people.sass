@@ -45,143 +45,129 @@ div#home.people-page
 					family: OpenSansSemiBold
 
 
-	// ***  expando
-	div#person_expando
-		@include borderMixin(var(--GREY02))
+// ***  expando
+div#person_expando
+	@include borderMixin(var(--GREY02))
 
-		// [min-width: $BP1]:  30px
-		// [max-width: $BP1]:  20px
-		--expandoPadding: 30px
-		$svgDim: 25
-		//@include max-width($BP1)
-			font-size: 15px
-
-		$baseTransition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0)
-		$marginBlockStart: -4px
-		@include min-width($BP4)
-			transition: $baseTransition, box-shadow 1500ms
-			--cvRightGap: 25px
-			& > div.cv
-				width: calc(100% - #{$svgDim}px - var(--cvRightGap))
-		@include max-width($BP4)
-			--cvRightGap: 15px
-			align-content: flex-start
-			border-radius: 15px
-			bottom: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
-			place-content: flex-start
-			top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
-			transition: $baseTransition, box-shadow 500ms, opacity 0.2s
+	--expandoPadding: 30px
+	$svgDim: 25
+	$baseTransition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0)
+	$marginBlockStart: -4px
+	@include min-width($BP4)
+		transition: $baseTransition, box-shadow 1500ms
+		--cvRightGap: 25px
+		& > div.cv
+			width: calc(100% - #{$svgDim}px - var(--cvRightGap))
+	@include max-width($BP4)
+		--cvRightGap: 15px
+		align-content: flex-start
+		border-radius: 15px
+		bottom: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
+		place-content: flex-start
+		top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
+		transition: $baseTransition, box-shadow 500ms, opacity 0.2s
 
 
-			& > div.title
-				text-transform: capitalize
-				color: var(--GREY8)
-				font:
-					size: 20px
-					family: OpenSansBold
-				letter-spacing: -0.5px
-				margin-block-start: $marginBlockStart
-				//margin-bottom: 24px
-				margin-bottom: 0px
-
-			& > div.cv
-				width: 100%
-
-			& > div.role
-				margin-bottom: 16px
-				margin-top: $marginBlockStart
-				width: 100%
-
-		background-color: white
-		box-shadow: 0px 2px 10px white
-		display: flex
-		flex-wrap: wrap
-		height: 0
-
-		// [min-width: $BP1]:  -50px
-		// [max-width: $BP1]:  -33.3333px
-		margin-top: -50px
-
-		overflow: hidden
-		padding: var(--expandoPadding)
-		text-align: left
-
-
-		// [min-width: $BP1]:  255 - 30*2  =  195px
-		// [max-width: $BP1]:  216 - 20*2  =  176px
-		width: calc(var(--tagWidth) - 2 * var(--expandoPadding))
-
+		& > div.title
+			text-transform: capitalize
+			color: var(--GREY8)
+			font:
+				size: 20px
+				family: OpenSansBold
+			letter-spacing: -0.5px
+			margin-block-start: $marginBlockStart
+			margin-bottom: 0px
 
 		& > div.cv
-			//width: calc(100% - #{$svgDim}px - var(--cvRightGap))
-			margin-block-start: $marginBlockStart
-			//color: var(--GREY7)
-
-			& > p
-				font-size: unset
-				line-height: unset
-
-		& > div.email
 			width: 100%
 
+		& > div.role
+			margin-bottom: 16px
+			margin-top: $marginBlockStart
+			width: 100%
+
+	background-color: white
+	box-shadow: 0px 2px 10px white
+	display: flex
+	flex-wrap: wrap
+	height: 0
+	//height: auto
+	margin-top: -50px
+	overflow: hidden
+	padding: var(--expandoPadding)
+	text-align: left
+	width: calc(var(--tagWidth))
+
+
+	& > div.cv
+		margin-block-start: $marginBlockStart
+
+		& > p
+			font-size: unset
+			line-height: unset
+
+	& > div.email
+		width: 100%
+		margin-top: 10px
+
+	& > svg#svg_root
+		// *  DEP: people.ts Expando constructor() svgX attr viewBox
+
+		opacity: 0
+		cursor: pointer
+		margin-bottom: auto
+		margin-left: auto
+		padding-bottom: 0px
+		padding-left: var(--cvRightGap)
+		width: $svgDim + px
+		transition: opacity 1s ease-in-out
+
+
+		& > path
+			fill: none
+			stroke-width: 1px
+			stroke: var(--GREY6)
+
+
+			&.upright
+				d: path("m #{$svgDim - 1} 1 l -#{$svgDim - 2} #{$svgDim - 2}")
+
+			&.downleft
+				d: path("m 1 1 l #{$svgDim - 2} #{$svgDim - 2}")
+
+
+	// **  collapsed
+	&.collapsed
+		padding: 0
+		opacity: 0
+		z-index: -1
+
+	// **  expanded
+	&.expanded
+		border-color: white
+		height: 300px
+		opacity: 1
+		z-index: 5
+
+		& > div.cv
+		//color: var(--GREY7)
+
+		& > div.email
+
+
 		& > svg#svg_root
-			// *  DEP: people.ts Expando constructor() svgX attr viewBox
-
-			cursor: pointer
-			margin-bottom: auto
-			margin-left: auto
-			width: $svgDim + px
-			padding-left: var(--cvRightGap)
-			//padding-bottom: $svgDim + px
-			padding-bottom: 0px
-
-
-			& > path
-				fill: none
-				stroke-width: 1px
-				stroke: var(--GREY6)
-
-
-				&.upright
-					d: path("m #{$svgDim - 1} 1 l -#{$svgDim - 2} #{$svgDim - 2}")
-
-				&.downleft
-					d: path("m 1 1 l #{$svgDim - 2} #{$svgDim - 2}")
-
-
-		// **  collapsed
-		&.collapsed
-			padding: 0
-			opacity: 0
-			z-index: -1
-
-		// **  expanded
-		&.expanded
-			border-color: white
-			height: 300px
 			opacity: 1
-			z-index: 5
 
-			& > div.cv
-			//color: var(--GREY7)
+		@include min-width($BP4)
+			box-shadow: 0px 2px 10px var(--GREY3)
+			width: calc(var(--tagWidth) * 2)
 
-			& > div.email
-				margin-top: 10px
+		@include max-width($BP4)
+			box-shadow: 0px 5px 10px var(--GREY5)
+			//height: auto
+			position: fixed
+			margin: auto
 
-			& > div.close
-				opacity: 1
-
-			@include min-width($BP4)
-				box-shadow: 0px 2px 10px var(--GREY3)
-				width: calc(var(--tagWidth) * 2)
-
-			@include max-width($BP4)
-				box-shadow: 0px 5px 10px var(--GREY5)
-				height: auto
-				margin: auto
-				position: fixed
-
-		//width: 75%
 
 
 
