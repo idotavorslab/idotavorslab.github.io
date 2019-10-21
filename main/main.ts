@@ -58,7 +58,7 @@ const Hamburger = <IHamburger>elem({
 });
 Hamburger.toggle = function () {
     Hamburger.toggleClass('open');
-    Home.toggleClass('blurred');
+    // Home.toggleClass('blurred');
     console.log(`Hamburger ${Hamburger.hasClass('open') ? "opened" : "closed"} (at Hamburger.toggle())`);
 };
 Hamburger.open = function () {
@@ -67,7 +67,7 @@ Hamburger.open = function () {
 Hamburger.close = function () {
     console.log('Hamburger.close(), this:', this);
     Hamburger.removeClass('open');
-    Home.removeClass('blurred');
+    // Home.removeClass('blurred');
 };
 Hamburger.logo.click((event: PointerEvent) => {
     event.stopPropagation();

@@ -43,7 +43,6 @@ const Hamburger = elem({
 });
 Hamburger.toggle = function () {
     Hamburger.toggleClass('open');
-    Home.toggleClass('blurred');
     console.log(`Hamburger ${Hamburger.hasClass('open') ? "opened" : "closed"} (at Hamburger.toggle())`);
 };
 Hamburger.open = function () {
@@ -51,7 +50,6 @@ Hamburger.open = function () {
 Hamburger.close = function () {
     console.log('Hamburger.close(), this:', this);
     Hamburger.removeClass('open');
-    Home.removeClass('blurred');
 };
 Hamburger.logo.click((event) => {
     event.stopPropagation();

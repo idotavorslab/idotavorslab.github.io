@@ -92,7 +92,7 @@ div#home.gallery-page
 			@include min-width($BP4)
 				max-height: var(--localHeight)
 			@include max-width($BP4)
-				width: calc(110% - 2 * var(--chevronWidth))
+				width: calc(120% - 2 * var(--chevronWidth))
 				object-fit: contain
 
 
@@ -124,6 +124,7 @@ div#home.gallery-page
 
 
 			&.left
+				margin: auto auto auto -5%
 				padding-bottom: calc(var(--chevronWidth) / 2)
 
 				&:active
@@ -133,6 +134,7 @@ div#home.gallery-page
 					transform: rotate(45deg)
 
 			&.right
+				margin: auto -5% auto auto
 				// 7/6 = 1/2 + 1/1.5
 				padding-bottom: calc((var(--chevronWidth) * 7 / 6))
 

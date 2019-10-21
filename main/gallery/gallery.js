@@ -41,7 +41,6 @@ const GalleryPage = () => {
                 return galleryImgs[i];
             }
         }
-        console.log('GalleryPage init');
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
         const ROWSIZE = MOBILE ? 2 : 4;
@@ -110,7 +109,6 @@ const GalleryPage = () => {
             let cachedImage = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             }
             else {
                 let src = `main/gallery/${file}`;
@@ -165,7 +163,6 @@ const GalleryPage = () => {
             }
             appendToRow(yearDiv, galleryImg, count);
         }
-        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' })
             .append(...Object.values(yearToYearDiv).reverse());

@@ -72,7 +72,7 @@ const GalleryPage = () => {
             
         }
         
-        console.log('GalleryPage init');
+        // console.log('GalleryPage init');
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
         const ROWSIZE = MOBILE ? 2 : 4;
@@ -191,7 +191,7 @@ const GalleryPage = () => {
             let cachedImage: Img = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
+                // console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             } else {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
@@ -264,7 +264,7 @@ const GalleryPage = () => {
             
             
         }
-        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
+        // console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg: GalleryImg = new GalleryImg();
         
         const imagesContainer = div({id: 'images_container'})

@@ -235,9 +235,6 @@ div#main > div#home {
   position: relative;
   transition: filter 0.5s ease-out 0.25s;
 }
-div#main > div#home.blurred {
-  filter: blur(5px) grayscale(1);
-}
 @media screen and (min-width: 500px) {
   div#main > div#home {
     padding-top: calc(var(--REGULAR_NAVBAR_HEIGHT) + 60px);
@@ -424,7 +421,7 @@ section#navbar_section > div#hamburger[class~=open] {
 }
 section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines {
   transform: rotate(45deg);
-  box-shadow: 0 0 0 100vw transparent, 0 0 0 150vh rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 100vw transparent, 0 0 0 150vh white;
   z-index: -1;
 }
 section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:after, section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:before {
@@ -1250,7 +1247,7 @@ div#home.gallery-page div#img_viewer.on {
 }
 @media screen and (max-width: 500px) {
   div#home.gallery-page div#img_viewer > img {
-    width: calc(110% - 2 * var(--chevronWidth));
+    width: calc(120% - 2 * var(--chevronWidth));
     object-fit: contain;
   }
 }
@@ -1278,6 +1275,7 @@ div#home.gallery-page div#img_viewer > div#right_chevron > span.lines:after, div
   width: 100%;
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.left, div#home.gallery-page div#img_viewer > div#left_chevron.left {
+  margin: auto auto auto -5%;
   padding-bottom: calc(var(--chevronWidth) / 2);
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.left:active, div#home.gallery-page div#img_viewer > div#left_chevron.left:active {
@@ -1287,6 +1285,7 @@ div#home.gallery-page div#img_viewer > div#right_chevron.left > span.lines, div#
   transform: rotate(45deg);
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.right, div#home.gallery-page div#img_viewer > div#left_chevron.right {
+  margin: auto -5% auto auto;
   padding-bottom: calc((var(--chevronWidth) * 7 / 6));
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.right:active, div#home.gallery-page div#img_viewer > div#left_chevron.right:active {
