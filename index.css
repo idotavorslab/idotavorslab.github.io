@@ -1435,8 +1435,13 @@ div#home.contact-page > div#contact_flex {
 div#home.contact-page > div#contact_flex > div {
   width: inherit;
 }
+div#home.contact-page > div#contact_flex > div > h2 {
+  margin-block-end: 12px;
+  margin-block-start: 0;
+}
 div#home.contact-page > div#contact_flex > div > p.subtitle {
   color: var(--GREY5);
+  margin-bottom: 0;
 }
 @media screen and (min-width: 500px) {
   div#home.contact-page > div#contact_flex > div > a {
@@ -1451,19 +1456,13 @@ div#home.contact-page > div#contact_flex > div > p.subtitle {
   }
 }
 div#home.contact-page > div#contact_flex > div:not(:last-of-type) {
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 div#home.contact-page > div#contact_flex > div.visit {
   margin-block-start: 0;
 }
 div#home.contact-page > div#contact_flex > div.visit > a {
   text-transform: capitalize;
-}
-div#home.contact-page > div#contact_flex > div.visit > h2 {
-  margin-block-start: 0;
-}
-div#home.contact-page > div#contact_flex > div.email {
-  margin-top: auto;
 }
 
 /*# sourceMappingURL=index.css.map */
