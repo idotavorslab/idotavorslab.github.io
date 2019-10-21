@@ -72,7 +72,7 @@ const GalleryPage = () => {
             
         }
         
-        console.log('GalleryPage init');
+        // console.log('GalleryPage init');
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
         const ROWSIZE = MOBILE ? 2 : 4;
@@ -170,9 +170,9 @@ const GalleryPage = () => {
         //**  imgViewer
         const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
-                left: div({id: 'left_css_chevron', cls: 'left'}).append(span({cls: 'lines'})).click(gotoAdjImg),
+                left: div({id: 'left_chevron', cls: 'left'}).append(span({cls: 'lines'})).click(gotoAdjImg),
                 img: img(),
-                right: div({id: 'right_css_chevron', cls: 'right'}).append(span({cls: 'lines'})).click(gotoAdjImg),
+                right: div({id: 'right_chevron', cls: 'right'}).append(span({cls: 'lines'})).click(gotoAdjImg),
                 caption: div({id: 'caption'})
             }).click((event: Event) => {
                 // *  Clicked on img, not chevrons. do nothing
@@ -191,7 +191,7 @@ const GalleryPage = () => {
             let cachedImage: Img = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
+                // console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             } else {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
@@ -264,7 +264,7 @@ const GalleryPage = () => {
             
             
         }
-        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
+        // console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg: GalleryImg = new GalleryImg();
         
         const imagesContainer = div({id: 'images_container'})
@@ -293,7 +293,7 @@ const GalleryPage = () => {
                 }
             });
         
-        const imgViewerClose = div({id: 'img_viewer_close_css'})
+        const imgViewerClose = div({id: 'img_viewer_close'})
             .append(span({cls: 'lines'})).click(closeImgViewer);
         
         

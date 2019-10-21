@@ -12,13 +12,16 @@ section#navbar_section
 		opacity: 0
 		pointer-events: none
 
+	// ***  hamburger
 	& > div#hamburger
-		height: inherit
 		@include min-width($BP4)
 			display: none
+		height: inherit
+		transition: box-shadow 0.5s ease-in-out
 
 		& > div.menu-and-logo-container
 			height: inherit
+
 
 			& > div.menu
 
@@ -89,8 +92,10 @@ section#navbar_section
 				// $top + ($lineHeight + 2x)*6  =  100vh
 				//padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
 				padding: 24px 0
+				//transition: box-shadow 0.75s ease-in-out
 
 				&:not(:first-of-type)
+					//box-shadow: 0 -1px 0px white
 					box-shadow: 0 -1px 0px var(--GREY3)
 
 
@@ -123,12 +128,15 @@ section#navbar_section
 				transition: opacity 0.5s ease-in-out 0.25s
 				opacity: 1
 
+
 		&:not([class~="open"])
+			box-shadow: 0 1px 0px white
+
 			& > div.items
 				transition: opacity 0.5s ease-out
 				pointer-events: none
 
-
+	// ***  navbar
 	& > div#navbar
 		@include max-width($BP4)
 			display: none

@@ -123,16 +123,18 @@ div#main
 	text-align: center
 
 
-	div#home
-		display: block
+	& > div#home
+		//display: block
 		opacity: 1
 		position: relative
+		transition: filter 0.5s ease-out 0.25s
+
+
 		@include min-width($BP4)
 			//130px
 			padding-top: calc(var(--REGULAR_NAVBAR_HEIGHT) + 60px)
 		@include max-width($BP4)
-			// *  DEP: navbar.sass #navbar_section --mobileHeight
-			padding-top: var(--MOBILE_NAVBAR_HEIGHT)
+			padding-top: calc(var(--MOBILE_NAVBAR_HEIGHT) * 2)
 
 // ***  footer
 // div#footer

@@ -1,72 +1,64 @@
-iframe#contact_form
-	@include iframeMixin()
-	margin-bottom: var(--big_gap)
-	height: -webkit-fill-available
-	height: -moz-available
-	height: fill-available
-
-iframe#contact_map
-	@include iframeMixin()
-	margin-bottom: 80px
-
-
-div#contact_grid
-	margin-bottom: calc(var(--gap))
-
-	// **  All Resolutions
-	& > div
-		display: grid
-		grid-template-rows: 80px 40px auto
-		grid-template-columns: repeat(2, calc(var(--itemWidth) / 2))
-
-		& > h1
-			grid-row: 1/1
-			grid-column: 1/1
-
-		& > svg, & > img, & > div
-			background-repeat: no-repeat
-			grid-row: 1/1
-			grid-column: 2/2
-			// *  DEP: contact.sass img width
-			@include min-width($BP4)
-				width: 54px
-			@include max-width($BP4)
-				width: 42px
-
-
-			margin: 0 auto
-			height: auto
-
-		& > p.subtitle
-			color: var(--GREY5)
-			grid-row: 2/2
-			grid-column: span 2
-
-		& > a
-			grid-row: 3/3
-			@include pFontSize(true)
-
-			grid-column: span 2
-
-		&.visit > a
-			text-transform: capitalize
-
-
+div#home.contact-page
+	display: flex
+	$_contactPageMarginBottom: 80px
 	// **  min-width($BP4)
 	@include min-width($BP4)
-		& > div > *
-			text-align: center
-		// *  DEP: home.sass funding grid
-		--rowLength: 3
-		--itemWidth: calc((var(--w) - calc(var(--rowLength) - 1) * var(--GAP1)) / var(--rowLength))
-		display: grid
-		grid:
-			template-columns: repeat(var(--rowLength), var(--itemWidth))
-			column-gap: var(--GAP1)
-			row-gap: var(--GAP1)
-
+		height: 660px
+		margin-bottom: $_contactPageMarginBottom
 	// **  max-width($BP4)
 	@include max-width($BP4)
+		margin-bottom: calc(var(--MOBILE_NAVBAR_HEIGHT) * 2)
+
+	& > iframe#contact_map
+		border-radius: 15px
+		width: calc(var(--w) * 0.7)
+
+
+	& > div#contact_flex
 		display: flex
 		flex-direction: column
+		// **  min-width($BP4)
+		@include min-width($BP4)
+			margin-left: $_contactPageMarginBottom
+
+
+		// **  max-width($BP4)
+		@include max-width($BP4)
+			margin-left: 60px
+
+		// **  All Resolutions
+		& > div
+			width: inherit
+
+			& > h2
+				//margin-bottom: unset
+				//margin-block-start: 0
+
+
+			& > p.subtitle
+				color: var(--GREY5)
+
+			& > a
+				@include pFontSize(true)
+
+			&:not(:last-of-type)
+				margin-bottom: 60px
+
+			&.visit
+				margin-block-start: 0
+
+				& > a
+					text-transform: capitalize
+
+				& > h2
+					margin-block-start: 0
+
+			&.call
+			//margin: auto 0
+
+			&.email
+				margin-top: auto
+
+
+
 

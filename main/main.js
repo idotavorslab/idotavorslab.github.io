@@ -14,7 +14,7 @@ const CacheDiv = elem({ id: 'cache' });
 const WindowElem = elem({ htmlElement: window });
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
-    console.log('WindowElem.promiseLoaded(), this.isLoaded:', this.isLoaded);
+    console.log(...less('WindowElem.promiseLoaded(), this.isLoaded:'), this.isLoaded);
     if (this.isLoaded)
         return true;
     let count = 0;
@@ -34,13 +34,22 @@ WindowElem.promiseLoaded = async function () {
         }
         count++;
     }
-    console.log(...green('WindowElem.promiseLoaded() returning true'));
+    console.log(...less('WindowElem.promiseLoaded() returning true'));
     this.isLoaded = true;
     return true;
 };
 const Hamburger = elem({
     id: 'hamburger', children: { menu: '.menu', logo: '.logo', items: '.items' }
 });
+Hamburger.toggle = function () {
+    this.toggleClass('open');
+    console.log(`Hamburger ${this.hasClass('open') ? "opened" : "closed"} (at Hamburger.toggle())`);
+};
+Hamburger.open = function () {
+};
+Hamburger.close = function () {
+    this.removeClass('open');
+};
 Hamburger.logo.click((event) => {
     event.stopPropagation();
     Routing.navigateTo("home");
@@ -50,19 +59,13 @@ Hamburger.items.children('div').forEach((bhe) => {
         event.stopPropagation();
         const innerText = bhe.e.innerText.toLowerCase();
         console.log(`Hamburger ${innerText} click`);
-        Hamburger.removeClass('open');
+        Hamburger.close();
         Routing.navigateTo(innerText);
     });
 });
 Hamburger.click((event) => {
     console.log('Hamburger.click');
-    Hamburger.toggleClass('open');
-    if (Hamburger.hasClass('open')) {
-        console.log('Hamburger opened');
-    }
-    else {
-        console.log('Hamburger closed');
-    }
+    Hamburger.toggle();
 });
 const Ugug = elem({ id: 'ugug' });
 WindowElem.on({
@@ -209,10 +212,10 @@ fetchDict("main/contact/contact.json").then(async (data) => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
-    console.log('main.ts popuplating Footer;', { MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI });
+    console.log(...less('main.ts popuplating Footer;'), { MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI });
     if (!MOBILE) {
         await wait(3000);
-        console.log("Footer.contactSection.append(elem({tag: 'iframe'}))");
+        console.log(...less("Footer.contactSection.append(elem({tag: 'iframe'}))"));
         Footer.map.attr({
             frameborder: "0",
             allowfullscreen: "",

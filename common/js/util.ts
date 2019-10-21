@@ -326,7 +326,7 @@ class ExTweenLite {
             scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
             count++;
         }
-        console.log(...green('TweenLite scripts loaded'));
+        console.log(...less('TweenLite scripts loaded'));
         this.isLoaded = true;
         return true;
     }
@@ -389,7 +389,7 @@ iPhone: ${IS_IPHONE}
 
 // window.onresize = setWindowStatsInnerText;
 function isOverflown({clientWidth, clientHeight, scrollWidth, scrollHeight}): boolean {
-    console.log({clientWidth, clientHeight, scrollWidth, scrollHeight});
+    console.log({clientHeight, scrollHeight});
     return scrollHeight > clientHeight || scrollWidth > clientWidth;
 }
 

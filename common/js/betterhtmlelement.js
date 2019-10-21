@@ -275,22 +275,22 @@ class BetterHTMLElement {
 		return this;
 	}
 
-	/**Insert at least one `node` after the last child of `this`. Any `node` can be either `BetterHTMLElement`s or vanilla `Node`.*/
+	/**Insert at least one `node` after the last child of `this`.
+	 * Any `node` can be either a `BetterHTMLElement`, a vanilla `Node`,
+	 * a `{someKey: BetterHTMLElement}` pairs object, or a `[someKey, BetterHTMLElement]` tuple.*/
 	append(...nodes) {
 		for (let node of nodes) {
 			if (node instanceof BetterHTMLElement)
 				this.e.append(node.e);
-			else
+			else if (node instanceof Node)
 				this.e.append(node);
+			else if (Array.isArray(node))
+				this.cacheAppend([node]);
+			else
+				this.cacheAppend(node);
 		}
 		return this;
-		/*if (nodes[0] instanceof BetterHTMLElement)
-			 for (let bhe of <BetterHTMLElement[]>nodes)
-				  this.e.append(bhe.e);
-		else
-			 for (let node of <(string | Node)[]>nodes)
-				  this.e.append(node); // TODO: test what happens when passed strings
-		return this;*/
+
 	}
 
 	/**Append `this` to a `BetterHTMLElement` or a vanilla `Node`*/
@@ -379,25 +379,30 @@ class BetterHTMLElement {
 	/**key: string. value: either "selector string" OR {"selector string": <recurse down>}*/
 	cacheChildren(keySelectorObj) {
 		for (let [key, selectorOrObj] of enumerate(keySelectorObj)) {
-			if (typeof selectorOrObj === 'object') {
-				let entries = Object.entries(selectorOrObj);
-				if (entries[1] !== undefined) {
-					console.warn(`cacheChildren() received recursive obj with more than 1 selector for a key. Using only 0th selector`, {
-						key,
-						"multiple selectors": entries.map(e => e[0]),
-						selectorOrObj,
-						this: this
-					});
+			let type = typeof selectorOrObj;
+			if (type === 'object') {
+				if (selectorOrObj instanceof BetterHTMLElement) {
+					this._cache(key, selectorOrObj);
+				} else {
+					let entries = Object.entries(selectorOrObj);
+					if (entries[1] !== undefined) {
+						console.warn(`cacheChildren() received recursive obj with more than 1 selector for a key. Using only 0th selector`, {
+							key,
+							"multiple selectors": entries.map(e => e[0]),
+							selectorOrObj,
+							this: this
+						});
+					}
+					// only first because 1:1 for key:selector.
+					// (ie can't do {right: {.right: {...}, .right2: {...}})
+					let [selector, obj] = entries[0];
+					this._cache(key, this.child(selector));
+					this[key].cacheChildren(obj);
 				}
-				// only first because 1:1 for key:selector.
-				// (ie can't do {right: {.right: {...}, .right2: {...}})
-				let [selector, obj] = entries[0];
-				this._cache(key, this.child(selector));
-				// this[key] = this.child(selector);
-				this[key].cacheChildren(obj);
-			} else {
-				// this[key] = this.child(<QuerySelector>selectorOrObj);
+			} else if (type === "string") {
 				this._cache(key, this.child(selectorOrObj));
+			} else {
+				console.warn(`cacheChildren, bad selectorOrObj type: "${type}". key: "${key}", value: "${selectorOrObj}". keySelectorObj:`, keySelectorObj);
 			}
 		}
 		return this;
@@ -475,6 +480,28 @@ class BetterHTMLElement {
 	/**@deprecated*/
 	one() {
 		throw new Error("NOT IMPLEMENTED");
+	}
+
+	/**Remove `event` from wrapped element's event listeners, but keep the removed listener in cache.
+	 * This is useful for later unblocking*/
+	blockListener(event) {
+		let listener = this._listeners[event];
+		if (listener === undefined) {
+			// @ts-ignore
+			return console.warn(`blockListener(event): this._listeners[event] is undefined. event:`, event);
+		}
+		this.e.removeEventListener(event, listener);
+		return this;
+	}
+
+	unblockListener(event) {
+		let listener = this._listeners[event];
+		if (listener === undefined) {
+			// @ts-ignore
+			return console.warn(`unblockListener(event): this._listeners[event] is undefined. event:`, event);
+		}
+		this.e.addEventListener(event, listener);
+		return this;
 	}
 
 	/*

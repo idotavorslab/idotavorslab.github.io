@@ -41,7 +41,6 @@ const GalleryPage = () => {
                 return galleryImgs[i];
             }
         }
-        console.log('GalleryPage init');
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
         const ROWSIZE = MOBILE ? 2 : 4;
@@ -94,9 +93,9 @@ const GalleryPage = () => {
         }
         const imgViewer = div({ id: 'img_viewer' })
             .cacheAppend({
-            left: div({ id: 'left_css_chevron', cls: 'left' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
+            left: div({ id: 'left_chevron', cls: 'left' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
             img: img(),
-            right: div({ id: 'right_css_chevron', cls: 'right' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
+            right: div({ id: 'right_chevron', cls: 'right' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
             caption: div({ id: 'caption' })
         }).click((event) => {
             console.log('imgViewer click, stopping propagation');
@@ -110,7 +109,6 @@ const GalleryPage = () => {
             let cachedImage = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             }
             else {
                 let src = `main/gallery/${file}`;
@@ -165,7 +163,6 @@ const GalleryPage = () => {
             }
             appendToRow(yearDiv, galleryImg, count);
         }
-        console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg = new GalleryImg();
         const imagesContainer = div({ id: 'images_container' })
             .append(...Object.values(yearToYearDiv).reverse());
@@ -188,7 +185,7 @@ const GalleryPage = () => {
                     return switchToImg(selectedImg.getRightImage());
             }
         });
-        const imgViewerClose = div({ id: 'img_viewer_close_css' })
+        const imgViewerClose = div({ id: 'img_viewer_close' })
             .append(span({ cls: 'lines' })).click(closeImgViewer);
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
     }

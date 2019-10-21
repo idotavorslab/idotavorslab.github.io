@@ -18,6 +18,8 @@ const PeoplePage = () => {
                 super({ cls: 'person' });
                 this.cv = cv;
                 this.email = email;
+                this.name = name;
+                this.role = role;
                 let imgElem;
                 let cachedImage = CacheDiv[`people.${image}`];
                 if (cachedImage !== undefined) {
@@ -44,7 +46,7 @@ const PeoplePage = () => {
             row() {
                 return int(this.index / ROWSIZE);
             }
-            *yieldIndexesBelow() {
+            *_yieldIndexesBelow() {
                 for (let i = this.row() + 1; i <= this.group.length / ROWSIZE; i++) {
                     for (let j = 0; j < ROWSIZE && i * ROWSIZE + j < this.group.length; j++) {
                         yield [i, j];
@@ -52,16 +54,16 @@ const PeoplePage = () => {
                 }
             }
             pushPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     this.group[i * ROWSIZE + j].css({ gridRow: `${i + 2}/${i + 2}` });
                 }
             }
             pullbackPeopleBelow() {
-                for (let [i, j] of this.yieldIndexesBelow()) {
+                for (let [i, j] of this._yieldIndexesBelow()) {
                     this.group[i * ROWSIZE + j].uncss("gridRow");
                 }
             }
-            squeezeExpandoBelow() {
+            insertExpandoAfterRightmostPerson() {
                 let rightmostPersonIndex = Math.min((ROWSIZE - 1) + this.row() * ROWSIZE, this.group.length - 1);
                 this.group[rightmostPersonIndex].after(expando);
             }
@@ -77,6 +79,16 @@ const PeoplePage = () => {
                 person.index = index;
                 person.group = this;
                 return index;
+            }
+            static unfocusAll() {
+                for (let p of [...team, ...alumni]) {
+                    p.unfocus();
+                }
+            }
+            static focusAll() {
+                for (let p of [...team, ...alumni]) {
+                    p.focus();
+                }
             }
             static unfocusOthers(person) {
                 for (let p of [...team, ...alumni]) {
@@ -95,32 +107,48 @@ const PeoplePage = () => {
         }
         class Expando extends Div {
             constructor() {
-                super({ id: 'person_expando' });
+                super({ id: 'person_expando', cls: 'collapsed' });
                 this.owner = null;
-                this
-                    .click((event) => {
-                    console.log('expando click, stopping propagation');
-                    event.stopPropagation();
-                })
-                    .append(elem({ tag: 'svg' })
+                const svgX = elem({ tag: 'svg' })
                     .id('svg_root')
-                    .attr({ viewBox: '0 0 15 15' })
+                    .attr({ viewBox: '0 0 25 25' })
                     .append(elem({ tag: 'path', cls: 'upright' }), elem({ tag: 'path', cls: 'downleft' }))
                     .click((event) => {
                     console.log('svg click, stopping prop and closing');
                     event.stopPropagation();
                     this.close();
-                }))
-                    .cacheAppend({
-                    cv: div({ cls: 'cv' }),
-                    email: div({ cls: 'email' })
+                });
+                this.click((event) => {
+                    console.log('expando click, stopping propagation');
+                    event.stopPropagation();
+                });
+                WindowElem.promiseLoaded().then(() => {
+                    this.append({
+                        cv: div({ cls: 'cv' }),
+                        email: div({ cls: 'email' })
+                    });
+                    if (MOBILE) {
+                        const title = div({ cls: 'title' });
+                        const role = div({ cls: 'role' });
+                        this.cv.before(title, svgX, role);
+                        this.cacheChildren({ title, role });
+                    }
+                    else {
+                        this.cv.after(svgX);
+                    }
                 });
             }
             async toggle(pressed) {
                 if (this.owner === null) {
-                    People.unfocusOthers(pressed);
-                    await this.pushAfterAndExpand(pressed);
-                    this.ownPopulateAndPosition(pressed);
+                    if (MOBILE) {
+                        this._expand();
+                        People.unfocusAll();
+                    }
+                    else {
+                        People.unfocusOthers(pressed);
+                        await this._pushAfterAndExpand(pressed);
+                    }
+                    this._ownAndPopulate(pressed);
                     return;
                 }
                 if (this.owner === pressed) {
@@ -131,41 +159,40 @@ const PeoplePage = () => {
                 pressed.focus();
                 if (this.owner.group === pressed.group) {
                     if (this.owner.row() !== pressed.row()) {
-                        this.collapse();
-                        await this.pushAfterAndExpand(pressed);
+                        this._collapse();
+                        if (MOBILE) {
+                            this._expand();
+                        }
+                        else {
+                            await this._pushAfterAndExpand(pressed);
+                        }
                     }
-                    this.ownPopulateAndPosition(pressed);
+                    this._ownAndPopulate(pressed);
                 }
                 else {
-                    this.collapse();
-                    await this.pushAfterAndExpand(pressed);
-                    this.ownPopulateAndPosition(pressed);
+                    this._collapse();
+                    if (MOBILE) {
+                        this._expand();
+                    }
+                    else {
+                        await this._pushAfterAndExpand(pressed);
+                    }
+                    this._ownAndPopulate(pressed);
                 }
             }
-            async pushAfterAndExpand(pressed) {
+            async _pushAfterAndExpand(pressed) {
                 pressed.pushPeopleBelow();
-                pressed.squeezeExpandoBelow();
+                pressed.insertExpandoAfterRightmostPerson();
                 await wait(0);
-                this.expand();
+                this._expand();
             }
-            ownPopulateAndPosition(pressed) {
+            _ownAndPopulate(pressed) {
                 this.owner = pressed;
-                this.setHtml();
-                this.setGridColumn();
+                this._setHtml();
+                if (!MOBILE)
+                    this.__setGridColumn();
             }
-            collapse() {
-                this.removeClass('expanded').addClass('collapsed').remove();
-                this.owner.pullbackPeopleBelow();
-            }
-            expand() {
-                this.removeClass('collapsed').addClass('expanded');
-            }
-            close() {
-                this.collapse();
-                People.focusOthers(this.owner);
-                this.owner = null;
-            }
-            setGridColumn() {
+            __setGridColumn() {
                 let gridColumn;
                 switch (this.owner.indexInRow()) {
                     case 0:
@@ -180,16 +207,74 @@ const PeoplePage = () => {
                         break;
                 }
                 this.css({ gridColumn });
+                wait(250).then(() => {
+                    if (isOverflown(this.e)) {
+                        let diff = this.e.scrollHeight - this.e.clientHeight;
+                        this.css({ height: `${parseInt(getComputedStyle(this.e).height) + diff}px` });
+                    }
+                });
             }
-            setHtml() {
+            _collapse() {
+                this.removeClass('expanded').addClass('collapsed');
+                if (!MOBILE) {
+                    this.insertAfter(alumniContainer);
+                    this.owner.pullbackPeopleBelow();
+                }
+            }
+            _expand() {
+                this.removeClass('collapsed').addClass('expanded');
+                if (MOBILE)
+                    elem({ id: 'navbar_section' }).addClass('off');
+            }
+            close() {
+                this._collapse();
+                this.owner = null;
+                if (MOBILE) {
+                    People.focusAll();
+                    elem({ id: 'navbar_section' }).removeClass('off');
+                    [teamH1, alumniH1].forEach(h1 => h1.removeClass('unfocused'));
+                }
+                else {
+                    People.focusOthers(this.owner);
+                }
+            }
+            _setHtml() {
                 this.cv.html(this.owner.cv);
                 this.email.html(`Email: <a target="_blank" href="mailto:${this.owner.email}">${this.owner.email}</a>`);
-                showArrowOnHover(this.email.children('a'));
+                if (MOBILE) {
+                    this.title.text(this.owner.name);
+                    this.role.text(this.owner.role);
+                    [teamH1, alumniH1].forEach(h1 => h1.class('unfocused'));
+                }
+                else {
+                    showArrowOnHover(this.email.children('a'));
+                }
             }
         }
         __decorate([
             log()
-        ], Expando.prototype, "setHtml", null);
+        ], Expando.prototype, "toggle", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "_pushAfterAndExpand", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "_ownAndPopulate", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "__setGridColumn", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "_collapse", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "_expand", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "close", null);
+        __decorate([
+            log()
+        ], Expando.prototype, "_setHtml", null);
         function containerFactory({ containerData, people }) {
             let index = 0;
             for (let [name, { image, role, cv, email }] of dict(containerData).items()) {
@@ -197,8 +282,7 @@ const PeoplePage = () => {
                 people.push(person);
                 index++;
             }
-            let cls = MOBILE ? 'flex' : 'grid';
-            const grid = div({ cls }).append(...people);
+            const grid = div({ cls: 'grid' }).append(...people);
             return grid;
         }
         const { alumni: alumniData, team: teamData } = await fetchDict('main/people/people.json');
@@ -207,14 +291,6 @@ const PeoplePage = () => {
         const alumni = new People();
         const teamContainer = containerFactory({ containerData: teamData, people: team });
         const alumniContainer = containerFactory({ containerData: alumniData, people: alumni });
-        Home.empty().class('people-page').append(elem({ tag: 'h1', text: 'Team' }), teamContainer, elem({ tag: 'h1', text: 'Alumni' }), alumniContainer);
-        DocumentElem
-            .click(() => {
-            console.log('DocumentElem click');
-            if (expando.owner !== null)
-                expando.close();
-        })
-            .keydown(keyboardNavigation);
         function keyboardNavigation(event) {
             if (event.key === "Escape" && expando.owner !== null)
                 return expando.close();
@@ -235,6 +311,17 @@ const PeoplePage = () => {
                 }
             }
         }
+        DocumentElem.click(() => {
+            console.log('DocumentElem click');
+            if (expando.owner !== null)
+                expando.close();
+        });
+        if (!MOBILE)
+            DocumentElem.keydown(keyboardNavigation);
+        const teamH1 = elem({ tag: 'h1', text: 'Team' });
+        const alumniH1 = elem({ tag: 'h1', text: 'Alumni' });
+        Home.empty().class('people-page').append(teamH1, teamContainer, alumniH1, alumniContainer);
+        Body.append(expando);
     }
     return { init };
 };
