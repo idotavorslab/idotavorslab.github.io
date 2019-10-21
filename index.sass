@@ -38,8 +38,6 @@ body
 	line-height: 24px
 	transition: filter 0.2s ease-in-out
 
-	&.noscroll
-		overflow-y: hidden
 
 	&.theater
 		background-color: var(--GREY8)
@@ -125,16 +123,20 @@ div#main
 	text-align: center
 
 
-	div#home
+	& > div#home
 		display: block
 		opacity: 1
 		position: relative
+		transition: filter 0.5s ease-out 0.25s
+
+		&.blurred
+			filter: blur(5px) grayscale(1)
+
 		@include min-width($BP4)
 			//130px
 			padding-top: calc(var(--REGULAR_NAVBAR_HEIGHT) + 60px)
 		@include max-width($BP4)
-			// *  DEP: navbar.sass #navbar_section --mobileHeight
-			padding-top: var(--MOBILE_NAVBAR_HEIGHT)
+			padding-top: calc(var(--MOBILE_NAVBAR_HEIGHT) * 2)
 
 // ***  footer
 // div#footer

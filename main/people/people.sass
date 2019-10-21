@@ -83,7 +83,7 @@ div#person_expando
 
 		& > div.role
 			margin-bottom: 16px
-			margin-top: $marginBlockStart
+			margin-top: calc(#{$marginBlockStart} - var(--cvRightGap))
 			width: 100%
 
 	background-color: white
@@ -117,7 +117,7 @@ div#person_expando
 		cursor: pointer
 		margin-bottom: auto
 		margin-left: auto
-		padding-bottom: 0px
+		padding-bottom: var(--cvRightGap)
 		padding-left: var(--cvRightGap)
 		width: $svgDim + px
 		transition: opacity 1s ease-in-out
@@ -158,6 +158,9 @@ div#person_expando
 		& > svg#svg_root
 			opacity: 1
 
+			// bypass .role negative margin-top overlap
+			z-index: 10
+
 		@include min-width($BP4)
 			box-shadow: 0px 2px 10px var(--GREY3)
 			width: calc(var(--tagWidth) * 2)
@@ -167,7 +170,7 @@ div#person_expando
 			box-shadow: 0px 5px 10px var(--GREY5)
 			height: auto
 			position: fixed
-			margin: auto
+			margin: auto calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
 
 
 

@@ -128,9 +128,6 @@ body {
     --small_gap: var(--SMALL_GAP2);
   }
 }
-body.noscroll {
-  overflow-y: hidden;
-}
 body.theater {
   background-color: var(--GREY8);
 }
@@ -232,19 +229,23 @@ a.arrow-trans:after {
 div#main {
   text-align: center;
 }
-div#main div#home {
+div#main > div#home {
   display: block;
   opacity: 1;
   position: relative;
+  transition: filter 0.5s ease-out 0.25s;
+}
+div#main > div#home.blurred {
+  filter: blur(5px) grayscale(1);
 }
 @media screen and (min-width: 500px) {
-  div#main div#home {
+  div#main > div#home {
     padding-top: calc(var(--REGULAR_NAVBAR_HEIGHT) + 60px);
   }
 }
 @media screen and (max-width: 500px) {
-  div#main div#home {
-    padding-top: var(--MOBILE_NAVBAR_HEIGHT);
+  div#main > div#home {
+    padding-top: calc(var(--MOBILE_NAVBAR_HEIGHT) * 2);
   }
 }
 
@@ -352,6 +353,7 @@ section#navbar_section[class=off] {
 }
 section#navbar_section > div#hamburger {
   height: inherit;
+  transition: box-shadow 0.5s ease-in-out;
 }
 @media screen and (min-width: 500px) {
   section#navbar_section > div#hamburger {
@@ -422,7 +424,7 @@ section#navbar_section > div#hamburger[class~=open] {
 }
 section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines {
   transform: rotate(45deg);
-  box-shadow: 0 0 0 100vw white, 0 0 0 150vh white;
+  box-shadow: 0 0 0 100vw transparent, 0 0 0 150vh rgba(255, 255, 255, 0.8);
   z-index: -1;
 }
 section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:after, section#navbar_section > div#hamburger[class~=open] > div.menu-and-logo-container > div.menu > span.lines:before {
@@ -444,6 +446,9 @@ section#navbar_section > div#hamburger[class~=open] > div.items {
   flex-direction: column;
   transition: opacity 0.5s ease-in-out 0.25s;
   opacity: 1;
+}
+section#navbar_section > div#hamburger:not([class~=open]) {
+  box-shadow: 0 1px 0px white;
 }
 section#navbar_section > div#hamburger:not([class~=open]) > div.items {
   transition: opacity 0.5s ease-out;
@@ -962,7 +967,7 @@ div#person_expando {
   }
   div#person_expando > div.role {
     margin-bottom: 16px;
-    margin-top: -4px;
+    margin-top: calc(-4px - var(--cvRightGap));
     width: 100%;
   }
 }
@@ -982,7 +987,7 @@ div#person_expando > svg#svg_root {
   cursor: pointer;
   margin-bottom: auto;
   margin-left: auto;
-  padding-bottom: 0px;
+  padding-bottom: var(--cvRightGap);
   padding-left: var(--cvRightGap);
   width: 25px;
   transition: opacity 1s ease-in-out;
@@ -1010,6 +1015,7 @@ div#person_expando.expanded {
 }
 div#person_expando.expanded > svg#svg_root {
   opacity: 1;
+  z-index: 10;
 }
 @media screen and (min-width: 500px) {
   div#person_expando.expanded {
@@ -1023,7 +1029,7 @@ div#person_expando.expanded > svg#svg_root {
     box-shadow: 0px 5px 10px var(--GREY5);
     height: auto;
     position: fixed;
-    margin: auto;
+    margin: auto calc(var(--MOBILE_NAVBAR_HEIGHT) / 2);
   }
 }
 

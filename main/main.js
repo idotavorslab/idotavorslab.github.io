@@ -58,9 +58,11 @@ Hamburger.click((event) => {
     console.log('Hamburger.click');
     Hamburger.toggleClass('open');
     if (Hamburger.hasClass('open')) {
+        Home.addClass('blurred');
         console.log('Hamburger opened');
     }
     else {
+        Home.removeClass('blurred');
         console.log('Hamburger closed');
     }
 });
