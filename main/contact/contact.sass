@@ -1,64 +1,49 @@
 div#home.contact-page
+	display: flex
+	height: 660px
+	$_contactPageMarginBottom: 80px
+	margin-bottom: $_contactPageMarginBottom
+
 	& > iframe#contact_map
-		@include iframeMixin()
-		margin-bottom: 80px
+		border-radius: 15px
+		width: calc(var(--w) * 0.7)
 
 
-	& > div#contact_grid
-		margin-bottom: calc(var(--gap))
+	& > div#contact_flex
+		margin-left: $_contactPageMarginBottom
+		display: flex
+		flex-direction: column
+		// **  min-width($BP4)
+		@include min-width($BP4)
+
+
+		// **  max-width($BP4)
+		@include max-width($BP4)
 
 		// **  All Resolutions
 		& > div
-			display: grid
-			grid-template-rows: 80px 40px auto
-			grid-template-columns: repeat(2, 1fr)
+			width: inherit
 
 			& > h1
-				grid-row: 1/1
-				grid-column: 1/1
+				margin-bottom: unset
 
-			& > svg, & > img, & > div
-				background-repeat: no-repeat
-				grid-row: 1/1
-				grid-column: 2/2
-				// *  DEP: contact.sass img width
-				@include min-width($BP4)
-					width: 54px
-				@include max-width($BP4)
-					width: 42px
-
-
-				margin: 0 auto
-				height: auto
 
 			& > p.subtitle
 				color: var(--GREY5)
-				grid-row: 2/2
-				grid-column: span 2
 
 			& > a
-				grid-row: 3/3
 				@include pFontSize(true)
 
-				grid-column: span 2
 
 			&.visit > a
 				text-transform: capitalize
 
+			&.call
+				margin: auto 0
 
-		// **  min-width($BP4)
-		@include min-width($BP4)
-			& > div > *
-				text-align: center
-			// *  DEP: home.sass funding grid
-			display: grid
-			grid:
-				template-columns: repeat(3, 1fr)
-				column-gap: var(--GAP1)
-				row-gap: var(--GAP1)
+			&.email
+				margin-top: auto
 
-		// **  max-width($BP4)
-		@include max-width($BP4)
-			display: flex
-			flex-direction: column
+
+
 

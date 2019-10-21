@@ -21,7 +21,7 @@ const ContactPage = () => {
         const visit = div({cls: 'visit'})
             .append(
                 elem({tag: 'h1', text: 'Visit'}),
-                htmlToElement(await fetchText(`main/contact/${data.visit.icon}`)),
+                // htmlToElement(await fetchText(`main/contact/${data.visit.icon}`)),
                 paragraph({cls: 'subtitle', text: 'Address'}),
                 anchor({href: data.visit.link}).html(data.visit.address).target("_blank")
             );
@@ -30,7 +30,7 @@ const ContactPage = () => {
             
             .append(
                 elem({tag: 'h1', text: 'Call'}),
-                htmlToElement(await fetchText(`main/contact/${data.call.icon}`)),
+                // htmlToElement(await fetchText(`main/contact/${data.call.icon}`)),
                 paragraph({cls: 'subtitle', text: data.call.hours}),
                 anchor({text: data.call.phone, href: `tel:${data.call.phone}`}).target("_blank")
             );
@@ -38,11 +38,11 @@ const ContactPage = () => {
         const email = div({cls: 'email'})
             .append(
                 elem({tag: 'h1', text: 'Email'}),
-                htmlToElement(await fetchText(`main/contact/${data.email.icon}`)),
+                // htmlToElement(await fetchText(`main/contact/${data.email.icon}`)),
                 anchor({text: data.email.address, href: `mailto:${data.email.address}`}).target("_blank")
             );
         
-        const grid = div({id: 'contact_grid'})
+        const contactFlex = div({id: 'contact_flex'})
             .append(
                 visit,
                 call,
@@ -60,11 +60,11 @@ const ContactPage = () => {
         Home.empty().class('contact-page');
         await WindowElem.promiseLoaded();
         if (MOBILE)
-            Home.append(grid);
+            Home.append(contactFlex);
         else
             Home.append(
-                grid,
-                map
+                map,
+                contactFlex
             );
         
     }
