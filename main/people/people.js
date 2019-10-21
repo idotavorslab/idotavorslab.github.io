@@ -141,8 +141,8 @@ const PeoplePage = () => {
             async toggle(pressed) {
                 if (this.owner === null) {
                     if (MOBILE) {
-                        People.unfocusAll();
                         this._expand();
+                        People.unfocusAll();
                     }
                     else {
                         People.unfocusOthers(pressed);
@@ -215,9 +215,11 @@ const PeoplePage = () => {
                 });
             }
             _collapse() {
-                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
-                if (!MOBILE)
+                this.removeClass('expanded').addClass('collapsed');
+                if (!MOBILE) {
+                    this.insertAfter(alumniContainer);
                     this.owner.pullbackPeopleBelow();
+                }
             }
             _expand() {
                 this.removeClass('collapsed').addClass('expanded');

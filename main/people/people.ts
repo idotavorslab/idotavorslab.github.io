@@ -192,8 +192,8 @@ const PeoplePage = () => {
                 if (this.owner === null) {
                     // *  Expand
                     if (MOBILE) {
-                        People.unfocusAll();
                         this._expand();
+                        People.unfocusAll();
                     } else {
                         People.unfocusOthers(pressed);
                         await this._pushAfterAndExpand(pressed);
@@ -282,9 +282,11 @@ const PeoplePage = () => {
             
             @log()
             private _collapse() {
-                this.removeClass('expanded').addClass('collapsed').insertAfter(alumniContainer);
-                if (!MOBILE)
+                this.removeClass('expanded').addClass('collapsed');
+                if (!MOBILE) {
+                    this.insertAfter(alumniContainer);
                     this.owner.pullbackPeopleBelow();
+                }
             }
             
             @log()
@@ -302,7 +304,6 @@ const PeoplePage = () => {
                     People.focusAll();
                     elem({id: 'navbar_section'}).removeClass('off');
                     [teamH1, alumniH1].forEach(h1 => h1.removeClass('unfocused'));
-                    // Body.removeClass('noscroll');
                 } else {
                     People.focusOthers(this.owner);
                     
@@ -350,12 +351,8 @@ const PeoplePage = () => {
                 if (MOBILE) {
                     this.title.text(this.owner.name);
                     this.role.text(this.owner.role);
-                    // if (isOverflown(this.e))
-                    //     this.css({bottom: 'unset'});
-                    // else
-                    //     this.uncss('bottom');
                     [teamH1, alumniH1].forEach(h1 => h1.class('unfocused'));
-                    // Body.addClass('noscroll');
+                    
                 } else {
                     showArrowOnHover(this.email.children('a'));
                 }
