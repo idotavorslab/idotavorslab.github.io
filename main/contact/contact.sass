@@ -1,8 +1,13 @@
 div#home.contact-page
 	display: flex
-	height: 660px
 	$_contactPageMarginBottom: 80px
-	margin-bottom: $_contactPageMarginBottom
+	// **  min-width($BP4)
+	@include min-width($BP4)
+		height: 660px
+		margin-bottom: $_contactPageMarginBottom
+	// **  max-width($BP4)
+	@include max-width($BP4)
+		margin-bottom: calc(var(--MOBILE_NAVBAR_HEIGHT) * 2)
 
 	& > iframe#contact_map
 		border-radius: 15px
@@ -10,22 +15,24 @@ div#home.contact-page
 
 
 	& > div#contact_flex
-		margin-left: $_contactPageMarginBottom
 		display: flex
 		flex-direction: column
 		// **  min-width($BP4)
 		@include min-width($BP4)
+			margin-left: $_contactPageMarginBottom
 
 
 		// **  max-width($BP4)
 		@include max-width($BP4)
+			margin-left: 60px
 
 		// **  All Resolutions
 		& > div
 			width: inherit
 
-			& > h1
-				margin-bottom: unset
+			& > h2
+				//margin-bottom: unset
+				//margin-block-start: 0
 
 
 			& > p.subtitle
@@ -34,12 +41,20 @@ div#home.contact-page
 			& > a
 				@include pFontSize(true)
 
+			&:not(:last-of-type)
+				margin-bottom: 60px
 
-			&.visit > a
-				text-transform: capitalize
+			&.visit
+				margin-block-start: 0
+
+				& > a
+					text-transform: capitalize
+
+				& > h2
+					margin-block-start: 0
 
 			&.call
-				margin: auto 0
+			//margin: auto 0
 
 			&.email
 				margin-top: auto

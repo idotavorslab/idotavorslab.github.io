@@ -20,7 +20,7 @@ const ContactPage = () => {
         // let svg = await fetchText("main/contact/home-simple.svg");
         const visit = div({cls: 'visit'})
             .append(
-                elem({tag: 'h1', text: 'Visit'}),
+                elem({tag: 'h2', text: 'Visit'}),
                 // htmlToElement(await fetchText(`main/contact/${data.visit.icon}`)),
                 paragraph({cls: 'subtitle', text: 'Address'}),
                 anchor({href: data.visit.link}).html(data.visit.address).target("_blank")
@@ -29,7 +29,7 @@ const ContactPage = () => {
         const call = div({cls: 'call'})
             
             .append(
-                elem({tag: 'h1', text: 'Call'}),
+                elem({tag: 'h2', text: 'Call'}),
                 // htmlToElement(await fetchText(`main/contact/${data.call.icon}`)),
                 paragraph({cls: 'subtitle', text: data.call.hours}),
                 anchor({text: data.call.phone, href: `tel:${data.call.phone}`}).target("_blank")
@@ -37,7 +37,7 @@ const ContactPage = () => {
         
         const email = div({cls: 'email'})
             .append(
-                elem({tag: 'h1', text: 'Email'}),
+                elem({tag: 'h2', text: 'Email'}),
                 // htmlToElement(await fetchText(`main/contact/${data.email.icon}`)),
                 anchor({text: data.email.address, href: `mailto:${data.email.address}`}).target("_blank")
             );
