@@ -31,18 +31,21 @@ div#home.contact-page
 			width: inherit
 
 			& > h2
-				//margin-bottom: unset
-				//margin-block-start: 0
+				margin-block-end: 12px
+				margin-block-start: 0
+			//margin-bottom: unset
+			//margin-block-start: 0
 
 
 			& > p.subtitle
 				color: var(--GREY5)
+				margin-bottom: 0
 
 			& > a
 				@include pFontSize(true)
 
 			&:not(:last-of-type)
-				margin-bottom: 60px
+				margin-bottom: 40px
 
 			&.visit
 				margin-block-start: 0
@@ -51,13 +54,14 @@ div#home.contact-page
 					text-transform: capitalize
 
 				& > h2
-					margin-block-start: 0
+			//margin-block-end: 12px
+			//margin-block-start: 0
 
 			&.call
 			//margin: auto 0
 
 			&.email
-				margin-top: auto
+			//margin-top: auto
 
 
 
