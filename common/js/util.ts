@@ -1,10 +1,20 @@
 const $BP0 = 1535;
-// needs to be higher than --W0
+
+// needs to be greater than --W0
 const $BP1 = 1340;
-// needs to be higher than --W1
+
+// needs to be greater than --W1
+const $BP2 = 1023;
+
+// needs to be greater than --W2
+const $BP3 = 760;
+
+// needs to be greater than --W3
 const $BP4 = 500;
+
 // [BP1]W0[BP0]
 const W0 = 1200;
+
 // [BP2]W1[BP1]
 const W1 = 984;
 

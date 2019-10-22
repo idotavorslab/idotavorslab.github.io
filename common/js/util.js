@@ -1,5 +1,7 @@
 const $BP0 = 1535;
 const $BP1 = 1340;
+const $BP2 = 1023;
+const $BP3 = 760;
 const $BP4 = 500;
 const W0 = 1200;
 const W1 = 984;

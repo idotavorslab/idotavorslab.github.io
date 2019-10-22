@@ -3,7 +3,6 @@ const IS_GILAD = userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 
-// @ts-ignore
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
@@ -15,7 +14,6 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 
 const CacheDiv = elem({id: 'cache'});
 
-// @ts-ignore
 const WindowElem = elem({htmlElement: window});
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
@@ -48,9 +46,12 @@ interface IHamburger extends Div {
     menu: Div;
     logo: Div;
     items: Div;
-    open: () => void;
-    close: () => void;
-    toggle: () => void;
+    
+    open(): void;
+    
+    close(): void;
+    
+    toggle(): void;
 }
 
 const Hamburger = <IHamburger>elem({

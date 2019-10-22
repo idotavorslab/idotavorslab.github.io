@@ -156,22 +156,25 @@ section#navbar_section
 			letter-spacing: 0.5px
 			transition: color $_trans, border-bottom-color $_trans
 
+		--logosHeight: 40px
+
 		& > div, & > img.home
 			margin:
 				top: auto
-				right: 40px
+				right: var(--logosHeight)
 				left: 0
 				bottom: auto
+
 
 		// logo
 		& > img.home
 			margin: auto auto auto 0
-			// 820 is the tavorlab-mini-trans.png width
-			width: calc(820px / 7)
+			width: auto
+			height: var(--logosHeight)
 
 		// tau logo
 		& > img.uni
-			height: 40px
+			height: var(--logosHeight)
 			margin: auto 0
 
 		& > div:nth-last-child(2)
