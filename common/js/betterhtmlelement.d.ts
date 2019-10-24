@@ -11,7 +11,7 @@ declare class BadArgumentsAmountError extends Error {
 }
 
 declare class BetterHTMLElement {
-    protected _htmlElement: HTMLElementAndSomeMore;
+    protected _htmlElement: HTMLElement;
     private readonly _isSvg;
     private readonly _listeners;
     private _cachedChildren;
@@ -38,14 +38,14 @@ declare class BetterHTMLElement {
     });
     /**Wrap an existing HTMLElement. Optionally, set its `text`, `cls` or cache `children`*/
     constructor({htmlElement, text, cls, children}: {
-        htmlElement: HTMLElementAndSomeMore;
+        htmlElement: HTMLElement;
         text?: string;
         cls?: string;
         children?: TChildrenObj;
     });
     
     /**Return the wrapped HTMLElement*/
-    readonly e: HTMLElementAndSomeMore;
+    readonly e: HTMLElement;
     
     /**Sets `this._htmlElement` to `newHtmlElement._htmlElement`.
      * Resets `this._cachedChildren` and caches `newHtmlElement._cachedChildren`.
@@ -417,7 +417,7 @@ declare function elem({query, text, cls, children}: {
 }): BetterHTMLElement;
 /**Wrap an existing HTMLElement. Optionally, set its `text`, `cls` or cache `children`*/
 declare function elem({htmlElement, text, cls, children}: {
-    htmlElement: HTMLElementAndSomeMore;
+    htmlElement: HTMLElement;
     text?: string;
     cls?: string;
     children?: TChildrenObj;
@@ -456,7 +456,6 @@ declare type TEventFunctionMap<K extends TEvent> = {
 };
 declare type HTMLTag = keyof HTMLElementTagNameMap;
 declare type QuerySelector = HTMLTag | string;
-declare type HTMLElementAndSomeMore = HTMLElement | Window;
 
 interface BaseElemConstructor {
     id?: string;
@@ -575,7 +574,10 @@ interface AnimateOptions {
 }
 
 declare type TChildrenObj = TMap<QuerySelector> | TRecMap<QuerySelector>;
-declare type Enumerated<T> = T extends (infer U)[] ? [number, U][] : T extends TMap<(infer U)> ? [keyof T, U][] : T extends boolean ? never : any;
+type Enumerated<T> =
+    T extends (infer U)[] ? [number, U][]
+        : T extends TMap<(infer U)> ? [keyof T, U][]
+        : [keyof T, T[keyof T]][];
 
 declare function enumerate<T>(obj: T): Enumerated<T>;
 
