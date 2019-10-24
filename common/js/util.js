@@ -141,14 +141,12 @@ class ExTweenLite {
         this.isLoaded = false;
         this.load().then(() => {
             Object.assign(this, TweenLite);
-            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
         });
     }
     async toAsync(target, duration, vars) {
         return new Promise(resolve => this.to(target, duration, Object.assign(Object.assign({}, vars), { onComplete: resolve })));
     }
     async load() {
-        console.log(...less('ExTweenLite.load(), this:'), this);
         if (this.isLoaded)
             return true;
         let scriptA = document.querySelector(`script[src*="Tween"]`);
@@ -172,7 +170,6 @@ class ExTweenLite {
             scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
             count++;
         }
-        console.log(...less('TweenLite scripts loaded'));
         this.isLoaded = true;
         return true;
     }

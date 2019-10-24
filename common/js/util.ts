@@ -283,8 +283,10 @@ const TL: ITL = {
     }*!/
 };*/
 interface ITL extends Gsap.Tween {
-    toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown>;
-    load: () => Promise<boolean>;
+    toAsync(target: object, duration: number, vars: Gsap.ToVars): Promise<unknown>;
+    
+    load(): Promise<boolean>;
+    
     isLoaded: boolean;
 }
 
@@ -294,7 +296,6 @@ class ExTweenLite {
     constructor() {
         this.load().then(() => {
             Object.assign(this, TweenLite);
-            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
         })
         
     }
@@ -311,7 +312,6 @@ class ExTweenLite {
     }
     
     async load() {
-        console.log(...less('ExTweenLite.load(), this:'), this);
         if (this.isLoaded)
             return true;
         let scriptA = document.querySelector(`script[src*="Tween"]`);
@@ -336,7 +336,6 @@ class ExTweenLite {
             scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
             count++;
         }
-        console.log(...less('TweenLite scripts loaded'));
         this.isLoaded = true;
         return true;
     }

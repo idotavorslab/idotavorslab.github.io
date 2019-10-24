@@ -67,7 +67,6 @@ Hamburger.click((event) => {
     console.log('Hamburger.click');
     Hamburger.toggle();
 });
-const Ugug = elem({ id: 'ugug' });
 WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
@@ -90,24 +89,6 @@ WindowElem.on({
         }
     },
     load: () => {
-        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
-        WindowElem.isLoaded = true;
-        MOBILE = window.innerWidth <= $BP4;
-        Navbar = new NavbarElem({
-            query: 'div#navbar',
-            children: {
-                home: '.home',
-                research: '.research',
-                people: '.people',
-                publications: '.publications',
-                gallery: '.gallery',
-                neuroanatomy: '.neuroanatomy',
-                contact: '.contact',
-            }
-        });
-        console.log({ innerWidth: window.innerWidth, MOBILE });
-        if (window.location.hash !== "")
-            fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
         function cache(file, page) {
             let src;
             if (file.includes('http') || file.includes('www')) {
@@ -145,6 +126,25 @@ WindowElem.on({
             const researchData = await fetchDict('main/research/research.json');
             for (let [_, { image }] of researchData.items())
                 cache(image, "research");
+        }
+        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
+        WindowElem.isLoaded = true;
+        MOBILE = window.innerWidth <= $BP4;
+        Navbar = new NavbarElem({
+            query: 'div#navbar',
+            children: {
+                home: '.home',
+                research: '.research',
+                people: '.people',
+                publications: '.publications',
+                gallery: '.gallery',
+                neuroanatomy: '.neuroanatomy',
+                contact: '.contact',
+            }
+        });
+        console.log('%cstats:', 'color: #B58059', { MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI });
+        if (window.location.hash !== "") {
+            fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
         }
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
@@ -212,9 +212,8 @@ fetchDict("main/contact/contact.json").then(async (data) => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
-    console.log(...less('main.ts popuplating Footer;'), { MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI });
     if (!MOBILE) {
-        await wait(3000);
+        await wait(2000);
         console.log(...less("Footer.contactSection.append(elem({tag: 'iframe'}))"));
         Footer.map.attr({
             frameborder: "0",
