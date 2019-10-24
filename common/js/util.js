@@ -145,7 +145,7 @@ class ExTweenLite {
         });
     }
     async toAsync(target, duration, vars) {
-        return new Promise(resolve => this.to(target, duration, Object.assign({}, vars, { onComplete: resolve })));
+        return new Promise(resolve => this.to(target, duration, Object.assign(Object.assign({}, vars), { onComplete: resolve })));
     }
     async load() {
         console.log(...less('ExTweenLite.load(), this:'), this);

@@ -3,6 +3,7 @@ const IS_GILAD = userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 
+// @ts-ignore
 const DocumentElem = elem({htmlElement: document});
 const Body = elem({htmlElement: document.body});
 const Home = elem({id: 'home'});
@@ -14,7 +15,14 @@ const FundingSection = <Div & { sponsorsContainer: Div }>elem({
 
 const CacheDiv = elem({id: 'cache'});
 
-const WindowElem = elem({htmlElement: window});
+interface IWindow extends BetterHTMLElement {
+    isLoaded: boolean;
+    
+    promiseLoaded(): Promise<boolean>
+}
+
+// @ts-ignore
+const WindowElem = elem({htmlElement: window}) as IWindow;
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
     console.log(...less('WindowElem.promiseLoaded(), this.isLoaded:'), this.isLoaded);
@@ -111,6 +119,7 @@ WindowElem.on({
         
         
     },
+    // @ts-ignore
     hashchange: (event: HashChangeEvent) => {
         // called on navbar click, backbutton click
         const newURL = event.newURL.replace(window.location.origin + window.location.pathname, "").replace('#', '');
