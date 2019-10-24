@@ -10,7 +10,7 @@ const $BP2 = 1023;
 const $BP3 = 760;
 
 // needs to be greater than --W3
-const $BP4 = 500;
+const $BP4 = 760;
 
 // [BP1]W0[BP0]
 const W0 = 1200;

@@ -82,20 +82,14 @@
 			content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
 
 	/// 760 <= screen <= 1023
-	@include width-between($BP3, $BP2)
+	@include width-between($BP4, $BP2)
 		// 748px
 		--w: var(--W2)
 		#window_stats:after
-			content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
+			content: "--w: var(--W2): 748px \A [BP4] screen [BP2]: #{$BP4} screen #{$BP2}"
 
-	/// 500 <= screen <= 760
-	@include width-between($BP4, $BP3)
-		// 496px
-		--w: var(--W3)
-		#window_stats:after
-			content: "--w: var(--W3): 496px \A [BP4] screen [BP3]: #{$BP4} screen #{$BP3}"
 
-	/// screen <= 500
+	/// screen <= 760
 	@include max-width($BP4)
 		// 90%
 		--w: var(--W4)
