@@ -194,12 +194,18 @@ WindowElem.on({
         });
         
         
-        console.log('%cstats:', 'color: #B58059', {MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI});
         if (window.location.hash !== "") {
             fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
         }
         
-        
+        console.log('%cstats:', 'color: #B58059', {
+            MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI,
+            innerWidth
+        });
+        if (IS_GILAD) {
+            Body.append(div({text: innerWidth < $BP3 ? $BP3 : innerWidth < $BP2 ? $BP2 : innerWidth < $BP1 ? $BP1 : ''})
+                .css({position: 'sticky', bottom: 0}))
+        }
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
             
@@ -211,7 +217,6 @@ WindowElem.on({
             if (!window.location.hash.includes('gallery'))
                 cacheGallery();
             console.log(...less('done caching'));
-            console.groupEnd();
         });
         
         

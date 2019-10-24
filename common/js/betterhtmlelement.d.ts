@@ -463,7 +463,7 @@ interface BaseElemConstructor {
 }
 
 interface SubElemConstructor extends BaseElemConstructor {
-    text?: string;
+    text?: string | number;
 }
 
 interface ImgConstructor extends BaseElemConstructor {
@@ -484,6 +484,7 @@ declare type OmittedCssProps =
     | "animationIterationCount"
     | "animationPlayState"
     | "animationTimingFunction"
+    | "bottom"
     | "opacity"
     | "padding"
     | "paddingBottom"
@@ -500,6 +501,7 @@ interface CssOptions extends PartialCssStyleDeclaration {
     animationIterationCount?: number;
     animationPlayState?: AnimationPlayState;
     animationTimingFunction?: AnimationTimingFunction;
+    bottom?: string | number;
     opacity?: string | number;
     padding?: string | number;
     paddingBottom?: string | number;
