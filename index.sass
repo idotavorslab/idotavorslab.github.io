@@ -54,10 +54,10 @@ h1
 	font-family: OpenSansBold
 
 	// *  DEP: contact.sass img width
-	@include min-width($BP4)
+	@include min-width($BP3)
 		font-size: 36px
 		line-height: 54px
-	@include max-width($BP4)
+	@include max-width($BP3)
 		font-size: 28px
 		line-height: 42px
 
@@ -68,10 +68,10 @@ h2
 	font-family: OpenSansBold
 	color: var(--GREY8)
 	letter-spacing: -0.5px
-	@include min-width($BP4)
+	@include min-width($BP3)
 		font-size: 24px
 		line-height: 32px
-	@include max-width($BP4)
+	@include max-width($BP3)
 		font-size: 16px
 		line-height: 16px
 
@@ -130,10 +130,10 @@ div#main
 		transition: filter 0.5s ease-out 0.25s
 
 
-		@include min-width($BP4)
+		@include min-width($BP3)
 			//130px
 			padding-top: calc(var(--REGULAR_NAVBAR_HEIGHT) + 60px)
-		@include max-width($BP4)
+		@include max-width($BP3)
 			padding-top: calc(var(--MOBILE_NAVBAR_HEIGHT) * 2)
 
 // ***  footer
@@ -187,8 +187,8 @@ div#footer
 			cursor: pointer
 
 
-	// **  max-width($BP4)
-	@include max-width($BP4)
+	// **  max-width($BP3)
+	@include max-width($BP3)
 		display: flex
 		flex-direction: column
 		//& > section#contact_section
@@ -210,8 +210,8 @@ div#footer
 				object-fit: scale-down
 
 
-	// **  min-width($BP4)
-	@include min-width($BP4)
+	// **  min-width($BP3)
+	@include min-width($BP3)
 
 		& > div.address
 			grid-column: 1/1
@@ -277,8 +277,8 @@ div#ugug
 		font-size: 12px
 		padding: 10px 0
 
-	// **  max-width($BP4)
-	@include max-width($BP4)
+	// **  max-width($BP3)
+	@include max-width($BP3)
 		display: flex
 		flex-direction: column
 		& > section#contact_section
@@ -300,8 +300,8 @@ div#ugug
 				object-fit: scale-down
 
 
-	// **  min-width($BP4)
-	@include min-width($BP4)
+	// **  min-width($BP3)
+	@include min-width($BP3)
 		& > section#contact_section > div.main-cls
 			padding: var(--GAP0) 0 var(--GAP1) 0
 			display: grid

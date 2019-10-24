@@ -1,9 +1,9 @@
 $_marginBottom: 80px
 div#mobile_cover_image_container
-	@include min-width($BP4)
+	@include min-width($BP3)
 		display: none
 	width: 100%
-	--_side: calc((100% - var(--W4)) / 2)
+	--_side: calc((100% - var(--W3)) / 2)
 	background-color: var(--GREY02)
 	margin: 0 var(--_side) 40px calc(-1 * var(--_side))
 	padding: 16px var(--_side)
@@ -13,9 +13,9 @@ div#mobile_cover_image_container
 // ***  intro
 div#intro
 	display: flex
-	@include min-width($BP4)
+	@include min-width($BP3)
 		margin-bottom: $_marginBottom
-	@include max-width($BP4)
+	@include max-width($BP3)
 		margin-bottom: 40px
 
 	position: relative
@@ -166,8 +166,8 @@ div#research_snippets_container
 				font-size: 20px
 				line-height: 26px
 
-		// **  min-width($BP4)
-		@include min-width($BP4)
+		// **  min-width($BP3)
+		@include min-width($BP3)
 			// TODO: 3 in a row when BP2
 			// (1200 - 3*40) / 4  =  1080 / 4  =  270
 			// *  DEP: repeat(4
@@ -183,8 +183,8 @@ div#research_snippets_container
 			& > div.snippet > div.snippet-title
 				margin-top: 8px
 
-		// **  max-width($BP4)
-		@include max-width($BP4)
+		// **  max-width($BP3)
+		@include max-width($BP3)
 
 			--snippetWidth: 100%
 			& > div.snippet
@@ -232,8 +232,8 @@ section#funding_section
 					top: 0
 					bottom: 8px
 
-		// **  min-width($BP4)
-		@include min-width($BP4)
+		// **  min-width($BP3)
+		@include min-width($BP3)
 
 
 			& > div#sponsors_container
@@ -249,8 +249,8 @@ section#funding_section
 					height: $sponsorImgWidth
 
 
-		// **  max-width($BP4)
-		@include max-width($BP4)
+		// **  max-width($BP3)
+		@include max-width($BP3)
 			//&, & > h1
 				text-align: left
 

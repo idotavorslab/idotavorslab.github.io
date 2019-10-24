@@ -1,8 +1,6 @@
-const $BP0 = 1535;
 const $BP1 = 1340;
 const $BP2 = 1023;
 const $BP3 = 760;
-const $BP4 = 760;
 const W0 = 1200;
 const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
@@ -76,66 +74,6 @@ class Dict {
 function dict(obj) {
     return new Dict(obj);
 }
-class Str extends String {
-    constructor(value) {
-        super(value);
-    }
-    isdigit() {
-        return !isNaN(int(this));
-    }
-    upper() {
-        return this.toUpperCase();
-    }
-    lower() {
-        return this.toLowerCase();
-    }
-}
-function str(val) {
-    return new Str(val);
-}
-async function concurrent(...promises) {
-    return await Promise.all(promises);
-}
-const ajax = (() => {
-    function _tryResolveResponse(xhr, resolve, reject) {
-        if (xhr.status != 200) {
-            return reject(xhr);
-        }
-        try {
-            return resolve(JSON.parse(xhr.responseText));
-        }
-        catch (e) {
-            if (e instanceof SyntaxError) {
-                console.warn("failed JSON parsing xhr responseText. returning raw", { xhr });
-                return resolve(xhr.responseText);
-            }
-            else {
-                console.error({ xhr });
-                return reject("Got bad xhr.responseText. Logged above", xhr);
-            }
-        }
-    }
-    function _baseRequest(type, url, data) {
-        const xhr = new XMLHttpRequest();
-        return new Promise(async (resolve, reject) => {
-            await xhr.open(str(type).upper(), url, true);
-            xhr.onload = () => _tryResolveResponse(xhr, resolve, reject);
-            if (type === "get")
-                xhr.send();
-            else if (type === "post")
-                xhr.send(JSON.stringify(data));
-            else
-                throw new Error(`util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`);
-        });
-    }
-    function get(url) {
-        return _baseRequest("get", url);
-    }
-    function post(url, data) {
-        return _baseRequest("post", url, data);
-    }
-    return { post, get };
-})();
 class ExTweenLite {
     constructor() {
         this.isLoaded = false;

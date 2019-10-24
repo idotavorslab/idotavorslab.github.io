@@ -26,12 +26,12 @@
 @mixin pFontSize($alsoLineHeight:false)
 	// *  DEP: index.sass div#footer > #contact > .address > a line height
 	/// 500px
-	@include min-width($BP4)
+	@include min-width($BP3)
 		font-size: 20px
 		@if ($alsoLineHeight == true)
 			line-height: 32px
 
-	@include max-width($BP4)
+	@include max-width($BP3)
 		font-size: 16px
 		@if ($alsoLineHeight == true)
 			line-height: 24px
@@ -82,19 +82,19 @@
 			content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
 
 	/// 760 <= screen <= 1023
-	@include width-between($BP4, $BP2)
+	@include width-between($BP3, $BP2)
 		// 748px
 		--w: var(--W2)
 		#window_stats:after
-			content: "--w: var(--W2): 748px \A [BP4] screen [BP2]: #{$BP4} screen #{$BP2}"
+			content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
 
 
 	/// screen <= 760
-	@include max-width($BP4)
+	@include max-width($BP3)
 		// 90%
-		--w: var(--W4)
+		--w: var(--W3)
 		#window_stats:after
-			content: "--w: var(--W3): 90% \A screen [BP4]: screen #{$BP4}"
+			content: "--w: var(--W3): 90% \A screen [BP3]: screen #{$BP3}"
 
 @mixin iframeMixin()
 	width: var(--w)
@@ -113,10 +113,10 @@
 
 @mixin gridContainerMixin($childTag, $tight:false)
 	// *  DEP: gallery.ts
-	@include min-width($BP4)
+	@include min-width($BP3)
 		--columns: 4
 		--_tightGap: 8px
-	@include max-width($BP4)
+	@include max-width($BP3)
 		--columns: 2
 		--_tightGap: 4px
 
@@ -142,15 +142,15 @@
 			column-gap: var(--_tightGap)
 	@else
 		grid-row-gap: var(--gap)
-		@include min-width($BP4)
+		@include min-width($BP3)
 			grid-column-gap: var(--gap)
-		@include max-width($BP4)
+		@include max-width($BP3)
 			grid-column-gap: 5%
 
 	#{$childTag}
 		margin: auto
 		width: 100%
-		@include min-width($BP4)
+		@include min-width($BP3)
 			// TODO: is this needed at all?
 			//width: var(--tagWidth)
 			// every 4th == last in row

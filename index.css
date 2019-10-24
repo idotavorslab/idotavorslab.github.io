@@ -3,8 +3,7 @@
   --W0: 1200px;
   --W1: 984px;
   --W2: 748px;
-  --W3: 496px;
-  --W4: 90%;
+  --W3: 90%;
   --GAP0: 60px;
   --GAP1: 40px;
   --GAP2: 30px;
@@ -88,15 +87,15 @@ body {
     --w: var(--W2);
   }
   body #window_stats:after {
-    content: "--w: var(--W2): 748px \a[BP4] screen [BP2]: 760px screen 1023px";
+    content: "--w: var(--W2): 748px \a[BP3] screen [BP2]: 760px screen 1023px";
   }
 }
 @media screen and (max-width: 760px) {
   body {
-    --w: var(--W4);
+    --w: var(--W3);
   }
   body #window_stats:after {
-    content: "--w: var(--W3): 90% \ascreen [BP4]: screen 760px";
+    content: "--w: var(--W3): 90% \ascreen [BP3]: screen 760px";
   }
 }
 @media screen and (min-width: 1340px) {
@@ -516,7 +515,7 @@ section#navbar_section > div#navbar > div.pale {
 }
 div#mobile_cover_image_container {
   width: 100%;
-  --_side: calc((100% - var(--W4)) / 2);
+  --_side: calc((100% - var(--W3)) / 2);
   background-color: var(--GREY02);
   margin: 0 var(--_side) 40px calc(-1 * var(--_side));
   padding: 16px var(--_side);

@@ -1,6 +1,6 @@
 section#navbar_section
 	background-color: rgba(255, 255, 255, 0.92)
-	@include max-width($BP4)
+	@include max-width($BP3)
 		height: var(--MOBILE_NAVBAR_HEIGHT)
 	position: fixed
 	transition: opacity 0.1s ease-out
@@ -14,7 +14,7 @@ section#navbar_section
 
 	// ***  hamburger
 	& > div#hamburger
-		@include min-width($BP4)
+		@include min-width($BP3)
 			display: none
 		height: inherit
 		transition: box-shadow 0.5s ease-in-out
@@ -70,7 +70,7 @@ section#navbar_section
 				// makes it not disappear on open
 				position: relative
 				width: max-content
-				//@include min-width($BP4)
+				//@include min-width($BP3)
 					display: none
 
 				& > img
@@ -138,7 +138,7 @@ section#navbar_section
 
 	// ***  navbar
 	& > div#navbar
-		@include max-width($BP4)
+		@include max-width($BP3)
 			display: none
 
 		@include pFontSize()

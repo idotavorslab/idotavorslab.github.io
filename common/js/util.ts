@@ -1,5 +1,3 @@
-const $BP0 = 1535;
-
 // needs to be greater than --W0
 const $BP1 = 1340;
 
@@ -9,8 +7,6 @@ const $BP2 = 1023;
 // needs to be greater than --W2
 const $BP3 = 760;
 
-// needs to be greater than --W3
-const $BP4 = 760;
 
 // [BP1]W0[BP0]
 const W0 = 1200;
@@ -106,115 +102,6 @@ class Dict<T> {
 function dict<T>(obj: T): TDict<T> {
     return new Dict<T>(obj) as TDict<T>;
 }
-
-
-/*class List<T> extends Array {
-    constructor(items: T[]) {
-        super(...items);
-    }
-    
-    count(object: T): number {
-        return this.filter(x => x === object).length
-    }
-    
-    index(object: T, start?: number, stop?: number): number {
-        if (stop === undefined)
-            return super.indexOf(object, start);
-        else // assumes start and stop arent undefined
-            return this.slice(start, stop).indexOf(object)
-    }
-    
-    // sort({key, reverse}: { key?: (k: T) => any, reverse?: boolean } = {key: k => k, reverse: false}) {
-    //     // return super.sort()
-    // }
-    
-}
-
-function list<T>(items: T[]) {
-    return new List<T>(items);
-}*/
-
-class Str extends String {
-    constructor(value) {
-        super(value);
-    }
-    
-    isdigit(): boolean {
-        return !isNaN(int(this));
-    }
-    
-    upper(): string {
-        return this.toUpperCase();
-    }
-    
-    lower(): string {
-        return this.toLowerCase();
-    }
-}
-
-function str(val) {
-    return new Str(val);
-}
-
-
-async function concurrent<T>(...promises: Promise<T>[]): Promise<T[]> {
-    return await Promise.all(promises);
-}
-
-type TAjax = {
-    post: (url: string, data: any) => Promise<any>;
-    get: (url: string) => Promise<any>;
-};
-const ajax: TAjax = (() => {
-    function _tryResolveResponse(xhr: XMLHttpRequest, resolve, reject) {
-        if (xhr.status != 200) {
-            return reject(xhr);
-        }
-        try {
-            return resolve(JSON.parse(xhr.responseText));
-        } catch (e) {
-            if (e instanceof SyntaxError) {
-                console.warn(
-                    "failed JSON parsing xhr responseText. returning raw",
-                    {xhr}
-                );
-                return resolve(xhr.responseText);
-            } else {
-                console.error({xhr});
-                return reject("Got bad xhr.responseText. Logged above", xhr);
-            }
-        }
-    }
-    
-    function _baseRequest(
-        type: "get" | "post",
-        url: string,
-        data?: object
-    ): Promise<object> {
-        // if (!url.startsWith("/")) url = "/" + url;
-        const xhr = new XMLHttpRequest();
-        return new Promise(async (resolve, reject) => {
-            await xhr.open(str(type).upper(), url, true);
-            xhr.onload = () => _tryResolveResponse(xhr, resolve, reject);
-            if (type === "get") xhr.send();
-            else if (type === "post") xhr.send(JSON.stringify(data));
-            else
-                throw new Error(
-                    `util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`
-                );
-        });
-    }
-    
-    function get(url: string): Promise<object> {
-        return _baseRequest("get", url);
-    }
-    
-    function post(url: string, data: any): Promise<object> {
-        return _baseRequest("post", url, data);
-    }
-    
-    return {post, get};
-})();
 
 
 /*

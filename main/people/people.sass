@@ -28,10 +28,10 @@ div#home.people-page
 				width: inherit
 				border-radius: 15px
 				object-fit: cover
-				@include min-width($BP4)
+				@include min-width($BP3)
 					height: calc(var(--tagWidth) / (4 / 3))
 
-				@include max-width($BP4)
+				@include max-width($BP3)
 					// arbitrary, looks good
 					height: 160px
 
@@ -53,13 +53,13 @@ div#person_expando
 	$svgDim: 25
 	$baseTransition: height 50ms 0s, width 200ms cubic-bezier(0.5, 0, 1, 0), border 500ms cubic-bezier(0, 0, 1, 0)
 	$marginBlockStart: -4px
-	@include min-width($BP4)
+	@include min-width($BP3)
 		--cvRightGap: 25px
 		overflow: hidden
 		transition: $baseTransition, box-shadow 1500ms
 		& > div.cv
 			width: calc(100% - #{$svgDim}px - var(--cvRightGap))
-	@include max-width($BP4)
+	@include max-width($BP3)
 		--cvRightGap: 15px
 		align-content: flex-start
 		border-radius: 15px
@@ -164,12 +164,12 @@ div#person_expando
 			// bypass .role negative margin-top overlap
 			z-index: 10
 
-		@include min-width($BP4)
+		@include min-width($BP3)
 			box-shadow: 0px 2px 10px var(--GREY3)
 			width: calc(var(--tagWidth) * 2)
 			height: 300px
 
-		@include max-width($BP4)
+		@include max-width($BP3)
 			box-shadow: 0px 5px 10px var(--GREY5)
 			height: auto
 			position: fixed
