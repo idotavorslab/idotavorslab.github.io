@@ -109,15 +109,12 @@ div#publications_container
 					font-size: 18px
 
 			@include max-width($BP1)
-				& > div.publication:last-of-type
-					margin-bottom: 60px
 				& > div.title-flex > span.year-title
 					font-size: 24px
 
 
 		// **  max-width($BP3)
 		@include max-width($BP3)
-			margin-bottom: 40px
 			& > div.publication
 				margin: 0 0 20px 0
 
@@ -125,10 +122,9 @@ div#publications_container
 					display: none
 
 
-
-
-
-
+		@include max-width($BP1)
+			& > div.publication:last-of-type
+				margin-bottom: 60px
 
 
 
