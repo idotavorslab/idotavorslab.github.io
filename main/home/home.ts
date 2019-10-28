@@ -240,19 +240,22 @@ const HomePage = () => {
                     .click((event) => {
                         ResearchPage().init(i);
                         history.pushState(null, null, '#research');
-                        Footer.attr({hidden: ''});
+                        // Footer.attr({hidden: ''});
+                        Body.footer.attr({hidden: ''});
                         Navbar.select(Navbar.research);
                     })
             )
         }
         // ***  Funding
         const fundingData = data.funding;
-        FundingSection.removeAttr('hidden');
+        Body.fundingSection.removeAttr('hidden');
+        // FundingSection.removeAttr('hidden');
         
         for (let [title, {image, text, large}] of dict(fundingData).items()) {
             let sponsorImage = img({src: `main/home/${image}`});
             if (large === true) sponsorImage.class('large');
-            FundingSection.sponsorsContainer.append(
+            // FundingSection.sponsorsContainer.append(
+            Body.fundingSection.sponsorsContainer.append(
                 div({cls: 'sponsor'}).append(
                     sponsorImage,
                     div({cls: 'sponsor-title', text: title}),

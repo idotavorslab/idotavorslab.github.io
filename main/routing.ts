@@ -33,19 +33,18 @@ const Routing = (() => {
             if (pageStrings().slice(1).includes(url)) {
                 console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
                 if (url === "contact") {
-                    Footer.css({display: 'none'});
+                    Body.footer.css({display: 'none'});
+                    Body.ugug.class('contact')
+                    // Footer.css({display: 'none'});
                 } else {
-                    Footer.uncss('display')
+                    Body.ugug.removeClass('contact');
+                    Body.footer.uncss('display')
+                    // Footer.uncss('display')
                 }
-                // happens also in home researchSnippets snippet click
-                /*if (url === "gallery") {
-                    Footer.attr({hidden: ''});
-                    elem({query: 'div#ugug'}).attr({hidden: ''});
-                } else {
-                    Footer.removeAttr('hidden');
-                }*/
-                
-                FundingSection.attr({hidden: ''});
+                if (url !== "people") {
+                    document.getElementById('person_expando')?.remove();
+                }
+                Body.fundingSection.attr({hidden: ''});
                 DocumentElem.allOff();
                 const pageObj = getPageObj(url);
                 pageObj().init();

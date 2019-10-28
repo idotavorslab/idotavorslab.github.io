@@ -1,21 +1,58 @@
 const userAgent = window.navigator.userAgent;
-const IS_GILAD = userAgent === "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Mobile Safari/537.36";
+const IS_GILAD = document.cookie === "gilad"
+    || userAgent === "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Mobile Safari/537.36";
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 
 
 // @ts-ignore
 const DocumentElem = elem({htmlElement: document});
-const Body = elem({htmlElement: document.body});
+
+interface IFooter extends Div {
+    address: Div;
+    contact: Div;
+    map: Div;
+    logos: Div;
+}
+
+interface IBody extends BetterHTMLElement {
+    ugug: Div;
+    fundingSection: Div & { sponsorsContainer: Div },
+    windowStats: Div,
+    footer: IFooter;
+}
+
+const Body = elem({
+    htmlElement: document.body,
+    children: {
+        ugug: '#ugug',
+        windowStats: '#window_stats',
+        footer: {
+            '#footer': {
+                address: 'div.address',
+                contact: 'div.contact',
+                map: '#contact_map',
+                logos: 'div#logos',
+            }
+        },
+        fundingSection: {
+            '#funding_section': {
+                sponsorsContainer: 'div#sponsors_container'
+            }
+        }
+    }
+}) as IBody;
 const Home = elem({id: 'home'});
-const FundingSection = <Div & { sponsorsContainer: Div }>elem({
+/*const FundingSection = <Div & { sponsorsContainer: Div }>elem({
     id: 'funding_section', children: {
         sponsorsContainer: 'div#sponsors_container'
     }
 });
+const WindowStats = elem({id: 'window_stats'});
+*/
 
 const CacheDiv = elem({id: 'cache'});
-const WindowStats = elem({id: 'window_stats'});
+
 
 interface IWindow extends BetterHTMLElement {
     isLoaded: boolean;
@@ -130,7 +167,7 @@ WindowElem.on({
     },
     resize: (event: UIEvent) => {
         if (SHOW_STATS)
-            WindowStats.html(windowStats())
+            Body.windowStats.html(windowStats())
     },
     load: () => {
         function cache(file: string, page: Routing.Page) {
@@ -201,8 +238,9 @@ WindowElem.on({
             innerWidth
         });
         if (SHOW_STATS) {
-            WindowStats.class('on').html(windowStats())
+            Body.windowStats.class('on').html(windowStats())
         }
+        Body.footer.css({height: IS_SAFARI ? '260px' : 'auto'});
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
             
@@ -280,24 +318,18 @@ class NavbarElem extends BetterHTMLElement {
 }
 
 let Navbar: NavbarElem; // WindowElem.load =>
-// let NavbarReady = new Event('navbarReady');
 
 // ***  Footer
-interface IFooter extends Div {
-    address: Div;
-    contact: Div;
-    map: Div;
-    logos: Div;
-}
 
-const Footer: IFooter = <IFooter>elem({
+
+/*const Footer: IFooter = <IFooter>elem({
     id: 'footer', children: {
         address: 'div.address',
         contact: 'div.contact',
         map: '#contact_map',
         logos: 'div#logos',
     }
-}).css({height: IS_SAFARI ? '260px' : 'auto'});
+}).css({height: IS_SAFARI ? '260px' : 'auto'});*/
 
 
 type TContactData = {
@@ -308,21 +340,21 @@ type TContactData = {
     form: string
 };
 fetchDict<TContactData>("main/contact/contact.json").then(async data => {
-    Footer.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
-    Footer.contact.append(paragraph().html(`Phone:
+    Body.footer.address.append(anchor({href: data.visit.link}).html(data.visit.address).target("_blank"));
+    Body.footer.contact.append(paragraph().html(`Phone:
                                             <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                             Email:
                                             <a href="mailto:${data.email.address}">${data.email.address}</a>`));
     
-    const [uni, medicine, sagol] = Footer.logos.children('img');
+    const [uni, medicine, sagol] = Body.footer.logos.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
     if (!MOBILE) {
         await wait(2000);
-        console.log(...less("Footer.contactSection.append(elem({tag: 'iframe'}))"));
-        Footer.map.attr({
+        console.log(...less("Body.footer.contactSection.append(elem({tag: 'iframe'}))"));
+        Body.footer.map.attr({
             frameborder: "0",
             allowfullscreen: "",
             src: data.map

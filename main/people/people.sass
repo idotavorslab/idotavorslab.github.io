@@ -59,6 +59,7 @@ div#person_expando
 		transition: $baseTransition, box-shadow 1500ms
 		& > div.cv
 			width: calc(100% - #{$svgDim}px - var(--cvRightGap))
+
 	@include max-width($BP3)
 		--cvRightGap: 15px
 		align-content: flex-start
@@ -95,7 +96,7 @@ div#person_expando
 	flex-wrap: wrap
 	height: 0
 	//height: auto
-	margin-top: -50px
+
 
 	padding: var(--expandoPadding)
 	text-align: left
@@ -166,8 +167,13 @@ div#person_expando
 
 		@include min-width($BP3)
 			box-shadow: 0px 2px 10px var(--GREY3)
-			width: calc(var(--tagWidth) * 2)
 			height: 300px
+			@include min-width($BP1)
+				width: 510px
+				margin-top: -50px
+			@include max-width($BP1)
+				width: 410px
+				margin-top: -25px
 
 		@include max-width($BP3)
 			box-shadow: 0px 5px 10px var(--GREY5)
