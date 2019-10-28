@@ -90,7 +90,7 @@ WindowElem.on({
         }
     },
     resize: (event) => {
-        if (IS_GILAD)
+        if (SHOW_STATS)
             WindowStats.html(windowStats());
     },
     load: () => {
@@ -151,10 +151,10 @@ WindowElem.on({
             fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
         }
         console.log('%cstats:', 'color: #B58059', {
-            MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI,
+            MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI, SHOW_STATS,
             innerWidth
         });
-        if (IS_GILAD) {
+        if (SHOW_STATS) {
             WindowStats.class('on').html(windowStats());
         }
         console.log(...less('waiting 1000...'));

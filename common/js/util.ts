@@ -17,7 +17,7 @@ const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 
 let MOBILE = undefined;
-
+let SHOW_STATS = false;
 const FILEDATA = {};
 const ALWAYS_LOWERCASE = ["a",
     "an",

@@ -53,10 +53,16 @@ h1
 
 	font-family: OpenSansBold
 
-	// *  DEP: contact.sass img width
 	@include min-width($BP3)
-		font-size: 36px
-		line-height: 54px
+		@include min-width($BP1)
+			font-size: 36px
+			line-height: 54px
+
+		@include max-width($BP1)
+			font-size: 32px
+			line-height: 48px
+
+
 	@include max-width($BP3)
 		font-size: 28px
 		line-height: 42px
@@ -69,11 +75,17 @@ h2
 	color: var(--GREY8)
 	letter-spacing: -0.5px
 	@include min-width($BP3)
-		font-size: 24px
-		line-height: 32px
+		@include min-width($BP1)
+			font-size: 24px
+			line-height: 32px
+
+		@include max-width($BP1)
+			font-size: 20px
+			line-height: 28px
+
 	@include max-width($BP3)
-		font-size: 16px
-		line-height: 16px
+		font-size: 20px
+		line-height: 20px
 
 p
 	@include pFontSize(true)
