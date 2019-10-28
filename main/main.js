@@ -1,5 +1,5 @@
 const userAgent = window.navigator.userAgent;
-const IS_GILAD = userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
+const IS_GILAD = userAgent === "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Mobile Safari/537.36";
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 const DocumentElem = elem({ htmlElement: document });
@@ -11,6 +11,7 @@ const FundingSection = elem({
     }
 });
 const CacheDiv = elem({ id: 'cache' });
+const WindowStats = elem({ id: 'window_stats' });
 const WindowElem = elem({ htmlElement: window });
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
@@ -88,6 +89,10 @@ WindowElem.on({
             Routing.initPage(newURL);
         }
     },
+    resize: (event) => {
+        if (IS_GILAD)
+            WindowStats.html(windowStats());
+    },
     load: () => {
         function cache(file, page) {
             let src;
@@ -150,8 +155,7 @@ WindowElem.on({
             innerWidth
         });
         if (IS_GILAD) {
-            Body.append(div({ text: innerWidth < $BP3 ? $BP3 : innerWidth < $BP2 ? $BP2 : innerWidth < $BP1 ? $BP1 : '' })
-                .css({ position: 'sticky', bottom: 0 }));
+            WindowStats.class('on').html(windowStats());
         }
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {

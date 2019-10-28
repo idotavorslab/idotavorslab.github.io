@@ -71,21 +71,21 @@
 	@include min-width($BP1)
 		// 1200px
 		--w: var(--W0)
-		#window_stats:after
+		//#window_stats:after
 			content: "--w: var(--W0): 1200px \A [BP1] screen: #{$BP1} screen"
 
 	/// 1023 <= screen <= 1340
 	@include width-between($BP2, $BP1)
 		// 984px
 		--w: var(--W1)
-		#window_stats:after
+		//#window_stats:after
 			content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
 
 	/// 760 <= screen <= 1023
 	@include width-between($BP3, $BP2)
 		// 748px
 		--w: var(--W2)
-		#window_stats:after
+		//#window_stats:after
 			content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
 
 

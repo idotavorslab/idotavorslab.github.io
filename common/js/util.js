@@ -133,21 +133,28 @@ async function fetchText(path, cache = "default") {
     return _fetch(path, cache, "text");
 }
 function windowStats() {
-    console.log(window.clientInformation.userAgent);
+    let breakpoint = innerWidth < $BP3 ? `Below $BP3 (${$BP3}px)`
+        : innerWidth < $BP2 ? `Below $BP2 (${$BP2}px)`
+            : innerWidth < $BP1 ? `Below $BP1 (${$BP1}px)`
+                : `innerWidth: ${innerWidth}`;
     return `
-window.outerHeight: ${window.outerHeight}
-window.innerHeight: ${window.innerHeight}
-window.outerWidth: ${window.outerWidth}
-window.innerWidth: ${window.innerWidth}
+outerHeight: ${outerHeight}
+innerHeight: ${innerHeight}
+outerWidth: ${outerWidth}
+innerWidth: ${innerWidth}
 html.clientHeight: ${document.documentElement.clientHeight}
 html.clientWidth: ${document.documentElement.clientWidth}
 body.clientHeight: ${document.body.clientHeight}
 body.clientWidth: ${document.body.clientWidth}
 iPhone: ${IS_IPHONE}
-`;
+Safari: ${IS_SAFARI}
+Breakpoint: ${breakpoint}
+`.split('\n')
+        .filter(line => line)
+        .map(line => `<div>${line}</div>`)
+        .join('');
 }
 function isOverflown({ clientWidth, clientHeight, scrollWidth, scrollHeight }) {
-    console.log({ clientHeight, scrollHeight });
     return scrollHeight > clientHeight || scrollWidth > clientWidth;
 }
 function copyToClipboard(val) {

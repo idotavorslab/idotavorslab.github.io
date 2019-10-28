@@ -340,14 +340,21 @@ div#ugug
 
 
 #window_stats
-	display: none
-	//display: block
-	position: fixed
+	font:
+		family: monospace
+		size: 16px
+	position: sticky
 	bottom: 0
-	background-color: rgba(0, 0, 0, 0.75)
+	background-color: rgba(0, 0, 0, 0.90)
 	color: white
-	font-family: OpenSansBold
-	white-space: pre
+	width: fit-content
+
+	&.off
+		display: none
+
+	&.on
+		display: block
+
 
 @import 'main/navbar/navbar.sass'
 @import 'main/home/home.sass'
