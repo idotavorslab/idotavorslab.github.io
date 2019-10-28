@@ -26,8 +26,10 @@ const Routing = (() => {
                 console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
                 if (url === "contact") {
                     Body.footer.css({ display: 'none' });
+                    Body.ugug.class('contact');
                 }
                 else {
+                    Body.ugug.removeClass('contact');
                     Body.footer.uncss('display');
                 }
                 if (url !== "people") {
