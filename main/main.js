@@ -7,6 +7,7 @@ const Body = elem({
     htmlElement: document.body,
     children: {
         ugug: '#ugug',
+        windowStats: '#window_stats',
         fundingSection: {
             '#funding_section': {
                 sponsorsContainer: 'div#sponsors_container'
@@ -16,7 +17,6 @@ const Body = elem({
 });
 const Home = elem({ id: 'home' });
 const CacheDiv = elem({ id: 'cache' });
-const WindowStats = elem({ id: 'window_stats' });
 const WindowElem = elem({ htmlElement: window });
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
@@ -96,7 +96,7 @@ WindowElem.on({
     },
     resize: (event) => {
         if (SHOW_STATS)
-            WindowStats.html(windowStats());
+            Body.windowStats.html(windowStats());
     },
     load: () => {
         function cache(file, page) {
@@ -160,7 +160,7 @@ WindowElem.on({
             innerWidth
         });
         if (SHOW_STATS) {
-            WindowStats.class('on').html(windowStats());
+            Body.windowStats.class('on').html(windowStats());
         }
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {

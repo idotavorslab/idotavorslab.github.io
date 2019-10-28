@@ -9,13 +9,15 @@ const DocumentElem = elem({htmlElement: document});
 
 interface IBody extends BetterHTMLElement {
     ugug: Div;
-    fundingSection: Div & { sponsorsContainer: Div }
+    fundingSection: Div & { sponsorsContainer: Div },
+    windowStats: Div
 }
 
 const Body = elem({
     htmlElement: document.body,
     children: {
         ugug: '#ugug',
+        windowStats: '#window_stats',
         fundingSection: {
             '#funding_section': {
                 sponsorsContainer: 'div#sponsors_container'
@@ -28,10 +30,12 @@ const Home = elem({id: 'home'});
     id: 'funding_section', children: {
         sponsorsContainer: 'div#sponsors_container'
     }
-});*/
+});
+const WindowStats = elem({id: 'window_stats'});
+*/
 
 const CacheDiv = elem({id: 'cache'});
-const WindowStats = elem({id: 'window_stats'});
+
 
 interface IWindow extends BetterHTMLElement {
     isLoaded: boolean;
@@ -146,7 +150,7 @@ WindowElem.on({
     },
     resize: (event: UIEvent) => {
         if (SHOW_STATS)
-            WindowStats.html(windowStats())
+            Body.windowStats.html(windowStats())
     },
     load: () => {
         function cache(file: string, page: Routing.Page) {
@@ -217,7 +221,7 @@ WindowElem.on({
             innerWidth
         });
         if (SHOW_STATS) {
-            WindowStats.class('on').html(windowStats())
+            Body.windowStats.class('on').html(windowStats())
         }
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
