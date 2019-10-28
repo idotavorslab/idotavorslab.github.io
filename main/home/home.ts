@@ -240,7 +240,8 @@ const HomePage = () => {
                     .click((event) => {
                         ResearchPage().init(i);
                         history.pushState(null, null, '#research');
-                        Footer.attr({hidden: ''});
+                        // Footer.attr({hidden: ''});
+                        Body.footer.attr({hidden: ''});
                         Navbar.select(Navbar.research);
                     })
             )

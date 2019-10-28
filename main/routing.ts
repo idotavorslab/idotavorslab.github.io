@@ -33,9 +33,11 @@ const Routing = (() => {
             if (pageStrings().slice(1).includes(url)) {
                 console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
                 if (url === "contact") {
-                    Footer.css({display: 'none'});
+                    Body.footer.css({display: 'none'});
+                    // Footer.css({display: 'none'});
                 } else {
-                    Footer.uncss('display')
+                    Body.footer.uncss('display')
+                    // Footer.uncss('display')
                 }
                 if (url !== "people") {
                     document.getElementById('person_expando')?.remove();

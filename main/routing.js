@@ -25,10 +25,10 @@ const Routing = (() => {
             if (pageStrings().slice(1).includes(url)) {
                 console.log(`\t%cvalid url ("${url}"), calling pageObj().init()`, `color: ${GOOGLEBLUE}`);
                 if (url === "contact") {
-                    Footer.css({ display: 'none' });
+                    Body.footer.css({ display: 'none' });
                 }
                 else {
-                    Footer.uncss('display');
+                    Body.footer.uncss('display');
                 }
                 if (url !== "people") {
                     (_a = document.getElementById('person_expando')) === null || _a === void 0 ? void 0 : _a.remove();
