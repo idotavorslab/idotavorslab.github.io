@@ -2,7 +2,6 @@ div#home
 	text-align: left
 
 	& > div#neuroanatomy_intro
-		//margin-bottom: calc(var(--gap))
 		margin-bottom: 60px
 		@include min-width($BP3)
 			width: calc(var(--w) * 0.6)
@@ -16,14 +15,6 @@ div#home
 		display: flex
 		flex-wrap: wrap
 
-		//@include min-width($BP3)
-			& > div.brain:nth-child(2n+1)
-				// *  DEP: div.brain width
-				margin-right: var(--gap)
-
-		//@include max-width($BP3)
-			& > div.brain
-				margin-right: auto
 
 		& > div.brain
 			// **  All Resolutions
@@ -33,7 +24,7 @@ div#home
 				margin-bottom: calc(var(--small_gap) / 2)
 				border-radius: 15px
 				overflow: hidden
-				width: 560px
+				width: 100%
 				height: 360px
 				-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC)
 
@@ -62,14 +53,9 @@ div#home
 			@include max-width($BP3)
 
 				& > div.sketchfab-embed-wrapper
-					width: 100%
 					height: 220px
 
-				& > h2
-					//text-align: center
-					//text-transform: capitalize
-					//line-height: 20px
-					//font-size: 20px
+
 
 
 
