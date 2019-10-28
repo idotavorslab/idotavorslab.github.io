@@ -31,9 +31,8 @@ div#publications_container
 				letter-spacing: 1px
 				margin: auto 0
 
-				font:
-					family: OpenSansLight
-					size: 26px
+				font-family: OpenSansLight
+				font-size: 26px
 				line-height: 26px
 
 
@@ -108,6 +107,12 @@ div#publications_container
 			@include min-width($BP1)
 				& > div.publication > div.content-div > div.publication-title
 					font-size: 18px
+
+			@include max-width($BP1)
+				& > div.publication:last-of-type
+					margin-bottom: 60px
+				& > div.title-flex > span.year-title
+					font-size: 24px
 
 
 		// **  max-width($BP3)
