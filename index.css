@@ -1483,8 +1483,17 @@ div#home.contact-page {
 }
 @media screen and (min-width: 760px) {
   div#home.contact-page {
-    height: 660px;
     margin-bottom: 80px;
+  }
+}
+@media screen and (min-width: 760px) and (min-width: 1340px) {
+  div#home.contact-page {
+    height: 660px;
+  }
+}
+@media screen and (min-width: 760px) and (max-width: 1340px) {
+  div#home.contact-page {
+    height: 520px;
   }
 }
 @media screen and (max-width: 760px) {
