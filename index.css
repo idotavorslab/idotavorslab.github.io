@@ -1238,8 +1238,8 @@ div#home.gallery-page div#images_container > div.year > div.title {
   letter-spacing: 1px;
   margin-bottom: var(--small_gap);
   font-family: OpenSansLight;
-  font-size: 25px;
-  line-height: 25px;
+  font-size: 26px;
+  line-height: 26px;
 }
 div#home.gallery-page div#images_container > div.year > div.grid {
   --tagWidth: calc((var(--w) - (var(--_tightGap) * (var(--columns) - 1))) / var(--columns));
@@ -1281,6 +1281,12 @@ div#home.gallery-page div#images_container > div.year > div.grid > div.row {
   div#home.gallery-page div#images_container > div.year {
     border-left: 1px solid var(--GREY2);
     padding-left: 39px;
+  }
+}
+@media screen and (min-width: 760px) and (min-width: 1023px) and (max-width: 1340px) {
+  div#home.gallery-page div#images_container > div.year > div.title {
+    font-size: 24px;
+    line-height: 24px;
   }
 }
 div#home.gallery-page div#img_viewer {

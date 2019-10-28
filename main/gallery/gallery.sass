@@ -30,8 +30,8 @@ div#home.gallery-page
 
 				font:
 					family: OpenSansLight
-					size: 25px
-				line-height: 25px
+					size: 26px
+				line-height: 26px
 
 			& > div.grid
 				@include gridContainerMixin(img, true)
@@ -43,6 +43,11 @@ div#home.gallery-page
 			@include min-width($BP3)
 				border-left: 1px solid var(--GREY2)
 				padding-left: 39px
+
+				@include width-between($BP2, $BP1)
+					& > div.title
+						font-size: 24px
+						line-height: 24px
 
 			// **  max-width($BP3)
 			@include max-width($BP3)
