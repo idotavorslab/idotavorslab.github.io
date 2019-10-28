@@ -133,10 +133,23 @@ async function fetchText(path, cache = "default") {
     return _fetch(path, cache, "text");
 }
 function windowStats() {
-    let breakpoint = innerWidth < $BP3 ? `Below $BP3 (${$BP3}px)`
-        : innerWidth < $BP2 ? `Below $BP2 (${$BP2}px)`
-            : innerWidth < $BP1 ? `Below $BP1 (${$BP1}px)`
-                : `innerWidth: ${innerWidth}`;
+    let breakpoint;
+    if (innerWidth < $BP3) {
+        breakpoint = `[0] XXX [$BP3 ${$BP3}px] --- [$BP2] --- [$BP1] --- [∞]`;
+    }
+    else {
+        if (innerWidth < $BP2) {
+            breakpoint = `[0] --- [$BP3] XXX [$BP2 ${$BP2}px] --- [$BP1] --- [∞]`;
+        }
+        else {
+            if (innerWidth < $BP1) {
+                breakpoint = `[0] --- [$BP3] --- [$BP2] XXX [$BP1 ${$BP1}px] --- [∞]`;
+            }
+            else {
+                breakpoint = `[0] --- [$BP3] --- [$BP2] --- [$BP1] XXX [∞]`;
+            }
+        }
+    }
     return `
 outerHeight: ${outerHeight}
 innerHeight: ${innerHeight}
