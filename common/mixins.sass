@@ -25,12 +25,15 @@
 
 @mixin pFontSize($alsoLineHeight:false)
 	// *  DEP: index.sass div#footer > #contact > .address > a line height
-	/// 500px
-	@include min-width($BP3)
+	/// 1340
+	@include min-width($BP1)
 		font-size: 20px
 		@if ($alsoLineHeight == true)
 			line-height: 32px
-
+	@include width-between($BP2, $BP1)
+		font-size: 18px
+		@if ($alsoLineHeight == true)
+			line-height: 28px
 	@include max-width($BP3)
 		font-size: 16px
 		@if ($alsoLineHeight == true)

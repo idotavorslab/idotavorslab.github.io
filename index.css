@@ -159,10 +159,16 @@ p {
   text-align: left;
   margin-block-start: 0;
 }
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 1340px) {
   p {
     font-size: 20px;
     line-height: 32px;
+  }
+}
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
+  p {
+    font-size: 18px;
+    line-height: 28px;
   }
 }
 @media screen and (max-width: 760px) {
@@ -451,9 +457,14 @@ section#navbar_section > div#navbar {
     display: none;
   }
 }
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 1340px) {
   section#navbar_section > div#navbar {
     font-size: 20px;
+  }
+}
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
+  section#navbar_section > div#navbar {
+    font-size: 18px;
   }
 }
 @media screen and (max-width: 760px) {
@@ -469,9 +480,6 @@ section#navbar_section > div#navbar {
 @media screen and (min-width: 1023px) and (max-width: 1340px) {
   section#navbar_section > div#navbar {
     --_marginRight: 36px;
-  }
-  section#navbar_section > div#navbar > div {
-    font-size: 18px;
   }
 }
 section#navbar_section > div#navbar.box-shadow {
@@ -593,9 +601,14 @@ div#intro > div#right_widget > div#news > div.title {
   color: var(--GREY8);
   margin-bottom: unset;
 }
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 1340px) {
   div#intro > div#right_widget > div#news > div.title {
     font-size: 20px;
+  }
+}
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
+  div#intro > div#right_widget > div#news > div.title {
+    font-size: 18px;
   }
 }
 @media screen and (max-width: 760px) {
@@ -609,9 +622,14 @@ div#intro > div#right_widget > div#news > div.date {
 div#intro > div#right_widget > div#news > div.date.mb {
   margin-bottom: 15px;
 }
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 1340px) {
   div#intro > div#right_widget > div#news > div.content {
     font-size: 20px;
+  }
+}
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
+  div#intro > div#right_widget > div#news > div.content {
+    font-size: 18px;
   }
 }
 @media screen and (max-width: 760px) {
@@ -681,8 +699,22 @@ div#research_snippets_container > div#research_snippets > div.snippet > img {
 }
 div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
   font-family: OpenSansSemiBold;
-  font-size: 20px;
   line-height: 26px;
+}
+@media screen and (min-width: 1340px) {
+  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
+  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 760px) {
+  div#research_snippets_container > div#research_snippets > div.snippet > div.snippet-title {
+    font-size: 16px;
+  }
 }
 @media screen and (min-width: 760px) {
   div#research_snippets_container > div#research_snippets {
@@ -1449,10 +1481,16 @@ div#home.contact-page > div#contact_flex > div > p.subtitle {
   color: var(--GREY5);
   margin-bottom: 0;
 }
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 1340px) {
   div#home.contact-page > div#contact_flex > div > a {
     font-size: 20px;
     line-height: 32px;
+  }
+}
+@media screen and (min-width: 1023px) and (max-width: 1340px) {
+  div#home.contact-page > div#contact_flex > div > a {
+    font-size: 18px;
+    line-height: 28px;
   }
 }
 @media screen and (max-width: 760px) {
