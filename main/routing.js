@@ -19,6 +19,7 @@ const Routing = (() => {
         return ["home", "research", "people", "publications", "gallery", "neuroanatomy", "contact"];
     }
     async function initPage(url) {
+        var _a;
         console.log(`%cRouting.initPage(url: "${url}")`, `color: ${GOOGLEBLUE}`);
         if (bool(url)) {
             if (pageStrings().slice(1).includes(url)) {
@@ -28,6 +29,9 @@ const Routing = (() => {
                 }
                 else {
                     Footer.uncss('display');
+                }
+                if (url !== "people") {
+                    (_a = document.getElementById('person_expando')) === null || _a === void 0 ? void 0 : _a.remove();
                 }
                 Body.fundingSection.attr({ hidden: '' });
                 DocumentElem.allOff();

@@ -37,7 +37,9 @@ const Routing = (() => {
                 } else {
                     Footer.uncss('display')
                 }
-                
+                if (url !== "people") {
+                    document.getElementById('person_expando')?.remove();
+                }
                 Body.fundingSection.attr({hidden: ''});
                 DocumentElem.allOff();
                 const pageObj = getPageObj(url);
