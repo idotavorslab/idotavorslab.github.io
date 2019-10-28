@@ -870,12 +870,21 @@ div#home > div.article > img.circle {
   }
   div#home > div.article > img {
     margin: auto;
-    width: calc(0.45 * var(--w));
     grid-column: 2/2;
     grid-row: 2/2;
   }
   div#home > div.article[class~=reverse] > img {
     grid-column: 1/1;
+  }
+}
+@media screen and (min-width: 760px) and (min-width: 1340px) {
+  div#home > div.article > img {
+    width: calc(0.45 * var(--w));
+  }
+}
+@media screen and (min-width: 760px) and (min-width: 1023px) and (max-width: 1340px) {
+  div#home > div.article > img {
+    width: 420px;
   }
 }
 @media screen and (max-width: 760px) {
