@@ -1109,17 +1109,6 @@ div#person_expando.expanded > svg#svg_root {
   }
 }
 
-@media screen and (min-width: 760px) {
-  div#publications_container > div.year {
-    border-left: 1px solid var(--GREY2);
-    padding-left: 39px;
-  }
-}
-@media screen and (max-width: 760px) {
-  div#publications_container > div.year {
-    margin-bottom: 40px;
-  }
-}
 div#publications_container > div.year > div.title-flex {
   display: flex;
   color: var(--GREY5);
@@ -1129,12 +1118,8 @@ div#publications_container > div.year > div.title-flex > span.year-title {
   letter-spacing: 1px;
   margin: auto 0;
   font-family: OpenSansLight;
-  font-size: 25px;
-  line-height: 25px;
-}
-div#publications_container > div.year > div.title-flex > img {
-  height: 25px;
-  margin: auto 0 auto auto;
+  font-size: 26px;
+  line-height: 26px;
 }
 div#publications_container > div.year > div.publication {
   border-width: 1px;
@@ -1149,16 +1134,6 @@ div#publications_container > div.year > div.publication {
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
-@media screen and (min-width: 760px) {
-  div#publications_container > div.year > div.publication {
-    margin: 0 0 var(--gap) 0;
-  }
-}
-@media screen and (max-width: 760px) {
-  div#publications_container > div.year > div.publication {
-    margin: 0 0 20px 0;
-  }
-}
 div#publications_container > div.year > div.publication:hover {
   transform: translateY(-4px);
   box-shadow: 0px 5px 6px 0px var(--GREY4);
@@ -1168,11 +1143,6 @@ div#publications_container > div.year > div.publication > img.thumbnail {
   height: 100px;
   border: 1px solid var(--GREY3);
   margin: auto var(--small_gap) auto 0;
-}
-@media screen and (max-width: 760px) {
-  div#publications_container > div.year > div.publication > img.thumbnail {
-    display: none;
-  }
 }
 div#publications_container > div.year > div.publication > div.pdf-div {
   border-width: 1px;
@@ -1188,11 +1158,6 @@ div#publications_container > div.year > div.publication > div.pdf-div {
   margin-left: auto;
   padding: 10px;
   text-transform: uppercase;
-}
-@media screen and (max-width: 760px) {
-  div#publications_container > div.year > div.publication > div.pdf-div {
-    display: none;
-  }
 }
 div#publications_container > div.year > div.publication > div.content-div > div {
   margin-top: 5px;
@@ -1210,6 +1175,31 @@ div#publications_container > div.year > div.publication > div.content-div > div.
 div#publications_container > div.year > div.publication > div.content-div > div.mag {
   font-family: OpenSansItalic;
   font-size: 16px;
+}
+@media screen and (min-width: 760px) {
+  div#publications_container > div.year {
+    border-left: 1px solid var(--GREY2);
+    padding-left: 39px;
+  }
+  div#publications_container > div.year > div.publication {
+    margin: 0 0 var(--gap) 0;
+  }
+}
+@media screen and (min-width: 760px) and (min-width: 1340px) {
+  div#publications_container > div.year > div.publication > div.content-div > div.publication-title {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 760px) {
+  div#publications_container > div.year {
+    margin-bottom: 40px;
+  }
+  div#publications_container > div.year > div.publication {
+    margin: 0 0 20px 0;
+  }
+  div#publications_container > div.year > div.publication > img.thumbnail, div#publications_container > div.year > div.publication > div.pdf-div {
+    display: none;
+  }
 }
 
 div#home.gallery-page div#images_container[class=theater] {

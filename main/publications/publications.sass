@@ -17,13 +17,7 @@
 
 div#publications_container
 	& > div.year
-
-		@include min-width($BP3)
-			border-left: 1px solid var(--GREY2)
-			padding:
-				left: 39px
-		@include max-width($BP3)
-			margin-bottom: 40px
+		// **  All Resolutions
 
 		& > div.title-flex
 			// *  DEP: gallery.sass div#images_container > div.year > div.title
@@ -39,25 +33,17 @@ div#publications_container
 
 				font:
 					family: OpenSansLight
-					size: 25px
-				line-height: 25px
+					size: 26px
+				line-height: 26px
 
-			& > img
-				height: 25px
-				margin: auto 0 auto auto
 
 		& > div.publication
 			@include borderMixin(var(--GREY2))
 			background-color: var(--GREY02)
 			border-radius: 15px
 			display: flex
-			@include min-width($BP3)
-				margin: 0 0 var(--gap) 0
-			@include max-width($BP3)
-				margin: 0 0 20px 0
 			padding: var(--small_gap)
 			position: relative
-			//transition: box-shadow 200ms
 			cursor: pointer
 			transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out
 
@@ -66,8 +52,6 @@ div#publications_container
 				box-shadow: 0px 5px 6px 0px var(--GREY4)
 
 			& > img.thumbnail
-				@include max-width($BP3)
-					display: none
 				width: 100px
 				height: 100px
 				border: 1px solid var(--GREY3)
@@ -76,8 +60,7 @@ div#publications_container
 
 
 			& > div.pdf-div
-				@include max-width($BP3)
-					display: none
+
 				@include borderMixin(var(--GREY3))
 				background-color: var(--GREY01)
 				color: var(--GREY6)
@@ -104,8 +87,7 @@ div#publications_container
 					font-size: 14px
 
 				& > div.publication-title
-					font:
-						family: OpenSansSemiBold
+					font-family: OpenSansSemiBold
 					margin-bottom: 10px
 
 
@@ -113,6 +95,34 @@ div#publications_container
 					font:
 						family: OpenSansItalic
 						size: 16px
+
+
+		// **  min-width($BP3)
+		@include min-width($BP3)
+			border-left: 1px solid var(--GREY2)
+			padding-left: 39px
+
+			& > div.publication
+				margin: 0 0 var(--gap) 0
+
+			@include min-width($BP1)
+				& > div.publication > div.content-div > div.publication-title
+					font-size: 18px
+
+
+		// **  max-width($BP3)
+		@include max-width($BP3)
+			margin-bottom: 40px
+			& > div.publication
+				margin: 0 0 20px 0
+
+				& > img.thumbnail, & > div.pdf-div
+					display: none
+
+
+
+
+
 
 
 
