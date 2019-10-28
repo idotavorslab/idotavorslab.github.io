@@ -296,12 +296,6 @@ div#footer > div#logos img {
     margin-top: auto;
   }
 }
-@media screen and (min-width: 760px) and (min-width: 1340px) {
-  div#footer > div#logos > img {
-    margin-right: 40px;
-    height: 60px;
-  }
-}
 @media screen and (min-width: 760px) and (min-width: 1023px) and (max-width: 1340px) {
   div#footer > div#logos > img {
     margin-right: 36px;
@@ -311,6 +305,12 @@ div#footer > div#logos img {
 @media screen and (min-width: 760px) and (min-width: 1023px) {
   div#footer > iframe#contact_map {
     width: 100%;
+  }
+}
+@media screen and (min-width: 760px) and (min-width: 1023px) and (min-width: 1340px) {
+  div#footer > div#logos > img {
+    margin-right: 40px;
+    height: 60px;
   }
 }
 

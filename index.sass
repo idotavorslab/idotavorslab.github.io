@@ -232,28 +232,25 @@ div#footer
 			grid-row: 2/2
 			grid-column: 1/4
 			margin-top: auto
-		//padding-bottom: var(--GAP0)
 
-
-
-
-
-		@include min-width($BP1)
-
-			& > div#logos > img
-				margin-right: 40px
-				height: 60px
-
+		// **  width-between($BP2, $BP1)
 		@include width-between($BP2, $BP1)
-
 
 			& > div#logos > img
 				margin-right: 36px
 				height: 52px
 
+		// **  min-width($BP2)
 		@include min-width($BP2)
 			& > iframe#contact_map
 				width: 100%
+
+			// **  min-width($BP1)
+			@include min-width($BP1)
+
+				& > div#logos > img
+					margin-right: 40px
+					height: 60px
 
 div#ugug
 	//position: absolute
