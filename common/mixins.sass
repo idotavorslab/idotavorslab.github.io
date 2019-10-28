@@ -10,8 +10,8 @@
 		@if ($radius)
 			radius: $radius
 
-@mixin width-between($bpA,$bpB)
-	@media screen and (min-width: $bpA) and (max-width: $bpB)
+@mixin width-between($low,$high)
+	@media screen and (min-width: $low) and (max-width: $high)
 		@content
 
 @mixin min-width($bp)

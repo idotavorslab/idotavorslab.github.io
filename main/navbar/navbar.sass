@@ -143,10 +143,19 @@ section#navbar_section
 
 		@include pFontSize()
 		$_trans: 0.2s ease-in-out
+		--logosHeight: 40px
+
 		display: flex
 		height: var(--REGULAR_NAVBAR_HEIGHT)
 		margin: auto auto 0 auto
 		transition: box-shadow $_trans
+
+		@include min-width($BP1)
+			--_marginRight: var(--logosHeight)
+		@include width-between($BP2, $BP1)
+			--_marginRight: 36px
+			& > div
+				font-size: 18px
 
 		&.box-shadow
 			box-shadow: inset 0 -1px 0 0 var(--GREY2)
@@ -156,12 +165,11 @@ section#navbar_section
 			letter-spacing: 0.5px
 			transition: color $_trans, border-bottom-color $_trans
 
-		--logosHeight: 40px
 
 		& > div, & > img.home
 			margin:
 				top: auto
-				right: var(--logosHeight)
+				right: var(--_marginRight)
 				left: 0
 				bottom: auto
 
