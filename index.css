@@ -333,6 +333,10 @@ div#ugug {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+div#ugug.contact {
+  position: absolute;
+  bottom: 0;
+}
 
 #window_stats {
   font-family: monospace;

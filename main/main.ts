@@ -6,13 +6,29 @@ const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome'
 
 // @ts-ignore
 const DocumentElem = elem({htmlElement: document});
-const Body = elem({htmlElement: document.body});
+
+interface IBody extends BetterHTMLElement {
+    ugug: Div;
+    fundingSection: Div & { sponsorsContainer: Div }
+}
+
+const Body = elem({
+    htmlElement: document.body,
+    children: {
+        ugug: '#ugug',
+        fundingSection: {
+            '#funding_section': {
+                sponsorsContainer: 'div#sponsors_container'
+            }
+        }
+    }
+}) as IBody;
 const Home = elem({id: 'home'});
-const FundingSection = <Div & { sponsorsContainer: Div }>elem({
+/*const FundingSection = <Div & { sponsorsContainer: Div }>elem({
     id: 'funding_section', children: {
         sponsorsContainer: 'div#sponsors_container'
     }
-});
+});*/
 
 const CacheDiv = elem({id: 'cache'});
 const WindowStats = elem({id: 'window_stats'});

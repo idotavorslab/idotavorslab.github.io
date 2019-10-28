@@ -37,15 +37,9 @@ const Routing = (() => {
                 } else {
                     Footer.uncss('display')
                 }
-                // happens also in home researchSnippets snippet click
-                /*if (url === "gallery") {
-                    Footer.attr({hidden: ''});
-                    elem({query: 'div#ugug'}).attr({hidden: ''});
-                } else {
-                    Footer.removeAttr('hidden');
-                }*/
                 
-                FundingSection.attr({hidden: ''});
+                Body.fundingSection.attr({hidden: ''});
+                // FundingSection.attr({hidden: ''});
                 DocumentElem.allOff();
                 const pageObj = getPageObj(url);
                 pageObj().init();

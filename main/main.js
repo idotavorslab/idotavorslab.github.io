@@ -3,13 +3,18 @@ const IS_GILAD = userAgent === "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/M
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 const DocumentElem = elem({ htmlElement: document });
-const Body = elem({ htmlElement: document.body });
-const Home = elem({ id: 'home' });
-const FundingSection = elem({
-    id: 'funding_section', children: {
-        sponsorsContainer: 'div#sponsors_container'
+const Body = elem({
+    htmlElement: document.body,
+    children: {
+        ugug: '#ugug',
+        fundingSection: {
+            '#funding_section': {
+                sponsorsContainer: 'div#sponsors_container'
+            }
+        }
     }
 });
+const Home = elem({ id: 'home' });
 const CacheDiv = elem({ id: 'cache' });
 const WindowStats = elem({ id: 'window_stats' });
 const WindowElem = elem({ htmlElement: window });

@@ -29,7 +29,7 @@ const Routing = (() => {
                 else {
                     Footer.uncss('display');
                 }
-                FundingSection.attr({ hidden: '' });
+                Body.fundingSection.attr({ hidden: '' });
                 DocumentElem.allOff();
                 const pageObj = getPageObj(url);
                 pageObj().init();
