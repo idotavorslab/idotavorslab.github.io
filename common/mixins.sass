@@ -10,8 +10,8 @@
 		@if ($radius)
 			radius: $radius
 
-@mixin width-between($bpA,$bpB)
-	@media screen and (min-width: $bpA) and (max-width: $bpB)
+@mixin width-between($low,$high)
+	@media screen and (min-width: $low) and (max-width: $high)
 		@content
 
 @mixin min-width($bp)
@@ -25,13 +25,16 @@
 
 @mixin pFontSize($alsoLineHeight:false)
 	// *  DEP: index.sass div#footer > #contact > .address > a line height
-	/// 500px
-	@include min-width($BP4)
+	/// 1340
+	@include min-width($BP1)
 		font-size: 20px
 		@if ($alsoLineHeight == true)
 			line-height: 32px
-
-	@include max-width($BP4)
+	@include width-between($BP2, $BP1)
+		font-size: 18px
+		@if ($alsoLineHeight == true)
+			line-height: 28px
+	@include max-width($BP3)
 		font-size: 16px
 		@if ($alsoLineHeight == true)
 			line-height: 24px
@@ -71,36 +74,30 @@
 	@include min-width($BP1)
 		// 1200px
 		--w: var(--W0)
-		#window_stats:after
+		//#window_stats:after
 			content: "--w: var(--W0): 1200px \A [BP1] screen: #{$BP1} screen"
 
 	/// 1023 <= screen <= 1340
 	@include width-between($BP2, $BP1)
 		// 984px
 		--w: var(--W1)
-		#window_stats:after
+		//#window_stats:after
 			content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
 
 	/// 760 <= screen <= 1023
 	@include width-between($BP3, $BP2)
 		// 748px
 		--w: var(--W2)
-		#window_stats:after
+		//#window_stats:after
 			content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
 
-	/// 500 <= screen <= 760
-	@include width-between($BP4, $BP3)
-		// 496px
+
+	/// screen <= 760
+	@include max-width($BP3)
+		// 90%
 		--w: var(--W3)
 		#window_stats:after
-			content: "--w: var(--W3): 496px \A [BP4] screen [BP3]: #{$BP4} screen #{$BP3}"
-
-	/// screen <= 500
-	@include max-width($BP4)
-		// 90%
-		--w: var(--W4)
-		#window_stats:after
-			content: "--w: var(--W3): 90% \A screen [BP4]: screen #{$BP4}"
+			content: "--w: var(--W3): 90% \A screen [BP3]: screen #{$BP3}"
 
 @mixin iframeMixin()
 	width: var(--w)
@@ -119,10 +116,10 @@
 
 @mixin gridContainerMixin($childTag, $tight:false)
 	// *  DEP: gallery.ts
-	@include min-width($BP4)
+	@include min-width($BP3)
 		--columns: 4
 		--_tightGap: 8px
-	@include max-width($BP4)
+	@include max-width($BP3)
 		--columns: 2
 		--_tightGap: 4px
 
@@ -148,15 +145,15 @@
 			column-gap: var(--_tightGap)
 	@else
 		grid-row-gap: var(--gap)
-		@include min-width($BP4)
+		@include min-width($BP3)
 			grid-column-gap: var(--gap)
-		@include max-width($BP4)
+		@include max-width($BP3)
 			grid-column-gap: 5%
 
 	#{$childTag}
 		margin: auto
 		width: 100%
-		@include min-width($BP4)
+		@include min-width($BP3)
 			// TODO: is this needed at all?
 			//width: var(--tagWidth)
 			// every 4th == last in row

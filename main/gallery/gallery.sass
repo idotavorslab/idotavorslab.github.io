@@ -8,9 +8,9 @@ div#home.gallery-page
 		&:not([class="theater"])
 			& > div.year > div.grid > div.row > img
 				margin-top: 0
-				@include min-width($BP4)
+				@include min-width($BP3)
 					margin-bottom: 3px
-				@include max-width($BP4)
+				@include max-width($BP3)
 					margin-bottom: -2px
 				cursor: pointer
 				transition: opacity 100ms
@@ -39,13 +39,13 @@ div#home.gallery-page
 				& > div.row
 					width: auto
 
-			// **  min-width($BP4)
-			@include min-width($BP4)
+			// **  min-width($BP3)
+			@include min-width($BP3)
 				border-left: 1px solid var(--GREY2)
 				padding-left: 39px
 
-			// **  max-width($BP4)
-			@include max-width($BP4)
+			// **  max-width($BP3)
+			@include max-width($BP3)
 
 	// ***  img_viewer
 	div#img_viewer
@@ -54,10 +54,10 @@ div#home.gallery-page
 		@include min-width($BP1)
 			--localHeight: 600px
 
-		@include width-between($BP4, $BP1)
+		@include width-between($BP3, $BP1)
 			--localHeight: 500px
 
-		@include max-width($BP4)
+		@include max-width($BP3)
 			--localHeight: 400px
 
 
@@ -89,9 +89,9 @@ div#home.gallery-page
 		--chevronWidth: 55px
 
 		& > img
-			@include min-width($BP4)
+			@include min-width($BP3)
 				max-height: var(--localHeight)
-			@include max-width($BP4)
+			@include max-width($BP3)
 				width: calc(120% - 2 * var(--chevronWidth))
 				object-fit: contain
 
@@ -145,7 +145,7 @@ div#home.gallery-page
 					transform: rotate(225deg)
 
 		& > div#caption
-			@include min-width($BP4)
+			@include min-width($BP3)
 				@include fourWayTextShadow(1px, 1px, 0, black)
 			text-align: center
 			position: fixed

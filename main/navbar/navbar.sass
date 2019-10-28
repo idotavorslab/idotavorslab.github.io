@@ -1,6 +1,6 @@
 section#navbar_section
 	background-color: rgba(255, 255, 255, 0.92)
-	@include max-width($BP4)
+	@include max-width($BP3)
 		height: var(--MOBILE_NAVBAR_HEIGHT)
 	position: fixed
 	transition: opacity 0.1s ease-out
@@ -14,7 +14,7 @@ section#navbar_section
 
 	// ***  hamburger
 	& > div#hamburger
-		@include min-width($BP4)
+		@include min-width($BP3)
 			display: none
 		height: inherit
 		transition: box-shadow 0.5s ease-in-out
@@ -70,7 +70,7 @@ section#navbar_section
 				// makes it not disappear on open
 				position: relative
 				width: max-content
-				//@include min-width($BP4)
+				//@include min-width($BP3)
 					display: none
 
 				& > img
@@ -138,15 +138,24 @@ section#navbar_section
 
 	// ***  navbar
 	& > div#navbar
-		@include max-width($BP4)
+		@include max-width($BP3)
 			display: none
 
 		@include pFontSize()
 		$_trans: 0.2s ease-in-out
+		--logosHeight: 40px
+
 		display: flex
 		height: var(--REGULAR_NAVBAR_HEIGHT)
 		margin: auto auto 0 auto
 		transition: box-shadow $_trans
+
+		@include min-width($BP1)
+			--_marginRight: var(--logosHeight)
+		@include width-between($BP2, $BP1)
+			--_marginRight: 36px
+			//& > div
+				font-size: 18px
 
 		&.box-shadow
 			box-shadow: inset 0 -1px 0 0 var(--GREY2)
@@ -156,22 +165,24 @@ section#navbar_section
 			letter-spacing: 0.5px
 			transition: color $_trans, border-bottom-color $_trans
 
+
 		& > div, & > img.home
 			margin:
 				top: auto
-				right: 40px
+				right: var(--_marginRight)
 				left: 0
 				bottom: auto
+
 
 		// logo
 		& > img.home
 			margin: auto auto auto 0
-			// 820 is the tavorlab-mini-trans.png width
-			width: calc(820px / 7)
+			width: auto
+			height: var(--logosHeight)
 
 		// tau logo
 		& > img.uni
-			height: 40px
+			height: var(--logosHeight)
 			margin: auto 0
 
 		& > div:nth-last-child(2)

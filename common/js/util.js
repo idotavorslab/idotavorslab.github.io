@@ -1,10 +1,11 @@
-const $BP0 = 1535;
 const $BP1 = 1340;
-const $BP4 = 500;
+const $BP2 = 1023;
+const $BP3 = 760;
 const W0 = 1200;
 const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
+let SHOW_STATS = false;
 const FILEDATA = {};
 const ALWAYS_LOWERCASE = ["a",
     "an",
@@ -74,79 +75,17 @@ class Dict {
 function dict(obj) {
     return new Dict(obj);
 }
-class Str extends String {
-    constructor(value) {
-        super(value);
-    }
-    isdigit() {
-        return !isNaN(int(this));
-    }
-    upper() {
-        return this.toUpperCase();
-    }
-    lower() {
-        return this.toLowerCase();
-    }
-}
-function str(val) {
-    return new Str(val);
-}
-async function concurrent(...promises) {
-    return await Promise.all(promises);
-}
-const ajax = (() => {
-    function _tryResolveResponse(xhr, resolve, reject) {
-        if (xhr.status != 200) {
-            return reject(xhr);
-        }
-        try {
-            return resolve(JSON.parse(xhr.responseText));
-        }
-        catch (e) {
-            if (e instanceof SyntaxError) {
-                console.warn("failed JSON parsing xhr responseText. returning raw", { xhr });
-                return resolve(xhr.responseText);
-            }
-            else {
-                console.error({ xhr });
-                return reject("Got bad xhr.responseText. Logged above", xhr);
-            }
-        }
-    }
-    function _baseRequest(type, url, data) {
-        const xhr = new XMLHttpRequest();
-        return new Promise(async (resolve, reject) => {
-            await xhr.open(str(type).upper(), url, true);
-            xhr.onload = () => _tryResolveResponse(xhr, resolve, reject);
-            if (type === "get")
-                xhr.send();
-            else if (type === "post")
-                xhr.send(JSON.stringify(data));
-            else
-                throw new Error(`util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`);
-        });
-    }
-    function get(url) {
-        return _baseRequest("get", url);
-    }
-    function post(url, data) {
-        return _baseRequest("post", url, data);
-    }
-    return { post, get };
-})();
 class ExTweenLite {
     constructor() {
         this.isLoaded = false;
         this.load().then(() => {
             Object.assign(this, TweenLite);
-            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
         });
     }
     async toAsync(target, duration, vars) {
-        return new Promise(resolve => this.to(target, duration, Object.assign({}, vars, { onComplete: resolve })));
+        return new Promise(resolve => this.to(target, duration, Object.assign(Object.assign({}, vars), { onComplete: resolve })));
     }
     async load() {
-        console.log(...less('ExTweenLite.load(), this:'), this);
         if (this.isLoaded)
             return true;
         let scriptA = document.querySelector(`script[src*="Tween"]`);
@@ -170,7 +109,6 @@ class ExTweenLite {
             scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
             count++;
         }
-        console.log(...less('TweenLite scripts loaded'));
         this.isLoaded = true;
         return true;
     }
@@ -196,21 +134,41 @@ async function fetchText(path, cache = "default") {
     return _fetch(path, cache, "text");
 }
 function windowStats() {
-    console.log(window.clientInformation.userAgent);
+    let breakpoint;
+    if (innerWidth < $BP3) {
+        breakpoint = `[0] XXX [$BP3 ${$BP3}px] --- [$BP2] --- [$BP1] --- [∞]`;
+    }
+    else {
+        if (innerWidth < $BP2) {
+            breakpoint = `[0] --- [$BP3] XXX [$BP2 ${$BP2}px] --- [$BP1] --- [∞]`;
+        }
+        else {
+            if (innerWidth < $BP1) {
+                breakpoint = `[0] --- [$BP3] --- [$BP2] XXX [$BP1 ${$BP1}px] --- [∞]`;
+            }
+            else {
+                breakpoint = `[0] --- [$BP3] --- [$BP2] --- [$BP1] XXX [∞]`;
+            }
+        }
+    }
     return `
-window.outerHeight: ${window.outerHeight}
-window.innerHeight: ${window.innerHeight}
-window.outerWidth: ${window.outerWidth}
-window.innerWidth: ${window.innerWidth}
+outerHeight: ${outerHeight}
+innerHeight: ${innerHeight}
+outerWidth: ${outerWidth}
+innerWidth: ${innerWidth}
 html.clientHeight: ${document.documentElement.clientHeight}
 html.clientWidth: ${document.documentElement.clientWidth}
 body.clientHeight: ${document.body.clientHeight}
 body.clientWidth: ${document.body.clientWidth}
 iPhone: ${IS_IPHONE}
-`;
+Safari: ${IS_SAFARI}
+Breakpoint: ${breakpoint}
+`.split('\n')
+        .filter(line => line)
+        .map(line => `<div>${line}</div>`)
+        .join('');
 }
 function isOverflown({ clientWidth, clientHeight, scrollWidth, scrollHeight }) {
-    console.log({ clientHeight, scrollHeight });
     return scrollHeight > clientHeight || scrollWidth > clientWidth;
 }
 function copyToClipboard(val) {

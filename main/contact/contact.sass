@@ -1,12 +1,12 @@
 div#home.contact-page
 	display: flex
 	$_contactPageMarginBottom: 80px
-	// **  min-width($BP4)
-	@include min-width($BP4)
+	// **  min-width($BP3)
+	@include min-width($BP3)
 		height: 660px
 		margin-bottom: $_contactPageMarginBottom
-	// **  max-width($BP4)
-	@include max-width($BP4)
+	// **  max-width($BP3)
+	@include max-width($BP3)
 		margin-bottom: calc(var(--MOBILE_NAVBAR_HEIGHT) * 2)
 
 	& > iframe#contact_map
@@ -17,14 +17,17 @@ div#home.contact-page
 	& > div#contact_flex
 		display: flex
 		flex-direction: column
-		// **  min-width($BP4)
-		@include min-width($BP4)
+		// **  min-width($BP3)
+		@include min-width($BP3)
 			margin-left: $_contactPageMarginBottom
 
 
-		// **  max-width($BP4)
-		@include max-width($BP4)
+		// **  max-width($BP3)
+		@include max-width($BP3)
 			margin-left: 60px
+			h2
+				//font-size: 20px
+				//line-height: 20px
 
 		// **  All Resolutions
 		& > div
@@ -61,7 +64,7 @@ div#home.contact-page
 			//margin: auto 0
 
 			&.email
-			//margin-top: auto
+//margin-top: auto
 
 
 

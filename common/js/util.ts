@@ -1,17 +1,23 @@
-const $BP0 = 1535;
-// needs to be higher than --W0
+// needs to be greater than --W0
 const $BP1 = 1340;
-// needs to be higher than --W1
-const $BP4 = 500;
+
+// needs to be greater than --W1
+const $BP2 = 1023;
+
+// needs to be greater than --W2
+const $BP3 = 760;
+
+
 // [BP1]W0[BP0]
 const W0 = 1200;
+
 // [BP2]W1[BP1]
 const W1 = 984;
 
 const GOOGLEBLUE = '#3b82f0';
 
 let MOBILE = undefined;
-
+let SHOW_STATS = false;
 const FILEDATA = {};
 const ALWAYS_LOWERCASE = ["a",
     "an",
@@ -98,115 +104,6 @@ function dict<T>(obj: T): TDict<T> {
 }
 
 
-/*class List<T> extends Array {
-    constructor(items: T[]) {
-        super(...items);
-    }
-    
-    count(object: T): number {
-        return this.filter(x => x === object).length
-    }
-    
-    index(object: T, start?: number, stop?: number): number {
-        if (stop === undefined)
-            return super.indexOf(object, start);
-        else // assumes start and stop arent undefined
-            return this.slice(start, stop).indexOf(object)
-    }
-    
-    // sort({key, reverse}: { key?: (k: T) => any, reverse?: boolean } = {key: k => k, reverse: false}) {
-    //     // return super.sort()
-    // }
-    
-}
-
-function list<T>(items: T[]) {
-    return new List<T>(items);
-}*/
-
-class Str extends String {
-    constructor(value) {
-        super(value);
-    }
-    
-    isdigit(): boolean {
-        return !isNaN(int(this));
-    }
-    
-    upper(): string {
-        return this.toUpperCase();
-    }
-    
-    lower(): string {
-        return this.toLowerCase();
-    }
-}
-
-function str(val) {
-    return new Str(val);
-}
-
-
-async function concurrent<T>(...promises: Promise<T>[]): Promise<T[]> {
-    return await Promise.all(promises);
-}
-
-type TAjax = {
-    post: (url: string, data: any) => Promise<any>;
-    get: (url: string) => Promise<any>;
-};
-const ajax: TAjax = (() => {
-    function _tryResolveResponse(xhr: XMLHttpRequest, resolve, reject) {
-        if (xhr.status != 200) {
-            return reject(xhr);
-        }
-        try {
-            return resolve(JSON.parse(xhr.responseText));
-        } catch (e) {
-            if (e instanceof SyntaxError) {
-                console.warn(
-                    "failed JSON parsing xhr responseText. returning raw",
-                    {xhr}
-                );
-                return resolve(xhr.responseText);
-            } else {
-                console.error({xhr});
-                return reject("Got bad xhr.responseText. Logged above", xhr);
-            }
-        }
-    }
-    
-    function _baseRequest(
-        type: "get" | "post",
-        url: string,
-        data?: object
-    ): Promise<object> {
-        // if (!url.startsWith("/")) url = "/" + url;
-        const xhr = new XMLHttpRequest();
-        return new Promise(async (resolve, reject) => {
-            await xhr.open(str(type).upper(), url, true);
-            xhr.onload = () => _tryResolveResponse(xhr, resolve, reject);
-            if (type === "get") xhr.send();
-            else if (type === "post") xhr.send(JSON.stringify(data));
-            else
-                throw new Error(
-                    `util.ajax._baseRequest, receivd bad 'type': "${type}". should be either "get" or "post". url: ${url}`
-                );
-        });
-    }
-    
-    function get(url: string): Promise<object> {
-        return _baseRequest("get", url);
-    }
-    
-    function post(url: string, data: any): Promise<object> {
-        return _baseRequest("post", url, data);
-    }
-    
-    return {post, get};
-})();
-
-
 /*
 
 // @ts-ignore
@@ -273,8 +170,10 @@ const TL: ITL = {
     }*!/
 };*/
 interface ITL extends Gsap.Tween {
-    toAsync: (target: object, duration: number, vars: Gsap.ToVars) => Promise<unknown>;
-    load: () => Promise<boolean>;
+    toAsync(target: object, duration: number, vars: Gsap.ToVars): Promise<unknown>;
+    
+    load(): Promise<boolean>;
+    
     isLoaded: boolean;
 }
 
@@ -284,7 +183,6 @@ class ExTweenLite {
     constructor() {
         this.load().then(() => {
             Object.assign(this, TweenLite);
-            console.log(...less('ExTweenLite ctor after Object.assign, this:'), this);
         })
         
     }
@@ -301,7 +199,6 @@ class ExTweenLite {
     }
     
     async load() {
-        console.log(...less('ExTweenLite.load(), this:'), this);
         if (this.isLoaded)
             return true;
         let scriptA = document.querySelector(`script[src*="Tween"]`);
@@ -326,7 +223,6 @@ class ExTweenLite {
             scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
             count++;
         }
-        console.log(...less('TweenLite scripts loaded'));
         this.isLoaded = true;
         return true;
     }
@@ -367,29 +263,41 @@ async function fetchText(path: string, cache: RequestCache = "default"): Promise
 
 
 function windowStats() {
-    console.log(window.clientInformation.userAgent);
+    let breakpoint: string;
+    if (innerWidth < $BP3) {
+        breakpoint = `[0] XXX [$BP3 ${$BP3}px] --- [$BP2] --- [$BP1] --- [∞]`;
+    } else {
+        if (innerWidth < $BP2) {
+            breakpoint = `[0] --- [$BP3] XXX [$BP2 ${$BP2}px] --- [$BP1] --- [∞]`;
+        } else {
+            if (innerWidth < $BP1) {
+                breakpoint = `[0] --- [$BP3] --- [$BP2] XXX [$BP1 ${$BP1}px] --- [∞]`;
+            } else {
+                breakpoint = `[0] --- [$BP3] --- [$BP2] --- [$BP1] XXX [∞]`;
+            }
+        }
+    }
     return `
-window.outerHeight: ${window.outerHeight}
-window.innerHeight: ${window.innerHeight}
-window.outerWidth: ${window.outerWidth}
-window.innerWidth: ${window.innerWidth}
+outerHeight: ${outerHeight}
+innerHeight: ${innerHeight}
+outerWidth: ${outerWidth}
+innerWidth: ${innerWidth}
 html.clientHeight: ${document.documentElement.clientHeight}
 html.clientWidth: ${document.documentElement.clientWidth}
 body.clientHeight: ${document.body.clientHeight}
 body.clientWidth: ${document.body.clientWidth}
 iPhone: ${IS_IPHONE}
-`
+Safari: ${IS_SAFARI}
+Breakpoint: ${breakpoint}
+`.split('\n')
+        .filter(line => line)
+        .map(line => `<div>${line}</div>`)
+        .join('')
 }
 
-// const setWindowStatsInnerText = () => {
-//     document.getElementById('window_stats').innerText = windowStats();
-// };
-//
-// document.addEventListener("DOMContentLoaded", setWindowStatsInnerText);
 
-// window.onresize = setWindowStatsInnerText;
 function isOverflown({clientWidth, clientHeight, scrollWidth, scrollHeight}): boolean {
-    console.log({clientHeight, scrollHeight});
+    // console.log({clientHeight, scrollHeight});
     return scrollHeight > clientHeight || scrollWidth > clientWidth;
 }
 

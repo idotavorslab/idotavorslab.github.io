@@ -78,7 +78,7 @@ const HomePage = () => {
             this._selected = selectedItem;
             
             TL.to(newsChildren, 0.1, {opacity: 1});
-            console.log('isOverflown:', isOverflown(rightWidget.news.e));
+            // console.log('isOverflown:', isOverflown(rightWidget.news.e));
             let overflown = isOverflown(rightWidget.news.e);
             if (overflown) {
                 let lastChild = rightWidget.news.content.e.lastChild as HTMLParagraphElement;

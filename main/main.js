@@ -1,5 +1,5 @@
 const userAgent = window.navigator.userAgent;
-const IS_GILAD = userAgent === "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
+const IS_GILAD = userAgent === "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Mobile Safari/537.36";
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 const DocumentElem = elem({ htmlElement: document });
@@ -11,6 +11,7 @@ const FundingSection = elem({
     }
 });
 const CacheDiv = elem({ id: 'cache' });
+const WindowStats = elem({ id: 'window_stats' });
 const WindowElem = elem({ htmlElement: window });
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
@@ -67,7 +68,6 @@ Hamburger.click((event) => {
     console.log('Hamburger.click');
     Hamburger.toggle();
 });
-const Ugug = elem({ id: 'ugug' });
 WindowElem.on({
     scroll: (event) => {
         if (Navbar !== undefined) {
@@ -89,25 +89,11 @@ WindowElem.on({
             Routing.initPage(newURL);
         }
     },
+    resize: (event) => {
+        if (SHOW_STATS)
+            WindowStats.html(windowStats());
+    },
     load: () => {
-        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
-        WindowElem.isLoaded = true;
-        MOBILE = window.innerWidth <= $BP4;
-        Navbar = new NavbarElem({
-            query: 'div#navbar',
-            children: {
-                home: '.home',
-                research: '.research',
-                people: '.people',
-                publications: '.publications',
-                gallery: '.gallery',
-                neuroanatomy: '.neuroanatomy',
-                contact: '.contact',
-            }
-        });
-        console.log({ innerWidth: window.innerWidth, MOBILE });
-        if (window.location.hash !== "")
-            fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
         function cache(file, page) {
             let src;
             if (file.includes('http') || file.includes('www')) {
@@ -146,6 +132,31 @@ WindowElem.on({
             for (let [_, { image }] of researchData.items())
                 cache(image, "research");
         }
+        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
+        WindowElem.isLoaded = true;
+        MOBILE = window.innerWidth <= $BP3;
+        Navbar = new NavbarElem({
+            query: 'div#navbar',
+            children: {
+                home: '.home',
+                research: '.research',
+                people: '.people',
+                publications: '.publications',
+                gallery: '.gallery',
+                neuroanatomy: '.neuroanatomy',
+                contact: '.contact',
+            }
+        });
+        if (window.location.hash !== "") {
+            fetchDict('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
+        }
+        console.log('%cstats:', 'color: #B58059', {
+            MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI, SHOW_STATS,
+            innerWidth
+        });
+        if (SHOW_STATS) {
+            WindowStats.class('on').html(windowStats());
+        }
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
             console.log(...less('done waiting, starting caching'));
@@ -156,7 +167,6 @@ WindowElem.on({
             if (!window.location.hash.includes('gallery'))
                 cacheGallery();
             console.log(...less('done caching'));
-            console.groupEnd();
         });
     }
 });
@@ -212,9 +222,8 @@ fetchDict("main/contact/contact.json").then(async (data) => {
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
     sagol.click(() => window.open("https://www.sagol.tau.ac.il/"));
     await WindowElem.promiseLoaded();
-    console.log(...less('main.ts popuplating Footer;'), { MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI });
     if (!MOBILE) {
-        await wait(3000);
+        await wait(2000);
         console.log(...less("Footer.contactSection.append(elem({tag: 'iframe'}))"));
         Footer.map.attr({
             frameborder: "0",

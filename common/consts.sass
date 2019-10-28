@@ -1,29 +1,25 @@
-$BP0: 1535px
-
 // needs to be greater than --W0
 $BP1: 1340px
 
 // needs to be greater than --W1
 $BP2: 1023px
 
-// needs to be greater than --W2
+// needs to be greater than --W2. AKA mobile
 $BP3: 760px
-
-// needs to be greater than --W3. AKA mobile
-$BP4: 500px
 
 
 \:root
-	// [BP1] W0 [BP0]
+	// $BP1(1340) < innerWidth ? --w: W0 = 1200px
 	--W0: 1200px
-	// [BP2] W1 [BP1]
+
+	// $BP2(1023) < innerWidth < $BP1(1340) ? --w: W1 = 984px
 	--W1: 984px
-	// [BP3] W2 [BP2]
+
+	// $BP3(760) < innerWidth < $BP2(1023) ? --w: W2 = 748px
 	--W2: 748px
-	// [BP4] W3 [BP3]
-	--W3: 496px
-	// W4 [BP4]
-	--W4: 90%
+
+	// innerWidth < $BP3(760) ? --w: W3 = 90%
+	--W3: 90%
 
 	--GAP0: 60px
 	--GAP1: 40px
