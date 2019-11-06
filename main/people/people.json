@@ -41,6 +41,12 @@
 			"image": "Shachar-4to3-small.jpg",
 			"cv": "Shachar, currently an MSc student, completed his undergraduate studies in Biology and Psychology at Tel-Aviv University's Sagol school for neuroscience in 2019. His research focuses on inter-subject as well as intra-subject variability in brain function, and its relationship with brain structure, as measured by functional connectivity.",
 			"email": "gal.shachar@gmail.com"
+		},
+		"noga yair": {
+			"role": "MSc student",
+			"image": "noga.jpg",
+			"cv": "Noga received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is currently an MSc student in the lab, researching the structural changes that occur in the brain after exposure to stressful events, and specifically combat.",
+			"email": "nogayair23@gmail.com"
 		}
 	},
 	"alumni": {
