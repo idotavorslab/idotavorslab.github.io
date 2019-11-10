@@ -2,7 +2,7 @@
 const $BP1 = 1340;
 
 // needs to be greater than --W1
-const $BP2 = 1023;
+const $BP2 = 1025;
 
 // needs to be greater than --W2
 const $BP3 = 760;

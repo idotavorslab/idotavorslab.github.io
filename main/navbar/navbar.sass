@@ -1,6 +1,6 @@
 section#navbar_section
 	background-color: rgba(255, 255, 255, 0.92)
-	@include max-width($BP3)
+	@include max-width($BP2)
 		height: var(--MOBILE_NAVBAR_HEIGHT)
 	position: fixed
 	transition: opacity 0.1s ease-out
@@ -14,7 +14,7 @@ section#navbar_section
 
 	// ***  hamburger
 	& > div#hamburger
-		@include min-width($BP3)
+		@include min-width($BP2)
 			display: none
 		height: inherit
 		transition: box-shadow 0.5s ease-in-out
@@ -57,12 +57,17 @@ section#navbar_section
 						transition: transform $_trans, bottom $_trans, top $_trans
 						width: 100%
 
+					@include min-width($BP3)
+						--lineGap: -12px
+					@include max-width($BP3)
+						--lineGap: -10px
+
 					&:after
-						bottom: -10px
+						bottom: var(--lineGap)
 
 
 					&:before
-						top: -10px
+						top: var(--lineGap)
 						opacity: 1
 
 
@@ -74,10 +79,10 @@ section#navbar_section
 					display: none
 
 				& > img
-					// *  DEP: #hamburger_menu width
+					// *  DEP: #hamburger > .menu width
 					height: calc(var(--MOBILE_NAVBAR_HEIGHT) - 24px)
-					// half of 24
-					margin-top: 12px
+					// *  DEP: #hamburger > span.lines top (-10 for :bottom)
+					margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 10px)
 
 		& > div.items
 			opacity: 0
@@ -138,7 +143,7 @@ section#navbar_section
 
 	// ***  navbar
 	& > div#navbar
-		@include max-width($BP3)
+		@include max-width($BP2)
 			display: none
 
 		@include pFontSize()
@@ -154,8 +159,9 @@ section#navbar_section
 			--_marginRight: var(--logosHeight)
 		@include width-between($BP2, $BP1)
 			--_marginRight: 36px
-			//& > div
-				font-size: 18px
+
+		//& > div
+			font-size: 18px
 
 		&.box-shadow
 			box-shadow: inset 0 -1px 0 0 var(--GREY2)

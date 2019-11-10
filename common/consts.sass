@@ -2,7 +2,7 @@
 $BP1: 1340px
 
 // needs to be greater than --W1
-$BP2: 1023px
+$BP2: 1025px
 
 // needs to be greater than --W2. AKA mobile
 $BP3: 760px
@@ -34,8 +34,11 @@ $BP3: 760px
 	--SMALL_GAP0: 30px
 	--SMALL_GAP1: 20px
 	--SMALL_GAP2: 15px
-
-	--MOBILE_NAVBAR_HEIGHT: 60px
+	@import "mixins"
+	@include min-width($BP3)
+		--MOBILE_NAVBAR_HEIGHT: 80px
+	@include max-width($BP3)
+		--MOBILE_NAVBAR_HEIGHT: 60px
 	--REGULAR_NAVBAR_HEIGHT: 70px
 
 
