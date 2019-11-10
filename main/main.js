@@ -148,7 +148,7 @@ WindowElem.on({
         }
         console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
         WindowElem.isLoaded = true;
-        MOBILE = window.innerWidth <= $BP3;
+        MOBILE = window.innerWidth <= $BP2;
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {

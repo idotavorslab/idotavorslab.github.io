@@ -82,7 +82,10 @@ section#navbar_section
 					// *  DEP: #hamburger > .menu width
 					height: calc(var(--MOBILE_NAVBAR_HEIGHT) - 24px)
 					// *  DEP: #hamburger > span.lines top (-10 for :bottom)
-					margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 10px)
+					@include min-width($BP3)
+						margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 24px)
+					@include max-width($BP3)
+						margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 16px)
 
 		& > div.items
 			opacity: 0
@@ -92,15 +95,11 @@ section#navbar_section
 			& > div
 				color: var(--GREY8)
 				cursor: pointer
-				// 60 + (24 + 44*2) * 6
-				// 6 items
-				// $top + ($lineHeight + 2x)*6  =  100vh
-				//padding: calc((100vh - var(--mobileNavbarHeight) - #{$_lineHeight} * 6) / 12) 0
 				padding: 24px 0
-				//transition: box-shadow 0.75s ease-in-out
+				@include min-width($BP3)
+					font-size: 18px
 
 				&:not(:first-of-type)
-					//box-shadow: 0 -1px 0px white
 					box-shadow: 0 -1px 0px var(--GREY3)
 
 

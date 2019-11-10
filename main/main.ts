@@ -5,7 +5,6 @@ const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 
 
-// @ts-ignore
 const DocumentElem = elem({htmlElement: document});
 
 interface IFooter extends Div {
@@ -60,7 +59,6 @@ interface IWindow extends BetterHTMLElement {
     promiseLoaded(): Promise<boolean>
 }
 
-// @ts-ignore
 const WindowElem = elem({htmlElement: window}) as IWindow;
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
@@ -135,6 +133,7 @@ Hamburger.click((event: PointerEvent) => {
 });
 
 // ***  WindowElem.on
+// noinspection TypeScriptValidateTypes
 WindowElem.on({
     scroll: (event: Event) => {
         
@@ -214,7 +213,7 @@ WindowElem.on({
         
         console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
         WindowElem.isLoaded = true;
-        MOBILE = window.innerWidth <= $BP3;
+        MOBILE = window.innerWidth <= $BP2;
         Navbar = new NavbarElem({
             query: 'div#navbar',
             children: {

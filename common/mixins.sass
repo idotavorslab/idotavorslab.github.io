@@ -30,10 +30,11 @@
 		font-size: 20px
 		@if ($alsoLineHeight == true)
 			line-height: 32px
-	@include width-between($BP2, $BP1)
+	@include width-between($BP3, $BP1)
 		font-size: 18px
 		@if ($alsoLineHeight == true)
 			line-height: 28px
+
 	@include max-width($BP3)
 		font-size: 16px
 		@if ($alsoLineHeight == true)
@@ -52,7 +53,7 @@
 		// 30px
 		--small_gap: var(--SMALL_GAP0)
 
-	/// 1023 <= screen <= 1340
+	/// 1025 <= screen <= 1340
 	@include width-between($BP2, $BP1)
 		// 40px
 		--gap: var(--GAP1)
@@ -61,7 +62,7 @@
 		// 20px
 		--small_gap: var(--SMALL_GAP1)
 
-	/// screen <= 1023
+	/// screen <= 1025
 	@include max-width($BP2)
 		// ???
 		--gap: var(--GAP2)
@@ -74,22 +75,22 @@
 	@include min-width($BP1)
 		// 1200px
 		--w: var(--W0)
-		//#window_stats:after
-			content: "--w: var(--W0): 1200px \A [BP1] screen: #{$BP1} screen"
+	//#window_stats:after
+		content: "--w: var(--W0): 1200px \A [BP1] screen: #{$BP1} screen"
 
-	/// 1023 <= screen <= 1340
+	/// 1025 <= screen <= 1340
 	@include width-between($BP2, $BP1)
 		// 984px
 		--w: var(--W1)
-		//#window_stats:after
-			content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
+	//#window_stats:after
+		content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
 
-	/// 760 <= screen <= 1023
+	/// 760 <= screen <= 1025
 	@include width-between($BP3, $BP2)
 		// 748px
 		--w: var(--W2)
-		//#window_stats:after
-			content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
+	//#window_stats:after
+		content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
 
 
 	/// screen <= 760
