@@ -199,8 +199,9 @@ div#footer
 			cursor: pointer
 
 
-	// **  max-width($BP3)
+	// **  max-width($BP3) MOBILE
 	@include max-width($BP3)
+
 		display: flex
 		flex-direction: column
 		//& > section#contact_section
@@ -222,9 +223,8 @@ div#footer
 				object-fit: scale-down
 
 
-	// **  min-width($BP3)
+	// **  min-width($BP3) TABLET, LAPTOP, DESKTOP
 	@include min-width($BP3)
-
 		& > div.address
 			grid-column: 1/1
 
@@ -245,19 +245,29 @@ div#footer
 			grid-column: 1/4
 			margin-top: auto
 
-		// **  width-between($BP2, $BP1)
+		// **  max-width($BP2) TABLET
+		@include max-width($BP2)
+			div#logos
+				padding: 30px 0
+
+				img
+					max-height: 82px
+					max-width: 100%
+					object-fit: scale-down
+
+		// **  width-between($BP2, $BP1) LAPTOP
 		@include width-between($BP2, $BP1)
 
 			& > div#logos > img
 				margin-right: 36px
 				height: 52px
 
-		// **  min-width($BP2)
+		// **  min-width($BP2) LAPTOP, DESKTOP
 		@include min-width($BP2)
 			& > iframe#contact_map
 				width: 100%
 
-			// **  min-width($BP1)
+			// **  min-width($BP1) DESKTOP
 			@include min-width($BP1)
 
 				& > div#logos > img

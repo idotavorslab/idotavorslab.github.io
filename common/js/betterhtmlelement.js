@@ -124,7 +124,7 @@ class BetterHTMLElement {
 					newHtmlElement
 				});
 			}
-			this.on(Object.assign({}, this._listeners, newHtmlElement._listeners));
+			this.on(Object.assign(Object.assign({}, this._listeners), newHtmlElement._listeners));
 		} else {
 			// No way to get newHtmlElement event listeners besides hacking Element.prototype
 			this.on(this._listeners);
@@ -178,13 +178,6 @@ class BetterHTMLElement {
 			css[prop] = '';
 		return this.css(css);
 	}
-
-	/**@deprecated*/
-	is(element) {
-		// https://api.jquery.com/is/
-		throw new Error("NOT IMPLEMENTED");
-	}
-
 	class(cls) {
 		if (cls === undefined) {
 			return Array.from(this.e.classList);
@@ -256,14 +249,6 @@ class BetterHTMLElement {
 				this.e.after(node);
 		}
 		return this;
-		/*if (nodes[0] instanceof BetterHTMLElement)
-			 for (let bhe of <BetterHTMLElement[]>nodes)
-				  this.e.after(bhe.e);
-		else
-			 for (let node of <(string | Node)[]>nodes)
-				  this.e.after(node); // TODO: test what happens when passed strings
-		return this;
-		*/
 	}
 
 	/**Insert `this` just after a `BetterHTMLElement` or a vanilla `Node`.*/
@@ -311,13 +296,6 @@ class BetterHTMLElement {
 				this.e.before(node);
 		}
 		return this;
-		/*if (nodes[0] instanceof BetterHTMLElement)
-			 for (let bhe of <BetterHTMLElement[]>nodes)
-				  this.e.before(bhe.e);
-		else
-			 for (let node of <(string | Node)[]>nodes)
-				  this.e.before(node); // TODO: test what happens when passed strings
-		return this;*/
 	}
 
 	/**Insert `this` just before a `BetterHTMLElement` or a vanilla `Node`s.*/
@@ -422,51 +400,9 @@ class BetterHTMLElement {
 		return this;
 	}
 
-	// TODO: recursively yield children
-	//  (unlike .children(), this doesn't return only the first level)
-	/**@deprecated*/
-	find() {
-		// https://api.jquery.com/find/
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	first() {
-		// https://api.jquery.com/first/
-		// this.e.firstChild
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	last() {
-		// https://api.jquery.com/last/
-		// this.e.lastChild
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	next() {
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	not() {
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	parent() {
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	parents() {
-		throw new Error("NOT IMPLEMENTED");
-	}
 
 	// ***  Events
 	on(evTypeFnPairs, options) {
-		// const that = this; // "this" changes inside function _f
 		for (let [evType, evFn] of enumerate(evTypeFnPairs)) {
 			const _f = function _f(evt) {
 				evFn(evt);
@@ -477,10 +413,7 @@ class BetterHTMLElement {
 		return this;
 	}
 
-	/**@deprecated*/
-	one() {
-		throw new Error("NOT IMPLEMENTED");
-	}
+
 
 	/**Remove `event` from wrapped element's event listeners, but keep the removed listener in cache.
 	 * This is useful for later unblocking*/
@@ -620,47 +553,7 @@ class BetterHTMLElement {
 			return this.on({ keydown: fn }, options);
 	}
 
-	/**@deprecated*/
-	keyup() {
-		// https://api.jquery.com/keyup/
-		throw new Error("NOT IMPLEMENTED");
-	}
 
-	/**@deprecated*/
-	keypress() {
-		// https://api.jquery.com/keypress/
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	hover() {
-		// https://api.jquery.com/hover/
-		// binds to both mouseenter and mouseleave
-		// https://stackoverflow.com/questions/17589420/when-to-choose-mouseover-and-hover-function
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	mousedown() {
-		// https://api.jquery.com/keypress/
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	mouseleave() {
-		// https://api.jquery.com/keypress/
-		//mouseleave and mouseout are similar but differ in that mouseleave does not bubble and mouseout does.
-		// This means that mouseleave is fired when the pointer has exited the element and all of its descendants,
-		// whereas mouseout is fired when the pointer leaves the element or leaves one of the element's descendants
-		// (even if the pointer is still within the element).
-		throw new Error("NOT IMPLEMENTED");
-	}
-
-	/**@deprecated*/
-	mousemove() {
-		// https://api.jquery.com/keypress/
-		throw new Error("NOT IMPLEMENTED");
-	}
 
 	mouseout(fn, options) {
 		//mouseleave and mouseout are similar but differ in that mouseleave does not bubble and mouseout does.
@@ -682,24 +575,9 @@ class BetterHTMLElement {
 			return this.on({ mouseover: fn }, options);
 	}
 
-	/**@deprecated*/
-	mouseup() {
-		// https://api.jquery.com/keypress/
-		throw new Error("NOT IMPLEMENTED");
-	}
 
-	transform(options) {
-		let transform = '';
-		for (let [k, v] of enumerate(options)) {
-			transform += `${k}(${v}) `;
-		}
-		return new Promise(resolve => {
-			this.on({
-				transitionend: resolve
-			}, { once: true });
-			this.css({ transform });
-		});
-	}
+
+
 
 	/** Remove the event listener of `event`, if exists.*/
 	off(event) {
@@ -747,89 +625,7 @@ class BetterHTMLElement {
 			return data;
 	}
 
-	// **  Fade
-	async fade(dur, to) {
-		const styles = window.getComputedStyle(this.e);
-		const transProp = styles.transitionProperty.split(', ');
-		const indexOfOpacity = transProp.indexOf('opacity');
-		// css opacity:0 => transDur[indexOfOpacity]: 0s
-		// css opacity:500ms => transDur[indexOfOpacity]: 0.5s
-		// css NO opacity => transDur[indexOfOpacity]: undefined
-		if (indexOfOpacity !== -1) {
-			const transDur = styles.transitionDuration.split(', ');
-			const opacityTransDur = transDur[indexOfOpacity];
-			const trans = styles.transition.split(', ');
-			// transition: opacity was defined in css.
-			// set transition to dur, set opacity to 0, leave the animation to native transition, wait dur and return this
-			console.warn(`fade(${dur}, ${to}), opacityTransDur !== undefined. nullifying transition. SHOULD NOT WORK`);
-			console.log(`trans:\t${trans}\ntransProp:\t${transProp}\nindexOfOpacity:\t${indexOfOpacity}\nopacityTransDur:\t${opacityTransDur}`);
-			// trans.splice(indexOfOpacity, 1, `opacity ${dur / 1000}s`);
-			trans.splice(indexOfOpacity, 1, `opacity 0s`);
-			console.log(`after, trans: ${trans}`);
-			this.e.style.transition = trans.join(', ');
-			this.css({ opacity: to });
-			await wait(dur);
-			return this;
-		}
-		// transition: opacity was NOT defined in css.
-		if (dur == 0) {
-			return this.css({ opacity: to });
-		}
-		const isFadeOut = to === 0;
-		let opacity = parseFloat(this.e.style.opacity);
-		if (opacity === undefined || isNaN(opacity)) {
-			console.warn(`fade(${dur}, ${to}) htmlElement has NO opacity at all. recursing`, {
-				opacity,
-				this: this
-			});
-			return this.css({ opacity: Math.abs(1 - to) }).fade(dur, to);
-		} else {
-			if (isFadeOut ? opacity <= 0 : opacity > 1) {
-				console.warn(`fade(${dur}, ${to}) opacity was beyond target opacity. returning this as is.`, {
-					opacity,
-					this: this
-				});
-				return this;
-			}
-		}
-		let steps = 30;
-		let opStep = 1 / steps;
-		let everyms = dur / steps;
-		if (everyms < 1) {
-			everyms = 1;
-			steps = dur;
-			opStep = 1 / steps;
-		}
-		console.log(`fade(${dur}, ${to}) had opacity, no transition. (good) opacity: ${opacity}`, {
-			steps,
-			opStep,
-			everyms
-		});
-		const reachedTo = isFadeOut ? (op) => op - opStep > 0 : (op) => op + opStep < 1;
-		const interval = setInterval(() => {
-			if (reachedTo(opacity)) {
-				if (isFadeOut === true)
-					opacity -= opStep;
-				else
-					opacity += opStep;
-				this.css({ opacity });
-			} else {
-				opacity = to;
-				this.css({ opacity });
-				clearInterval(interval);
-			}
-		}, everyms);
-		await wait(dur);
-		return this;
-	}
 
-	async fadeOut(dur) {
-		return await this.fade(dur, 0);
-	}
-
-	async fadeIn(dur) {
-		return await this.fade(dur, 1);
-	}
 }
 
 class Div extends BetterHTMLElement {
@@ -904,18 +700,7 @@ class Anchor extends BetterHTMLElement {
 	}
 }
 
-/*class Svg extends BetterHTMLElement{
-    protected readonly _htmlElement: SVGElement;
-    constructor({id, cls,htmlElement}: SvgConstructor) {
-        super({tag: 'svg', cls});
-        if (id)
-            this.id(id);
-        if (src)
-            this._htmlElement.src = src;
 
-    }
-}
-*/
 customElements.define('better-html-element', BetterHTMLElement);
 customElements.define('better-div', Div, { extends: 'div' });
 customElements.define('better-p', Paragraph, { extends: 'p' });
@@ -995,40 +780,14 @@ function enumerate(obj) {
 	return array;
 }
 
-/*let obj0: { a: boolean, b: number } = {a: true, b: 1};
-let arr0: number[] = [1, 2, 3, 4];
-let arr1: string[] = ["1", "2", "3", "4"];
-let num0: number = 5;
-let undefined0: undefined;
-let null0: null = null;
-let boolean0: boolean = true;
 
-let MyFoo = enumerate(undefined0);
-if (MyFoo === true) {
-    console.log('hi');
-}
-*/
 function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-/*function equalsAny(obj: any, ...others: any[]): boolean {
-    if (!others)
-        throw new Error('Not even one other was passed');
-    let strict = !(isArrayLike(obj) && isObject(obj[obj.length - 1]) && obj[obj.length - 1].strict == false);
-    const _isEq = (_obj, _other) => strict ? _obj === _other : _obj == _other;
-    for (let other of others) {
-        if (_isEq(obj, other))
-            return true;
-    }
-    return false;
 
-}
-*/
-
-// true for string
 function isArray(obj) {
-	return obj && (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function');
+    return typeof obj !== "string" && (Array.isArray(obj) || typeof obj[Symbol.iterator] === 'function');
 }
 
 function isEmptyArr(collection) {
