@@ -47,6 +47,12 @@
 			"image": "noga.jpg",
 			"cv": "Noga received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is currently an MSc student under the joint supervision of Prof. Yair Bar-Haim and Dr. Ido Tavor, studying the functional changes that occur in the brain after exposure to stressful events, and specifically combat.",
 			"email": "nogayair23@gmail.com"
+		},
+		"cfir malovani": {
+			"role": "MSc student",
+			"image": "Cfir.jpg",
+			"cv": "Cfir received his BSc in Electrical Engineering and Physics from the Technion. He is currently an MSc student in the School of Electrical Engineering under the joint supervision of Dr. Ido Tavor and Dr. Noam Ben-Eliezer, focusing on segmentation-based registration methods for diffusion MRI scans.",
+			"email": "cfir.malovani@gmail.com"
 		}
 	},
 	"alumni": {
