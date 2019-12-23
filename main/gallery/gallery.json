@@ -179,6 +179,11 @@
 		"caption": "Selfie with some skulls",
 		"file": "32.png",
 		"year": 2019
+	},
+	{
+		"caption": "test",
+		"file": "test.png",
+		"year": 2019
 	}
 ]
 
