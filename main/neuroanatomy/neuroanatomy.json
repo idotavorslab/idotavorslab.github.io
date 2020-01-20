@@ -5,10 +5,9 @@
 			"text": "<p>This model presents the lateral surface of the two hemispheres as well as the bottom aspect of the brain, including the brainstem and cerebellum.</p> ",
 			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d"
 		},
-		"4D Surface of the Cat Tummy": {
-			"text": "This model presents the vestibular terrain of the three nanospheres as well as the upper aspect of the tummy, including the furry part and ticklish part. Here is some more text about cat tummies, to simulate a scenario where widely different texts are used.",
-			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d",
-			"dev": true
+		"3D surface of the brainstem and cerebellum": {
+			"text": "This model presents the anterior surface of the brainstem including the cranial nerves, and the anterior and posterior surfaces of the cerebellum.",
+			"link": "https://skfb.ly/6PSXE",
 		},
 		"Lorem ipsum dolor sit amet": {
 			"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
