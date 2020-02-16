@@ -21,15 +21,25 @@
 			"text": "This model presents the medial, lateral and inferior surfaces of the right cerebral hemisphere.",
 			"link": "https://sketchfab.com/3d-models/right-hemisphere-add35de24fda4ee6a66d07de2ffbf52f"
 		},
-		"Lorem ipsum dolor sit amet": {
-			"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d",
-			"dev": true
+		"3D model of the insula and cingulum": {
+			"text": "This model presents a dissected right cerebral hemisphere showing the insula on the lateral aspect and the cingulum on the medial aspect.",
+			"link": "https://sketchfab.com/3d-models/insula-and-cingulum-9c0e9deb7b764187985820fb882fe7ec"
 		},
-		"Finibus Bonorum et Malorum": {
-			"text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt",
-			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d",
-			"dev": true
+		"3D model of the association fibers": {
+			"text": "This model presents a dissected right cerebral hemisphere showing the major long assocaition fiber bundles and the insula.",
+			"link": "https://sketchfab.com/3d-models/association-fibers-9e92ccf9b16c490e96269e795aad01b3"
+		},
+		"3D model of the lentiform nucleus and hemispheric white matter": {
+			"text": "This model presents a dissected right cerebral hemisphere showning the lentifotm nucleus, corona radiata, uncinate faciculus and inferior longitudinal fasciculus.",
+			"link": "https://sketchfab.com/3d-models/lentiform-nucleus-and-various-fiber-bundles-4a8854eba05748dba26e241ff80c71b1"
+		},
+		"3D model of the internal capsule": {
+			"text": "This model presents a dissected right cerebral hemisphere showing the internal capsule and the corona radiata.",
+			"link": "https://sketchfab.com/3d-models/internal-capsule-fb67002e8919428c953024889312f815"
+		},
+		"3D model of the hippocampus": {
+			"text": "This model presents a dissected right cerebral hemisphere showing the hippocampal formation, temporal horn of the lateral ventricle and the corona radiata.",
+			"link": "https://sketchfab.com/3d-models/hippocampus-61ad0d60bfc640fc9678caa93bcb797a"
 		}
 	}
 }
