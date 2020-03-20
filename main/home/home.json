@@ -1,46 +1,49 @@
 {
-	"news-cover-image": "intro-img-trans-478x128.png",
-	"logo": "tavorlab-mini-trans.png",
-	"about-text": "<p>We focus on exploring the connection between brain structure, function and human behavior, using magnetic resonance imaging (MRI).</p> <p>We investigate what underlies behavioral and functional differences between individuals, such as changes in functional and structural connectivity and differences in the brain’s microstructure.</p> <p>In addition, we study learning-related brain plasticity by developing behavioral tasks that induce functional and structural brain modifications. For our work, we use advanced mathematical and statistical analysis methods.</p>",
-	"news": {
-		"Follow us on Twitter!": {
-			"content": "Don’t miss our latest updates, publications and discussions on @LabTavor",
-			"links": {
-				"@LabTavor": "https://twitter.com/LabTavor"
-			}
-		},
-		"We made it to the cover!": {
-			"date": "Jan 7, 2020",
-			"content": "<p>Our work on short-term plasticity following motor sequence learning was chosen for the cover of the Human Brain Mapping jouranl.</p>",
-			"links": {
-				"cover": "https://onlinelibrary.wiley.com/toc/10970193/2020/41/2"
-			}
-		},
-		"Congrats to Inbar Meningher for finishing her M.Sc.!": {
-			"date": "Oct 15, 2019",
-			"content": "<p>Our very first graduate student has successfully completed her Master's degree.</p> <p>Congratulations Inbar!</p>"
-		},
-		"New paper published in Human Brain Mapping": {
-			"date": "Oct 15, 2019",
-			"content": "<p>Check out our latest paper on short-term plasticity following motor sequence learning.</p> <p>We used diffusion MRI to detect rapid microstructural changes in the brains of musically-naïve participants after a 45-minutes piano training. We found changes in diffusion properties in motor system regions such as the premotor cortex and cerebellum, providing an important reminder for the dynamic nature of the human brain and for the potential of diffusion MRI to follow on tissue plasticity over short timescales.</p>",
-			"links": {
-				"our latest paper": "https://onlinelibrary.wiley.com/doi/full/10.1002/hbm.24814"
-			}
-		}
-	},
-	"funding": {
-		"The Israel Science Foundation": {
-			"image": "isf-logo.png",
-			"text": "Supports excellence in basic research across all fields of knowledge"
-		},
-		"Mind & Language": {
-			"image": "mila-logo-192x192.png",
-			"text": "By Sagol School of Neuroscience"
-		},
-		"Aufzien Center": {
-			"image": "APPD.png",
-			"text": "The Aufzien Center for the Prevention and Treatment of Parkinson's Disease",
-			"large": true
-		}
-	}
+    "news-cover-image": "intro-img-trans-478x128.png",
+    "logo": "tavorlab-mini-trans.png",
+    "about-text": "<p>We focus on exploring the connection between brain structure, function and human behavior, using magnetic resonance imaging (MRI).</p> <p>We investigate what underlies behavioral and functional differences between individuals, such as changes in functional and structural connectivity and differences in the brain’s microstructure.</p> <p>In addition, we study learning-related brain plasticity by developing behavioral tasks that induce functional and structural brain modifications. For our work, we use advanced mathematical and statistical analysis methods.</p>",
+    "news": {
+        "Follow us on Twitter!": {
+            "content": "Don’t miss our latest updates, publications and discussions on @LabTavor",
+            "links": {
+                "@LabTavor": "https://twitter.com/LabTavor"
+            }
+        },
+        "We made it to the cover!": {
+            "date": "Jan 7, 2020",
+            "content": "<p>Our work on short-term plasticity following motor sequence learning was chosen for the cover of the Human Brain Mapping jouranl.</p>",
+            "links": {
+                "cover": "https://onlinelibrary.wiley.com/toc/10970193/2020/41/2"
+            }
+        },
+        "Congrats to Inbar Meningher for finishing her M.Sc.!": {
+            "date": "Oct 15, 2019",
+            "content": "<p>Our very first graduate student has successfully completed her Master's degree.</p> <p>Congratulations Inbar!</p>"
+        },
+        "New paper published in Human Brain Mapping": {
+            "date": "Oct 15, 2019",
+            "content": "<p>Check out our latest paper on short-term plasticity following motor sequence learning.</p> <p>We used diffusion MRI to detect rapid microstructural changes in the brains of musically-naïve participants after a 45-minutes piano training. We found changes in diffusion properties in motor system regions such as the premotor cortex and cerebellum, providing an important reminder for the dynamic nature of the human brain and for the potential of diffusion MRI to follow on tissue plasticity over short timescales.</p>",
+            "links": {
+                "our latest paper": "https://onlinelibrary.wiley.com/doi/full/10.1002/hbm.24814"
+            }
+        }
+    },
+    "funding": {
+        "The Israel Science Foundation": {
+            "image": "isf-logo.png",
+            "text": "Supports excellence in basic research across all fields of knowledge",
+            "link": "https://www.isf.org.il"
+        },
+        "Mind & Language": {
+            "image": "mila-logo-192x192.png",
+            "text": "By Sagol School of Neuroscience",
+            "link": "https://www.mila-center.org/"
+        },
+        "Aufzien Center": {
+            "image": "APPD.png",
+            "text": "The Aufzien Center for the Prevention and Treatment of Parkinson's Disease",
+            "large": true,
+            "link": "https://en-med.tau.ac.il/Aufzien_Center_TAU"
+        }
+    }
 }

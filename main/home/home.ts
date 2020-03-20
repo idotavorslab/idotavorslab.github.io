@@ -1,7 +1,7 @@
 // used in research.ts
 type TResearchData = TMap<{ text: string, image: string, circle?: boolean, thumbnail: string }>;
 const HomePage = () => {
-    
+
     type TNewsDataItem = { title: string, date: string, content: string, links: TMap<string>, radio: BetterHTMLElement, index: number };
     type TRightWidget = BetterHTMLElement & {
         newsCoverImageContainer: Div,
@@ -12,19 +12,19 @@ const HomePage = () => {
         },
         radios: Div,
     };
-    
+
     class NewsData {
         readonly data: TNewsDataItem[];
         private _selected: TNewsDataItem;
         private _interval: number;
         private _userPressed: boolean = false;
-        
+
         constructor() {
             this.data = [];
             this._selected = undefined;
             this.startAutoSwitch();
-            
-            
+
+
             return new Proxy(this, {
                 get(target, prop: string | number | symbol, receiver: any): any {
                     if (prop in target) {
@@ -40,8 +40,8 @@ const HomePage = () => {
                 }
             })
         }
-        
-        
+
+
         push(item: TNewsDataItem) {
             this.data.push(item);
             item.radio.click(async () => {
@@ -50,33 +50,33 @@ const HomePage = () => {
                 await this.switchTo(item);
             })
         }
-        
-        
+
+
         async switchTo(selectedItem: TNewsDataItem) {
             if (this._selected !== undefined)
                 this._selected.radio.toggleClass('selected');
             TL.to(newsChildren, 0.1, {opacity: 0});
             await wait(25);
-            
+
             if (!selectedItem.content.includes('<a')) {
                 for (let [text, link] of enumerate(selectedItem.links)) {
                     selectedItem.content = selectedItem.content.replace(text, `<a target="_blank" href="${link}">${text}</a>`)
                 }
             }
-            
+
             // HACK: add margin-bottom to date only if not visible
             if (bool(selectedItem.date))
                 rightWidget.news.date.text(selectedItem.date).toggleClass('mb', false);
             else
                 rightWidget.news.date.text('').toggleClass('mb', true);
-            
+
             rightWidget.news.title.text(selectedItem.title);
             rightWidget.news.content.html(selectedItem.content);
             showArrowOnHover(rightWidget.news.content.children('a'));
             selectedItem.radio.toggleClass('selected');
-            
+
             this._selected = selectedItem;
-            
+
             TL.to(newsChildren, 0.1, {opacity: 1});
             // console.log('isOverflown:', isOverflown(rightWidget.news.e));
             let overflown = isOverflown(rightWidget.news.e);
@@ -108,19 +108,19 @@ const HomePage = () => {
                         console.log('isOverflown:', isOverflown(rightWidget.news.e));
                         let diff = rightWidget.news.e.scrollHeight - rightWidget.news.e.clientHeight;
                         rightWidget.css({height: `${rightWidget.e.clientHeight + diff}px`});
-                        
+
                     });
                 rightWidget.news.content.append(readMore)
             }
-            
-            
+
+
         }
-        
+
         startAutoSwitch() {
             if (this._userPressed) {
                 return;
             }
-            
+
             console.log('startAutoSwitch');
             this._interval = setInterval(() => {
                 let targetIndex = this._selected.index + 1;
@@ -132,16 +132,16 @@ const HomePage = () => {
                 this.switchTo(targetItem)
             }, 10000);
         }
-        
+
         stopAutoSwitch() {
             console.log('stopAutoSwitch');
             clearInterval(this._interval);
         }
     }
-    
+
     let rightWidget: TRightWidget;
     let newsChildren: HTMLElement[];
-    
+
     function buildRightWidgetAndNewsChildren() {
         if (!MOBILE) {
             rightWidget = <TRightWidget>elem({
@@ -158,24 +158,24 @@ const HomePage = () => {
                     radios: '#radios',
                 }
             });
-            
+
             newsChildren = rightWidget.news.children().map(c => c.e);
         }
     }
-    
+
     WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
-    
-    
+
+
     async function init() {
-        
-        
+
+
         // ***  About
-        type TFunding = TMap<{ image: string, text: string, large?: boolean }>;
+        type TFunding = TMap<{ image: string, text: string, large?: boolean, link: string }>;
         type TNews = TMap<{ content: string, date?: string, links: TMap<any> }>;
         type THomeData = { logo: string, "about-text": string, "news-cover-image": string, news: TNews, funding: TFunding };
         const data = await fetchDict<THomeData>('main/home/home.json');
-        
-        
+
+
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
         if (!MOBILE) {
@@ -187,13 +187,13 @@ const HomePage = () => {
             console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
             elem({query: '#mobile_cover_image_container > img'}).attr({src: `main/home/${data["news-cover-image"]}`});
         }
-        
+
         if (Navbar === undefined)
             await WindowElem.promiseLoaded();
         Navbar.home.attr({src: `main/home/${data.logo}`});
-        
+
         const aboutText = elem({query: "#about > .about-text"});
-        
+
         const splitParagraphs = (val: string): string[] => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
@@ -206,8 +206,8 @@ const HomePage = () => {
             // ***  News
             /** Holds the data from .json in an array, plus the matching radio BetterHTMLElement */
             const newsData = new NewsData();
-            
-            
+
+
             let i = 0;
             const radios = elem({id: 'radios'});
             for (let [title, {date, content, links}] of dict(data.news).items()) {
@@ -216,21 +216,21 @@ const HomePage = () => {
                 if (i === 0) {
                     newsData.switchTo(item);
                 }
-                
+
                 radios.append(newsData[i].radio);
                 i++;
-                
+
             }
             rightWidget.mouseover(() => newsData.stopAutoSwitch());
             rightWidget.mouseout(() => newsData.startAutoSwitch());
         }
         // ***  Research Snippets
-        
+
         const researchData = await fetchDict<TResearchData>('main/research/research.json');
         const researchSnippets = elem({query: "#research_snippets"});
-        
+
         for (let [i, [title, {thumbnail}]] of enumerate(researchData.items())) {
-            
+
             researchSnippets.append(
                 div({cls: 'snippet'})
                     .append(
@@ -250,8 +250,8 @@ const HomePage = () => {
         const fundingData = data.funding;
         Body.fundingSection.removeAttr('hidden');
         // FundingSection.removeAttr('hidden');
-        
-        for (let [title, {image, text, large}] of dict(fundingData).items()) {
+
+        for (let [title, {image, text, large, link}] of dict(fundingData).items()) {
             let sponsorImage = img({src: `main/home/${image}`});
             if (large === true) sponsorImage.class('large');
             // FundingSection.sponsorsContainer.append(
@@ -260,14 +260,14 @@ const HomePage = () => {
                     sponsorImage,
                     div({cls: 'sponsor-title', text: title}),
                     div({cls: 'sponsor-text', text})
-                )
+                ).click(() => window.open(link))
             )
         }
-        
-        
+
+
     }
-    
-    
+
+
     return {init}
 };
 
