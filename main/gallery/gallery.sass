@@ -1,203 +1,210 @@
 // TODO: 3 item rows with 4px or 8px between them
+.test
+    width: 280px
+    height: 220px
+    background-image: url(main/gallery/33.png)
+    background-size: cover
+    cursor: pointer
+
 div#home.gallery-page
-	div#images_container
+    div#images_container
 
-		&[class="theater"]
-			filter: brightness(0.20) blur(1px) sepia(1)
+        &[class="theater"]
+            filter: brightness(0.20) blur(1px) sepia(1)
 
-		&:not([class="theater"])
-			& > div.year > div.grid > div.row > img
-				margin-top: 0
-				@include min-width($BP3)
-					margin-bottom: 3px
-				@include max-width($BP3)
-					margin-bottom: -2px
-				cursor: pointer
-				transition: opacity 100ms
+        &:not([class="theater"])
+            & > div.year > div.grid > div.row > img
+                margin-top: 0
+                @include min-width($BP3)
+                    margin-bottom: 3px
+                @include max-width($BP3)
+                    margin-bottom: -2px
+                cursor: pointer
+                transition: opacity 100ms
 
-				&:hover
-					opacity: 0.5
+                &:hover
+                    opacity: 0.5
 
-		& > div.year
-			// **  All Resolutions
-			margin-bottom: var(--gap)
+        & > div.year
+            // **  All Resolutions
+            margin-bottom: var(--gap)
 
-			& > div.title
-				// *  DEP: publications.sass div#publications_container > div.year > div.title-flex
-				color: var(--GREY5)
-				letter-spacing: 1px
-				margin-bottom: var(--small_gap)
+            & > div.title
+                // *  DEP: publications.sass div#publications_container > div.year > div.title-flex
+                color: var(--GREY5)
+                letter-spacing: 1px
+                margin-bottom: var(--small_gap)
 
-				font:
-					family: OpenSansLight
-					size: 26px
-				line-height: 26px
+                font:
+                    family: OpenSansLight
+                    size: 26px
+                line-height: 26px
 
-			& > div.grid
-				@include gridContainerMixin(img, true)
+            & > div.grid
+                @include gridContainerMixin(img, true)
 
-				& > div.row
-					width: auto
+                & > div.row
+                    width: auto
 
-			// **  min-width($BP3)
-			@include min-width($BP3)
-				border-left: 1px solid var(--GREY2)
-				padding-left: 39px
+            // **  min-width($BP3)
+            @include min-width($BP3)
+                border-left: 1px solid var(--GREY2)
+                padding-left: 39px
 
-				@include width-between($BP2, $BP1)
-					& > div.title
-						font-size: 24px
-						line-height: 24px
+                @include width-between($BP2, $BP1)
+                    & > div.title
+                        font-size: 24px
+                        line-height: 24px
 
-			// **  max-width($BP3)
-			@include max-width($BP3)
+            // **  max-width($BP3)
+            @include max-width($BP3)
 
-	// ***  img_viewer
-	div#img_viewer
+    // ***  img_viewer
+    div#img_viewer
 
-		// 1340px
-		@include min-width($BP1)
-			--localHeight: 600px
+        // 1340px
+        @include min-width($BP1)
+            --localHeight: 600px
 
-		@include width-between($BP3, $BP1)
-			--localHeight: 500px
+        @include width-between($BP3, $BP1)
+            --localHeight: 500px
 
-		@include max-width($BP3)
-			--localHeight: 400px
-
-
-		display: flex
+        @include max-width($BP3)
+            --localHeight: 400px
 
 
-		height: var(--localHeight)
-		// [min-width: $BP1]: -1 x ((800 / 2) + 60)  ==  -460px
-		// [max-width: $BP1]: -1 x ((600 / 2) + 40)  ==  -340px
-		margin:
-			left: auto
-			right: auto
-			top: calc(var(--localHeight) / -2)
-
-		opacity: 0
-		position: fixed
-		top: 50%
-
-		transition: opacity 200ms
-		width: var(--w)
+        display: flex
 
 
-		z-index: -1
+        height: var(--localHeight)
+        // [min-width: $BP1]: -1 x ((800 / 2) + 60)  ==  -460px
+        // [max-width: $BP1]: -1 x ((600 / 2) + 40)  ==  -340px
+        margin:
+            left: auto
+            right: auto
+            top: calc(var(--localHeight) / -2)
 
-		&.on
-			opacity: 1
-			z-index: 5
+        opacity: 0
+        position: fixed
+        top: 50%
 
-		--chevronWidth: 55px
-
-		& > img
-			@include min-width($BP3)
-				max-height: var(--localHeight)
-			@include max-width($BP3)
-				width: calc(120% - 2 * var(--chevronWidth))
-				object-fit: contain
-
-
-		& > div#right_chevron, & > div#left_chevron
-			display: flex
-			margin: auto
-			//width: $chevronWidth
-			transition: transform 50ms
-
-			& > span.lines
-				background: white
-				height: 2px
-				position: relative
-				top: calc(var(--chevronWidth) / 1.5)
-				transform-origin: center
+        transition: opacity 200ms
+        width: var(--w)
 
 
-				width: calc(var(--chevronWidth) / 2)
+        z-index: -1
 
-				&:after
-					background: white
-					content: ""
-					height: 100%
-					position: absolute
-					transform: rotate(90deg)
-					bottom: calc((var(--chevronWidth) / 4))
-					right: calc((var(--chevronWidth) / 4))
-					width: 100%
+        &.on
+            opacity: 1
+            z-index: 5
 
+        --chevronWidth: 55px
 
-			&.left
-				margin: auto auto auto -5%
-				padding-bottom: calc(var(--chevronWidth) / 2)
-
-				&:active
-					transform: translateX(-4px)
-
-				& > span.lines
-					transform: rotate(45deg)
-
-			&.right
-				margin: auto -5% auto auto
-				// 7/6 = 1/2 + 1/1.5
-				padding-bottom: calc((var(--chevronWidth) * 7 / 6))
-
-				&:active
-					transform: translateX(4px)
-
-				& > span.lines
-					transform: rotate(225deg)
-
-		& > div#caption
-			@include min-width($BP3)
-				@include fourWayTextShadow(1px, 1px, 0, black)
-			text-align: center
-			position: fixed
-			font-size: 24px
-			color: white
-			top: 52%
-			margin-top: calc(var(--localHeight) / 2)
-			width: inherit
-
-	// ***  img_viewer_close
-	div#img_viewer_close
-		height: var(--MOBILE_NAVBAR_HEIGHT)
-		opacity: 0
-		position: fixed
-		right: 0px
-		top: 0px
-		transition: opacity 0.1s ease-in
-		width: calc(var(--MOBILE_NAVBAR_HEIGHT) - 10px)
-		z-index: 5
-		pointer-events: none
-
-		&.on
-			opacity: 0.8
-			cursor: pointer
-
-			&:hover
-				opacity: 1
+        & > img
+            @include min-width($BP3)
+                max-height: var(--localHeight)
+            @include max-width($BP3)
+                width: calc(120% - 2 * var(--chevronWidth))
+                object-fit: contain
 
 
-		& > span.lines
-			background: white
-			height: 2px
-			position: absolute
-			top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
-			transform-origin: center
-			transform: rotate(45deg)
-			width: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
+        & > div#right_chevron, & > div#left_chevron
+            display: flex
+            margin: auto
+            //width: $chevronWidth
+            transition: transform 50ms
+
+            & > span.lines
+                background: white
+                height: 2px
+                position: relative
+                top: calc(var(--chevronWidth) / 1.5)
+                transform-origin: center
 
 
-			&:after
-				background: white
-				bottom: 0px
-				content: ""
-				height: 100%
-				position: absolute
-				//transition: transform $_trans, bottom $_trans, top $_trans
-				transform: rotate(90deg)
-				width: 100%
+                width: calc(var(--chevronWidth) / 2)
+
+                &:after
+                    background: white
+                    content: ""
+                    height: 100%
+                    position: absolute
+                    transform: rotate(90deg)
+                    bottom: calc((var(--chevronWidth) / 4))
+                    right: calc((var(--chevronWidth) / 4))
+                    width: 100%
+
+
+            &.left
+                margin: auto auto auto -5%
+                padding-bottom: calc(var(--chevronWidth) / 2)
+
+                &:active
+                    transform: translateX(-4px)
+
+                & > span.lines
+                    transform: rotate(45deg)
+
+            &.right
+                margin: auto -5% auto auto
+                // 7/6 = 1/2 + 1/1.5
+                padding-bottom: calc((var(--chevronWidth) * 7 / 6))
+
+                &:active
+                    transform: translateX(4px)
+
+                & > span.lines
+                    transform: rotate(225deg)
+
+        & > div#caption
+            @include min-width($BP3)
+                @include fourWayTextShadow(1px, 1px, 0, black)
+            text-align: center
+            position: fixed
+            font-size: 24px
+            color: white
+            top: 52%
+            margin-top: calc(var(--localHeight) / 2)
+            width: inherit
+
+    // ***  img_viewer_close
+    div#img_viewer_close
+        height: var(--MOBILE_NAVBAR_HEIGHT)
+        opacity: 0
+        position: fixed
+        right: 0px
+        top: 0px
+        transition: opacity 0.1s ease-in
+        width: calc(var(--MOBILE_NAVBAR_HEIGHT) - 10px)
+        z-index: 5
+        pointer-events: none
+
+        &.on
+            opacity: 0.8
+            cursor: pointer
+
+            &:hover
+                opacity: 1
+
+
+        & > span.lines
+            background: white
+            height: 2px
+            position: absolute
+            top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
+            transform-origin: center
+            transform: rotate(45deg)
+            width: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
+
+
+            &:after
+                background: white
+                bottom: 0px
+                content: ""
+                height: 100%
+                position: absolute
+                //transition: transform $_trans, bottom $_trans, top $_trans
+                transform: rotate(90deg)
+                width: 100%
 
 
