@@ -1,5 +1,5 @@
 const GalleryPage = () => {
-    
+
     interface ImgViewer extends Div {
         left: Div;
         img: Img;
@@ -7,19 +7,19 @@ const GalleryPage = () => {
         caption: Div;
         isopen: boolean
     }
-    
+
     interface GridDiv extends Div {
         row0: Div;
         row1: Div;
         row2: Div;
         row3: Div
     }
-    
+
     interface YearDiv extends Div {
         title: Div;
         grid: GridDiv;
     }
-    
+
     async function init() {
         class GalleryImg extends Img {
             path: string = null;
@@ -28,77 +28,67 @@ const GalleryPage = () => {
             contrast: number = 1;
             brightness: number = 1;
             year: number;
-            
+
             constructor(brightness?: number, contrast?: number, file?: string, year?: number, caption?: string) {
                 super({});
-                if (file !== undefined)
+                if (file !== undefined) {
                     this.path = file;
-                if (caption !== undefined)
+                }
+                if (caption !== undefined) {
                     this.caption = caption;
-                if (contrast !== undefined)
+                }
+                if (contrast !== undefined) {
                     this.contrast = contrast;
-                if (brightness !== undefined)
+                }
+                if (brightness !== undefined) {
                     this.brightness = brightness;
-                if (year !== undefined)
+                }
+                if (year !== undefined) {
                     this.year = year;
-                
+                }
+
                 this.click((event: PointerEvent) => {
                     console.log('this click:', this);
                     event.stopPropagation();
                     return toggleImgViewer(this);
                 })
-                
-                
+
+
             }
-            
+
             getLeftImage(): GalleryImg {
                 let i;
-                if (this.index === 0)
+                if (this.index === 0) {
                     i = galleryImgs.length - 1;
-                else
+                } else {
                     i = this.index - 1;
+                }
                 return galleryImgs[i];
             }
-            
+
             getRightImage(): GalleryImg {
                 let i;
-                if (this.index === galleryImgs.length - 1)
+                if (this.index === galleryImgs.length - 1) {
                     i = 0;
-                else
+                } else {
                     i = this.index + 1;
+                }
                 return galleryImgs[i];
             }
-            
-            
-        }
-        
-        // console.log('GalleryPage init');
-        if (MOBILE === undefined)
-            await WindowElem.promiseLoaded();
-        const ROWSIZE = MOBILE ? 2 : 4;
-        
-        /*const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 185.343 185.343">
-    <path style="fill:#000;"
-		  d="M 51.707,185.343
-    c -2.741,0-5.493-1.044-7.593-3.149
-    c -4.194-4.194-4.194-10.981,0-15.175
-	l 74.352-74.347
-	L 44.114,18.32
-	c -4.194-4.194-4.194-10.987,0-15.175
-	c 4.194-4.194,10.987-4.194,15.18,0l81.934,81.934
-	c 4.194,4.194,4.194,10.987,0,15.175
-	l -81.934,81.939
-	C 57.201,184.293,54.454,185.343,51.707,185.343
-	Z"/>
 
-</svg>
-`;*/
-        
-        
+
+        }
+
+        // console.log('GalleryPage init');
+        if (MOBILE === undefined) {
+            await WindowElem.promiseLoaded();
+        }
+        const ROWSIZE = window.innerWidth <= $BP3 ? 2 : 4;
+        console.log({ROWSIZE});
+
         //**  Functions
-        
-        
+
+
         // DocumentElem.keydown Arrow  =>  switchToImg
         // Chevron click  =>  gotoAdjImg  =>  switchToImg
         // galleryImg.click  =>  toggleImgViewer  =>  switchToImg
@@ -110,8 +100,8 @@ const GalleryPage = () => {
             let clone = _selectedImg.e.cloneNode();
             imgViewer.img.wrapSomethingElse(clone);
         }
-        
-        
+
+
         // Chevron click  =>  gotoAdjImg
         async function gotoAdjImg(event: PointerEvent) {
             // *  Clicked chevron
@@ -125,7 +115,7 @@ const GalleryPage = () => {
                 switchToImg(selectedImg.getRightImage());
             }
         }
-        
+
         // galleryImg.click  =>  closeImgViewer
         // DocumentElem.click  =>  closeImgViewer
         // DocumentElem.keydown Arrow  =>  closeImgViewer
@@ -140,25 +130,26 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
-        
-        
+
+
         // galleryImg.click  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
             console.log('galleryImg.toggleImgViewer(', JSON.parstr({_selectedImg}));
-            if (imgViewer.isopen)
+            if (imgViewer.isopen) {
                 return closeImgViewer();
+            }
             imgViewerClose.toggleClass('on', true);
             imgViewer.toggleClass('on', true);
             switchToImg(_selectedImg);
-            
+
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             _toggleNavigationElementsDisplay(false);
-            
+
         }
-        
+
         function _toggleNavigationElementsDisplay(on: boolean) {
             if (on) {
                 elem({id: 'navbar_section'}).removeClass('off');
@@ -166,7 +157,7 @@ const GalleryPage = () => {
                 elem({id: 'navbar_section'}).addClass('off');
             }
         }
-        
+
         //**  imgViewer
         const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
@@ -180,7 +171,7 @@ const GalleryPage = () => {
                 console.log('imgViewer click, stopping propagation');
                 event.stopPropagation();
             });
-        
+
         imgViewer.isopen = false;
         type TGalleryData = { file: string, contrast: number, brightness: number, caption: string, year: number };
         const data = await fetchArray<TGalleryData>("main/gallery/gallery.json");
@@ -205,12 +196,12 @@ const GalleryPage = () => {
         galleryImgs
             .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
-        
-        
+
+
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
-        
+
         function appendToRow(yearDiv: YearDiv, galleryImg: GalleryImg, count: number) {
             switch (count % ROWSIZE) {
                 case 0:
@@ -225,83 +216,89 @@ const GalleryPage = () => {
                 case 3:
                     yearDiv.grid.row3.append(galleryImg);
                     break;
-                
+
             }
         }
-        
+
         // ***  HTML from vars
         for (let galleryImg of galleryImgs) {
             let yearDiv: YearDiv;
-            
+
             if (galleryImg.year in yearToYearDiv) {
                 count++;
                 yearDiv = yearToYearDiv[galleryImg.year];
-                
+
             } else {
-                
+
                 count = 0;
                 let gridChildrenObj = {
                     row0: div({cls: 'row'}),
                     row1: div({cls: 'row'}),
-                    
+
                 };
-                if (!MOBILE) {
+                if (ROWSIZE == 4) {
                     // @ts-ignore
                     gridChildrenObj.row2 = div({cls: 'row'});
                     // @ts-ignore
                     gridChildrenObj.row3 = div({cls: 'row'});
                 }
-                
+
                 yearDiv = <YearDiv>div({cls: 'year'})
                     .cacheAppend({
                         title: div({cls: 'title'}).text(galleryImg.year),
                         grid: div({cls: 'grid'}).cacheAppend(gridChildrenObj)
                     });
-                
+
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
             appendToRow(yearDiv, galleryImg, count);
-            
-            
+
+
         }
         // console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg: GalleryImg = new GalleryImg();
-        
+
         const imagesContainer = div({id: 'images_container'})
             .append(...Object.values(yearToYearDiv).reverse());
-        
+
         DocumentElem
             .click(() => {
-                if (!imgViewer.isopen)
+                if (!imgViewer.isopen) {
                     return;
+                }
                 console.log('document click, closeImgViewer()');
                 closeImgViewer();
             })
             .keydown((event: KeyboardEvent) => {
-                if (!imgViewer.isopen)
+                if (!imgViewer.isopen) {
                     return;
-                
-                if (event.key === "Escape")
+                }
+
+                if (event.key === "Escape") {
                     return closeImgViewer();
-                
+                }
+
                 if (event.key.startsWith("Arrow")) {
-                    if (event.key === "ArrowLeft")
+                    if (event.key === "ArrowLeft") {
                         return switchToImg(selectedImg.getLeftImage());
-                    else if (event.key === "ArrowRight")
-                        return switchToImg(selectedImg.getRightImage());
-                    
+                    } else {
+                        if (event.key === "ArrowRight") {
+                            return switchToImg(selectedImg.getRightImage());
+                        }
+                    }
+
                 }
             });
-        
+
         const imgViewerClose = div({id: 'img_viewer_close'})
             .append(span({cls: 'lines'})).click(closeImgViewer);
-        
-        
+
+
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
-        
-        
+
+
     }
-    
+
     return {init}
 };
 

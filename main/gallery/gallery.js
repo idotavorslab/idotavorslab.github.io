@@ -8,16 +8,21 @@ const GalleryPage = () => {
                 this.caption = null;
                 this.contrast = 1;
                 this.brightness = 1;
-                if (file !== undefined)
+                if (file !== undefined) {
                     this.path = file;
-                if (caption !== undefined)
+                }
+                if (caption !== undefined) {
                     this.caption = caption;
-                if (contrast !== undefined)
+                }
+                if (contrast !== undefined) {
                     this.contrast = contrast;
-                if (brightness !== undefined)
+                }
+                if (brightness !== undefined) {
                     this.brightness = brightness;
-                if (year !== undefined)
+                }
+                if (year !== undefined) {
                     this.year = year;
+                }
                 this.click((event) => {
                     console.log('this click:', this);
                     event.stopPropagation();
@@ -26,24 +31,30 @@ const GalleryPage = () => {
             }
             getLeftImage() {
                 let i;
-                if (this.index === 0)
+                if (this.index === 0) {
                     i = galleryImgs.length - 1;
-                else
+                }
+                else {
                     i = this.index - 1;
+                }
                 return galleryImgs[i];
             }
             getRightImage() {
                 let i;
-                if (this.index === galleryImgs.length - 1)
+                if (this.index === galleryImgs.length - 1) {
                     i = 0;
-                else
+                }
+                else {
                     i = this.index + 1;
+                }
                 return galleryImgs[i];
             }
         }
-        if (MOBILE === undefined)
+        if (MOBILE === undefined) {
             await WindowElem.promiseLoaded();
-        const ROWSIZE = MOBILE ? 2 : 4;
+        }
+        const ROWSIZE = window.innerWidth <= $BP3 ? 2 : 4;
+        console.log({ ROWSIZE });
         function switchToImg(_selectedImg) {
             console.log(`galleryImg.switchToImg(`, JSON.parstr({ _selectedImg }));
             selectedImg = _selectedImg;
@@ -73,8 +84,9 @@ const GalleryPage = () => {
         }
         function toggleImgViewer(_selectedImg) {
             console.log('galleryImg.toggleImgViewer(', JSON.parstr({ _selectedImg }));
-            if (imgViewer.isopen)
+            if (imgViewer.isopen) {
                 return closeImgViewer();
+            }
             imgViewerClose.toggleClass('on', true);
             imgViewer.toggleClass('on', true);
             switchToImg(_selectedImg);
@@ -150,7 +162,7 @@ const GalleryPage = () => {
                     row0: div({ cls: 'row' }),
                     row1: div({ cls: 'row' }),
                 };
-                if (!MOBILE) {
+                if (ROWSIZE == 4) {
                     gridChildrenObj.row2 = div({ cls: 'row' });
                     gridChildrenObj.row3 = div({ cls: 'row' });
                 }
@@ -168,21 +180,28 @@ const GalleryPage = () => {
             .append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
             .click(() => {
-            if (!imgViewer.isopen)
+            if (!imgViewer.isopen) {
                 return;
+            }
             console.log('document click, closeImgViewer()');
             closeImgViewer();
         })
             .keydown((event) => {
-            if (!imgViewer.isopen)
+            if (!imgViewer.isopen) {
                 return;
-            if (event.key === "Escape")
+            }
+            if (event.key === "Escape") {
                 return closeImgViewer();
+            }
             if (event.key.startsWith("Arrow")) {
-                if (event.key === "ArrowLeft")
+                if (event.key === "ArrowLeft") {
                     return switchToImg(selectedImg.getLeftImage());
-                else if (event.key === "ArrowRight")
-                    return switchToImg(selectedImg.getRightImage());
+                }
+                else {
+                    if (event.key === "ArrowRight") {
+                        return switchToImg(selectedImg.getRightImage());
+                    }
+                }
             }
         });
         const imgViewerClose = div({ id: 'img_viewer_close' })

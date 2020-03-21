@@ -102,23 +102,24 @@ const HomePage = () => {
     let rightWidget;
     let newsChildren;
     function buildRightWidgetAndNewsChildren() {
-        if (!MOBILE) {
-            rightWidget = elem({
-                query: '#right_widget',
-                children: {
-                    newsCoverImageContainer: '#news_cover_image_container',
-                    news: {
-                        '#news': {
-                            title: '.title',
-                            date: '.date',
-                            content: '.content'
-                        }
-                    },
-                    radios: '#radios',
-                }
-            });
-            newsChildren = rightWidget.news.children().map(c => c.e);
+        if (MOBILE) {
+            return;
         }
+        rightWidget = elem({
+            query: '#right_widget',
+            children: {
+                newsCoverImageContainer: '#news_cover_image_container',
+                news: {
+                    '#news': {
+                        title: '.title',
+                        date: '.date',
+                        content: '.content'
+                    }
+                },
+                radios: '#radios',
+            }
+        });
+        newsChildren = rightWidget.news.children().map(c => c.e);
     }
     WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
     async function init() {

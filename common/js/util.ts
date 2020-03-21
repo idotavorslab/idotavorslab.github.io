@@ -275,12 +275,12 @@ function windowStats() {
         breakpoint = `[0] XXX [$BP3 ${$BP3}px] --- [$BP2] --- [$BP1] --- [∞]`;
     } else {
         if (innerWidth < $BP2) {
-            breakpoint = `[0] --- [$BP3] XXX [$BP2 ${$BP2}px] --- [$BP1] --- [∞]`;
+            breakpoint = `[0] --- [$BP3 ${$BP3}px] XXX [$BP2 ${$BP2}px] --- [$BP1] --- [∞]`;
         } else {
             if (innerWidth < $BP1) {
-                breakpoint = `[0] --- [$BP3] --- [$BP2] XXX [$BP1 ${$BP1}px] --- [∞]`;
+                breakpoint = `[0] --- [$BP3] --- [$BP2 ${$BP2}px] XXX [$BP1 ${$BP1}px] --- [∞]`;
             } else {
-                breakpoint = `[0] --- [$BP3] --- [$BP2] --- [$BP1] XXX [∞]`;
+                breakpoint = `[0] --- [$BP3] --- [$BP2] --- [$BP1 ${$BP1}px] XXX [∞]`;
             }
         }
     }
