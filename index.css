@@ -1407,6 +1407,7 @@ div#home.gallery-page div#img_viewer > div#right_chevron, div#home.gallery-page 
   margin: auto calc(var(--w) / 30);
   transition: transform 50ms;
   flex-grow: 1;
+  cursor: pointer;
 }
 div#home.gallery-page div#img_viewer > div#right_chevron > span.lines, div#home.gallery-page div#img_viewer > div#left_chevron > span.lines {
   background: white;
