@@ -1,5 +1,5 @@
 const GalleryPage = () => {
-    
+
     interface ImgViewer extends Div {
         left: Div;
         img: Img;
@@ -7,28 +7,28 @@ const GalleryPage = () => {
         caption: Div;
         isopen: boolean
     }
-    
+
     interface GridDiv extends Div {
         row0: Div;
         row1: Div;
         row2: Div;
         row3: Div
     }
-    
+
     interface YearDiv extends Div {
         title: Div;
         grid: GridDiv;
     }
-    
+
     async function init() {
-        class GalleryImg extends Img {
+        class GalleryImg extends Div {
             path: string = null;
             index: number = null;
             caption: string = null;
             contrast: number = 1;
             brightness: number = 1;
             year: number;
-            
+
             constructor(brightness?: number, contrast?: number, file?: string, year?: number, caption?: string) {
                 super({});
                 if (file !== undefined)
@@ -41,16 +41,16 @@ const GalleryPage = () => {
                     this.brightness = brightness;
                 if (year !== undefined)
                     this.year = year;
-                
+
                 this.click((event: PointerEvent) => {
                     console.log('this click:', this);
                     event.stopPropagation();
                     return toggleImgViewer(this);
                 })
-                
-                
+
+
             }
-            
+
             getLeftImage(): GalleryImg {
                 let i;
                 if (this.index === 0)
@@ -59,7 +59,7 @@ const GalleryPage = () => {
                     i = this.index - 1;
                 return galleryImgs[i];
             }
-            
+
             getRightImage(): GalleryImg {
                 let i;
                 if (this.index === galleryImgs.length - 1)
@@ -68,15 +68,17 @@ const GalleryPage = () => {
                     i = this.index + 1;
                 return galleryImgs[i];
             }
-            
-            
+
+            src(src): GalleryImg {
+                return this.css({backgroundImage: `url(${src})`})
+            }
         }
-        
+
         // console.log('GalleryPage init');
         if (MOBILE === undefined)
             await WindowElem.promiseLoaded();
         const ROWSIZE = MOBILE ? 2 : 4;
-        
+
         /*const chevronSvg = `<svg version="1.1" id="chevron_right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 185.343 185.343">
     <path style="fill:#000;"
@@ -94,11 +96,11 @@ const GalleryPage = () => {
 
 </svg>
 `;*/
-        
-        
+
+
         //**  Functions
-        
-        
+
+
         // DocumentElem.keydown Arrow  =>  switchToImg
         // Chevron click  =>  gotoAdjImg  =>  switchToImg
         // galleryImg.click  =>  toggleImgViewer  =>  switchToImg
@@ -110,8 +112,8 @@ const GalleryPage = () => {
             let clone = _selectedImg.e.cloneNode();
             imgViewer.img.wrapSomethingElse(clone);
         }
-        
-        
+
+
         // Chevron click  =>  gotoAdjImg
         async function gotoAdjImg(event: PointerEvent) {
             // *  Clicked chevron
@@ -125,7 +127,7 @@ const GalleryPage = () => {
                 switchToImg(selectedImg.getRightImage());
             }
         }
-        
+
         // galleryImg.click  =>  closeImgViewer
         // DocumentElem.click  =>  closeImgViewer
         // DocumentElem.keydown Arrow  =>  closeImgViewer
@@ -140,8 +142,8 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
-        
-        
+
+
         // galleryImg.click  =>  toggleImgViewer
         function toggleImgViewer(_selectedImg: GalleryImg) {
             // *  If open: clicked on other images in the bg. if closed: open imgViewer
@@ -151,14 +153,14 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', true);
             imgViewer.toggleClass('on', true);
             switchToImg(_selectedImg);
-            
+
             imgViewer.isopen = true;
             Body.toggleClass('theater', true);
             imagesContainer.toggleClass('theater', true);
             _toggleNavigationElementsDisplay(false);
-            
+
         }
-        
+
         function _toggleNavigationElementsDisplay(on: boolean) {
             if (on) {
                 elem({id: 'navbar_section'}).removeClass('off');
@@ -166,7 +168,7 @@ const GalleryPage = () => {
                 elem({id: 'navbar_section'}).addClass('off');
             }
         }
-        
+
         //**  imgViewer
         const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
@@ -180,7 +182,7 @@ const GalleryPage = () => {
                 console.log('imgViewer click, stopping propagation');
                 event.stopPropagation();
             });
-        
+
         imgViewer.isopen = false;
         type TGalleryData = { file: string, contrast: number, brightness: number, caption: string, year: number };
         const data = await fetchArray<TGalleryData>("main/gallery/gallery.json");
@@ -205,12 +207,12 @@ const GalleryPage = () => {
         galleryImgs
             .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
-        
-        
+
+
         // **  Group yearDivs by year number
         const yearToYearDiv: TMap<YearDiv> = {};
         let count = 0; // assume sorted galleryImgs
-        
+
         function appendToRow(yearDiv: YearDiv, galleryImg: GalleryImg, count: number) {
             switch (count % ROWSIZE) {
                 case 0:
@@ -225,25 +227,25 @@ const GalleryPage = () => {
                 case 3:
                     yearDiv.grid.row3.append(galleryImg);
                     break;
-                
+
             }
         }
-        
+
         // ***  HTML from vars
         for (let galleryImg of galleryImgs) {
             let yearDiv: YearDiv;
-            
+
             if (galleryImg.year in yearToYearDiv) {
                 count++;
                 yearDiv = yearToYearDiv[galleryImg.year];
-                
+
             } else {
-                
+
                 count = 0;
                 let gridChildrenObj = {
                     row0: div({cls: 'row'}),
                     row1: div({cls: 'row'}),
-                    
+
                 };
                 if (!MOBILE) {
                     // @ts-ignore
@@ -251,25 +253,25 @@ const GalleryPage = () => {
                     // @ts-ignore
                     gridChildrenObj.row3 = div({cls: 'row'});
                 }
-                
+
                 yearDiv = <YearDiv>div({cls: 'year'})
                     .cacheAppend({
                         title: div({cls: 'title'}).text(galleryImg.year),
                         grid: div({cls: 'grid'}).cacheAppend(gridChildrenObj)
                     });
-                
+
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
             appendToRow(yearDiv, galleryImg, count);
-            
-            
+
+
         }
         // console.log('yearToYearDiv:', JSON.parstr(yearToYearDiv));
         let selectedImg: GalleryImg = new GalleryImg();
-        
+
         const imagesContainer = div({id: 'images_container'})
             .append(...Object.values(yearToYearDiv).reverse());
-        
+
         DocumentElem
             .click(() => {
                 if (!imgViewer.isopen)
@@ -280,28 +282,28 @@ const GalleryPage = () => {
             .keydown((event: KeyboardEvent) => {
                 if (!imgViewer.isopen)
                     return;
-                
+
                 if (event.key === "Escape")
                     return closeImgViewer();
-                
+
                 if (event.key.startsWith("Arrow")) {
                     if (event.key === "ArrowLeft")
                         return switchToImg(selectedImg.getLeftImage());
                     else if (event.key === "ArrowRight")
                         return switchToImg(selectedImg.getRightImage());
-                    
+
                 }
             });
-        
+
         const imgViewerClose = div({id: 'img_viewer_close'})
             .append(span({cls: 'lines'})).click(closeImgViewer);
-        
-        
+
+
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
-        
-        
+
+
     }
-    
+
     return {init}
 };
 

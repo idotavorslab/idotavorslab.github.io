@@ -1269,22 +1269,22 @@ div#publications_container > div.year > div.publication > div.content-div > div.
 div#home.gallery-page div#images_container[class=theater] {
   filter: brightness(0.2) blur(1px) sepia(1);
 }
-div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img {
+div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > div {
   margin-top: 0;
   cursor: pointer;
   transition: opacity 100ms;
 }
 @media screen and (min-width: 760px) {
-  div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img {
+  div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > div {
     margin-bottom: 3px;
   }
 }
 @media screen and (max-width: 760px) {
-  div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img {
+  div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > div {
     margin-bottom: -2px;
   }
 }
-div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > img:hover {
+div#home.gallery-page div#images_container:not([class=theater]) > div.year > div.grid > div.row > div:hover {
   opacity: 0.5;
 }
 div#home.gallery-page div#images_container > div.year {
@@ -1319,25 +1319,29 @@ div#home.gallery-page div#images_container > div.year > div.grid {
     --_tightGap: 4px;
   }
 }
-div#home.gallery-page div#images_container > div.year > div.grid img {
+div#home.gallery-page div#images_container > div.year > div.grid div {
   margin: auto;
   width: 100%;
 }
 @media screen and (min-width: 760px) {
-  div#home.gallery-page div#images_container > div.year > div.grid img:nth-of-type(4n+4) {
+  div#home.gallery-page div#images_container > div.year > div.grid div:nth-of-type(4n+4) {
     margin: 0 0px auto auto;
   }
-  div#home.gallery-page div#images_container > div.year > div.grid img:nth-of-type(4n+1) {
+  div#home.gallery-page div#images_container > div.year > div.grid div:nth-of-type(4n+1) {
     margin: 0 auto auto 0;
   }
 }
 div#home.gallery-page div#images_container > div.year > div.grid > div.row {
-  width: auto;
+  width: 100%;
 }
 @media screen and (min-width: 760px) {
   div#home.gallery-page div#images_container > div.year {
     border-left: 1px solid var(--GREY2);
-    padding-left: 39px;
+    --_paddingLeft: 39px;
+    padding-left: var(--_paddingLeft);
+  }
+  div#home.gallery-page div#images_container > div.year div.grid > div.row > div {
+    height: calc(var(--tagWidth) / (var(--columns) / 3));
   }
 }
 @media screen and (min-width: 760px) and (min-width: 1025px) and (max-width: 1340px) {

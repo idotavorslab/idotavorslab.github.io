@@ -13,7 +13,7 @@ div#home.gallery-page
             filter: brightness(0.20) blur(1px) sepia(1)
 
         &:not([class="theater"])
-            & > div.year > div.grid > div.row > img
+            & > div.year > div.grid > div.row > div
                 margin-top: 0
                 @include min-width($BP3)
                     margin-bottom: 3px
@@ -41,20 +41,28 @@ div#home.gallery-page
                 line-height: 26px
 
             & > div.grid
-                @include gridContainerMixin(img, true)
+                @include gridContainerMixin(div, true)
 
                 & > div.row
-                    width: auto
+                    width: 100%
+
 
             // **  min-width($BP3)
             @include min-width($BP3)
                 border-left: 1px solid var(--GREY2)
-                padding-left: 39px
+                --_paddingLeft: 39px
+                padding-left: var(--_paddingLeft)
+
+                div.grid > div.row > div
+                    // 294 - (39/4) = 284.25px
+                    //width: calc(var(--tagWidth) - (var(--_paddingLeft) / var(--columns)))
+                    height: calc(var(--tagWidth) / (var(--columns) / 3))
 
                 @include width-between($BP2, $BP1)
                     & > div.title
                         font-size: 24px
                         line-height: 24px
+
 
             // **  max-width($BP3)
             @include max-width($BP3)

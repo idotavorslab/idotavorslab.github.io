@@ -1,6 +1,6 @@
 const GalleryPage = () => {
     async function init() {
-        class GalleryImg extends Img {
+        class GalleryImg extends Div {
             constructor(brightness, contrast, file, year, caption) {
                 super({});
                 this.path = null;
@@ -39,6 +39,9 @@ const GalleryPage = () => {
                 else
                     i = this.index + 1;
                 return galleryImgs[i];
+            }
+            src(src) {
+                return this.css({ backgroundImage: `url(${src})` });
             }
         }
         if (MOBILE === undefined)
