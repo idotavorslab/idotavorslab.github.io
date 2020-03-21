@@ -1,6 +1,7 @@
 const userAgent = window.navigator.userAgent;
-const IS_GILAD = document.cookie === "gilad"
-    || userAgent === "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Mobile Safari/537.36";
+const IS_GILAD = document.cookie.includes("gilad");
+const SHOW_STATS = IS_GILAD && true;
+
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
 
@@ -55,7 +56,7 @@ const CacheDiv = elem({id: 'cache'});
 
 interface IWindow extends BetterHTMLElement {
     isLoaded: boolean;
-    
+
     promiseLoaded(): Promise<boolean>
 }
 
@@ -79,7 +80,7 @@ WindowElem.promiseLoaded = async function () {
         } else {
             await wait(ms);
         }
-        
+
         count++;
     }
     console.log(...less('WindowElem.promiseLoaded() returning true'));
@@ -92,11 +93,11 @@ interface IHamburger extends Div {
     menu: Div;
     logo: Div;
     items: Div;
-    
+
     open(): void;
-    
+
     close(): void;
-    
+
     toggle(): void;
 }
 
@@ -136,17 +137,17 @@ Hamburger.click((event: PointerEvent) => {
 // noinspection TypeScriptValidateTypes
 WindowElem.on({
     scroll: (event: Event) => {
-        
+
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
                 Navbar.removeClass('box-shadow');
             } else {
                 Navbar.addClass('box-shadow');
-                
+
             }
         }
-        
-        
+
+
     },
     // @ts-ignore
     hashchange: (event: HashChangeEvent) => {
@@ -161,8 +162,8 @@ WindowElem.on({
             console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
             Routing.initPage(<Routing.PageSansHome>newURL);
         }
-        
-        
+
+
     },
     resize: (event: UIEvent) => {
         if (SHOW_STATS)
@@ -185,7 +186,7 @@ WindowElem.on({
                     }
                 });
         }
-        
+
         async function cachePeople() {
             console.log(...less('cachePeople'));
             const peopleData = await fetchDict('main/people/people.json');
@@ -195,7 +196,7 @@ WindowElem.on({
             for (let [_, {image}] of dict(alumniData).items())
                 cache(image, "people")
         }
-        
+
         async function cacheGallery() {
             console.log(...less('cacheGallery'));
             let galleryData = await fetchArray<{ file: string }>("main/gallery/gallery.json");
@@ -203,14 +204,14 @@ WindowElem.on({
             for (let file of galleryFiles)
                 cache(file, "gallery")
         }
-        
+
         async function cacheResearch() {
             console.log(...less('cacheResearch'));
             const researchData = await fetchDict('main/research/research.json');
             for (let [_, {image}] of researchData.items())
                 cache(image, "research")
         }
-        
+
         console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
         WindowElem.isLoaded = true;
         MOBILE = window.innerWidth <= $BP2;
@@ -226,15 +227,14 @@ WindowElem.on({
                 contact: '.contact',
             }
         });
-        
-        
+
+
         if (window.location.hash !== "") {
             fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
         }
-        
+
         console.log('%cstats:', 'color: #B58059', {
-            MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI, SHOW_STATS,
-            innerWidth
+            MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI, innerWidth
         });
         if (SHOW_STATS) {
             Body.windowStats.class('on').html(windowStats())
@@ -242,7 +242,7 @@ WindowElem.on({
         Body.footer.css({height: IS_SAFARI ? '260px' : 'auto'});
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
-            
+
             console.log(...less('done waiting, starting caching'));
             if (!window.location.hash.includes('research'))
                 cacheResearch();
@@ -252,8 +252,8 @@ WindowElem.on({
                 cacheGallery();
             console.log(...less('done caching'));
         });
-        
-        
+
+
     }
 });
 
@@ -266,7 +266,7 @@ class NavbarElem extends BetterHTMLElement {
     gallery: Div;
     neuroanatomy: Div;
     contact: Div;
-    
+
     constructor({query, children}) {
         super({query, children});
         for (let pageString of Routing.pageStrings()) {
@@ -290,30 +290,30 @@ class NavbarElem extends BetterHTMLElement {
         this.e.dispatchEvent(NavbarReady);
         */
     }
-    
-    
+
+
     select(child: Div): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.toggleClass('selected', pageElem === child);
         }
     }
-    
+
     private _emphasize(child: Div): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.toggleClass('pale', pageElem !== child);
         }
     }
-    
+
     private _resetPales(): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.removeClass('pale');
         }
     }
-    
-    
+
+
 }
 
 let Navbar: NavbarElem; // WindowElem.load =>
@@ -344,7 +344,7 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
                                             <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                             Email:
                                             <a href="mailto:${data.email.address}">${data.email.address}</a>`));
-    
+
     const [uni, medicine, sagol] = Body.footer.logos.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
@@ -358,11 +358,11 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
             allowfullscreen: "",
             src: data.map
         })
-        
-        
+
+
     }
-    
-    
+
+
 });
 
 

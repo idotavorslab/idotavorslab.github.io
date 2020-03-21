@@ -5,7 +5,6 @@ const W0 = 1200;
 const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 let MOBILE = undefined;
-let SHOW_STATS = false;
 const FILEDATA = {};
 const ALWAYS_LOWERCASE = ["a",
     "an",
@@ -152,16 +151,12 @@ function windowStats() {
         }
     }
     return `
-outerHeight: ${outerHeight}
-innerHeight: ${innerHeight}
-outerWidth: ${outerWidth}
-innerWidth: ${innerWidth}
-html.clientHeight: ${document.documentElement.clientHeight}
-html.clientWidth: ${document.documentElement.clientWidth}
-body.clientHeight: ${document.body.clientHeight}
-body.clientWidth: ${document.body.clientWidth}
-iPhone: ${IS_IPHONE}
-Safari: ${IS_SAFARI}
+. . . . . . height. width
+outer. . . .${outerHeight}. . ${outerWidth}
+inner. . . .${innerHeight}. . .${outerHeight}
+html.client.${document.documentElement.clientHeight}. . .${document.documentElement.clientWidth}
+body.client.${document.body.clientHeight}. . .${document.body.clientWidth}
+iPhone: ${IS_IPHONE} | Safari: ${IS_SAFARI}
 Breakpoint: ${breakpoint}
 `.split('\n')
         .filter(line => line)

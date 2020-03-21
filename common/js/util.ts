@@ -17,7 +17,7 @@ const W1 = 984;
 const GOOGLEBLUE = '#3b82f0';
 
 let MOBILE = undefined;
-let SHOW_STATS = false;
+// let SHOW_STATS = false;
 const FILEDATA = {};
 const ALWAYS_LOWERCASE = ["a",
     "an",
@@ -64,11 +64,11 @@ type TDict<T> = Dict<T> & { [P in keyof T]: T[P] };
 
 
 class Dict<T> {
-    
+
     constructor(obj: T) {
         Object.assign(this, obj);
     }
-    
+
     items(): [string, T[keyof T]][] {
         const proxy = this as unknown as T;
         const kvpairs = [];
@@ -77,7 +77,7 @@ class Dict<T> {
         }
         return kvpairs;
     }
-    
+
     keys(): string[] {
         const proxy = this as unknown as T;
         const keys = [];
@@ -86,7 +86,7 @@ class Dict<T> {
         }
         return keys;
     }
-    
+
     values(): string[] {
         const proxy = this as unknown as T;
         const values = [];
@@ -95,8 +95,8 @@ class Dict<T> {
         }
         return values;
     }
-    
-    
+
+
 }
 
 function dict<T>(obj: T): TDict<T> {
@@ -171,22 +171,22 @@ const TL: ITL = {
 };*/
 interface ITL extends Gsap.Tween {
     toAsync(target: object, duration: number, vars: Gsap.ToVars): Promise<unknown>;
-    
+
     load(): Promise<boolean>;
-    
+
     isLoaded: boolean;
 }
 
 class ExTweenLite {
     isLoaded: boolean = false;
-    
+
     constructor() {
         this.load().then(() => {
             Object.assign(this, TweenLite);
         })
-        
+
     }
-    
+
     async toAsync(target: object, duration: number, vars: Gsap.ToVars) {
         return new Promise(resolve =>
             // @ts-ignore
@@ -197,18 +197,18 @@ class ExTweenLite {
                 })
         )
     }
-    
+
     async load() {
         if (this.isLoaded)
             return true;
         let scriptA = document.querySelector(`script[src*="Tween"]`);
         let scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
         let count = 0;
-        
+
         let ms = Math.random() * 10;
         while (ms < 5)
             ms = Math.random() * 10;
-        
+
         while (scriptA === null || scriptB === null) {
             if (count >= 2000) {
                 if (count === 2000)
@@ -278,16 +278,12 @@ function windowStats() {
         }
     }
     return `
-outerHeight: ${outerHeight}
-innerHeight: ${innerHeight}
-outerWidth: ${outerWidth}
-innerWidth: ${innerWidth}
-html.clientHeight: ${document.documentElement.clientHeight}
-html.clientWidth: ${document.documentElement.clientWidth}
-body.clientHeight: ${document.body.clientHeight}
-body.clientWidth: ${document.body.clientWidth}
-iPhone: ${IS_IPHONE}
-Safari: ${IS_SAFARI}
+. . . . . . height. width
+outer. . . .${outerHeight}. . ${outerWidth}
+inner. . . .${innerHeight}. . .${outerHeight}
+html.client.${document.documentElement.clientHeight}. . .${document.documentElement.clientWidth}
+body.client.${document.body.clientHeight}. . .${document.body.clientWidth}
+iPhone: ${IS_IPHONE} | Safari: ${IS_SAFARI}
 Breakpoint: ${breakpoint}
 `.split('\n')
         .filter(line => line)
@@ -342,8 +338,8 @@ function calcAbsValue(cssStr: string, width: number): string {
     const expression = format(width);
     copyToClipboard(expression);
     return expression;
-    
-    
+
+
 }
 
 function less(val: string): [string, string] {
@@ -372,8 +368,8 @@ function log(bold: boolean = false) {
             '\narguments:', arguments,
         );
         */
-        
-        
+
+
         const orig = descriptor.value;
         descriptor.value = function (...args) {
             /*console.log(
@@ -391,7 +387,7 @@ function log(bold: boolean = false) {
             return orig.apply(this, args);
         };
         // return descriptor;
-        
+
     }
 }
 
@@ -415,9 +411,9 @@ JSON.parstr = (value: any) => {
         }
         // @ts-ignore
         return {localName: node.localName, ...domObj};
-        
+
     }
-    
+
     let stringified = JSON.stringify(value, (__thisArg, __key) => {
         if (__key instanceof Node) {
             // __thisArg = `${__thisArg} (${__key.localName})`;
@@ -439,8 +435,8 @@ JSON.parstr = (value: any) => {
     //     return parsedNew;
     // }
     return parsed;
-    
-    
+
+
 };
 
 function showArrowOnHover(anchors: BetterHTMLElement[]) {
@@ -458,7 +454,7 @@ function showArrowOnHover(anchors: BetterHTMLElement[]) {
 
 
 interface JSON {
-    
+
     parstr:
     /**JSON.parse(JSON.stringify(value))*/
         (value: any) => any,
@@ -475,11 +471,11 @@ function extend(sup, child) {
         child.prototype = sup;
         console.warn('Both bool(sup.prototype) and bool(sup.__proto__) failed => child.prototype is set to sup.');
     }
-    
+
     const handler = {
         construct
     };
-    
+
     // "new BoyCls"
     function construct(_, argArray) {
         const obj = new child;
@@ -487,8 +483,8 @@ function extend(sup, child) {
         child.apply(obj, argArray); // calls BoyCtor. Sets age
         return obj;
     }
-    
-    
+
+
     const proxy = new Proxy(child, handler);
     return proxy;
 }
@@ -502,15 +498,15 @@ function extend(sup, child) {
 */
 
 function getStackTrace() {
-    
+
     let stack;
-    
+
     try {
         throw new Error('');
     } catch (error) {
         stack = error.stack || '';
     }
-    
+
     stack = stack.split('\n').map(line => line.trim().replace('at ', ''));
     return stack[3]
 }
@@ -532,7 +528,7 @@ async function exlog(message, ...args) {
     const stack: string = getStackTrace();
     let splitstack = stack.split(window.location.href)[1].split(':');
     let jspath = splitstack[0];
-    
+
     let jsdata: string[];
     if (jspath in FILEDATA) {
         jsdata = FILEDATA[jspath];
@@ -562,7 +558,7 @@ async function exlog(message, ...args) {
         else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
             weakTsLineNos.push(index);
     });
-    
+
     let tslineno;
     if (strongTsLineNos.length < 2) {
         if (strongTsLineNos.length === 1) {
@@ -592,7 +588,7 @@ async function exlog(message, ...args) {
                     if (weakTsLineNosScores[k] === undefined) {
                         delete weakTsLineNosScores[k]
                     }
-                    
+
                 });
                 let minLineScoreTuple = [null, null];
                 for (let [lineno, score] of dict(weakTsLineNosScores).items()) {
@@ -607,7 +603,7 @@ async function exlog(message, ...args) {
     } else {
         debugger;
     }
-    
+
     if (args[args.length - 1] in colors)
         console.log(`%c${message}`, `color: ${colors[args[args.length - 1]]}`, ...args.slice(0, args.length - 1), `${tspath}:${tslineno + 1}`);
     else
@@ -652,8 +648,8 @@ async function exlog(message, ...args) {
             });
         })
     */
-    
-    
+
+
 }
 
 

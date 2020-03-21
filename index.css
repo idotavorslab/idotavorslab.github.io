@@ -991,7 +991,6 @@ div#home.people-page > div.grid {
   }
 }
 div#home.people-page > div.grid div.person {
-  margin: auto;
   width: 100%;
 }
 @media screen and (min-width: 760px) {
@@ -1312,7 +1311,6 @@ div#home.gallery-page div#images_container > div.year > div.grid {
   }
 }
 div#home.gallery-page div#images_container > div.year > div.grid img {
-  margin: auto;
   width: 100%;
 }
 @media screen and (min-width: 760px) {
@@ -1325,6 +1323,10 @@ div#home.gallery-page div#images_container > div.year > div.grid img {
 }
 div#home.gallery-page div#images_container > div.year > div.grid > div.row {
   width: auto;
+}
+div#home.gallery-page div#images_container > div.year > div.grid > div.row > img {
+  object-fit: cover;
+  height: calc(var(--tagWidth) / (4 / 3));
 }
 @media screen and (min-width: 760px) {
   div#home.gallery-page div#images_container > div.year {
