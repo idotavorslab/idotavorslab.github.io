@@ -1357,15 +1357,19 @@ div#home.gallery-page div#img_viewer {
   margin-right: auto;
   margin-top: calc(var(--localHeight) / -2);
   opacity: 0;
-  padding-left: var(--_paddingLeft);
   position: fixed;
   top: 50%;
   transition: opacity 200ms;
-  width: calc(var(--w) - var(--_paddingLeft));
   z-index: -1;
   --chevronWidth: 55px;
 }
-@media screen and (min-width: 1340px) {
+@media screen and (min-width: 760px) {
+  div#home.gallery-page div#img_viewer {
+    padding-left: var(--_paddingLeft);
+    width: calc(var(--w) - var(--_paddingLeft));
+  }
+}
+@media screen and (min-width: 760px) and (min-width: 1340px) {
   div#home.gallery-page div#img_viewer {
     --localHeight: 600px;
   }
@@ -1378,6 +1382,7 @@ div#home.gallery-page div#img_viewer {
 @media screen and (max-width: 760px) {
   div#home.gallery-page div#img_viewer {
     --localHeight: 400px;
+    width: var(--w);
   }
 }
 div#home.gallery-page div#img_viewer.on {
@@ -1394,12 +1399,7 @@ div#home.gallery-page div#img_viewer > img {
 }
 @media screen and (max-width: 1025px) {
   div#home.gallery-page div#img_viewer > img {
-    width: calc(140% - 2 * var(--chevronWidth));
-  }
-}
-@media screen and (max-width: 1025px) and (max-width: 760px) {
-  div#home.gallery-page div#img_viewer > img {
-    width: calc(120% - 2 * var(--chevronWidth));
+    width: calc(90% - 2 * var(--chevronWidth));
   }
 }
 div#home.gallery-page div#img_viewer > div#right_chevron, div#home.gallery-page div#img_viewer > div#left_chevron {

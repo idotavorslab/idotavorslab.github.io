@@ -66,16 +66,20 @@ div#home.gallery-page
 
     // ***  img_viewer
     div#img_viewer
-
-        // 1340px
-        @include min-width($BP1)
-            --localHeight: 600px
+        // **  min-width($BP3)
+        @include min-width($BP3)
+            padding-left: var(--_paddingLeft)
+            width: calc(var(--w) - var(--_paddingLeft))
+            // 1340px
+            @include min-width($BP1)
+                --localHeight: 600px
 
         @include width-between($BP3, $BP1)
             --localHeight: 500px
 
         @include max-width($BP3)
             --localHeight: 400px
+            width: var(--w)
 
 
         display: flex
@@ -91,12 +95,11 @@ div#home.gallery-page
 
         opacity: 0
         // *  DEP: images_container > div.year @ min-width($BP3)
-        padding-left: var(--_paddingLeft)
+
         position: fixed
         top: 50%
 
         transition: opacity 200ms
-        width: calc(var(--w) - var(--_paddingLeft))
 
 
         z-index: -1
@@ -114,9 +117,11 @@ div#home.gallery-page
 
 
             @include max-width($BP2)
-                width: calc(140% - 2 * var(--chevronWidth))
-                @include max-width($BP3)
-                    width: calc(120% - 2 * var(--chevronWidth))
+
+                width: calc(90% - 2 * var(--chevronWidth))
+            //width: calc(140% - 2 * var(--chevronWidth))
+            //@include max-width($BP3)
+            //    width: calc(120% - 2 * var(--chevronWidth))
 
 
         & > div#right_chevron, & > div#left_chevron
