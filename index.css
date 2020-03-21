@@ -1257,6 +1257,9 @@ div#publications_container > div.year > div.publication > div.content-div > div.
   }
 }
 
+div#home.gallery-page {
+  --_paddingLeft: 40px;
+}
 div#home.gallery-page div#images_container[class=theater] {
   filter: brightness(0.2) blur(1px) sepia(1);
 }
@@ -1330,7 +1333,7 @@ div#home.gallery-page div#images_container > div.year > div.grid > div.row > img
 @media screen and (min-width: 760px) {
   div#home.gallery-page div#images_container > div.year {
     border-left: 1px solid var(--GREY2);
-    padding-left: 39px;
+    padding-left: calc(var(--_paddingLeft) - 1px);
   }
   div#home.gallery-page div#images_container > div.year > div.grid > div.row > img {
     height: calc(var(--tagWidth) / (4 / 3));
@@ -1354,11 +1357,11 @@ div#home.gallery-page div#img_viewer {
   margin-right: auto;
   margin-top: calc(var(--localHeight) / -2);
   opacity: 0;
-  padding-left: 40px;
+  padding-left: var(--_paddingLeft);
   position: fixed;
   top: 50%;
   transition: opacity 200ms;
-  width: calc(var(--w) - 40px);
+  width: calc(var(--w) - var(--_paddingLeft));
   z-index: -1;
   --chevronWidth: 55px;
 }
@@ -1403,6 +1406,7 @@ div#home.gallery-page div#img_viewer > div#right_chevron, div#home.gallery-page 
   display: flex;
   margin: auto;
   transition: transform 50ms;
+  flex-grow: 1;
 }
 div#home.gallery-page div#img_viewer > div#right_chevron > span.lines, div#home.gallery-page div#img_viewer > div#left_chevron > span.lines {
   background: white;
@@ -1424,6 +1428,7 @@ div#home.gallery-page div#img_viewer > div#right_chevron > span.lines:after, div
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.left, div#home.gallery-page div#img_viewer > div#left_chevron.left {
   padding-bottom: calc(var(--chevronWidth) / 2);
+  justify-content: flex-start;
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.left:active, div#home.gallery-page div#img_viewer > div#left_chevron.left:active {
   transform: translateX(-4px);
@@ -1433,6 +1438,7 @@ div#home.gallery-page div#img_viewer > div#right_chevron.left > span.lines, div#
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.right, div#home.gallery-page div#img_viewer > div#left_chevron.right {
   padding-bottom: calc((var(--chevronWidth) * 7 / 6));
+  justify-content: flex-end;
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.right:active, div#home.gallery-page div#img_viewer > div#left_chevron.right:active {
   transform: translateX(4px);
