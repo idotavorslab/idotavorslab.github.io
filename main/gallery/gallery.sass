@@ -88,11 +88,13 @@ div#home.gallery-page
             top: calc(var(--localHeight) / -2)
 
         opacity: 0
+        // *  DEP: images_container > div.year @ min-width($BP3)
+        padding-left: 40px
         position: fixed
         top: 50%
 
         transition: opacity 200ms
-        width: var(--w)
+        width: calc(var(--w) - 40px)
 
 
         z-index: -1
@@ -104,11 +106,15 @@ div#home.gallery-page
         --chevronWidth: 55px
 
         & > img
+            object-fit: contain
             @include min-width($BP3)
                 max-height: var(--localHeight)
-            @include max-width($BP3)
-                width: calc(120% - 2 * var(--chevronWidth))
-                object-fit: contain
+
+
+            @include max-width($BP2)
+                width: calc(140% - 2 * var(--chevronWidth))
+                @include max-width($BP3)
+                    width: calc(120% - 2 * var(--chevronWidth))
 
 
         & > div#right_chevron, & > div#left_chevron
@@ -139,7 +145,7 @@ div#home.gallery-page
 
 
             &.left
-                margin: auto auto auto -5%
+                //margin: auto auto auto -5%
                 padding-bottom: calc(var(--chevronWidth) / 2)
 
                 &:active
@@ -149,7 +155,7 @@ div#home.gallery-page
                     transform: rotate(45deg)
 
             &.right
-                margin: auto -5% auto auto
+                //margin: auto -5% auto auto
                 // 7/6 = 1/2 + 1/1.5
                 padding-bottom: calc((var(--chevronWidth) * 7 / 6))
 

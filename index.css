@@ -1354,10 +1354,11 @@ div#home.gallery-page div#img_viewer {
   margin-right: auto;
   margin-top: calc(var(--localHeight) / -2);
   opacity: 0;
+  padding-left: 40px;
   position: fixed;
   top: 50%;
   transition: opacity 200ms;
-  width: var(--w);
+  width: calc(var(--w) - 40px);
   z-index: -1;
   --chevronWidth: 55px;
 }
@@ -1380,15 +1381,22 @@ div#home.gallery-page div#img_viewer.on {
   opacity: 1;
   z-index: 5;
 }
+div#home.gallery-page div#img_viewer > img {
+  object-fit: contain;
+}
 @media screen and (min-width: 760px) {
   div#home.gallery-page div#img_viewer > img {
     max-height: var(--localHeight);
   }
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 1025px) {
+  div#home.gallery-page div#img_viewer > img {
+    width: calc(140% - 2 * var(--chevronWidth));
+  }
+}
+@media screen and (max-width: 1025px) and (max-width: 760px) {
   div#home.gallery-page div#img_viewer > img {
     width: calc(120% - 2 * var(--chevronWidth));
-    object-fit: contain;
   }
 }
 div#home.gallery-page div#img_viewer > div#right_chevron, div#home.gallery-page div#img_viewer > div#left_chevron {
@@ -1415,7 +1423,6 @@ div#home.gallery-page div#img_viewer > div#right_chevron > span.lines:after, div
   width: 100%;
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.left, div#home.gallery-page div#img_viewer > div#left_chevron.left {
-  margin: auto auto auto -5%;
   padding-bottom: calc(var(--chevronWidth) / 2);
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.left:active, div#home.gallery-page div#img_viewer > div#left_chevron.left:active {
@@ -1425,7 +1432,6 @@ div#home.gallery-page div#img_viewer > div#right_chevron.left > span.lines, div#
   transform: rotate(45deg);
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.right, div#home.gallery-page div#img_viewer > div#left_chevron.right {
-  margin: auto -5% auto auto;
   padding-bottom: calc((var(--chevronWidth) * 7 / 6));
 }
 div#home.gallery-page div#img_viewer > div#right_chevron.right:active, div#home.gallery-page div#img_viewer > div#left_chevron.right:active {

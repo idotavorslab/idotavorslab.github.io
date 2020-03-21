@@ -1,6 +1,6 @@
 const userAgent = window.navigator.userAgent;
 const IS_GILAD = document.cookie.includes("gilad");
-const SHOW_STATS = IS_GILAD && false;
+const SHOW_STATS = IS_GILAD && true;
 
 const IS_IPHONE = userAgent.includes('iPhone');
 const IS_SAFARI = !userAgent.includes('Firefox') && !userAgent.includes('Chrome') && userAgent.includes('Safari');
