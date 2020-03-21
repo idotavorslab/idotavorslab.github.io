@@ -47,14 +47,16 @@ function int(x, base?: string | number | Function): number {
 }
 
 function bool(val: any): boolean {
-    if (val === null)
+    if (val === null) {
         return false;
+    }
     const typeofval = typeof val;
     if (typeofval !== 'object') {
-        if (typeofval === 'function')
+        if (typeofval === 'function') {
             return true;
-        else
+        } else {
             return !!val;
+        }
     }
     return Object.keys(val).length !== 0;
 }
@@ -199,22 +201,27 @@ class ExTweenLite {
     }
 
     async load() {
-        if (this.isLoaded)
+        if (this.isLoaded) {
             return true;
+        }
         let scriptA = document.querySelector(`script[src*="Tween"]`);
         let scriptB = document.querySelector(`script[src*="CSSPlugin"]`);
         let count = 0;
 
         let ms = Math.random() * 10;
-        while (ms < 5)
+        while (ms < 5) {
             ms = Math.random() * 10;
+        }
 
         while (scriptA === null || scriptB === null) {
             if (count >= 2000) {
-                if (count === 2000)
+                if (count === 2000) {
                     console.trace(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
-                else if (count % 5 === 0)
-                    console.warn(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                } else {
+                    if (count % 5 === 0) {
+                        console.warn(`ExTweenLite.loaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                    }
+                }
                 await wait(200);
             } else {
                 await wait(ms);
@@ -308,14 +315,19 @@ function copyToClipboard(val) {
     copyText.remove();
 }
 
-/**@example
+/**
+ * pair == [dim, val] == "at this $dim px, css value of $val px looks good"
+ * @example
  * calcCssValue([1138, 286], [1040, 260])
  * > "calc(26.53vw - 15.91px)"*/
-function calcCssValue(h1: [number, number], h2: [number, number]) {
-    const x = (100 * (h1[1] - h2[1])) / (h1[0] - h2[0]);
-    const y = (h1[0] * h2[1] - h2[0] * h1[1]) / (h1[0] - h2[0]);
+function calcCssValue(dimValuePair1: [number, number], dimValuePair2: [number, number]) {
+    const [dim1, val1] = dimValuePair1;
+    const [dim2, val2] = dimValuePair2;
+    const dim_diff = dim1 - dim2;
+    const x = (100 * (val1 - val2)) / (dim_diff);
+    const y = (dim1 * val2 - dim2 * val1) / (dim_diff);
     const isYPositive = y >= 0;
-    const expression = `calc(${round(x, 2)}vw ${isYPositive ? '+' : '-'} ${round(Math.abs(y), 2)}px)`;
+    const expression = `calc(${round(x, 2)}v[w | h] ${isYPositive ? '+' : '-'} ${round(Math.abs(y), 2)}px)`;
     copyToClipboard(expression);
     return expression
 }
@@ -323,19 +335,22 @@ function calcCssValue(h1: [number, number], h2: [number, number]) {
 /**@example
  * calcAbsValue("calc(26.53vh - 15.91px)", 1040)
  * > "260px"*/
-function calcAbsValue(cssStr: string, width: number): string {
-    const vh = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf('vh'));
+function calcAbsValue(cssStr: string, dim: number): string {
+    let unit = cssStr.includes('vh') ? 'vh' : cssStr.includes('vw') ? 'vw' : '%';
+    const amount = cssStr.substring(cssStr.indexOf('(') + 1, cssStr.indexOf(unit));
     const px = cssStr.substring(cssStr.lastIndexOf(' ') + 1, cssStr.lastIndexOf('px'));
     const ispositive = cssStr.includes('+');
     const format = (w) => {
-        let n = w * float(vh) / 100;
-        if (ispositive)
+        let n = w * float(amount) / 100;
+        if (ispositive) {
             n += float(px);
-        else
+        } else {
             n -= float(px);
+        }
+        console.log({amount, px, dim, unit, n});
         return `${round(n, 2)}px`;
     };
-    const expression = format(width);
+    const expression = format(dim);
     copyToClipboard(expression);
     return expression;
 
@@ -392,9 +407,11 @@ function log(bold: boolean = false) {
 }
 
 function isinstance(obj, ...ctors) {
-    for (let ctor of ctors)
-        if (obj instanceof ctor)
+    for (let ctor of ctors) {
+        if (obj instanceof ctor) {
             return true;
+        }
+    }
     return false;
 }
 
@@ -404,8 +421,9 @@ JSON.parstr = (value: any) => {
         for (let prop in node) {
             let val = node[prop];
             if (bool(val)) {
-                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList))
+                if (isinstance(val, HTMLCollection, Window, NamedNodeMap, NodeList)) {
                     continue;
+                }
                 domObj[prop] = val;
             }
         }
@@ -463,13 +481,15 @@ interface JSON {
 
 // child extends sup
 function extend(sup, child) {
-    if (bool(sup.prototype))
+    if (bool(sup.prototype)) {
         child.prototype = sup.prototype;
-    else if (bool(sup.__proto__))
-        child.prototype = sup.__proto__;
-    else {
-        child.prototype = sup;
-        console.warn('Both bool(sup.prototype) and bool(sup.__proto__) failed => child.prototype is set to sup.');
+    } else {
+        if (bool(sup.__proto__)) {
+            child.prototype = sup.__proto__;
+        } else {
+            child.prototype = sup;
+            console.warn('Both bool(sup.prototype) and bool(sup.__proto__) failed => child.prototype is set to sup.');
+        }
     }
 
     const handler = {
@@ -538,7 +558,9 @@ async function exlog(message, ...args) {
         FILEDATA[jspath] = jsdata;
     }
     let jslineno = parseInt(splitstack[1]) - 1;
-    if (jslineno === -1) throw new Error('jslineno is -1');
+    if (jslineno === -1) {
+        throw new Error('jslineno is -1');
+    }
     let jsline = jsdata[jslineno].trim();
     let tspath = jspath.split(".")[0] + '.ts';
     // console.log({jspath, tspath});
@@ -553,26 +575,29 @@ async function exlog(message, ...args) {
     const weakTsLineNos = [];
     const strongTsLineNos = [];
     tsdata.forEach((line, index) => {
-        if (line.includes(jsline))
+        if (line.includes(jsline)) {
             strongTsLineNos.push(index);
-        else if (line.split(' ').join('').includes(jsline.split(' ').join('')))
-            weakTsLineNos.push(index);
+        } else {
+            if (line.split(' ').join('').includes(jsline.split(' ').join(''))) {
+                weakTsLineNos.push(index);
+            }
+        }
     });
 
     let tslineno;
     if (strongTsLineNos.length < 2) {
         if (strongTsLineNos.length === 1) {
-            if (weakTsLineNos.length === 0)
+            if (weakTsLineNos.length === 0) {
                 tslineno = strongTsLineNos[0];
-            else { // weakTsLineNos.length >= 1
+            } else { // weakTsLineNos.length >= 1
                 debugger;
             }
         } else { // strongTsLineNos.length === 0
             if (weakTsLineNos.length === 0) {
                 debugger;
-            } else if (weakTsLineNos.length === 1)
+            } else if (weakTsLineNos.length === 1) {
                 tslineno = weakTsLineNos[0];
-            else { // weakTsLineNos.length >= 2
+            } else { // weakTsLineNos.length >= 2
                 const weakTsLineNosScores = {};
                 for (let weak of weakTsLineNos) {
                     weakTsLineNosScores[weak] = undefined;
@@ -593,8 +618,9 @@ async function exlog(message, ...args) {
                 let minLineScoreTuple = [null, null];
                 for (let [lineno, score] of dict(weakTsLineNosScores).items()) {
                     if (minLineScoreTuple[0] === null
-                        || score < minLineScoreTuple[1])
+                        || score < minLineScoreTuple[1]) {
                         minLineScoreTuple = [lineno, score];
+                    }
                 }
                 tslineno = minLineScoreTuple[0];
                 debugger;
@@ -604,10 +630,11 @@ async function exlog(message, ...args) {
         debugger;
     }
 
-    if (args[args.length - 1] in colors)
+    if (args[args.length - 1] in colors) {
         console.log(`%c${message}`, `color: ${colors[args[args.length - 1]]}`, ...args.slice(0, args.length - 1), `${tspath}:${tslineno + 1}`);
-    else
+    } else {
         console.log(message, ...args, `${tspath}:${tslineno + 1}`);
+    }
     /*    fetch(new Request(jspath)).then(async jsblob => {
             let jsdata: string[] = (await jsblob.text()).split('\n');
             let jslineno = parseInt(splitstack[1]) - 1;

@@ -41,22 +41,26 @@ div#home.gallery-page
 
                     & > img
                         object-fit: cover
-                        height: calc(var(--tagWidth) / (4 / 3))
+
 
             // **  min-width($BP3)
             @include min-width($BP3)
                 border-left: 1px solid var(--GREY2)
                 padding-left: 39px
 
+                & > div.grid > div.row > img
+                    height: calc(var(--tagWidth) / (4 / 3))
 
                 @include width-between($BP2, $BP1)
                     & > div.title
                         font-size: 24px
                         line-height: 24px
 
-                // **  max-width($BP3)
-                @include max-width($BP3)
-                    
+            // **  max-width($BP3)
+            @include max-width($BP3)
+                & > div.grid > div.row > img
+                    height: 35vw
+
 
     // ***  img_viewer
     div#img_viewer
