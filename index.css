@@ -960,6 +960,7 @@ div#home.people-page .role {
   font-family: OpenSansItalic;
 }
 div#home.people-page > div.grid {
+  --_tightGap: 4px;
   --tagWidth: calc((var(--w) - (var(--gap) * (var(--columns) - 1))) / var(--columns));
   display: grid;
   margin-bottom: var(--gap);
@@ -971,13 +972,11 @@ div#home.people-page > div.grid {
 @media screen and (min-width: 760px) {
   div#home.people-page > div.grid {
     --columns: 4;
-    --_tightGap: 8px;
   }
 }
 @media screen and (max-width: 760px) {
   div#home.people-page > div.grid {
     --columns: 2;
-    --_tightGap: 4px;
   }
 }
 @media screen and (min-width: 760px) {
@@ -1299,6 +1298,7 @@ div#home.gallery-page div#images_container > div.year > div.title {
   line-height: 26px;
 }
 div#home.gallery-page div#images_container > div.year > div.grid {
+  --_tightGap: 4px;
   --tagWidth: calc((var(--w) - (var(--_tightGap) * (var(--columns) - 1))) / var(--columns));
   display: grid;
   margin-bottom: auto;
@@ -1310,13 +1310,11 @@ div#home.gallery-page div#images_container > div.year > div.grid {
 @media screen and (min-width: 760px) {
   div#home.gallery-page div#images_container > div.year > div.grid {
     --columns: 4;
-    --_tightGap: 8px;
   }
 }
 @media screen and (max-width: 760px) {
   div#home.gallery-page div#images_container > div.year > div.grid {
     --columns: 2;
-    --_tightGap: 4px;
   }
 }
 div#home.gallery-page div#images_container > div.year > div.grid div {
@@ -1334,11 +1332,13 @@ div#home.gallery-page div#images_container > div.year > div.grid div {
 div#home.gallery-page div#images_container > div.year > div.grid > div.row {
   width: 100%;
 }
+div#home.gallery-page div#images_container > div.year > div.grid > div.row > div {
+  background-size: cover;
+}
 @media screen and (min-width: 760px) {
   div#home.gallery-page div#images_container > div.year {
     border-left: 1px solid var(--GREY2);
-    --_paddingLeft: 39px;
-    padding-left: var(--_paddingLeft);
+    padding-left: 39px;
   }
   div#home.gallery-page div#images_container > div.year div.grid > div.row > div {
     height: calc(var(--tagWidth) / (var(--columns) / 3));

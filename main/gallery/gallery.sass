@@ -46,16 +46,17 @@ div#home.gallery-page
                 & > div.row
                     width: 100%
 
+                    & > div
+                        background-size: cover
+                        //width: 50px
+
 
             // **  min-width($BP3)
             @include min-width($BP3)
                 border-left: 1px solid var(--GREY2)
-                --_paddingLeft: 39px
-                padding-left: var(--_paddingLeft)
+                padding-left: 39px
 
                 div.grid > div.row > div
-                    // 294 - (39/4) = 284.25px
-                    //width: calc(var(--tagWidth) - (var(--_paddingLeft) / var(--columns)))
                     height: calc(var(--tagWidth) / (var(--columns) / 3))
 
                 @include width-between($BP2, $BP1)

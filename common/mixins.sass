@@ -109,6 +109,7 @@
 @mixin setLocalTagWidthVar($tight:false, $columns)
     // *  DEP:  people.sass     #person_expando width   (only desktop)
     //                          person > img width (inherit)
+
     @if ($tight == true)
         --tagWidth: calc((var(--w) - (var(--_tightGap) * (#{$columns} - 1))) / #{$columns})
     @else
@@ -116,15 +117,18 @@
         // [max-width: $BP1]:  (984 - 40*3) / 4  =  (984 - 120) / 4  = 864 / 4  =  216px
         --tagWidth: calc((var(--w) - (var(--gap) * (#{$columns} - 1))) / #{$columns})
 
+@mixin setLocal_tightGapVar()
+    --_tightGap: 4px
+
 @mixin gridContainerMixin($childTag, $tight:false)
     // *  DEP: gallery.ts
     @include min-width($BP3)
+        //--_tightGap: 8px
         --columns: 4
-        --_tightGap: 8px
     @include max-width($BP3)
         --columns: 2
-        --_tightGap: 4px
-
+    //--_tightGap: 4px
+    @include setLocal_tightGapVar()
     @include setLocalTagWidthVar($tight, var(--columns))
     display: grid
 
