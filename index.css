@@ -1404,7 +1404,7 @@ div#home.gallery-page div#img_viewer > img {
 }
 div#home.gallery-page div#img_viewer > div#right_chevron, div#home.gallery-page div#img_viewer > div#left_chevron {
   display: flex;
-  margin: auto;
+  margin: auto calc(var(--w) / 30);
   transition: transform 50ms;
   flex-grow: 1;
 }
