@@ -123,11 +123,9 @@
 @mixin gridContainerMixin($childTag, $tight:false)
     // *  DEP: gallery.ts
     @include min-width($BP3)
-        //--_tightGap: 8px
         --columns: 4
     @include max-width($BP3)
         --columns: 2
-    //--_tightGap: 4px
     @include setLocal_tightGapVar()
     @include setLocalTagWidthVar($tight, var(--columns))
     display: grid
@@ -157,7 +155,7 @@
             grid-column-gap: 5%
 
     #{$childTag}
-        margin: auto
+        //margin: auto
         width: 100%
         @include min-width($BP3)
             // TODO: is this needed at all?

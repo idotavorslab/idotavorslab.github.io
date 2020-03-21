@@ -55,7 +55,7 @@ const CacheDiv = elem({id: 'cache'});
 
 interface IWindow extends BetterHTMLElement {
     isLoaded: boolean;
-    
+
     promiseLoaded(): Promise<boolean>
 }
 
@@ -63,23 +63,28 @@ const WindowElem = elem({htmlElement: window}) as IWindow;
 WindowElem.isLoaded = false;
 WindowElem.promiseLoaded = async function () {
     console.log(...less('WindowElem.promiseLoaded(), this.isLoaded:'), this.isLoaded);
-    if (this.isLoaded)
+    if (this.isLoaded) {
         return true;
+    }
     let count = 0;
     let ms = Math.random() * 10;
-    while (ms < 5)
+    while (ms < 5) {
         ms = Math.random() * 10;
+    }
     while (!this.isLoaded) {
         if (count >= 2000) {
-            if (count === 2000)
+            if (count === 2000) {
                 console.trace(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
-            else if (count % 5 === 0)
-                console.warn(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+            } else {
+                if (count % 5 === 0) {
+                    console.warn(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                }
+            }
             await wait(200);
         } else {
             await wait(ms);
         }
-        
+
         count++;
     }
     console.log(...less('WindowElem.promiseLoaded() returning true'));
@@ -92,11 +97,11 @@ interface IHamburger extends Div {
     menu: Div;
     logo: Div;
     items: Div;
-    
+
     open(): void;
-    
+
     close(): void;
-    
+
     toggle(): void;
 }
 
@@ -132,21 +137,21 @@ Hamburger.click((event: PointerEvent) => {
     Hamburger.toggle();
 });
 
-// ***  WindowElem.on
+// ***  WindowElem.on (cache)
 // noinspection TypeScriptValidateTypes
 WindowElem.on({
     scroll: (event: Event) => {
-        
+
         if (Navbar !== undefined) {
             if (window.scrollY > 0) {
                 Navbar.removeClass('box-shadow');
             } else {
                 Navbar.addClass('box-shadow');
-                
+
             }
         }
-        
-        
+
+
     },
     // @ts-ignore
     hashchange: (event: HashChangeEvent) => {
@@ -161,12 +166,13 @@ WindowElem.on({
             console.log(`%chash change, event.newURL: "${event.newURL}"\n\tnewURL: "${newURL}"`, `color: ${GOOGLEBLUE}`);
             Routing.initPage(<Routing.PageSansHome>newURL);
         }
-        
-        
+
+
     },
     resize: (event: UIEvent) => {
-        if (SHOW_STATS)
+        if (SHOW_STATS) {
             Body.windowStats.html(windowStats())
+        }
     },
     load: () => {
         function cache(file: string, page: Routing.Page) {
@@ -176,41 +182,46 @@ WindowElem.on({
             } else {
                 src = `main/${page}/${file}`;
             }
-            let imgElem = elem({htmlElement: new Image()})
+            let image = new Image();
+            let imgElem = elem({htmlElement: image})
                 .attr({src, hidden: ""})
                 .on({
                     load: () => {
-                        // console.log(...less(`loaded ${page} | ${file}`));
+                        console.log(...less(`loaded ${page} | ${file}`));
                         CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
                     }
                 });
         }
-        
+
         async function cachePeople() {
             console.log(...less('cachePeople'));
             const peopleData = await fetchDict('main/people/people.json');
             const {team: teamData, alumni: alumniData} = peopleData;
-            for (let [_, {image}] of dict(teamData).items())
+            for (let [_, {image}] of dict(teamData).items()) {
                 cache(image, "people");
-            for (let [_, {image}] of dict(alumniData).items())
+            }
+            for (let [_, {image}] of dict(alumniData).items()) {
                 cache(image, "people")
+            }
         }
-        
+
         async function cacheGallery() {
             console.log(...less('cacheGallery'));
             let galleryData = await fetchArray<{ file: string }>("main/gallery/gallery.json");
             const galleryFiles = galleryData.map(d => d.file);
-            for (let file of galleryFiles)
+            for (let file of galleryFiles) {
                 cache(file, "gallery")
+            }
         }
-        
+
         async function cacheResearch() {
             console.log(...less('cacheResearch'));
             const researchData = await fetchDict('main/research/research.json');
-            for (let [_, {image}] of researchData.items())
+            for (let [_, {image}] of researchData.items()) {
                 cache(image, "research")
+            }
         }
-        
+
         console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
         WindowElem.isLoaded = true;
         MOBILE = window.innerWidth <= $BP2;
@@ -226,12 +237,12 @@ WindowElem.on({
                 contact: '.contact',
             }
         });
-        
-        
+
+
         if (window.location.hash !== "") {
             fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
         }
-        
+
         console.log('%cstats:', 'color: #B58059', {
             MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI, SHOW_STATS,
             innerWidth
@@ -242,18 +253,21 @@ WindowElem.on({
         Body.footer.css({height: IS_SAFARI ? '260px' : 'auto'});
         console.log(...less('waiting 1000...'));
         wait(1000).then(() => {
-            
+
             console.log(...less('done waiting, starting caching'));
-            if (!window.location.hash.includes('research'))
+            if (!window.location.hash.includes('research')) {
                 cacheResearch();
-            if (!window.location.hash.includes('people'))
+            }
+            if (!window.location.hash.includes('people')) {
                 cachePeople();
-            if (!window.location.hash.includes('gallery'))
+            }
+            if (!window.location.hash.includes('gallery')) {
                 cacheGallery();
+            }
             console.log(...less('done caching'));
         });
-        
-        
+
+
     }
 });
 
@@ -266,7 +280,7 @@ class NavbarElem extends BetterHTMLElement {
     gallery: Div;
     neuroanatomy: Div;
     contact: Div;
-    
+
     constructor({query, children}) {
         super({query, children});
         for (let pageString of Routing.pageStrings()) {
@@ -290,30 +304,30 @@ class NavbarElem extends BetterHTMLElement {
         this.e.dispatchEvent(NavbarReady);
         */
     }
-    
-    
+
+
     select(child: Div): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.toggleClass('selected', pageElem === child);
         }
     }
-    
+
     private _emphasize(child: Div): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.toggleClass('pale', pageElem !== child);
         }
     }
-    
+
     private _resetPales(): void {
         for (let pageString of Routing.pageStrings()) {
             let pageElem = this[pageString];
             pageElem.removeClass('pale');
         }
     }
-    
-    
+
+
 }
 
 let Navbar: NavbarElem; // WindowElem.load =>
@@ -344,7 +358,7 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
                                             <a href="tel:${data.call.phone}">${data.call.phone}</a><br>
                                             Email:
                                             <a href="mailto:${data.email.address}">${data.email.address}</a>`));
-    
+
     const [uni, medicine, sagol] = Body.footer.logos.children('img');
     uni.click(() => window.open("https://www.tau.ac.il"));
     medicine.click(() => window.open("https://en-med.tau.ac.il/"));
@@ -358,11 +372,11 @@ fetchDict<TContactData>("main/contact/contact.json").then(async data => {
             allowfullscreen: "",
             src: data.map
         })
-        
-        
+
+
     }
-    
-    
+
+
 });
 
 

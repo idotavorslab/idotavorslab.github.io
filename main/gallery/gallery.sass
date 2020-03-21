@@ -46,10 +46,14 @@ div#home.gallery-page
                 & > div.row
                     width: 100%
 
+                    & > div, img
+                        width: inherit
+
                     & > div
                         background-size: cover
-                        //width: 50px
 
+                    & > img
+                        object-fit: cover
 
             // **  min-width($BP3)
             @include min-width($BP3)

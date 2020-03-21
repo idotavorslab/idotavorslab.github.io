@@ -1,6 +1,6 @@
 const GalleryPage = () => {
     async function init() {
-        class GalleryImg extends Div {
+        class PhotoDiv extends Div {
             constructor(brightness, contrast, file, year, caption) {
                 super({});
                 this.path = null;
@@ -8,82 +8,93 @@ const GalleryPage = () => {
                 this.caption = null;
                 this.contrast = 1;
                 this.brightness = 1;
-                if (file !== undefined)
+                if (file !== undefined) {
                     this.path = file;
-                if (caption !== undefined)
+                }
+                if (caption !== undefined) {
                     this.caption = caption;
-                if (contrast !== undefined)
+                }
+                if (contrast !== undefined) {
                     this.contrast = contrast;
-                if (brightness !== undefined)
+                }
+                if (brightness !== undefined) {
                     this.brightness = brightness;
-                if (year !== undefined)
+                }
+                if (year !== undefined) {
                     this.year = year;
+                }
                 this.click((event) => {
                     console.log('this click:', this);
                     event.stopPropagation();
-                    return toggleImgViewer(this);
+                    return togglePhotoViewer(this);
                 });
             }
-            getLeftImage() {
+            getLeftPhotoDiv() {
                 let i;
-                if (this.index === 0)
-                    i = galleryImgs.length - 1;
-                else
+                if (this.index === 0) {
+                    i = photoDivs.length - 1;
+                }
+                else {
                     i = this.index - 1;
-                return galleryImgs[i];
+                }
+                return photoDivs[i];
             }
-            getRightImage() {
+            getRightPhotoDiv() {
                 let i;
-                if (this.index === galleryImgs.length - 1)
+                if (this.index === photoDivs.length - 1) {
                     i = 0;
-                else
+                }
+                else {
                     i = this.index + 1;
-                return galleryImgs[i];
+                }
+                return photoDivs[i];
             }
             src(src) {
                 return this.css({ backgroundImage: `url(${src})` });
             }
         }
-        if (MOBILE === undefined)
+        if (MOBILE === undefined) {
             await WindowElem.promiseLoaded();
-        const ROWSIZE = MOBILE ? 2 : 4;
-        function switchToImg(_selectedImg) {
-            console.log(`galleryImg.switchToImg(`, JSON.parstr({ _selectedImg }));
-            selectedImg = _selectedImg;
-            imgViewer.caption.text(selectedImg.caption);
-            let clone = _selectedImg.e.cloneNode();
-            imgViewer.img.wrapSomethingElse(clone);
         }
-        async function gotoAdjImg(event) {
+        const ROWSIZE = MOBILE ? 2 : 4;
+        function switchToPhoto(_selectedPhoto) {
+            console.log(`photoDiv.switchToImg(`, JSON.parstr({ _selectedPhoto }));
+            selectedPhoto = _selectedPhoto;
+            photoViewer.caption.text(selectedPhoto.caption);
+            let clone = _selectedPhoto.e.cloneNode();
+            photoViewer.photo.wrapSomethingElse(clone);
+        }
+        async function gotoAdjPhoto(event) {
             event.stopPropagation();
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron click');
-                switchToImg(selectedImg.getLeftImage());
+                switchToPhoto(selectedPhoto.getLeftPhotoDiv());
             }
             else {
                 console.log('right chevron click');
-                switchToImg(selectedImg.getRightImage());
+                switchToPhoto(selectedPhoto.getRightPhotoDiv());
             }
         }
-        function closeImgViewer(event) {
-            console.log('closeImgViewer', event);
+        function closePhotoViewer(event) {
+            console.log('closePhotoViewer', event);
             Body.toggleClass('theater', false);
-            imagesContainer.toggleClass('theater', false);
+            photosContainer.toggleClass('theater', false);
             _toggleNavigationElementsDisplay(true);
-            imgViewer.toggleClass('on', false);
-            imgViewerClose.toggleClass('on', false);
-            imgViewer.isopen = false;
+            photoViewer.toggleClass('on', false);
+            photoViewerClose.toggleClass('on', false);
+            photoViewer.isopen = false;
         }
-        function toggleImgViewer(_selectedImg) {
-            console.log('galleryImg.toggleImgViewer(', JSON.parstr({ _selectedImg }));
-            if (imgViewer.isopen)
-                return closeImgViewer();
-            imgViewerClose.toggleClass('on', true);
-            imgViewer.toggleClass('on', true);
-            switchToImg(_selectedImg);
-            imgViewer.isopen = true;
+        function togglePhotoViewer(_selectedPhoto) {
+            console.log('photoDiv.togglePhotoViewer(', JSON.parstr({ _selectedPhoto }));
+            if (photoViewer.isopen) {
+                return closePhotoViewer();
+            }
+            photoViewerClose.toggleClass('on', true);
+            photoViewer.toggleClass('on', true);
+            switchToPhoto(_selectedPhoto);
+            photoViewer.isopen = true;
             Body.toggleClass('theater', true);
-            imagesContainer.toggleClass('theater', true);
+            photosContainer.toggleClass('theater', true);
             _toggleNavigationElementsDisplay(false);
         }
         function _toggleNavigationElementsDisplay(on) {
@@ -94,58 +105,60 @@ const GalleryPage = () => {
                 elem({ id: 'navbar_section' }).addClass('off');
             }
         }
-        const imgViewer = div({ id: 'img_viewer' })
+        const photoViewer = div({ id: 'img_viewer' })
             .cacheAppend({
-            left: div({ id: 'left_chevron', cls: 'left' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
-            img: img(),
-            right: div({ id: 'right_chevron', cls: 'right' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
+            left: div({ id: 'left_chevron', cls: 'left' }).append(span({ cls: 'lines' })).click(gotoAdjPhoto),
+            photo: div(),
+            right: div({ id: 'right_chevron', cls: 'right' }).append(span({ cls: 'lines' })).click(gotoAdjPhoto),
             caption: div({ id: 'caption' })
         }).click((event) => {
-            console.log('imgViewer click, stopping propagation');
+            console.log('photoViewer click, stopping propagation');
             event.stopPropagation();
         });
-        imgViewer.isopen = false;
+        photoViewer.isopen = false;
         const data = await fetchArray("main/gallery/gallery.json");
-        const galleryImgs = [];
+        const photoDivs = [];
         for (let { brightness, contrast, file, year, caption } of data) {
-            let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
-            let cachedImage = CacheDiv[`gallery.${file}`];
-            if (cachedImage !== undefined) {
-                galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
+            let photoDiv = new PhotoDiv(brightness, contrast, file, year, caption);
+            let cachedPhoto = CacheDiv[`gallery.${file}`];
+            if (cachedPhoto !== undefined) {
+                photoDiv.wrapSomethingElse(cachedPhoto.removeAttr('hidden'));
+                console.log(...less(`gallery | "gallery.${file}" loaded from cache`));
             }
             else {
                 let src = `main/gallery/${file}`;
-                galleryImg.src(src);
+                photoDiv.src(src);
+                console.log(...less(`gallery | "gallery.${file}" NOT loaded from cache`));
             }
-            galleryImg.css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
-            galleryImgs.push(galleryImg);
+            photoDiv.css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
+            photoDivs.push(photoDiv);
         }
-        galleryImgs
+        photoDivs
             .sort(({ year: yearA }, { year: yearB }) => yearB - yearA)
             .forEach((image, i) => image.index = i);
         const yearToYearDiv = {};
         let count = 0;
-        function appendToRow(yearDiv, galleryImg, count) {
+        function appendToRow(yearDiv, photoDiv, count) {
             switch (count % ROWSIZE) {
                 case 0:
-                    yearDiv.grid.row0.append(galleryImg);
+                    yearDiv.grid.row0.append(photoDiv);
                     break;
                 case 1:
-                    yearDiv.grid.row1.append(galleryImg);
+                    yearDiv.grid.row1.append(photoDiv);
                     break;
                 case 2:
-                    yearDiv.grid.row2.append(galleryImg);
+                    yearDiv.grid.row2.append(photoDiv);
                     break;
                 case 3:
-                    yearDiv.grid.row3.append(galleryImg);
+                    yearDiv.grid.row3.append(photoDiv);
                     break;
             }
         }
-        for (let galleryImg of galleryImgs) {
+        for (let photoDiv of photoDivs) {
             let yearDiv;
-            if (galleryImg.year in yearToYearDiv) {
+            if (photoDiv.year in yearToYearDiv) {
                 count++;
-                yearDiv = yearToYearDiv[galleryImg.year];
+                yearDiv = yearToYearDiv[photoDiv.year];
             }
             else {
                 count = 0;
@@ -159,38 +172,45 @@ const GalleryPage = () => {
                 }
                 yearDiv = div({ cls: 'year' })
                     .cacheAppend({
-                    title: div({ cls: 'title' }).text(galleryImg.year),
+                    title: div({ cls: 'title' }).text(photoDiv.year),
                     grid: div({ cls: 'grid' }).cacheAppend(gridChildrenObj)
                 });
-                yearToYearDiv[galleryImg.year] = yearDiv;
+                yearToYearDiv[photoDiv.year] = yearDiv;
             }
-            appendToRow(yearDiv, galleryImg, count);
+            appendToRow(yearDiv, photoDiv, count);
         }
-        let selectedImg = new GalleryImg();
-        const imagesContainer = div({ id: 'images_container' })
+        let selectedPhoto = new PhotoDiv();
+        const photosContainer = div({ id: 'images_container' })
             .append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
             .click(() => {
-            if (!imgViewer.isopen)
+            if (!photoViewer.isopen) {
                 return;
-            console.log('document click, closeImgViewer()');
-            closeImgViewer();
+            }
+            console.log('document click, closePhotoViewer()');
+            closePhotoViewer();
         })
             .keydown((event) => {
-            if (!imgViewer.isopen)
+            if (!photoViewer.isopen) {
                 return;
-            if (event.key === "Escape")
-                return closeImgViewer();
+            }
+            if (event.key === "Escape") {
+                return closePhotoViewer();
+            }
             if (event.key.startsWith("Arrow")) {
-                if (event.key === "ArrowLeft")
-                    return switchToImg(selectedImg.getLeftImage());
-                else if (event.key === "ArrowRight")
-                    return switchToImg(selectedImg.getRightImage());
+                if (event.key === "ArrowLeft") {
+                    return switchToPhoto(selectedPhoto.getLeftPhotoDiv());
+                }
+                else {
+                    if (event.key === "ArrowRight") {
+                        return switchToPhoto(selectedPhoto.getRightPhotoDiv());
+                    }
+                }
             }
         });
-        const imgViewerClose = div({ id: 'img_viewer_close' })
-            .append(span({ cls: 'lines' })).click(closeImgViewer);
-        Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
+        const photoViewerClose = div({ id: 'img_viewer_close' })
+            .append(span({ cls: 'lines' })).click(closePhotoViewer);
+        Home.empty().class('gallery-page').append(photosContainer, photoViewer, photoViewerClose);
     }
     return { init };
 };
