@@ -1,19 +1,14 @@
 // TODO: 3 item rows with 4px or 8px between them
-.test
-    width: 280px
-    height: 220px
-    background-image: url(main/gallery/33.png)
-    background-size: cover
-    cursor: pointer
-
 div#home.gallery-page
+    --_paddingLeft: 40px
+
     div#images_container
 
         &[class="theater"]
             filter: brightness(0.20) blur(1px) sepia(1)
 
         &:not([class="theater"])
-            & > div.year > div.grid > div.row > div
+            & > div.year > div.grid > div.row > img
                 margin-top: 0
                 @include min-width($BP3)
                     margin-bottom: 3px
@@ -41,49 +36,50 @@ div#home.gallery-page
                 line-height: 26px
 
             & > div.grid
-                @include gridContainerMixin(div, true)
+                @include gridContainerMixin(img, true)
 
                 & > div.row
-                    width: 100%
-
-                    & > div, img
-                        width: inherit
-
-                    & > div
-                        background-size: cover
+                    width: auto
 
                     & > img
                         object-fit: cover
 
+
             // **  min-width($BP3)
             @include min-width($BP3)
                 border-left: 1px solid var(--GREY2)
-                padding-left: 39px
+                padding-left: calc(var(--_paddingLeft) - 1px)
 
-                div.grid > div.row > div
-                    height: calc(var(--tagWidth) / (var(--columns) / 3))
+                & > div.grid > div.row > img
+                    height: calc(var(--tagWidth) / (4 / 3))
 
                 @include width-between($BP2, $BP1)
                     & > div.title
                         font-size: 24px
                         line-height: 24px
 
-
             // **  max-width($BP3)
             @include max-width($BP3)
+                & > div.grid > div.row > img
+                    height: 35vw
+
 
     // ***  img_viewer
     div#img_viewer
-
-        // 1340px
-        @include min-width($BP1)
-            --localHeight: 600px
+        // **  min-width($BP3)
+        @include min-width($BP3)
+            padding-left: var(--_paddingLeft)
+            width: calc(var(--w) - var(--_paddingLeft))
+            // 1340px
+            @include min-width($BP1)
+                --localHeight: 600px
 
         @include width-between($BP3, $BP1)
             --localHeight: 500px
 
         @include max-width($BP3)
             --localHeight: 400px
+            width: var(--w)
 
 
         display: flex
@@ -98,11 +94,12 @@ div#home.gallery-page
             top: calc(var(--localHeight) / -2)
 
         opacity: 0
+        // *  DEP: images_container > div.year @ min-width($BP3)
+
         position: fixed
         top: 50%
 
         transition: opacity 200ms
-        width: var(--w)
 
 
         z-index: -1
@@ -114,18 +111,26 @@ div#home.gallery-page
         --chevronWidth: 55px
 
         & > img
+            object-fit: contain
             @include min-width($BP3)
                 max-height: var(--localHeight)
-            @include max-width($BP3)
-                width: calc(120% - 2 * var(--chevronWidth))
-                object-fit: contain
+
+
+            @include max-width($BP2)
+
+                width: calc(90% - 2 * var(--chevronWidth))
+            //width: calc(140% - 2 * var(--chevronWidth))
+            //@include max-width($BP3)
+            //    width: calc(120% - 2 * var(--chevronWidth))
 
 
         & > div#right_chevron, & > div#left_chevron
             display: flex
-            margin: auto
+            margin: auto calc(var(--w) / 30)
             //width: $chevronWidth
             transition: transform 50ms
+            flex-grow: 1
+            cursor: pointer
 
             & > span.lines
                 background: white
@@ -149,8 +154,9 @@ div#home.gallery-page
 
 
             &.left
-                margin: auto auto auto -5%
+                //margin: auto auto auto -5%
                 padding-bottom: calc(var(--chevronWidth) / 2)
+                justify-content: flex-start
 
                 &:active
                     transform: translateX(-4px)
@@ -159,9 +165,10 @@ div#home.gallery-page
                     transform: rotate(45deg)
 
             &.right
-                margin: auto -5% auto auto
+                //margin: auto -5% auto auto
                 // 7/6 = 1/2 + 1/1.5
                 padding-bottom: calc((var(--chevronWidth) * 7 / 6))
+                justify-content: flex-end
 
                 &:active
                     transform: translateX(4px)

@@ -53,8 +53,9 @@ const HomePage = () => {
 
 
         async switchTo(selectedItem: TNewsDataItem) {
-            if (this._selected !== undefined)
+            if (this._selected !== undefined) {
                 this._selected.radio.toggleClass('selected');
+            }
             TL.to(newsChildren, 0.1, {opacity: 0});
             await wait(25);
 
@@ -65,10 +66,11 @@ const HomePage = () => {
             }
 
             // HACK: add margin-bottom to date only if not visible
-            if (bool(selectedItem.date))
+            if (bool(selectedItem.date)) {
                 rightWidget.news.date.text(selectedItem.date).toggleClass('mb', false);
-            else
+            } else {
                 rightWidget.news.date.text('').toggleClass('mb', true);
+            }
 
             rightWidget.news.title.text(selectedItem.title);
             rightWidget.news.content.html(selectedItem.content);
@@ -142,25 +144,27 @@ const HomePage = () => {
     let rightWidget: TRightWidget;
     let newsChildren: HTMLElement[];
 
-    function buildRightWidgetAndNewsChildren() {
-        if (!MOBILE) {
-            rightWidget = <TRightWidget>elem({
-                query: '#right_widget',
-                children: {
-                    newsCoverImageContainer: '#news_cover_image_container',
-                    news: {
-                        '#news': {
-                            title: '.title',
-                            date: '.date',
-                            content: '.content'
-                        }
-                    },
-                    radios: '#radios',
-                }
-            });
+    const NO_NEWS = window.innerWidth <= $BP3;
 
-            newsChildren = rightWidget.news.children().map(c => c.e);
+    function buildRightWidgetAndNewsChildren() {
+        if (NO_NEWS) {
+            return;
         }
+        rightWidget = <TRightWidget>elem({
+            query: '#right_widget',
+            children: {
+                newsCoverImageContainer: '#news_cover_image_container',
+                news: {
+                    '#news': {
+                        title: '.title',
+                        date: '.date',
+                        content: '.content'
+                    }
+                },
+                radios: '#radios',
+            }
+        });
+        newsChildren = rightWidget.news.children().map(c => c.e);
     }
 
     WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
@@ -176,11 +180,13 @@ const HomePage = () => {
         const data = await fetchDict<THomeData>('main/home/home.json');
 
 
-        if (MOBILE === undefined)
+        if (MOBILE === undefined) {
             await WindowElem.promiseLoaded();
-        if (!MOBILE) {
-            while (rightWidget === undefined)
+        }
+        if (!NO_NEWS) {
+            while (rightWidget === undefined) {
                 await wait(11);
+            }
             rightWidget.newsCoverImageContainer
                 .append(img({src: `main/home/${data["news-cover-image"]}`}));
         } else {
@@ -188,8 +194,9 @@ const HomePage = () => {
             elem({query: '#mobile_cover_image_container > img'}).attr({src: `main/home/${data["news-cover-image"]}`});
         }
 
-        if (Navbar === undefined)
+        if (Navbar === undefined) {
             await WindowElem.promiseLoaded();
+        }
         Navbar.home.attr({src: `main/home/${data.logo}`});
 
         const aboutText = elem({query: "#about > .about-text"});
@@ -197,12 +204,13 @@ const HomePage = () => {
         const splitParagraphs = (val: string): string[] => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
-            if (i == 0)
+            if (i == 0) {
                 cls = 'bold';
+            }
             aboutText.append(paragraph({text: p, cls}))
         }
-        if (!MOBILE) {
-            console.log('HomePage().init(), building News, entered !MOBILE clause', JSON.parstr({MOBILE}));
+        if (!NO_NEWS) {
+            console.log('HomePage().init(), building News, entered !NO_NEWS clause', JSON.parstr({NO_NEWS}));
             // ***  News
             /** Holds the data from .json in an array, plus the matching radio BetterHTMLElement */
             const newsData = new NewsData();
@@ -253,7 +261,9 @@ const HomePage = () => {
 
         for (let [title, {image, text, large, link}] of dict(fundingData).items()) {
             let sponsorImage = img({src: `main/home/${image}`});
-            if (large === true) sponsorImage.class('large');
+            if (large === true) {
+                sponsorImage.class('large');
+            }
             // FundingSection.sponsorsContainer.append(
             Body.fundingSection.sponsorsContainer.append(
                 div({cls: 'sponsor'}).append(

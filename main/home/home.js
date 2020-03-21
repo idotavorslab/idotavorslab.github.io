@@ -28,8 +28,9 @@ const HomePage = () => {
             });
         }
         async switchTo(selectedItem) {
-            if (this._selected !== undefined)
+            if (this._selected !== undefined) {
                 this._selected.radio.toggleClass('selected');
+            }
             TL.to(newsChildren, 0.1, { opacity: 0 });
             await wait(25);
             if (!selectedItem.content.includes('<a')) {
@@ -37,10 +38,12 @@ const HomePage = () => {
                     selectedItem.content = selectedItem.content.replace(text, `<a target="_blank" href="${link}">${text}</a>`);
                 }
             }
-            if (bool(selectedItem.date))
+            if (bool(selectedItem.date)) {
                 rightWidget.news.date.text(selectedItem.date).toggleClass('mb', false);
-            else
+            }
+            else {
                 rightWidget.news.date.text('').toggleClass('mb', true);
+            }
             rightWidget.news.title.text(selectedItem.title);
             rightWidget.news.content.html(selectedItem.content);
             showArrowOnHover(rightWidget.news.content.children('a'));
@@ -101,33 +104,37 @@ const HomePage = () => {
     }
     let rightWidget;
     let newsChildren;
+    const NO_NEWS = window.innerWidth <= $BP3;
     function buildRightWidgetAndNewsChildren() {
-        if (!MOBILE) {
-            rightWidget = elem({
-                query: '#right_widget',
-                children: {
-                    newsCoverImageContainer: '#news_cover_image_container',
-                    news: {
-                        '#news': {
-                            title: '.title',
-                            date: '.date',
-                            content: '.content'
-                        }
-                    },
-                    radios: '#radios',
-                }
-            });
-            newsChildren = rightWidget.news.children().map(c => c.e);
+        if (NO_NEWS) {
+            return;
         }
+        rightWidget = elem({
+            query: '#right_widget',
+            children: {
+                newsCoverImageContainer: '#news_cover_image_container',
+                news: {
+                    '#news': {
+                        title: '.title',
+                        date: '.date',
+                        content: '.content'
+                    }
+                },
+                radios: '#radios',
+            }
+        });
+        newsChildren = rightWidget.news.children().map(c => c.e);
     }
     WindowElem.promiseLoaded().then(buildRightWidgetAndNewsChildren);
     async function init() {
         const data = await fetchDict('main/home/home.json');
-        if (MOBILE === undefined)
+        if (MOBILE === undefined) {
             await WindowElem.promiseLoaded();
-        if (!MOBILE) {
-            while (rightWidget === undefined)
+        }
+        if (!NO_NEWS) {
+            while (rightWidget === undefined) {
                 await wait(11);
+            }
             rightWidget.newsCoverImageContainer
                 .append(img({ src: `main/home/${data["news-cover-image"]}` }));
         }
@@ -135,19 +142,21 @@ const HomePage = () => {
             console.log(`setting #mobile_cover_image_container > img src to main/home/${data["news-cover-image"]}`, 'grn');
             elem({ query: '#mobile_cover_image_container > img' }).attr({ src: `main/home/${data["news-cover-image"]}` });
         }
-        if (Navbar === undefined)
+        if (Navbar === undefined) {
             await WindowElem.promiseLoaded();
+        }
         Navbar.home.attr({ src: `main/home/${data.logo}` });
         const aboutText = elem({ query: "#about > .about-text" });
         const splitParagraphs = (val) => val.split("</p>").join("").split("<p>").slice(1);
         for (let [i, p] of enumerate(splitParagraphs(data["about-text"]))) {
             let cls = undefined;
-            if (i == 0)
+            if (i == 0) {
                 cls = 'bold';
+            }
             aboutText.append(paragraph({ text: p, cls }));
         }
-        if (!MOBILE) {
-            console.log('HomePage().init(), building News, entered !MOBILE clause', JSON.parstr({ MOBILE }));
+        if (!NO_NEWS) {
+            console.log('HomePage().init(), building News, entered !NO_NEWS clause', JSON.parstr({ NO_NEWS }));
             const newsData = new NewsData();
             let i = 0;
             const radios = elem({ id: 'radios' });
@@ -179,8 +188,9 @@ const HomePage = () => {
         Body.fundingSection.removeAttr('hidden');
         for (let [title, { image, text, large, link }] of dict(fundingData).items()) {
             let sponsorImage = img({ src: `main/home/${image}` });
-            if (large === true)
+            if (large === true) {
                 sponsorImage.class('large');
+            }
             Body.fundingSection.sponsorsContainer.append(div({ cls: 'sponsor' }).append(sponsorImage, div({ cls: 'sponsor-title', text: title }), div({ cls: 'sponsor-text', text })).click(() => window.open(link)));
         }
     }
