@@ -646,7 +646,7 @@ div#intro > div#right_widget {
   flex-direction: column;
   margin-left: var(--gap);
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 760px) {
   div#intro > div#right_widget {
     display: none;
   }

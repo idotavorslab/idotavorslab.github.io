@@ -1,216 +1,216 @@
 section#navbar_section
-	background-color: rgba(255, 255, 255, 0.92)
-	@include max-width($BP2)
-		height: var(--MOBILE_NAVBAR_HEIGHT)
-	position: fixed
-	transition: opacity 0.1s ease-out
-	width: 100%
-	z-index: 5
-	$_trans: 0.5s ease-in-out
+    background-color: rgba(255, 255, 255, 0.92)
+    @include max-width($BP2)
+        height: var(--MOBILE_NAVBAR_HEIGHT)
+    position: fixed
+    transition: opacity 0.1s ease-out
+    width: 100%
+    z-index: 5
+    $_trans: 0.5s ease-in-out
 
-	&[class="off"]
-		opacity: 0
-		pointer-events: none
+    &[class="off"]
+        opacity: 0
+        pointer-events: none
 
-	// ***  hamburger
-	& > div#hamburger
-		@include min-width($BP2)
-			display: none
-		height: inherit
-		transition: box-shadow 0.5s ease-in-out
+    // ***  hamburger
+    & > div#hamburger
+        @include min-width($BP2)
+            display: none
+        height: inherit
+        transition: box-shadow 0.5s ease-in-out
 
-		& > div.menu-and-logo-container
-			height: inherit
-
-
-			& > div.menu
-
-				height: inherit
-				cursor: pointer
-				position: absolute
-				right: 0px
-				transition: .5s ease-in-out
-				// *  DEP: #hamburger_logo > img height
-				width: calc(var(--MOBILE_NAVBAR_HEIGHT) - 10px)
-
-				&:focus
-					border-width: 0px
+        & > div.menu-and-logo-container
+            height: inherit
 
 
-				& > span.lines
-					background: var(--GREY8)
-					height: 2px
-					position: absolute
-					// 30px
-					top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
-					transform-origin: center
-					transition: transform $_trans, box-shadow $_trans
-					// 30px
-					width: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
+            & > div.menu
+
+                height: inherit
+                cursor: pointer
+                position: absolute
+                right: 0px
+                transition: .5s ease-in-out
+                // *  DEP: #hamburger_logo > img height
+                width: calc(var(--MOBILE_NAVBAR_HEIGHT) - 10px)
+
+                &:focus
+                    border-width: 0px
 
 
-					&:after, &:before
-						background: var(--GREY8)
-						content: ""
-						height: 100%
-						position: absolute
-						transition: transform $_trans, bottom $_trans, top $_trans
-						width: 100%
-
-					@include min-width($BP3)
-						--lineGap: -12px
-					@include max-width($BP3)
-						--lineGap: -10px
-
-					&:after
-						bottom: var(--lineGap)
+                & > span.lines
+                    background: var(--GREY8)
+                    height: 2px
+                    position: absolute
+                    // 30px
+                    top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
+                    transform-origin: center
+                    transition: transform $_trans, box-shadow $_trans
+                    // 30px
+                    width: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2)
 
 
-					&:before
-						top: var(--lineGap)
-						opacity: 1
+                    &:after, &:before
+                        background: var(--GREY8)
+                        content: ""
+                        height: 100%
+                        position: absolute
+                        transition: transform $_trans, bottom $_trans, top $_trans
+                        width: 100%
+
+                    @include min-width($BP3)
+                        --lineGap: -12px
+                    @include max-width($BP3)
+                        --lineGap: -10px
+
+                    &:after
+                        bottom: var(--lineGap)
 
 
-			& > div.logo
-				// makes it not disappear on open
-				position: relative
-				width: max-content
-				//@include min-width($BP3)
-					display: none
-
-				& > img
-					// *  DEP: #hamburger > .menu width
-					height: calc(var(--MOBILE_NAVBAR_HEIGHT) - 24px)
-					// *  DEP: #hamburger > span.lines top (-10 for :bottom)
-					@include min-width($BP3)
-						margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 24px)
-					@include max-width($BP3)
-						margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 16px)
-
-		& > div.items
-			opacity: 0
-			position: relative
-			height: calc(100vh - var(--MOBILE_NAVBAR_HEIGHT))
-
-			& > div
-				color: var(--GREY8)
-				cursor: pointer
-				padding: 24px 0
-				@include min-width($BP3)
-					font-size: 18px
-
-				&:not(:first-of-type)
-					box-shadow: 0 -1px 0px var(--GREY3)
+                    &:before
+                        top: var(--lineGap)
+                        opacity: 1
 
 
-		&[class~="open"]
-			box-shadow: 0 1px 0px var(--GREY3)
+            & > div.logo
+                // makes it not disappear on open
+                position: relative
+                width: max-content
+                //@include min-width($BP3)
+                    display: none
 
-			& > div.menu-and-logo-container > div.menu > span.lines
-				transform: rotate(45deg)
-				box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
-				z-index: -1
+                & > img
+                    // *  DEP: #hamburger > .menu width
+                    height: calc(var(--MOBILE_NAVBAR_HEIGHT) - 24px)
+                    // *  DEP: #hamburger > span.lines top (-10 for :bottom)
+                    @include min-width($BP3)
+                        margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 24px)
+                    @include max-width($BP3)
+                        margin-top: calc(var(--MOBILE_NAVBAR_HEIGHT) / 2 - 16px)
 
-				&:after, &:before
-					transform: rotate(90deg)
+        & > div.items
+            opacity: 0
+            position: relative
+            height: calc(100vh - var(--MOBILE_NAVBAR_HEIGHT))
 
-				&:after
-					bottom: 0
+            & > div
+                color: var(--GREY8)
+                cursor: pointer
+                padding: 24px 0
+                @include min-width($BP3)
+                    font-size: 18px
 
-				&:before
-					top: 0
-					animation:
-						name: FadeOut
-						iteration-count: 1
-						duration: 0s
-						delay: 0.5s
-						fill-mode: forwards
-
-			& > div.items
-				display: flex
-				flex-direction: column
-				transition: opacity 0.5s ease-in-out 0.25s
-				opacity: 1
-
-
-		&:not([class~="open"])
-			box-shadow: 0 1px 0px white
-
-			& > div.items
-				transition: opacity 0.5s ease-out
-				pointer-events: none
-
-	// ***  navbar
-	& > div#navbar
-		@include max-width($BP2)
-			display: none
-
-		@include pFontSize()
-		$_trans: 0.2s ease-in-out
-		--logosHeight: 40px
-
-		display: flex
-		height: var(--REGULAR_NAVBAR_HEIGHT)
-		margin: auto auto 0 auto
-		transition: box-shadow $_trans
-
-		@include min-width($BP1)
-			--_marginRight: var(--logosHeight)
-		@include width-between($BP2, $BP1)
-			--_marginRight: 36px
-
-		//& > div
-			font-size: 18px
-
-		&.box-shadow
-			box-shadow: inset 0 -1px 0 0 var(--GREY2)
-
-		& > div, & > img
-			cursor: pointer
-			letter-spacing: 0.5px
-			transition: color $_trans, border-bottom-color $_trans
+                &:not(:first-of-type)
+                    box-shadow: 0 -1px 0px var(--GREY3)
 
 
-		& > div, & > img.home
-			margin:
-				top: auto
-				right: var(--_marginRight)
-				left: 0
-				bottom: auto
+        &[class~="open"]
+            box-shadow: 0 1px 0px var(--GREY3)
+
+            & > div.menu-and-logo-container > div.menu > span.lines
+                transform: rotate(45deg)
+                box-shadow: 0 0 0 100vw white, 0 0 0 150vh white
+                z-index: -1
+
+                &:after, &:before
+                    transform: rotate(90deg)
+
+                &:after
+                    bottom: 0
+
+                &:before
+                    top: 0
+                    animation:
+                        name: FadeOut
+                        iteration-count: 1
+                        duration: 0s
+                        delay: 0.5s
+                        fill-mode: forwards
+
+            & > div.items
+                display: flex
+                flex-direction: column
+                transition: opacity 0.5s ease-in-out 0.25s
+                opacity: 1
 
 
-		// logo
-		& > img.home
-			margin: auto auto auto 0
-			width: auto
-			height: var(--logosHeight)
+        &:not([class~="open"])
+            box-shadow: 0 1px 0px white
 
-		// tau logo
-		& > img.uni
-			height: var(--logosHeight)
-			margin: auto 0
+            & > div.items
+                transition: opacity 0.5s ease-out
+                pointer-events: none
 
-		& > div:nth-last-child(2)
-			margin-right: auto
+    // ***  navbar
+    & > div#navbar
+        @include max-width($BP2)
+            display: none
 
-		& > div
-			&:hover, &.selected
-				color: black
+        @include pFontSize()
+        $_trans: 0.2s ease-in-out
+        --logosHeight: 40px
+
+        display: flex
+        height: var(--REGULAR_NAVBAR_HEIGHT)
+        margin: auto auto 0 auto
+        transition: box-shadow $_trans
+
+        @include min-width($BP1)
+            --_marginRight: var(--logosHeight)
+        @include width-between($BP2, $BP1)
+            --_marginRight: 36px
+
+        //& > div
+            font-size: 18px
+
+        &.box-shadow
+            box-shadow: inset 0 -1px 0 0 var(--GREY2)
+
+        & > div, & > img
+            cursor: pointer
+            letter-spacing: 0.5px
+            transition: color $_trans, border-bottom-color $_trans
 
 
-			&.pale
-				color: var(--GREY6)
+        & > div, & > img.home
+            margin:
+                top: auto
+                right: var(--_marginRight)
+                left: 0
+                bottom: auto
+
+
+        // logo
+        & > img.home
+            margin: auto auto auto 0
+            width: auto
+            height: var(--logosHeight)
+
+        // tau logo
+        & > img.uni
+            height: var(--logosHeight)
+            margin: auto 0
+
+        & > div:nth-last-child(2)
+            margin-right: auto
+
+        & > div
+            &:hover, &.selected
+                color: black
+
+
+            &.pale
+                color: var(--GREY6)
 
 
 @keyframes FadeOut
-	from
-		opacity: 1
-	to
-		opacity: 0
+    from
+        opacity: 1
+    to
+        opacity: 0
 
 @keyframes FadeIn
-	from
-		opacity: 0
-	to
-		opacity: 1
+    from
+        opacity: 0
+    to
+        opacity: 1
 
