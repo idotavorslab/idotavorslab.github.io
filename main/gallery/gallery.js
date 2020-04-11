@@ -29,50 +29,53 @@ const GalleryPage = () => {
                     return toggleImgViewer(this);
                 });
             }
+
             getLeftImage() {
                 let i;
                 if (this.index === 0) {
                     i = galleryImgs.length - 1;
-                }
-                else {
+                } else {
                     i = this.index - 1;
                 }
                 return galleryImgs[i];
             }
+
             getRightImage() {
                 let i;
                 if (this.index === galleryImgs.length - 1) {
                     i = 0;
-                }
-                else {
+                } else {
                     i = this.index + 1;
                 }
                 return galleryImgs[i];
             }
         }
+
         if (MOBILE === undefined) {
             await WindowElem.promiseLoaded();
         }
         const ROWSIZE = window.innerWidth <= $BP3 ? 2 : 4;
-        console.log({ ROWSIZE });
+        console.log({ROWSIZE});
+
         function switchToImg(_selectedImg) {
-            console.log(`galleryImg.switchToImg(`, JSON.parstr({ _selectedImg }));
+            console.log(`galleryImg.switchToImg(`, JSON.parstr({_selectedImg}));
             selectedImg = _selectedImg;
             imgViewer.caption.text(selectedImg.caption);
             let clone = _selectedImg.e.cloneNode();
             imgViewer.img.wrapSomethingElse(clone);
         }
+
         async function gotoAdjImg(event) {
             event.stopPropagation();
             if (event.currentTarget.id === 'left_chevron') {
                 console.log('left chevron click');
                 switchToImg(selectedImg.getLeftImage());
-            }
-            else {
+            } else {
                 console.log('right chevron click');
                 switchToImg(selectedImg.getRightImage());
             }
         }
+
         function closeImgViewer(event) {
             console.log('closeImgViewer', event);
             Body.toggleClass('theater', false);
@@ -82,8 +85,9 @@ const GalleryPage = () => {
             imgViewerClose.toggleClass('on', false);
             imgViewer.isopen = false;
         }
+
         function toggleImgViewer(_selectedImg) {
-            console.log('galleryImg.toggleImgViewer(', JSON.parstr({ _selectedImg }));
+            console.log('galleryImg.toggleImgViewer(', JSON.parstr({_selectedImg}));
             if (imgViewer.isopen) {
                 return closeImgViewer();
             }
@@ -95,45 +99,46 @@ const GalleryPage = () => {
             imagesContainer.toggleClass('theater', true);
             _toggleNavigationElementsDisplay(false);
         }
+
         function _toggleNavigationElementsDisplay(on) {
             if (on) {
-                elem({ id: 'navbar_section' }).removeClass('off');
-            }
-            else {
-                elem({ id: 'navbar_section' }).addClass('off');
+                elem({id: 'navbar_section'}).removeClass('off');
+            } else {
+                elem({id: 'navbar_section'}).addClass('off');
             }
         }
-        const imgViewer = div({ id: 'img_viewer' })
+
+        const imgViewer = div({id: 'img_viewer'})
             .cacheAppend({
-            left: div({ id: 'left_chevron', cls: 'left' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
-            img: img(),
-            right: div({ id: 'right_chevron', cls: 'right' }).append(span({ cls: 'lines' })).click(gotoAdjImg),
-            caption: div({ id: 'caption' })
-        }).click((event) => {
-            console.log('imgViewer click, stopping propagation');
-            event.stopPropagation();
-        });
+                left: div({id: 'left_chevron', cls: 'left'}).append(span({cls: 'lines'})).click(gotoAdjImg),
+                img: img(),
+                right: div({id: 'right_chevron', cls: 'right'}).append(span({cls: 'lines'})).click(gotoAdjImg),
+                caption: div({id: 'caption'})
+            }).click((event) => {
+                console.log('imgViewer click, stopping propagation');
+                event.stopPropagation();
+            });
         imgViewer.isopen = false;
         const data = await fetchArray("main/gallery/gallery.json");
         const galleryImgs = [];
-        for (let { brightness, contrast, file, year, caption } of data) {
+        for (let {brightness, contrast, file, year, caption} of data) {
             let galleryImg = new GalleryImg(brightness, contrast, file, year, caption);
             let cachedImage = CacheDiv[`gallery.${file}`];
             if (cachedImage !== undefined) {
                 galleryImg.wrapSomethingElse(cachedImage.removeAttr('hidden'));
-            }
-            else {
+            } else {
                 let src = `main/gallery/${file}`;
                 galleryImg.src(src);
             }
-            galleryImg.css({ filter: `contrast(${contrast || 1}) brightness(${brightness || 1})` });
+            galleryImg.css({filter: `contrast(${contrast || 1}) brightness(${brightness || 1})`});
             galleryImgs.push(galleryImg);
         }
         galleryImgs
-            .sort(({ year: yearA }, { year: yearB }) => yearB - yearA)
+            .sort(({year: yearA}, {year: yearB}) => yearB - yearA)
             .forEach((image, i) => image.index = i);
         const yearToYearDiv = {};
         let count = 0;
+
         function appendToRow(yearDiv, galleryImg, count) {
             switch (count % ROWSIZE) {
                 case 0:
@@ -150,64 +155,64 @@ const GalleryPage = () => {
                     break;
             }
         }
+
         for (let galleryImg of galleryImgs) {
             let yearDiv;
             if (galleryImg.year in yearToYearDiv) {
                 count++;
                 yearDiv = yearToYearDiv[galleryImg.year];
-            }
-            else {
+            } else {
                 count = 0;
                 let gridChildrenObj = {
-                    row0: div({ cls: 'row' }),
-                    row1: div({ cls: 'row' }),
+                    row0: div({cls: 'row'}),
+                    row1: div({cls: 'row'}),
                 };
                 if (ROWSIZE == 4) {
-                    gridChildrenObj.row2 = div({ cls: 'row' });
-                    gridChildrenObj.row3 = div({ cls: 'row' });
+                    gridChildrenObj.row2 = div({cls: 'row'});
+                    gridChildrenObj.row3 = div({cls: 'row'});
                 }
-                yearDiv = div({ cls: 'year' })
+                yearDiv = div({cls: 'year'})
                     .cacheAppend({
-                    title: div({ cls: 'title' }).text(galleryImg.year),
-                    grid: div({ cls: 'grid' }).cacheAppend(gridChildrenObj)
-                });
+                        title: div({cls: 'title'}).text(galleryImg.year),
+                        grid: div({cls: 'grid'}).cacheAppend(gridChildrenObj)
+                    });
                 yearToYearDiv[galleryImg.year] = yearDiv;
             }
             appendToRow(yearDiv, galleryImg, count);
         }
         let selectedImg = new GalleryImg();
-        const imagesContainer = div({ id: 'images_container' })
+        const imagesContainer = div({id: 'images_container'})
             .append(...Object.values(yearToYearDiv).reverse());
         DocumentElem
             .click(() => {
-            if (!imgViewer.isopen) {
-                return;
-            }
-            console.log('document click, closeImgViewer()');
-            closeImgViewer();
-        })
-            .keydown((event) => {
-            if (!imgViewer.isopen) {
-                return;
-            }
-            if (event.key === "Escape") {
-                return closeImgViewer();
-            }
-            if (event.key.startsWith("Arrow")) {
-                if (event.key === "ArrowLeft") {
-                    return switchToImg(selectedImg.getLeftImage());
+                if (!imgViewer.isopen) {
+                    return;
                 }
-                else {
-                    if (event.key === "ArrowRight") {
-                        return switchToImg(selectedImg.getRightImage());
+                console.log('document click, closeImgViewer()');
+                closeImgViewer();
+            })
+            .keydown((event) => {
+                if (!imgViewer.isopen) {
+                    return;
+                }
+                if (event.key === "Escape") {
+                    return closeImgViewer();
+                }
+                if (event.key.startsWith("Arrow")) {
+                    if (event.key === "ArrowLeft") {
+                        return switchToImg(selectedImg.getLeftImage());
+                    } else {
+                        if (event.key === "ArrowRight") {
+                            return switchToImg(selectedImg.getRightImage());
+                        }
                     }
                 }
-            }
-        });
-        const imgViewerClose = div({ id: 'img_viewer_close' })
-            .append(span({ cls: 'lines' })).click(closeImgViewer);
+            });
+        const imgViewerClose = div({id: 'img_viewer_close'})
+            .append(span({cls: 'lines'})).click(closeImgViewer);
         Home.empty().class('gallery-page').append(imagesContainer, imgViewer, imgViewerClose);
     }
-    return { init };
+
+    return {init};
 };
 //# sourceMappingURL=gallery.js.map

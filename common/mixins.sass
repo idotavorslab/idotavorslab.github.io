@@ -71,33 +71,33 @@
 
 // **  --w
 @mixin setLocalWVar()
-    /// 1340 <= screen
+    /// 1340 <= innerWidth
     @include min-width($BP1)
         // 1200px
         --w: var(--W0)
     //#window_stats:after
         content: "--w: var(--W0): 1200px \A [BP1] screen: #{$BP1} screen"
 
-    /// 1025 <= screen <= 1340
+    /// 1025 <= innerWidth <= 1340
     @include width-between($BP2, $BP1)
         // 984px
         --w: var(--W1)
     //#window_stats:after
         content: "--w: var(--W1): 984px \A [BP2] screen [BP1]: #{$BP2} screen #{$BP1}"
 
-    /// 760 <= screen <= 1025
+    /// 760 <= innerWidth <= 1025
     @include width-between($BP3, $BP2)
-        // 748px
+        // 90vw
         --w: var(--W2)
     //#window_stats:after
         content: "--w: var(--W2): 748px \A [BP3] screen [BP2]: #{$BP3} screen #{$BP2}"
 
 
-    /// screen <= 760
+    /// innerWidth <= 760
     @include max-width($BP3)
         // 90%
         --w: var(--W3)
-        #window_stats:after
+        //#window_stats:after
             content: "--w: var(--W3): 90% \A screen [BP3]: screen #{$BP3}"
 
 @mixin iframeMixin()
@@ -111,8 +111,8 @@
     @if ($tight == true)
         // [min-width: $BP1]:  (1200 - 8*3) / 4  =  (1200 - 24) / 4  = 1176 / 4  =  294px
         // [max-width: $BP1]:  (984 - 8*3) / 4  =  (984 - 24) / 4  = 960 / 4  =  240px
-        // [max-width: $BP2]:  (748 - 8*3) / 4  =  (748 - 24) / 4  = 724 / 4  =  181px
-        // [max-width: $BP3]:  (90% - 4px*1) / 2  =  (90% - 4px) / 2
+        // [max-width: $BP2]:  (90vw - 8*3) / 4  =  (90vw - 24) / 4  =  22.5vw - 6px
+        // [max-width: $BP3]:  (90% - 4px*1) / 2  =  (90% - 4px) / 2  =  22.5% - 2px
         --tagWidth: calc((var(--w) - (var(--_tightGap) * (#{$columns} - 1))) / #{$columns})
     @else
         // [min-width: $BP1]:  (1200 - 60*3) / 4  =  (1200 - 180) / 4  = 1020 / 4  =  255px
@@ -121,6 +121,7 @@
 
 @mixin gridContainerMixin($childTag, $tight:false)
     // *  DEP: gallery.ts
+    // gallery is tight, people aint
     @include min-width($BP3)
         --columns: 4
         --_tightGap: 8px

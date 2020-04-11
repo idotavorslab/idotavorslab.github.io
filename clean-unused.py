@@ -1,5 +1,7 @@
+#!/usr/bin/env python3.7
 import os
 import json
+from pathlib import Path
 
 
 def remove_where(coll, predicate):
@@ -15,20 +17,12 @@ def remove_where(coll, predicate):
 
 
 def main():
-    json_files = []
-    for dirpath, dirnames, filenames in os.walk(os.getcwd()):
-        remove_where(dirnames, lambda d: d.startswith('.'))
-        remove_where(filenames, lambda f: not f.endswith('.json')
-                                          or os.path.basename(dirpath) != os.path.splitext(os.path.basename(f))[0])
-
-        if filenames:
-            json_files.append(os.path.join(dirpath, filenames[0]))
-            # print 'dirpath:', dirpath, 'dirnames:', dirnames, 'filenames:', filenames
-
+    json_files = list(Path('main').glob('**/*.json'))
+    
     # print 'json files:', json_files, '\n'
     FILE_EXTS = ['.png', '.jpg', '.jpeg', '.pdf', '.gif']
     files_in_jsons = []
-
+    
     def handle_dict(dictlike):
         for val in dictlike.values():
             if isinstance(val, unicode):
@@ -39,12 +33,12 @@ def main():
                 handle_dict(val)
             elif isinstance(val, list):
                 handle_list(val)
-
+    
     def handle_list(listlike):
         for val in listlike:
             if isinstance(val, dict):
                 handle_dict(val)
-
+    
     for js in json_files:
         with open(js) as f:
             content = json.load(f)
@@ -52,13 +46,14 @@ def main():
                 handle_dict(content)
             elif isinstance(content, list):
                 handle_list(content)
+    
     from pprint import pprint
     unused_files = []
     cwd = os.getcwd()
     for dirpath, dirnames, filenames in os.walk(os.getcwd()):
         remove_where(dirnames, lambda d: d.startswith('.'))
         remove_where(filenames, lambda f: not os.path.splitext(f)[1] in FILE_EXTS)
-
+        
         if filenames:
             unused = [f for f in filenames if f not in [_f[1] for _f in files_in_jsons]]
             if unused:
