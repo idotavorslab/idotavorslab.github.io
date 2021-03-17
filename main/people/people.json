@@ -21,7 +21,7 @@
 		"yael shavit": {
 			"role": "PhD Student",
 			"image": "yael-4to3.jpg",
-			"cv": "Yael received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is now a PhD student in the lab, currently focusing on microstructural characterization of the human cortex using diffusion MRI.",
+			"cv": "Yael received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is now a PhD student in the lab, currently focusing on the association between the functional and microstructural changes taking place in the human brain's gray matter during language acquisition, using functional and diffusion MRI. Yael is a Minducate fellow, aiming to contribute to the understanding of language-learning processes..",
 			"email": "yael.shvt5@gmail.com"
 		},
 		"dana gefen doron": {
@@ -31,9 +31,9 @@
 			"email": "dorondana@gmail.com"
 		},
 		"naama friedman": {
-			"role": "MSc student",
+			"role": "PhD student",
 			"image": "naama-4to3-small.jpg",
-			"cv": "Naama is currently a master's student at the Sagol School of neuroscience. She did her B.Sc at the Hebrew University of Jerusalem studying Psychobiology. Her projects include single subject-based analysis of learning-induced DTI changes and continuos diffusion changes while performing spatial tasks.",
+			"cv": "Naama is currently a PhD student at the Sackler School of Medicine. She completed her BSc at the Hebrew University of Jerusalem studying Psychobiology. She then continued to MSc at our lab focusing on single subject-based analysis of learning-induced DTI changes. In her PhD Naama investigates continuous diffusion changes while performing spatial tasks.",
 			"email": "naamaf@mail.tau.ac.il"
 		},
 		"shachar gal": {
@@ -43,16 +43,10 @@
 			"email": "gal.shachar@gmail.com"
 		},
 		"noga yair": {
-			"role": "MSc student",
+			"role": "PhD student",
 			"image": "noga.jpg",
-			"cv": "Noga received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is currently an MSc student under the joint supervision of Prof. Yair Bar-Haim and Dr. Ido Tavor, studying the functional changes that occur in the brain after exposure to stressful events, and specifically combat.",
+			"cv": "Noga received her BSc in biology and psychology with an emphasis on neuroscience in 2017, from the Sagol School of Neuroscience, Tel Aviv University. She is currently an PhD student under the joint supervision of Prof. Yair Bar-Haim and Dr. Ido Tavor, studying the functional changes that occur in the brain after exposure to stressful events, and specifically combat.",
 			"email": "nogayair23@gmail.com"
-		},
-		"cfir malovani": {
-			"role": "MSc student",
-			"image": "Cfir.jpg",
-			"cv": "Cfir received his BSc in Electrical Engineering and Physics from the Technion. He is currently an MSc student in the School of Electrical Engineering under the joint supervision of Dr. Ido Tavor and Dr. Noam Ben-Eliezer, focusing on segmentation-based registration methods for diffusion MRI scans.",
-			"email": "cfir.malovani@gmail.com"
 		}
 	},
 	"alumni": {
@@ -61,6 +55,12 @@
 			"image": "inbar.png",
 			"cv": "Inbar completed her undergraduate studies in biology and psychology with emphasis on Neuroscience at Tel Aviv University. She then continued to MSc under the joint supervision of Prof. Chagi Pick and Dr. Ido Tavor. She investigated the effects of mild traumatic brain injury on the patterns of brain connectivity in mice.",
 			"email": "inbar.meni@gmail.com"
+		},
+"cfir malovani": {
+			"role": "former MSc student",
+			"image": "Cfir.jpg",
+			"cv": "Cfir received his BSc in Electrical Engineering and Physics from the Technion. He then continued to MSc under the joint supervision of Dr. Ido Tavor and Dr. Noam Ben-Eliezer, focusing on segmentation-based registration methods for diffusion MRI scans.",
+			"email": "cfir.malovani@gmail.com"
 		}
 	}
 }

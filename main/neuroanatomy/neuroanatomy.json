@@ -5,9 +5,17 @@
 			"text": "<p>This model presents the lateral surface of the two hemispheres as well as the bottom aspect of the brain, including the brainstem and cerebellum.</p> ",
 			"link": "https://sketchfab.com/3d-models/3d-brain-f390b7e894d2446789e5a0b89d4abe8d"
 		},
-		"3D surface of the brainstem and cerebellum": {
-			"text": "This model presents the anterior surface of the brainstem including the cranial nerves, and the anterior and posterior surfaces of the cerebellum.",
-			"link": "https://sketchfab.com/3d-models/brainstem-cerebellum-830b1df0de04435c8edf64261f510907"
+		"3D surface of the right hemisphere": {
+			"text": "This model presents the medial, lateral and inferior surfaces of the right cerebral hemisphere.",
+			"link": "https://sketchfab.com/3d-models/right-hemisphere-add35de24fda4ee6a66d07de2ffbf52f"
+		},
+		"3D model of the brain showing main gyri and sulci": {
+			"text": "This model presents the primary gyri and sulci of the human brain.",
+			"link": "https://sketchfab.com/3d-models/whole-brain-main-gyri-and-sulci-annotations-7e32ad74ea4f45cfad1c35c0fa0172a7"
+		},
+		"3D model of  the right hemisphere showing subcortical regions": {
+			"text": "This model presents the right hemisphere with subcortical regions shown on the medial surface.",
+			"link": "https://sketchfab.com/3d-models/right-hemisphere-subcortical-annotations-8cde3751335a4b08a5d3fc02f9b59465"
 		},
 		"3D model of the corpus callosum": {
 			"text": "This model presents the human brain dissected to reveal the commissural fibers of the corpus callosum, connecting between the two hemispheres.",
@@ -16,10 +24,6 @@
 		"3D model of the lateral ventricles": {
 			"text": "This model presents the human brain dissected to reveal the two lateral ventricles. In this dissection, the corpus callosum was detached from the septum pellucidum and cut out. The central part of the lateral ventricles is visible, as well as the caudate nucleus, stria terminallis, choroid plexus, crura of fornix and hippocampal commissure.",
 			"link": "https://sketchfab.com/3d-models/lateral-ventricles-3e56021a1cc1498eba4dbcea062c5a1a"
-		},
-		"3D surface of the right hemisphere": {
-			"text": "This model presents the medial, lateral and inferior surfaces of the right cerebral hemisphere.",
-			"link": "https://sketchfab.com/3d-models/right-hemisphere-add35de24fda4ee6a66d07de2ffbf52f"
 		},
 		"3D model of the insula and cingulum": {
 			"text": "This model presents a dissected right cerebral hemisphere showing the insula on the lateral aspect and the cingulum on the medial aspect.",
@@ -40,6 +44,14 @@
 		"3D model of the hippocampus": {
 			"text": "This model presents a dissected right cerebral hemisphere showing the hippocampal formation, temporal horn of the lateral ventricle and the corona radiata.",
 			"link": "https://sketchfab.com/3d-models/hippocampus-61ad0d60bfc640fc9678caa93bcb797a"
+		},
+		"3D surface of the brainstem and cerebellum": {
+			"text": "This model presents the anterior surface of the brainstem including the cranial nerves, and the anterior and posterior surfaces of the cerebellum.",
+			"link": "https://sketchfab.com/3d-models/brainstem-cerebellum-830b1df0de04435c8edf64261f510907"
+		},
+		"3D model of the cerebellum": {
+			"text": "This model presents the brainstem and cerebellum.",
+			"link": "https://sketchfab.com/3d-models/cerebellum-87df9602c1f44b5597abbac4529042bc"
 		}
 	}
 }

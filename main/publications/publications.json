@@ -1,10 +1,10 @@
 {
 	"selected": [
+		"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion Magnetic Resonance Imaging",
 		"Task-free MRI predicts individual differences in brain activity during task performance",
-		"learning in the fast lane: new insights into neuroplasticity",
-		"Separate parts of occipito-temporal white matter fibers are associated with recognition of faces and places",
-		"Micro-structural assessment of short term plasticity dynamics"
-	],
+		"Micro-structural assessment of short term plasticity dynamics",
+		"learning in the fast lane: new insights into neuroplasticity"
+		],
 	"publications": {
 		"learning in the fast lane: new insights into neuroplasticity": {
 			"year": 2012,
@@ -70,7 +70,7 @@
 			"thumbnail": "academic-radiology.png"
 		},
 		"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion Magnetic Resonance Imaging": {
-			"year": 2019,
+			"year": 2020,
 			"creds": "Tavor I., Botvinik-Nezer R., Bernstein-Eliav M., Tsarfaty G. & Assaf Y.",
 			"mag": "Human Brain Mapping",
 			"link": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/hbm.24814",
@@ -96,6 +96,20 @@
 			"mag": "Biological Psychology 146, 107736",
 			"link": "https://www.sciencedirect.com/science/article/pii/S0301051120300259",
 			"thumbnail": "biopsych.png"
+		},
+		"Alterations in Network Connectivity Following Traumatic Brain Injury in Mice": {
+			"year": 2020,
+			"creds": "Meningher I., Bernstein-Eliav M., Rubovitch V., Pick C.G., Tavor I.",
+			"mag": "Journal of Neurotrauma",
+			"link": "https://www.liebertpub.com/doi/abs/10.1089/neu.2020.7063",
+			"thumbnail": "JNeurotrauma.png"
+		},
+		"Traumatic Brain Injury Severity in a Network Perspective: A Diffusion MRI Based Connectome Study": {
+			"year": 2020,
+			"creds": "Raizman R., Tavor I., Biegon A., Harnof S., Hoffmann C., Tsarfaty G., Fruchter E., Tatsa-Laur L., Weiser M., Livny A.",
+			"mag": "Scientific Reports",
+			"link": "https://www.nature.com/articles/s41598-020-65948-4",
+			"thumbnail": "SciRep.png"
 		}
 	}
 }
