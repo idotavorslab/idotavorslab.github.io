@@ -9,18 +9,11 @@
                 "@LabTavor": "https://twitter.com/LabTavor"
             }
         },
-        "We made it to the cover!": {
-            "date": "Jan 7, 2020",
-            "content": "<p>Our work on short-term plasticity following motor sequence learning was chosen for the cover of the Human Brain Mapping journal.</p>",
+        "New paper published in the Journal of Magnetic Resonance Imaging": {
+            "date": "April 27, 2021",
+            "content": "<p>Check out our latest paper on tissue probability based registration for diffusion MRI data.</p> <p>We applied a machine-learning approach to segment diffusion-wighted images into tissue probability maps, and used those to improve spatial registration.</p>",
             "links": {
-                "cover": "https://onlinelibrary.wiley.com/toc/10970193/2020/41/2"
-            }
-        },
-        "New paper published in the Journal of Neurotrauma": {
-            "date": "May 21, 2020",
-            "content": "<p>Check out our latest paper on connectivity changes following traumatic brain injury.</p> <p>We used diffusion MRI and graph theory measures to explore the brain connectivity alterations in a mice model of traumatic brain injury. We found changes in global and local measures of network integration and segragation at 7 days following the injury, which returned to baseline level at 30 days post-injury suggesting a possible compensation mechanism.</p>",
-            "links": {
-                "our latest paper": "https://www.liebertpub.com/doi/abs/10.1089/neu.2020.7063"
+                "our latest paper": "https://onlinelibrary.wiley.com/doi/10.1002/jmri.27654"
 			}
         },
         "Congratulations to Cfir Malovani for completing his M.Sc.!": {
