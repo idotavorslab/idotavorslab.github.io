@@ -110,6 +110,13 @@
 			"mag": "Scientific Reports",
 			"link": "https://www.nature.com/articles/s41598-020-65948-4",
 			"thumbnail": "SciRep.png"
+		},
+		"Tissue Probability Based Registration of Diffusion‐Weighted Magnetic Resonance Imaging": {
+			"year": 2021,
+			"creds": "Malovani C., Friedman N., Ben-Eliezer N., Tavor I.",
+			"mag": "Journal of Magnetic Resonance Imaging",
+			"link": "https://onlinelibrary.wiley.com/doi/10.1002/jmri.27654",
+			"thumbnail": "jmri.png"
 		}
 	}
 }

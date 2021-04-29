@@ -19,6 +19,11 @@
 		"image": "yael-cropped.jpg",
 		"thumbnail": "yael.png"
 	},
+	"Neural Correlates of Language Acquisition": {
+		"text": "The acquisition of new skills induce functional and microstructural alterations in the human cortex. In our lab we investigate neuroplasticity following language acquisition by teaching naïve participants an academic course in Israeli Sign Language. Participants undergoe structural, functional and diffusion MRI scans before and after completing the course. Using this paradigm, we aim to detect functional alterations both while at rest and while watching content in Israeli Sign Language, and explore the correspondence between the two. Additionally, by correlating imaging data with the results of a proficiency test participants take at the end of the course, we aim to detect physiological biomarkers of successful learning in the forms of microstructural and functional alterations.",
+		"image": "language_research.png",
+		"thumbnail": "language.png"
+	},
 	"Relating PET and MRI Measures in Parkinson’s Disease": {
 		"text": "Positron emission tomography (PET) is widely used to diagnose and track the progression of Parkinson’s disease (PD). While effective, this imaging technique involves the injection of radioactive substance that is associated with severe health damage. In recent years there has been increasing interest in studying large-scale functional networks in PD patients using fMRI. In our lab, we study the relationship between the abnormal network connectivity in PD patients, measured by fMRI, and dopamine metabolism, measured by PET, as well as behavioral and cognitive clinical scores. We hope to offer valuable insight into the neural mechanisms underlying PD symptoms and possible interventions, as well as potential non-invasive biomarkers for early diagnosis of PD.",
 		"image": "michal.jpg",
