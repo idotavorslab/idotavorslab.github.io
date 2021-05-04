@@ -4,6 +4,11 @@
 		"image": "musical_brain_research.png",
 		"thumbnail": "HBMcover.png"
 	},
+"Neural Correlates of Language Acquisition": {
+		"text": "The acquisition of new skills induces functional and microstructural alterations in the human cortex. In our lab we investigate neuroplasticity following language acquisition by teaching naïve participants an academic course in Israeli Sign Language. Participants undergo structural, functional and diffusion MRI scans before and after completing the course. Using this paradigm, we aim to detect functional alterations both while at rest and while watching content in Israeli Sign Language, and explore the correspondence between the two. Additionally, we examine the correlation between imaging data and behavioral measures of learning in order to detect physiological biomarkers of successful learning.",
+		"image": "language_research.png",
+		"thumbnail": "language.png"
+	},
 	"Activity and Connectivity in Psychiatric Disorders": {
 		"text": "Understanding the abnormal structure and function of the human brain in different pathological states is one of the most fundamental challenges of neuroscience today. We study the relationship between brain connectivity and brain activity in individuals diagnosed with psychiatric disorders, such as schizophrenia and bipolar disorder. We investigate functional network connectivity (i.e., synchronized activity of different brain regions during rest), and how it is associated with brain function under different cognitive tasks. While studies of clinical populations usually compare ‘healthy’ and ‘patients’ as groups, we focus on the individual level and examine each brain’s unique patterns of connectivity and activity. This approach may lead to better understanding of what goes wrong in the psychiatric brain and may provide future directions for diagnosis and treatment.",
 		"image": "niv.jpg",
@@ -18,11 +23,6 @@
 		"text": "Diffusion MRI is based on the diffusivity of water molecules within the brain tissue. The ability of water molecules to diffuse freely can imply on the structure and geometry of the compartments in which they are found. Diffusion MRI is usually applied to map the trajectories of white matter fibers, in a technique refered to as structural connectivity, since water molecules motion is preferred along the fibers than perpendicular to them. However, advanced biophysical models allow the analysis of diffusivity properties in the cortical gray matter as well. In our lab we use such models to learn about the human cortex microstructure and compartmentalization, as well as detect microstructural changes.",
 		"image": "yael-cropped.jpg",
 		"thumbnail": "yael.png"
-	},
-	"Neural Correlates of Language Acquisition": {
-		"text": "The acquisition of new skills induce functional and microstructural alterations in the human cortex. In our lab we investigate neuroplasticity following language acquisition by teaching naïve participants an academic course in Israeli Sign Language. Participants undergoe structural, functional and diffusion MRI scans before and after completing the course. Using this paradigm, we aim to detect functional alterations both while at rest and while watching content in Israeli Sign Language, and explore the correspondence between the two. Additionally, by correlating imaging data with the results of a proficiency test participants take at the end of the course, we aim to detect physiological biomarkers of successful learning in the forms of microstructural and functional alterations.",
-		"image": "language_research.png",
-		"thumbnail": "language.png"
 	},
 	"Relating PET and MRI Measures in Parkinson’s Disease": {
 		"text": "Positron emission tomography (PET) is widely used to diagnose and track the progression of Parkinson’s disease (PD). While effective, this imaging technique involves the injection of radioactive substance that is associated with severe health damage. In recent years there has been increasing interest in studying large-scale functional networks in PD patients using fMRI. In our lab, we study the relationship between the abnormal network connectivity in PD patients, measured by fMRI, and dopamine metabolism, measured by PET, as well as behavioral and cognitive clinical scores. We hope to offer valuable insight into the neural mechanisms underlying PD symptoms and possible interventions, as well as potential non-invasive biomarkers for early diagnosis of PD.",
