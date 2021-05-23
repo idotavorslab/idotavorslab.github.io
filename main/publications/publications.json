@@ -3,6 +3,7 @@
 		"Short-Term Plasticity Following Motor Sequence Learning Revealed by Diffusion Magnetic Resonance Imaging",
 		"Task-free MRI predicts individual differences in brain activity during task performance",
 		"Tissue Probability Based Registration of Diffusion‐Weighted Magnetic Resonance Imaging",
+		"Predicting individual variability in task-evoked brain activity in schizophrenia",
 		"learning in the fast lane: new insights into neuroplasticity"
 		],
 	"publications": {
@@ -117,6 +118,13 @@
 			"mag": "Journal of Magnetic Resonance Imaging",
 			"link": "https://onlinelibrary.wiley.com/doi/10.1002/jmri.27654",
 			"thumbnail": "jmri.png"
+		},
+		"Predicting individual variability in task-evoked brain activity in schizophrenia": {
+			"year": 2021,
+			"creds": "Tik N., Livny A., Gal S., Gigi K., Tsarfaty G., Weiser M., Tavor I.",
+			"mag": "Human Brain Mapping",
+			"link": "https://pubmed.ncbi.nlm.nih.gov/34021674/",
+			"thumbnail": "HBM.png"
 		}
 	}
 }
