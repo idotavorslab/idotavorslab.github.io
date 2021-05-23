@@ -16,6 +16,13 @@
                 "our latest paper": "https://onlinelibrary.wiley.com/doi/10.1002/jmri.27654"
 			}
         },
+        "New paper published in Human Brain Mapping": {
+            "date": "May 23, 2021",
+            "content": "<p>Check out our latest paper on prediction of task-induced brain activity in schizophrenia patients.</p> <p>We applied a machine-learning approach to predict individual variability in brain activity of patients, using resting-state functional connectivity measures extracted from healthy controls.</p>",
+            "links": {
+                "our latest paper": "https://pubmed.ncbi.nlm.nih.gov/34021674/"
+			}
+        },
         "Congratulations to Cfir Malovani for completing his M.Sc.!": {
             "date": "March 17, 2021",
             "content": "<p>Cfir has recently received his M.Sc. diploma for studying segmentation-based registration methods for diffusion MRI scans.</p> <p> Congrats Cfir! </p>",
