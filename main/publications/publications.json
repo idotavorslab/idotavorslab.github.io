@@ -132,6 +132,13 @@
 			"mag": "NeuroImage",
 			"link": "https://www.sciencedirect.com/science/article/pii/S1053811921005875?via%3Dihub",
 			"thumbnail": "neuroimage.png"
-	}
+	},
+	"Neuromodulation of Visual Cortex Reduces the Intensity of Intrusive Memories": {
+		"year": 2021,
+		"creds": "Herz N., Bar-Haim Y., Tavor I., Tik N., Sharon H., Holmes E., Censor N.",
+		"mag": "Cerebral Cortex",
+		"link": "https://academic.oup.com/cercor/advance-article/doi/10.1093/cercor/bhab217/6322323",
+		"thumbnail": "CerebralCortex.png"
+}
 }
 }
