@@ -139,6 +139,13 @@
 		"mag": "Cerebral Cortex",
 		"link": "https://academic.oup.com/cercor/advance-article/doi/10.1093/cercor/bhab217/6322323",
 		"thumbnail": "CerebralCortex.png"
+},
+	"Widespread cortical dyslamination in epilepsy patients with malformations of cortical development": {
+		"year": 2021,
+		"creds": "Lotan E., Tomer O., Tavor I., Blatt I., Goldberg-Stern H., Hoffmann C., Tsarfaty G., Tanne D., Assaf Y.",
+		"mag": "Neuroradiology",
+		"link": "https://link.springer.com/content/pdf/10.1007/s00234-020-02561-2.pdf",
+		"thumbnail": "Neuroradiology.png"
 }
 }
 }
