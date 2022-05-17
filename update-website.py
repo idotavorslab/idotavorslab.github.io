@@ -52,12 +52,13 @@ if not onlyscp:
        |   Pushing to GitHub...    |
        -----------------------------
     ''')
-    os.system('git add . && git commit -a -m "' + change + '" && git push')
+    exitcode = os.system('git add . && git commit -a -m "' + change + '" && git push')
+    status = 'Success' if exitcode == 0 else 'Failed'
     print('''
        --------------------------------------------------------------------------------
-       |   Success pushing to GitHub.                                                 |
+       |   %s pushing to GitHub.                                                 |
        --------------------------------------------------------------------------------
-       ''')
+       ''' % status)
 
 if not onlygit:
     print('''

@@ -86,7 +86,7 @@ const GalleryPage = () => {
         const ROWSIZE = window.innerWidth <= $BP3 ? 2 : 4;
         console.log({ROWSIZE});
 
-        //**  Functions
+        // **  Functions
 
 
         // DocumentElem.keydown Arrow  =>  switchToImg
@@ -158,7 +158,7 @@ const GalleryPage = () => {
             }
         }
 
-        //**  imgViewer
+        // **  imgViewer
         const imgViewer: ImgViewer = <ImgViewer>div({id: 'img_viewer'})
             .cacheAppend({
                 left: div({id: 'left_chevron', cls: 'left'}).append(span({cls: 'lines'})).click(gotoAdjImg),
