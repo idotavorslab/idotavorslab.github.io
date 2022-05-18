@@ -61,9 +61,11 @@ interface IWindow extends BetterHTMLElement {
 }
 
 const WindowElem = elem({htmlElement: window}) as IWindow;
-WindowElem.isLoaded = false;
-WindowElem.promiseLoaded = async function () {
-    console.log(...less('WindowElem.promiseLoaded(), this.isLoaded:'), this.isLoaded);
+WindowElem.isLoaded = false; // Turned on when native WindowElem.onload() is done.
+WindowElem.promiseLoaded = promiseWindowLoaded;
+/** Waits until WindowElem.isLoaded */
+async function promiseWindowLoaded() {
+    console.log(...less('WindowElem.promiseWindowLoaded(), this.isLoaded:'), this.isLoaded);
     if (this.isLoaded) {
         return true;
     }
@@ -75,10 +77,10 @@ WindowElem.promiseLoaded = async function () {
     while (!this.isLoaded) {
         if (count >= 2000) {
             if (count === 2000) {
-                console.trace(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                console.trace(`WindowElem.promiseWindowLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
             } else {
                 if (count % 5 === 0) {
-                    console.warn(`WindowElem.promiseLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
+                    console.warn(`WindowElem.promiseWindowLoaded() count: ${count}. Waiting 200ms, warning every 1s.`);
                 }
             }
             await wait(200);
@@ -88,12 +90,12 @@ WindowElem.promiseLoaded = async function () {
 
         count++;
     }
-    console.log(...less('WindowElem.promiseLoaded() returning true'));
+    console.log(...less('WindowElem.promiseWindowLoaded() returning true'));
     this.isLoaded = true;
     return true;
-};
+}
 
-// ***  Hamburger
+// *** Hamburger
 interface IHamburger extends Div {
     menu: Div;
     logo: Div;
@@ -138,7 +140,7 @@ Hamburger.click((event: PointerEvent) => {
     Hamburger.toggle();
 });
 
-// ***  WindowElem.on (cache)
+// *** WindowElem.on (cache)
 // noinspection TypeScriptValidateTypes
 WindowElem.on({
     scroll: (event: Event) => {
@@ -175,101 +177,106 @@ WindowElem.on({
             Body.windowStats.html(windowStats())
         }
     },
-    load: () => {
-        function cache(file: string, page: Routing.Page) {
-            let src: string;
-            if (file.includes('http') || file.includes('www')) {
-                src = file;
-            } else {
-                src = `main/${page}/${file}`;
-            }
-            let image = new Image();
-            let imgElem = elem({htmlElement: image})
-                .attr({src, hidden: ""})
-                .on({
-                    load: () => {
-                        console.log(...less(`loaded ${page} | ${file}`));
-                        CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
-                    }
-                });
-        }
-
-        async function cachePeople() {
-            console.log(...less('cachePeople'));
-            const peopleData = await fetchDict('main/people/people.json');
-            const {team: teamData, alumni: alumniData} = peopleData;
-            for (let [_, {image}] of dict(teamData).items()) {
-                cache(image, "people");
-            }
-            for (let [_, {image}] of dict(alumniData).items()) {
-                cache(image, "people")
-            }
-        }
-
-        async function cacheGallery() {
-            console.log(...less('cacheGallery'));
-            let galleryData = await fetchArray<{ file: string }>("main/gallery/gallery.json");
-            const galleryFiles = galleryData.map(d => d.file);
-            for (let file of galleryFiles) {
-                cache(file, "gallery")
-            }
-        }
-
-        async function cacheResearch() {
-            console.log(...less('cacheResearch'));
-            const researchData = await fetchDict('main/research/research.json');
-            for (let [_, {image}] of researchData.items()) {
-                cache(image, "research")
-            }
-        }
-
-        console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
-        WindowElem.isLoaded = true;
-        MOBILE = window.innerWidth <= $BP2;
-        Navbar = new NavbarElem({
-            query: 'div#navbar',
-            children: {
-                home: '.home',
-                research: '.research',
-                people: '.people',
-                publications: '.publications',
-                gallery: '.gallery',
-                neuroanatomy: '.neuroanatomy',
-                contact: '.contact',
-            }
-        });
-
-
-        if (window.location.hash !== "") {
-            fetchDict<{ logo: string }>('main/home/home.json').then(({logo}) => Navbar.home.attr({src: `main/home/${logo}`}));
-        }
-
-        console.log('%cstats:', 'color: #B58059', {
-            MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI, innerWidth
-        });
-        if (SHOW_STATS) {
-            Body.windowStats.class('on').html(windowStats())
-        }
-        Body.footer.css({height: IS_SAFARI ? '260px' : 'auto'});
-        console.log(...less('waiting 1000...'));
-        wait(1000).then(() => {
-
-            console.log(...less('done waiting, starting caching'));
-            if (!window.location.hash.includes('research')) {
-                cacheResearch();
-            }
-            if (!window.location.hash.includes('people')) {
-                cachePeople();
-            }
-            if (!window.location.hash.includes('gallery')) {
-                cacheGallery();
-            }
-            console.log(...less('done caching'));
-        });
-
-
-    }
+    load: windowOnLoad
 });
+
+/** After 1 second, loads JSON data from people, gallery and research pages, creates Image object that start loading immediately,
+ * and caches the image elemenets globally via CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]).
+ * Also creates Navbar. */
+function windowOnLoad() {
+    function cache(file: string, page: Routing.Page) {
+        let src: string;
+        if (file.includes('http') || file.includes('www')) {
+            src = file;
+        } else {
+            src = `main/${page}/${file}`;
+        }
+        let image = new Image();
+        let imgElem = elem({ htmlElement: image })
+            .attr({ src, hidden: "" })
+            .on({
+                load: () => {
+                    console.log(...less(`loaded ${page} | ${file}`));
+                    CacheDiv.cacheAppend([[`${page}.${file}`, imgElem]]);
+                }
+            });
+    }
+
+    async function cachePeople() {
+        console.log(...less('cachePeople'));
+        const peopleData = await fetchDict('main/people/people.json');
+        const { team: teamData, alumni: alumniData } = peopleData;
+        for (let [_, { image }] of dict(teamData).items()) {
+            cache(image, "people");
+        }
+        for (let [_, { image }] of dict(alumniData).items()) {
+            cache(image, "people")
+        }
+    }
+
+    async function cacheGallery() {
+        console.log(...less('cacheGallery'));
+        let galleryData = await fetchArray<{ file: string }>("main/gallery/gallery.json");
+        const galleryFiles = galleryData.map(d => d.file);
+        for (let file of galleryFiles) {
+            cache(file, "gallery")
+        }
+    }
+
+    async function cacheResearch() {
+        console.log(...less('cacheResearch'));
+        const researchData = await fetchDict('main/research/research.json');
+        for (let [_, { image }] of researchData.items()) {
+            cache(image, "research")
+        }
+    }
+
+    console.log(`%cwindow loaded, window.location.hash: "${window.location.hash}"`, 'font-weight: bold');
+    WindowElem.isLoaded = true;
+    MOBILE = window.innerWidth <= $BP2;
+    Navbar = new NavbarElem({
+        query: 'div#navbar',
+        children: {
+            home: '.home',
+            research: '.research',
+            people: '.people',
+            publications: '.publications',
+            gallery: '.gallery',
+            neuroanatomy: '.neuroanatomy',
+            contact: '.contact',
+        }
+    });
+
+
+    if (window.location.hash !== "") {
+        fetchDict<{ logo: string }>('main/home/home.json').then(({ logo }) => Navbar.home.attr({ src: `main/home/${logo}` }));
+    }
+
+    console.log('%cstats:', 'color: #B58059', {
+        MOBILE, IS_IPHONE, IS_GILAD, IS_SAFARI, innerWidth
+    });
+    if (SHOW_STATS) {
+        Body.windowStats.class('on').html(windowStats())
+    }
+    Body.footer.css({ height: IS_SAFARI ? '260px' : 'auto' });
+    console.log(...less('waiting 1000...'));
+    wait(1000).then(() => {
+
+        console.log(...less('done waiting, starting caching'));
+        if (!window.location.hash.includes('research')) {
+            cacheResearch();
+        }
+        if (!window.location.hash.includes('people')) {
+            cachePeople();
+        }
+        if (!window.location.hash.includes('gallery')) {
+            cacheGallery();
+        }
+        console.log(...less('done caching'));
+    });
+
+
+}
 
 
 class NavbarElem extends BetterHTMLElement {
