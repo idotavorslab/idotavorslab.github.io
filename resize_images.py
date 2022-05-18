@@ -66,9 +66,10 @@ def resize_image(path: Path):
                       f'Are you sure you want to overwrite it with a {new_width}x{new_height} image?')
             if not confirm(prompt):
                 return
-
-    print(f'Resizing {path} ({width}x{height}) -> {resized_path} ({new_width}x{new_height})'
-          f" (not really because of --dry-run)" if dry_run else "")
+    message = f'\x1b[1mResizing\x1b[0m {path} ({width}x{height}) -> {resized_path} ({new_width}x{new_height})'
+    if dry_run:
+        message += " (not really because of --dry-run)"
+    print(message)
     if not dry_run:
         resized.save(resized_path, optimize=True)
         resized_size_kb = Path(resized_path).stat().st_size / 1_000
