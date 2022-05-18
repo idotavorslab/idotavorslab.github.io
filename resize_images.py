@@ -62,7 +62,7 @@ def resize_image(path: Path):
             if existing_resized_image.size == (new_width, new_height):
                 print(f'\x1b[1mSkipping\x1b[0m {path}; A {new_width}x{new_height} already exists: {resized_path}')
                 return
-            prompt = (f'{resized_path} already exists, but at {"x".join(*existing_resized_image.size)}.\n'
+            prompt = (f'{resized_path} already exists, but at {"x".join(map(str,existing_resized_image.size))}.\n'
                       f'Are you sure you want to overwrite it with a {new_width}x{new_height} image?')
             if not confirm(prompt):
                 return
