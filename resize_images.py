@@ -37,7 +37,12 @@ def confirm(prompt):
     if '\n' in prompt:
         prompt = "\n   ".join(prompt.splitlines()) + "\n  "
     prompt = f'\x1b[36;1m ? \x1b[22m{prompt} \x1b[1my/n\x1b[0m '
-    return input(prompt).strip().lower() == 'y'
+    answer = input(prompt).strip().lower()
+    while not answer:
+        print('\x1b[1mNo answer given.\x1b[0m')
+        answer = input(prompt).strip().lower()
+    return answer in ('y', 'yes')
+
 
 def resize_image(path: Path):
     image = Image.open(path)
